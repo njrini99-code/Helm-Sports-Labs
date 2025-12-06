@@ -34,18 +34,43 @@ export function AddVideoModal({ playerId, onSuccess, trigger }: AddVideoModalPro
     notes: '',
   });
 
+  const validateVideoUrl = (url: string): boolean => {
+    try {
+      const urlObj = new URL(url);
+      const hostname = urlObj.hostname.toLowerCase();
+
+      // Check for supported video platforms
+      const supportedDomains = [
+        'youtube.com', 'youtu.be', 'www.youtube.com',
+        'vimeo.com', 'www.vimeo.com',
+        'hudl.com', 'www.hudl.com',
+        'fieldlevel.com', 'www.fieldlevel.com'
+      ];
+
+      return supportedDomains.some(domain => hostname.includes(domain)) ||
+             url.match(/\.(mp4|mov|avi|webm)$/i) !== null;
+    } catch {
+      return false;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.title || !formData.video_type || !formData.video_url) {
       toast.error('Please fill in all required fields');
+      return;
+    }
+
+    if (!validateVideoUrl(formData.video_url)) {
+      toast.error('Please enter a valid video URL (YouTube, Vimeo, Hudl, FieldLevel, or direct video link)');
       return;
     }
 
     setSaving(true);
     try {
       const supabase = createClient();
-      
+
       const { error } = await supabase
         .from('player_videos')
         .insert({
@@ -123,7 +148,7 @@ export function AddVideoModal({ playerId, onSuccess, trigger }: AddVideoModalPro
               onChange={(e) => setFormData({ ...formData, video_url: e.target.value })}
               placeholder="https://youtube.com/watch?v=..."
             />
-            <p className="text-xs text-slate-500">YouTube, Vimeo, or direct video link</p>
+            <p className="text-xs text-slate-500">Supported: YouTube, Vimeo, Hudl, FieldLevel, or direct video links (.mp4, .mov)</p>
           </div>
           
           <div className="space-y-2">

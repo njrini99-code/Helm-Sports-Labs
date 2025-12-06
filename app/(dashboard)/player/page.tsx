@@ -14,9 +14,9 @@ import { AddVideoModal } from '@/components/player/AddVideoModal';
 import { AddStatsModal } from '@/components/player/AddStatsModal';
 import { AddAchievementModal } from '@/components/player/AddAchievementModal';
 import { AddMetricModal } from '@/components/player/AddMetricModal';
-import { 
-  User, 
-  MapPin, 
+import {
+  User,
+  MapPin,
   Target,
   Video,
   Award,
@@ -45,6 +45,7 @@ import {
   Sparkles,
   ArrowUpRight,
   Building2,
+  Trash2,
 } from 'lucide-react';
 import type { Player } from '@/lib/types';
 import { toast } from 'sonner';
@@ -961,7 +962,7 @@ export default function PlayerDashboardPage() {
                         ) : (
                           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {gameVideos.map((video) => (
-                              <VideoCard key={video.id} video={video} />
+                              <VideoCard key={video.id} video={video} onDelete={refreshData} />
                             ))}
                           </div>
                         )}
@@ -975,7 +976,7 @@ export default function PlayerDashboardPage() {
                         ) : (
                           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {trainingVideos.map((video) => (
-                              <VideoCard key={video.id} video={video} />
+                              <VideoCard key={video.id} video={video} onDelete={refreshData} />
                             ))}
                           </div>
                         )}
@@ -1169,21 +1170,69 @@ function LightStatTile({ label, value, accent }: { label: string; value: string;
   );
 }
 
-function VideoCard({ video }: { video: PlayerVideo }) {
+function VideoCard({ video, onDelete }: { video: PlayerVideo; onDelete?: (id: string) => void }) {
+  const [deleting, setDeleting] = useState(false);
+
+  const handleDelete = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!confirm('Are you sure you want to delete this video? This action cannot be undone.')) {
+      return;
+    }
+
+    setDeleting(true);
+    try {
+      const supabase = createClient();
+      const { error } = await supabase
+        .from('player_videos')
+        .delete()
+        .eq('id', video.id);
+
+      if (error) {
+        toast.error('Failed to delete video');
+        console.error(error);
+        return;
+      }
+
+      toast.success('Video deleted successfully');
+      onDelete?.(video.id);
+    } catch (error) {
+      console.error('Error deleting video:', error);
+      toast.error('An error occurred');
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   return (
-    <div className="rounded-xl bg-slate-50 border border-slate-100 overflow-hidden hover:shadow-md transition-all group">
+    <div className="rounded-xl bg-slate-50 border border-slate-100 overflow-hidden hover:shadow-md transition-all group relative">
       <div className="aspect-video bg-slate-200 relative">
         <div className="absolute inset-0 flex items-center justify-center">
           <Video className="w-10 h-10 text-slate-400" />
         </div>
-        <a 
-          href={video.video_url} 
-          target="_blank" 
+        <a
+          href={video.video_url}
+          target="_blank"
           rel="noopener noreferrer"
           className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity"
         >
           <ExternalLink className="w-6 h-6 text-white" />
         </a>
+        {onDelete && (
+          <button
+            onClick={handleDelete}
+            disabled={deleting}
+            className="absolute top-2 right-2 p-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-50"
+            title="Delete video"
+          >
+            {deleting ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Trash2 className="w-4 h-4" />
+            )}
+          </button>
+        )}
       </div>
       <div className="p-3">
         <p className="font-medium text-slate-800 text-sm truncate">{video.title}</p>
