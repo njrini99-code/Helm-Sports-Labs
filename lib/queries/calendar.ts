@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/client';
+import { getTodayLocal, addDaysLocal } from '@/lib/utils/date';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Types
@@ -117,10 +118,8 @@ export async function getCalendarEvents(coachId: string): Promise<CalendarEvent[
 
 export async function getUpcomingEvents(coachId: string, days: number = 14): Promise<CalendarEvent[]> {
   const supabase = createClient();
-  const today = new Date().toISOString().split('T')[0];
-  const futureDate = new Date();
-  futureDate.setDate(futureDate.getDate() + days);
-  const futureDateStr = futureDate.toISOString().split('T')[0];
+  const today = getTodayLocal();
+  const futureDateStr = addDaysLocal(new Date(), days);
 
   const { data, error } = await supabase
     .from('coach_calendar_events')
@@ -189,7 +188,7 @@ export async function getUpcomingEvents(coachId: string, days: number = 14): Pro
 
 export async function getPlayerEvents(coachId: string, playerId: string): Promise<CalendarEvent[]> {
   const supabase = createClient();
-  const today = new Date().toISOString().split('T')[0];
+  const today = getTodayLocal();
 
   const { data, error } = await supabase
     .from('coach_calendar_event_players')

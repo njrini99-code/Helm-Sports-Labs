@@ -33,6 +33,7 @@ import {
   updateCalendarEvent,
   deleteCalendarEvent,
 } from '@/lib/queries/calendar';
+import { getTodayLocal } from '@/lib/utils/date';
 
 type ViewMode = 'month' | 'week' | 'agenda';
 
@@ -124,7 +125,7 @@ export default function CollegeCoachCalendarPage() {
 
   const handleAddEvent = (type?: CalendarEventType) => {
     setEditingEvent(null);
-    setPreselectedDate(new Date().toISOString().split('T')[0]);
+    setPreselectedDate(getTodayLocal());
     setPreselectedType(type);
     setModalOpen(true);
   };
