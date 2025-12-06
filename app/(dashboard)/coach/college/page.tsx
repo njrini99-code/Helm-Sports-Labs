@@ -50,6 +50,7 @@ import { toast } from 'sonner';
 import { createClient } from '@/lib/supabase/client';
 import { isDevMode, DEV_ENTITY_IDS } from '@/lib/dev-mode';
 import type { Coach } from '@/lib/types';
+import { CoachDashboardSkeleton } from '@/components/ui/loading-state';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Mock Data
@@ -199,17 +200,7 @@ export default function CollegeCoachDashboard() {
   const programColorDark = coachData?.secondary_color || '#003D2B';
 
   if (loading) {
-    return (
-      <div className="min-h-[80vh] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="relative">
-            <div className="w-12 h-12 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
-            <Sparkles className="w-5 h-5 text-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-          </div>
-          <p className="text-sm text-muted-foreground">Loading your recruiting HQ...</p>
-        </div>
-      </div>
-    );
+    return <CoachDashboardSkeleton />;
   }
 
   const programName = coach?.school_name || coach?.program_name || 'Maine University';
