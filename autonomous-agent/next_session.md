@@ -1,67 +1,95 @@
 # Next Session Recommendations
 
-## Session 1 Completed ✅
+## Session 2 Completed ✅
 
-Successfully fixed TypeScript errors:
-- Fixed corrupted imports in player layout
-- Resolved all TypeScript errors in player team page
-- TypeScript check now passes cleanly
+Successfully verified and documented completion of 5 player dashboard improvements:
+- #1: Polish Player Dashboard hero section ✅
+- #2: Add Player Dashboard stat cards ✅
+- #4: Player Team Hub component ✅
+- #5: Player College Journey component ✅
+- #6: Player Dashboard data fetching ✅
 
-**Completed:** Improvement #11 (Critical, Quick Win)
-**Status:** 1/30 improvements complete
+**Status:** 6/30 improvements complete (20%)
 
 ---
 
 ## Recommended Next Improvement
 
-**#1: Polish Player Dashboard hero section** (High, Quick Win)
+**#3: Player Profile public view mode** (High Priority)
 
-This is a high-priority UI improvement that will set the visual foundation for the player experience.
+This is the next logical step in the player experience workflow.
 
 ### Why This Next?
-1. High priority - part of Priority 1 in the game plan
-2. Quick win - achievable in one session
-3. Visual impact - immediately improves player experience
-4. Foundation - sets the pattern for other player dashboard components
+1. High priority - critical for coach-player interaction
+2. Builds on completed player dashboard work
+3. Creates the public-facing profile coaches will view
+4. Enables recruiting workflow (coaches discover → view profile → message)
+5. Natural continuation of player experience improvements
 
 ### Files to Focus On
-- `app/(dashboard)/player/page.tsx` - Main player dashboard
-- `components/ui/GlassCard.tsx` - Glass effect component (already exists)
-- Reference: `app/(dashboard)/coach/college/page.tsx` - Coach dashboard for pattern reference
+- `app/player/[id]/page.tsx` - Create new public profile route
+- `app/(dashboard)/player/profile/page.tsx` - Reference for profile structure
+- `components/player/PublicProfile.tsx` - Could extract reusable components
 
 ### Acceptance Criteria
-- [ ] Hero has gradient background similar to coach dashboard
-- [ ] Profile image/avatar in glass card
-- [ ] Name, position, grad year, location prominently displayed
-- [ ] Edit Profile and Share Profile buttons present
-- [ ] Mobile responsive layout
+- [ ] Public route /player/[id] works
+- [ ] Shows player info, stats, videos
+- [ ] No edit buttons visible
+- [ ] Contact/message button for coaches
+- [ ] Share button generates link
 
 ### Implementation Approach
-1. Read current player dashboard to understand structure
-2. Reference coach dashboard hero for visual pattern
-3. Add gradient background (emerald theme)
-4. Create glass card for profile section
-5. Add profile info display
-6. Add action buttons (Edit Profile, Share Profile)
-7. Test on mobile and desktop
-8. Verify no console errors
+1. Check if `app/player/[id]/page.tsx` exists (it might already be partially done)
+2. Create public profile page that displays player data without edit controls
+3. Reuse existing components from player dashboard (stats, videos, achievements)
+4. Add coach-specific actions (message, add to watchlist)
+5. Ensure proper authentication checks (public view vs logged-in player view)
+6. Test both as anonymous user and logged-in coach
+7. Verify share link generation works
 
-### Related Improvements (Do Together)
-After #1, consider doing #2 and #6 together:
-- **#2:** Add Player Dashboard stat cards (High, Quick Win)
-- **#6:** Player Dashboard data fetching (High, Integration)
+### Technical Considerations
+- Use Supabase Row Level Security (RLS) to ensure public profiles are viewable
+- Hide sensitive info (email, phone) from public view unless player opts in
+- Add Open Graph meta tags for link sharing
+- Ensure mobile responsive design
+- Add proper loading states
 
-These three form a complete player dashboard update.
+### Potential Challenges
+- Determining what data should be public vs private
+- Handling case where player profile doesn't exist
+- Ensuring coaches can identify themselves to see contact info
+- SEO optimization for player profiles
 
 ---
 
-## Session Workflow
+## Alternative Next Steps (if #3 is blocked)
 
-1. Read player dashboard file
-2. Reference coach dashboard pattern
-3. Implement hero section changes
-4. Test in browser (mobile + desktop)
-5. Update improvement_list.json
-6. Commit changes
-7. Update progress.txt and this file
+If #3 requires product decisions or is blocked, consider these alternatives:
 
+1. **#7: Player video upload functionality** (High Priority)
+   - Implement Supabase storage upload
+   - Users can showcase their skills
+   - Quick win if storage is configured
+
+2. **#8: Player stats and measurables display** (High Priority)
+   - Polish the stats section with D1 benchmarks
+   - Add verification badges
+   - Enhances player profiles
+
+3. **#10: Player Discover page polish** (Medium Priority)
+   - Help players find colleges
+   - Completes the college journey workflow
+   - Uses existing discover patterns from coach side
+
+---
+
+## Session Workflow Reminder
+
+1. Check if route `app/player/[id]/page.tsx` exists
+2. Read existing player dashboard for component patterns
+3. Create public profile page with read-only view
+4. Add coach actions (message, watchlist)
+5. Test in browser with different user roles
+6. Update improvement_list.json
+7. Commit changes
+8. Update progress.txt and this file

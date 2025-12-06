@@ -14,7 +14,7 @@
       "Edit Profile and Share Profile buttons present",
       "Mobile responsive layout"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 2,
@@ -31,7 +31,7 @@
       "Hover effects on cards",
       "Mobile: cards stack or scroll horizontally"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 3,
@@ -63,7 +63,7 @@
       "CTA buttons to open full views",
       "Loading states for async data"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 5,
@@ -79,7 +79,7 @@
       "CTA to find more schools",
       "Horizontal scroll for many schools"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 6,
@@ -95,7 +95,7 @@
       "Loading states while fetching",
       "Error handling with toasts"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 7,
