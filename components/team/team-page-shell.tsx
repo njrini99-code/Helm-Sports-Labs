@@ -61,6 +61,7 @@ export function TeamPageShell({
             src={team.banner_url}
             alt={`${team.name} banner`}
             className="w-full h-full object-cover opacity-70"
+            loading="lazy"
           />
         ) : (
           <div className="w-full h-full bg-[radial-gradient(circle_at_25%_20%,rgba(59,130,246,0.25),transparent),radial-gradient(circle_at_80%_60%,rgba(16,185,129,0.18),transparent)]" />

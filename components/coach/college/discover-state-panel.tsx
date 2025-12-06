@@ -346,7 +346,7 @@ function TeamCard({
       <div className="flex items-start gap-3">
         <div className="h-10 w-10 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center overflow-hidden">
           {team.logoUrl ? (
-            <img src={team.logoUrl} alt={team.name} className="h-full w-full object-cover" />
+            <img src={team.logoUrl} alt={team.name} className="h-full w-full object-cover" loading="lazy" />
           ) : (
             <Building className="w-5 h-5 text-blue-400" />
           )}
@@ -406,7 +406,7 @@ function JucoCard({
       <div className="flex items-start gap-3">
         <div className="h-10 w-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center overflow-hidden">
           {juco.logoUrl ? (
-            <img src={juco.logoUrl} alt={juco.name} className="h-full w-full object-cover" />
+            <img src={juco.logoUrl} alt={juco.name} className="h-full w-full object-cover" loading="lazy" />
           ) : (
             <GraduationCap className="w-5 h-5 text-purple-400" />
           )}

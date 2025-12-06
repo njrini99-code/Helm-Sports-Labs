@@ -494,7 +494,7 @@ function CollegeCard({
       <div className="flex items-start gap-3">
         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200/50 flex items-center justify-center flex-shrink-0">
           {college.logo_url ? (
-            <img src={college.logo_url} alt={college.name} className="w-9 h-9 object-contain" />
+            <img src={college.logo_url} alt={college.name} className="w-9 h-9 object-contain" loading="lazy" />
           ) : (
             <GraduationCap className="w-6 h-6 text-emerald-600" />
           )}

@@ -98,7 +98,7 @@ export function RecruitingDiamond({
     : 'bg-white border-emerald-200 text-slate-700';
 
   return (
-    <Card className={`rounded-2xl border h-full flex flex-col backdrop-blur-sm ${cardBg}`}>
+    <Card className={`rounded-2xl border h-full flex flex-col backdrop-blur-sm overflow-visible ${cardBg}`}>
       <CardHeader className="pb-2 flex-shrink-0">
         <div className="flex items-center justify-between">
           <CardTitle className={`text-lg ${isDarkMode ? 'text-white' : 'text-slate-800'}`}>
@@ -121,7 +121,7 @@ export function RecruitingDiamond({
         </div>
       </CardHeader>
 
-      <CardContent className="pt-2 flex-1 flex flex-col">
+      <CardContent className="pt-2 flex-1 flex flex-col overflow-visible">
         {/* Diamond container - larger */}
         <div className={`relative w-full aspect-square rounded-2xl overflow-visible p-6 ${diamondBg}`}>
           {/* Subtle background gradient */}
@@ -222,16 +222,41 @@ function PositionColumn({
         )}
       </div>
 
-      {/* Hover-expanded panel */}
+      {/* Hover-expanded panel with edge-aware positioning */}
       {players.length > 0 && (
         <div
           className={`
-            pointer-events-none absolute left-1/2 top-full mt-2 w-60 -translate-x-1/2 translate-y-2
+            pointer-events-none absolute w-60
             rounded-2xl border p-3 backdrop-blur-sm
             opacity-0 transition-all duration-200 z-50
-            group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto
+            group-hover:opacity-100 group-hover:pointer-events-auto
             ${panelBg}
           `}
+          style={{
+            // Smart positioning to prevent viewport clipping
+            // Horizontal positioning:
+            // - Far left positions (< 25%): align left edge of tooltip to position
+            // - Far right positions (> 75%): align right edge of tooltip to position
+            // - Center positions: center tooltip on position
+            left: parseFloat(position.left) < 25 ? '0' :
+                  parseFloat(position.left) > 75 ? 'auto' : '50%',
+            right: parseFloat(position.left) > 75 ? '0' : 'auto',
+            // Vertical positioning:
+            // - Bottom positions (> 65%): show above to prevent bottom clipping
+            // - All other positions: show below
+            top: parseFloat(position.top) > 65 ? 'auto' : '100%',
+            bottom: parseFloat(position.top) > 65 ? '100%' : 'auto',
+            // Transform for centering and spacing:
+            // - Center positions get -50% translateX to center
+            // - Top margin for spacing (0.75rem = 12px)
+            transform: parseFloat(position.left) >= 25 && parseFloat(position.left) <= 75
+              ? 'translateX(-50%) translateY(0.75rem)'
+              : parseFloat(position.top) > 65
+                ? 'translateY(-0.75rem)'
+                : 'translateY(0.75rem)',
+            // Increase z-index to ensure tooltip appears above all other elements
+            zIndex: 60,
+          }}
         >
           <div className="flex items-center justify-between mb-2">
             <span className={`text-xs font-semibold ${isDarkMode ? 'text-white' : 'text-slate-800'}`}>{position.label} Position</span>

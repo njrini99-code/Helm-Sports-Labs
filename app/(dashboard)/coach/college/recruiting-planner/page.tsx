@@ -719,6 +719,7 @@ function PositionCluster({
               <RecruitingDiamondPlayerPill
                 key={player.id}
                 player={player}
+                position={position}
                 statusFilter={statusFilter}
                 isSelected={selectedPlayerId === player.id}
                 onSelect={() => onPlayerSelect(player.id)}
@@ -747,6 +748,7 @@ function PositionCluster({
 
 interface RecruitingDiamondPlayerPillProps {
   player: PlannerPlayer;
+  position: string;
   statusFilter: RecruitingStatus | 'all';
   isSelected: boolean;
   onSelect: () => void;
@@ -756,6 +758,7 @@ interface RecruitingDiamondPlayerPillProps {
 
 function RecruitingDiamondPlayerPill({
   player,
+  position,
   statusFilter,
   isSelected,
   onSelect,
@@ -768,6 +771,18 @@ function RecruitingDiamondPlayerPill({
 
   // Truncate name if too long
   const displayName = player.name.length > 12 ? player.name.slice(0, 10) + '…' : player.name;
+
+  // Determine tooltip placement based on position
+  // Right side positions (RF, 1B): show tooltip on left
+  // Left side positions (LF, 3B): show tooltip on right
+  // Center positions: show tooltip on right (default)
+  const isRightSide = position === 'RF' || position === '1B';
+  const tooltipClasses = isRightSide
+    ? 'right-full mr-2 top-1/2 -translate-y-1/2'
+    : 'left-full ml-2 top-1/2 -translate-y-1/2';
+  const animationStyle = isRightSide
+    ? 'from { opacity: 0; transform: translateX(4px) translateY(-50%); } to { opacity: 1; transform: translateX(0) translateY(-50%); }'
+    : 'from { opacity: 0; transform: translateX(-4px) translateY(-50%); } to { opacity: 1; transform: translateX(0) translateY(-50%); }';
 
   return (
     <div 
@@ -808,10 +823,10 @@ function RecruitingDiamondPlayerPill({
         </div>
       </button>
 
-      {/* Hover Tooltip - Enhanced info on hover */}
+      {/* Hover Tooltip - Enhanced info on hover with edge-aware positioning */}
       {hovered && (
-        <div 
-          className="absolute z-50 left-full ml-2 top-1/2 -translate-y-1/2 w-56 rounded-xl bg-white border border-slate-200 shadow-xl p-3"
+        <div
+          className={`absolute z-50 w-56 rounded-xl bg-white border border-slate-200 shadow-xl p-3 ${tooltipClasses}`}
           style={{ animation: 'fadeIn 150ms ease-out' }}
         >
           {/* Header */}
@@ -869,8 +884,7 @@ function RecruitingDiamondPlayerPill({
 
       <style jsx>{`
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateX(-4px) translateY(-50%); }
-          to { opacity: 1; transform: translateX(0) translateY(-50%); }
+          ${animationStyle}
         }
       `}</style>
     </div>

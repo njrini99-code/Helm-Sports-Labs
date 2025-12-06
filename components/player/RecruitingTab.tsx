@@ -272,7 +272,7 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
                     {interest.college?.logo_url ? (
-                      <img src={interest.college.logo_url} alt="" className="w-10 h-10 object-contain" />
+                      <img src={interest.college.logo_url} alt="" className="w-10 h-10 object-contain" loading="lazy" />
                     ) : (
                       <School className="w-6 h-6 text-white/40" />
                     )}

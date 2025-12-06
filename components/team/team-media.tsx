@@ -160,6 +160,7 @@ export function TeamMedia({ teamId, media, mode, onUpdate }: TeamMediaProps) {
                         src={item.url}
                         alt={item.title || 'Team photo'}
                         className="w-full h-full object-cover"
+                        loading="lazy"
                       />
                       {item.title && (
                         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">

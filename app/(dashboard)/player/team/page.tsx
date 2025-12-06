@@ -189,6 +189,7 @@ export default function PlayerTeamPage() {
                   src={team.banner_url}
                   alt={`${team.name} banner`}
                   className="w-full h-full object-cover opacity-40"
+                  loading="lazy"
                 />
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-blue-900/30 via-purple-900/20 to-emerald-900/20" />

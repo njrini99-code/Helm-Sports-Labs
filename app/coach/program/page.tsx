@@ -217,7 +217,7 @@ export default function CoachProgramPage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-900/20 via-transparent to-transparent"></div>
         {coach.banner_url && (
           <div className="absolute inset-0">
-            <img src={coach.banner_url} alt="Banner" className="w-full h-full object-cover opacity-30" />
+            <img src={coach.banner_url} alt="Banner" className="w-full h-full object-cover opacity-30" loading="lazy" />
           </div>
         )}
         <div className="relative max-w-7xl mx-auto px-6 py-12">
@@ -226,7 +226,7 @@ export default function CoachProgramPage() {
             <div className="relative group">
               <div className={`w-24 h-24 rounded-xl flex items-center justify-center border-4 shadow-xl ${isDark ? 'bg-slate-800 border-slate-900' : 'bg-white border-emerald-100'}`}>
                 {coach.logo_url ? (
-                  <img src={coach.logo_url} alt="Logo" className="w-full h-full object-cover rounded-lg" />
+                  <img src={coach.logo_url} alt="Logo" className="w-full h-full object-cover rounded-lg" loading="lazy" />
                 ) : (
                   <Building className={`w-12 h-12 ${isDark ? 'text-slate-500' : 'text-emerald-400'}`} />
                 )}

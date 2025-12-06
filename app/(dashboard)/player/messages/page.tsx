@@ -17,6 +17,7 @@ import {
   Smile,
   CheckCheck,
   Circle,
+  Loader2,
 } from 'lucide-react';
 import { MessagesSkeleton } from '@/components/ui/loading-state';
 import { toast } from 'sonner';

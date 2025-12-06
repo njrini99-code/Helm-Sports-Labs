@@ -43,7 +43,7 @@ export function DiscoverTeamList({ teams }: DiscoverTeamListProps) {
             <div className="flex items-start gap-3">
               <div className="h-12 w-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center overflow-hidden">
                 {team.logoUrl ? (
-                  <img src={team.logoUrl} alt={team.name} className="h-full w-full object-cover" />
+                  <img src={team.logoUrl} alt={team.name} className="h-full w-full object-cover" loading="lazy" />
                 ) : (
                   <Building className="w-5 h-5 text-blue-300" />
                 )}
