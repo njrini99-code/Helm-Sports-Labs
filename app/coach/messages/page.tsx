@@ -108,6 +108,75 @@ export default function CoachMessagesPage() {
     }
   }, [selectedConversation]);
 
+  // Real-time subscription for messages in the selected conversation
+  useEffect(() => {
+    if (!selectedConversation) return;
+
+    const supabase = createClient();
+
+    const channel = supabase
+      .channel(`messages:${selectedConversation}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'messages',
+          filter: `conversation_id=eq.${selectedConversation}`,
+        },
+        (payload) => {
+          const newMessage = payload.new as any;
+          const formatted: Message = {
+            id: newMessage.id,
+            sender: newMessage.sender_type === 'coach' ? 'coach' : 'player',
+            message_text: newMessage.message_text,
+            created_at: newMessage.created_at,
+          };
+          setMessages(prev => [...prev, formatted]);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [selectedConversation]);
+
+  // Real-time subscription for conversation updates (last message, unread count)
+  useEffect(() => {
+    const supabase = createClient();
+
+    const channel = supabase
+      .channel('conversations')
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'conversations',
+        },
+        (payload) => {
+          const updated = payload.new as any;
+          setConversations(prev => prev.map(conv => {
+            if (conv.id === updated.id) {
+              return {
+                ...conv,
+                last_message: updated.last_message_text,
+                last_message_at: updated.last_message_at,
+                unread_count: updated.program_unread_count || 0,
+              };
+            }
+            return conv;
+          }));
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
   const loadConversations = async () => {
     const supabase = createClient();
     
