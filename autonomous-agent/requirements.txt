@@ -1,0 +1,14 @@
+# ScoutPulse Autonomous Improvement Agent
+# ========================================
+
+# Claude Agent SDK (required)
+claude-code-sdk>=0.0.25
+
+# Anthropic API client
+anthropic>=0.39.0
+
+# Note: asyncio is built into Python 3.7+
+
+# Optional: Puppeteer MCP server for browser automation
+# Install with: npm install -g puppeteer-mcp-server
+

@@ -1,0 +1,456 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * ScoutPulse Global Styles
+ * ========================
+ * 
+ * This file defines CSS custom properties that power the semantic color system.
+ * The pulse.* colors in tailwind.config.ts are the raw brand values.
+ * These CSS variables map to semantic purposes (primary, secondary, etc.).
+ * 
+ * Brand Reference:
+ * - Pulse Green:  #00C27A  → hsl(157, 100%, 38%)
+ * - Pulse Mint:   #B8F8D0  → hsl(144, 84%, 85%)
+ * - Pulse Dark:   #003B2A  → hsl(162, 100%, 12%)
+ * - Pulse Deeper: #001A12  → hsl(162, 100%, 5%)
+ * - Pulse Surface: #050816 → hsl(230, 67%, 5%)
+ */
+
+@layer base {
+  /* ═══════════════════════════════════════════════════════════════════════════
+     Light Theme (Default)
+     Clean white surfaces with pulse green accents
+     ═══════════════════════════════════════════════════════════════════════════ */
+  :root,
+  .light {
+    /* Page backgrounds */
+    --background: 120 10% 98%;        /* Off-white with subtle green tint */
+    --foreground: 162 20% 15%;        /* Dark green-gray for text */
+
+    /* Card/Panel surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 162 20% 15%;
+
+    /* Popover/Dropdown */
+    --popover: 0 0% 100%;
+    --popover-foreground: 162 20% 15%;
+
+    /* Primary action (Pulse Green) */
+    --primary: 157 100% 38%;          /* #00C27A */
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary (soft green tint) */
+    --secondary: 144 40% 95%;
+    --secondary-foreground: 157 80% 25%;
+
+    /* Muted (neutral with green undertone) */
+    --muted: 144 20% 94%;
+    --muted-foreground: 162 10% 45%;
+
+    /* Accent (lighter green) */
+    --accent: 144 50% 92%;
+    --accent-foreground: 157 80% 25%;
+
+    /* Destructive (red) */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders and inputs */
+    --border: 144 30% 88%;
+    --input: 144 30% 88%;
+    --ring: 157 100% 38%;
+
+    /* Border radius */
+    --radius: 0.75rem;
+
+    /* Chart colors (pulse-themed) */
+    --chart-1: 157 70% 45%;           /* Green */
+    --chart-2: 200 70% 50%;           /* Blue */
+    --chart-3: 38 92% 50%;            /* Amber */
+    --chart-4: 280 65% 60%;           /* Purple */
+    --chart-5: 350 80% 60%;           /* Rose */
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     Dark Theme
+     Deep surfaces with vibrant pulse green accents
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .dark {
+    /* Page backgrounds (deep blue-black) */
+    --background: 230 50% 4%;         /* Near #050816 */
+    --foreground: 144 20% 95%;        /* Light with mint tint */
+
+    /* Card/Panel surfaces */
+    --card: 230 45% 7%;               /* Slightly lighter than bg */
+    --card-foreground: 144 20% 95%;
+
+    /* Popover/Dropdown */
+    --popover: 230 45% 7%;
+    --popover-foreground: 144 20% 95%;
+
+    /* Primary action (Pulse Green - slightly brighter for dark mode) */
+    --primary: 157 100% 42%;          /* Brighter green */
+    --primary-foreground: 230 50% 4%;
+
+    /* Secondary (dark muted) */
+    --secondary: 230 30% 14%;
+    --secondary-foreground: 144 20% 90%;
+
+    /* Muted (dark neutral) */
+    --muted: 230 30% 14%;
+    --muted-foreground: 144 10% 60%;
+
+    /* Accent (subtle green tint) */
+    --accent: 162 40% 12%;
+    --accent-foreground: 144 20% 90%;
+
+    /* Destructive (red) */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders and inputs */
+    --border: 230 20% 18%;
+    --input: 230 20% 18%;
+    --ring: 157 100% 42%;
+
+    /* Border radius */
+    --radius: 0.75rem;
+
+    /* Chart colors */
+    --chart-1: 157 70% 50%;
+    --chart-2: 200 70% 55%;
+    --chart-3: 38 92% 55%;
+    --chart-4: 280 65% 65%;
+    --chart-5: 350 80% 65%;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Base Styles
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Smooth theme transitions */
+  body,
+  .transition-theme {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Custom Scrollbar
+   ═══════════════════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Animations (CSS-only fallbacks)
+   ═══════════════════════════════════════════════════════════════════════════ */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility Classes: Glassmorphism
+   ═══════════════════════════════════════════════════════════════════════════ */
+.glass {
+  background: rgba(5, 8, 22, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility Classes: Gradients (Pulse-themed)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.gradient-text {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, #00C27A 0%, #B8F8D0 50%, #00C27A 100%);
+}
+
+.gradient-text-subtle {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, #00C27A 0%, #00896d 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility Classes: Glow Effects (Pulse Green)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.pulse-glow {
+  box-shadow: 0 0 20px rgba(0, 194, 122, 0.3);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 194, 122, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(0, 194, 122, 0.6); }
+}
+
+.glow-hover {
+  @apply transition-all duration-300;
+}
+
+.glow-hover:hover {
+  box-shadow: 0 0 20px rgba(0, 194, 122, 0.4), 0 0 40px rgba(0, 194, 122, 0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility Classes: Card Hover Effects
+   ═══════════════════════════════════════════════════════════════════════════ */
+.card-hover {
+  @apply transition-all duration-300 ease-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 40px -10px rgba(0, 194, 122, 0.15);
+}
+
+.dark .card-hover:hover {
+  @apply border-pulse-green/30;
+  background-color: rgba(0, 194, 122, 0.05);
+}
+
+.light .card-hover:hover,
+:root .card-hover:hover {
+  @apply border-pulse-green/40;
+  background-color: rgba(0, 194, 122, 0.03);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility Classes: Pulse Line Animation
+   ═══════════════════════════════════════════════════════════════════════════ */
+.pulse-line {
+  position: relative;
+  overflow: hidden;
+}
+
+.pulse-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 194, 122, 0.8), transparent);
+  animation: pulse-line-sweep 3s ease-in-out infinite;
+}
+
+@keyframes pulse-line-sweep {
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility Classes: Shimmer Effect
+   ═══════════════════════════════════════════════════════════════════════════ */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 194, 122, 0.1),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility Classes: Lift & Hover
+   ═══════════════════════════════════════════════════════════════════════════ */
+.hover-lift {
+  @apply transition-all duration-300 ease-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility Classes: Icon Effects
+   ═══════════════════════════════════════════════════════════════════════════ */
+.icon-spin:hover {
+  animation: spin 0.6s ease-in-out;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility Classes: Border Animations
+   ═══════════════════════════════════════════════════════════════════════════ */
+@keyframes gradient-border {
+  0%, 100% { border-color: rgba(0, 194, 122, 0.3); }
+  50% { border-color: rgba(0, 194, 122, 0.8); }
+}
+
+.gradient-border-animate {
+  animation: gradient-border 3s ease-in-out infinite;
+}
+
+.border-glow {
+  @apply transition-all duration-300;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.border-glow:hover {
+  border-color: rgba(0, 194, 122, 0.6);
+  box-shadow: 0 0 20px rgba(0, 194, 122, 0.3), inset 0 0 20px rgba(0, 194, 122, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility Classes: Text Glow
+   ═══════════════════════════════════════════════════════════════════════════ */
+.text-glow {
+  text-shadow: 0 0 10px rgba(0, 194, 122, 0.5);
+}
+
+.text-glow-strong {
+  text-shadow: 0 0 20px rgba(0, 194, 122, 0.8), 0 0 30px rgba(0, 194, 122, 0.4);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility Classes: Staggered Animations
+   ═══════════════════════════════════════════════════════════════════════════ */
+.fade-in-stagger {
+  animation: fade-in 0.6s ease-out both;
+}
+
+.fade-in-stagger:nth-child(1) { animation-delay: 0.1s; }
+.fade-in-stagger:nth-child(2) { animation-delay: 0.2s; }
+.fade-in-stagger:nth-child(3) { animation-delay: 0.3s; }
+.fade-in-stagger:nth-child(4) { animation-delay: 0.4s; }
+.fade-in-stagger:nth-child(5) { animation-delay: 0.5s; }
+.fade-in-stagger:nth-child(6) { animation-delay: 0.6s; }
+.fade-in-stagger:nth-child(7) { animation-delay: 0.7s; }
+.fade-in-stagger:nth-child(8) { animation-delay: 0.8s; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility Classes: Neon Pulse
+   ═══════════════════════════════════════════════════════════════════════════ */
+@keyframes neon-pulse {
+  0%, 100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.85;
+    filter: brightness(1.15);
+  }
+}
+
+.neon-pulse {
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility Classes: Button Glow
+   ═══════════════════════════════════════════════════════════════════════════ */
+.btn-glow {
+  @apply relative overflow-hidden;
+}
+
+.btn-glow::before {
+  content: '';
+  @apply absolute inset-0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.btn-glow:hover::before {
+  transform: translateX(100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Focus Styles (Pulse Green ring)
+   ═══════════════════════════════════════════════════════════════════════════ */
+input:focus,
+textarea:focus,
+select:focus {
+  @apply outline-none ring-2 ring-pulse-green/50;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Selection Color
+   ═══════════════════════════════════════════════════════════════════════════ */
+::selection {
+  background-color: rgba(0, 194, 122, 0.3);
+  color: inherit;
+}
+
+::-moz-selection {
+  background-color: rgba(0, 194, 122, 0.3);
+  color: inherit;
+}

@@ -1,0 +1,480 @@
+[
+  {
+    "id": 1,
+    "category": "ui",
+    "priority": "high",
+    "quickWin": true,
+    "title": "Polish Player Dashboard hero section",
+    "description": "Update the Player Dashboard hero section to match the premium design established in the Coach Dashboard. Add gradient background, glass card effect, and proper spacing.",
+    "files": ["app/(dashboard)/player/page.tsx"],
+    "acceptance_criteria": [
+      "Hero has gradient background similar to coach dashboard",
+      "Profile image/avatar in glass card",
+      "Name, position, grad year, location prominently displayed",
+      "Edit Profile and Share Profile buttons present",
+      "Mobile responsive layout"
+    ],
+    "completed": false
+  },
+  {
+    "id": 2,
+    "category": "ui",
+    "priority": "high",
+    "quickWin": true,
+    "title": "Add Player Dashboard stat cards",
+    "description": "Add the 'At a Glance' insight row with 3-4 stat cards: Profile Views, College Interest, Watchlist Adds. Use GlassCard component.",
+    "files": ["app/(dashboard)/player/page.tsx", "components/ui/GlassCard.tsx"],
+    "acceptance_criteria": [
+      "3-4 stat cards displayed below hero",
+      "Each card shows metric value and trend",
+      "Cards use GlassCard component",
+      "Hover effects on cards",
+      "Mobile: cards stack or scroll horizontally"
+    ],
+    "completed": false
+  },
+  {
+    "id": 3,
+    "category": "feature",
+    "priority": "high",
+    "title": "Player Profile public view mode",
+    "description": "Create a public-facing view of the player profile that coaches can see. Should show stats, videos, and contact info without edit controls.",
+    "files": ["app/(dashboard)/player/profile/page.tsx", "app/player/[id]/page.tsx"],
+    "acceptance_criteria": [
+      "Public route /player/[id] works",
+      "Shows player info, stats, videos",
+      "No edit buttons visible",
+      "Contact/message button for coaches",
+      "Share button generates link"
+    ],
+    "completed": false
+  },
+  {
+    "id": 4,
+    "category": "ui",
+    "priority": "high",
+    "title": "Player Team Hub component",
+    "description": "Create the Team Hub module showing Messages and Schedule tabs with recent conversations and upcoming events.",
+    "files": ["app/(dashboard)/player/page.tsx", "components/player/TeamHub.tsx"],
+    "acceptance_criteria": [
+      "Team Hub card with tabs: Messages | Schedule",
+      "Messages shows recent conversations",
+      "Schedule shows upcoming events",
+      "CTA buttons to open full views",
+      "Loading states for async data"
+    ],
+    "completed": false
+  },
+  {
+    "id": 5,
+    "category": "ui",
+    "priority": "high",
+    "title": "Player College Journey component",
+    "description": "Create the College Journey module showing recruiting progress with Matches, Favorites, and Interested In Me sections.",
+    "files": ["app/(dashboard)/player/page.tsx", "components/player/CollegeJourney.tsx"],
+    "acceptance_criteria": [
+      "College Journey card with segmented control",
+      "Shows college chips with logos",
+      "Matches/Favorites/Interested tabs work",
+      "CTA to find more schools",
+      "Horizontal scroll for many schools"
+    ],
+    "completed": false
+  },
+  {
+    "id": 6,
+    "category": "integration",
+    "priority": "high",
+    "title": "Player Dashboard data fetching",
+    "description": "Wire up real data fetching for player dashboard: profile views, college interests, watchlist counts from Supabase.",
+    "files": ["app/(dashboard)/player/page.tsx", "lib/queries/player-engagement.ts"],
+    "acceptance_criteria": [
+      "Profile views count from database",
+      "College interest count accurate",
+      "Watchlist adds count from recruit_watchlist",
+      "Loading states while fetching",
+      "Error handling with toasts"
+    ],
+    "completed": false
+  },
+  {
+    "id": 7,
+    "category": "feature",
+    "priority": "high",
+    "title": "Player video upload functionality",
+    "description": "Implement video upload to Supabase storage with thumbnail generation and display in player profile.",
+    "files": ["components/player/AddVideoModal.tsx", "lib/queries/player-videos.ts"],
+    "acceptance_criteria": [
+      "Upload modal opens correctly",
+      "Video uploads to Supabase storage",
+      "Thumbnail generated or uploaded",
+      "Video appears in profile after upload",
+      "Delete video functionality works"
+    ],
+    "completed": false
+  },
+  {
+    "id": 8,
+    "category": "ui",
+    "priority": "high",
+    "title": "Player stats and measurables display",
+    "description": "Polish the stats/measurables section with proper formatting, units, and D1-level badges where applicable.",
+    "files": ["app/(dashboard)/player/stats/page.tsx", "components/player/StatsCard.tsx"],
+    "acceptance_criteria": [
+      "Stats displayed with proper units",
+      "60-yard time, Exit velo, FB velo, Pop time",
+      "D1 range badges where applicable",
+      "Edit functionality for player",
+      "Clean grid layout"
+    ],
+    "completed": false
+  },
+  {
+    "id": 9,
+    "category": "feature",
+    "priority": "medium",
+    "title": "Player messaging with coaches",
+    "description": "Enable real-time messaging between players and coaches using Supabase realtime subscriptions.",
+    "files": ["app/(dashboard)/player/messages/page.tsx", "lib/queries/messages.ts"],
+    "acceptance_criteria": [
+      "Conversation list loads correctly",
+      "Messages display in thread view",
+      "New message sends and appears",
+      "Real-time updates via subscription",
+      "Unread count badge"
+    ],
+    "completed": false
+  },
+  {
+    "id": 10,
+    "category": "ui",
+    "priority": "medium",
+    "title": "Player Discover page polish",
+    "description": "Update Player Discover page with glass UI components and proper filtering for finding colleges.",
+    "files": ["app/(dashboard)/player/discover/page.tsx"],
+    "acceptance_criteria": [
+      "Glass card containers",
+      "Search/filter for colleges",
+      "College cards with key info",
+      "Add to favorites functionality",
+      "Mobile responsive"
+    ],
+    "completed": false
+  },
+  {
+    "id": 11,
+    "category": "bug",
+    "priority": "critical",
+    "quickWin": true,
+    "title": "Fix TypeScript errors in discover page",
+    "description": "Fix any TypeScript errors related to filter state handling in the discover page.",
+    "files": ["app/(dashboard)/coach/college/discover/page.tsx"],
+    "acceptance_criteria": [
+      "npm run type-check passes",
+      "No TypeScript errors in discover",
+      "Filters work correctly",
+      "Boolean filters handle false properly"
+    ],
+    "completed": true
+  },
+  {
+    "id": 12,
+    "category": "ui",
+    "priority": "medium",
+    "title": "High School coach dashboard",
+    "description": "Create the High School coach dashboard following the college coach pattern but tailored for HS coaches.",
+    "files": ["app/(dashboard)/coach/high-school/page.tsx"],
+    "acceptance_criteria": [
+      "Hero with school info",
+      "Roster management section",
+      "College interest in players",
+      "Communication section",
+      "Follows established patterns"
+    ],
+    "completed": false
+  },
+  {
+    "id": 13,
+    "category": "ui",
+    "priority": "medium",
+    "title": "Showcase coach dashboard",
+    "description": "Create the Showcase coach dashboard for travel team coaches.",
+    "files": ["app/(dashboard)/coach/showcase/page.tsx"],
+    "acceptance_criteria": [
+      "Hero with team info",
+      "Roster management",
+      "Event/showcase schedule",
+      "College connections",
+      "Player promotion features"
+    ],
+    "completed": false
+  },
+  {
+    "id": 14,
+    "category": "ui",
+    "priority": "medium",
+    "title": "JUCO coach dashboard",
+    "description": "Create the JUCO coach dashboard with transfer portal focus.",
+    "files": ["app/(dashboard)/coach/juco/page.tsx"],
+    "acceptance_criteria": [
+      "Hero with program info",
+      "Transfer portal search",
+      "Current roster",
+      "Commitment tracking",
+      "D1/D2 connections"
+    ],
+    "completed": false
+  },
+  {
+    "id": 15,
+    "category": "integration",
+    "priority": "medium",
+    "title": "Email notifications for messages",
+    "description": "Set up email notifications when users receive new messages.",
+    "files": ["lib/notifications/email.ts", "supabase/functions/notify-message.ts"],
+    "acceptance_criteria": [
+      "Email sent on new message",
+      "Notification preferences respected",
+      "Email template is branded",
+      "Unsubscribe link included",
+      "Rate limiting in place"
+    ],
+    "completed": false
+  },
+  {
+    "id": 16,
+    "category": "performance",
+    "priority": "medium",
+    "title": "Implement image lazy loading",
+    "description": "Add lazy loading for all images (avatars, logos, gallery) to improve page load performance.",
+    "files": ["components/ui/avatar.tsx", "components/player/VideoGallery.tsx"],
+    "acceptance_criteria": [
+      "Images use loading='lazy'",
+      "Placeholder shown while loading",
+      "No layout shift on load",
+      "Works in all browsers"
+    ],
+    "completed": false
+  },
+  {
+    "id": 17,
+    "category": "ui",
+    "priority": "low",
+    "title": "Dark mode support",
+    "description": "Ensure all components support dark mode using the existing theme context.",
+    "files": ["lib/theme-context.tsx", "app/globals.css"],
+    "acceptance_criteria": [
+      "Theme toggle works",
+      "All pages render correctly in dark mode",
+      "No contrast issues",
+      "Persists preference"
+    ],
+    "completed": false
+  },
+  {
+    "id": 18,
+    "category": "refactor",
+    "priority": "low",
+    "title": "Extract common card patterns",
+    "description": "Create reusable card components for stats, activities, and summaries used across dashboards.",
+    "files": ["components/ui/StatCard.tsx", "components/ui/ActivityCard.tsx"],
+    "acceptance_criteria": [
+      "StatCard component created",
+      "ActivityCard component created",
+      "Used in coach and player dashboards",
+      "Consistent styling",
+      "TypeScript props"
+    ],
+    "completed": false
+  },
+  {
+    "id": 19,
+    "category": "feature",
+    "priority": "medium",
+    "title": "Export player profile to PDF",
+    "description": "Allow players to export their profile as a PDF for sharing with coaches.",
+    "files": ["lib/export/pdf.ts", "components/player/ExportButton.tsx"],
+    "acceptance_criteria": [
+      "Export button in profile",
+      "PDF includes key stats",
+      "Videos shown as links",
+      "Contact info included",
+      "Branded header/footer"
+    ],
+    "completed": false
+  },
+  {
+    "id": 20,
+    "category": "integration",
+    "priority": "high",
+    "title": "Player engagement analytics",
+    "description": "Track and display player profile engagement: views, time spent, coach interactions.",
+    "files": ["lib/queries/analytics.ts", "supabase/migrations/analytics.sql"],
+    "acceptance_criteria": [
+      "Page views tracked",
+      "View duration tracked",
+      "Coach info captured",
+      "Analytics dashboard section",
+      "Privacy compliant"
+    ],
+    "completed": false
+  },
+  {
+    "id": 21,
+    "category": "bug",
+    "priority": "high",
+    "quickWin": true,
+    "title": "Fix calendar event modal date handling",
+    "description": "Fix issue where calendar event dates may not be saved correctly in different timezones.",
+    "files": ["components/coach/college/calendar/calendar-event-modal.tsx"],
+    "acceptance_criteria": [
+      "Dates save correctly",
+      "Timezone handled properly",
+      "Events display on correct day",
+      "Edit preserves date"
+    ],
+    "completed": false
+  },
+  {
+    "id": 22,
+    "category": "ui",
+    "priority": "medium",
+    "quickWin": true,
+    "title": "Add loading skeletons to dashboard",
+    "description": "Replace loading spinners with skeleton loaders for better perceived performance.",
+    "files": ["components/ui/skeleton.tsx", "app/(dashboard)/coach/college/page.tsx"],
+    "acceptance_criteria": [
+      "Skeleton components exist",
+      "Used in dashboard sections",
+      "Matches final layout shape",
+      "Smooth transition to content"
+    ],
+    "completed": false
+  },
+  {
+    "id": 23,
+    "category": "feature",
+    "priority": "medium",
+    "title": "Camp registration workflow",
+    "description": "Allow players to register interest in camps, and coaches to manage registrations.",
+    "files": ["app/(dashboard)/player/camps/page.tsx", "lib/queries/camp-registration.ts"],
+    "acceptance_criteria": [
+      "Players can browse camps",
+      "Register interest button",
+      "Registration confirmation",
+      "Coach sees registrations",
+      "Email notification"
+    ],
+    "completed": false
+  },
+  {
+    "id": 24,
+    "category": "ui",
+    "priority": "low",
+    "title": "Animated page transitions",
+    "description": "Add smooth page transitions using Framer Motion for a more polished feel.",
+    "files": ["app/layout.tsx", "lib/animations.ts"],
+    "acceptance_criteria": [
+      "Pages fade in on navigation",
+      "No jarring transitions",
+      "Mobile performance OK",
+      "Can be disabled"
+    ],
+    "completed": false
+  },
+  {
+    "id": 25,
+    "category": "integration",
+    "priority": "low",
+    "title": "Twitter/X social card preview",
+    "description": "Add proper Open Graph and Twitter card meta tags for shared links.",
+    "files": ["app/layout.tsx", "app/player/[id]/page.tsx"],
+    "acceptance_criteria": [
+      "OG tags present",
+      "Twitter card tags",
+      "Preview image generated",
+      "Title and description correct"
+    ],
+    "completed": false
+  },
+  {
+    "id": 26,
+    "category": "bug",
+    "priority": "medium",
+    "title": "Fix recruiting planner hover tooltips",
+    "description": "Ensure player hover tooltips in the recruiting diamond don't get cut off at edges.",
+    "files": ["components/coach/college/recruiting-diamond.tsx"],
+    "acceptance_criteria": [
+      "Tooltips fully visible",
+      "Position adjusts at edges",
+      "No overflow issues",
+      "Works on all positions"
+    ],
+    "completed": false
+  },
+  {
+    "id": 27,
+    "category": "feature",
+    "priority": "medium",
+    "title": "Bulk actions in watchlist",
+    "description": "Allow coaches to select multiple players and perform bulk actions (move status, export, message).",
+    "files": ["app/(dashboard)/coach/college/watchlist/page.tsx"],
+    "acceptance_criteria": [
+      "Checkbox selection on cards",
+      "Bulk action toolbar",
+      "Move status works",
+      "Export selected works",
+      "Message selected works"
+    ],
+    "completed": false
+  },
+  {
+    "id": 28,
+    "category": "ui",
+    "priority": "low",
+    "title": "Empty states for all sections",
+    "description": "Add friendly empty states with illustrations and CTAs for all empty lists.",
+    "files": ["components/ui/EmptyState.tsx"],
+    "acceptance_criteria": [
+      "EmptyState component created",
+      "Used across app",
+      "Has illustration/icon",
+      "Has CTA button",
+      "Matches design system"
+    ],
+    "completed": false
+  },
+  {
+    "id": 29,
+    "category": "performance",
+    "priority": "medium",
+    "title": "Implement pagination for player lists",
+    "description": "Add pagination or infinite scroll to player search results to handle large result sets.",
+    "files": ["app/(dashboard)/coach/college/discover/page.tsx", "lib/queries/recruits.ts"],
+    "acceptance_criteria": [
+      "Results paginated (20 per page)",
+      "Page navigation UI",
+      "Total count shown",
+      "URL params for page",
+      "Loading state for page change"
+    ],
+    "completed": false
+  },
+  {
+    "id": 30,
+    "category": "integration",
+    "priority": "high",
+    "title": "Supabase realtime for notifications",
+    "description": "Set up realtime subscriptions for in-app notifications (new message, profile view, etc).",
+    "files": ["lib/supabase/realtime.ts", "components/NotificationBell.tsx"],
+    "acceptance_criteria": [
+      "Subscription established",
+      "Notifications appear in real-time",
+      "Bell icon shows count",
+      "Dropdown shows recent",
+      "Click marks as read"
+    ],
+    "completed": false
+  }
+]
+

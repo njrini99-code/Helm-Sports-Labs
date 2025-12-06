@@ -1,0 +1,6 @@
+{
+    "recommendations": [
+        "supabase.postgrestools",
+        "anthropic.claude-code"
+    ]
+}
