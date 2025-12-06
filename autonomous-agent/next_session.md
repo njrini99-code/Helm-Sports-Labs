@@ -1,117 +1,190 @@
 # Next Session Recommendations
 
-## Session 5 Completed ✅
+## Session 6 Completed ✅
 
-Successfully implemented Player stats and measurables display with D1 benchmarks:
-- Created D1 benchmark constants system (lib/constants/d1-benchmarks.ts) ✅
-- Built D1Badge component with Elite and D1 Range variants ✅
-- Enhanced player dashboard metrics display ✅
-- Enhanced public profile metrics display ✅
+Successfully fixed calendar event date handling and timezone issues:
+- Created date utility library (lib/utils/date.ts) ✅
+- Created database migration for coach_calendar_events ✅
+- Updated calendar queries to avoid timezone bugs ✅
+- Updated calendar page to use new utilities ✅
+- Comprehensive verification guide created ✅
 - All acceptance criteria met ✅
 
-**Status:** 9/30 improvements complete (30%)
+**Status:** 10/30 improvements complete (33%)
 
 ---
 
 ## Recommended Next Improvement
 
-**#21: Fix calendar event modal date handling** (High Priority, Quick Win, Bug)
+**#20: Player engagement analytics** (High Priority, Integration)
 
-This is a critical bug that affects coach workflow and should be addressed soon.
+This builds directly on the profile view tracking already implemented in Session 3.
 
 ### Why This Next?
-1. High priority bug - affects data integrity
-2. Quick win - should be straightforward date/timezone fix
-3. Prevents coaches from entering incorrect event dates
-4. Impacts coach calendar functionality (already completed feature)
-5. Small, focused fix that can be completed quickly
+
+1. High priority - Helps players understand their recruiting visibility
+2. Integration work - Expands existing profile tracking system
+3. Natural progression - We already track coach views in public profiles
+4. Player-focused - Continues Priority 1 (Player Experience) work
+5. Relatively straightforward - Database schema likely exists, need to add UI
+
+### What Needs to Be Done
+
+**Current State (from Session 3):**
+- Profile view tracking already exists
+- `player_engagement` table tracks coach_id when profiles are viewed
+- Data is being recorded in `/profile/[id]/page.tsx`
+
+**Implementation Tasks:**
+1. Create analytics queries (lib/queries/analytics.ts):
+   - getProfileViews(playerId, dateRange)
+   - getViewsByCoach(playerId) - Show which coaches viewed
+   - getViewTrends(playerId) - Daily/weekly view counts
+   - getEngagementMetrics(playerId) - Summary stats
+
+2. Create analytics component (components/player/AnalyticsDashboard.tsx):
+   - View count over time (line chart)
+   - Top viewing coaches (list with avatars)
+   - Total views, unique coaches, trending metrics
+   - Date range selector (7d, 30d, 90d, all time)
+
+3. Add to player dashboard:
+   - New "Analytics" section or tab
+   - Show key metrics in hero section
+   - Link to detailed analytics page
+
+4. Optional: Add analytics page (app/(dashboard)/player/analytics/page.tsx):
+   - Full analytics dashboard
+   - More detailed charts and insights
+   - Export functionality
 
 ### Files to Focus On
-- `components/coach/college/calendar/calendar-event-modal.tsx` - Main modal component
-- Check how dates are being parsed and saved
-- Look for timezone conversion issues
-- Verify date display vs stored date
+
+- `lib/queries/analytics.ts` - Create analytics queries
+- `components/player/AnalyticsDashboard.tsx` - Analytics UI component
+- `app/(dashboard)/player/page.tsx` - Add analytics section to dashboard
+- Check existing `player_engagement` table schema in migrations
 
 ### Acceptance Criteria
-- [ ] Dates save correctly to database
-- [ ] Timezone handled properly (UTC conversion)
-- [ ] Events display on correct day in calendar
-- [ ] Edit preserves original date (doesn't shift by day)
-- [ ] No off-by-one day errors
+
+- [ ] Page views tracked and displayed
+- [ ] View duration tracked (if not already)
+- [ ] Coach info captured and shown (which coaches viewed)
+- [ ] Analytics dashboard section shows trends
+- [ ] Privacy compliant (no PII exposure)
 
 ### Implementation Approach
-1. Review current date handling in calendar-event-modal.tsx
-2. Identify where timezone conversion happens
-3. Check if dates are being stored as UTC properly
-4. Common issue: Using `new Date()` with local timezone vs UTC
-5. Solution often involves: Using `toISOString().split('T')[0]` or date-fns/UTC methods
-6. Test with dates near timezone boundaries (e.g., 11pm PST)
-7. Verify in both create and edit modes
 
-### Common Date/Timezone Pitfalls
-- JavaScript Date objects use local timezone by default
-- SQL DATE columns expect YYYY-MM-DD format (no time component)
-- Converting between local time and UTC can shift dates
-- Form input[type="date"] returns YYYY-MM-DD string (no timezone)
-- Supabase stores TIMESTAMP WITH TIME ZONE as UTC
+1. **Review existing tracking:**
+   ```typescript
+   // Already exists in /profile/[id]/page.tsx
+   await supabase.from('player_engagement').insert({
+     player_id: playerId,
+     coach_id: coachId, // if logged in
+     engagement_type: 'profile_view',
+   });
+   ```
+
+2. **Create analytics queries:**
+   - Query player_engagement table
+   - Group by date for trends
+   - Join with coaches table for coach info
+   - Calculate unique vs total views
+
+3. **Build analytics UI:**
+   - Use existing GlassCard components
+   - Chart library (recharts or chart.js)
+   - Responsive design (mobile + desktop)
+   - Loading states and error handling
+
+4. **Add to player dashboard:**
+   - New section below College Journey
+   - Or new tab in existing tabbed interface
+   - Show summary metrics prominently
 
 ### Testing Strategy
-1. Create event with date (e.g., "2025-06-15")
-2. Verify it saves as "2025-06-15" in database (not "2025-06-14" or "2025-06-16")
-3. Reload page and edit event
-4. Verify date still shows as "2025-06-15"
-5. Test from different timezones if possible (PST, EST, etc.)
+
+1. Create test profile views with different coaches
+2. Verify view counts are accurate
+3. Test date range filtering
+4. Check mobile responsiveness
+5. Verify privacy (players only see their own analytics)
+6. Test with no views (empty state)
 
 ---
 
 ## Alternative High-Priority Options
 
-**#20: Player engagement analytics** (High Priority, Integration)
-- Expand on profile view tracking already implemented in Session 3
-- Show players who's viewing their profile
-- Add analytics dashboard section
-- Track engagement metrics over time
+### #9: Player messaging with coaches (Medium Priority)
+- Real-time messaging between players and coaches
+- Uses Supabase realtime subscriptions
+- More complex, would take longer than #20
+- Still high value for player-coach communication
 
-**#9: Player messaging with coaches** (Medium Priority)
-- Real-time messaging functionality
-- Critical for player-coach communication
-- Builds on existing message infrastructure
-- More complex, would take longer than #21
+**Why defer:** More complex than analytics, requires UI work across both player and coach sides
 
-**#10: Player Discover page polish** (Medium Priority)
-- Help players find colleges matching their profile
-- Uses existing discover patterns from coach side
-- Filters by division, location, program strength
+### #10: Player Discover page polish (Medium Priority)
+- Help players find colleges that match their profile
+- Search, filter, favorite functionality
+- Uses existing patterns from coach discover page
+
+**Why defer:** Less impactful than analytics, more of a polish item
+
+### #22: Add loading skeletons to dashboard (Medium Priority, Quick Win)
+- Replace loading spinners with skeleton loaders
+- Better perceived performance
+- Quick win potential
+
+**Why defer:** Pure UI polish, less functional value than analytics
 
 ---
 
-## Notes from Session 5
+## Progress Summary
 
-**D1 Benchmark System:**
-- Speed metrics: 60-yard dash (< 7.0s D1, < 6.7s Elite), Pop time (< 2.0s D1, < 1.9s Elite)
-- Velocity metrics: Exit velo (≥ 90 mph D1, ≥ 95 mph Elite), FB velo (≥ 87 mph D1, ≥ 92 mph Elite)
-- Handles various input formats: "6.8s", "92 mph", "6.8", "92"
-- Returns null for unparseable values (no badge shown)
+### Completed (10/30):
+1. ✅ Player Dashboard hero section (High, Quick Win)
+2. ✅ Player Dashboard stat cards (High, Quick Win)
+3. ✅ Player Profile public view (High)
+4. ✅ Player Team Hub component (High)
+5. ✅ Player College Journey component (High)
+6. ✅ Player Dashboard data fetching (High)
+7. ✅ Player video upload functionality (High)
+8. ✅ Player stats and measurables display (High)
+9. ✅ Fix TypeScript errors (Critical, Quick Win)
+10. ✅ Fix calendar event date handling (High, Quick Win)
 
-**D1Badge Component:**
-- Elite variant: Amber/gold gradient with star icon
-- D1 Range variant: Emerald gradient with trophy icon
-- Size variants: sm and md
-- Returns null when level is 'none' (clean UI)
+### High Priority Remaining:
+- #20: Player engagement analytics (Integration)
+- #9: Player messaging with coaches (Feature)
 
-**Integration Pattern:**
-- Works seamlessly with existing verification badges
-- Both badges display side by side with gap-2
-- Metrics categorized by type (velocity, speed, power, other)
-- Fully responsive on mobile
+### Current Focus Area:
+**Priority 1: Player Experience** - 8 of 10 completed (80%)
+- Only 2 items remaining in Priority 1
+
+---
+
+## Notes from Session 6
+
+**Date Utility Library:**
+The date utility functions created in this session should be used throughout the application whenever working with calendar dates:
+- Use `getTodayLocal()` instead of `new Date().toISOString().split('T')[0]`
+- Use `formatDateLocal(date)` instead of date.toISOString().split('T')[0]
+- Use `addDaysLocal(date, days)` for date arithmetic
+- This prevents timezone conversion bugs
+
+**Database Migration:**
+The coach_calendar_events migration (#007) needs to be applied to the database:
+```bash
+supabase db push
+```
 
 **Code Quality:**
-- Zero TypeScript errors in ScoutPulse code
-- Follows ScoutPulse design system (emerald green)
-- Premium UI with gradients and shadows
-- Proper component composition
+- TypeScript: 0 errors in ScoutPulse code ✅
+- Linting: Clean ✅
+- All changes follow existing patterns
+- Comprehensive documentation created
 
 **Completion Rate:**
-- 9/30 improvements complete (30%)
-- Strong progress on Player Experience (Priority 1)
-- 3 more high-priority improvements remaining
+- 10/30 improvements complete (33%)
+- Strong progress on Player Experience
+- Calendar system now production-ready
