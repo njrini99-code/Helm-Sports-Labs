@@ -14,6 +14,7 @@ import { AddVideoModal } from '@/components/player/AddVideoModal';
 import { AddStatsModal } from '@/components/player/AddStatsModal';
 import { AddAchievementModal } from '@/components/player/AddAchievementModal';
 import { AddMetricModal } from '@/components/player/AddMetricModal';
+import { AnalyticsDashboard } from '@/components/player/AnalyticsDashboard';
 import { D1Badge } from '@/components/ui/D1Badge';
 import { checkD1Standard, parseMetricValue } from '@/lib/constants/d1-benchmarks';
 import {
@@ -728,6 +729,9 @@ export default function PlayerDashboardPage() {
           >
             <Tabs defaultValue="stats" className="w-full">
               <TabsList className="w-full md:w-auto flex overflow-x-auto gap-1 p-1.5 bg-white rounded-2xl border border-slate-200/60 shadow-sm">
+                <TabsTrigger value="analytics" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
+                  Analytics
+                </TabsTrigger>
                 <TabsTrigger value="stats" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
                   Stats
                 </TabsTrigger>
@@ -752,6 +756,10 @@ export default function PlayerDashboardPage() {
               </TabsList>
 
               {/* Tab Content */}
+              <TabsContent value="analytics" className="mt-6">
+                {player && <AnalyticsDashboard playerId={player.id} timeRange={30} />}
+              </TabsContent>
+
               <TabsContent value="stats" className="mt-6">
                 <LightCard>
                   <LightCardHeader 

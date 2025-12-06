@@ -225,9 +225,9 @@ export default function PublicPlayerProfilePage() {
       }
     }
 
-    // Track the view
+    // Track the view in the engagement events table
     await supabase
-      .from('player_engagement')
+      .from('player_engagement_events')
       .insert({
         player_id: playerId,
         coach_id: coachId,
