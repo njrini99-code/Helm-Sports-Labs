@@ -8,6 +8,7 @@ import { Loader2, LogOut, User, Search, Users, MessageSquare } from 'lucide-reac
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { isDevMode, DEV_ENTITY_IDS, clearDevMode } from '@/lib/dev-mode';
+import { NotificationBell } from '@/components/NotificationBell';
 
 export default function PlayerLayout({
   children,
@@ -135,12 +136,13 @@ export default function PlayerLayout({
             </div>
             
             <div className="flex items-center gap-3">
+              <NotificationBell />
               <span className="text-sm text-white/60 hidden sm:block font-medium">
                 {playerName}
               </span>
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={handleSignOut}
                 className="text-white/70 hover:text-white hover:bg-white/[0.05]"
               >

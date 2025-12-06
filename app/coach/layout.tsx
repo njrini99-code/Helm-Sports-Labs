@@ -24,6 +24,7 @@ import { toast } from 'sonner';
 import type { CoachType } from '@/lib/types';
 import { useTheme } from '@/lib/theme-context';
 import { isDevMode, DEV_ENTITY_IDS, clearDevMode, getDevRole } from '@/lib/dev-mode';
+import { NotificationBell } from '@/components/NotificationBell';
 
 export default function CoachLayout({
   children,
@@ -226,15 +227,16 @@ export default function CoachLayout({
             </div>
             
             <div className="flex items-center gap-4">
+              <NotificationBell />
               <div className="hidden sm:block text-right">
                 <span className={`text-sm block font-medium ${theme.text}`}>{coachName}</span>
                 <span className={`text-xs capitalize ${theme.textMuted}`}>
                   {coachType?.replace('_', ' ')} Coach
                 </span>
               </div>
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={handleSignOut}
                 className={isDark ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-emerald-700'}
               >
