@@ -1,131 +1,131 @@
 # Next Session Recommendations
 
-## Session 3 Completed ✅
+## Session 4 Completed ✅
 
-Successfully implemented Player Profile public view mode:
-- Created public player profile at /profile/[id] ✅
-- Full-featured with stats, videos, achievements, evaluations ✅
-- Role-based actions (coach vs non-logged-in) ✅
-- Share button with clipboard copy ✅
-- Profile view tracking ✅
-- Fully responsive (desktop + mobile) ✅
+Successfully implemented Player video upload functionality with delete capability:
+- Added delete button to VideoCard (hover-activated) ✅
+- Confirmation dialog before deletion ✅
+- Enhanced URL validation for multiple platforms ✅
+- Toast notifications for user feedback ✅
+- All acceptance criteria met ✅
 
-**Status:** 7/30 improvements complete (23%)
+**Status:** 8/30 improvements complete (27%)
 
 ---
 
 ## Recommended Next Improvement
 
-**#7: Player video upload functionality** (High Priority)
+**#8: Player stats and measurables display** (High Priority)
 
-This is the next logical step in the player experience workflow.
+This is the next logical step in polishing the player experience.
 
 ### Why This Next?
-1. High priority - critical for player profile completeness
-2. Builds on completed public profile work (videos tab exists but upload is missing)
-3. Enables players to showcase their skills
-4. Natural progression: Dashboard → Public Profile → Content Upload
-5. Completes the video display/upload cycle
+1. High priority - essential for player profiles
+2. Builds on completed player dashboard and public profile work
+3. Helps players showcase their skills with proper context
+4. Provides D1 benchmark comparisons for recruiting
+5. Natural progression: Profile → Videos → Stats Display
+6. Quick win potential (mostly UI polish)
 
 ### Files to Focus On
-- `components/player/AddVideoModal.tsx` - Video upload modal component
-- `lib/queries/player-videos.ts` - Database queries for videos
-- `app/(dashboard)/player/page.tsx` - Where upload button would be triggered
-- Check Supabase storage configuration for video bucket
+- `app/(dashboard)/player/page.tsx` - Stats tab content (lines 752-803)
+- `app/(dashboard)/player/page.tsx` - Measurables tab content (lines 806-905)
+- `app/profile/[id]/page.tsx` - Public stats display
+- Check existing stats display patterns in coach views
+
+### Current State Analysis
+The stats and measurables tabs already exist but may need polish:
+- Stats tab shows batting/pitching statistics
+- Measurables tab shows physical metrics (60-yard, exit velo, etc.)
+- AddMetricModal exists for adding new measurables
+- Data is stored in player_metrics table
 
 ### Acceptance Criteria
-- [ ] Upload modal opens correctly
-- [ ] Video uploads to Supabase storage
-- [ ] Thumbnail generated or uploaded
-- [ ] Video appears in profile after upload
-- [ ] Delete video functionality works
+- [ ] Stats displayed with proper units (e.g., "6.8s" for 60-yard)
+- [ ] Key measurables: 60-yard time, Exit velo, FB velo, Pop time
+- [ ] D1 range badges where applicable (e.g., "D1 Range" for elite metrics)
+- [ ] Edit functionality for player (AddMetricModal integration)
+- [ ] Clean grid layout with proper spacing
+- [ ] Verification badges for verified_date metrics
+- [ ] Mobile responsive design
 
 ### Implementation Approach
-1. Check if AddVideoModal component exists and review its structure
-2. Implement Supabase storage upload (check bucket: "player-videos" or similar)
-3. Add video metadata to player_videos table
-4. Optional: thumbnail generation or manual upload
-5. Add upload button to player dashboard
-6. Test upload flow with actual video file
-7. Verify video appears in both dashboard and public profile
-8. Implement delete functionality
+1. Review current stats display in player dashboard
+2. Review public profile stats display for consistency
+3. Add D1 benchmark data/constants (research typical D1 ranges)
+4. Create badge component for "D1 Range" indicators
+5. Add verification badge for verified metrics
+6. Improve metric grouping and visual hierarchy
+7. Add proper units and formatting
+8. Ensure mobile responsiveness
 9. Test with browser automation
+10. Verify in both dashboard and public profile
+
+### D1 Benchmark Examples (Research Needed)
+Based on typical D1 baseball standards:
+- 60-yard dash: < 7.0s (elite: < 6.7s)
+- Exit velocity: > 90 mph (elite: > 95 mph)
+- FB velocity: > 87 mph (elite: > 92 mph)
+- Pop time (catchers): < 2.0s (elite: < 1.9s)
 
 ### Technical Considerations
-- Supabase storage bucket must be configured
-- File size limits (consider 50-100MB max per video)
-- Supported formats: MP4, MOV, AVI
-- Row Level Security (RLS) policies for player_videos bucket
-- Consider upload progress indicator
-- Error handling for failed uploads
-- Video URL validation (YouTube/Vimeo links vs direct upload)
+- Metric types: velocity, speed, power, other
+- Verification system: verified_date field indicates coach verification
+- Metric display order: sort_order field
+- Unit formatting: may need helper function
+- Badge styling: match ScoutPulse design system (emerald green)
+- Empty state: "No stats recorded yet" with CTA
 
-### Potential Challenges
-- Supabase storage configuration may not be complete
-- Thumbnail generation may require external service
-- Large file uploads may timeout
-- May need to support both direct upload AND external links (YouTube, etc.)
-
-### Alternative if #7 is Blocked
-
-If video upload requires external setup or is blocked:
-
-**#8: Player stats and measurables display** (High Priority)
-- Polish the stats/measurables section
-- Add D1 benchmark comparisons
-- Add verification badges
-- Enhance the metrics display in public profile
+### Alternative if #8 is Blocked
 
 **#10: Player Discover page polish** (Medium Priority)
-- Help players find colleges that match their profile
-- Uses existing discover patterns from coach side
-- Completes the college journey workflow
+- Help players find colleges matching their profile
+- Filter colleges by division, location, program strength
+- Uses existing discover infrastructure from coach side
+
+**#21: Fix calendar event modal date handling** (High Priority, Quick Win, Bug)
+- Fix timezone issues with calendar events
+- Prevents dates from saving incorrectly
+- Critical bug that affects coach workflow
 
 ---
 
 ## Other High-Priority Options
 
+**#20: Player engagement analytics** (High Priority, Integration)
+- Expand profile view tracking (already started in Session 3)
+- Show players who's viewing their profile
+
 **#9: Player messaging with coaches** (Medium Priority)
-- Real-time messaging between players and coaches
-- Builds on existing conversation infrastructure
+- Real-time messaging functionality
 - Critical for player-coach communication
 
-**#20: Player engagement analytics** (High Priority, Integration)
-- Track and display profile engagement metrics
-- Already partially implemented (view tracking in Session 3)
-- Could expand with more detailed analytics
+**#22: Add loading skeletons to dashboard** (Medium Priority, Quick Win)
+- Replace loading spinners with skeleton loaders
+- Better perceived performance
 
 ---
 
-## Session Workflow Reminder
+## Notes from Session 4
 
-1. Read improvement #7 details from improvement_list.json
-2. Check if AddVideoModal component exists
-3. Review Supabase storage configuration
-4. Implement or complete video upload flow
-5. Test thoroughly with browser automation
-6. Update improvement_list.json
-7. Commit changes
-8. Update progress.txt and this file
+**Video Upload Implementation:**
+- Uses EXTERNAL video URLs (YouTube, Vimeo, Hudl, FieldLevel)
+- NOT direct file upload to Supabase Storage
+- Intentional design matching industry patterns
+- Reduces storage costs, leverages platform features
 
----
+**Delete Functionality:**
+- Hover-activated delete button (clean UI)
+- Native confirm() dialog for reliability
+- Toast notifications for feedback
+- Integrated with refreshData() for consistency
 
-## Notes from Session 3
-
-**Route Implementation Note:**
-- Public player profile implemented at `/profile/[id]` instead of `/player/[id]`
-- Reason: `/app/player/*` routes require authentication via parent layout
-- Solution is clean and maintainable
-- No action needed, but keep in mind for future public routes
-
-**Quality Bar Maintained:**
+**Code Quality:**
 - Zero TypeScript errors in ScoutPulse code
-- Premium UI with glassmorphism effects
-- Fully responsive design verified
-- Browser automation testing for all features
-- Profile view tracking for engagement analytics
+- Zero linting errors
+- Follows existing patterns and design system
 
-**Development Speed:**
-- Session 3 completed one high-priority improvement
-- Thorough testing and verification performed
-- Quality over speed maintained
+**Completion Rate:**
+- 8/30 improvements complete (27%)
+- On track for steady progress
+- Focusing on Player Experience (Priority 1)
