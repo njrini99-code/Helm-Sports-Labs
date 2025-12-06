@@ -7,11 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { 
+import {
   Search,
   Users,
   Eye,
-  Loader2,
   Trash2,
   MessageSquare,
   MapPin,
@@ -24,6 +23,7 @@ import {
   ChevronRight,
   UserPlus,
 } from 'lucide-react';
+import { WatchlistSkeleton } from '@/components/ui/loading-state';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -228,14 +228,7 @@ export default function CollegeCoachWatchlistPage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-6 h-6 text-emerald-500 animate-spin" />
-          <p className="text-sm text-slate-500">Loading your recruiting board...</p>
-        </div>
-      </div>
-    );
+    return <WatchlistSkeleton />;
   }
 
   return (

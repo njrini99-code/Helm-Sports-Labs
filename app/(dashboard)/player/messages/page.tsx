@@ -4,11 +4,10 @@ import { useEffect, useState, useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { 
-  MessageSquare, 
+import {
+  MessageSquare,
   Search,
   Send,
-  Loader2,
   ChevronLeft,
   MoreVertical,
   Phone,
@@ -19,6 +18,7 @@ import {
   CheckCheck,
   Circle,
 } from 'lucide-react';
+import { MessagesSkeleton } from '@/components/ui/loading-state';
 import { toast } from 'sonner';
 import { isDevMode, DEV_ENTITY_IDS } from '@/lib/dev-mode';
 import { cn } from '@/lib/utils';
@@ -306,14 +306,7 @@ export default function PlayerMessagesPage() {
   const totalUnread = conversations.reduce((sum, c) => sum + c.unread_count, 0);
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-[#0b1720] to-[#0f172a] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 animate-spin text-emerald-400" />
-          <p className="text-white/60 text-sm">Loading messages...</p>
-        </div>
-      </div>
-    );
+    return <MessagesSkeleton />;
   }
 
   return (

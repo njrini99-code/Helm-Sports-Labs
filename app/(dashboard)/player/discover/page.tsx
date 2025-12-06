@@ -13,7 +13,6 @@ import {
   Heart,
   Filter,
   ChevronRight,
-  Loader2,
   Trophy,
   Users,
   Globe,
@@ -24,6 +23,7 @@ import {
   ArrowUpRight,
   Sparkles,
 } from 'lucide-react';
+import { PlayerDiscoverSkeleton } from '@/components/ui/loading-state';
 import { toast } from 'sonner';
 import { getColleges, type College } from '@/lib/api/player/recruitingInterests';
 import { isDevMode, DEV_ENTITY_IDS } from '@/lib/dev-mode';
@@ -213,14 +213,7 @@ export default function PlayerDiscoverPage() {
   const hasActiveFilters = search || divisionFilter !== 'All' || regionFilter !== 'All';
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-[#0b1720] via-[#0f172a] to-[#f4f7fb] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 animate-spin text-emerald-400" />
-          <p className="text-white/60 text-sm">Loading programs...</p>
-        </div>
-      </div>
-    );
+    return <PlayerDiscoverSkeleton />;
   }
 
   return (
