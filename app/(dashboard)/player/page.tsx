@@ -14,6 +14,8 @@ import { AddVideoModal } from '@/components/player/AddVideoModal';
 import { AddStatsModal } from '@/components/player/AddStatsModal';
 import { AddAchievementModal } from '@/components/player/AddAchievementModal';
 import { AddMetricModal } from '@/components/player/AddMetricModal';
+import { D1Badge } from '@/components/ui/D1Badge';
+import { checkD1Standard, parseMetricValue } from '@/lib/constants/d1-benchmarks';
 import {
   User,
   MapPin,
@@ -836,19 +838,27 @@ export default function PlayerDashboardPage() {
                     {metrics.length > 0 && (
                       <div className="mt-6 space-y-2">
                         <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Additional Metrics</h4>
-                        {metrics.map((metric) => (
-                          <div key={metric.id} className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
-                            <div>
-                              <p className="font-medium text-slate-800 text-sm">{metric.metric_label}</p>
-                              {metric.verified_date && (
-                                <Badge className="mt-1 bg-emerald-100 text-emerald-700 border-emerald-200 text-[10px]">
-                                  <CheckCircle2 className="w-3 h-3 mr-1" /> Verified
-                                </Badge>
-                              )}
+                        {metrics.map((metric) => {
+                          const numericValue = parseMetricValue(metric.metric_value);
+                          const d1Level = numericValue !== null ? checkD1Standard(metric.metric_label, numericValue) : 'none';
+
+                          return (
+                            <div key={metric.id} className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-colors">
+                              <div className="flex-1">
+                                <p className="font-medium text-slate-800 text-sm">{metric.metric_label}</p>
+                                <div className="flex items-center gap-2 mt-1">
+                                  {metric.verified_date && (
+                                    <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 text-[10px]">
+                                      <CheckCircle2 className="w-3 h-3 mr-1" /> Verified
+                                    </Badge>
+                                  )}
+                                  <D1Badge level={d1Level} size="sm" />
+                                </div>
+                              </div>
+                              <p className="text-lg font-bold text-slate-900 ml-3">{metric.metric_value}</p>
                             </div>
-                            <p className="text-lg font-bold text-slate-900">{metric.metric_value}</p>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     )}
                   </div>

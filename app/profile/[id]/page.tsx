@@ -32,6 +32,8 @@ import {
 import type { Player } from '@/lib/types';
 import { toast } from 'sonner';
 import Link from 'next/link';
+import { D1Badge } from '@/components/ui/D1Badge';
+import { checkD1Standard, parseMetricValue } from '@/lib/constants/d1-benchmarks';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Types
@@ -538,12 +540,27 @@ export default function PublicPlayerProfilePage() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
-                      {velocityMetrics.map((metric) => (
-                        <div key={metric.id} className="flex justify-between items-center">
-                          <span className="text-slate-400">{metric.metric_label}</span>
-                          <span className="text-white font-semibold">{metric.metric_value}</span>
-                        </div>
-                      ))}
+                      {velocityMetrics.map((metric) => {
+                        const numericValue = parseMetricValue(metric.metric_value);
+                        const d1Level = numericValue !== null ? checkD1Standard(metric.metric_label, numericValue) : 'none';
+
+                        return (
+                          <div key={metric.id} className="flex justify-between items-start gap-3">
+                            <div className="flex-1">
+                              <span className="text-slate-400">{metric.metric_label}</span>
+                              <div className="flex items-center gap-2 mt-1">
+                                {metric.verified_date && (
+                                  <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 text-[10px]">
+                                    <CheckCircle2 className="w-3 h-3 mr-1" /> Verified
+                                  </Badge>
+                                )}
+                                <D1Badge level={d1Level} size="sm" />
+                              </div>
+                            </div>
+                            <span className="text-white font-semibold text-lg">{metric.metric_value}</span>
+                          </div>
+                        );
+                      })}
                     </CardContent>
                   </Card>
                 )}
@@ -558,12 +575,27 @@ export default function PublicPlayerProfilePage() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
-                      {speedMetrics.map((metric) => (
-                        <div key={metric.id} className="flex justify-between items-center">
-                          <span className="text-slate-400">{metric.metric_label}</span>
-                          <span className="text-white font-semibold">{metric.metric_value}</span>
-                        </div>
-                      ))}
+                      {speedMetrics.map((metric) => {
+                        const numericValue = parseMetricValue(metric.metric_value);
+                        const d1Level = numericValue !== null ? checkD1Standard(metric.metric_label, numericValue) : 'none';
+
+                        return (
+                          <div key={metric.id} className="flex justify-between items-start gap-3">
+                            <div className="flex-1">
+                              <span className="text-slate-400">{metric.metric_label}</span>
+                              <div className="flex items-center gap-2 mt-1">
+                                {metric.verified_date && (
+                                  <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 text-[10px]">
+                                    <CheckCircle2 className="w-3 h-3 mr-1" /> Verified
+                                  </Badge>
+                                )}
+                                <D1Badge level={d1Level} size="sm" />
+                              </div>
+                            </div>
+                            <span className="text-white font-semibold text-lg">{metric.metric_value}</span>
+                          </div>
+                        );
+                      })}
                     </CardContent>
                   </Card>
                 )}
@@ -578,12 +610,27 @@ export default function PublicPlayerProfilePage() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
-                      {powerMetrics.map((metric) => (
-                        <div key={metric.id} className="flex justify-between items-center">
-                          <span className="text-slate-400">{metric.metric_label}</span>
-                          <span className="text-white font-semibold">{metric.metric_value}</span>
-                        </div>
-                      ))}
+                      {powerMetrics.map((metric) => {
+                        const numericValue = parseMetricValue(metric.metric_value);
+                        const d1Level = numericValue !== null ? checkD1Standard(metric.metric_label, numericValue) : 'none';
+
+                        return (
+                          <div key={metric.id} className="flex justify-between items-start gap-3">
+                            <div className="flex-1">
+                              <span className="text-slate-400">{metric.metric_label}</span>
+                              <div className="flex items-center gap-2 mt-1">
+                                {metric.verified_date && (
+                                  <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 text-[10px]">
+                                    <CheckCircle2 className="w-3 h-3 mr-1" /> Verified
+                                  </Badge>
+                                )}
+                                <D1Badge level={d1Level} size="sm" />
+                              </div>
+                            </div>
+                            <span className="text-white font-semibold text-lg">{metric.metric_value}</span>
+                          </div>
+                        );
+                      })}
                     </CardContent>
                   </Card>
                 )}
@@ -600,12 +647,27 @@ export default function PublicPlayerProfilePage() {
                     <CardContent className="space-y-3">
                       {metrics
                         .filter(m => !['velocity', 'speed', 'power'].includes(m.metric_type))
-                        .map((metric) => (
-                          <div key={metric.id} className="flex justify-between items-center">
-                            <span className="text-slate-400">{metric.metric_label}</span>
-                            <span className="text-white font-semibold">{metric.metric_value}</span>
-                          </div>
-                        ))}
+                        .map((metric) => {
+                          const numericValue = parseMetricValue(metric.metric_value);
+                          const d1Level = numericValue !== null ? checkD1Standard(metric.metric_label, numericValue) : 'none';
+
+                          return (
+                            <div key={metric.id} className="flex justify-between items-start gap-3">
+                              <div className="flex-1">
+                                <span className="text-slate-400">{metric.metric_label}</span>
+                                <div className="flex items-center gap-2 mt-1">
+                                  {metric.verified_date && (
+                                    <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 text-[10px]">
+                                      <CheckCircle2 className="w-3 h-3 mr-1" /> Verified
+                                    </Badge>
+                                  )}
+                                  <D1Badge level={d1Level} size="sm" />
+                                </div>
+                              </div>
+                              <span className="text-white font-semibold text-lg">{metric.metric_value}</span>
+                            </div>
+                          );
+                        })}
                     </CardContent>
                   </Card>
                 )}
