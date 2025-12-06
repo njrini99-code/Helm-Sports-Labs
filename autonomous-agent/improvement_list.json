@@ -254,7 +254,7 @@
       "No layout shift on load",
       "Works in all browsers"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 17,
@@ -410,7 +410,7 @@
       "No overflow issues",
       "Works on all positions"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 27,
