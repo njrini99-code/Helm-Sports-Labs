@@ -53,8 +53,9 @@ import {
 import type { Player } from '@/lib/types';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import { getPlayerStatsSeries, type PlayerStatsSummary, type PerformanceFilters } from '@/lib/api/player/getPlayerStatsSeries';
+import { getPlayerStatsSeries, type PlayerStatsSummary, type PerformanceFilters, type PlayerGameSeriesPoint } from '@/lib/api/player/getPlayerStatsSeries';
 import { getPlayerRecruitingSnapshot, type PlayerRecruitingSnapshot } from '@/lib/api/player/getPlayerRecruitingSnapshot';
+import { PlayerStatsCharts } from '@/components/player/PlayerStatsCharts';
 import { getConversationsForPlayer, type ConversationListItem } from '@/lib/api/messaging/getConversationsForCoach';
 import { getPlayerEventsTimeline, type PlayerEventTimelineItem, type EventFilter } from '@/lib/api/player/getPlayerEventsTimeline';
 import { isDevMode, DEV_ENTITY_IDS } from '@/lib/dev-mode';
@@ -124,6 +125,7 @@ export default function PlayerDashboardPage() {
   const [evaluations, setEvaluations] = useState<Evaluation[]>([]);
   const [engagement, setEngagement] = useState<PlayerEngagement | null>(null);
   const [statsSummary, setStatsSummary] = useState<PlayerStatsSummary | null>(null);
+  const [statsSeries, setStatsSeries] = useState<PlayerGameSeriesPoint[]>([]);
   const [recruitingData, setRecruitingData] = useState<PlayerRecruitingSnapshot | null>(null);
   const [conversations, setConversations] = useState<ConversationListItem[]>([]);
   const [upcomingEvents, setUpcomingEvents] = useState<PlayerEventTimelineItem[]>([]);
@@ -242,6 +244,7 @@ export default function PlayerDashboardPage() {
     };
     const statsResponse = await getPlayerStatsSeries(playerData.id, filters);
     setStatsSummary(statsResponse.summary);
+    setStatsSeries(statsResponse.series);
 
     // Load recruiting data
     const recruiting = await getPlayerRecruitingSnapshot(playerData.id);
@@ -760,7 +763,8 @@ export default function PlayerDashboardPage() {
                 {player && <AnalyticsDashboard playerId={player.id} timeRange={30} />}
               </TabsContent>
 
-              <TabsContent value="stats" className="mt-6">
+              <TabsContent value="stats" className="mt-6 space-y-6">
+                {/* Quick Stats Summary Card */}
                 <LightCard>
                   <LightCardHeader 
                     icon={<BarChart3 className="w-5 h-5 text-emerald-600" />}
@@ -810,6 +814,16 @@ export default function PlayerDashboardPage() {
                     )}
                   </div>
                 </LightCard>
+
+                {/* Performance Charts & Trends */}
+                {statsSummary && statsSummary.gamesPlayed > 0 && (
+                  <PlayerStatsCharts 
+                    series={statsSeries}
+                    summary={statsSummary}
+                    position={player.primary_position || 'default'}
+                    dateRange={statsDateRange}
+                  />
+                )}
               </TabsContent>
 
               <TabsContent value="measurables" className="mt-6">
