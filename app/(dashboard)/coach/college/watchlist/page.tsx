@@ -80,11 +80,11 @@ const CATEGORIES = [
 ];
 
 const STAGES = [
-  { id: 'Watchlist', label: 'Watchlist', color: 'blue', bgLight: 'bg-blue-50', borderLight: 'border-blue-200', headerBg: 'bg-blue-500', textColor: 'text-blue-700' },
-  { id: 'Evaluating', label: 'Evaluating', color: 'amber', bgLight: 'bg-amber-50', borderLight: 'border-amber-200', headerBg: 'bg-amber-500', textColor: 'text-amber-700' },
-  { id: 'High Priority', label: 'High Priority', color: 'orange', bgLight: 'bg-orange-50', borderLight: 'border-orange-200', headerBg: 'bg-orange-500', textColor: 'text-orange-700' },
-  { id: 'Offered', label: 'Offered', color: 'purple', bgLight: 'bg-purple-50', borderLight: 'border-purple-200', headerBg: 'bg-purple-500', textColor: 'text-purple-700' },
-  { id: 'Committed', label: 'Committed', color: 'emerald', bgLight: 'bg-emerald-50', borderLight: 'border-emerald-200', headerBg: 'bg-emerald-500', textColor: 'text-emerald-700' },
+  { id: 'Watchlist', label: 'Watchlist', color: 'blue', bgLight: 'bg-blue-50', borderLight: 'border-blue-200', hoverBorder: 'hover:border-blue-300', headerBg: 'bg-blue-500', textColor: 'text-blue-700' },
+  { id: 'Evaluating', label: 'Evaluating', color: 'amber', bgLight: 'bg-amber-50', borderLight: 'border-amber-200', hoverBorder: 'hover:border-amber-300', headerBg: 'bg-amber-500', textColor: 'text-amber-700' },
+  { id: 'High Priority', label: 'High Priority', color: 'orange', bgLight: 'bg-orange-50', borderLight: 'border-orange-200', hoverBorder: 'hover:border-orange-300', headerBg: 'bg-orange-500', textColor: 'text-orange-700' },
+  { id: 'Offered', label: 'Offered', color: 'purple', bgLight: 'bg-purple-50', borderLight: 'border-purple-200', hoverBorder: 'hover:border-purple-300', headerBg: 'bg-purple-500', textColor: 'text-purple-700' },
+  { id: 'Committed', label: 'Committed', color: 'emerald', bgLight: 'bg-emerald-50', borderLight: 'border-emerald-200', hoverBorder: 'hover:border-emerald-300', headerBg: 'bg-emerald-500', textColor: 'text-emerald-700' },
 ];
 
 export default function CollegeCoachWatchlistPage() {
@@ -650,7 +650,7 @@ function RecruitBoardCard({ recruit, stage, onView, onMessage, onRemove, onUpdat
       className={`rounded-xl border bg-white p-3 transition-all cursor-pointer hover:shadow-md group ${
         isSelected 
           ? 'border-emerald-400 bg-emerald-50/50 ring-1 ring-emerald-400' 
-          : `border-slate-200 hover:border-${stage.color}-300`
+          : `border-slate-200 ${stage.hoverBorder}`
       }`}
       onClick={onView}
     >

@@ -780,9 +780,12 @@ function RecruitingDiamondPlayerPill({
   const tooltipClasses = isRightSide
     ? 'right-full mr-2 top-1/2 -translate-y-1/2'
     : 'left-full ml-2 top-1/2 -translate-y-1/2';
+  // CSS keyframes require proper formatting with newlines between from/to blocks
   const animationStyle = isRightSide
-    ? 'from { opacity: 0; transform: translateX(4px) translateY(-50%); } to { opacity: 1; transform: translateX(0) translateY(-50%); }'
-    : 'from { opacity: 0; transform: translateX(-4px) translateY(-50%); } to { opacity: 1; transform: translateX(0) translateY(-50%); }';
+    ? `from { opacity: 0; transform: translateX(4px) translateY(-50%); }
+          to { opacity: 1; transform: translateX(0) translateY(-50%); }`
+    : `from { opacity: 0; transform: translateX(-4px) translateY(-50%); }
+          to { opacity: 1; transform: translateX(0) translateY(-50%); }`;
 
   return (
     <div 
