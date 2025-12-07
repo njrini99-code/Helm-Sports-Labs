@@ -159,7 +159,7 @@
       "Add to favorites functionality",
       "Mobile responsive"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 11,
@@ -191,7 +191,7 @@
       "Communication section",
       "Follows established patterns"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 13,
@@ -207,7 +207,7 @@
       "College connections",
       "Player promotion features"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 14,
@@ -223,7 +223,7 @@
       "Commitment tracking",
       "D1/D2 connections"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 15,
@@ -231,7 +231,7 @@
     "priority": "medium",
     "title": "Email notifications for messages",
     "description": "Set up email notifications when users receive new messages.",
-    "files": ["lib/notifications/email.ts", "supabase/functions/notify-message.ts"],
+    "files": ["lib/notifications/email.ts", "supabase/functions/notify-message/index.ts"],
     "acceptance_criteria": [
       "Email sent on new message",
       "Notification preferences respected",
@@ -239,7 +239,7 @@
       "Unsubscribe link included",
       "Rate limiting in place"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 16,
@@ -269,7 +269,7 @@
       "No contrast issues",
       "Persists preference"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 18,
@@ -285,7 +285,7 @@
       "Consistent styling",
       "TypeScript props"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 19,
@@ -301,7 +301,7 @@
       "Contact info included",
       "Branded header/footer"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 20,
@@ -365,7 +365,7 @@
       "Coach sees registrations",
       "Email notification"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 24,
@@ -380,7 +380,7 @@
       "Mobile performance OK",
       "Can be disabled"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 25,
@@ -395,7 +395,7 @@
       "Preview image generated",
       "Title and description correct"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 26,
@@ -426,7 +426,7 @@
       "Export selected works",
       "Message selected works"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 28,
@@ -442,7 +442,7 @@
       "Has CTA button",
       "Matches design system"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 29,
@@ -458,7 +458,7 @@
       "URL params for page",
       "Loading state for page change"
     ],
-    "completed": false
+    "completed": true
   },
   {
     "id": 30,

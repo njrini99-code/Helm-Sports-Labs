@@ -75,6 +75,7 @@ export default function PlayerDiscoverPage() {
   const [interestedSchools, setInterestedSchools] = useState<Set<string>>(new Set());
   const [playerId, setPlayerId] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
+  const [sortBy, setSortBy] = useState<'name' | 'division' | 'state'>('name');
 
   useEffect(() => {
     loadData();
@@ -126,7 +127,7 @@ export default function PlayerDiscoverPage() {
   };
 
   const filteredColleges = useMemo(() => {
-    return colleges.filter(college => {
+    const filtered = colleges.filter(college => {
       if (search) {
         const searchLower = search.toLowerCase();
         const matchesName = college.name.toLowerCase().includes(searchLower);
@@ -151,7 +152,24 @@ export default function PlayerDiscoverPage() {
 
       return true;
     });
-  }, [colleges, search, divisionFilter, regionFilter]);
+
+    // Sort the filtered colleges
+    return filtered.sort((a, b) => {
+      if (sortBy === 'name') {
+        return a.name.localeCompare(b.name);
+      } else if (sortBy === 'division') {
+        const divOrder = { 'D1': 1, 'D2': 2, 'D3': 3, 'NAIA': 4, 'JUCO': 5 };
+        const aOrder = divOrder[a.division as keyof typeof divOrder] || 99;
+        const bOrder = divOrder[b.division as keyof typeof divOrder] || 99;
+        if (aOrder !== bOrder) return aOrder - bOrder;
+        return a.name.localeCompare(b.name);
+      } else if (sortBy === 'state') {
+        if (a.state === b.state) return a.name.localeCompare(b.name);
+        return (a.state || '').localeCompare(b.state || '');
+      }
+      return 0;
+    });
+  }, [colleges, search, divisionFilter, regionFilter, sortBy]);
 
   const handleAddInterest = async (college: College) => {
     if (!playerId) return;
@@ -208,6 +226,14 @@ export default function PlayerDiscoverPage() {
     setSearch('');
     setDivisionFilter('All');
     setRegionFilter('All');
+  };
+
+  const handleViewProgram = (college: College) => {
+    // In the future, navigate to /college/[slug] when that page is created
+    // For now, show a coming soon message
+    toast.info(`${college.name} program details coming soon!`, {
+      description: 'Full program pages with rosters, stats, and coach info will be available soon.',
+    });
   };
 
   const hasActiveFilters = search || divisionFilter !== 'All' || regionFilter !== 'All';
@@ -400,6 +426,18 @@ export default function PlayerDiscoverPage() {
               <h2 className="text-lg font-semibold text-slate-800">Programs</h2>
               <p className="text-sm text-slate-500">{filteredColleges.length} results</p>
             </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-500">Sort by:</span>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as 'name' | 'division' | 'state')}
+                className="text-xs px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-colors"
+              >
+                <option value="name">Name</option>
+                <option value="division">Division</option>
+                <option value="state">State</option>
+              </select>
+            </div>
           </div>
 
           {/* College Grid */}
@@ -412,6 +450,7 @@ export default function PlayerDiscoverPage() {
                   isInterested={interestedSchools.has(college.id)}
                   onAddInterest={() => handleAddInterest(college)}
                   onRemoveInterest={() => handleRemoveInterest(college.id)}
+                  onViewProgram={() => handleViewProgram(college)}
                 />
               ))}
             </div>
@@ -472,11 +511,13 @@ function CollegeCard({
   isInterested,
   onAddInterest,
   onRemoveInterest,
+  onViewProgram,
 }: {
   college: College;
   isInterested: boolean;
   onAddInterest: () => void;
   onRemoveInterest: () => void;
+  onViewProgram: () => void;
 }) {
   const getDivisionColor = (division: string | null) => {
     switch (division) {
@@ -526,7 +567,10 @@ function CollegeCard({
       </div>
 
       <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
-        <button className="text-xs text-slate-500 hover:text-emerald-600 flex items-center gap-1 transition-colors">
+        <button
+          onClick={() => handleViewProgram(college)}
+          className="text-xs text-slate-500 hover:text-emerald-600 flex items-center gap-1 transition-colors"
+        >
           View Program <ArrowUpRight className="w-3 h-3" />
         </button>
         <button

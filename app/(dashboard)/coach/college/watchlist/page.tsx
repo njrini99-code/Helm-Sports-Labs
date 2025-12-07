@@ -22,6 +22,11 @@ import {
   Filter,
   ChevronRight,
   UserPlus,
+  CheckSquare,
+  Square,
+  Download,
+  X,
+  Loader2,
 } from 'lucide-react';
 import { WatchlistSkeleton } from '@/components/ui/loading-state';
 import Link from 'next/link';
@@ -88,6 +93,8 @@ export default function CollegeCoachWatchlistPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [bulkActionLoading, setBulkActionLoading] = useState(false);
 
   useEffect(() => {
     loadRecruits();
@@ -227,6 +234,105 @@ export default function CollegeCoachWatchlistPage() {
     }
   };
 
+  // Bulk selection handlers
+  const toggleSelectRecruit = (recruitId: string) => {
+    setSelectedIds(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(recruitId)) {
+        newSet.delete(recruitId);
+      } else {
+        newSet.add(recruitId);
+      }
+      return newSet;
+    });
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === filteredRecruits.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(filteredRecruits.map(r => r.id)));
+    }
+  };
+
+  const clearSelection = () => {
+    setSelectedIds(new Set());
+  };
+
+  // Bulk actions
+  const handleBulkMoveStage = async (newStage: string) => {
+    if (selectedIds.size === 0) return;
+    
+    setBulkActionLoading(true);
+    const supabase = createClient();
+    const { error } = await supabase
+      .from('recruits')
+      .update({ stage: newStage })
+      .in('id', Array.from(selectedIds));
+
+    if (error) {
+      toast.error('Failed to move selected recruits');
+    } else {
+      const stageName = STAGES.find(s => s.id === newStage)?.label;
+      toast.success(`${selectedIds.size} recruits moved to ${stageName}`);
+      setRecruits(recruits.map(r => 
+        selectedIds.has(r.id) ? { ...r, stage: newStage } : r
+      ));
+      clearSelection();
+    }
+    setBulkActionLoading(false);
+  };
+
+  const handleBulkRemove = async () => {
+    if (selectedIds.size === 0) return;
+    
+    const confirmRemove = confirm(`Remove ${selectedIds.size} recruits from your watchlist?`);
+    if (!confirmRemove) return;
+
+    setBulkActionLoading(true);
+    const supabase = createClient();
+    const { error } = await supabase
+      .from('recruits')
+      .delete()
+      .in('id', Array.from(selectedIds));
+
+    if (error) {
+      toast.error('Failed to remove selected recruits');
+    } else {
+      toast.success(`${selectedIds.size} recruits removed from watchlist`);
+      setRecruits(recruits.filter(r => !selectedIds.has(r.id)));
+      clearSelection();
+    }
+    setBulkActionLoading(false);
+  };
+
+  const handleBulkExport = () => {
+    if (selectedIds.size === 0) return;
+    
+    const selectedRecruits = recruits.filter(r => selectedIds.has(r.id));
+    const csvContent = [
+      ['Name', 'Position', 'Grad Year', 'State', 'Stage'].join(','),
+      ...selectedRecruits.map(r => [
+        r.name,
+        r.player?.primary_position || r.primary_position || '',
+        r.player?.grad_year || r.grad_year || '',
+        r.player?.high_school_state || r.high_school_state || '',
+        r.stage
+      ].join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `watchlist-export-${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+    toast.success(`Exported ${selectedIds.size} recruits to CSV`);
+  };
+
   if (loading) {
     return <WatchlistSkeleton />;
   }
@@ -310,6 +416,19 @@ export default function CollegeCoachWatchlistPage() {
 
           {/* Action Buttons */}
           <div className="flex items-center gap-2 lg:ml-auto">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 px-3 text-xs text-slate-600 hover:text-slate-800"
+              onClick={toggleSelectAll}
+            >
+              {selectedIds.size === filteredRecruits.length && filteredRecruits.length > 0 ? (
+                <CheckSquare className="w-3.5 h-3.5 mr-1.5" />
+              ) : (
+                <Square className="w-3.5 h-3.5 mr-1.5" />
+              )}
+              Select All
+            </Button>
             <Link href="/coach/college/recruiting-planner">
               <Button variant="ghost" size="sm" className="h-8 px-3 text-xs text-slate-600 hover:text-slate-800">
                 View Planner
@@ -326,6 +445,67 @@ export default function CollegeCoachWatchlistPage() {
         </div>
 
         {/* ═══════════════════════════════════════════════════════════════════
+            BULK ACTIONS TOOLBAR
+        ═══════════════════════════════════════════════════════════════════ */}
+        {selectedIds.size > 0 && (
+          <div className="flex items-center gap-3 p-3 bg-emerald-50 border border-emerald-200 rounded-xl">
+            <div className="flex items-center gap-2">
+              <CheckSquare className="w-4 h-4 text-emerald-600" />
+              <span className="text-sm font-medium text-emerald-700">
+                {selectedIds.size} selected
+              </span>
+            </div>
+            <div className="h-4 w-px bg-emerald-200" />
+            <div className="flex items-center gap-2 flex-1">
+              <Select onValueChange={handleBulkMoveStage} disabled={bulkActionLoading}>
+                <SelectTrigger className="h-8 w-40 text-xs bg-white border-emerald-200">
+                  <SelectValue placeholder="Move to..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {STAGES.map(stage => (
+                    <SelectItem key={stage.id} value={stage.id}>
+                      {stage.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="h-8 px-3 text-xs border-emerald-200 text-emerald-700 hover:bg-emerald-100"
+                onClick={handleBulkExport}
+                disabled={bulkActionLoading}
+              >
+                <Download className="w-3.5 h-3.5 mr-1.5" />
+                Export CSV
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="h-8 px-3 text-xs border-red-200 text-red-600 hover:bg-red-50"
+                onClick={handleBulkRemove}
+                disabled={bulkActionLoading}
+              >
+                {bulkActionLoading ? (
+                  <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
+                ) : (
+                  <Trash2 className="w-3.5 h-3.5 mr-1.5" />
+                )}
+                Remove
+              </Button>
+            </div>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 w-8 p-0 text-emerald-600 hover:text-emerald-800 hover:bg-emerald-100"
+              onClick={clearSelection}
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          </div>
+        )}
+
+        {/* ═══════════════════════════════════════════════════════════════════
             KANBAN BOARD
         ═══════════════════════════════════════════════════════════════════ */}
         <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0">
@@ -340,6 +520,8 @@ export default function CollegeCoachWatchlistPage() {
                 onMessagePlayer={handleMessagePlayer}
                 onRemove={handleRemoveFromWatchlist}
                 onUpdateStage={handleUpdateStage}
+                selectedIds={selectedIds}
+                onToggleSelect={toggleSelectRecruit}
               />
             );
           })}
@@ -360,6 +542,8 @@ interface RecruitBoardColumnProps {
   onMessagePlayer: (playerId: string, playerName: string) => void;
   onRemove: (recruitId: string, playerName: string) => void;
   onUpdateStage: (recruitId: string, newStage: string, playerName: string) => void;
+  selectedIds: Set<string>;
+  onToggleSelect: (recruitId: string) => void;
 }
 
 function RecruitBoardColumn({ 
@@ -368,7 +552,9 @@ function RecruitBoardColumn({
   onViewPlayer, 
   onMessagePlayer, 
   onRemove,
-  onUpdateStage 
+  onUpdateStage,
+  selectedIds,
+  onToggleSelect,
 }: RecruitBoardColumnProps) {
   return (
     <div className="flex-shrink-0 w-[280px]">
@@ -399,6 +585,8 @@ function RecruitBoardColumn({
               onMessage={() => onMessagePlayer(recruit.player_id, recruit.name)}
               onRemove={() => onRemove(recruit.id, recruit.name)}
               onUpdateStage={(newStage) => onUpdateStage(recruit.id, newStage, recruit.name)}
+              isSelected={selectedIds.has(recruit.id)}
+              onToggleSelect={() => onToggleSelect(recruit.id)}
             />
           ))
         )}
@@ -443,9 +631,11 @@ interface RecruitBoardCardProps {
   onMessage: () => void;
   onRemove: () => void;
   onUpdateStage: (newStage: string) => void;
+  isSelected: boolean;
+  onToggleSelect: () => void;
 }
 
-function RecruitBoardCard({ recruit, stage, onView, onMessage, onRemove, onUpdateStage }: RecruitBoardCardProps) {
+function RecruitBoardCard({ recruit, stage, onView, onMessage, onRemove, onUpdateStage, isSelected, onToggleSelect }: RecruitBoardCardProps) {
   const initials = `${recruit.player?.first_name?.[0] || ''}${recruit.player?.last_name?.[0] || ''}`.toUpperCase() || 'NA';
   const position = recruit.player?.primary_position || recruit.primary_position || '';
   const gradYear = recruit.player?.grad_year || recruit.grad_year;
@@ -457,10 +647,33 @@ function RecruitBoardCard({ recruit, stage, onView, onMessage, onRemove, onUpdat
 
   return (
     <div 
-      className={`rounded-xl border border-slate-200 bg-white p-3 transition-all cursor-pointer hover:shadow-md hover:border-${stage.color}-300 group`}
+      className={`rounded-xl border bg-white p-3 transition-all cursor-pointer hover:shadow-md group ${
+        isSelected 
+          ? 'border-emerald-400 bg-emerald-50/50 ring-1 ring-emerald-400' 
+          : `border-slate-200 hover:border-${stage.color}-300`
+      }`}
       onClick={onView}
     >
       <div className="flex items-start gap-3">
+        {/* Checkbox */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleSelect();
+          }}
+          className={`flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
+            isSelected 
+              ? 'bg-emerald-500 border-emerald-500 text-white' 
+              : 'border-slate-300 hover:border-emerald-400'
+          }`}
+        >
+          {isSelected && (
+            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          )}
+        </button>
+
         {/* Avatar */}
         <Avatar className="h-9 w-9 rounded-lg shadow-sm flex-shrink-0">
           <AvatarFallback className="rounded-lg bg-emerald-100 text-emerald-700 text-xs font-semibold">
