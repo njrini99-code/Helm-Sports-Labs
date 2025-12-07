@@ -1,7 +1,6 @@
 'use client';
 
-import { forwardRef, ReactNode } from 'react';
-import { motion, HTMLMotionProps, Variants } from 'framer-motion';
+import { forwardRef, ReactNode, HTMLAttributes, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -11,7 +10,7 @@ import { cn } from '@/lib/utils';
 export type GlassCardSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 export type GlassCardVariant = 'default' | 'subtle' | 'solid' | 'gradient' | 'glow';
 
-export interface GlassCardProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
+export interface GlassCardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   /** Size variant affecting padding */
   size?: GlassCardSize;
@@ -21,7 +20,7 @@ export interface GlassCardProps extends Omit<HTMLMotionProps<'div'>, 'children'>
   disableHover?: boolean;
   /** Custom hover scale (default: 1.02) */
   hoverScale?: number;
-  /** Custom hover Y translation (default: -4) */
+  /** Custom hover Y translation in px (default: -4) */
   hoverY?: number;
   /** Enable click animation */
   clickable?: boolean;
@@ -37,8 +36,6 @@ export interface GlassCardProps extends Omit<HTMLMotionProps<'div'>, 'children'>
   loading?: boolean;
   /** Glow color for 'glow' variant */
   glowColor?: string;
-  /** As child - renders as a slot */
-  asChild?: boolean;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -71,44 +68,6 @@ const ROUNDED_STYLES: Record<string, string> = {
   full: 'rounded-full',
   none: 'rounded-none',
 };
-
-// ═══════════════════════════════════════════════════════════════════════════
-// ANIMATION VARIANTS
-// ═══════════════════════════════════════════════════════════════════════════
-
-const createHoverVariants = (
-  scale: number,
-  y: number,
-  disabled: boolean
-): Variants => ({
-  initial: {
-    scale: 1,
-    y: 0,
-    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)',
-  },
-  hover: disabled
-    ? {}
-    : {
-        scale,
-        y,
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 12px 24px -8px rgba(0, 0, 0, 0.15)',
-        transition: {
-          type: 'spring',
-          stiffness: 400,
-          damping: 25,
-        },
-      },
-  tap: disabled
-    ? {}
-    : {
-        scale: 0.98,
-        transition: {
-          type: 'spring',
-          stiffness: 500,
-          damping: 30,
-        },
-      },
-});
 
 // ═══════════════════════════════════════════════════════════════════════════
 // LOADING SKELETON
@@ -147,22 +106,41 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
       loading = false,
       glowColor,
       style,
+      onMouseDown,
+      onMouseUp,
       ...props
     },
     ref
   ) => {
-    const hoverVariants = createHoverVariants(hoverScale, hoverY, disableHover);
+    const [isPressed, setIsPressed] = useState(false);
+
+    // Build dynamic hover styles
+    const hoverStyles = !disableHover
+      ? {
+          '--hover-scale': hoverScale,
+          '--hover-y': `${hoverY}px`,
+        } as React.CSSProperties
+      : {};
 
     // Build glow style for 'glow' variant
-    const glowStyle = variant === 'glow' && glowColor
+    const glowStyles = variant === 'glow' && glowColor
       ? {
-          ...style,
           boxShadow: `0 0 40px ${glowColor}20, 0 0 80px ${glowColor}10`,
         }
-      : style;
+      : {};
+
+    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+      if (clickable) setIsPressed(true);
+      onMouseDown?.(e);
+    };
+
+    const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
+      if (clickable) setIsPressed(false);
+      onMouseUp?.(e);
+    };
 
     return (
-      <motion.div
+      <div
         ref={ref}
         className={cn(
           // Base styles
@@ -176,21 +154,33 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
           // Rounded
           ROUNDED_STYLES[rounded],
           // Interactive
-          clickable && 'cursor-pointer',
+          clickable && 'cursor-pointer select-none',
+          // Hover animations (CSS-based)
+          !disableHover && [
+            'transition-all duration-300 ease-out',
+            'hover:scale-[var(--hover-scale,1.02)]',
+            'hover:translate-y-[var(--hover-y,-4px)]',
+            'hover:shadow-2xl hover:shadow-black/25',
+          ],
+          // Click animation
+          clickable && isPressed && 'scale-[0.98]',
           // Custom
           className
         )}
-        style={glowStyle}
-        variants={hoverVariants}
-        initial="initial"
-        whileHover="hover"
-        whileTap={clickable ? 'tap' : undefined}
+        style={{
+          ...style,
+          ...hoverStyles,
+          ...glowStyles,
+        }}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={() => setIsPressed(false)}
         {...props}
       >
         {/* Glow Effect Overlay for 'glow' variant */}
         {variant === 'glow' && (
           <div
-            className="absolute inset-0 opacity-30 pointer-events-none"
+            className="absolute inset-0 opacity-30 pointer-events-none transition-opacity duration-300"
             style={{
               background: glowColor
                 ? `radial-gradient(ellipse at center, ${glowColor}40 0%, transparent 70%)`
@@ -202,11 +192,10 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
         {/* Header */}
         {header && (
           <div className={cn(
-            'border-b border-white/10 -mx-4 px-4 pb-4 mb-4',
-            size === 'sm' && '-mx-3 px-3 pb-3 mb-3',
-            size === 'lg' && '-mx-6 px-6 pb-6 mb-6',
-            size === 'xl' && '-mx-8 px-8 pb-6 mb-6',
-            size === 'full' && 'mx-0 px-4 pb-4 mb-0'
+            'border-b border-white/10 pb-4 mb-4',
+            size === 'sm' && 'pb-3 mb-3',
+            size === 'lg' && 'pb-6 mb-6',
+            size === 'xl' && 'pb-6 mb-6'
           )}>
             {header}
           </div>
@@ -220,16 +209,15 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
         {/* Footer */}
         {footer && (
           <div className={cn(
-            'border-t border-white/10 -mx-4 px-4 pt-4 mt-4',
-            size === 'sm' && '-mx-3 px-3 pt-3 mt-3',
-            size === 'lg' && '-mx-6 px-6 pt-6 mt-6',
-            size === 'xl' && '-mx-8 px-8 pt-6 mt-6',
-            size === 'full' && 'mx-0 px-4 pt-4 mt-0'
+            'border-t border-white/10 pt-4 mt-4',
+            size === 'sm' && 'pt-3 mt-3',
+            size === 'lg' && 'pt-6 mt-6',
+            size === 'xl' && 'pt-6 mt-6'
           )}>
             {footer}
           </div>
         )}
-      </motion.div>
+      </div>
     );
   }
 );
@@ -241,7 +229,7 @@ GlassCard.displayName = 'GlassCard';
 // ═══════════════════════════════════════════════════════════════════════════
 
 export interface GlassCardHeaderProps {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   /** Title text */
   title?: string;
@@ -450,6 +438,65 @@ export function GlassFeatureCard({
       </div>
       <h3 className="font-semibold text-white mb-2">{title}</h3>
       <p className="text-sm text-slate-400">{description}</p>
+    </GlassCard>
+  );
+}
+
+/** Interactive card that acts as a link/button */
+export interface GlassActionCardProps extends Omit<GlassCardProps, 'children'> {
+  title: string;
+  description?: string;
+  icon: ReactNode;
+  iconBg?: string;
+  chevron?: boolean;
+}
+
+export function GlassActionCard({
+  title,
+  description,
+  icon,
+  iconBg,
+  chevron = true,
+  className,
+  ...props
+}: GlassActionCardProps) {
+  return (
+    <GlassCard
+      className={cn('', className)}
+      clickable
+      {...props}
+    >
+      <div className="flex items-center gap-4">
+        <div
+          className={cn(
+            'w-10 h-10 rounded-lg flex items-center justify-center shrink-0',
+            iconBg || 'bg-white/10'
+          )}
+        >
+          {icon}
+        </div>
+        <div className="flex-1 min-w-0">
+          <h4 className="font-medium text-white truncate">{title}</h4>
+          {description && (
+            <p className="text-sm text-slate-400 truncate">{description}</p>
+          )}
+        </div>
+        {chevron && (
+          <svg
+            className="w-5 h-5 text-slate-400 shrink-0"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        )}
+      </div>
     </GlassCard>
   );
 }
