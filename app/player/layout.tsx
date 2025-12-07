@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import Link from 'next/link';
-import { Loader2, LogOut, User, Search, Users, MessageSquare } from 'lucide-react';
+import { Loader2, LogOut, User, Search, Users, MessageSquare, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { isDevMode, DEV_ENTITY_IDS, clearDevMode } from '@/lib/dev-mode';
@@ -96,6 +96,7 @@ export default function PlayerLayout({
 
   const navItems = [
     { href: '/player', label: 'Profile', icon: User },
+    { href: '/player/journey', label: 'Journey', icon: Compass },
     { href: '/player/discover', label: 'Discover', icon: Search },
     { href: '/player/team', label: 'Team', icon: Users },
     { href: '/player/messages', label: 'Messages', icon: MessageSquare },

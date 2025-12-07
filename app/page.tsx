@@ -1,9 +1,179 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Video, Compass, Users } from "lucide-react";
+import { Shield, Video, Compass, Users, Loader2 } from "lucide-react";
+import { createClient } from '@/lib/supabase/client';
+import { isDevMode, getDevRole } from '@/lib/dev-mode';
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TYPES
+// ═══════════════════════════════════════════════════════════════════════════
+
+type UserType = 'player' | 'coach' | 'admin';
+type CoachType = 'college' | 'high_school' | 'juco' | 'showcase';
+
+// ═══════════════════════════════════════════════════════════════════════════
+// REDIRECT MAP
+// ═══════════════════════════════════════════════════════════════════════════
+
+const DASHBOARD_REDIRECTS: Record<string, string> = {
+  // User types
+  player: '/player/dashboard',
+  coach: '/coach/college', // Default coach redirect
+  admin: '/admin/dashboard',
+  
+  // Coach types (more specific)
+  college: '/coach/college',
+  high_school: '/coach/high-school',
+  juco: '/coach/juco',
+  showcase: '/coach/showcase',
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════════════════════
+
+function normalizeCoachType(type: string | null): CoachType | null {
+  if (!type) return null;
+  const normalized = type.toLowerCase().replace(/-/g, '_');
+  if (['college', 'high_school', 'juco', 'showcase'].includes(normalized)) {
+    return normalized as CoachType;
+  }
+  return null;
+}
+
+function normalizeUserType(type: string | null | undefined): UserType | null {
+  if (!type) return null;
+  const normalized = type.toLowerCase();
+  if (['player', 'coach', 'admin'].includes(normalized)) {
+    return normalized as UserType;
+  }
+  return null;
+}
+
+function getDashboardPath(userType: UserType | null, coachType: CoachType | null): string {
+  if (userType === 'coach' && coachType) {
+    return DASHBOARD_REDIRECTS[coachType] || DASHBOARD_REDIRECTS.coach;
+  }
+  if (userType) {
+    return DASHBOARD_REDIRECTS[userType] || '/';
+  }
+  return '/';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// MAIN COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════
 
 export default function HomePage() {
+  const router = useRouter();
+  const [checking, setChecking] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const checkAuthAndRedirect = async () => {
+      const supabase = createClient();
+
+      try {
+        // ═══════════════════════════════════════════════════════════════════
+        // DEV MODE - Redirect based on dev role
+        // ═══════════════════════════════════════════════════════════════════
+        if (isDevMode()) {
+          const devRole = getDevRole();
+          
+          let userType: UserType = 'coach';
+          let coachType: CoachType | null = null;
+          
+          if (devRole === 'player') {
+            userType = 'player';
+          } else {
+            userType = 'coach';
+            coachType = devRole === 'high-school' ? 'high_school' 
+              : devRole === 'juco' ? 'juco'
+              : devRole === 'showcase' ? 'showcase'
+              : 'college';
+          }
+
+          const targetPath = getDashboardPath(userType, coachType);
+          setIsAuthenticated(true);
+          router.replace(targetPath);
+          return;
+        }
+
+        // ═══════════════════════════════════════════════════════════════════
+        // PRODUCTION - Check if user is logged in
+        // ═══════════════════════════════════════════════════════════════════
+        const { data: { session } } = await supabase.auth.getSession();
+
+        if (!session) {
+          // Not authenticated - show landing page
+          setChecking(false);
+          setIsAuthenticated(false);
+          return;
+        }
+
+        // User is authenticated - determine where to redirect
+        setIsAuthenticated(true);
+
+        // Get user profile to determine user type
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role, user_type')
+          .eq('id', session.user.id)
+          .maybeSingle();
+
+        const rawUserType = profile?.user_type || profile?.role;
+        const userType = normalizeUserType(rawUserType);
+
+        // Get coach type if user is a coach
+        let coachType: CoachType | null = null;
+        if (userType === 'coach') {
+          const { data: coach } = await supabase
+            .from('coaches')
+            .select('coach_type')
+            .eq('user_id', session.user.id)
+            .maybeSingle();
+          
+          coachType = normalizeCoachType(coach?.coach_type || null);
+        }
+
+        // Redirect to appropriate dashboard
+        const targetPath = getDashboardPath(userType, coachType);
+        router.replace(targetPath);
+
+      } catch (error) {
+        console.error('Auth check error:', error);
+        setChecking(false);
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkAuthAndRedirect();
+  }, [router]);
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // LOADING STATE - while checking auth
+  // ═══════════════════════════════════════════════════════════════════════
+  if (checking || isAuthenticated) {
+    return (
+      <main className="min-h-screen bg-gradient-to-b from-[#0A0A0A] to-[#111] text-white flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
+          <p className="text-slate-400 text-sm">
+            {isAuthenticated ? 'Redirecting to your dashboard...' : 'Loading...'}
+          </p>
+        </div>
+      </main>
+    );
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // LANDING PAGE - for unauthenticated users
+  // ═══════════════════════════════════════════════════════════════════════
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#0A0A0A] to-[#111] text-white">
       {/* Header */}

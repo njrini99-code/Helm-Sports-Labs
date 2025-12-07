@@ -28,6 +28,15 @@ import {
   Building2,
   Target,
   Sparkles,
+  BookOpen,
+  AlertTriangle,
+  CheckCircle2,
+  Star,
+  School,
+  FileText,
+  CalendarDays,
+  Timer,
+  Zap,
 } from 'lucide-react';
 import { useTheme } from '@/lib/theme-context';
 import Link from 'next/link';
@@ -35,6 +44,7 @@ import type { Coach } from '@/lib/types';
 import { getTeamForOwner, getTeamRoster, getTeamSchedule, type Team, type TeamMember, type ScheduleEvent } from '@/lib/queries/team';
 import { isDevMode, DEV_ENTITY_IDS } from '@/lib/dev-mode';
 import { toast } from 'sonner';
+import { GlassProgressBar, CircularProgress } from '@/components/ui/GlassProgressBar';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Animated Counter Hook
@@ -143,6 +153,42 @@ const MOCK_PRIORITY_NEEDS = [
   { id: 'pn2', position: 'MIF', priority: 'medium', count: 1 },
   { id: 'pn3', position: 'C', priority: 'high', count: 1 },
   { id: 'pn4', position: 'OF', priority: 'low', count: 2 },
+];
+
+// Academic progress mock data
+const MOCK_ACADEMIC_PROGRESS = [
+  { id: 'ap1', playerName: 'Marcus Williams', gpa: 3.4, creditsCompleted: 45, creditsRequired: 60, eligibilityStatus: 'eligible', graduationDate: 'May 2025' },
+  { id: 'ap2', playerName: 'Jake Thompson', gpa: 2.8, creditsCompleted: 32, creditsRequired: 60, eligibilityStatus: 'eligible', graduationDate: 'May 2025' },
+  { id: 'ap3', playerName: 'Tyler Johnson', gpa: 2.1, creditsCompleted: 28, creditsRequired: 60, eligibilityStatus: 'at_risk', graduationDate: 'Dec 2025' },
+  { id: 'ap4', playerName: 'Chris Martinez', gpa: 3.8, creditsCompleted: 52, creditsRequired: 60, eligibilityStatus: 'eligible', graduationDate: 'May 2025' },
+];
+
+// 4-year college matching suggestions
+const MOCK_COLLEGE_MATCHES = [
+  { id: 'cm1', playerName: 'Marcus Williams', position: 'RHP', matches: [
+    { collegeName: 'Georgia Tech', division: 'D1', matchScore: 95, interestLevel: 'high' },
+    { collegeName: 'Clemson', division: 'D1', matchScore: 88, interestLevel: 'medium' },
+    { collegeName: 'NC State', division: 'D1', matchScore: 82, interestLevel: 'high' },
+  ]},
+  { id: 'cm2', playerName: 'Jake Thompson', position: 'SS', matches: [
+    { collegeName: 'Wake Forest', division: 'D1', matchScore: 91, interestLevel: 'high' },
+    { collegeName: 'Duke', division: 'D1', matchScore: 85, interestLevel: 'medium' },
+  ]},
+  { id: 'cm3', playerName: 'Chris Martinez', position: 'C', matches: [
+    { collegeName: 'Florida State', division: 'D1', matchScore: 93, interestLevel: 'high' },
+    { collegeName: 'Miami', division: 'D1', matchScore: 89, interestLevel: 'medium' },
+    { collegeName: 'Virginia Tech', division: 'D1', matchScore: 84, interestLevel: 'low' },
+  ]},
+];
+
+// Transfer deadline timeline
+const MOCK_TRANSFER_DEADLINES = [
+  { id: 'td1', title: 'Fall Transfer Window Opens', date: '2024-08-01', daysUntil: -120, status: 'passed', description: 'Players can enter transfer portal' },
+  { id: 'td2', title: 'Fall Academic Deadline', date: '2024-10-15', daysUntil: -45, status: 'passed', description: 'Credits must be submitted' },
+  { id: 'td3', title: 'NLI Early Signing Period', date: '2024-11-13', daysUntil: 5, status: 'upcoming', description: 'Early signing period begins' },
+  { id: 'td4', title: 'Winter Transfer Window', date: '2024-12-15', daysUntil: 37, status: 'upcoming', description: 'Winter portal window opens' },
+  { id: 'td5', title: 'Spring Signing Period', date: '2025-04-15', daysUntil: 158, status: 'future', description: 'Regular signing period' },
+  { id: 'td6', title: 'Spring Semester Deadline', date: '2025-05-01', daysUntil: 174, status: 'future', description: 'Final transcript deadline' },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -467,9 +513,11 @@ export default function JUCOCoachDashboard() {
                     </p>
                   </div>
                 </div>
-                <Button variant="ghost" size="sm" className={`gap-1 ${isDark ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-800'}`}>
-                  Search Portal <ChevronRight className="w-4 h-4" />
-                </Button>
+                <Link href="/coach/juco/transfer-portal">
+                  <Button variant="ghost" size="sm" className={`gap-1 ${isDark ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-800'}`}>
+                    Manage Portal <ChevronRight className="w-4 h-4" />
+                  </Button>
+                </Link>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -512,10 +560,12 @@ export default function JUCOCoachDashboard() {
                     </div>
                   ))}
                 </div>
-                <Button variant="outline" className="w-full mt-4 gap-2">
-                  <Search className="w-4 h-4" />
-                  Search Transfer Portal
-                </Button>
+                <Link href="/coach/juco/transfer-portal">
+                  <Button variant="outline" className="w-full mt-4 gap-2">
+                    <Search className="w-4 h-4" />
+                    Manage Transfer Portal
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
@@ -751,6 +801,307 @@ export default function JUCOCoachDashboard() {
             </Card>
           </div>
         </div>
+
+        {/* ═══════════════════════════════════════════════════════════════════
+            TRANSFER TIMELINE & ACADEMIC TRACKING
+        ═══════════════════════════════════════════════════════════════════ */}
+        <div className="grid lg:grid-cols-2 gap-6">
+          {/* Transfer Deadline Timeline */}
+          <Card className={`overflow-hidden ${
+            isDark 
+              ? 'bg-slate-800/60 border-slate-700/50' 
+              : 'bg-white/90 border-slate-200/50 shadow-sm'
+          }`}>
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className={`p-2 rounded-lg ${isDark ? 'bg-purple-500/10' : 'bg-purple-100'}`}>
+                    <CalendarDays className={`w-4 h-4 ${isDark ? 'text-purple-400' : 'text-purple-600'}`} />
+                  </div>
+                  <div>
+                    <CardTitle className={`text-base ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                      Transfer Timeline
+                    </CardTitle>
+                    <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      Key deadlines & windows
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="relative">
+                {/* Timeline line */}
+                <div className={`absolute left-4 top-0 bottom-0 w-0.5 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`} />
+                
+                <div className="space-y-4">
+                  {MOCK_TRANSFER_DEADLINES.map((deadline, index) => (
+                    <div key={deadline.id} className="relative pl-10">
+                      {/* Timeline dot */}
+                      <div className={`absolute left-2.5 w-3 h-3 rounded-full border-2 ${
+                        deadline.status === 'passed' 
+                          ? 'bg-slate-400 border-slate-400' 
+                          : deadline.status === 'upcoming'
+                          ? 'bg-cyan-500 border-cyan-500 animate-pulse'
+                          : isDark ? 'bg-slate-700 border-slate-600' : 'bg-white border-slate-300'
+                      }`} />
+                      
+                      <div className={`p-3 rounded-xl ${
+                        deadline.status === 'upcoming'
+                          ? isDark ? 'bg-cyan-500/10 border border-cyan-500/30' : 'bg-cyan-50 border border-cyan-200'
+                          : deadline.status === 'passed'
+                          ? isDark ? 'bg-slate-700/20' : 'bg-slate-50'
+                          : isDark ? 'bg-slate-700/30' : 'bg-slate-50'
+                      }`}>
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            <p className={`font-medium text-sm ${
+                              deadline.status === 'passed'
+                                ? isDark ? 'text-slate-500' : 'text-slate-400'
+                                : isDark ? 'text-white' : 'text-slate-800'
+                            }`}>
+                              {deadline.title}
+                            </p>
+                            <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                              {deadline.description}
+                            </p>
+                          </div>
+                          <div className="text-right shrink-0">
+                            <p className={`text-xs font-medium ${
+                              deadline.status === 'upcoming' 
+                                ? 'text-cyan-500' 
+                                : deadline.status === 'passed'
+                                ? isDark ? 'text-slate-500' : 'text-slate-400'
+                                : isDark ? 'text-slate-300' : 'text-slate-600'
+                            }`}>
+                              {new Date(deadline.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                            </p>
+                            {deadline.status === 'upcoming' && deadline.daysUntil > 0 && (
+                              <Badge className="mt-1 bg-cyan-500/20 text-cyan-400 border-cyan-500/30 text-[10px]">
+                                <Timer className="w-3 h-3 mr-1" />
+                                {deadline.daysUntil}d
+                              </Badge>
+                            )}
+                            {deadline.status === 'passed' && (
+                              <Badge variant="outline" className="mt-1 text-[10px] opacity-50">
+                                <CheckCircle2 className="w-3 h-3 mr-1" />
+                                Done
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Academic Progress Tracking */}
+          <Card className={`overflow-hidden ${
+            isDark 
+              ? 'bg-slate-800/60 border-slate-700/50' 
+              : 'bg-white/90 border-slate-200/50 shadow-sm'
+          }`}>
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className={`p-2 rounded-lg ${isDark ? 'bg-blue-500/10' : 'bg-blue-100'}`}>
+                    <BookOpen className={`w-4 h-4 ${isDark ? 'text-blue-400' : 'text-blue-600'}`} />
+                  </div>
+                  <div>
+                    <CardTitle className={`text-base ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                      Academic Progress
+                    </CardTitle>
+                    <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      Player eligibility & credits
+                    </p>
+                  </div>
+                </div>
+                <Button variant="ghost" size="sm" className={`gap-1 ${isDark ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-800'}`}>
+                  View All <ChevronRight className="w-4 h-4" />
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {MOCK_ACADEMIC_PROGRESS.map((player) => {
+                  const progressPercent = Math.round((player.creditsCompleted / player.creditsRequired) * 100);
+                  return (
+                    <div 
+                      key={player.id}
+                      className={`p-3 rounded-xl ${
+                        player.eligibilityStatus === 'at_risk'
+                          ? isDark ? 'bg-red-500/10 border border-red-500/30' : 'bg-red-50 border border-red-200'
+                          : isDark ? 'bg-slate-700/30' : 'bg-slate-50'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <p className={`font-medium text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                            {player.playerName}
+                          </p>
+                          {player.eligibilityStatus === 'at_risk' && (
+                            <Badge className="bg-red-500/20 text-red-400 border-red-500/30 text-[10px]">
+                              <AlertTriangle className="w-3 h-3 mr-1" />
+                              At Risk
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="text-right">
+                            <p className={`text-xs font-medium ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                              GPA: {player.gpa.toFixed(1)}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>
+                            Credits: {player.creditsCompleted}/{player.creditsRequired}
+                          </span>
+                          <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>
+                            {player.graduationDate}
+                          </span>
+                        </div>
+                        <GlassProgressBar 
+                          value={progressPercent} 
+                          variant={isDark ? 'glass' : 'default'}
+                          size="sm"
+                          ratingLevel={progressPercent >= 80 ? 'excellent' : progressPercent >= 50 ? 'good' : 'developing'}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* ═══════════════════════════════════════════════════════════════════
+            4-YEAR COLLEGE MATCHING
+        ═══════════════════════════════════════════════════════════════════ */}
+        <Card className={`overflow-hidden ${
+          isDark 
+            ? 'bg-slate-800/60 border-slate-700/50' 
+            : 'bg-white/90 border-slate-200/50 shadow-sm'
+        }`}>
+          <CardHeader className="pb-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className={`p-2 rounded-lg ${isDark ? 'bg-emerald-500/10' : 'bg-emerald-100'}`}>
+                  <School className={`w-4 h-4 ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`} />
+                </div>
+                <div>
+                  <CardTitle className={`text-base ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                    4-Year College Matching
+                  </CardTitle>
+                  <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                    AI-powered suggestions based on player profiles & academics
+                  </p>
+                </div>
+              </div>
+              <Badge className={`${isDark ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-100 text-emerald-700'}`}>
+                <Sparkles className="w-3 h-3 mr-1" />
+                New Matches
+              </Badge>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-3 gap-4">
+              {MOCK_COLLEGE_MATCHES.map((player) => (
+                <div 
+                  key={player.id}
+                  className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/30' : 'bg-slate-50'}`}
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <Avatar className="h-8 w-8">
+                      <AvatarFallback className={`text-xs font-medium ${isDark ? 'bg-cyan-500/20 text-cyan-300' : 'bg-cyan-100 text-cyan-700'}`}>
+                        {player.playerName.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className={`font-medium text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                        {player.playerName}
+                      </p>
+                      <Badge variant="outline" className="text-[10px]">{player.position}</Badge>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    {player.matches.map((match, idx) => (
+                      <div 
+                        key={idx}
+                        className={`flex items-center justify-between p-2 rounded-lg ${
+                          isDark ? 'bg-slate-700/50' : 'bg-white'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <div className={`w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold ${
+                            match.matchScore >= 90
+                              ? 'bg-emerald-500/20 text-emerald-400'
+                              : match.matchScore >= 80
+                              ? 'bg-blue-500/20 text-blue-400'
+                              : 'bg-slate-500/20 text-slate-400'
+                          }`}>
+                            {match.matchScore}
+                          </div>
+                          <div>
+                            <p className={`text-xs font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                              {match.collegeName}
+                            </p>
+                            <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                              {match.division}
+                            </p>
+                          </div>
+                        </div>
+                        <Badge className={`text-[10px] ${
+                          match.interestLevel === 'high'
+                            ? 'bg-emerald-500/20 text-emerald-400'
+                            : match.interestLevel === 'medium'
+                            ? 'bg-amber-500/20 text-amber-400'
+                            : 'bg-slate-500/20 text-slate-400'
+                        }`}>
+                          {match.interestLevel === 'high' && <Star className="w-3 h-3 mr-1" />}
+                          {match.interestLevel}
+                        </Badge>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <Button variant="ghost" size="sm" className={`w-full mt-3 text-xs ${isDark ? 'text-cyan-400 hover:text-cyan-300' : 'text-cyan-600 hover:text-cyan-700'}`}>
+                    View all matches <ChevronRight className="w-3 h-3 ml-1" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+            
+            <div className={`mt-4 p-4 rounded-xl ${isDark ? 'bg-gradient-to-r from-cyan-500/10 to-emerald-500/10 border border-cyan-500/20' : 'bg-gradient-to-r from-cyan-50 to-emerald-50 border border-cyan-200'}`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className={`p-2 rounded-lg ${isDark ? 'bg-cyan-500/20' : 'bg-cyan-100'}`}>
+                    <Zap className={`w-5 h-5 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
+                  </div>
+                  <div>
+                    <p className={`font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                      Get More Matches
+                    </p>
+                    <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      Complete player profiles for better 4-year college recommendations
+                    </p>
+                  </div>
+                </div>
+                <Button className="bg-cyan-500 hover:bg-cyan-600 text-white gap-2">
+                  <FileText className="w-4 h-4" />
+                  Update Profiles
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

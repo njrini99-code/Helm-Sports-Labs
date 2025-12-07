@@ -35,6 +35,13 @@ import {
   CheckCircle2,
   UserPlus,
   Mail,
+  BarChart3,
+  Target,
+  Activity,
+  Zap,
+  FileText,
+  Settings,
+  Bell,
 } from 'lucide-react';
 import { useTheme } from '@/lib/theme-context';
 import Link from 'next/link';
@@ -42,6 +49,7 @@ import type { Coach } from '@/lib/types';
 import { getTeamForOwner, getTeamRoster, getTeamSchedule, type Team, type TeamMember, type ScheduleEvent } from '@/lib/queries/team';
 import { isDevMode, DEV_ENTITY_IDS } from '@/lib/dev-mode';
 import { toast } from 'sonner';
+import { GlassProgressBar, SkillRatingBar } from '@/components/ui/GlassProgressBar';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Animated Counter Hook
@@ -752,6 +760,59 @@ export default function HSCoachDashboard() {
               </CardContent>
             </Card>
 
+            {/* Team Performance Metrics */}
+            <Card className={`overflow-hidden ${
+              isDark 
+                ? 'bg-slate-800/60 border-slate-700/50' 
+                : 'bg-white/90 border-slate-200/50 shadow-sm'
+            }`}>
+              <CardHeader className="pb-3">
+                <div className="flex items-center gap-2">
+                  <div className={`p-2 rounded-lg ${isDark ? 'bg-blue-500/10' : 'bg-blue-100'}`}>
+                    <BarChart3 className={`w-4 h-4 ${isDark ? 'text-blue-400' : 'text-blue-600'}`} />
+                  </div>
+                  <div>
+                    <CardTitle className={`text-base ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                      Team Performance
+                    </CardTitle>
+                    <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      Current season stats
+                    </p>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <SkillRatingBar 
+                  name="Batting Average" 
+                  rating={72} 
+                  previousRating={68}
+                  variant={isDark ? 'glass' : 'default'}
+                  size="sm"
+                />
+                <SkillRatingBar 
+                  name="On-Base %" 
+                  rating={65} 
+                  previousRating={62}
+                  variant={isDark ? 'glass' : 'default'}
+                  size="sm"
+                />
+                <SkillRatingBar 
+                  name="Pitching ERA" 
+                  rating={78} 
+                  previousRating={75}
+                  variant={isDark ? 'glass' : 'default'}
+                  size="sm"
+                />
+                <SkillRatingBar 
+                  name="Fielding %" 
+                  rating={85} 
+                  previousRating={82}
+                  variant={isDark ? 'glass' : 'default'}
+                  size="sm"
+                />
+              </CardContent>
+            </Card>
+
             {/* Quick Actions */}
             <Card className={`overflow-hidden ${
               isDark 
@@ -790,6 +851,85 @@ export default function HSCoachDashboard() {
                     </Button>
                   </Link>
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* Navigation Tools */}
+            <Card className={`overflow-hidden ${
+              isDark 
+                ? 'bg-gradient-to-br from-slate-800/80 to-slate-800/40 border-slate-700/50' 
+                : 'bg-gradient-to-br from-amber-50 to-white border-amber-100/50 shadow-sm'
+            }`}>
+              <CardHeader className="pb-3">
+                <CardTitle className={`text-base ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                  Management Tools
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <Link href="/coach/high-school/roster" className="block">
+                  <div className={`flex items-center gap-3 p-3 rounded-xl transition-all hover:scale-[1.02] ${
+                    isDark 
+                      ? 'bg-slate-700/40 hover:bg-slate-700/60' 
+                      : 'bg-white hover:shadow-md'
+                  }`}>
+                    <div className={`p-2 rounded-lg ${isDark ? 'bg-blue-500/20' : 'bg-blue-100'}`}>
+                      <Users className={`w-4 h-4 ${isDark ? 'text-blue-400' : 'text-blue-600'}`} />
+                    </div>
+                    <div className="flex-1">
+                      <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>Roster Management</p>
+                      <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Manage players & college interest</p>
+                    </div>
+                    <ChevronRight className={`w-4 h-4 ${isDark ? 'text-slate-500' : 'text-slate-400'}`} />
+                  </div>
+                </Link>
+                <Link href="/coach/high-school/messages" className="block">
+                  <div className={`flex items-center gap-3 p-3 rounded-xl transition-all hover:scale-[1.02] ${
+                    isDark 
+                      ? 'bg-slate-700/40 hover:bg-slate-700/60' 
+                      : 'bg-white hover:shadow-md'
+                  }`}>
+                    <div className={`p-2 rounded-lg ${isDark ? 'bg-purple-500/20' : 'bg-purple-100'}`}>
+                      <MessageSquare className={`w-4 h-4 ${isDark ? 'text-purple-400' : 'text-purple-600'}`} />
+                    </div>
+                    <div className="flex-1">
+                      <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>Communication Hub</p>
+                      <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Messages & announcements</p>
+                    </div>
+                    <ChevronRight className={`w-4 h-4 ${isDark ? 'text-slate-500' : 'text-slate-400'}`} />
+                  </div>
+                </Link>
+                <Link href="/coach/high-school/team?tab=stats" className="block">
+                  <div className={`flex items-center gap-3 p-3 rounded-xl transition-all hover:scale-[1.02] ${
+                    isDark 
+                      ? 'bg-slate-700/40 hover:bg-slate-700/60' 
+                      : 'bg-white hover:shadow-md'
+                  }`}>
+                    <div className={`p-2 rounded-lg ${isDark ? 'bg-emerald-500/20' : 'bg-emerald-100'}`}>
+                      <BarChart3 className={`w-4 h-4 ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`} />
+                    </div>
+                    <div className="flex-1">
+                      <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>Stats & Analytics</p>
+                      <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Player performance data</p>
+                    </div>
+                    <ChevronRight className={`w-4 h-4 ${isDark ? 'text-slate-500' : 'text-slate-400'}`} />
+                  </div>
+                </Link>
+                <Link href="/coach/high-school/program" className="block">
+                  <div className={`flex items-center gap-3 p-3 rounded-xl transition-all hover:scale-[1.02] ${
+                    isDark 
+                      ? 'bg-slate-700/40 hover:bg-slate-700/60' 
+                      : 'bg-white hover:shadow-md'
+                  }`}>
+                    <div className={`p-2 rounded-lg ${isDark ? 'bg-amber-500/20' : 'bg-amber-100'}`}>
+                      <Settings className={`w-4 h-4 ${isDark ? 'text-amber-400' : 'text-amber-600'}`} />
+                    </div>
+                    <div className="flex-1">
+                      <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>Program Settings</p>
+                      <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>School profile & branding</p>
+                    </div>
+                    <ChevronRight className={`w-4 h-4 ${isDark ? 'text-slate-500' : 'text-slate-400'}`} />
+                  </div>
+                </Link>
               </CardContent>
             </Card>
           </div>
