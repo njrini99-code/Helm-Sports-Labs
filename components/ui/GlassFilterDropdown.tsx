@@ -19,9 +19,171 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
+// CSS ANIMATIONS
+// ═══════════════════════════════════════════════════════════════════════════
+
+const filterDropdownStyles = `
+/* Dropdown slide animations */
+@keyframes filter-dropdown-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes filter-dropdown-exit {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+}
+
+.filter-dropdown-enter {
+  animation: filter-dropdown-enter 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.filter-dropdown-exit {
+  animation: filter-dropdown-exit 0.15s ease-out forwards;
+}
+
+/* Checkbox animations */
+@keyframes checkbox-check {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes checkbox-uncheck {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+.checkbox-check-enter {
+  animation: checkbox-check 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.checkbox-check-exit {
+  animation: checkbox-uncheck 0.15s ease-out forwards;
+}
+
+/* Option highlight animation */
+@keyframes option-highlight {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(16, 185, 129, 0.15);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.option-highlight-flash {
+  animation: option-highlight 0.4s ease-out;
+}
+
+/* Clear button animation */
+@keyframes clear-button-pop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.clear-button-enter {
+  animation: clear-button-pop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Option item stagger */
+@keyframes option-item-enter {
+  0% {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.option-item-animated {
+  animation: option-item-enter 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+/* Loading shimmer */
+@keyframes filter-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.filter-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: filter-shimmer 1.5s ease-in-out infinite;
+}
+
+/* Badge pulse for new selections */
+@keyframes badge-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.badge-pulse {
+  animation: badge-pulse 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+`;
+
+let stylesInjected = false;
+function injectFilterStyles() {
+  if (stylesInjected || typeof document === 'undefined') return;
+  const style = document.createElement('style');
+  style.id = 'glass-filter-dropdown-styles';
+  style.textContent = filterDropdownStyles;
+  document.head.appendChild(style);
+  stylesInjected = true;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
 // TYPES
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
 
 export interface FilterOption {
   id: string;
@@ -61,11 +223,13 @@ export interface GlassFilterDropdownProps {
   dropdownClassName?: string;
   badgeVariant?: 'count' | 'dot' | 'none';
   align?: 'left' | 'right';
+  /** Enable animations */
+  enableAnimations?: boolean;
 }
 
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
 // HELPERS
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
 
 function isGroupedOptions(
   options: FilterOption[] | FilterGroup[]
@@ -80,67 +244,73 @@ function flattenOptions(options: FilterOption[] | FilterGroup[]): FilterOption[]
   return options;
 }
 
-// ============================================
+// Spring easing
+const SPRING_EASING = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
+
+// ═══════════════════════════════════════════════════════════════════════════
 // STYLE CONFIGURATIONS
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
 
 const variantStyles = {
   default: {
-    trigger: 'bg-white border border-slate-200 text-slate-700 hover:border-slate-300',
-    triggerActive: 'border-emerald-500 ring-2 ring-emerald-500/20',
-    dropdown: 'bg-white border border-slate-200 shadow-lg',
+    trigger: 'bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:shadow-sm',
+    triggerActive: 'border-emerald-500 ring-2 ring-emerald-500/20 shadow-md',
+    dropdown: 'bg-white border border-slate-200 shadow-2xl',
     option: 'hover:bg-slate-50 text-slate-700',
-    optionActive: 'bg-slate-100',
-    optionSelected: 'bg-emerald-50',
-    checkbox: 'border-slate-300 group-hover:border-slate-400',
+    optionActive: 'bg-emerald-50 border-l-2 border-l-emerald-500',
+    optionSelected: 'bg-emerald-50/50',
+    checkbox: 'border-slate-300 group-hover:border-emerald-400',
     checkboxChecked: 'bg-emerald-500 border-emerald-500',
     groupLabel: 'text-slate-500 bg-slate-50',
     search: 'bg-slate-50 border-slate-200 text-slate-700 placeholder:text-slate-400',
     badge: 'bg-emerald-500 text-white',
     badgeDot: 'bg-emerald-500',
-    count: 'text-slate-400',
+    count: 'text-slate-400 bg-slate-100',
     clearButton: 'text-slate-500 hover:text-slate-700 hover:bg-slate-100',
     selectAll: 'text-emerald-600 hover:text-emerald-700',
     divider: 'border-slate-200',
     description: 'text-slate-500',
+    kbd: 'bg-slate-100 text-slate-600',
   },
   glass: {
-    trigger: 'bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/15',
-    triggerActive: 'border-emerald-400/50 ring-2 ring-emerald-400/20',
-    dropdown: 'bg-slate-900/90 backdrop-blur-md border border-white/10 shadow-xl',
-    option: 'hover:bg-white/10 text-slate-200',
-    optionActive: 'bg-white/15',
-    optionSelected: 'bg-emerald-500/20',
-    checkbox: 'border-slate-500 group-hover:border-slate-400',
+    trigger: 'bg-white/[0.08] backdrop-blur-xl border border-white/20 text-white hover:bg-white/[0.12] hover:border-white/30',
+    triggerActive: 'border-emerald-400/50 ring-2 ring-emerald-400/30 bg-white/[0.15]',
+    dropdown: 'bg-slate-900/95 backdrop-blur-xl border border-white/15 shadow-2xl shadow-black/40',
+    option: 'hover:bg-white/[0.08] text-slate-200',
+    optionActive: 'bg-emerald-500/20 border-l-2 border-l-emerald-400',
+    optionSelected: 'bg-emerald-500/10',
+    checkbox: 'border-white/30 group-hover:border-emerald-400',
     checkboxChecked: 'bg-emerald-500 border-emerald-500',
     groupLabel: 'text-slate-400 bg-white/5',
-    search: 'bg-white/5 border-white/10 text-white placeholder:text-slate-400',
+    search: 'bg-white/5 border-white/10 text-white placeholder:text-white/40',
     badge: 'bg-emerald-500 text-white',
     badgeDot: 'bg-emerald-400',
-    count: 'text-slate-500',
+    count: 'text-slate-500 bg-white/5',
     clearButton: 'text-slate-400 hover:text-white hover:bg-white/10',
     selectAll: 'text-emerald-400 hover:text-emerald-300',
     divider: 'border-white/10',
     description: 'text-slate-400',
+    kbd: 'bg-white/10 text-white/60',
   },
   dark: {
-    trigger: 'bg-slate-800 border border-slate-700 text-slate-200 hover:border-slate-600',
-    triggerActive: 'border-emerald-500 ring-2 ring-emerald-500/20',
-    dropdown: 'bg-slate-800 border border-slate-700 shadow-xl',
-    option: 'hover:bg-slate-700 text-slate-200',
-    optionActive: 'bg-slate-700',
-    optionSelected: 'bg-emerald-500/20',
-    checkbox: 'border-slate-600 group-hover:border-slate-500',
+    trigger: 'bg-slate-800/90 backdrop-blur-md border border-slate-700 text-slate-200 hover:border-slate-600 hover:bg-slate-800',
+    triggerActive: 'border-emerald-500 ring-2 ring-emerald-500/20 shadow-lg shadow-emerald-500/5',
+    dropdown: 'bg-slate-800/95 backdrop-blur-xl border border-slate-700 shadow-2xl',
+    option: 'hover:bg-slate-700/50 text-slate-200',
+    optionActive: 'bg-emerald-500/20 border-l-2 border-l-emerald-500',
+    optionSelected: 'bg-emerald-500/10',
+    checkbox: 'border-slate-600 group-hover:border-emerald-500',
     checkboxChecked: 'bg-emerald-500 border-emerald-500',
     groupLabel: 'text-slate-500 bg-slate-700/50',
     search: 'bg-slate-700 border-slate-600 text-slate-200 placeholder:text-slate-500',
     badge: 'bg-emerald-500 text-white',
     badgeDot: 'bg-emerald-500',
-    count: 'text-slate-500',
+    count: 'text-slate-500 bg-slate-700',
     clearButton: 'text-slate-500 hover:text-slate-300 hover:bg-slate-700',
     selectAll: 'text-emerald-400 hover:text-emerald-300',
     divider: 'border-slate-700',
     description: 'text-slate-500',
+    kbd: 'bg-slate-700 text-slate-400',
   },
 };
 
@@ -183,40 +353,55 @@ const sizeStyles = {
   },
 };
 
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
 // CHECKBOX COMPONENT
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
 
 interface CheckboxProps {
   checked: boolean;
   variant: 'default' | 'glass' | 'dark';
   size: 'sm' | 'md' | 'lg';
   disabled?: boolean;
+  enableAnimations?: boolean;
 }
 
-function Checkbox({ checked, variant, size, disabled }: CheckboxProps) {
+function Checkbox({ checked, variant, size, disabled, enableAnimations = true }: CheckboxProps) {
   const styles = variantStyles[variant];
   const sizes = sizeStyles[size];
+  const [wasChecked, setWasChecked] = useState(checked);
+
+  useEffect(() => {
+    setWasChecked(checked);
+  }, [checked]);
+
+  const shouldAnimate = enableAnimations && checked !== wasChecked;
 
   return (
     <div
       className={cn(
-        'rounded border-2 flex items-center justify-center transition-all shrink-0',
+        'rounded border-2 flex items-center justify-center transition-all duration-200 shrink-0',
         sizes.checkbox,
         checked ? styles.checkboxChecked : styles.checkbox,
         disabled && 'opacity-50'
       )}
+      style={{ transitionTimingFunction: SPRING_EASING }}
     >
       {checked && (
-        <Check className={cn(sizes.checkIcon, 'text-white stroke-[3]')} />
+        <Check 
+          className={cn(
+            sizes.checkIcon, 
+            'text-white stroke-[3]',
+            shouldAnimate && 'checkbox-check-enter'
+          )} 
+        />
       )}
     </div>
   );
 }
 
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
 // OPTION ITEM COMPONENT
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
 
 interface OptionItemProps {
   option: FilterOption;
@@ -225,7 +410,10 @@ interface OptionItemProps {
   variant: 'default' | 'glass' | 'dark';
   size: 'sm' | 'md' | 'lg';
   showCounts: boolean;
+  index: number;
+  enableAnimations: boolean;
   onClick: () => void;
+  onMouseEnter: () => void;
 }
 
 function OptionItem({
@@ -235,34 +423,56 @@ function OptionItem({
   variant,
   size,
   showCounts,
+  index,
+  enableAnimations,
   onClick,
+  onMouseEnter,
 }: OptionItemProps) {
   const styles = variantStyles[variant];
   const sizes = sizeStyles[size];
   const Icon = option.icon;
+  const [justSelected, setJustSelected] = useState(false);
+
+  const handleClick = () => {
+    if (!isSelected) {
+      setJustSelected(true);
+      setTimeout(() => setJustSelected(false), 400);
+    }
+    onClick();
+  };
 
   return (
     <button
       type="button"
-      onClick={onClick}
+      onClick={handleClick}
+      onMouseEnter={onMouseEnter}
       disabled={option.disabled}
       className={cn(
-        'w-full flex items-center gap-3 rounded-lg transition-colors group',
+        'w-full flex items-center gap-3 rounded-xl transition-all duration-200 group',
         sizes.option,
         styles.option,
         isActive && styles.optionActive,
         isSelected && styles.optionSelected,
-        option.disabled && 'opacity-50 cursor-not-allowed'
+        justSelected && 'option-highlight-flash',
+        option.disabled && 'opacity-50 cursor-not-allowed',
+        enableAnimations && 'option-item-animated'
       )}
+      style={{ 
+        animationDelay: enableAnimations ? `${index * 30}ms` : '0ms',
+        transitionTimingFunction: SPRING_EASING 
+      }}
     >
       <Checkbox
         checked={isSelected}
         variant={variant}
         size={size}
         disabled={option.disabled}
+        enableAnimations={enableAnimations}
       />
       {Icon && (
-        <Icon className={cn(sizes.icon, 'shrink-0', styles.description)} />
+        <Icon className={cn(sizes.icon, 'shrink-0 transition-colors duration-200', 
+          isActive ? 'text-emerald-400' : styles.description
+        )} />
       )}
       <div className="flex-1 text-left min-w-0">
         <div className="truncate">{option.label}</div>
@@ -273,7 +483,10 @@ function OptionItem({
         )}
       </div>
       {showCounts && option.count !== undefined && (
-        <span className={cn('text-xs tabular-nums shrink-0', styles.count)}>
+        <span className={cn(
+          'text-xs tabular-nums shrink-0 px-1.5 py-0.5 rounded-md transition-colors duration-200',
+          styles.count
+        )}>
           {option.count}
         </span>
       )}
@@ -281,9 +494,33 @@ function OptionItem({
   );
 }
 
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
+// LOADING SKELETON
+// ═══════════════════════════════════════════════════════════════════════════
+
+function LoadingSkeleton({ count = 5 }: { count?: number }) {
+  return (
+    <div className="space-y-1 p-1.5">
+      {Array.from({ length: count }).map((_, i) => (
+        <div
+          key={i}
+          className="flex items-center gap-3 px-3 py-2 rounded-xl filter-shimmer"
+          style={{ animationDelay: `${i * 100}ms` }}
+        >
+          <div className="w-4 h-4 rounded bg-white/10" />
+          <div className="flex-1 space-y-1">
+            <div className="h-4 bg-white/10 rounded w-3/4" />
+          </div>
+          <div className="w-8 h-4 bg-white/10 rounded" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
 // MAIN COMPONENT
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
 
 export function GlassFilterDropdown({
   label = 'Filter',
@@ -307,17 +544,35 @@ export function GlassFilterDropdown({
   dropdownClassName,
   badgeVariant = 'count',
   align = 'left',
+  enableAnimations = true,
 }: GlassFilterDropdownProps) {
   // State
   const [isOpen, setIsOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [badgePulse, setBadgePulse] = useState(false);
+  const prevSelectedCount = useRef(selectedValues.length);
 
   // Refs
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const optionsRef = useRef<HTMLDivElement>(null);
+
+  // Inject styles
+  useEffect(() => {
+    injectFilterStyles();
+  }, []);
+
+  // Badge pulse on selection change
+  useEffect(() => {
+    if (selectedValues.length > prevSelectedCount.current) {
+      setBadgePulse(true);
+      setTimeout(() => setBadgePulse(false), 300);
+    }
+    prevSelectedCount.current = selectedValues.length;
+  }, [selectedValues.length]);
 
   // Styles
   const styles = variantStyles[variant];
@@ -363,24 +618,38 @@ export function GlassFilterDropdown({
     allOptions.every(
       (opt) => opt.disabled || selectedValues.includes(opt.id)
     );
-  const someSelected = selectedCount > 0 && !allSelected;
 
   const Icon = CustomIcon || Filter;
 
   // Handlers
   const handleToggle = () => {
     if (disabled) return;
-    setIsOpen((prev) => !prev);
-    setSearchQuery('');
-    setActiveIndex(-1);
+    if (isOpen) {
+      handleClose();
+    } else {
+      setIsOpen(true);
+      setIsClosing(false);
+      setSearchQuery('');
+      setActiveIndex(-1);
+    }
   };
 
   const handleClose = useCallback(() => {
-    setIsOpen(false);
-    setSearchQuery('');
-    setActiveIndex(-1);
+    if (enableAnimations) {
+      setIsClosing(true);
+      setTimeout(() => {
+        setIsOpen(false);
+        setIsClosing(false);
+        setSearchQuery('');
+        setActiveIndex(-1);
+      }, 150);
+    } else {
+      setIsOpen(false);
+      setSearchQuery('');
+      setActiveIndex(-1);
+    }
     triggerRef.current?.focus();
-  }, []);
+  }, [enableAnimations]);
 
   const handleOptionToggle = useCallback(
     (optionId: string) => {
@@ -483,6 +752,8 @@ export function GlassFilterDropdown({
   // Track option index for keyboard nav
   let optionIndex = -1;
 
+  const showDropdown = isOpen || isClosing;
+
   return (
     <div ref={containerRef} className={cn('relative inline-block', className)}>
       {/* Trigger Button */}
@@ -504,24 +775,26 @@ export function GlassFilterDropdown({
           isOpen && styles.triggerActive,
           disabled && 'opacity-50 cursor-not-allowed'
         )}
+        style={{ transitionTimingFunction: SPRING_EASING }}
       >
-        <Icon className={sizes.icon} />
+        <Icon className={cn(sizes.icon, 'transition-transform duration-200', isOpen && 'scale-110')} />
         <span className="truncate">{placeholder || label}</span>
 
         {/* Badge */}
         {badgeVariant === 'count' && selectedCount > 0 && (
           <span
             className={cn(
-              'inline-flex items-center justify-center rounded-full font-medium',
+              'inline-flex items-center justify-center rounded-full font-medium transition-transform duration-200',
               sizes.badge,
-              styles.badge
+              styles.badge,
+              badgePulse && 'badge-pulse'
             )}
           >
             {selectedCount}
           </span>
         )}
         {badgeVariant === 'dot' && selectedCount > 0 && (
-          <span className={cn('rounded-full', sizes.badgeDot, styles.badgeDot)} />
+          <span className={cn('rounded-full', sizes.badgeDot, styles.badgeDot, badgePulse && 'badge-pulse')} />
         )}
 
         <ChevronDown
@@ -534,13 +807,14 @@ export function GlassFilterDropdown({
       </button>
 
       {/* Dropdown */}
-      {isOpen && (
+      {showDropdown && (
         <div
           className={cn(
             'absolute top-full mt-2 rounded-xl overflow-hidden z-50',
             sizes.dropdown,
             styles.dropdown,
             align === 'right' ? 'right-0' : 'left-0',
+            enableAnimations && (isClosing ? 'filter-dropdown-exit' : 'filter-dropdown-enter'),
             dropdownClassName
           )}
           onKeyDown={handleKeyDown}
@@ -551,9 +825,9 @@ export function GlassFilterDropdown({
               <div className="relative">
                 <Search
                   className={cn(
-                    'absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none',
+                    'absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none transition-colors duration-200',
                     sizes.icon,
-                    styles.description
+                    searchQuery ? 'text-emerald-400' : styles.description
                   )}
                 />
                 <input
@@ -566,8 +840,8 @@ export function GlassFilterDropdown({
                   }}
                   placeholder={searchPlaceholder}
                   className={cn(
-                    'w-full rounded-lg border pl-9 pr-3 outline-none transition-colors',
-                    'focus:ring-2 focus:ring-emerald-500/20',
+                    'w-full rounded-xl border pl-9 pr-8 outline-none transition-all duration-200',
+                    'focus:ring-2 focus:ring-emerald-500/30',
                     sizes.search,
                     styles.search
                   )}
@@ -577,11 +851,12 @@ export function GlassFilterDropdown({
                     type="button"
                     onClick={() => setSearchQuery('')}
                     className={cn(
-                      'absolute right-2 top-1/2 -translate-y-1/2 p-0.5 rounded',
+                      'absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-lg transition-all duration-200',
+                      'hover:scale-110',
                       styles.clearButton
                     )}
                   >
-                    <X className="h-3 w-3" />
+                    <X className="h-3.5 w-3.5" />
                   </button>
                 )}
               </div>
@@ -600,7 +875,7 @@ export function GlassFilterDropdown({
                 <button
                   type="button"
                   onClick={handleSelectAll}
-                  className={cn('text-sm font-medium', styles.selectAll)}
+                  className={cn('text-sm font-medium transition-colors duration-200', styles.selectAll)}
                 >
                   {allSelected ? 'Deselect all' : 'Select all'}
                 </button>
@@ -610,11 +885,13 @@ export function GlassFilterDropdown({
                   type="button"
                   onClick={handleClearAll}
                   className={cn(
-                    'text-sm flex items-center gap-1 px-2 py-1 rounded-md transition-colors',
-                    styles.clearButton
+                    'text-sm flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition-all duration-200',
+                    'hover:scale-105',
+                    styles.clearButton,
+                    enableAnimations && 'clear-button-enter'
                   )}
                 >
-                  <X className="h-3 w-3" />
+                  <X className="h-3.5 w-3.5" />
                   Clear ({selectedCount})
                 </button>
               )}
@@ -628,17 +905,7 @@ export function GlassFilterDropdown({
             style={{ maxHeight }}
           >
             {/* Loading State */}
-            {isLoading && (
-              <div
-                className={cn(
-                  'flex items-center justify-center py-8 gap-2',
-                  styles.description
-                )}
-              >
-                <Loader2 className="h-5 w-5 animate-spin" />
-                <span>{loadingText}</span>
-              </div>
-            )}
+            {isLoading && <LoadingSkeleton count={5} />}
 
             {/* Empty State */}
             {!isLoading && flatFilteredOptions.length === 0 && (
@@ -648,8 +915,13 @@ export function GlassFilterDropdown({
                   styles.description
                 )}
               >
-                <Filter className="h-8 w-8 mb-2 opacity-50" />
-                <p>{searchQuery ? `No results for "${searchQuery}"` : emptyText}</p>
+                <div className="p-3 rounded-xl bg-white/5 mb-3">
+                  <Filter className="h-6 w-6 opacity-50" />
+                </div>
+                <p className="font-medium">{searchQuery ? `No results for "${searchQuery}"` : emptyText}</p>
+                {searchQuery && (
+                  <p className="text-sm opacity-75 mt-1">Try a different search term</p>
+                )}
               </div>
             )}
 
@@ -660,7 +932,7 @@ export function GlassFilterDropdown({
                 <div key={group.id} className="mb-2 last:mb-0">
                   <div
                     className={cn(
-                      'font-medium uppercase tracking-wider rounded-md mb-1',
+                      'font-medium uppercase tracking-wider rounded-lg mb-1',
                       sizes.groupLabel,
                       styles.groupLabel
                     )}
@@ -680,7 +952,10 @@ export function GlassFilterDropdown({
                             variant={variant}
                             size={size}
                             showCounts={showCounts}
+                            index={currentIndex}
+                            enableAnimations={enableAnimations}
                             onClick={() => handleOptionToggle(option.id)}
+                            onMouseEnter={() => setActiveIndex(currentIndex)}
                           />
                         </div>
                       );
@@ -704,7 +979,10 @@ export function GlassFilterDropdown({
                       variant={variant}
                       size={size}
                       showCounts={showCounts}
+                      index={currentIndex}
+                      enableAnimations={enableAnimations}
                       onClick={() => handleOptionToggle(option.id)}
+                      onMouseEnter={() => setActiveIndex(currentIndex)}
                     />
                   </div>
                 );
@@ -720,23 +998,23 @@ export function GlassFilterDropdown({
                 styles.description
               )}
             >
-              <span className="flex items-center gap-1">
-                <kbd className="px-1.5 py-0.5 rounded bg-black/10 font-mono">
+              <span className="flex items-center gap-1.5">
+                <kbd className={cn('px-1.5 py-0.5 rounded font-mono text-[10px]', styles.kbd)}>
                   ↑↓
                 </kbd>
-                navigate
+                <span className="opacity-75">navigate</span>
               </span>
-              <span className="flex items-center gap-1">
-                <kbd className="px-1.5 py-0.5 rounded bg-black/10 font-mono">
+              <span className="flex items-center gap-1.5">
+                <kbd className={cn('px-1.5 py-0.5 rounded font-mono text-[10px]', styles.kbd)}>
                   Space
                 </kbd>
-                toggle
+                <span className="opacity-75">toggle</span>
               </span>
-              <span className="flex items-center gap-1">
-                <kbd className="px-1.5 py-0.5 rounded bg-black/10 font-mono">
+              <span className="flex items-center gap-1.5">
+                <kbd className={cn('px-1.5 py-0.5 rounded font-mono text-[10px]', styles.kbd)}>
                   esc
                 </kbd>
-                close
+                <span className="opacity-75">close</span>
               </span>
             </div>
           )}
@@ -746,9 +1024,9 @@ export function GlassFilterDropdown({
   );
 }
 
-// ============================================
-// MULTI-FILTER BAR (Multiple Filter Dropdowns)
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
+// MULTI-FILTER BAR
+// ═══════════════════════════════════════════════════════════════════════════
 
 export interface FilterConfig {
   id: string;
@@ -801,7 +1079,8 @@ export function MultiFilterBar({
           type="button"
           onClick={onClearAll}
           className={cn(
-            'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm transition-colors',
+            'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm transition-all duration-200',
+            'hover:scale-105',
             styles.clearButton
           )}
         >
@@ -813,9 +1092,9 @@ export function MultiFilterBar({
   );
 }
 
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
 // ACTIVE FILTERS DISPLAY
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
 
 interface ActiveFiltersProps {
   filters: FilterConfig[];
@@ -881,13 +1160,14 @@ export function ActiveFilters({
           type="button"
           onClick={() => onRemove(filter.filterId, filter.optionId)}
           className={cn(
-            'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-sm transition-colors group',
+            'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-sm transition-all duration-200 group',
+            'hover:scale-105',
             badgeStyles[variant]
           )}
         >
           <span className="opacity-75">{filter.filterLabel}:</span>
           <span className="font-medium">{filter.optionLabel}</span>
-          <X className="h-3 w-3 opacity-50 group-hover:opacity-100" />
+          <X className="h-3 w-3 opacity-50 group-hover:opacity-100 transition-opacity" />
         </button>
       ))}
       {onClearAll && activeFilters.length > 1 && (
@@ -895,7 +1175,8 @@ export function ActiveFilters({
           type="button"
           onClick={onClearAll}
           className={cn(
-            'text-sm px-2 py-1 rounded transition-colors',
+            'text-sm px-2.5 py-1 rounded-lg transition-all duration-200',
+            'hover:scale-105',
             styles.clearButton
           )}
         >
@@ -906,9 +1187,9 @@ export function ActiveFilters({
   );
 }
 
-// ============================================
-// SIMPLE SINGLE-SELECT FILTER
-// ============================================
+// ═══════════════════════════════════════════════════════════════════════════
+// SINGLE-SELECT FILTER
+// ═══════════════════════════════════════════════════════════════════════════
 
 interface SingleSelectFilterProps {
   label?: string;
@@ -921,6 +1202,7 @@ interface SingleSelectFilterProps {
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
   className?: string;
+  enableAnimations?: boolean;
 }
 
 export function SingleSelectFilter({
@@ -934,11 +1216,17 @@ export function SingleSelectFilter({
   size = 'md',
   disabled = false,
   className,
+  enableAnimations = true,
 }: SingleSelectFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    injectFilterStyles();
+  }, []);
 
   const styles = variantStyles[variant];
   const sizes = sizeStyles[size];
@@ -946,10 +1234,22 @@ export function SingleSelectFilter({
   const Icon = CustomIcon || Filter;
   const selectedOption = options.find((opt) => opt.id === value);
 
+  const handleClose = useCallback(() => {
+    if (enableAnimations) {
+      setIsClosing(true);
+      setTimeout(() => {
+        setIsOpen(false);
+        setIsClosing(false);
+      }, 150);
+    } else {
+      setIsOpen(false);
+    }
+    triggerRef.current?.focus();
+  }, [enableAnimations]);
+
   const handleSelect = (optionId: string) => {
     onChange(optionId === value ? null : optionId);
-    setIsOpen(false);
-    triggerRef.current?.focus();
+    handleClose();
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
@@ -971,8 +1271,7 @@ export function SingleSelectFilter({
         break;
       case 'Escape':
         e.preventDefault();
-        setIsOpen(false);
-        triggerRef.current?.focus();
+        handleClose();
         break;
     }
   };
@@ -983,7 +1282,7 @@ export function SingleSelectFilter({
         containerRef.current &&
         !containerRef.current.contains(e.target as Node)
       ) {
-        setIsOpen(false);
+        handleClose();
       }
     };
 
@@ -992,14 +1291,24 @@ export function SingleSelectFilter({
       return () =>
         document.removeEventListener('mousedown', handleClickOutside);
     }
-  }, [isOpen]);
+  }, [isOpen, handleClose]);
+
+  const showDropdown = isOpen || isClosing;
 
   return (
     <div ref={containerRef} className={cn('relative inline-block', className)}>
       <button
         ref={triggerRef}
         type="button"
-        onClick={() => !disabled && setIsOpen((prev) => !prev)}
+        onClick={() => {
+          if (disabled) return;
+          if (isOpen) {
+            handleClose();
+          } else {
+            setIsOpen(true);
+            setIsClosing(false);
+          }
+        }}
         disabled={disabled}
         className={cn(
           'inline-flex items-center justify-center rounded-xl transition-all duration-200',
@@ -1008,8 +1317,9 @@ export function SingleSelectFilter({
           isOpen && styles.triggerActive,
           disabled && 'opacity-50 cursor-not-allowed'
         )}
+        style={{ transitionTimingFunction: SPRING_EASING }}
       >
-        <Icon className={sizes.icon} />
+        <Icon className={cn(sizes.icon, 'transition-transform duration-200', isOpen && 'scale-110')} />
         <span className="truncate">
           {selectedOption?.label || placeholder || label}
         </span>
@@ -1020,7 +1330,7 @@ export function SingleSelectFilter({
               e.stopPropagation();
               onChange(null);
             }}
-            className={cn('p-0.5 rounded', styles.clearButton)}
+            className={cn('p-1 rounded-lg transition-all duration-200 hover:scale-110', styles.clearButton)}
           >
             <X className="h-3 w-3" />
           </button>
@@ -1034,12 +1344,13 @@ export function SingleSelectFilter({
         />
       </button>
 
-      {isOpen && (
+      {showDropdown && (
         <div
           className={cn(
             'absolute top-full mt-2 left-0 rounded-xl overflow-hidden z-50 p-1.5',
             sizes.dropdown,
-            styles.dropdown
+            styles.dropdown,
+            enableAnimations && (isClosing ? 'filter-dropdown-exit' : 'filter-dropdown-enter')
           )}
           onKeyDown={handleKeyDown}
         >
@@ -1052,24 +1363,32 @@ export function SingleSelectFilter({
                 key={option.id}
                 type="button"
                 onClick={() => handleSelect(option.id)}
+                onMouseEnter={() => setActiveIndex(index)}
                 disabled={option.disabled}
                 className={cn(
-                  'w-full flex items-center gap-3 rounded-lg transition-colors',
+                  'w-full flex items-center gap-3 rounded-xl transition-all duration-200',
                   sizes.option,
                   styles.option,
                   activeIndex === index && styles.optionActive,
                   isSelected && styles.optionSelected,
-                  option.disabled && 'opacity-50 cursor-not-allowed'
+                  option.disabled && 'opacity-50 cursor-not-allowed',
+                  enableAnimations && 'option-item-animated'
                 )}
+                style={{ 
+                  animationDelay: enableAnimations ? `${index * 30}ms` : '0ms',
+                  transitionTimingFunction: SPRING_EASING 
+                }}
               >
                 {OptionIcon && (
                   <OptionIcon
-                    className={cn(sizes.icon, 'shrink-0', styles.description)}
+                    className={cn(sizes.icon, 'shrink-0 transition-colors duration-200', 
+                      activeIndex === index ? 'text-emerald-400' : styles.description
+                    )}
                   />
                 )}
                 <span className="flex-1 text-left truncate">{option.label}</span>
                 {isSelected && (
-                  <Check className={cn(sizes.icon, 'text-emerald-500 shrink-0')} />
+                  <Check className={cn(sizes.icon, 'text-emerald-500 shrink-0 checkbox-check-enter')} />
                 )}
               </button>
             );

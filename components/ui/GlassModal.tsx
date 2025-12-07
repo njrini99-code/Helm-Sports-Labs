@@ -40,7 +40,11 @@ export interface GlassModalProps {
   /** Glass variant */
   variant?: 'default' | 'glass' | 'dark';
   /** Animation style */
-  animation?: 'fade' | 'slide-up' | 'slide-down' | 'scale' | 'none';
+  animation?: 'fade' | 'slide-up' | 'slide-down' | 'scale' | 'zoom' | 'none';
+  /** Animation duration in ms */
+  animationDuration?: number;
+  /** Show ripple effect when clicking backdrop */
+  showBackdropRipple?: boolean;
   /** Center content vertically */
   centered?: boolean;
   /** Additional class name for the modal content */
@@ -107,91 +111,237 @@ const variantStyles = {
 // CSS ANIMATION KEYFRAMES (injected once)
 // ============================================
 
+// Spring physics approximation using CSS cubic-bezier
+// These curves mimic the behavior of spring animations:
+// - Initial overshoot
+// - Settling oscillation
+// - Natural deceleration
+const SPRING_EASING = 'cubic-bezier(0.34, 1.56, 0.64, 1)'; // Spring with bounce
+const SPRING_EASING_OUT = 'cubic-bezier(0.22, 1, 0.36, 1)'; // Spring settle
+const SPRING_EASING_SMOOTH = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'; // Smooth spring
+
 const animationStyles = `
+/* ═══════════════════════════════════════════════════════════════════
+   BACKDROP ANIMATIONS - Smooth fade with spring-like ease
+═══════════════════════════════════════════════════════════════════ */
+
 @keyframes glass-modal-backdrop-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  0% { 
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  100% { 
+    opacity: 1;
+    backdrop-filter: blur(16px);
+  }
 }
 
 @keyframes glass-modal-backdrop-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
-@keyframes glass-modal-slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-  }
-  to {
+  0% { 
     opacity: 1;
-    transform: translateY(0) scale(1);
+    backdrop-filter: blur(16px);
+  }
+  100% { 
+    opacity: 0;
+    backdrop-filter: blur(0px);
   }
 }
 
-@keyframes glass-modal-slide-up-out {
-  from {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-  }
-}
-
-@keyframes glass-modal-slide-down {
-  from {
-    opacity: 0;
-    transform: translateY(-20px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes glass-modal-slide-down-out {
-  from {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-20px) scale(0.98);
-  }
-}
+/* ═══════════════════════════════════════════════════════════════════
+   SCALE ANIMATION - 0.8 -> 1 -> 0.8 with spring physics
+═══════════════════════════════════════════════════════════════════ */
 
 @keyframes glass-modal-scale {
-  from {
+  0% {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.8);
   }
-  to {
+  50% {
+    opacity: 1;
+  }
+  70% {
+    transform: scale(1.02);
+  }
+  100% {
     opacity: 1;
     transform: scale(1);
   }
 }
 
 @keyframes glass-modal-scale-out {
-  from {
+  0% {
     opacity: 1;
     transform: scale(1);
   }
-  to {
+  30% {
+    transform: scale(1.02);
+  }
+  100% {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.8);
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   SLIDE UP ANIMATION - with spring bounce
+═══════════════════════════════════════════════════════════════════ */
+
+@keyframes glass-modal-slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.01);
+  }
+  80% {
+    transform: translateY(2px) scale(0.995);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes glass-modal-slide-up-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.01);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SLIDE DOWN ANIMATION - with spring bounce
+═══════════════════════════════════════════════════════════════════ */
+
+@keyframes glass-modal-slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(5px) scale(1.01);
+  }
+  80% {
+    transform: translateY(-2px) scale(0.995);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes glass-modal-slide-down-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(5px) scale(1.01);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.9);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FADE ANIMATION - Simple opacity transition
+═══════════════════════════════════════════════════════════════════ */
+
 @keyframes glass-modal-fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  0% { 
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes glass-modal-fade-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  0% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% { 
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ZOOM/BOUNCE ANIMATION - More dramatic spring effect
+═══════════════════════════════════════════════════════════════════ */
+
+@keyframes glass-modal-zoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.98);
+  }
+  85% {
+    transform: scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glass-modal-zoom-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BACKDROP CLICK RIPPLE EFFECT
+═══════════════════════════════════════════════════════════════════ */
+
+@keyframes glass-modal-ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.glass-modal-backdrop-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+  animation: glass-modal-ripple 0.6s ease-out forwards;
 }
 `;
 
@@ -328,6 +478,8 @@ export function GlassModal({
   hideCloseButton = false,
   variant = 'glass',
   animation = 'slide-up',
+  animationDuration = 300,
+  showBackdropRipple = true,
   centered = true,
   className,
   backdropClassName,
@@ -336,7 +488,10 @@ export function GlassModal({
 }: GlassModalProps) {
   const [isClosing, setIsClosing] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
   const modalRef = useRef<HTMLDivElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const rippleIdRef = useRef(0);
 
   const styles = variantStyles[variant];
 
@@ -369,12 +524,35 @@ export function GlassModal({
     }
 
     setIsClosing(true);
-    const duration = 200; // Match animation duration
+    // Use slightly shorter duration for exit
+    const exitDuration = Math.max(animationDuration * 0.8, 150);
     setTimeout(() => {
       setIsClosing(false);
       onClose();
-    }, duration);
-  }, [animation, onClose]);
+    }, exitDuration);
+  }, [animation, animationDuration, onClose]);
+
+  // Handle backdrop click with ripple effect
+  const handleBackdropClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!closeOnBackdropClick) return;
+    
+    // Add ripple effect
+    if (showBackdropRipple && backdropRef.current) {
+      const rect = backdropRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const id = ++rippleIdRef.current;
+      
+      setRipples(prev => [...prev, { id, x, y }]);
+      
+      // Remove ripple after animation
+      setTimeout(() => {
+        setRipples(prev => prev.filter(r => r.id !== id));
+      }, 600);
+    }
+
+    handleClose();
+  }, [closeOnBackdropClick, showBackdropRipple, handleClose]);
 
   // Handle escape key
   useEffect(() => {
@@ -391,18 +569,29 @@ export function GlassModal({
     return () => document.removeEventListener('keydown', handleEscape);
   }, [isOpen, closeOnEscape, handleClose]);
 
+  // Spring physics easing curves
+  const getSpringEasing = (isExit: boolean) => {
+    if (isExit) {
+      // Faster, snappier exit
+      return 'cubic-bezier(0.22, 1, 0.36, 1)';
+    }
+    // Entry with slight overshoot (spring bounce)
+    return 'cubic-bezier(0.34, 1.56, 0.64, 1)';
+  };
+
   // Get animation classes
   const getAnimationStyle = (isBackdrop: boolean) => {
     if (animation === 'none') return {};
 
-    const duration = '200ms';
-    const easing = 'cubic-bezier(0.32, 0.72, 0, 1)';
+    const duration = `${animationDuration}ms`;
+    const exitDuration = `${Math.max(animationDuration * 0.8, 150)}ms`;
+    const easing = getSpringEasing(isClosing);
 
     if (isBackdrop) {
       return {
         animation: isClosing
-          ? `glass-modal-backdrop-out ${duration} ${easing} forwards`
-          : `glass-modal-backdrop-in ${duration} ${easing} forwards`,
+          ? `glass-modal-backdrop-out ${exitDuration} ease-out forwards`
+          : `glass-modal-backdrop-in ${duration} ease-out forwards`,
       };
     }
 
@@ -411,7 +600,7 @@ export function GlassModal({
       : `glass-modal-${animation}`;
 
     return {
-      animation: `${animationName} ${duration} ${easing} forwards`,
+      animation: `${animationName} ${isClosing ? exitDuration : duration} ${easing} forwards`,
     };
   };
 
@@ -428,15 +617,32 @@ export function GlassModal({
     >
       {/* Backdrop */}
       <div
+        ref={backdropRef}
         className={cn(
-          'fixed inset-0 z-[100]',
+          'fixed inset-0 z-[100] overflow-hidden',
           styles.backdrop,
           backdropClassName
         )}
         style={getAnimationStyle(true)}
-        onClick={closeOnBackdropClick ? handleClose : undefined}
+        onClick={handleBackdropClick}
         aria-hidden="true"
-      />
+      >
+        {/* Ripple effects */}
+        {ripples.map(ripple => (
+          <span
+            key={ripple.id}
+            className="glass-modal-backdrop-ripple"
+            style={{
+              left: ripple.x,
+              top: ripple.y,
+              width: 10,
+              height: 10,
+              marginLeft: -5,
+              marginTop: -5,
+            }}
+          />
+        ))}
+      </div>
 
       {/* Modal Container */}
       <div

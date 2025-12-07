@@ -16,12 +16,16 @@ export {
   GlassInput, 
   GlassTextarea, 
   GlassSelect, 
-  GlassSearch,
+  GlassSearchInput,
+  GlassInputGroup,
+  GlassInputAddon,
   type GlassInputProps, 
   type GlassTextareaProps, 
   type GlassSelectProps,
-  type GlassSelectOption,
-  type GlassSearchProps,
+  type GlassSearchInputProps,
+  type GlassInputGroupProps,
+  type GlassInputAddonProps,
+  type ValidationState,
 } from './GlassInput';
 
 // Modals & Drawers

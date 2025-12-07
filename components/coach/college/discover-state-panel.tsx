@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { PlayerCard, PlayerCardList, type PlayerData } from '@/components/ui/PlayerCard';
 import { 
   Building, 
   MapPin, 
@@ -180,23 +181,27 @@ export function DiscoverStatePanel({
               {/* Players Tab */}
               <TabsContent value="players" className="flex-1 overflow-hidden mt-4">
                 <ScrollArea className="h-[400px] pr-3">
-                  {players.length === 0 ? (
-                    <div className="text-center py-8">
-                      <User className="w-10 h-10 text-muted-foreground/50 mx-auto mb-2" />
-                      <p className="text-sm text-muted-foreground">No players found in {stateName}</p>
-                    </div>
-                  ) : (
-                    <div className="space-y-3">
-                      {players.map((player) => (
-                        <PlayerCard 
-                          key={player.id} 
-                          player={player} 
-                          onAddToWatchlist={onAddToWatchlist}
-                          onView={() => router.push(`/coach/college/player/${player.id}`)}
-                        />
-                      ))}
-                    </div>
-                  )}
+                  <PlayerCardList
+                    players={players.map((p): PlayerData => ({
+                      id: p.id,
+                      name: p.name,
+                      avatarUrl: p.avatarUrl,
+                      gradYear: p.gradYear,
+                      state: p.state,
+                      primaryPosition: p.primaryPosition,
+                      secondaryPosition: p.secondaryPosition,
+                      height: p.height,
+                      weight: p.weight,
+                      metrics: p.metrics,
+                      verified: p.verified,
+                      trending: p.trending,
+                      topSchool: p.topSchool,
+                    }))}
+                    size="sm"
+                    onAddToWatchlist={onAddToWatchlist}
+                    onView={(id) => router.push(`/coach/college/player/${id}`)}
+                    emptyMessage={`No players found in ${stateName}`}
+                  />
                 </ScrollArea>
               </TabsContent>
 
@@ -248,86 +253,6 @@ export function DiscoverStatePanel({
         </Tabs>
       </CardContent>
     </Card>
-  );
-}
-
-// Player Card Component
-function PlayerCard({ 
-  player, 
-  onAddToWatchlist,
-  onView 
-}: { 
-  player: PlayerSummary;
-  onAddToWatchlist?: (id: string) => void;
-  onView: () => void;
-}) {
-  return (
-    <div className="rounded-xl border border-border bg-card text-card-foreground p-3 hover:border-primary/40 hover:shadow-md transition-all">
-      <div className="flex items-start gap-3">
-        <Avatar className="h-10 w-10 rounded-lg">
-          {player.avatarUrl ? (
-            <AvatarImage src={player.avatarUrl} alt={player.name} />
-          ) : (
-            <AvatarFallback className="bg-primary/10 text-primary text-xs rounded-lg">
-              {player.name.slice(0, 2).toUpperCase()}
-            </AvatarFallback>
-          )}
-        </Avatar>
-
-        <div className="flex-1 min-w-0">
-          <div className="flex flex-wrap items-center gap-1.5">
-            <p className="font-semibold text-sm text-foreground">{player.name}</p>
-            <Badge variant="outline" className="text-[10px] px-1.5 py-0">
-              {player.gradYear}
-            </Badge>
-            <Badge variant="outline" className="text-[10px] px-1.5 py-0">
-              {player.primaryPosition}
-            </Badge>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2 mt-1">
-            {player.verified && (
-              <Badge className="bg-primary/20 text-primary border-primary/40 text-[10px] gap-0.5 px-1.5 py-0">
-                <Sparkles className="w-2.5 h-2.5" /> Verified
-              </Badge>
-            )}
-            {player.trending && (
-              <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/40 text-[10px] gap-0.5 px-1.5 py-0">
-                <TrendingUp className="w-2.5 h-2.5" /> Trending
-              </Badge>
-            )}
-          </div>
-
-          {player.metrics && player.metrics.length > 0 && (
-            <div className="flex flex-wrap gap-1 mt-2">
-              {player.metrics.slice(0, 3).map((metric, idx) => (
-                <Badge key={idx} variant="outline" className="text-[10px] px-1.5 py-0 bg-muted/50">
-                  {metric}
-                </Badge>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-1.5">
-          <Button
-            size="sm"
-            className="text-[10px] h-7 px-2 bg-primary hover:bg-primary/90 text-primary-foreground"
-            onClick={() => onAddToWatchlist?.(player.id)}
-          >
-            + Watchlist
-          </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            className="text-[10px] h-7 px-2"
-            onClick={onView}
-          >
-            View
-          </Button>
-        </div>
-      </div>
-    </div>
   );
 }
 
