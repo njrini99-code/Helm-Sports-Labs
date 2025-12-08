@@ -1,7 +1,10 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import { pageTransition, staggerContainer, staggerItem } from '@/lib/animations';
+import { logError } from '@/lib/utils/errorLogger';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -51,32 +54,7 @@ import { createClient } from '@/lib/supabase/client';
 import { isDevMode, DEV_ENTITY_IDS } from '@/lib/dev-mode';
 import type { Coach } from '@/lib/types';
 import { CoachDashboardSkeleton } from '@/components/ui/loading-state';
-
-// ═══════════════════════════════════════════════════════════════════════════
-// Mock Data
-// ═══════════════════════════════════════════════════════════════════════════
-const MOCK_STATS = { profileViews: 847, newFollowers: 23, top5Mentions: 12 };
-
-const MOCK_ACTIVITIES = [
-  { id: '1', playerId: 'p1', type: 'follow', user: { name: 'Marcus Thompson', avatar: '/avatars/player1.jpg', position: 'RHP', gradYear: 2026, state: 'NC' }, action: 'started following your program', time: '12m ago' },
-  { id: '2', playerId: 'p2', type: 'top5', user: { name: 'Jake Miller', avatar: '/avatars/player2.jpg', position: 'SS', gradYear: 2025, state: 'GA' }, action: 'added you to their Top 5', time: '1h ago' },
-  { id: '3', playerId: 'p3', type: 'view', user: { name: 'Chris Rodriguez', avatar: null, position: 'OF', gradYear: 2026, state: 'FL' }, action: 'viewed your profile', time: '2h ago' },
-  { id: '4', playerId: 'p4', type: 'camp', user: { name: 'Tyler Brooks', avatar: null, position: 'C', gradYear: 2027, state: 'TX' }, action: 'registered for Summer Elite Camp', time: '3h ago' },
-  { id: '5', playerId: 'p5', type: 'follow', user: { name: 'Ethan Davis', avatar: null, position: 'LHP', gradYear: 2026, state: 'OH' }, action: 'started following your program', time: '4h ago' },
-];
-
-const MOCK_CAMPS = [
-  { id: 'c1', title: 'Summer Elite Camp', date: 'Jun 15-17', location: 'Greensboro, NC', attending: 42, capacity: 60, interested: 18, status: 'open', image: '/camps/summer.jpg' },
-  { id: 'c2', title: 'Fall Showcase', date: 'Sep 8', location: 'Greensboro, NC', attending: 55, capacity: 60, interested: 35, status: 'limited', image: '/camps/fall.jpg' },
-  { id: 'c3', title: 'Winter Clinic', date: 'Dec 14', location: 'Greensboro, NC', attending: 15, capacity: 40, interested: 22, status: 'open', image: '/camps/winter.jpg' },
-];
-
-const MOCK_PIPELINE_AVATARS = {
-  watchlist: ['/avatars/p1.jpg', '/avatars/p2.jpg', '/avatars/p3.jpg'],
-  highPriority: ['/avatars/p4.jpg'],
-  offersOut: ['/avatars/p5.jpg'],
-  committed: ['/avatars/p6.jpg', '/avatars/p7.jpg', '/avatars/p8.jpg', '/avatars/p9.jpg', '/avatars/p10.jpg'],
-};
+import { getCoachCamps } from '@/lib/queries/camp-registration';
 
 interface PipelineStats {
   watchlist: number;
@@ -111,11 +89,53 @@ function useCountUp(end: number, duration = 1500) {
 // ═══════════════════════════════════════════════════════════════════════════
 // Main Component
 // ═══════════════════════════════════════════════════════════════════════════
+interface DashboardStats {
+  profileViews: number;
+  newFollowers: number;
+  top5Mentions: number;
+}
+
+interface Activity {
+  id: string;
+  playerId: string;
+  type: 'follow' | 'top5' | 'view' | 'camp';
+  user: {
+    name: string;
+    avatar: string | null;
+    position: string;
+    gradYear: number;
+    state: string;
+  };
+  action: string;
+  time: string;
+}
+
+interface Camp {
+  id: string;
+  title: string;
+  date: string;
+  location: string;
+  attending: number;
+  capacity: number;
+  interested: number;
+  status: 'open' | 'limited' | 'full';
+  image: string | null;
+}
+
 export default function CollegeCoachDashboard() {
   const router = useRouter();
   const [activityFilter, setActivityFilter] = useState('all');
   const [coach, setCoach] = useState<Coach | null>(null);
-  const [pipeline, setPipeline] = useState<PipelineStats>({ watchlist: 3, highPriority: 1, offersExtended: 1, committed: 5 });
+  const [pipeline, setPipeline] = useState<PipelineStats>({ watchlist: 0, highPriority: 0, offersExtended: 0, committed: 0 });
+  const [stats, setStats] = useState<DashboardStats>({ profileViews: 0, newFollowers: 0, top5Mentions: 0 });
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [camps, setCamps] = useState<Camp[]>([]);
+  const [pipelineAvatars, setPipelineAvatars] = useState<Record<string, string[]>>({
+    watchlist: [],
+    highPriority: [],
+    offersOut: [],
+    committed: [],
+  });
   const [loading, setLoading] = useState(true);
   const [watchlistStates, setWatchlistStates] = useState<Record<string, boolean>>({});
 
@@ -124,36 +144,196 @@ export default function CollegeCoachDashboard() {
   }, []);
 
   const loadData = async () => {
-    const supabase = createClient();
-    let coachData = null;
-    let coachId: string | null = null;
+    try {
+      setLoading(true);
+      const supabase = createClient();
+      let coachData = null;
+      let coachId: string | null = null;
 
-    if (isDevMode()) {
-      coachId = DEV_ENTITY_IDS.coach;
-      const { data } = await supabase.from('coaches').select('*').eq('id', coachId).single();
-      coachData = data;
-    } else {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) { router.push('/auth/login'); return; }
-      const { data } = await supabase.from('coaches').select('*').eq('user_id', user.id).single();
-      coachData = data;
-      coachId = data?.id || null;
-    }
-
-    if (coachData) setCoach(coachData);
-
-    if (coachId) {
-      const { data: recruitsData } = await supabase.from('recruits').select('stage').eq('coach_id', coachId);
-      if (recruitsData) {
-        setPipeline({
-          watchlist: recruitsData.filter(r => r.stage === 'Watchlist' || r.stage === 'watchlist').length || 3,
-          highPriority: recruitsData.filter(r => r.stage === 'high_priority').length || 1,
-          offersExtended: recruitsData.filter(r => r.stage === 'offered').length || 1,
-          committed: recruitsData.filter(r => r.stage === 'committed').length || 5,
-        });
+      if (isDevMode()) {
+        coachId = DEV_ENTITY_IDS.coach;
+        const { data, error } = await supabase.from('coaches').select('*').eq('id', coachId).single();
+        if (error) {
+          logError(error, { component: 'CollegeCoachDashboard', action: 'loadCoachData' });
+          toast.error('Failed to load coach data');
+          setLoading(false);
+          return;
+        }
+        coachData = data;
+      } else {
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
+        if (authError || !user) {
+          router.push('/auth/login');
+          return;
+        }
+        const { data, error } = await supabase.from('coaches').select('*').eq('user_id', user.id).single();
+        if (error) {
+          logError(error, { component: 'CollegeCoachDashboard', action: 'loadCoachData' });
+          toast.error('Failed to load coach data');
+          setLoading(false);
+          return;
+        }
+        coachData = data;
+        coachId = data?.id || null;
       }
+
+      if (coachData) setCoach(coachData);
+
+      if (coachId) {
+        try {
+          // Load pipeline stats from recruit_watchlist
+          const { data: watchlistData, error: watchlistError } = await supabase
+            .from('recruit_watchlist')
+            .select('status, players!inner(avatar_url)')
+            .eq('coach_id', coachId);
+          
+          if (!watchlistError && watchlistData) {
+            const pipelineCounts: PipelineStats = {
+              watchlist: watchlistData.filter(r => r.status === 'watchlist').length,
+              highPriority: watchlistData.filter(r => r.status === 'high_priority').length,
+              offersExtended: watchlistData.filter(r => r.status === 'offer_extended').length,
+              committed: watchlistData.filter(r => r.status === 'committed').length,
+            };
+            setPipeline(pipelineCounts);
+
+            // Get avatars for each status
+            const avatars: Record<string, string[]> = {
+              watchlist: watchlistData
+                .filter(r => r.status === 'watchlist' && (r.players as any)?.avatar_url)
+                .slice(0, 5)
+                .map(r => (r.players as any).avatar_url),
+              highPriority: watchlistData
+                .filter(r => r.status === 'high_priority' && (r.players as any)?.avatar_url)
+                .slice(0, 5)
+                .map(r => (r.players as any).avatar_url),
+              offersOut: watchlistData
+                .filter(r => r.status === 'offer_extended' && (r.players as any)?.avatar_url)
+                .slice(0, 5)
+                .map(r => (r.players as any).avatar_url),
+              committed: watchlistData
+                .filter(r => r.status === 'committed' && (r.players as any)?.avatar_url)
+                .slice(0, 5)
+                .map(r => (r.players as any).avatar_url),
+            };
+            setPipelineAvatars(avatars);
+          }
+
+          // Load stats: profile views (count unique players who viewed coach's profile)
+          const thirtyDaysAgo = new Date();
+          thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+          
+          const { count: profileViewsCount } = await supabase
+            .from('player_engagement_events')
+            .select('*', { count: 'exact', head: true })
+            .eq('coach_id', coachId)
+            .eq('engagement_type', 'profile_view')
+            .gte('engagement_date', thirtyDaysAgo.toISOString());
+
+          // Load new followers (players who added coach to watchlist in last 30 days)
+          const { count: newFollowersCount } = await supabase
+            .from('recruit_watchlist')
+            .select('*', { count: 'exact', head: true })
+            .eq('coach_id', coachId)
+            .gte('created_at', thirtyDaysAgo.toISOString());
+
+          // Load top 5 mentions (players who added coach to their top 5)
+          const { count: top5Count } = await supabase
+            .from('recruiting_interests')
+            .select('*', { count: 'exact', head: true })
+            .eq('program_id', coachId)
+            .gte('created_at', thirtyDaysAgo.toISOString());
+
+          setStats({
+            profileViews: profileViewsCount || 0,
+            newFollowers: newFollowersCount || 0,
+            top5Mentions: top5Count || 0,
+          });
+
+          // Load recent activities
+          const { data: recentEvents } = await supabase
+            .from('player_engagement_events')
+            .select(`
+              id,
+              player_id,
+              engagement_type,
+              engagement_date,
+              players!inner(
+                id,
+                first_name,
+                last_name,
+                full_name,
+                avatar_url,
+                primary_position,
+                grad_year,
+                high_school_state
+              )
+            `)
+            .eq('coach_id', coachId)
+            .order('engagement_date', { ascending: false })
+            .limit(20);
+
+          if (recentEvents) {
+            const formattedActivities: Activity[] = recentEvents
+              .filter(e => (e.players as any))
+              .map((e, idx) => {
+                const player = e.players as any;
+                const timeAgo = getTimeAgo(new Date(e.engagement_date));
+                let action = '';
+                let type: Activity['type'] = 'view';
+
+                if (e.engagement_type === 'profile_view') {
+                  action = 'viewed your profile';
+                  type = 'view';
+                } else if (e.engagement_type === 'watchlist_add') {
+                  action = 'added you to their watchlist';
+                  type = 'follow';
+                }
+
+                return {
+                  id: e.id || `activity-${idx}`,
+                  playerId: e.player_id,
+                  type,
+                  user: {
+                    name: player.full_name || `${player.first_name} ${player.last_name}`,
+                    avatar: player.avatar_url,
+                    position: player.primary_position || 'UTIL',
+                    gradYear: player.grad_year || 2026,
+                    state: player.high_school_state || 'N/A',
+                  },
+                  action,
+                  time: timeAgo,
+                };
+              });
+            setActivities(formattedActivities);
+          }
+
+          // Load camps
+          const coachCamps = await getCoachCamps(coachId);
+          const formattedCamps: Camp[] = coachCamps.map(camp => ({
+            id: camp.id,
+            title: camp.title || camp.name || 'Camp',
+            date: formatCampDate(camp.event_date || camp.start_date),
+            location: `${camp.location_city || ''}, ${camp.location_state || ''}`.trim() || 'TBD',
+            attending: camp.registered_count || 0,
+            capacity: camp.capacity || 0,
+            interested: camp.interested_count || 0,
+            status: (camp.registered_count || 0) >= (camp.capacity || 0) ? 'full' : 
+                    (camp.registered_count || 0) >= (camp.capacity || 0) * 0.8 ? 'limited' : 'open',
+            image: camp.image_url || null,
+          }));
+          setCamps(formattedCamps);
+
+        } catch (error) {
+          logError(error, { component: 'CollegeCoachDashboard', action: 'processRecruitsData' });
+          // Don't block the page if data loading fails
+        }
+      }
+      setLoading(false);
+    } catch (error) {
+      logError(error, { component: 'CollegeCoachDashboard', action: 'loadCoachData', metadata: { unexpected: true } });
+      toast.error('An unexpected error occurred. Please try again.');
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const filteredActivities = useMemo(() => {
@@ -208,7 +388,12 @@ export default function CollegeCoachDashboard() {
   const philosophy = coach?.program_philosophy || coach?.about?.slice(0, 100) || 'Building champions on and off the field';
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30">
+    <motion.div 
+      className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30"
+      initial={pageTransition.initial}
+      animate={pageTransition.animate}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+    >
       {/* ═══════════════════════════════════════════════════════════════════
           HERO BANNER - Program-Themed with Refined Ambient Glow
       ═══════════════════════════════════════════════════════════════════ */}
@@ -351,10 +536,16 @@ export default function CollegeCoachDashboard() {
           METRIC CARDS - Animated Count-Up with Hover Effects
       ═══════════════════════════════════════════════════════════════════ */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 -mt-5 relative z-10">
-        <div className="grid grid-cols-3 gap-3 md:gap-4">
-          <MetricCard
+        <motion.div 
+          className="grid grid-cols-3 gap-3 md:gap-4"
+          variants={staggerContainer as any}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div variants={staggerItem as any}>
+            <MetricCard
             icon={<Eye className="w-5 h-5" strokeWidth={1.75} />}
-            value={MOCK_STATS.profileViews}
+            value={stats.profileViews}
             label="Profile Views"
             trend={12}
             trendDirection="up"
@@ -363,23 +554,26 @@ export default function CollegeCoachDashboard() {
           />
           <MetricCard
             icon={<UserPlus className="w-5 h-5" strokeWidth={1.75} />}
-            value={MOCK_STATS.newFollowers}
+            value={stats.newFollowers}
             label="New Followers"
             trend={8}
             trendDirection="up"
             accentColor="#22C55E"
             onClick={() => setActivityFilter('followers')}
           />
-          <MetricCard
-            icon={<Heart className="w-5 h-5" strokeWidth={1.75} />}
-            value={MOCK_STATS.top5Mentions}
-            label="Top 5 Mentions"
-            trend={15}
-            trendDirection="up"
-            accentColor="#EC4899"
-            onClick={() => setActivityFilter('top5')}
-          />
-        </div>
+          </motion.div>
+          <motion.div variants={staggerItem as any}>
+            <MetricCard
+              icon={<Heart className="w-5 h-5" strokeWidth={1.75} />}
+              value={stats.top5Mentions}
+              label="Top 5 Mentions"
+              trend={15}
+              trendDirection="up"
+              accentColor="#EC4899"
+              onClick={() => setActivityFilter('top5')}
+            />
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════
@@ -391,7 +585,7 @@ export default function CollegeCoachDashboard() {
           {/* LEFT COLUMN - Activity Feed */}
           <div className="space-y-5">
             {/* Activity & Followers Feed */}
-            <Card className="rounded-2xl border-border/50 shadow-lg shadow-black/5 overflow-hidden bg-card/80 backdrop-blur-sm">
+            <Card glass className="rounded-2xl overflow-hidden">
               <div className="px-5 py-4 border-b border-border/50 flex items-center justify-between">
                 <div>
                   <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
@@ -440,7 +634,7 @@ export default function CollegeCoachDashboard() {
           {/* RIGHT COLUMN - Pipeline + Camps */}
           <div className="space-y-5">
             {/* Recruiting Pipeline */}
-            <Card className="rounded-2xl border-border/50 shadow-lg shadow-black/5 p-5 bg-card/80 backdrop-blur-sm">
+            <Card glass className="rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h2 className="text-lg font-semibold text-foreground">Recruiting Pipeline</h2>
@@ -459,7 +653,7 @@ export default function CollegeCoachDashboard() {
                   icon={<Bookmark className="w-[18px] h-[18px]" strokeWidth={1.75} />}
                   label="Watchlist"
                   count={pipeline.watchlist}
-                  avatars={MOCK_PIPELINE_AVATARS.watchlist}
+                  avatars={pipelineAvatars.watchlist}
                   accentColor="#0EA5E9"
                   onClick={() => handlePipelineClick('watchlist')}
                 />
@@ -467,7 +661,7 @@ export default function CollegeCoachDashboard() {
                   icon={<AlertTriangle className="w-[18px] h-[18px]" strokeWidth={1.75} />}
                   label="High Priority"
                   count={pipeline.highPriority}
-                  avatars={MOCK_PIPELINE_AVATARS.highPriority}
+                  avatars={pipelineAvatars.highPriority}
                   accentColor="#F59E0B"
                   onClick={() => handlePipelineClick('high_priority')}
                 />
@@ -475,7 +669,7 @@ export default function CollegeCoachDashboard() {
                   icon={<Send className="w-[18px] h-[18px]" strokeWidth={1.75} />}
                   label="Offers Out"
                   count={pipeline.offersExtended}
-                  avatars={MOCK_PIPELINE_AVATARS.offersOut}
+                  avatars={pipelineAvatars.offersOut}
                   accentColor="#8B5CF6"
                   onClick={() => handlePipelineClick('offer_extended')}
                 />
@@ -483,7 +677,7 @@ export default function CollegeCoachDashboard() {
                   icon={<Handshake className="w-[18px] h-[18px]" strokeWidth={1.75} />}
                   label="Committed"
                   count={pipeline.committed}
-                  avatars={MOCK_PIPELINE_AVATARS.committed}
+                  avatars={pipelineAvatars.committed}
                   accentColor="#22C55E"
                   onClick={() => handlePipelineClick('committed')}
                 />
@@ -506,7 +700,7 @@ export default function CollegeCoachDashboard() {
             </Card>
 
             {/* Upcoming Camps - Horizontal Scroll */}
-            <Card className="rounded-2xl border-border/50 shadow-lg shadow-black/5 p-5 bg-card/80 backdrop-blur-sm">
+            <Card glass className="rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h2 className="text-lg font-semibold text-foreground">Upcoming Camps</h2>
@@ -522,7 +716,7 @@ export default function CollegeCoachDashboard() {
 
               {/* Horizontal Scrollable Camps */}
               <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x snap-mandatory scrollbar-hide">
-                {MOCK_CAMPS.map((camp) => (
+                {camps.map((camp) => (
                   <CampCard
                     key={camp.id}
                     camp={camp}
@@ -551,7 +745,7 @@ export default function CollegeCoachDashboard() {
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
-    </div>
+    </motion.div>
   );
 }
 
@@ -576,7 +770,7 @@ function MetricCard({ icon, value, label, trend, trendDirection, accentColor, on
   return (
     <button
       onClick={onClick}
-      className="group relative bg-card rounded-2xl border border-border/50 shadow-lg shadow-black/5 p-4 md:p-5 text-left transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-border overflow-hidden"
+      className="group relative backdrop-blur-2xl bg-white/10 border border-white/15 rounded-2xl shadow-xl shadow-black/20 p-4 md:p-5 text-left transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-white/25 overflow-hidden"
     >
       {/* Accent glow on hover */}
       <div 
@@ -604,7 +798,7 @@ function MetricCard({ icon, value, label, trend, trendDirection, accentColor, on
 }
 
 interface ActivityRowProps {
-  activity: typeof MOCK_ACTIVITIES[0];
+  activity: Activity;
   isWatchlisted?: boolean;
   onView: () => void;
   onToggleWatchlist: () => void;
@@ -719,7 +913,7 @@ function PipelineCard({ icon, label, count, avatars, accentColor, onClick }: Pip
 }
 
 interface CampCardProps {
-  camp: typeof MOCK_CAMPS[0];
+  camp: Camp;
   programColor: string;
   onClick?: () => void;
 }

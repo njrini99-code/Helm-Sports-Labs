@@ -185,7 +185,7 @@ export default function PlayerMessagesPage() {
       .order('last_message_at', { ascending: false, nullsFirst: false });
 
     if (convData) {
-      const formatted: Conversation[] = convData.map((conv: any) => ({
+      const formatted: Conversation[] = convData.map((conv: { id: string; title: string | null; last_message_text: string | null; last_message_at: string | null; player_unread_count: number; programLogo?: string }) => ({
         id: conv.id,
         program_name: (conv.coaches as any)?.school_name || (conv.coaches as any)?.program_name || null,
         coach_name: (conv.coaches as any)?.full_name || null,
@@ -214,7 +214,7 @@ export default function PlayerMessagesPage() {
       .order('created_at', { ascending: true });
 
     if (messagesData) {
-      const formatted: Message[] = messagesData.map((msg: any) => ({
+      const formatted: Message[] = messagesData.map((msg: { id: string; message_text: string; sender_type: string; created_at: string; read_by_program: boolean | null }) => ({
         id: msg.id,
         sender: msg.sender_type === 'coach' ? 'coach' : 'player',
         message_text: msg.message_text,

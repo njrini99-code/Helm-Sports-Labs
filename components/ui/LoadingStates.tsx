@@ -392,7 +392,7 @@ export function InfiniteScrollLoader({
         <>
           {variant === 'spinner' && (
             <div className="flex items-center gap-3 text-white/60">
-              <Loader2 className="w-5 h-5 animate-spin" />
+              <div className="h-5 w-5 bg-white/20 rounded animate-pulse" />
               <span className="text-sm">Loading more...</span>
             </div>
           )}
@@ -492,7 +492,7 @@ export function FilterLoading({ loading, children, className }: FilterLoadingPro
       {loading && (
         <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm rounded-xl flex items-center justify-center z-10 fade-in-up">
           <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-white/10 backdrop-blur-md">
-            <Loader2 className="w-4 h-4 animate-spin text-emerald-400" />
+            <div className="h-4 w-4 bg-emerald-400/20 rounded animate-pulse" />
             <span className="text-sm text-white">Applying filters...</span>
           </div>
         </div>
@@ -825,7 +825,7 @@ export function LoadingSpinner({ size = 'md', className }: { size?: 'sm' | 'md' 
   };
 
   return (
-    <Loader2 className={cn('animate-spin text-emerald-400', sizeClasses[size], className)} />
+    <div className={cn('bg-emerald-400/20 rounded animate-pulse', sizeClasses[size], className)} />
   );
 }
 

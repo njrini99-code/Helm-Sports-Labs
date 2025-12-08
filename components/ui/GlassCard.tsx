@@ -435,7 +435,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
           // Base styles
           'relative overflow-hidden border shadow-xl',
           // Glassmorphism
-          glass && 'backdrop-blur-xl',
+          glass && 'backdrop-blur-2xl',
           // Size
           SIZE_STYLES[size],
           // Variant

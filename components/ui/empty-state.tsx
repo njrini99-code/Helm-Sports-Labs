@@ -37,7 +37,7 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center rounded-2xl border border-dashed border-border/60 bg-muted/20 text-center',
+        'flex flex-col items-center justify-center rounded-2xl border border-dashed backdrop-blur-2xl bg-white/5 border-white/15 text-center shadow-lg',
         variants[variant],
         className
       )}
@@ -45,7 +45,7 @@ export function EmptyState({
       aria-live="polite"
     >
       {icon && (
-        <div className="mb-4 rounded-full bg-muted p-4 text-muted-foreground">
+        <div className="mb-4 rounded-full backdrop-blur-xl bg-white/10 border border-white/15 p-4 text-white/70 shadow-lg">
           {icon}
         </div>
       )}

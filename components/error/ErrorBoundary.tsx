@@ -425,7 +425,7 @@ Time: ${new Date().toISOString()}
                   )}
                 >
                   {reporting ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <div className="h-4 w-4 bg-white/20 rounded animate-pulse" />
                   ) : reported ? (
                     <Check className="w-4 h-4" />
                   ) : (

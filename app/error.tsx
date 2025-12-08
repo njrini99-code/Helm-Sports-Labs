@@ -15,6 +15,7 @@ import {
   ExternalLink,
   HelpCircle,
 } from 'lucide-react';
+import { logError } from '@/lib/utils/errorLogger';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // CSS STYLES (Injected)
@@ -154,7 +155,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
 
   // Log error
   useEffect(() => {
-    console.error('[ErrorPage] Application error:', error);
+    logError(error, { component: 'ErrorPage', action: 'handleError' });
   }, [error]);
 
   const handleRetry = () => {
@@ -178,7 +179,7 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy:', err);
+      logError(err, { component: 'ErrorPage', action: 'copyError' });
     }
   };
 

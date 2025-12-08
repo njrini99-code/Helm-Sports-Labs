@@ -1,19 +1,34 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 
-const Card = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      'rounded-2xl border border-border bg-card text-card-foreground shadow-lg transition-all duration-300 ease-out',
-      className
-    )}
-    {...props}
-  />
-));
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Enable glassmorphism styling */
+  glass?: boolean;
+  /** Hover effects */
+  hover?: boolean;
+}
+
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, glass = false, hover = true, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn(
+        'rounded-2xl border shadow-lg transition-all duration-300 ease-out',
+        // Glassmorphism variant
+        glass
+          ? 'backdrop-blur-2xl bg-white/10 border-white/15 shadow-xl shadow-black/20'
+          : 'border-border bg-card text-card-foreground',
+        // Hover effects
+        hover && [
+          'hover:shadow-xl hover:-translate-y-1',
+          glass ? 'hover:border-white/25 hover:shadow-2xl hover:shadow-black/25' : '',
+        ],
+        className
+      )}
+      {...props}
+    />
+  )
+);
 Card.displayName = 'Card';
 
 const CardHeader = React.forwardRef<

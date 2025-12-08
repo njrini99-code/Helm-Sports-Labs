@@ -803,7 +803,7 @@ export function PlayerList({
       {/* Loading more indicator */}
       {loadingState === 'loading' && players.length > 0 && (
         <div className="flex items-center justify-center py-4">
-          <Loader2 className="w-5 h-5 text-emerald-400 animate-spin" />
+          <div className="h-5 w-5 bg-emerald-400/20 rounded animate-pulse" />
           <span className="ml-2 text-sm text-slate-400">Loading more...</span>
         </div>
       )}

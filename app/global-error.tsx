@@ -11,6 +11,7 @@ import {
   ChevronUp,
   Bug,
 } from 'lucide-react';
+import { logError } from '@/lib/utils/errorLogger';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // GLOBAL ERROR PAGE
@@ -29,7 +30,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
   const isDev = process.env.NODE_ENV === 'development';
 
   useEffect(() => {
-    console.error('[GlobalError] Critical application error:', error);
+    logError(error, { component: 'GlobalErrorBoundary', action: 'handleError' });
   }, [error]);
 
   const handleCopyError = async () => {
@@ -47,7 +48,7 @@ Time: ${new Date().toISOString()}
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy:', err);
+      logError(err, { component: 'GlobalErrorBoundary', action: 'copyError' });
     }
   };
 

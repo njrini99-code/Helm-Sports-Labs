@@ -5,9 +5,10 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Video, Compass, Users, Loader2 } from "lucide-react";
+import { Shield, Video, Compass, Users } from "lucide-react";
 import { createClient } from '@/lib/supabase/client';
 import { isDevMode, getDevRole } from '@/lib/dev-mode';
+import { logError } from '@/lib/utils/errorLogger';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // TYPES
@@ -146,7 +147,7 @@ export default function HomePage() {
         router.replace(targetPath);
 
       } catch (error) {
-        console.error('Auth check error:', error);
+        logError(error, { component: 'HomePage', action: 'checkAuth' });
         setChecking(false);
         setIsAuthenticated(false);
       }
@@ -156,17 +157,40 @@ export default function HomePage() {
   }, [router]);
 
   // ═══════════════════════════════════════════════════════════════════════
-  // LOADING STATE - while checking auth
+  // LOADING STATE - while checking auth (using shimmer skeleton)
   // ═══════════════════════════════════════════════════════════════════════
   if (checking || isAuthenticated) {
     return (
       <main className="min-h-screen bg-gradient-to-b from-[#0A0A0A] to-[#111] text-white flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
-          <p className="text-slate-400 text-sm">
+        <div className="flex flex-col items-center gap-4 backdrop-blur-2xl bg-white/5 border border-white/15 rounded-2xl p-8 shadow-xl">
+          {/* Shimmer skeleton loader */}
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 border border-emerald-500/30 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-white/10 skeleton-shimmer" />
+          </div>
+          <div className="space-y-2 w-48">
+            <div className="h-4 bg-white/10 rounded-lg skeleton-shimmer" />
+            <div className="h-3 bg-white/5 rounded-lg skeleton-shimmer w-3/4 mx-auto" />
+          </div>
+          <p className="text-slate-400 text-sm mt-2">
             {isAuthenticated ? 'Redirecting to your dashboard...' : 'Loading...'}
           </p>
         </div>
+        <style jsx>{`
+          @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+          }
+          .skeleton-shimmer {
+            background: linear-gradient(
+              90deg,
+              rgba(255, 255, 255, 0.05) 25%,
+              rgba(255, 255, 255, 0.15) 50%,
+              rgba(255, 255, 255, 0.05) 75%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 1.5s ease-in-out infinite;
+          }
+        `}</style>
       </main>
     );
   }

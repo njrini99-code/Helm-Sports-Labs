@@ -157,7 +157,7 @@ export default function PublicPlayerProfilePage() {
     if (videosResult.data) setVideos(videosResult.data);
     if (achievementsResult.data) setAchievements(achievementsResult.data);
     if (evaluationsResult.data) {
-      setEvaluations(evaluationsResult.data.map((e: any) => ({
+      setEvaluations(evaluationsResult.data.map((e: { id: string; rating: number; notes: string | null; created_at: string }) => ({
         ...e,
         evaluator: e.coaches
       })));

@@ -41,6 +41,7 @@ import {
   glassSegmentedPillInactive,
 } from '@/lib/glassmorphism';
 import { AnimatedNumber } from '@/components/ui/AnimatedNumber';
+import Image from 'next/image';
 
 const DIVISIONS = ['All', 'D1', 'D2', 'D3', 'NAIA', 'JUCO'];
 const REGIONS = ['All', 'Northeast', 'Southeast', 'Midwest', 'Southwest', 'West'];
@@ -535,7 +536,7 @@ function CollegeCard({
       <div className="flex items-start gap-3">
         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200/50 flex items-center justify-center flex-shrink-0">
           {college.logo_url ? (
-            <img src={college.logo_url} alt={college.name} className="w-9 h-9 object-contain" loading="lazy" />
+            <Image src={college.logo_url} alt={college.name} width={36} height={36} className="object-contain" />
           ) : (
             <GraduationCap className="w-6 h-6 text-emerald-600" />
           )}

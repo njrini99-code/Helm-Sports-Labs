@@ -434,12 +434,23 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Focus Styles (Pulse Green ring)
+   Focus Styles (Glass ring effect with Pulse Green)
    ═══════════════════════════════════════════════════════════════════════════ */
 input:focus,
 textarea:focus,
-select:focus {
-  @apply outline-none ring-2 ring-pulse-green/50;
+select:focus,
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  @apply outline-none ring-2 ring-pulse-green/50 ring-offset-2 ring-offset-background;
+  box-shadow: 0 0 0 2px rgba(0, 194, 122, 0.2), 0 0 20px rgba(0, 194, 122, 0.3);
+}
+
+/* Glass focus effect for cards and interactive elements */
+.focus-glass:focus-visible {
+  @apply outline-none ring-2 ring-white/30 ring-offset-2 ring-offset-transparent;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2), 0 0 30px rgba(0, 194, 122, 0.4);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -453,4 +464,27 @@ select:focus {
 ::-moz-selection {
   background-color: rgba(0, 194, 122, 0.3);
   color: inherit;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Reduced Motion Support (Accessibility)
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Keep essential transitions for UX */
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    transition: opacity 0.1s ease, background-color 0.1s ease, border-color 0.1s ease !important;
+  }
 }

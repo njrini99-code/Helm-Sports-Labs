@@ -3,7 +3,7 @@
 import { ReactNode, ButtonHTMLAttributes, forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 import { glassButton } from '@/lib/glassmorphism';
-import { Loader2 } from 'lucide-react';
+// Removed Loader2 - using shimmer skeleton instead
 
 export interface GlassButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
@@ -74,7 +74,7 @@ export const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
         {...props}
       >
         {loading ? (
-          <Loader2 className="w-4 h-4 animate-spin" />
+          <div className="h-4 w-4 bg-white/20 rounded animate-pulse" />
         ) : icon ? (
           icon
         ) : null}

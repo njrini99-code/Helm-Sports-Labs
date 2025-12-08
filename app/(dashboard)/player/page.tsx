@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useState, useMemo, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { createClient } from '@/lib/supabase/client';
+import { pageTransition, staggerContainer, staggerItem } from '@/lib/animations';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -17,6 +19,7 @@ import { AddMetricModal } from '@/components/player/AddMetricModal';
 import { AnalyticsDashboard } from '@/components/player/AnalyticsDashboard';
 import { D1Badge } from '@/components/ui/D1Badge';
 import { checkD1Standard, parseMetricValue } from '@/lib/constants/d1-benchmarks';
+import { logError } from '@/lib/utils/errorLogger';
 import {
   User,
   MapPin,
@@ -154,119 +157,165 @@ export default function PlayerDashboardPage() {
   }, []);
 
   const loadPlayerData = async () => {
-    const supabase = createClient();
-    
-    let playerData = null;
-    
-    if (isDevMode()) {
-      const { data } = await supabase
-        .from('players')
-        .select('*')
-        .eq('id', DEV_ENTITY_IDS.player)
-        .single();
-      playerData = data;
-    } else {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        router.push('/auth/login');
+    try {
+      setLoading(true);
+      const supabase = createClient();
+      
+      let playerData = null;
+      
+      if (isDevMode()) {
+        const { data, error } = await supabase
+          .from('players')
+          .select('*')
+          .eq('id', DEV_ENTITY_IDS.player)
+          .single();
+        
+        if (error) {
+          logError(error, { component: 'PlayerDashboard', action: 'loadPlayerData' });
+          toast.error('Failed to load player data');
+          setLoading(false);
+          return;
+        }
+        playerData = data;
+      } else {
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
+        if (authError || !user) {
+          router.push('/auth/login');
+          return;
+        }
+        
+        const { data, error } = await supabase
+          .from('players')
+          .select('*')
+          .eq('user_id', user.id)
+          .single();
+        
+        if (error) {
+          logError(error, { component: 'PlayerDashboard', action: 'loadPlayerData' });
+          toast.error('Failed to load player data');
+          setLoading(false);
+          return;
+        }
+        playerData = data;
+      }
+
+      if (!playerData) {
+        if (!isDevMode()) {
+          router.push('/onboarding/player');
+        }
+        setLoading(false);
         return;
       }
-      
-      const { data } = await supabase
-        .from('players')
-        .select('*')
-        .eq('user_id', user.id)
-        .single();
-      playerData = data;
-    }
 
-    if (!playerData) {
-      if (!isDevMode()) {
-        router.push('/onboarding/player');
+      setPlayer(playerData);
+
+      // Load all related data in parallel with error handling
+      try {
+        const [
+          metricsResult,
+          videosResult,
+          achievementsResult,
+          evaluationsResult,
+          engagementResult,
+        ] = await Promise.all([
+          supabase
+            .from('player_metrics')
+            .select('*')
+            .eq('player_id', playerData.id)
+            .order('updated_at', { ascending: false }),
+          supabase
+            .from('player_videos')
+            .select('*')
+            .eq('player_id', playerData.id)
+            .order('recorded_date', { ascending: false }),
+          supabase
+            .from('player_achievements')
+            .select('*')
+            .eq('player_id', playerData.id)
+            .order('achievement_date', { ascending: false }),
+          supabase
+            .from('evaluations')
+            .select(`
+              *,
+              evaluator:evaluator_id (
+                full_name,
+                program_name
+              )
+            `)
+            .eq('player_id', playerData.id)
+            .order('eval_date', { ascending: false }),
+          supabase
+            .from('player_engagement')
+            .select('profile_views_count, watchlist_adds_count, recent_views_7d')
+            .eq('player_id', playerData.id)
+            .maybeSingle(),
+        ]);
+
+        if (metricsResult.data) setMetrics(metricsResult.data);
+        if (videosResult.data) setVideos(videosResult.data);
+        if (achievementsResult.data) setAchievements(achievementsResult.data);
+        if (evaluationsResult.data) setEvaluations(evaluationsResult.data);
+        if (engagementResult.data) setEngagement(engagementResult.data);
+
+        // Load stats with error handling
+        try {
+          const filters: PerformanceFilters = {
+            source: 'all',
+            dateRange: { from: null, to: null, preset: 'season' },
+          };
+          const statsResponse = await getPlayerStatsSeries(playerData.id, filters);
+          setStatsSummary(statsResponse.summary);
+          setStatsSeries(statsResponse.series);
+        } catch (error) {
+          logError(error, { component: 'PlayerDashboard', action: 'loadStats' });
+          // Don't block the page if stats fail
+        }
+
+        // Load recruiting data with error handling
+        try {
+          const recruiting = await getPlayerRecruitingSnapshot(playerData.id);
+          setRecruitingData(recruiting);
+        } catch (error) {
+          logError(error, { component: 'PlayerDashboard', action: 'loadRecruitingData' });
+          // Don't block the page if recruiting data fails
+        }
+
+        // Load conversations with error handling
+        try {
+          const convos = await getConversationsForPlayer(playerData.id);
+          setConversations(convos);
+        } catch (error) {
+          logError(error, { component: 'PlayerDashboard', action: 'loadConversations' });
+          // Don't block the page if conversations fail
+        }
+
+        // Load upcoming events with error handling
+        try {
+          const eventFilter: EventFilter = {
+            type: 'all',
+            range: { from: null, to: null, preset: '30d' },
+          };
+          const events = await getPlayerEventsTimeline(playerData.id, eventFilter);
+          const upcoming = events
+            .filter(e => new Date(e.date) >= new Date())
+            .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+            .slice(0, 5);
+          setUpcomingEvents(upcoming);
+        } catch (error) {
+          logError(error, { component: 'PlayerDashboard', action: 'loadEvents' });
+          // Don't block the page if events fail
+        }
+      } catch (error) {
+        logError(error, { component: 'PlayerDashboard', action: 'loadPlayerData' });
+        toast.error('Some data failed to load. Please refresh the page.');
       }
+
       setLoading(false);
-      return;
+    } catch (error) {
+      logError(error, { component: 'PlayerDashboard', action: 'loadPlayerData', metadata: { unexpected: true } });
+      toast.error('An unexpected error occurred. Please try again.');
+      setLoading(false);
     }
-
-    setPlayer(playerData);
-
-    // Load all related data in parallel
-    const [
-      metricsResult,
-      videosResult,
-      achievementsResult,
-      evaluationsResult,
-      engagementResult,
-    ] = await Promise.all([
-      supabase
-        .from('player_metrics')
-        .select('*')
-        .eq('player_id', playerData.id)
-        .order('updated_at', { ascending: false }),
-      supabase
-        .from('player_videos')
-        .select('*')
-        .eq('player_id', playerData.id)
-        .order('recorded_date', { ascending: false }),
-      supabase
-        .from('player_achievements')
-        .select('*')
-        .eq('player_id', playerData.id)
-        .order('achievement_date', { ascending: false }),
-      supabase
-        .from('evaluations')
-        .select(`
-          *,
-          evaluator:evaluator_id (
-            full_name,
-            program_name
-          )
-        `)
-        .eq('player_id', playerData.id)
-        .order('eval_date', { ascending: false }),
-      supabase
-        .from('player_engagement')
-        .select('profile_views_count, watchlist_adds_count, recent_views_7d')
-        .eq('player_id', playerData.id)
-        .maybeSingle(),
-    ]);
-
-    if (metricsResult.data) setMetrics(metricsResult.data);
-    if (videosResult.data) setVideos(videosResult.data);
-    if (achievementsResult.data) setAchievements(achievementsResult.data);
-    if (evaluationsResult.data) setEvaluations(evaluationsResult.data);
-    if (engagementResult.data) setEngagement(engagementResult.data);
-
-    // Load stats
-    const filters: PerformanceFilters = {
-      source: 'all',
-      dateRange: { from: null, to: null, preset: 'season' },
-    };
-    const statsResponse = await getPlayerStatsSeries(playerData.id, filters);
-    setStatsSummary(statsResponse.summary);
-    setStatsSeries(statsResponse.series);
-
-    // Load recruiting data
-    const recruiting = await getPlayerRecruitingSnapshot(playerData.id);
-    setRecruitingData(recruiting);
-
-    // Load conversations
-    const convos = await getConversationsForPlayer(playerData.id);
-    setConversations(convos);
-
-    // Load upcoming events
-    const eventFilter: EventFilter = {
-      type: 'all',
-      range: { from: null, to: null, preset: '30d' },
-    };
-    const events = await getPlayerEventsTimeline(playerData.id, eventFilter);
-    const upcoming = events
-      .filter(e => new Date(e.date) >= new Date())
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-      .slice(0, 5);
-    setUpcomingEvents(upcoming);
-
-    setLoading(false);
   };
 
   const refreshData = () => {
@@ -290,15 +339,36 @@ export default function PlayerDashboardPage() {
     return (
       <div className="min-h-screen bg-gradient-to-b from-[#0b1720] via-[#0f172a] to-[#f4f7fb]">
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-6 space-y-6">
-          <div className="h-44 rounded-2xl bg-white/5 animate-pulse" />
+          {/* Hero skeleton */}
+          <div className="h-44 rounded-2xl backdrop-blur-2xl bg-white/5 border border-white/15 skeleton-shimmer" />
+          {/* Stats skeleton */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[1,2,3,4].map(i => <div key={i} className="h-28 rounded-2xl bg-white/5 animate-pulse" />)}
+            {[1,2,3,4].map(i => (
+              <div key={i} className="h-28 rounded-2xl backdrop-blur-xl bg-white/8 border border-white/12 skeleton-shimmer" />
+            ))}
           </div>
+          {/* Content skeleton */}
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="h-80 rounded-3xl bg-white/5 animate-pulse" />
-            <div className="h-80 rounded-3xl bg-white/5 animate-pulse" />
+            <div className="h-80 rounded-3xl backdrop-blur-xl bg-white/7 border border-white/12 skeleton-shimmer" />
+            <div className="h-80 rounded-3xl backdrop-blur-xl bg-white/7 border border-white/12 skeleton-shimmer" />
           </div>
         </div>
+        <style jsx>{`
+          @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+          }
+          .skeleton-shimmer {
+            background: linear-gradient(
+              90deg,
+              rgba(255, 255, 255, 0.03) 25%,
+              rgba(255, 255, 255, 0.08) 50%,
+              rgba(255, 255, 255, 0.03) 75%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 1.5s ease-in-out infinite;
+          }
+        `}</style>
       </div>
     );
   }
@@ -318,7 +388,12 @@ export default function PlayerDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen">
+    <motion.div 
+      className="min-h-screen"
+      initial={pageTransition.initial}
+      animate={pageTransition.animate}
+      transition={pageTransition.transition}
+    >
       {/* ═══════════════════════════════════════════════════════════════════
           DARK HERO ZONE
       ═══════════════════════════════════════════════════════════════════ */}
@@ -386,6 +461,7 @@ export default function PlayerDashboardPage() {
                       <Button 
                         className="bg-emerald-500 hover:bg-emerald-400 text-white font-medium gap-2 shadow-lg shadow-emerald-500/25 transition-all duration-150 hover:-translate-y-0.5"
                         onClick={() => router.push('/player/profile')}
+                        aria-label="Edit player profile"
                       >
                         <Edit className="w-4 h-4" />
                         Edit Profile
@@ -397,6 +473,7 @@ export default function PlayerDashboardPage() {
                           navigator.clipboard.writeText(window.location.origin + '/player/' + player.id);
                           toast.success('Profile link copied!');
                         }}
+                        aria-label="Share player profile link"
                       >
                         <Share2 className="w-4 h-4" />
                         Share
@@ -416,35 +493,48 @@ export default function PlayerDashboardPage() {
           </section>
 
           {/* B. STAT CARDS ROW */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-            <GlassStatCard
-              icon={<Eye className="w-4 h-4" />}
-              value={engagement?.recent_views_7d ?? 0}
-              label="Profile Views"
-              sublabel="Last 7 days"
-              trend={engagement && engagement.recent_views_7d > 5 ? 12 : undefined}
-            />
-            <GlassStatCard
-              icon={<GraduationCap className="w-4 h-4" />}
-              value={collegeInterestCount}
-              label="College Interest"
-              sublabel="Schools tracking you"
-            />
-            <GlassStatCard
-              icon={<Bookmark className="w-4 h-4" />}
-              value={engagement?.watchlist_adds_count ?? 0}
-              label="Watchlist Adds"
-              sublabel="Coaches saved you"
-              trend={engagement && engagement.watchlist_adds_count > 3 ? 8 : undefined}
-            />
-            <GlassStatCard
-              icon={<MessageSquare className="w-4 h-4" />}
-              value={unreadMessages}
-              label="Team Messages"
-              sublabel={unreadMessages > 0 ? 'Unread' : 'All caught up'}
-              highlight={unreadMessages > 0}
-            />
-          </div>
+          <motion.div 
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div variants={staggerItem}>
+              <GlassStatCard
+                icon={<Eye className="w-4 h-4" />}
+                value={engagement?.recent_views_7d ?? 0}
+                label="Profile Views"
+                sublabel="Last 7 days"
+                trend={engagement && engagement.recent_views_7d > 5 ? 12 : undefined}
+              />
+            </motion.div>
+            <motion.div variants={staggerItem}>
+              <GlassStatCard
+                icon={<GraduationCap className="w-4 h-4" />}
+                value={collegeInterestCount}
+                label="College Interest"
+                sublabel="Schools tracking you"
+              />
+            </motion.div>
+            <motion.div variants={staggerItem}>
+              <GlassStatCard
+                icon={<Bookmark className="w-4 h-4" />}
+                value={engagement?.watchlist_adds_count ?? 0}
+                label="Watchlist Adds"
+                sublabel="Coaches saved you"
+                trend={engagement && engagement.watchlist_adds_count > 3 ? 8 : undefined}
+              />
+            </motion.div>
+            <motion.div variants={staggerItem}>
+              <GlassStatCard
+                icon={<MessageSquare className="w-4 h-4" />}
+                value={unreadMessages}
+                label="Team Messages"
+                sublabel={unreadMessages > 0 ? 'Unread' : 'All caught up'}
+                highlight={unreadMessages > 0}
+              />
+            </motion.div>
+          </motion.div>
         </div>
       </div>
 
@@ -522,7 +612,10 @@ export default function PlayerDashboardPage() {
                             className="w-full flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-transparent hover:border-white/10 transition-all duration-150 text-left group"
                           >
                             <Avatar className="h-10 w-10 ring-1 ring-white/10">
-                              <AvatarImage src={(convo as any).programLogo ?? undefined} />
+                              <AvatarImage 
+                                src={(convo as any).programLogo ?? undefined} 
+                                alt={convo.title || 'Program logo'} 
+                              />
                               <AvatarFallback className="bg-emerald-500/20 text-emerald-300 text-sm">
                                 {convo.title?.slice(0, 2).toUpperCase() || 'TM'}
                               </AvatarFallback>
@@ -1116,7 +1209,7 @@ export default function PlayerDashboardPage() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -1223,14 +1316,14 @@ function VideoCard({ video, onDelete }: { video: PlayerVideo; onDelete?: (id: st
 
       if (error) {
         toast.error('Failed to delete video');
-        console.error(error);
+        logError(error, { component: 'PlayerDashboard', action: 'deleteVideo' });
         return;
       }
 
       toast.success('Video deleted successfully');
       onDelete?.(video.id);
     } catch (error) {
-      console.error('Error deleting video:', error);
+      logError(error, { component: 'PlayerDashboard', action: 'deleteVideo' });
       toast.error('An error occurred');
     } finally {
       setDeleting(false);
@@ -1259,7 +1352,7 @@ function VideoCard({ video, onDelete }: { video: PlayerVideo; onDelete?: (id: st
             title="Delete video"
           >
             {deleting ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <div className="h-4 w-4 bg-white/20 rounded animate-pulse" />
             ) : (
               <Trash2 className="w-4 h-4" />
             )}

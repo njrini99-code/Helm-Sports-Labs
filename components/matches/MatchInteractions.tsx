@@ -493,7 +493,7 @@ function ActionButton({ icon: Icon, label, onClick, variant = 'default', disable
         (disabled || loading) && 'opacity-50 cursor-not-allowed'
       )}
     >
-      {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Icon className="w-4 h-4" />}
+      {loading ? <div className="h-4 w-4 bg-white/20 rounded animate-pulse" /> : <Icon className="w-4 h-4" />}
     </button>
   );
 }
@@ -581,7 +581,7 @@ export function MatchActions({ match, onEdit, onDelete, onDuplicate, showMenu = 
                     disabled={isDeleting}
                     className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-red-500/10 transition-colors disabled:opacity-50"
                   >
-                    {isDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                    {isDeleting ? <div className="h-4 w-4 bg-red-400/20 rounded animate-pulse" /> : <Trash2 className="w-4 h-4" />}
                     Delete
                   </button>
                 </>
@@ -1029,7 +1029,7 @@ export function ConfirmModal({
             >
               {isProcessing ? (
                 <span className="flex items-center justify-center gap-2">
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <div className="h-4 w-4 bg-white/20 rounded animate-pulse" />
                   Processing...
                 </span>
               ) : (

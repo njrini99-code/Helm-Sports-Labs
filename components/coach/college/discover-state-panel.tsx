@@ -165,7 +165,7 @@ export function DiscoverStatePanel({
 
           {loading ? (
             <div className="flex-1 flex items-center justify-center">
-              <Loader2 className="w-6 h-6 animate-spin text-primary" />
+              <div className="h-6 w-6 bg-primary/20 rounded animate-pulse" />
             </div>
           ) : !selectedState ? (
             <div className="flex-1 flex items-center justify-center text-center px-4">

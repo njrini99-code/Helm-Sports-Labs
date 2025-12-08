@@ -34,12 +34,17 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import { isDevMode, DEV_ENTITY_IDS } from '@/lib/dev-mode';
+import { Confetti } from '@/components/ui/Confetti';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Types
 // ═══════════════════════════════════════════════════════════════════════════
 
 type RecruitingStatus = 'watchlist' | 'high_priority' | 'offer_extended' | 'committed' | 'uninterested';
+
+interface RingColorStyle extends React.CSSProperties {
+  '--tw-ring-color'?: string;
+}
 
 interface PlannerPlayer {
   id: string;
@@ -182,6 +187,7 @@ export default function RecruitingPlannerPage() {
   const [pendingStatus, setPendingStatus] = useState<RecruitingStatus>('watchlist');
   const [pendingNote, setPendingNote] = useState('');
   const [newPlayerId, setNewPlayerId] = useState('');
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     loadPipeline();
@@ -258,6 +264,11 @@ export default function RecruitingPlannerPage() {
     const success = await updateRecruitStatus(selectedEntry.id, pendingStatus);
     if (success) {
       toast.success('Status updated');
+      
+      // Trigger confetti if player committed
+      if (pendingStatus === 'committed') {
+        setShowConfetti(true);
+      }
     } else {
       toast.error('Could not update status');
       loadPipeline();
@@ -492,6 +503,12 @@ export default function RecruitingPlannerPage() {
           </DialogContent>
         </Dialog>
       </div>
+      
+      {/* Confetti celebration */}
+      <Confetti 
+        show={showConfetti} 
+        onComplete={() => setShowConfetti(false)} 
+      />
     </div>
   );
 }
@@ -550,7 +567,7 @@ function PipelinePanel({
                       className={`group flex items-center gap-2.5 p-2 rounded-xl border transition-all duration-200 cursor-pointer ${
                         isSelected ? `${config.bgClass} ${config.borderClass} shadow-sm ring-2` : 'border-transparent hover:bg-slate-50 hover:border-slate-100'
                       }`}
-                      style={isSelected ? { '--tw-ring-color': config.color } as any : {}}
+                      style={isSelected ? { '--tw-ring-color': config.color } as RingColorStyle : {}}
                       onClick={() => onPlayerSelect(entry.player.id)}
                     >
                       <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold text-white flex-shrink-0" style={{ backgroundColor: config.color }}>
@@ -805,7 +822,7 @@ function RecruitingDiamondPlayerPill({
           ${isSelected ? 'ring-2 ring-offset-2 ring-offset-emerald-700 scale-105 shadow-md' : ''}
           ${hovered && !isSelected ? 'scale-105 shadow-md border-opacity-100' : ''}
         `}
-        style={isSelected ? { '--tw-ring-color': config.color } as any : {}}
+        style={isSelected ? { '--tw-ring-color': config.color } as RingColorStyle : {}}
       >
         {/* Avatar Circle */}
         <div 
