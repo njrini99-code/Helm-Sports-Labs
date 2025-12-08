@@ -427,9 +427,15 @@ export default function LoginPage() {
 
   const handleDevLogin = (account: typeof DEV_ACCOUNTS[0]) => {
     setDevLoading(account.id);
+    
+    // Set cookies for middleware (cookies work with SSR/middleware, localStorage doesn't)
+    document.cookie = `dev_mode=true; path=/; max-age=${60 * 60 * 24 * 7}`; // 7 days
+    document.cookie = `dev_role=${account.id}; path=/; max-age=${60 * 60 * 24 * 7}`;
+    
+    // Also set localStorage for client-side checks
     localStorage.setItem('dev_role', account.id);
     localStorage.setItem('dev_mode', 'true');
-    
+
     setToast({
       show: true,
       type: 'success',

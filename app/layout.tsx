@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Toaster } from 'sonner';
 import { ThemeProvider } from '@/lib/theme-context';
+import { ErrorProvider } from '@/components/providers/ErrorProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -78,7 +79,9 @@ export default function RootLayout({
     <html lang="en" className="light" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider>
-          {children}
+          <ErrorProvider>
+            {children}
+          </ErrorProvider>
           <Toaster 
             position="top-right"
             toastOptions={{

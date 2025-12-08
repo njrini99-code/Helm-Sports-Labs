@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, ReactNode } from 'react';
+import { useState, useEffect, ReactNode, memo, useMemo, useCallback } from 'react';
 import { cn } from '@/lib/utils';
 import { GlassCard } from './GlassCard';
 import { Badge } from '@/components/ui/badge';
@@ -18,6 +18,8 @@ import {
   Plus,
   ChevronRight,
   CheckCircle2,
+  Zap,
+  Target,
 } from 'lucide-react';
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -45,6 +47,162 @@ export interface PlayerData {
   rating?: number;
   committed?: boolean;
   committedTo?: string;
+  // Extended metrics for calculations
+  pitchVelo?: number;
+  exitVelo?: number;
+  sixtyTime?: number;
+  popTime?: number;
+  armStrength?: number;
+  sprintSpeed?: number;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PERFORMANCE CALCULATION UTILITIES (Expensive operations)
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Calculate a player's overall performance score (0-100)
+ * This is an expensive calculation that should be memoized
+ */
+function calculatePerformanceScore(player: PlayerData): number {
+  const weights = {
+    pitchVelo: 0.20,
+    exitVelo: 0.18,
+    sixtyTime: 0.15,
+    popTime: 0.12,
+    armStrength: 0.10,
+    sprintSpeed: 0.10,
+    gpa: 0.08,
+    rating: 0.07,
+  };
+
+  let score = 0;
+  let totalWeight = 0;
+
+  // Pitch velocity (scale: 60-100 mph → 0-100 score)
+  if (player.pitchVelo) {
+    const pitchScore = Math.min(100, Math.max(0, ((player.pitchVelo - 60) / 40) * 100));
+    score += pitchScore * weights.pitchVelo;
+    totalWeight += weights.pitchVelo;
+  }
+
+  // Exit velocity (scale: 70-110 mph → 0-100 score)
+  if (player.exitVelo) {
+    const exitScore = Math.min(100, Math.max(0, ((player.exitVelo - 70) / 40) * 100));
+    score += exitScore * weights.exitVelo;
+    totalWeight += weights.exitVelo;
+  }
+
+  // 60-yard dash (scale: 6.0-8.0 seconds → 100-0 score, lower is better)
+  if (player.sixtyTime) {
+    const sixtyScore = Math.min(100, Math.max(0, ((8.0 - player.sixtyTime) / 2.0) * 100));
+    score += sixtyScore * weights.sixtyTime;
+    totalWeight += weights.sixtyTime;
+  }
+
+  // Pop time (scale: 1.7-2.3 seconds → 100-0 score, lower is better)
+  if (player.popTime) {
+    const popScore = Math.min(100, Math.max(0, ((2.3 - player.popTime) / 0.6) * 100));
+    score += popScore * weights.popTime;
+    totalWeight += weights.popTime;
+  }
+
+  // Arm strength (scale: 60-95 mph → 0-100 score)
+  if (player.armStrength) {
+    const armScore = Math.min(100, Math.max(0, ((player.armStrength - 60) / 35) * 100));
+    score += armScore * weights.armStrength;
+    totalWeight += weights.armStrength;
+  }
+
+  // Sprint speed (scale: 25-35 ft/s → 0-100 score)
+  if (player.sprintSpeed) {
+    const sprintScore = Math.min(100, Math.max(0, ((player.sprintSpeed - 25) / 10) * 100));
+    score += sprintScore * weights.sprintSpeed;
+    totalWeight += weights.sprintSpeed;
+  }
+
+  // GPA (scale: 2.0-4.0 → 0-100 score)
+  if (player.gpa) {
+    const gpaScore = Math.min(100, Math.max(0, ((player.gpa - 2.0) / 2.0) * 100));
+    score += gpaScore * weights.gpa;
+    totalWeight += weights.gpa;
+  }
+
+  // Direct rating if provided (1-5 → 20-100)
+  if (player.rating) {
+    const ratingScore = (player.rating / 5) * 100;
+    score += ratingScore * weights.rating;
+    totalWeight += weights.rating;
+  }
+
+  // Normalize score based on available metrics
+  if (totalWeight > 0) {
+    score = score / totalWeight;
+  }
+
+  // Bonus for verified and trending players
+  if (player.verified) score = Math.min(100, score + 5);
+  if (player.trending) score = Math.min(100, score + 3);
+  if (player.committed) score = Math.min(100, score + 2);
+
+  return Math.round(score);
+}
+
+/**
+ * Calculate projected recruiting value (scholarship potential)
+ * This is an expensive calculation that should be memoized
+ */
+function calculateProjectedValue(player: PlayerData): {
+  tier: 'Elite' | 'High' | 'Mid' | 'Developing';
+  confidence: number;
+  projection: string;
+} {
+  const performanceScore = calculatePerformanceScore(player);
+  const currentYear = new Date().getFullYear();
+  const yearsToGrad = (player.gradYear || currentYear + 2) - currentYear;
+  
+  // Factor in development potential based on years remaining
+  const developmentBonus = Math.max(0, yearsToGrad * 3);
+  const adjustedScore = Math.min(100, performanceScore + developmentBonus);
+  
+  // Position-specific value adjustments
+  const positionMultiplier: Record<string, number> = {
+    'RHP': 1.15,
+    'LHP': 1.20,
+    'C': 1.10,
+    'SS': 1.08,
+    'CF': 1.05,
+    '1B': 0.95,
+    'DH': 0.90,
+  };
+  
+  const posMultiplier = positionMultiplier[player.primaryPosition] || 1.0;
+  const finalScore = adjustedScore * posMultiplier;
+  
+  // Determine tier and confidence
+  let tier: 'Elite' | 'High' | 'Mid' | 'Developing';
+  let projection: string;
+  let confidence: number;
+  
+  if (finalScore >= 85) {
+    tier = 'Elite';
+    projection = 'D1 Power 5 / MLB Draft';
+    confidence = Math.min(95, 70 + (finalScore - 85));
+  } else if (finalScore >= 70) {
+    tier = 'High';
+    projection = 'D1 Mid-Major / D2 Top';
+    confidence = Math.min(85, 60 + (finalScore - 70));
+  } else if (finalScore >= 55) {
+    tier = 'Mid';
+    projection = 'D2 / D3 / NAIA';
+    confidence = Math.min(75, 50 + (finalScore - 55));
+  } else {
+    tier = 'Developing';
+    projection = 'JUCO / Development';
+    confidence = Math.min(65, 40 + finalScore * 0.5);
+  }
+  
+  return { tier, confidence: Math.round(confidence), projection };
 }
 
 export type PlayerCardSize = 'sm' | 'md' | 'lg';
@@ -111,10 +269,10 @@ const SIZE_STYLES: Record<PlayerCardSize, {
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
-// SKELETON COMPONENT
+// SKELETON COMPONENT (Memoized)
 // ═══════════════════════════════════════════════════════════════════════════
 
-function PlayerCardSkeleton({ size = 'md' }: { size?: PlayerCardSize }) {
+const PlayerCardSkeleton = memo(function PlayerCardSkeleton({ size = 'md' }: { size?: PlayerCardSize }) {
   const styles = SIZE_STYLES[size];
 
   return (
@@ -148,23 +306,25 @@ function PlayerCardSkeleton({ size = 'md' }: { size?: PlayerCardSize }) {
       </div>
     </GlassCard>
   );
-}
+});
 
 // ═══════════════════════════════════════════════════════════════════════════
-// ANIMATED STAT ITEM
+// ANIMATED STAT ITEM (Memoized)
 // ═══════════════════════════════════════════════════════════════════════════
 
-function AnimatedStatBadge({
-  children,
-  index,
-  staggerDelay = 50,
-  disableAnimation = false,
-}: {
+interface AnimatedStatBadgeProps {
   children: ReactNode;
   index: number;
   staggerDelay?: number;
   disableAnimation?: boolean;
-}) {
+}
+
+const AnimatedStatBadge = memo(function AnimatedStatBadge({
+  children,
+  index,
+  staggerDelay = 50,
+  disableAnimation = false,
+}: AnimatedStatBadgeProps) {
   const [isVisible, setIsVisible] = useState(disableAnimation);
 
   useEffect(() => {
@@ -172,6 +332,10 @@ function AnimatedStatBadge({
     const timer = setTimeout(() => setIsVisible(true), index * staggerDelay);
     return () => clearTimeout(timer);
   }, [index, staggerDelay, disableAnimation]);
+
+  const style = useMemo(() => ({
+    transitionDelay: disableAnimation ? '0ms' : `${index * staggerDelay}ms`,
+  }), [index, staggerDelay, disableAnimation]);
 
   return (
     <div
@@ -181,20 +345,18 @@ function AnimatedStatBadge({
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-2'
       )}
-      style={{
-        transitionDelay: disableAnimation ? '0ms' : `${index * staggerDelay}ms`,
-      }}
+      style={style}
     >
       {children}
     </div>
   );
-}
+});
 
 // ═══════════════════════════════════════════════════════════════════════════
-// PLAYER CARD COMPONENT
+// PLAYER CARD COMPONENT (Optimized with React.memo, useMemo, useCallback)
 // ═══════════════════════════════════════════════════════════════════════════
 
-export function PlayerCard({
+export const PlayerCard = memo(function PlayerCard({
   player,
   size = 'md',
   variant = 'default',
@@ -215,6 +377,98 @@ export function PlayerCard({
 
   const styles = SIZE_STYLES[size];
 
+  // ═══════════════════════════════════════════════════════════════════════
+  // MEMOIZED EXPENSIVE CALCULATIONS
+  // ═══════════════════════════════════════════════════════════════════════
+
+  // Memoize performance score calculation (expensive)
+  const performanceScore = useMemo(() => {
+    return calculatePerformanceScore(player);
+  }, [player]);
+
+  // Memoize projected value calculation (expensive)
+  const projectedValue = useMemo(() => {
+    return calculateProjectedValue(player);
+  }, [player]);
+
+  // Memoize initials generation
+  const initials = useMemo(() => {
+    return player.name
+      .split(' ')
+      .map((n: string) => n[0])
+      .join('')
+      .slice(0, 2)
+      .toUpperCase();
+  }, [player.name]);
+
+  // Memoize location formatting
+  const location = useMemo(() => {
+    return [player.city, player.state].filter(Boolean).join(', ');
+  }, [player.city, player.state]);
+
+  // Memoize metrics collection (expensive with many fields)
+  const allMetrics = useMemo(() => {
+    const metrics: string[] = [];
+    if (player.height) metrics.push(player.height);
+    if (player.weight) metrics.push(`${player.weight} lbs`);
+    if (player.bats && player.throws) metrics.push(`B/T: ${player.bats}/${player.throws}`);
+    if (player.gpa) metrics.push(`GPA: ${player.gpa.toFixed(2)}`);
+    if (player.pitchVelo) metrics.push(`${player.pitchVelo} mph`);
+    if (player.exitVelo) metrics.push(`EV: ${player.exitVelo}`);
+    if (player.sixtyTime) metrics.push(`60: ${player.sixtyTime}s`);
+    if (player.metrics) metrics.push(...player.metrics);
+    return metrics;
+  }, [
+    player.height,
+    player.weight,
+    player.bats,
+    player.throws,
+    player.gpa,
+    player.pitchVelo,
+    player.exitVelo,
+    player.sixtyTime,
+    player.metrics,
+  ]);
+
+  // Memoize displayed metrics (limited to 4)
+  const displayedMetrics = useMemo(() => {
+    return allMetrics.slice(0, 4);
+  }, [allMetrics]);
+
+  // Memoize remaining metrics count
+  const remainingMetricsCount = useMemo(() => {
+    return Math.max(0, allMetrics.length - 4);
+  }, [allMetrics.length]);
+
+  // Memoize style object to prevent re-renders
+  const containerStyle = useMemo(() => ({
+    transitionDelay: disableAnimation ? '0ms' : `${index * 100}ms`,
+  }), [index, disableAnimation]);
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // MEMOIZED CALLBACKS (prevent re-renders of child components)
+  // ═══════════════════════════════════════════════════════════════════════
+
+  const handleAddToWatchlist = useCallback(() => {
+    onAddToWatchlist?.(player.id);
+  }, [onAddToWatchlist, player.id]);
+
+  const handleView = useCallback(() => {
+    onView?.(player.id);
+  }, [onView, player.id]);
+
+  const handleAvatarMouseEnter = useCallback(() => {
+    setIsAvatarHovered(true);
+  }, []);
+
+  const handleAvatarMouseLeave = useCallback(() => {
+    setIsAvatarHovered(false);
+  }, []);
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // EFFECTS
+  // ═══════════════════════════════════════════════════════════════════════
+
   // Entry animation
   useEffect(() => {
     if (disableAnimation) return;
@@ -222,29 +476,18 @@ export function PlayerCard({
     return () => clearTimeout(timer);
   }, [index, disableAnimation]);
 
+  // ═══════════════════════════════════════════════════════════════════════
+  // EARLY RETURNS
+  // ═══════════════════════════════════════════════════════════════════════
+
   // Show skeleton when loading
   if (loading) {
     return <PlayerCardSkeleton size={size} />;
   }
 
-  // Generate initials from name
-  const initials = player.name
-    .split(' ')
-    .map((n) => n[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
-
-  // Format location
-  const location = [player.city, player.state].filter(Boolean).join(', ');
-
-  // Collect stats/metrics for display
-  const allMetrics: string[] = [];
-  if (player.height) allMetrics.push(player.height);
-  if (player.weight) allMetrics.push(`${player.weight} lbs`);
-  if (player.bats && player.throws) allMetrics.push(`B/T: ${player.bats}/${player.throws}`);
-  if (player.gpa) allMetrics.push(`GPA: ${player.gpa.toFixed(2)}`);
-  if (player.metrics) allMetrics.push(...player.metrics);
+  // ═══════════════════════════════════════════════════════════════════════
+  // RENDER
+  // ═══════════════════════════════════════════════════════════════════════
 
   return (
     <div
@@ -255,9 +498,7 @@ export function PlayerCard({
           : 'opacity-0 translate-y-5',
         className
       )}
-      style={{
-        transitionDelay: disableAnimation ? '0ms' : `${index * 100}ms`,
-      }}
+      style={containerStyle}
     >
       <GlassCard
         size="full"
@@ -270,8 +511,8 @@ export function PlayerCard({
           {/* Avatar with hover scale */}
           <div
             className="relative shrink-0"
-            onMouseEnter={() => setIsAvatarHovered(true)}
-            onMouseLeave={() => setIsAvatarHovered(false)}
+            onMouseEnter={handleAvatarMouseEnter}
+            onMouseLeave={handleAvatarMouseLeave}
           >
             <Avatar
               className={cn(
@@ -371,10 +612,41 @@ export function PlayerCard({
               </p>
             )}
 
+            {/* Performance Score & Projected Value (detailed variant) */}
+            {variant === 'detailed' && (
+              <div className="flex items-center gap-3 mt-2">
+                <div className="flex items-center gap-1 text-xs">
+                  <Zap className="w-3 h-3 text-amber-400" />
+                  <span className="text-slate-400">Score:</span>
+                  <span className={cn(
+                    'font-semibold',
+                    performanceScore >= 80 ? 'text-emerald-400' :
+                    performanceScore >= 60 ? 'text-amber-400' :
+                    'text-slate-400'
+                  )}>
+                    {performanceScore}
+                  </span>
+                </div>
+                <div className="flex items-center gap-1 text-xs">
+                  <Target className="w-3 h-3 text-blue-400" />
+                  <span className={cn(
+                    'font-medium',
+                    projectedValue.tier === 'Elite' ? 'text-emerald-400' :
+                    projectedValue.tier === 'High' ? 'text-blue-400' :
+                    projectedValue.tier === 'Mid' ? 'text-amber-400' :
+                    'text-slate-400'
+                  )}>
+                    {projectedValue.tier}
+                  </span>
+                  <span className="text-slate-500">({projectedValue.confidence}%)</span>
+                </div>
+              </div>
+            )}
+
             {/* Metrics with stagger animation */}
-            {allMetrics.length > 0 && variant !== 'minimal' && variant !== 'compact' && (
+            {displayedMetrics.length > 0 && variant !== 'minimal' && variant !== 'compact' && (
               <div className="flex flex-wrap gap-1.5 mt-2">
-                {allMetrics.slice(0, 4).map((metric, idx) => (
+                {displayedMetrics.map((metric, idx) => (
                   <AnimatedStatBadge
                     key={idx}
                     index={idx + 3}
@@ -389,13 +661,13 @@ export function PlayerCard({
                     </Badge>
                   </AnimatedStatBadge>
                 ))}
-                {allMetrics.length > 4 && (
+                {remainingMetricsCount > 0 && (
                   <AnimatedStatBadge index={7} staggerDelay={staggerDelay} disableAnimation={disableAnimation}>
                     <Badge
                       variant="outline"
                       className={cn(styles.badge, 'bg-slate-800/50 border-slate-700/50 text-slate-500')}
                     >
-                      +{allMetrics.length - 4} more
+                      +{remainingMetricsCount} more
                     </Badge>
                   </AnimatedStatBadge>
                 )}
@@ -424,7 +696,7 @@ export function PlayerCard({
                       ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 border border-emerald-500/30'
                       : 'bg-emerald-500 hover:bg-emerald-600 text-white'
                   )}
-                  onClick={() => onAddToWatchlist(player.id)}
+                  onClick={handleAddToWatchlist}
                 >
                   {isOnWatchlist ? (
                     <>
@@ -442,7 +714,7 @@ export function PlayerCard({
                   size="sm"
                   variant="outline"
                   className="text-[10px] h-7 px-2 bg-white/5 border-white/20 text-white hover:bg-white/10 gap-1"
-                  onClick={() => onView(player.id)}
+                  onClick={handleView}
                 >
                   <Eye className="w-3 h-3" /> View
                 </Button>
@@ -453,10 +725,10 @@ export function PlayerCard({
       </GlassCard>
     </div>
   );
-}
+});
 
 // ═══════════════════════════════════════════════════════════════════════════
-// PLAYER CARD LIST WITH STAGGER
+// PLAYER CARD LIST WITH STAGGER (Optimized)
 // ═══════════════════════════════════════════════════════════════════════════
 
 export interface PlayerCardListProps {
@@ -480,7 +752,7 @@ const GAP_STYLES = {
   lg: 'gap-4',
 };
 
-export function PlayerCardList({
+export const PlayerCardList = memo(function PlayerCardList({
   players,
   loading = false,
   loadingCount = 3,
@@ -494,10 +766,25 @@ export function PlayerCardList({
   emptyMessage = 'No players found',
   gap = 'md',
 }: PlayerCardListProps) {
+  // Memoize watchlist Set for O(1) lookup instead of O(n) includes()
+  const watchlistSet = useMemo(() => {
+    return new Set(watchlistIds);
+  }, [watchlistIds]);
+
+  // Memoize skeleton array to prevent re-creation
+  const skeletons = useMemo(() => {
+    return Array.from({ length: loadingCount });
+  }, [loadingCount]);
+
+  // Memoize container className
+  const containerClassName = useMemo(() => {
+    return cn('flex flex-col', GAP_STYLES[gap], className);
+  }, [gap, className]);
+
   if (loading) {
     return (
-      <div className={cn('flex flex-col', GAP_STYLES[gap], className)}>
-        {Array.from({ length: loadingCount }).map((_, i) => (
+      <div className={containerClassName}>
+        {skeletons.map((_, i) => (
           <PlayerCardSkeleton key={i} size={size} />
         ))}
       </div>
@@ -513,7 +800,7 @@ export function PlayerCardList({
   }
 
   return (
-    <div className={cn('flex flex-col', GAP_STYLES[gap], className)}>
+    <div className={containerClassName}>
       {players.map((player, index) => (
         <PlayerCard
           key={player.id}
@@ -524,12 +811,12 @@ export function PlayerCardList({
           showActions={showActions}
           onAddToWatchlist={onAddToWatchlist}
           onView={onView}
-          isOnWatchlist={watchlistIds.includes(player.id)}
+          isOnWatchlist={watchlistSet.has(player.id)}
         />
       ))}
     </div>
   );
-}
+});
 
 // ═══════════════════════════════════════════════════════════════════════════
 // EXPORTS
