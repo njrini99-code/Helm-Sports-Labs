@@ -115,24 +115,57 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
   };
 
   const generateQRCode = (link: string) => {
-    // Use external QR code service
-    const qrServiceUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(link)}`;
-    setQrCodeUrl(qrServiceUrl);
+    if (!link) {
+      toast.error('No link to generate QR code for');
+      return;
+    }
+    
+    try {
+      // Use external QR code service
+      const qrServiceUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(link)}`;
+      setQrCodeUrl(qrServiceUrl);
+      toast.success('QR code generated');
+    } catch (error) {
+      console.error('Error generating QR code:', error);
+      toast.error('Failed to generate QR code');
+    }
   };
 
   const shareViaEmail = (link: string) => {
-    const subject = encodeURIComponent('Join my team on ScoutPulse');
-    const body = encodeURIComponent(
-      `I've invited you to join my team on ScoutPulse. Click the link below to join:\n\n${link}`
-    );
-    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    if (!link) {
+      toast.error('No link to share');
+      return;
+    }
+    
+    try {
+      const subject = encodeURIComponent('Join my team on ScoutPulse');
+      const body = encodeURIComponent(
+        `I've invited you to join my team on ScoutPulse. Click the link below to join:\n\n${link}`
+      );
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+      toast.success('Email client opened');
+    } catch (error) {
+      console.error('Error opening email client:', error);
+      toast.error('Failed to open email client');
+    }
   };
 
   const shareViaSMS = (link: string) => {
-    const message = encodeURIComponent(
-      `Join my team on ScoutPulse: ${link}`
-    );
-    window.location.href = `sms:?body=${message}`;
+    if (!link) {
+      toast.error('No link to share');
+      return;
+    }
+    
+    try {
+      const message = encodeURIComponent(
+        `Join my team on ScoutPulse: ${link}`
+      );
+      window.location.href = `sms:?body=${message}`;
+      toast.success('SMS client opened');
+    } catch (error) {
+      console.error('Error opening SMS client:', error);
+      toast.error('Failed to open SMS client');
+    }
   };
 
   return (

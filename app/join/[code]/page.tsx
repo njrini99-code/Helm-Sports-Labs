@@ -66,6 +66,16 @@ export default function JoinTeamPage() {
   };
 
   const handleJoinTeam = async () => {
+    if (!invitation) {
+      toast.error('Invalid invitation');
+      return;
+    }
+    
+    if (joined) {
+      toast.info('You have already joined this team');
+      return;
+    }
+    
     try {
       setJoining(true);
       const response = await fetch(`/api/teams/join/${code}`, {

@@ -272,8 +272,33 @@ export default function CoachSettingsPage() {
   };
 
   const handleDeleteStaff = async (staffId: string) => {
+    const staffToDelete = staff.find(s => s.id === staffId);
+    if (!staffToDelete) {
+      toast.error('Staff member not found');
+      return;
+    }
+
+    const originalStaff = [...staff];
     setStaff(staff.filter(s => s.id !== staffId));
-    toast.success('Staff member removed');
+
+    try {
+      // TODO: Add API call to delete from database when staff table is implemented
+      // For now, this is just local state management
+      // const supabase = createClient();
+      // const { error } = await supabase
+      //   .from('staff_members')
+      //   .delete()
+      //   .eq('id', staffId);
+      // 
+      // if (error) throw error;
+
+      toast.success('Staff member removed');
+    } catch (error) {
+      // Rollback on error
+      setStaff(originalStaff);
+      console.error('Error deleting staff member:', error);
+      toast.error('Failed to remove staff member');
+    }
   };
 
   // Google Calendar handlers

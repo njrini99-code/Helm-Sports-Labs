@@ -454,62 +454,103 @@ export default function CollegeCoachWatchlistPage() {
   };
 
   const handleRemoveFromWatchlist = async (recruitId: string, playerName: string) => {
-    const supabase = createClient();
-    const { error } = await supabase
-      .from('recruits')
-      .delete()
-      .eq('id', recruitId);
+    const originalRecruits = [...recruits];
+    setRecruits(recruits.filter(r => r.id !== recruitId));
 
-    if (error) {
-      toast.error('Failed to remove from watchlist');
-    } else {
+    try {
+      const supabase = createClient();
+      const { error } = await supabase
+        .from('recruits')
+        .delete()
+        .eq('id', recruitId);
+
+      if (error) {
+        setRecruits(originalRecruits); // Rollback
+        toast.error('Failed to remove from watchlist');
+        return;
+      }
+
       toast.success(`${playerName} removed from watchlist`);
-      setRecruits(recruits.filter(r => r.id !== recruitId));
+    } catch (error) {
+      setRecruits(originalRecruits); // Rollback
+      console.error('Error removing from watchlist:', error);
+      toast.error('An error occurred while removing from watchlist');
     }
   };
 
   const handleUpdateStage = async (recruitId: string, newStage: string, playerName: string) => {
-    const supabase = createClient();
-    const { error } = await supabase
-      .from('recruits')
-      .update({ stage: newStage, updated_at: new Date().toISOString() })
-      .eq('id', recruitId);
+    const originalRecruits = [...recruits];
+    setRecruits(recruits.map(r => r.id === recruitId ? { ...r, stage: newStage, updated_at: new Date().toISOString() } : r));
 
-    if (error) {
-      toast.error('Failed to update stage');
-    } else {
+    try {
+      const supabase = createClient();
+      const { error } = await supabase
+        .from('recruits')
+        .update({ stage: newStage, updated_at: new Date().toISOString() })
+        .eq('id', recruitId);
+
+      if (error) {
+        setRecruits(originalRecruits); // Rollback
+        toast.error('Failed to update stage');
+        return;
+      }
+
       const stageName = STAGES.find(s => s.id === newStage)?.label;
       toast.success(`${playerName} moved to ${stageName}`);
-      setRecruits(recruits.map(r => r.id === recruitId ? { ...r, stage: newStage, updated_at: new Date().toISOString() } : r));
+    } catch (error) {
+      setRecruits(originalRecruits); // Rollback
+      console.error('Error updating stage:', error);
+      toast.error('An error occurred while updating stage');
     }
   };
 
   const handleUpdateRating = async (recruitId: string, rating: number) => {
-    const supabase = createClient();
-    const { error } = await supabase
-      .from('recruits')
-      .update({ rating, updated_at: new Date().toISOString() })
-      .eq('id', recruitId);
+    const originalRecruits = [...recruits];
+    setRecruits(recruits.map(r => r.id === recruitId ? { ...r, rating, updated_at: new Date().toISOString() } : r));
 
-    if (error) {
-      toast.error('Failed to update rating');
-    } else {
-      setRecruits(recruits.map(r => r.id === recruitId ? { ...r, rating, updated_at: new Date().toISOString() } : r));
+    try {
+      const supabase = createClient();
+      const { error } = await supabase
+        .from('recruits')
+        .update({ rating, updated_at: new Date().toISOString() })
+        .eq('id', recruitId);
+
+      if (error) {
+        setRecruits(originalRecruits); // Rollback
+        toast.error('Failed to update rating');
+        return;
+      }
+
+      toast.success('Rating updated');
+    } catch (error) {
+      setRecruits(originalRecruits); // Rollback
+      console.error('Error updating rating:', error);
+      toast.error('An error occurred while updating rating');
     }
   };
 
   const handleUpdatePriority = async (recruitId: string, priority: string) => {
-    const supabase = createClient();
-    const { error } = await supabase
-      .from('recruits')
-      .update({ priority, updated_at: new Date().toISOString() })
-      .eq('id', recruitId);
+    const originalRecruits = [...recruits];
+    setRecruits(recruits.map(r => r.id === recruitId ? { ...r, priority, updated_at: new Date().toISOString() } : r));
 
-    if (error) {
-      toast.error('Failed to update priority');
-    } else {
+    try {
+      const supabase = createClient();
+      const { error } = await supabase
+        .from('recruits')
+        .update({ priority, updated_at: new Date().toISOString() })
+        .eq('id', recruitId);
+
+      if (error) {
+        setRecruits(originalRecruits); // Rollback
+        toast.error('Failed to update priority');
+        return;
+      }
+
       toast.success('Priority updated');
-      setRecruits(recruits.map(r => r.id === recruitId ? { ...r, priority, updated_at: new Date().toISOString() } : r));
+    } catch (error) {
+      setRecruits(originalRecruits); // Rollback
+      console.error('Error updating priority:', error);
+      toast.error('An error occurred while updating priority');
     }
   };
 
@@ -521,16 +562,21 @@ export default function CollegeCoachWatchlistPage() {
   const handleSaveNotes = async () => {
     if (!notesModal.recruit) return;
     
+    const originalRecruits = [...recruits];
     setSavingNotes(true);
-    const supabase = createClient();
-    const { error } = await supabase
-      .from('recruits')
-      .update({ notes: noteText, updated_at: new Date().toISOString() })
-      .eq('id', notesModal.recruit.id);
+    
+    try {
+      const supabase = createClient();
+      const { error } = await supabase
+        .from('recruits')
+        .update({ notes: noteText, updated_at: new Date().toISOString() })
+        .eq('id', notesModal.recruit.id);
 
-    if (error) {
-      toast.error('Failed to save notes');
-    } else {
+      if (error) {
+        toast.error('Failed to save notes');
+        return;
+      }
+
       toast.success('Notes saved');
       setRecruits(recruits.map(r => 
         r.id === notesModal.recruit!.id 
@@ -538,8 +584,13 @@ export default function CollegeCoachWatchlistPage() {
           : r
       ));
       setNotesModal({ open: false, recruit: null });
+    } catch (error) {
+      setRecruits(originalRecruits); // Rollback
+      console.error('Error saving notes:', error);
+      toast.error('An error occurred while saving notes');
+    } finally {
+      setSavingNotes(false);
     }
-    setSavingNotes(false);
   };
 
   // Bulk selection handlers
@@ -571,47 +622,67 @@ export default function CollegeCoachWatchlistPage() {
   const handleBulkMoveStage = async (newStage: string) => {
     if (selectedIds.size === 0) return;
     
+    const originalRecruits = [...recruits];
     setBulkActionLoading(true);
-    const supabase = createClient();
-    const { error } = await supabase
-      .from('recruits')
-      .update({ stage: newStage, updated_at: new Date().toISOString() })
-      .in('id', Array.from(selectedIds));
+    
+    try {
+      const supabase = createClient();
+      const { error } = await supabase
+        .from('recruits')
+        .update({ stage: newStage, updated_at: new Date().toISOString() })
+        .in('id', Array.from(selectedIds));
 
-    if (error) {
-      toast.error('Failed to move selected recruits');
-    } else {
+      if (error) {
+        toast.error('Failed to move selected recruits');
+        return;
+      }
+
       const stageName = STAGES.find(s => s.id === newStage)?.label;
       toast.success(`${selectedIds.size} recruits moved to ${stageName}`);
       setRecruits(recruits.map(r => 
         selectedIds.has(r.id) ? { ...r, stage: newStage, updated_at: new Date().toISOString() } : r
       ));
       clearSelection();
+    } catch (error) {
+      setRecruits(originalRecruits); // Rollback
+      console.error('Error moving stage:', error);
+      toast.error('An error occurred while moving recruits');
+    } finally {
+      setBulkActionLoading(false);
     }
-    setBulkActionLoading(false);
   };
 
   const handleBulkSetPriority = async (priority: string) => {
     if (selectedIds.size === 0) return;
     
+    const originalRecruits = [...recruits];
     setBulkActionLoading(true);
-    const supabase = createClient();
-    const { error } = await supabase
-      .from('recruits')
-      .update({ priority, updated_at: new Date().toISOString() })
-      .in('id', Array.from(selectedIds));
+    
+    try {
+      const supabase = createClient();
+      const { error } = await supabase
+        .from('recruits')
+        .update({ priority, updated_at: new Date().toISOString() })
+        .in('id', Array.from(selectedIds));
 
-    if (error) {
-      toast.error('Failed to set priority');
-    } else {
+      if (error) {
+        toast.error('Failed to set priority');
+        return;
+      }
+
       const priorityName = PRIORITIES.find(p => p.id === priority)?.label;
       toast.success(`${selectedIds.size} recruits set to ${priorityName}`);
       setRecruits(recruits.map(r => 
         selectedIds.has(r.id) ? { ...r, priority, updated_at: new Date().toISOString() } : r
       ));
       clearSelection();
+    } catch (error) {
+      setRecruits(originalRecruits); // Rollback
+      console.error('Error setting priority:', error);
+      toast.error('An error occurred while setting priority');
+    } finally {
+      setBulkActionLoading(false);
     }
-    setBulkActionLoading(false);
   };
 
   const handleBulkRemove = async () => {
@@ -620,51 +691,76 @@ export default function CollegeCoachWatchlistPage() {
     const confirmRemove = confirm(`Remove ${selectedIds.size} recruits from your watchlist?`);
     if (!confirmRemove) return;
 
+    const originalRecruits = [...recruits];
     setBulkActionLoading(true);
-    const supabase = createClient();
-    const { error } = await supabase
-      .from('recruits')
-      .delete()
-      .in('id', Array.from(selectedIds));
+    
+    try {
+      const supabase = createClient();
+      const { error } = await supabase
+        .from('recruits')
+        .delete()
+        .in('id', Array.from(selectedIds));
 
-    if (error) {
-      toast.error('Failed to remove selected recruits');
-    } else {
+      if (error) {
+        toast.error('Failed to remove selected recruits');
+        return;
+      }
+
       toast.success(`${selectedIds.size} recruits removed from watchlist`);
       setRecruits(recruits.filter(r => !selectedIds.has(r.id)));
       clearSelection();
+    } catch (error) {
+      setRecruits(originalRecruits); // Rollback
+      console.error('Error removing recruits:', error);
+      toast.error('An error occurred while removing recruits');
+    } finally {
+      setBulkActionLoading(false);
     }
-    setBulkActionLoading(false);
   };
 
   const handleBulkExport = () => {
-    if (selectedIds.size === 0) return;
+    if (selectedIds.size === 0) {
+      toast.error('Please select at least one recruit to export');
+      return;
+    }
     
-    const selectedRecruits = recruits.filter(r => selectedIds.has(r.id));
-    const csvContent = [
-      ['Name', 'Position', 'Grad Year', 'State', 'Stage', 'Priority', 'Rating', 'Notes'].join(','),
-      ...selectedRecruits.map(r => [
-        `"${r.name}"`,
-        r.player?.primary_position || r.primary_position || '',
-        r.player?.grad_year || r.grad_year || '',
-        r.player?.high_school_state || r.high_school_state || '',
-        r.stage,
-        r.priority || '',
-        r.rating || '',
-        `"${(r.notes || '').replace(/"/g, '""')}"`,
-      ].join(','))
-    ].join('\n');
-
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `watchlist-export-${new Date().toISOString().split('T')[0]}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-    toast.success(`Exported ${selectedIds.size} recruits to CSV`);
+    try {
+      const selectedRecruits = recruits.filter(r => selectedIds.has(r.id));
+      
+      if (selectedRecruits.length === 0) {
+        toast.error('No recruits found to export');
+        return;
+      }
+      
+      const csvContent = [
+        ['Name', 'Position', 'Grad Year', 'State', 'Stage', 'Priority', 'Rating', 'Notes'].join(','),
+        ...selectedRecruits.map(r => [
+          `"${(r.name || '').replace(/"/g, '""')}"`,
+          `"${(r.player?.primary_position || r.primary_position || '').replace(/"/g, '""')}"`,
+          r.player?.grad_year || r.grad_year || '',
+          `"${(r.player?.high_school_state || r.high_school_state || '').replace(/"/g, '""')}"`,
+          `"${(r.stage || '').replace(/"/g, '""')}"`,
+          `"${(r.priority || '').replace(/"/g, '""')}"`,
+          r.rating?.toString() || '',
+          `"${(r.notes || '').replace(/"/g, '""')}"`,
+        ].join(','))
+      ].join('\n');
+      
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `watchlist-export-${new Date().toISOString().split('T')[0]}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+      
+      toast.success(`Exported ${selectedIds.size} recruit${selectedIds.size > 1 ? 's' : ''} to CSV`);
+    } catch (error) {
+      console.error('Error exporting CSV:', error);
+      toast.error('Failed to export CSV. Please try again.');
+    }
   };
 
   const clearFilters = () => {
