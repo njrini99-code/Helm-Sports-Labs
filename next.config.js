@@ -6,14 +6,13 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     ignoreBuildErrors: false,
   },
   // Use webpack for build (Turbopack compatibility)
-  turbopack: {},
+  turbopack: {
+    root: __dirname, // Fix workspace root warning
+  },
   // Exclude anthropic-quickstarts from build
   pageExtensions: ['ts', 'tsx', 'js', 'jsx'],
   images: {
@@ -39,8 +38,7 @@ const nextConfig = {
   // BUNDLE OPTIMIZATION
   // ═══════════════════════════════════════════════════════════════════════════
   
-  // Enable SWC minification (faster than Terser)
-  swcMinify: true,
+  // Note: swcMinify is now default in Next.js 16, no need to specify
   
   // Compiler options for optimization
   compiler: {
