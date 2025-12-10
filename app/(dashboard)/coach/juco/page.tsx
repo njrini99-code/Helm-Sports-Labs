@@ -654,7 +654,7 @@ export default function JUCOCoachDashboard() {
                       <div className="flex items-center gap-3">
                         <Avatar className="h-10 w-10 ring-2 ring-white/10">
                           <AvatarFallback className={`text-sm font-medium ${isDark ? 'bg-cyan-500/20 text-cyan-300' : 'bg-cyan-500 text-white'}`}>
-                            {player.playerName.split(' ').map(n => n[0]).join('')}
+                            {player.playerName.split(' ').map((n: string) => n[0]).join('')}
                           </AvatarFallback>
                         </Avatar>
                         <div>
@@ -1294,7 +1294,7 @@ export default function JUCOCoachDashboard() {
                   <div className="flex items-center gap-2 mb-3">
                     <Avatar className="h-8 w-8">
                       <AvatarFallback className={`text-xs font-medium ${isDark ? 'bg-cyan-500/20 text-cyan-300' : 'bg-cyan-100 text-cyan-700'}`}>
-                        {player.playerName.split(' ').map(n => n[0]).join('')}
+                        {player.playerName.split(' ').map((n: string) => n[0]).join('')}
                       </AvatarFallback>
                     </Avatar>
                     <div>
@@ -1306,7 +1306,7 @@ export default function JUCOCoachDashboard() {
                   </div>
                   
                   <div className="space-y-2">
-                    {player.matches.map((match, idx) => (
+                    {player.matches.map((match: any, idx: number) => (
                       <div 
                         key={idx}
                         className={`flex items-center justify-between p-2 rounded-lg ${
