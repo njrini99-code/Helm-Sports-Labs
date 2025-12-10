@@ -138,26 +138,51 @@ function StatCard({
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Mock Data for Showcase Features
+// Types for Showcase Data
 // ═══════════════════════════════════════════════════════════════════════════
-const MOCK_COLLEGE_CONNECTIONS = [
-  { id: 'cc1', collegeName: 'Georgia Tech', interest: 'high', playersInterested: 3, logo: null },
-  { id: 'cc2', collegeName: 'Clemson', interest: 'medium', playersInterested: 2, logo: null },
-  { id: 'cc3', collegeName: 'Wake Forest', interest: 'high', playersInterested: 4, logo: null },
-  { id: 'cc4', collegeName: 'Duke', interest: 'medium', playersInterested: 1, logo: null },
-];
+interface CollegeConnection {
+  college: {
+    id: string;
+    name: string;
+    logo_url: string | null;
+    division: string | null;
+  };
+  count: number;
+}
 
-const MOCK_UPCOMING_SHOWCASES = [
-  { id: 'e1', name: 'Perfect Game Southeast', date: 'Jun 15-17', location: 'Atlanta, GA', playersAttending: 8 },
-  { id: 'e2', name: 'PBR Georgia State Games', date: 'Jul 8-10', location: 'Marietta, GA', playersAttending: 12 },
-  { id: 'e3', name: 'WWBA National Championship', date: 'Jul 22-27', location: 'Jupiter, FL', playersAttending: 15 },
-];
+interface ShowcaseEvent {
+  id: string;
+  event_name: string;
+  event_type: string;
+  start_date: string;
+  end_date: string | null;
+  location: string;
+  city: string | null;
+  state: string | null;
+  status: string;
+  registered_count: number;
+}
 
-const MOCK_TOP_PERFORMERS = [
-  { id: 'tp1', name: 'Jake Williams', position: 'RHP', gradYear: 2025, stat: '94 mph', statLabel: 'FB Velo' },
-  { id: 'tp2', name: 'Marcus Johnson', position: 'SS', gradYear: 2025, stat: '6.4s', statLabel: '60 Time' },
-  { id: 'tp3', name: 'Tyler Smith', position: 'C', gradYear: 2026, stat: '1.89s', statLabel: 'Pop Time' },
-];
+interface TopPerformer {
+  id: string;
+  overall_rating: number;
+  exit_velocity: number | null;
+  sixty_yard_dash: number | null;
+  fastball_velocity: number | null;
+  pop_time: number | null;
+  player: {
+    id: string;
+    first_name: string | null;
+    last_name: string | null;
+    position: string | null;
+    grad_year: number | null;
+    avatar_url: string | null;
+  };
+  event: {
+    event_name: string;
+    start_date: string;
+  } | null;
+}
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Main Component
@@ -169,6 +194,9 @@ export default function ShowcaseCoachDashboard() {
   const [team, setTeam] = useState<Team | null>(null);
   const [roster, setRoster] = useState<TeamMember[]>([]);
   const [schedule, setSchedule] = useState<ScheduleEvent[]>([]);
+  const [collegeConnections, setCollegeConnections] = useState<CollegeConnection[]>([]);
+  const [upcomingShowcases, setUpcomingShowcases] = useState<ShowcaseEvent[]>([]);
+  const [topPerformers, setTopPerformers] = useState<TopPerformer[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -218,6 +246,82 @@ export default function ShowcaseCoachDashboard() {
       ]);
       setRoster(rosterData);
       setSchedule(scheduleData);
+
+        // Fetch college connections (coaches who have watched our players)
+        const playerIds = rosterData.map(m => m.player.id);
+        if (playerIds.length > 0) {
+          const { data: connectionsData } = await supabase
+            .from('college_interest')
+            .select(`
+              college_id,
+              college:colleges!inner(id, name, logo_url, division)
+            `)
+            .in('player_id', playerIds)
+            .eq('status', 'active');
+
+        if (connectionsData) {
+          // Group by college and count
+          const grouped = connectionsData.reduce((acc, item) => {
+            // Handle Supabase's foreign key relationship - it can be an array or object
+            const collegeData = Array.isArray(item.college) ? item.college[0] : item.college;
+            if (!collegeData) return acc;
+            
+            const college = {
+              id: collegeData.id,
+              name: collegeData.name,
+              logo_url: collegeData.logo_url,
+              division: collegeData.division,
+            };
+            const collegeId = college.id;
+            if (!acc[collegeId]) {
+              acc[collegeId] = { college, count: 0 };
+            }
+            acc[collegeId].count++;
+            return acc;
+          }, {} as Record<string, CollegeConnection>);
+          
+          setCollegeConnections(Object.values(grouped).slice(0, 5));
+        }
+
+        // Fetch upcoming showcases
+        const { data: showcasesData } = await supabase
+          .from('showcase_events')
+          .select('*')
+          .eq('showcase_team_id', teamData.id)
+          .in('status', ['upcoming', 'registration_open'])
+          .order('start_date', { ascending: true })
+          .limit(3);
+
+        if (showcasesData) {
+          setUpcomingShowcases(showcasesData as ShowcaseEvent[]);
+        }
+
+        // Fetch top performers from recent events
+        const { data: completedEvents } = await supabase
+          .from('showcase_events')
+          .select('id')
+          .eq('showcase_team_id', teamData.id)
+          .eq('status', 'completed')
+          .limit(10);
+
+        if (completedEvents && completedEvents.length > 0) {
+          const eventIds = completedEvents.map(e => e.id);
+          const { data: performersData } = await supabase
+            .from('player_performance_metrics')
+            .select(`
+              *,
+              player:players(id, first_name, last_name, primary_position, grad_year, avatar_url),
+              event:showcase_events(event_name, start_date)
+            `)
+            .in('event_id', eventIds)
+            .order('overall_rating', { ascending: false })
+            .limit(5);
+
+          if (performersData) {
+            setTopPerformers(performersData as TopPerformer[]);
+          }
+        }
+      }
     }
 
     setLoading(false);
@@ -415,7 +519,7 @@ export default function ShowcaseCoachDashboard() {
               <Button
                 variant="ghost"
                 className="text-white/70 hover:text-white hover:bg-white/10 gap-2"
-                onClick={() => toast.info('Public profile coming soon')}
+                onClick={() => router.push(`/profile/${team?.id}`)}
               >
                 <ExternalLink className="w-4 h-4" />
                 View Public
@@ -441,20 +545,20 @@ export default function ShowcaseCoachDashboard() {
           />
           <StatCard 
             icon={Calendar} 
-            value={MOCK_UPCOMING_SHOWCASES.length} 
+            value={upcomingShowcases.length} 
             label="Upcoming Events"
             trend="up"
-            trendValue="+2"
+            trendValue="Active"
             iconBg={isDark ? 'bg-violet-500/10' : 'bg-violet-100'}
             iconColor={isDark ? 'text-violet-400' : 'text-violet-600'}
             isDark={isDark}
           />
           <StatCard 
             icon={GraduationCap} 
-            value={MOCK_COLLEGE_CONNECTIONS.reduce((sum, c) => sum + c.playersInterested, 0)} 
+            value={collegeConnections.reduce((sum, c) => sum + c.count, 0)} 
             label="College Connections"
             trend="up"
-            trendValue="+18%"
+            trendValue="Active"
             iconBg={isDark ? 'bg-emerald-500/10' : 'bg-emerald-100'}
             iconColor={isDark ? 'text-emerald-400' : 'text-emerald-600'}
             isDark={isDark}
@@ -502,38 +606,53 @@ export default function ShowcaseCoachDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {MOCK_UPCOMING_SHOWCASES.map((event) => (
-                    <div 
-                      key={event.id}
-                      className={`p-4 rounded-xl transition-colors cursor-pointer ${
-                        isDark 
-                          ? 'bg-slate-700/30 hover:bg-slate-700/50' 
-                          : 'bg-violet-50/50 hover:bg-violet-100/50'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            {event.name}
-                          </p>
-                          <div className="flex items-center gap-3 mt-1">
-                            <span className={`text-xs flex items-center gap-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                              <Calendar className="w-3 h-3" />
-                              {event.date}
-                            </span>
-                            <span className={`text-xs flex items-center gap-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                              <MapPin className="w-3 h-3" />
-                              {event.location}
-                            </span>
+                  {upcomingShowcases && upcomingShowcases.length > 0 ? (
+                    upcomingShowcases.map((event) => {
+                      const startDate = new Date(event.start_date);
+                      const endDate = event.end_date ? new Date(event.end_date) : null;
+                      const dateStr = endDate 
+                        ? `${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+                        : startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                      const locationStr = [event.city, event.state].filter(Boolean).join(', ') || event.location;
+                      
+                      return (
+                        <div 
+                          key={event.id}
+                          className={`p-4 rounded-xl transition-colors cursor-pointer ${
+                            isDark 
+                              ? 'bg-slate-700/30 hover:bg-slate-700/50' 
+                              : 'bg-violet-50/50 hover:bg-violet-100/50'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                                {event.event_name}
+                              </p>
+                              <div className="flex items-center gap-3 mt-1">
+                                <span className={`text-xs flex items-center gap-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                  <Calendar className="w-3 h-3" />
+                                  {dateStr}
+                                </span>
+                                <span className={`text-xs flex items-center gap-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                  <MapPin className="w-3 h-3" />
+                                  {locationStr}
+                                </span>
+                              </div>
+                            </div>
+                            <Badge className={`${isDark ? 'bg-violet-500/20 text-violet-300' : 'bg-violet-100 text-violet-700'}`}>
+                              <Users className="w-3 h-3 mr-1" />
+                              {event.registered_count} players
+                            </Badge>
                           </div>
                         </div>
-                        <Badge className={`${isDark ? 'bg-violet-500/20 text-violet-300' : 'bg-violet-100 text-violet-700'}`}>
-                          <Users className="w-3 h-3 mr-1" />
-                          {event.playersAttending} players
-                        </Badge>
-                      </div>
-                    </div>
-                  ))}
+                      );
+                    })
+                  ) : (
+                    <p className={`text-sm text-center py-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      No upcoming showcases. Create one to get started!
+                    </p>
+                  )}
                 </div>
                 <Link href="/coach/showcase/schedule">
                   <Button variant="outline" className="w-full mt-4 gap-2">
@@ -632,40 +751,72 @@ export default function ShowcaseCoachDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {MOCK_TOP_PERFORMERS.map((player, index) => (
-                    <div 
-                      key={player.id}
-                      className={`flex items-center gap-3 p-3 rounded-xl transition-colors cursor-pointer ${
-                        isDark 
-                          ? 'bg-slate-700/30 hover:bg-slate-700/50' 
-                          : 'bg-slate-50 hover:bg-slate-100'
-                      }`}
-                    >
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                        index === 0 ? 'bg-amber-500 text-white' :
-                        index === 1 ? 'bg-slate-400 text-white' :
-                        'bg-amber-700 text-white'
-                      }`}>
-                        {index + 1}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className={`font-medium text-sm truncate ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                          {player.name}
-                        </p>
-                        <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                          {player.position} • {player.gradYear}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <p className={`text-sm font-bold ${isDark ? 'text-violet-400' : 'text-violet-600'}`}>
-                          {player.stat}
-                        </p>
-                        <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                          {player.statLabel}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
+                  {topPerformers && topPerformers.length > 0 ? (
+                    topPerformers.map((performer, index) => {
+                      const playerName = `${performer.player.first_name || ''} ${performer.player.last_name || ''}`.trim() || 'Player';
+                      const statValue = performer.fastball_velocity 
+                        ? `${performer.fastball_velocity} mph`
+                        : performer.exit_velocity
+                        ? `${performer.exit_velocity} mph`
+                        : performer.sixty_yard_dash
+                        ? `${performer.sixty_yard_dash}s`
+                        : performer.pop_time
+                        ? `${performer.pop_time}s`
+                        : `${performer.overall_rating}/10`;
+                      const statLabel = performer.fastball_velocity 
+                        ? 'FB Velo'
+                        : performer.exit_velocity
+                        ? 'Exit Velo'
+                        : performer.sixty_yard_dash
+                        ? '60 Time'
+                        : performer.pop_time
+                        ? 'Pop Time'
+                        : 'Rating';
+                      
+                      return (
+                        <div 
+                          key={performer.id}
+                          className={`flex items-center gap-3 p-3 rounded-xl transition-colors cursor-pointer ${
+                            isDark 
+                              ? 'bg-slate-700/30 hover:bg-slate-700/50' 
+                              : 'bg-slate-50 hover:bg-slate-100'
+                          }`}
+                          onClick={() => router.push(`/coach/player/${performer.player.id}`)}
+                        >
+                          <Avatar className="h-8 w-8">
+                            <AvatarImage src={performer.player.avatar_url || undefined} />
+                            <AvatarFallback className={`text-xs ${
+                              index === 0 ? 'bg-amber-500 text-white' :
+                              index === 1 ? 'bg-slate-400 text-white' :
+                              'bg-amber-700 text-white'
+                            }`}>
+                              {index + 1}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1 min-w-0">
+                            <p className={`font-medium text-sm truncate ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                              {playerName}
+                            </p>
+                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                              {performer.player.position || 'N/A'} • Class of {performer.player.grad_year || 'N/A'}
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <p className={`text-sm font-bold ${isDark ? 'text-violet-400' : 'text-violet-600'}`}>
+                              {statValue}
+                            </p>
+                            <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                              {statLabel}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <p className={`text-sm text-center py-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      No performance data yet. Record metrics at your next showcase!
+                    </p>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -693,35 +844,46 @@ export default function ShowcaseCoachDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  {MOCK_COLLEGE_CONNECTIONS.map((college) => (
-                    <div 
-                      key={college.id}
-                      className={`flex items-center justify-between p-2 rounded-lg ${
-                        isDark ? 'hover:bg-slate-700/30' : 'hover:bg-slate-50'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ${
-                          isDark ? 'bg-slate-700 text-white' : 'bg-violet-100 text-violet-700'
-                        }`}>
-                          {college.collegeName.slice(0, 2).toUpperCase()}
-                        </div>
-                        <span className={`text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                          {college.collegeName}
-                        </span>
-                      </div>
-                      <Badge 
-                        variant="outline" 
-                        className={`text-[10px] ${
-                          college.interest === 'high'
-                            ? 'bg-emerald-50 text-emerald-600 border-emerald-200'
-                            : 'bg-slate-50 text-slate-600 border-slate-200'
+                  {collegeConnections && collegeConnections.length > 0 ? (
+                    collegeConnections.map((connection) => (
+                      <div 
+                        key={connection.college.id}
+                        className={`flex items-center justify-between p-2 rounded-lg cursor-pointer ${
+                          isDark ? 'hover:bg-slate-700/30' : 'hover:bg-slate-50'
                         }`}
+                        onClick={() => router.push(`/college/${connection.college.id}`)}
                       >
-                        {college.playersInterested} players
-                      </Badge>
-                    </div>
-                  ))}
+                        <div className="flex items-center gap-2">
+                          <Avatar className="h-8 w-8">
+                            <AvatarImage src={connection.college.logo_url || undefined} />
+                            <AvatarFallback className={`text-xs ${isDark ? 'bg-slate-700 text-white' : 'bg-violet-100 text-violet-700'}`}>
+                              {connection.college.name.slice(0, 2).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1 min-w-0">
+                            <p className={`text-sm truncate ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                              {connection.college.name}
+                            </p>
+                            {connection.college.division && (
+                              <p className={`text-[10px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                {connection.college.division}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                        <Badge 
+                          variant="outline" 
+                          className={`text-[10px] bg-emerald-50 text-emerald-600 border-emerald-200`}
+                        >
+                          {connection.count} {connection.count === 1 ? 'player' : 'players'}
+                        </Badge>
+                      </div>
+                    ))
+                  ) : (
+                    <p className={`text-sm text-center py-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      No college connections yet. Keep promoting your players!
+                    </p>
+                  )}
                 </div>
               </CardContent>
             </Card>

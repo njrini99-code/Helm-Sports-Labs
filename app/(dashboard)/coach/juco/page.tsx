@@ -211,6 +211,8 @@ export default function JUCOCoachDashboard() {
   const [team, setTeam] = useState<Team | null>(null);
   const [roster, setRoster] = useState<TeamMember[]>([]);
   const [schedule, setSchedule] = useState<ScheduleEvent[]>([]);
+  const [collegeInterest, setCollegeInterest] = useState<any[]>([]);
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -260,6 +262,38 @@ export default function JUCOCoachDashboard() {
       ]);
       setRoster(rosterData);
       setSchedule(scheduleData);
+
+      // Fetch real college interest data
+      const playerIds = rosterData.map(m => m.player.id);
+      if (playerIds.length > 0) {
+        const { data: interestData } = await supabase
+          .from('college_interest')
+          .select(`
+            *,
+            college:colleges(id, name, logo_url, division, state),
+            player:players(id, first_name, last_name, primary_position, grad_year)
+          `)
+          .in('player_id', playerIds)
+          .eq('status', 'active')
+          .order('last_activity_date', { ascending: false })
+          .limit(10);
+
+        if (interestData) {
+          setCollegeInterest(interestData);
+        }
+
+        // Fetch recent activity feed
+        const { data: activityData } = await supabase
+          .from('activity_feed')
+          .select('*')
+          .eq('team_id', teamData.id)
+          .order('created_at', { ascending: false })
+          .limit(10);
+
+        if (activityData) {
+          setRecentActivity(activityData);
+        }
+      }
     }
 
     setLoading(false);
@@ -663,7 +697,7 @@ export default function JUCOCoachDashboard() {
 
           {/* Right Column */}
           <div className="space-y-6">
-            {/* D1/D2 Connections */}
+            {/* College Interest */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-slate-800/60 border-slate-700/50' 
@@ -676,43 +710,155 @@ export default function JUCOCoachDashboard() {
                   </div>
                   <div>
                     <CardTitle className={`text-base ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                      D1/D2 Connections
+                      College Interest
                     </CardTitle>
                     <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                      Schools your players transfer to
+                      Players getting noticed
+                    </p>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {collegeInterest && collegeInterest.length > 0 ? (
+                    collegeInterest.map((interest) => {
+                      const college = Array.isArray(interest.college) ? interest.college[0] : interest.college;
+                      const player = Array.isArray(interest.player) ? interest.player[0] : interest.player;
+                      if (!college || !player) return null;
+                      
+                      return (
+                        <div 
+                          key={interest.id}
+                          className={`p-3 rounded-xl transition-colors cursor-pointer ${
+                            isDark 
+                              ? 'bg-slate-700/30 hover:bg-slate-700/50' 
+                              : 'bg-slate-50 hover:bg-slate-100'
+                          }`}
+                          onClick={() => router.push(`/coach/player/${player.id}`)}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <div>
+                              <p className={`font-medium text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                                {player.first_name} {player.last_name}
+                              </p>
+                              <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                {player.primary_position || 'N/A'} • Class of {player.grad_year || 'N/A'}
+                              </p>
+                            </div>
+                            <Badge 
+                              variant={
+                                interest.interest_level === 'offered' ? 'default' :
+                                interest.interest_level === 'high_priority' ? 'secondary' : 'outline'
+                              }
+                              className="text-[10px]"
+                            >
+                              {interest.interest_level === 'offered' ? 'Offered' :
+                               interest.interest_level === 'high_priority' ? 'High Priority' : 'Watching'}
+                            </Badge>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Avatar className="h-6 w-6">
+                              <AvatarImage src={college.logo_url || undefined} />
+                              <AvatarFallback className="text-[8px]">
+                                {college.name.substring(0, 2).toUpperCase()}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1 min-w-0">
+                              <p className={`text-xs font-medium truncate ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                                {college.name}
+                              </p>
+                              <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                                {college.division && <span>{college.division}</span>}
+                                {college.state && (
+                                  <>
+                                    {college.division && <span>•</span>}
+                                    <span>{college.state}</span>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <p className={`text-sm text-center py-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      No college interest yet. Keep updating player profiles!
+                    </p>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Recent Activity */}
+            <Card className={`overflow-hidden ${
+              isDark 
+                ? 'bg-slate-800/60 border-slate-700/50' 
+                : 'bg-white/90 border-slate-200/50 shadow-sm'
+            }`}>
+              <CardHeader className="pb-3">
+                <div className="flex items-center gap-2">
+                  <div className={`p-2 rounded-lg ${isDark ? 'bg-amber-500/10' : 'bg-amber-100'}`}>
+                    <Clock className={`w-4 h-4 ${isDark ? 'text-amber-400' : 'text-amber-600'}`} />
+                  </div>
+                  <div>
+                    <CardTitle className={`text-base ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                      Recent Activity
+                    </CardTitle>
+                    <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      College coach interactions
                     </p>
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  {MOCK_TRANSFER_CONNECTIONS.map((connection) => (
-                    <div 
-                      key={connection.id}
-                      className={`flex items-center justify-between p-3 rounded-xl ${
-                        isDark ? 'bg-slate-700/30' : 'bg-slate-50'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ${
-                          isDark ? 'bg-emerald-500/20 text-emerald-300' : 'bg-emerald-100 text-emerald-700'
-                        }`}>
-                          {connection.collegeName.slice(0, 2).toUpperCase()}
+                  {recentActivity && recentActivity.length > 0 ? (
+                    recentActivity.map((activity) => {
+                      const timeAgo = new Date(activity.created_at).toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: '2-digit'
+                      });
+                      
+                      return (
+                        <div 
+                          key={activity.id}
+                          className={`flex items-start gap-3 p-2 rounded-lg ${
+                            isDark ? 'hover:bg-slate-700/30' : 'hover:bg-slate-50'
+                          }`}
+                        >
+                          <div className={`flex-shrink-0 w-2 h-2 rounded-full mt-1.5 ${
+                            activity.activity_type === 'college_follow' 
+                              ? 'bg-blue-500' 
+                              : activity.activity_type === 'offer_made'
+                              ? 'bg-emerald-500'
+                              : activity.activity_type === 'player_view'
+                              ? 'bg-purple-500'
+                              : 'bg-amber-500'
+                          }`} />
+                          <div className="flex-1 min-w-0">
+                            <p className={`text-xs ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                              {activity.title}
+                            </p>
+                            {activity.description && (
+                              <p className={`text-[10px] mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                {activity.description}
+                              </p>
+                            )}
+                            <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                              {timeAgo}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            {connection.collegeName}
-                          </p>
-                          <p className={`text-[10px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                            {connection.division}
-                          </p>
-                        </div>
-                      </div>
-                      <Badge variant="outline" className="text-[10px]">
-                        {connection.playersTransferred} transfers
-                      </Badge>
-                    </div>
-                  ))}
+                      );
+                    })
+                  ) : (
+                    <p className={`text-sm text-center py-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      No recent activity to display.
+                    </p>
+                  )}
                 </div>
               </CardContent>
             </Card>

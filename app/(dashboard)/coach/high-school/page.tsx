@@ -148,19 +148,40 @@ function StatCard({
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// College Interest Mock Data
+// Types for College Interest and Activity
 // ═══════════════════════════════════════════════════════════════════════════
-const MOCK_COLLEGE_INTEREST = [
-  { id: 'ci1', playerId: 'p1', playerName: 'Marcus Johnson', position: 'SS', gradYear: 2025, schools: ['Georgia Tech', 'Clemson', 'Florida State'], views: 23 },
-  { id: 'ci2', playerId: 'p2', playerName: 'Jake Williams', position: 'RHP', gradYear: 2025, schools: ['Wake Forest', 'Duke'], views: 18 },
-  { id: 'ci3', playerId: 'p3', playerName: 'Tyler Smith', position: 'C', gradYear: 2026, schools: ['NC State'], views: 12 },
-];
+interface CollegeInterest {
+  id: string;
+  player_id: string;
+  college_id: string;
+  interest_level: 'watching' | 'high_priority' | 'offered' | 'committed';
+  status: 'active' | 'inactive' | 'committed_elsewhere';
+  last_activity_date: string;
+  college: {
+    id: string;
+    name: string;
+    logo_url: string | null;
+    division: string | null;
+    state: string | null;
+  };
+  player: {
+    id: string;
+    first_name: string | null;
+    last_name: string | null;
+    position: string | null;
+    grad_year: number | null;
+  };
+}
 
-const MOCK_RECENT_ACTIVITY = [
-  { id: 'a1', type: 'view', playerName: 'Marcus Johnson', collegeName: 'Georgia Tech', time: '2h ago' },
-  { id: 'a2', type: 'interest', playerName: 'Jake Williams', collegeName: 'Wake Forest', time: '4h ago' },
-  { id: 'a3', type: 'message', playerName: 'Tyler Smith', collegeName: 'NC State', time: '1d ago' },
-];
+interface ActivityFeedItem {
+  id: string;
+  activity_type: string;
+  title: string;
+  description: string | null;
+  created_at: string;
+  related_player_id: string | null;
+  related_college_id: string | null;
+}
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Main Component
@@ -172,6 +193,8 @@ export default function HSCoachDashboard() {
   const [team, setTeam] = useState<Team | null>(null);
   const [roster, setRoster] = useState<TeamMember[]>([]);
   const [schedule, setSchedule] = useState<ScheduleEvent[]>([]);
+  const [collegeInterest, setCollegeInterest] = useState<CollegeInterest[]>([]);
+  const [recentActivity, setRecentActivity] = useState<ActivityFeedItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [activityFilter, setActivityFilter] = useState('all');
 
@@ -229,6 +252,38 @@ export default function HSCoachDashboard() {
       ]);
       setRoster(rosterData);
       setSchedule(scheduleData);
+
+      // Fetch real college interest data
+      const playerIds = rosterData.map(m => m.player.id);
+      if (playerIds.length > 0) {
+        const { data: interestData } = await supabase
+          .from('college_interest')
+          .select(`
+            *,
+            college:colleges(id, name, logo_url, division, state),
+            player:players(id, first_name, last_name, primary_position, grad_year)
+          `)
+          .in('player_id', playerIds)
+          .eq('status', 'active')
+          .order('last_activity_date', { ascending: false })
+          .limit(10);
+
+        if (interestData) {
+          setCollegeInterest(interestData as CollegeInterest[]);
+        }
+
+        // Fetch recent activity feed
+        const { data: activityData } = await supabase
+          .from('activity_feed')
+          .select('*')
+          .eq('team_id', teamData.id)
+          .order('created_at', { ascending: false })
+          .limit(10);
+
+        if (activityData) {
+          setRecentActivity(activityData as ActivityFeedItem[]);
+        }
+      }
     }
 
     setLoading(false);
@@ -413,7 +468,7 @@ export default function HSCoachDashboard() {
               <Button
                 variant="ghost"
                 className="text-white/70 hover:text-white hover:bg-white/10 gap-2"
-                onClick={() => toast.info('Public profile coming soon')}
+                onClick={() => router.push(`/profile/${team?.id}`)}
               >
                 <ExternalLink className="w-4 h-4" />
                 View Public
@@ -457,10 +512,10 @@ export default function HSCoachDashboard() {
           />
           <StatCard 
             icon={Eye} 
-            value={MOCK_COLLEGE_INTEREST.reduce((sum, ci) => sum + ci.views, 0)} 
-            label="College Views"
+            value={collegeInterest.length} 
+            label="College Interest"
             trend="up"
-            trendValue="+12%"
+            trendValue="Active"
             iconBg={isDark ? 'bg-emerald-500/10' : 'bg-emerald-100'}
             iconColor={isDark ? 'text-emerald-400' : 'text-emerald-600'}
             isDark={isDark}
@@ -656,44 +711,66 @@ export default function HSCoachDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {MOCK_COLLEGE_INTEREST.map((interest) => (
-                    <div 
-                      key={interest.id}
-                      className={`p-3 rounded-xl transition-colors cursor-pointer ${
-                        isDark 
-                          ? 'bg-slate-700/30 hover:bg-slate-700/50' 
-                          : 'bg-slate-50 hover:bg-slate-100'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <div>
-                          <p className={`font-medium text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            {interest.playerName}
-                          </p>
-                          <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                            {interest.position} • {interest.gradYear}
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Eye className={`w-3 h-3 ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`} />
-                          <span className={`text-xs font-medium ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>
-                            {interest.views}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex flex-wrap gap-1">
-                        {interest.schools.map((school) => (
+                  {collegeInterest && collegeInterest.length > 0 ? (
+                    collegeInterest.map((interest) => (
+                      <div 
+                        key={interest.id}
+                        className={`p-3 rounded-xl transition-colors cursor-pointer ${
+                          isDark 
+                            ? 'bg-slate-700/30 hover:bg-slate-700/50' 
+                            : 'bg-slate-50 hover:bg-slate-100'
+                        }`}
+                        onClick={() => router.push(`/coach/player/${interest.player.id}`)}
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <div>
+                            <p className={`font-medium text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                              {interest.player.first_name} {interest.player.last_name}
+                            </p>
+                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                              {interest.player.position || 'N/A'} • Class of {interest.player.grad_year || 'N/A'}
+                            </p>
+                          </div>
                           <Badge 
-                            key={school} 
-                            variant="outline" 
-                            className={`text-[10px] ${isDark ? 'border-slate-600 text-slate-300' : ''}`}
+                            variant={
+                              interest.interest_level === 'offered' ? 'default' :
+                              interest.interest_level === 'high_priority' ? 'secondary' : 'outline'
+                            }
+                            className="text-[10px]"
                           >
-                            {school}
+                            {interest.interest_level === 'offered' ? 'Offered' :
+                             interest.interest_level === 'high_priority' ? 'High Priority' : 'Watching'}
                           </Badge>
-                        ))}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Avatar className="h-6 w-6">
+                            <AvatarImage src={interest.college.logo_url || undefined} />
+                            <AvatarFallback className="text-[8px]">
+                              {interest.college.name.substring(0, 2).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1 min-w-0">
+                            <p className={`text-xs font-medium truncate ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                              {interest.college.name}
+                            </p>
+                            <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                              {interest.college.division && <span>{interest.college.division}</span>}
+                              {interest.college.state && (
+                                <>
+                                  {interest.college.division && <span>•</span>}
+                                  <span>{interest.college.state}</span>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                    <p className={`text-sm text-center py-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      No college interest yet. Keep updating player profiles!
+                    </p>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -734,38 +811,52 @@ export default function HSCoachDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  {MOCK_RECENT_ACTIVITY.map((activity) => (
-                    <div 
-                      key={activity.id}
-                      className={`flex items-center gap-3 p-2 rounded-lg ${
-                        isDark ? 'hover:bg-slate-700/30' : 'hover:bg-slate-50'
-                      }`}
-                    >
-                      <div className={`p-1.5 rounded-full ${
-                        activity.type === 'view' 
-                          ? 'bg-blue-500/10' 
-                          : activity.type === 'interest'
-                          ? 'bg-emerald-500/10'
-                          : 'bg-purple-500/10'
-                      }`}>
-                        {activity.type === 'view' && <Eye className="w-3 h-3 text-blue-500" />}
-                        {activity.type === 'interest' && <Star className="w-3 h-3 text-emerald-500" />}
-                        {activity.type === 'message' && <Mail className="w-3 h-3 text-purple-500" />}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className={`text-xs truncate ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                          <span className="font-medium">{activity.collegeName}</span>
-                          {activity.type === 'view' && ' viewed '}
-                          {activity.type === 'interest' && ' showed interest in '}
-                          {activity.type === 'message' && ' messaged '}
-                          <span className="font-medium">{activity.playerName}</span>
-                        </p>
-                      </div>
-                      <span className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                        {activity.time}
-                      </span>
-                    </div>
-                  ))}
+                  {recentActivity && recentActivity.length > 0 ? (
+                    recentActivity.map((activity) => {
+                      const timeAgo = new Date(activity.created_at).toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: '2-digit'
+                      });
+                      
+                      return (
+                        <div 
+                          key={activity.id}
+                          className={`flex items-start gap-3 p-2 rounded-lg ${
+                            isDark ? 'hover:bg-slate-700/30' : 'hover:bg-slate-50'
+                          }`}
+                        >
+                          <div className={`flex-shrink-0 w-2 h-2 rounded-full mt-1.5 ${
+                            activity.activity_type === 'college_follow' 
+                              ? 'bg-blue-500' 
+                              : activity.activity_type === 'offer_made'
+                              ? 'bg-emerald-500'
+                              : activity.activity_type === 'player_view'
+                              ? 'bg-purple-500'
+                              : 'bg-amber-500'
+                          }`} />
+                          <div className="flex-1 min-w-0">
+                            <p className={`text-xs ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                              {activity.title}
+                            </p>
+                            {activity.description && (
+                              <p className={`text-[10px] mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                {activity.description}
+                              </p>
+                            )}
+                            <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                              {timeAgo}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <p className={`text-sm text-center py-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      No recent activity to display.
+                    </p>
+                  )}
                 </div>
               </CardContent>
             </Card>

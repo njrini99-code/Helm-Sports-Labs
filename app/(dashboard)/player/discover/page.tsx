@@ -231,11 +231,7 @@ export default function PlayerDiscoverPage() {
   };
 
   const handleViewProgram = (college: College) => {
-    // In the future, navigate to /college/[slug] when that page is created
-    // For now, show a coming soon message
-    toast.info(`${college.name} program details coming soon!`, {
-      description: 'Full program pages with rosters, stats, and coach info will be available soon.',
-    });
+    router.push(`/college/${college.id}`);
   };
 
   const hasActiveFilters = search || divisionFilter !== 'All' || regionFilter !== 'All';

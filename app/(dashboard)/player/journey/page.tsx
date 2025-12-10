@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -43,6 +45,7 @@ import {
   X,
   MoreHorizontal,
   ArrowRight,
+  Eye,
 } from 'lucide-react';
 import { useTheme } from '@/lib/theme-context';
 import { GlassProgressBar, CircularProgress } from '@/components/ui/GlassProgressBar';
@@ -115,93 +118,27 @@ interface TimelineEvent {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// MOCK DATA
+// Types for Real Data
 // ═══════════════════════════════════════════════════════════════════════════
-
-const MOCK_MILESTONES: Milestone[] = [
-  { id: 'm1', title: 'Complete NCAA Eligibility Center Registration', description: 'Register and submit initial eligibility certification', targetDate: '2024-09-01', completedDate: '2024-08-28', status: 'completed', category: 'administrative', priority: 'high' },
-  { id: 'm2', title: 'Take SAT/ACT', description: 'Complete standardized testing for college admission', targetDate: '2024-10-15', completedDate: '2024-10-12', status: 'completed', category: 'academic', priority: 'high' },
-  { id: 'm3', title: 'Create Recruiting Video', description: 'Film and edit highlight reel for coaches', targetDate: '2024-11-01', completedDate: '2024-10-25', status: 'completed', category: 'athletic', priority: 'high' },
-  { id: 'm4', title: 'Submit FAFSA Application', description: 'Complete financial aid forms', targetDate: '2024-12-15', status: 'in_progress', category: 'administrative', priority: 'high' },
-  { id: 'm5', title: 'Official Visits', description: 'Schedule and complete official campus visits', targetDate: '2025-01-15', status: 'upcoming', category: 'recruiting', priority: 'medium' },
-  { id: 'm6', title: 'Make Final Decision', description: 'Commit to a program', targetDate: '2025-04-01', status: 'upcoming', category: 'recruiting', priority: 'high' },
-  { id: 'm7', title: 'Sign NLI', description: 'National Letter of Intent signing', targetDate: '2025-04-15', status: 'upcoming', category: 'administrative', priority: 'high' },
-];
-
-const MOCK_INTERACTIONS: CollegeInteraction[] = [
-  { id: 'i1', collegeId: 'c1', collegeName: 'Georgia Tech', division: 'D1', type: 'email', date: '2024-11-05', description: 'Initial outreach from recruiting coordinator', contactName: 'Coach Johnson', contactRole: 'Recruiting Coordinator', notes: 'Expressed interest in my pitching stats', followUpDate: '2024-11-12' },
-  { id: 'i2', collegeId: 'c1', collegeName: 'Georgia Tech', division: 'D1', type: 'call', date: '2024-11-08', description: 'Phone call with head coach', contactName: 'Coach Williams', contactRole: 'Head Coach', notes: 'Discussed program culture and opportunities' },
-  { id: 'i3', collegeId: 'c2', collegeName: 'Clemson', division: 'D1', type: 'camp', date: '2024-10-20', description: 'Attended fall prospect camp', notes: 'Performed well, received positive feedback' },
-  { id: 'i4', collegeId: 'c3', collegeName: 'NC State', division: 'D1', type: 'visit', date: '2024-11-01', description: 'Unofficial campus visit', contactName: 'Coach Davis', contactRole: 'Pitching Coach', notes: 'Great facilities, liked the coaching staff' },
-  { id: 'i5', collegeId: 'c1', collegeName: 'Georgia Tech', division: 'D1', type: 'offer', date: '2024-11-10', description: 'Received scholarship offer', notes: '75% scholarship offer' },
-  { id: 'i6', collegeId: 'c4', collegeName: 'Wake Forest', division: 'D1', type: 'showcase', date: '2024-09-15', description: 'PG Showcase attendance', notes: 'Caught attention of multiple scouts' },
-  { id: 'i7', collegeId: 'c2', collegeName: 'Clemson', division: 'D1', type: 'meeting', date: '2024-11-12', description: 'Video call with coaching staff', contactName: 'Coach Thompson', contactRole: 'Assistant Coach' },
-];
-
-const MOCK_OFFERS: Offer[] = [
-  {
-    id: 'o1',
-    collegeId: 'c1',
-    collegeName: 'Georgia Tech',
-    division: 'D1',
-    location: 'Atlanta, GA',
-    conference: 'ACC',
-    status: 'considering',
-    scholarshipType: 'partial',
-    scholarshipPercentage: 75,
-    offerDate: '2024-11-10',
-    deadline: '2024-12-15',
-    daysUntilDeadline: 8,
-    coachName: 'Coach Williams',
-    coachEmail: 'williams@gatech.edu',
-    notes: 'Strong academic program, great facilities',
-    pros: ['Top engineering school', 'ACC competition', 'Close to home', 'Great facilities'],
-    cons: ['High academic rigor', 'Not full scholarship'],
-  },
-  {
-    id: 'o2',
-    collegeId: 'c3',
-    collegeName: 'NC State',
-    division: 'D1',
-    location: 'Raleigh, NC',
-    conference: 'ACC',
-    status: 'considering',
-    scholarshipType: 'partial',
-    scholarshipPercentage: 60,
-    offerDate: '2024-11-05',
-    deadline: '2024-12-20',
-    daysUntilDeadline: 13,
-    coachName: 'Coach Davis',
-    coachEmail: 'davis@ncstate.edu',
-    notes: 'Great baseball tradition',
-    pros: ['Strong baseball program', 'Good campus life', 'Newer facilities'],
-    cons: ['Further from home', 'Lower scholarship'],
-  },
-  {
-    id: 'o3',
-    collegeId: 'c5',
-    collegeName: 'College of Charleston',
-    division: 'D1',
-    location: 'Charleston, SC',
-    conference: 'CAA',
-    status: 'pending',
-    scholarshipType: 'full',
-    scholarshipPercentage: 100,
-    offerDate: '2024-11-08',
-    deadline: '2025-01-15',
-    daysUntilDeadline: 39,
-    coachName: 'Coach Brown',
-    pros: ['Full scholarship', 'Great location', 'Playing time opportunity'],
-    cons: ['Smaller conference', 'Less exposure'],
-  },
-];
-
-const MOCK_DEADLINES = [
-  { id: 'd1', title: 'Georgia Tech Decision', date: '2024-12-15', daysUntil: 8, type: 'offer', urgent: true },
-  { id: 'd2', title: 'NC State Decision', date: '2024-12-20', daysUntil: 13, type: 'offer', urgent: false },
-  { id: 'd3', title: 'FAFSA Deadline', date: '2024-12-15', daysUntil: 8, type: 'administrative', urgent: true },
-  { id: 'd4', title: 'NLI Early Signing', date: '2024-11-13', daysUntil: -1, type: 'recruiting', urgent: false },
-];
+interface JourneyEvent {
+  id: string;
+  event_type: string;
+  college_id: string | null;
+  event_date: string;
+  title: string;
+  description: string | null;
+  location: string | null;
+  status: string;
+  metadata: any;
+  college: {
+    id: string;
+    name: string;
+    logo_url: string | null;
+    division: string | null;
+    city: string | null;
+    state: string | null;
+  } | null;
+}
 
 // ═══════════════════════════════════════════════════════════════════════════
 // HELPER COMPONENTS
@@ -265,76 +202,135 @@ function OfferStatusBadge({ status }: { status: OfferStatus }) {
 // ═══════════════════════════════════════════════════════════════════════════
 
 export default function PlayerJourneyPage() {
+  const router = useRouter();
   const { isDark } = useTheme();
   const [activeTab, setActiveTab] = useState<'timeline' | 'milestones' | 'interactions' | 'offers' | 'decisions'>('timeline');
   const [filterCollege, setFilterCollege] = useState<string>('');
   const [expandedOffer, setExpandedOffer] = useState<string | null>(null);
+  const [journeyEvents, setJourneyEvents] = useState<JourneyEvent[]>([]);
+  const [player, setPlayer] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    if (!user) {
+      router.push('/auth/login');
+      return;
+    }
+
+    // Get player record
+    const { data: playerData } = await supabase
+      .from('players')
+      .select('*')
+      .eq('user_id', user.id)
+      .single();
+
+    if (!playerData) {
+      router.push('/onboarding/player');
+      return;
+    }
+
+    setPlayer(playerData);
+
+    // Fetch real player journey events
+    const { data: eventsData, error } = await supabase
+      .from('player_journey_events')
+      .select(`
+        *,
+        college:colleges(id, name, logo_url, division, city, state)
+      `)
+      .eq('player_id', playerData.id)
+      .order('event_date', { ascending: false });
+
+    if (eventsData) {
+      setJourneyEvents(eventsData as JourneyEvent[]);
+    }
+
+    setLoading(false);
+  };
+
+  // Group events by type for better visualization
+  const groupedEvents = useMemo(() => {
+    return {
+      offers: journeyEvents.filter(e => e.event_type === 'offer'),
+      visits: journeyEvents.filter(e => e.event_type === 'campus_visit'),
+      evaluations: journeyEvents.filter(e => e.event_type === 'evaluation'),
+      communication: journeyEvents.filter(e => ['message', 'call'].includes(e.event_type)),
+    };
+  }, [journeyEvents]);
 
   // Calculate stats
   const stats = useMemo(() => {
-    const completedMilestones = MOCK_MILESTONES.filter(m => m.status === 'completed').length;
-    const totalMilestones = MOCK_MILESTONES.length;
-    const activeOffers = MOCK_OFFERS.filter(o => ['pending', 'considering'].includes(o.status)).length;
-    const totalInteractions = MOCK_INTERACTIONS.length;
-    const urgentDeadlines = MOCK_DEADLINES.filter(d => d.urgent && d.daysUntil > 0).length;
+    const totalColleges = new Set(journeyEvents.map(e => e.college_id).filter(Boolean)).size;
+    const totalOffers = groupedEvents.offers.length;
+    const upcomingVisits = groupedEvents.visits.filter(v => 
+      v.status === 'scheduled' && new Date(v.event_date) > new Date()
+    ).length;
+    const recentActivity = journeyEvents.filter(e => 
+      new Date(e.created_at || e.event_date) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+    ).length;
     
     return {
-      completedMilestones,
-      totalMilestones,
-      milestoneProgress: Math.round((completedMilestones / totalMilestones) * 100),
-      activeOffers,
-      totalInteractions,
-      urgentDeadlines,
+      totalColleges,
+      totalOffers,
+      upcomingVisits,
+      recentActivity,
     };
-  }, []);
+  }, [journeyEvents, groupedEvents]);
 
   // Generate unified timeline
   const timeline = useMemo((): TimelineEvent[] => {
     const events: TimelineEvent[] = [];
 
-    // Add milestones
-    MOCK_MILESTONES.forEach(m => {
+    journeyEvents.forEach(event => {
+      const collegeName = event.college?.name || 'Unknown College';
+      const eventTypeMap: Record<string, { icon: React.ElementType; color: string }> = {
+        'offer': { icon: Award, color: 'cyan' },
+        'campus_visit': { icon: MapPin, color: 'purple' },
+        'evaluation': { icon: Trophy, color: 'blue' },
+        'message': { icon: Mail, color: 'blue' },
+        'call': { icon: Phone, color: 'blue' },
+        'camp_invite': { icon: Trophy, color: 'amber' },
+        'profile_view': { icon: Eye, color: 'slate' },
+        'commitment': { icon: CheckCircle2, color: 'emerald' },
+      };
+      
+      const typeConfig = eventTypeMap[event.event_type] || { icon: Mail, color: 'blue' };
+      
       events.push({
-        id: `m-${m.id}`,
-        type: 'milestone',
-        date: m.completedDate || m.targetDate,
-        title: m.title,
-        description: m.description,
-        status: m.status,
-        icon: m.status === 'completed' ? CheckCircle2 : m.status === 'in_progress' ? Clock : Target,
-        color: m.status === 'completed' ? 'emerald' : m.status === 'in_progress' ? 'blue' : 'slate',
-      });
-    });
-
-    // Add interactions
-    MOCK_INTERACTIONS.forEach(i => {
-      events.push({
-        id: `i-${i.id}`,
+        id: event.id,
         type: 'interaction',
-        date: i.date,
-        title: `${i.type.charAt(0).toUpperCase() + i.type.slice(1)} - ${i.collegeName}`,
-        description: i.description,
-        collegeName: i.collegeName,
-        icon: i.type === 'offer' ? Award : i.type === 'visit' ? MapPin : i.type === 'camp' ? Trophy : Mail,
-        color: i.type === 'offer' ? 'cyan' : i.type === 'visit' ? 'purple' : 'blue',
+        date: event.event_date,
+        title: event.title,
+        description: event.description || '',
+        collegeName: event.college?.name || '',
+        status: event.status === 'completed' ? 'completed' : event.status === 'scheduled' ? 'in_progress' : 'upcoming',
+        icon: typeConfig.icon,
+        color: typeConfig.color,
       });
     });
 
     // Sort by date (newest first)
     return events.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  }, []);
+  }, [journeyEvents]);
 
   // Get unique colleges for filter
   const colleges = useMemo(() => {
-    const collegeSet = new Set(MOCK_INTERACTIONS.map(i => i.collegeName));
-    return Array.from(collegeSet);
-  }, []);
+    const collegeSet = new Set(journeyEvents.map(e => e.college?.name).filter(Boolean));
+    return Array.from(collegeSet) as string[];
+  }, [journeyEvents]);
 
   // Filter interactions by college
   const filteredInteractions = useMemo(() => {
-    if (!filterCollege) return MOCK_INTERACTIONS;
-    return MOCK_INTERACTIONS.filter(i => i.collegeName === filterCollege);
-  }, [filterCollege]);
+    if (!filterCollege) return journeyEvents;
+    return journeyEvents.filter(e => e.college?.name === filterCollege);
+  }, [filterCollege, journeyEvents]);
 
   const getColorClasses = (color: string) => {
     const colors: Record<string, { bg: string; text: string; dot: string }> = {
@@ -364,10 +360,10 @@ export default function PlayerJourneyPage() {
               </p>
             </div>
             <div className="flex items-center gap-2">
-              {stats.urgentDeadlines > 0 && (
-                <Badge className="bg-red-500/20 text-red-400 animate-pulse">
-                  <Bell className="w-3 h-3 mr-1" />
-                  {stats.urgentDeadlines} Urgent
+              {stats.upcomingVisits > 0 && (
+                <Badge className="bg-blue-500/20 text-blue-400">
+                  <Calendar className="w-3 h-3 mr-1" />
+                  {stats.upcomingVisits} Upcoming
                 </Badge>
               )}
               <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600">
@@ -387,13 +383,13 @@ export default function PlayerJourneyPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                    {stats.milestoneProgress}%
+                    {stats.totalColleges}
                   </p>
                   <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                    Journey Progress
+                    Colleges Interested
                   </p>
                 </div>
-                <CircularProgress value={stats.milestoneProgress} size={48} strokeWidth={4} />
+                <GraduationCap className={`w-8 h-8 ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`} />
               </div>
             </CardContent>
           </Card>
@@ -440,49 +436,23 @@ export default function PlayerJourneyPage() {
           </Card>
         </div>
 
-        {/* Deadline Reminders */}
-        {MOCK_DEADLINES.filter(d => d.daysUntil > 0).length > 0 && (
+        {/* Upcoming Visits Reminder */}
+        {stats.upcomingVisits > 0 && (
           <Card className={`overflow-hidden ${
             isDark 
-              ? 'bg-gradient-to-r from-amber-500/10 to-red-500/10 border-amber-500/30' 
-              : 'bg-gradient-to-r from-amber-50 to-red-50 border-amber-200'
+              ? 'bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-blue-500/30' 
+              : 'bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200'
           }`}>
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-3">
-                <Bell className={`w-5 h-5 ${isDark ? 'text-amber-400' : 'text-amber-600'}`} />
+                <Calendar className={`w-5 h-5 ${isDark ? 'text-blue-400' : 'text-blue-600'}`} />
                 <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                  Upcoming Deadlines
+                  Upcoming Campus Visits
                 </h3>
               </div>
-              <div className="flex flex-wrap gap-3">
-                {MOCK_DEADLINES.filter(d => d.daysUntil > 0).map(deadline => (
-                  <div 
-                    key={deadline.id}
-                    className={`flex items-center gap-3 px-4 py-2 rounded-xl ${
-                      deadline.urgent
-                        ? isDark ? 'bg-red-500/20 border border-red-500/30' : 'bg-red-100 border border-red-200'
-                        : isDark ? 'bg-slate-800/50' : 'bg-white/80'
-                    }`}
-                  >
-                    <div>
-                      <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                        {deadline.title}
-                      </p>
-                      <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                        {new Date(deadline.date).toLocaleDateString()}
-                      </p>
-                    </div>
-                    <Badge className={`${
-                      deadline.urgent 
-                        ? 'bg-red-500/20 text-red-400' 
-                        : 'bg-amber-500/20 text-amber-400'
-                    } text-[10px]`}>
-                      <Timer className="w-3 h-3 mr-1" />
-                      {deadline.daysUntil}d
-                    </Badge>
-                  </div>
-                ))}
-              </div>
+              <p className={`text-sm ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                You have {stats.upcomingVisits} scheduled campus visit{stats.upcomingVisits !== 1 ? 's' : ''} coming up.
+              </p>
             </CardContent>
           </Card>
         )}
