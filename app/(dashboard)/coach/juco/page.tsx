@@ -143,65 +143,6 @@ function StatCard({
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Mock Data for JUCO Features
-// ═══════════════════════════════════════════════════════════════════════════
-const MOCK_TRANSFER_CONNECTIONS = [
-  { id: 'd1', collegeName: 'Georgia Tech', division: 'D1', playersTransferred: 2, status: 'active' },
-  { id: 'd2', collegeName: 'NC State', division: 'D1', playersTransferred: 1, status: 'active' },
-  { id: 'd3', collegeName: 'Wake Forest', division: 'D1', playersTransferred: 3, status: 'active' },
-  { id: 'd4', collegeName: 'Appalachian State', division: 'D1', playersTransferred: 1, status: 'pending' },
-];
-
-const MOCK_TRANSFER_PORTAL_INTEREST = [
-  { id: 'tp1', playerName: 'Marcus Williams', position: 'RHP', school: 'Coastal Carolina', division: 'D1', status: 'interested' },
-  { id: 'tp2', playerName: 'Jake Thompson', position: 'SS', school: 'UNC Wilmington', division: 'D1', status: 'evaluating' },
-  { id: 'tp3', playerName: 'Tyler Johnson', position: 'OF', school: 'East Carolina', division: 'D1', status: 'contacted' },
-];
-
-const MOCK_PRIORITY_NEEDS = [
-  { id: 'pn1', position: 'RHP', priority: 'high', count: 2 },
-  { id: 'pn2', position: 'MIF', priority: 'medium', count: 1 },
-  { id: 'pn3', position: 'C', priority: 'high', count: 1 },
-  { id: 'pn4', position: 'OF', priority: 'low', count: 2 },
-];
-
-// Academic progress mock data
-const MOCK_ACADEMIC_PROGRESS = [
-  { id: 'ap1', playerName: 'Marcus Williams', gpa: 3.4, creditsCompleted: 45, creditsRequired: 60, eligibilityStatus: 'eligible', graduationDate: 'May 2025' },
-  { id: 'ap2', playerName: 'Jake Thompson', gpa: 2.8, creditsCompleted: 32, creditsRequired: 60, eligibilityStatus: 'eligible', graduationDate: 'May 2025' },
-  { id: 'ap3', playerName: 'Tyler Johnson', gpa: 2.1, creditsCompleted: 28, creditsRequired: 60, eligibilityStatus: 'at_risk', graduationDate: 'Dec 2025' },
-  { id: 'ap4', playerName: 'Chris Martinez', gpa: 3.8, creditsCompleted: 52, creditsRequired: 60, eligibilityStatus: 'eligible', graduationDate: 'May 2025' },
-];
-
-// 4-year college matching suggestions
-const MOCK_COLLEGE_MATCHES = [
-  { id: 'cm1', playerName: 'Marcus Williams', position: 'RHP', matches: [
-    { collegeName: 'Georgia Tech', division: 'D1', matchScore: 95, interestLevel: 'high' },
-    { collegeName: 'Clemson', division: 'D1', matchScore: 88, interestLevel: 'medium' },
-    { collegeName: 'NC State', division: 'D1', matchScore: 82, interestLevel: 'high' },
-  ]},
-  { id: 'cm2', playerName: 'Jake Thompson', position: 'SS', matches: [
-    { collegeName: 'Wake Forest', division: 'D1', matchScore: 91, interestLevel: 'high' },
-    { collegeName: 'Duke', division: 'D1', matchScore: 85, interestLevel: 'medium' },
-  ]},
-  { id: 'cm3', playerName: 'Chris Martinez', position: 'C', matches: [
-    { collegeName: 'Florida State', division: 'D1', matchScore: 93, interestLevel: 'high' },
-    { collegeName: 'Miami', division: 'D1', matchScore: 89, interestLevel: 'medium' },
-    { collegeName: 'Virginia Tech', division: 'D1', matchScore: 84, interestLevel: 'low' },
-  ]},
-];
-
-// Transfer deadline timeline
-const MOCK_TRANSFER_DEADLINES = [
-  { id: 'td1', title: 'Fall Transfer Window Opens', date: '2024-08-01', daysUntil: -120, status: 'passed', description: 'Players can enter transfer portal' },
-  { id: 'td2', title: 'Fall Academic Deadline', date: '2024-10-15', daysUntil: -45, status: 'passed', description: 'Credits must be submitted' },
-  { id: 'td3', title: 'NLI Early Signing Period', date: '2024-11-13', daysUntil: 5, status: 'upcoming', description: 'Early signing period begins' },
-  { id: 'td4', title: 'Winter Transfer Window', date: '2024-12-15', daysUntil: 37, status: 'upcoming', description: 'Winter portal window opens' },
-  { id: 'td5', title: 'Spring Signing Period', date: '2025-04-15', daysUntil: 158, status: 'future', description: 'Regular signing period' },
-  { id: 'td6', title: 'Spring Semester Deadline', date: '2025-05-01', daysUntil: 174, status: 'future', description: 'Final transcript deadline' },
-];
-
-// ═══════════════════════════════════════════════════════════════════════════
 // Main Component
 // ═══════════════════════════════════════════════════════════════════════════
 export default function JUCOCoachDashboard() {
@@ -213,6 +154,11 @@ export default function JUCOCoachDashboard() {
   const [schedule, setSchedule] = useState<ScheduleEvent[]>([]);
   const [collegeInterest, setCollegeInterest] = useState<any[]>([]);
   const [recentActivity, setRecentActivity] = useState<any[]>([]);
+  const [transferConnections, setTransferConnections] = useState<any[]>([]);
+  const [portalInterest, setPortalInterest] = useState<any[]>([]);
+  const [priorityNeeds, setPriorityNeeds] = useState<any[]>([]);
+  const [academicProgress, setAcademicProgress] = useState<any[]>([]);
+  const [collegeMatches, setCollegeMatches] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -292,6 +238,132 @@ export default function JUCOCoachDashboard() {
 
         if (activityData) {
           setRecentActivity(activityData);
+        }
+
+        // Fetch transfer connections (colleges that have shown interest in our players)
+        const { data: connectionsData } = await supabase
+          .from('college_interest')
+          .select(`
+            college:colleges(id, name, division),
+            player:players(id)
+          `)
+          .in('player_id', playerIds)
+          .eq('status', 'active')
+          .in('interest_level', ['high_priority', 'offered', 'committed']);
+
+        if (connectionsData) {
+          // Group by college
+          const grouped = connectionsData.reduce((acc: any, item: any) => {
+            const collegeId = item.college?.id;
+            if (collegeId) {
+              if (!acc[collegeId]) {
+                acc[collegeId] = {
+                  id: collegeId,
+                  collegeName: item.college.name,
+                  division: item.college.division || 'D1',
+                  playersTransferred: 0,
+                  status: 'active'
+                };
+              }
+              acc[collegeId].playersTransferred++;
+            }
+            return acc;
+          }, {});
+          setTransferConnections(Object.values(grouped).slice(0, 5));
+        }
+
+        // Fetch portal interest (players from other schools interested in transferring)
+        // This would come from a transfer portal table, but for now use college_interest with specific metadata
+        const { data: portalData } = await supabase
+          .from('college_interest')
+          .select(`
+            *,
+            player:players(id, first_name, last_name, primary_position),
+            college:colleges(id, name, division)
+          `)
+          .in('player_id', playerIds)
+          .eq('status', 'active')
+          .limit(5);
+
+        if (portalData) {
+          setPortalInterest(portalData.map((item: any) => ({
+            id: item.id,
+            playerName: `${item.player?.first_name || ''} ${item.player?.last_name || ''}`.trim(),
+            position: item.player?.primary_position || 'N/A',
+            school: item.college?.name || 'Unknown',
+            division: item.college?.division || 'D1',
+            status: item.interest_level === 'high_priority' ? 'interested' : 
+                   item.interest_level === 'offered' ? 'contacted' : 'evaluating'
+          })));
+        }
+
+        // Calculate priority needs from roster positions
+        const positionCounts = rosterData.reduce((acc: any, member: any) => {
+          const pos = member.player?.primary_position || 'Unknown';
+          acc[pos] = (acc[pos] || 0) + 1;
+        }, {});
+        
+        // Determine needs (simplified - in real app would use recruiting requirements)
+        const needs = Object.entries(positionCounts)
+          .filter(([_, count]: [string, any]) => count < 3) // Need more than 3 players per position
+          .map(([position, count]: [string, any]) => ({
+            id: position,
+            position,
+            priority: count < 1 ? 'high' : count < 2 ? 'medium' : 'low',
+            count: Math.max(0, 3 - count)
+          }))
+          .slice(0, 4);
+        setPriorityNeeds(needs);
+
+        // Fetch academic progress (would need academic records table, using player data for now)
+        const academicData = rosterData.slice(0, 4).map((member: any) => ({
+          id: member.player.id,
+          playerName: `${member.player.first_name || ''} ${member.player.last_name || ''}`.trim(),
+          gpa: member.player.gpa || null,
+          creditsCompleted: null, // Would come from academic records
+          creditsRequired: 60,
+          eligibilityStatus: member.player.gpa && member.player.gpa >= 2.0 ? 'eligible' : 'at_risk',
+          graduationDate: member.player.grad_year ? `May ${member.player.grad_year}` : null
+        }));
+        setAcademicProgress(academicData);
+
+        // Fetch college matches (colleges interested in multiple players)
+        const { data: matchesData } = await supabase
+          .from('college_interest')
+          .select(`
+            *,
+            player:players(id, first_name, last_name, primary_position),
+            college:colleges(id, name, division)
+          `)
+          .in('player_id', playerIds)
+          .eq('status', 'active')
+          .order('last_activity_date', { ascending: false });
+
+        if (matchesData) {
+          // Group by player
+          const playerMatches = matchesData.reduce((acc: any, item: any) => {
+            const playerId = item.player_id;
+            if (!acc[playerId]) {
+              acc[playerId] = {
+                id: playerId,
+                playerName: `${item.player?.first_name || ''} ${item.player?.last_name || ''}`.trim(),
+                position: item.player?.primary_position || 'N/A',
+                matches: []
+              };
+            }
+            if (item.college) {
+              acc[playerId].matches.push({
+                collegeName: item.college.name,
+                division: item.college.division || 'D1',
+                matchScore: item.interest_level === 'committed' ? 95 :
+                           item.interest_level === 'offered' ? 88 :
+                           item.interest_level === 'high_priority' ? 82 : 70,
+                interestLevel: item.interest_level
+              });
+            }
+            return acc;
+          }, {});
+          setCollegeMatches(Object.values(playerMatches).slice(0, 3));
         }
       }
     }
@@ -506,20 +578,20 @@ export default function JUCOCoachDashboard() {
           />
           <StatCard 
             icon={ArrowRightLeft} 
-            value={MOCK_TRANSFER_CONNECTIONS.reduce((sum, c) => sum + c.playersTransferred, 0)} 
+            value={transferConnections.reduce((sum: number, c: any) => sum + (c.playersTransferred || 0), 0)} 
             label="D1/D2 Transfers"
             trend="up"
-            trendValue="+3"
+            trendValue={transferConnections.length > 0 ? `+${transferConnections.length}` : '0'}
             iconBg={isDark ? 'bg-cyan-500/10' : 'bg-cyan-100'}
             iconColor={isDark ? 'text-cyan-400' : 'text-cyan-600'}
             isDark={isDark}
           />
           <StatCard 
             icon={Eye} 
-            value={MOCK_TRANSFER_PORTAL_INTEREST.length} 
+            value={portalInterest.length} 
             label="Portal Targets"
             trend="neutral"
-            trendValue="Active"
+            trendValue={portalInterest.length > 0 ? 'Active' : 'None'}
             iconBg={isDark ? 'bg-emerald-500/10' : 'bg-emerald-100'}
             iconColor={isDark ? 'text-emerald-400' : 'text-emerald-600'}
             isDark={isDark}
@@ -565,7 +637,12 @@ export default function JUCOCoachDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {MOCK_TRANSFER_PORTAL_INTEREST.map((player) => (
+                  {portalInterest.length === 0 ? (
+                    <p className={`text-sm text-center py-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      No transfer portal targets yet. Start tracking players from the portal!
+                    </p>
+                  ) : (
+                    portalInterest.map((player: any) => (
                     <div 
                       key={player.id}
                       className={`flex items-center justify-between p-4 rounded-xl transition-colors cursor-pointer ${
@@ -602,7 +679,8 @@ export default function JUCOCoachDashboard() {
                         {player.status}
                       </Badge>
                     </div>
-                  ))}
+                    ))
+                  )}
                 </div>
                 <Link href="/coach/juco/transfer-portal">
                   <Button variant="outline" className="w-full mt-4 gap-2">
@@ -886,7 +964,12 @@ export default function JUCOCoachDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-2">
-                  {MOCK_PRIORITY_NEEDS.map((need) => (
+                  {priorityNeeds.length === 0 ? (
+                    <p className={`text-sm text-center py-4 col-span-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      All positions filled
+                    </p>
+                  ) : (
+                    priorityNeeds.map((need: any) => (
                     <div 
                       key={need.id}
                       className={`p-3 rounded-xl text-center ${
@@ -910,7 +993,8 @@ export default function JUCOCoachDashboard() {
                         Need {need.count}
                       </p>
                     </div>
-                  ))}
+                    ))
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -991,7 +1075,23 @@ export default function JUCOCoachDashboard() {
                 <div className={`absolute left-4 top-0 bottom-0 w-0.5 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`} />
                 
                 <div className="space-y-4">
-                  {MOCK_TRANSFER_DEADLINES.map((deadline, index) => (
+                  {(() => {
+                    // Generate transfer deadlines dynamically based on current year
+                    const currentYear = new Date().getFullYear();
+                    const deadlines = [
+                      { id: 'td1', title: 'Fall Transfer Window Opens', date: `${currentYear}-08-01`, status: 'passed', description: 'Players can enter transfer portal' },
+                      { id: 'td2', title: 'Fall Academic Deadline', date: `${currentYear}-10-15`, status: 'passed', description: 'Credits must be submitted' },
+                      { id: 'td3', title: 'NLI Early Signing Period', date: `${currentYear}-11-13`, status: 'upcoming', description: 'Early signing period begins' },
+                      { id: 'td4', title: 'Winter Transfer Window', date: `${currentYear}-12-15`, status: 'upcoming', description: 'Winter portal window opens' },
+                      { id: 'td5', title: 'Spring Signing Period', date: `${currentYear + 1}-04-15`, status: 'future', description: 'Regular signing period' },
+                      { id: 'td6', title: 'Spring Semester Deadline', date: `${currentYear + 1}-05-01`, status: 'future', description: 'Final transcript deadline' },
+                    ].map(d => {
+                      const deadlineDate = new Date(d.date);
+                      const daysUntil = Math.ceil((deadlineDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+                      return { ...d, daysUntil };
+                    });
+                    
+                    return deadlines.map((deadline: any, index: number) => (
                     <div key={deadline.id} className="relative pl-10">
                       {/* Timeline dot */}
                       <div className={`absolute left-2.5 w-3 h-3 rounded-full border-2 ${
@@ -1048,7 +1148,8 @@ export default function JUCOCoachDashboard() {
                         </div>
                       </div>
                     </div>
-                  ))}
+                    ));
+                  })()}
                 </div>
               </div>
             </CardContent>
@@ -1082,9 +1183,14 @@ export default function JUCOCoachDashboard() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {MOCK_ACADEMIC_PROGRESS.map((player) => {
-                  const progressPercent = Math.round((player.creditsCompleted / player.creditsRequired) * 100);
-                  return (
+                {academicProgress.length === 0 ? (
+                  <p className={`text-sm text-center py-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                    No academic records available
+                  </p>
+                ) : (
+                  academicProgress.map((player: any) => {
+                    const progressPercent = player.creditsCompleted ? Math.round((player.creditsCompleted / player.creditsRequired) * 100) : 0;
+                    return (
                     <div 
                       key={player.id}
                       className={`p-3 rounded-xl ${
@@ -1116,22 +1222,27 @@ export default function JUCOCoachDashboard() {
                       <div className="space-y-1">
                         <div className="flex items-center justify-between text-xs">
                           <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>
-                            Credits: {player.creditsCompleted}/{player.creditsRequired}
+                            {player.creditsCompleted !== null ? `Credits: ${player.creditsCompleted}/${player.creditsRequired}` : 'Credits: N/A'}
                           </span>
-                          <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>
-                            {player.graduationDate}
-                          </span>
+                          {player.graduationDate && (
+                            <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>
+                              {player.graduationDate}
+                            </span>
+                          )}
                         </div>
-                        <GlassProgressBar 
-                          value={progressPercent} 
-                          variant={isDark ? 'glass' : 'default'}
-                          size="sm"
-                          ratingLevel={progressPercent >= 80 ? 'excellent' : progressPercent >= 50 ? 'good' : 'developing'}
-                        />
+                        {player.creditsCompleted !== null && (
+                          <GlassProgressBar 
+                            value={progressPercent} 
+                            variant={isDark ? 'glass' : 'default'}
+                            size="sm"
+                            ratingLevel={progressPercent >= 80 ? 'excellent' : progressPercent >= 50 ? 'good' : 'developing'}
+                          />
+                        )}
                       </div>
                     </div>
-                  );
-                })}
+                    );
+                  })
+                )}
               </div>
             </CardContent>
           </Card>
@@ -1168,7 +1279,14 @@ export default function JUCOCoachDashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-3 gap-4">
-              {MOCK_COLLEGE_MATCHES.map((player) => (
+              {collegeMatches.length === 0 ? (
+                <div className="col-span-3 text-center py-8">
+                  <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                    No college matches yet. Keep updating player profiles and engaging with colleges!
+                  </p>
+                </div>
+              ) : (
+                collegeMatches.map((player: any) => (
                 <div 
                   key={player.id}
                   className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/30' : 'bg-slate-50'}`}
@@ -1232,7 +1350,8 @@ export default function JUCOCoachDashboard() {
                     View all matches <ChevronRight className="w-3 h-3 ml-1" />
                   </Button>
                 </div>
-              ))}
+                ))
+              )}
             </div>
             
             <div className={`mt-4 p-4 rounded-xl ${isDark ? 'bg-gradient-to-r from-cyan-500/10 to-emerald-500/10 border border-cyan-500/20' : 'bg-gradient-to-r from-cyan-50 to-emerald-50 border border-cyan-200'}`}>
