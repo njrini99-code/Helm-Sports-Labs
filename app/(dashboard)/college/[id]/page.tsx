@@ -1,5 +1,4 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createClient } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -14,15 +13,12 @@ export default async function CollegeDetailPage({
   params: Promise<{ id: string }> 
 }) {
   const { id } = await params;
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = await createClient();
   
   // Fetch college data
   const { data: college, error } = await supabase
     .from('colleges')
-    .select(`
-      *,
-      commits:college_interest(count).eq('interest_level', 'committed')
-    `)
+    .select('*')
     .eq('id', id)
     .single();
 
@@ -30,10 +26,12 @@ export default async function CollegeDetailPage({
     notFound();
   }
 
-  // Get commit count
-  const commitCount = Array.isArray(college.commits) 
-    ? college.commits.length 
-    : (college.commits as any)?.count || 0;
+  // Get commit count separately
+  const { count: commitCount } = await supabase
+    .from('college_interest')
+    .select('*', { count: 'exact', head: true })
+    .eq('college_id', id)
+    .eq('interest_level', 'committed');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50/20">
@@ -110,7 +108,7 @@ export default async function CollegeDetailPage({
           <Card>
             <CardContent className="p-4 text-center">
               <Users className="w-6 h-6 mx-auto mb-2 text-blue-600" />
-              <p className="text-2xl font-bold">{commitCount}</p>
+              <p className="text-2xl font-bold">{commitCount || 0}</p>
               <p className="text-xs text-muted-foreground">Commits</p>
             </CardContent>
           </Card>

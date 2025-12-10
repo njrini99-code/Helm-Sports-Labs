@@ -43,6 +43,10 @@ import {
 } from '@/lib/glassmorphism';
 import { AnimatedNumber } from '@/components/ui/AnimatedNumber';
 import Image from 'next/image';
+import { AdvancedFilters, type FilterState } from '@/components/search/AdvancedFilters';
+import { FilterPresets } from '@/components/search/FilterPresets';
+import { BulkActionsToolbar } from '@/components/bulk/BulkActionsToolbar';
+import { SelectableItem } from '@/components/bulk/SelectableItem';
 
 const DIVISIONS = ['All', 'D1', 'D2', 'D3', 'NAIA', 'JUCO'];
 const REGIONS = ['All', 'Northeast', 'Southeast', 'Midwest', 'Southwest', 'West'];
@@ -77,7 +81,20 @@ export default function PlayerDiscoverPage() {
   const [interestedSchools, setInterestedSchools] = useState<Set<string>>(new Set());
   const [playerId, setPlayerId] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
-  const [sortBy, setSortBy] = useState<'name' | 'division' | 'state'>('name');
+  const [sortBy, setSortBy] = useState<'name' | 'division' | 'state' | 'conference'>('name');
+  const [advancedFilters, setAdvancedFilters] = useState<FilterState>({
+    divisions: [],
+    conferences: [],
+    states: [],
+    regions: [],
+    hasLogo: null,
+    hasWebsite: null,
+    minCommitCount: null,
+    maxCommitCount: null,
+  });
+  const [availableConferences, setAvailableConferences] = useState<string[]>([]);
+  const [availableStates, setAvailableStates] = useState<string[]>([]);
+  const [selectedCollegeIds, setSelectedCollegeIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     loadData();
@@ -116,6 +133,12 @@ export default function PlayerDiscoverPage() {
     const collegeData = await getColleges();
     setColleges(collegeData);
 
+    // Extract unique conferences and states for filters
+    const conferences = Array.from(new Set(collegeData.map(c => c.conference).filter(Boolean))) as string[];
+    const states = Array.from(new Set(collegeData.map(c => c.state).filter(Boolean))) as string[];
+    setAvailableConferences(conferences.sort());
+    setAvailableStates(states.sort());
+
     const { data: interests } = await supabase
       .from('recruiting_interests')
       .select('college_id')
@@ -130,27 +153,74 @@ export default function PlayerDiscoverPage() {
 
   const filteredColleges = useMemo(() => {
     const filtered = colleges.filter(college => {
+      // Search filter
       if (search) {
         const searchLower = search.toLowerCase();
         const matchesName = college.name.toLowerCase().includes(searchLower);
         const matchesCity = college.city?.toLowerCase().includes(searchLower);
         const matchesState = college.state?.toLowerCase().includes(searchLower);
         const matchesConference = college.conference?.toLowerCase().includes(searchLower);
-        if (!matchesName && !matchesCity && !matchesState && !matchesConference) {
+        const matchesNickname = college.nickname?.toLowerCase().includes(searchLower);
+        if (!matchesName && !matchesCity && !matchesState && !matchesConference && !matchesNickname) {
           return false;
         }
       }
 
+      // Legacy division filter (for backward compatibility)
       if (divisionFilter !== 'All' && college.division !== divisionFilter) {
         return false;
       }
 
+      // Legacy region filter
       if (regionFilter !== 'All' && college.state) {
         const region = STATE_TO_REGION[college.state];
         if (region !== regionFilter) {
           return false;
         }
       }
+
+      // Advanced filters - Divisions
+      if (advancedFilters.divisions.length > 0 && !advancedFilters.divisions.includes(college.division || '')) {
+        return false;
+      }
+
+      // Advanced filters - Conferences
+      if (advancedFilters.conferences.length > 0 && college.conference && !advancedFilters.conferences.includes(college.conference)) {
+        return false;
+      }
+
+      // Advanced filters - States
+      if (advancedFilters.states.length > 0 && college.state && !advancedFilters.states.includes(college.state)) {
+        return false;
+      }
+
+      // Advanced filters - Regions
+      if (advancedFilters.regions.length > 0 && college.state) {
+        const region = STATE_TO_REGION[college.state];
+        if (!region || !advancedFilters.regions.includes(region)) {
+          return false;
+        }
+      }
+
+      // Advanced filters - Has Logo
+      if (advancedFilters.hasLogo === true && !college.logo_url) {
+        return false;
+      }
+      if (advancedFilters.hasLogo === false && college.logo_url) {
+        return false;
+      }
+
+      // Advanced filters - Has Website
+      const hasWebsite = (college as any).website_url;
+      if (advancedFilters.hasWebsite === true && !hasWebsite) {
+        return false;
+      }
+      if (advancedFilters.hasWebsite === false && hasWebsite) {
+        return false;
+      }
+
+      // Note: Commit count filter would require a separate query to colleges with join
+      // For now, we'll skip it in the client-side filter
 
       return true;
     });
@@ -168,10 +238,13 @@ export default function PlayerDiscoverPage() {
       } else if (sortBy === 'state') {
         if (a.state === b.state) return a.name.localeCompare(b.name);
         return (a.state || '').localeCompare(b.state || '');
+      } else if (sortBy === 'conference') {
+        if (a.conference === b.conference) return a.name.localeCompare(b.name);
+        return (a.conference || '').localeCompare(b.conference || '');
       }
       return 0;
     });
-  }, [colleges, search, divisionFilter, regionFilter, sortBy]);
+  }, [colleges, search, divisionFilter, regionFilter, sortBy, advancedFilters]);
 
   const handleAddInterest = async (college: College) => {
     if (!playerId) return;
@@ -228,13 +301,144 @@ export default function PlayerDiscoverPage() {
     setSearch('');
     setDivisionFilter('All');
     setRegionFilter('All');
+    setAdvancedFilters({
+      divisions: [],
+      conferences: [],
+      states: [],
+      regions: [],
+      hasLogo: null,
+      hasWebsite: null,
+      minCommitCount: null,
+      maxCommitCount: null,
+    });
   };
 
   const handleViewProgram = (college: College) => {
     router.push(`/college/${college.id}`);
   };
 
-  const hasActiveFilters = search || divisionFilter !== 'All' || regionFilter !== 'All';
+  const handleBulkAddToInterests = async (collegeIds: string[]) => {
+    if (!playerId) {
+      toast.error('Please log in to add schools to your interests');
+      return;
+    }
+
+    const supabase = createClient();
+    const collegesToAdd = colleges.filter(c => collegeIds.includes(c.id));
+    
+    const inserts = collegesToAdd.map(college => ({
+      player_id: playerId,
+      college_id: college.id,
+      school_name: college.name,
+      conference: college.conference,
+      division: college.division,
+      status: 'interested',
+      interest_level: 'medium',
+    }));
+
+    const { error } = await supabase
+      .from('recruiting_interests')
+      .upsert(inserts, {
+        onConflict: 'player_id,college_id',
+        ignoreDuplicates: false,
+      });
+
+    if (error) {
+      toast.error('Failed to add some schools');
+      logError(error, { component: 'PlayerDiscover', action: 'bulkAddInterest' });
+      return;
+    }
+
+    // Update interested schools set
+    setInterestedSchools(prev => {
+      const next = new Set(prev);
+      collegeIds.forEach(id => next.add(id));
+      return next;
+    });
+
+    toast.success(`Added ${collegeIds.length} school${collegeIds.length === 1 ? '' : 's'} to your interests!`);
+  };
+
+  const handleBulkRemoveFromInterests = async (collegeIds: string[]) => {
+    if (!playerId) return;
+
+    const supabase = createClient();
+    
+    const { error } = await supabase
+      .from('recruiting_interests')
+      .delete()
+      .eq('player_id', playerId)
+      .in('college_id', collegeIds);
+
+    if (error) {
+      toast.error('Failed to remove some schools');
+      return;
+    }
+
+    // Update interested schools set
+    setInterestedSchools(prev => {
+      const next = new Set(prev);
+      collegeIds.forEach(id => next.delete(id));
+      return next;
+    });
+
+    toast.success(`Removed ${collegeIds.length} school${collegeIds.length === 1 ? '' : 's'} from your interests`);
+  };
+
+  const handleBulkExport = async (selectedColleges: College[]) => {
+    // Create CSV content
+    const headers = ['Name', 'Division', 'Conference', 'City', 'State', 'Website'];
+    const rows = selectedColleges.map(college => [
+      college.name,
+      college.division || '',
+      college.conference || '',
+      college.city || '',
+      college.state || '',
+      (college as any).website_url || '',
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+    ].join('\n');
+
+    // Download CSV
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `colleges-${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+
+    toast.success(`Exported ${selectedColleges.length} colleges`);
+  };
+
+  const handleSelectionChange = (id: string, selected: boolean) => {
+    setSelectedCollegeIds(prev => {
+      const next = new Set(prev);
+      if (selected) {
+        next.add(id);
+      } else {
+        next.delete(id);
+      }
+      return next;
+    });
+  };
+
+  const hasActiveFilters = search || 
+    divisionFilter !== 'All' || 
+    regionFilter !== 'All' ||
+    advancedFilters.divisions.length > 0 ||
+    advancedFilters.conferences.length > 0 ||
+    advancedFilters.states.length > 0 ||
+    advancedFilters.regions.length > 0 ||
+    advancedFilters.hasLogo !== null ||
+    advancedFilters.hasWebsite !== null ||
+    advancedFilters.minCommitCount !== null ||
+    advancedFilters.maxCommitCount !== null;
 
   if (loading) {
     return <PlayerDiscoverSkeleton />;
@@ -355,7 +559,8 @@ export default function PlayerDiscoverPage() {
 
           {/* Expanded Filters Panel */}
           {showFilters && (
-            <div className={cn(glassCard, 'p-4 animate-in slide-in-from-top-2 duration-200')}>
+            <div className={cn(glassCard, 'p-4 animate-in slide-in-from-top-2 duration-200 space-y-4')}>
+              {/* Legacy Quick Filters */}
               <div className="flex flex-wrap gap-4">
                 <div className="flex-1 min-w-[200px]">
                   <label className="text-xs font-medium text-white/60 mb-2 block">Region</label>
@@ -377,12 +582,34 @@ export default function PlayerDiscoverPage() {
                   </div>
                 </div>
               </div>
+
+              {/* Filter Presets */}
+              <div className="pt-4 border-t border-white/[0.08]">
+                <FilterPresets
+                  currentFilters={advancedFilters}
+                  onLoadPreset={setAdvancedFilters}
+                />
+              </div>
+
+              {/* Advanced Filters */}
+              <div className="pt-4 border-t border-white/[0.08]">
+                <AdvancedFilters
+                  filters={advancedFilters}
+                  onFiltersChange={setAdvancedFilters}
+                  availableConferences={availableConferences}
+                  availableStates={availableStates}
+                  className="bg-transparent"
+                />
+              </div>
               
               {hasActiveFilters && (
                 <div className="mt-4 pt-3 border-t border-white/[0.08]">
                   <p className="text-xs text-white/50">
                     Showing: {divisionFilter !== 'All' ? divisionFilter : 'All divisions'} 
                     {regionFilter !== 'All' ? ` • ${regionFilter}` : ''}
+                    {advancedFilters.divisions.length > 0 && ` • ${advancedFilters.divisions.length} division(s)`}
+                    {advancedFilters.conferences.length > 0 && ` • ${advancedFilters.conferences.length} conference(s)`}
+                    {advancedFilters.states.length > 0 && ` • ${advancedFilters.states.length} state(s)`}
                     {search ? ` • "${search}"` : ''}
                   </p>
                 </div>
@@ -428,28 +655,47 @@ export default function PlayerDiscoverPage() {
               <span className="text-xs text-slate-500">Sort by:</span>
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as 'name' | 'division' | 'state')}
+                onChange={(e) => setSortBy(e.target.value as 'name' | 'division' | 'state' | 'conference')}
                 className="text-xs px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-colors"
               >
                 <option value="name">Name</option>
                 <option value="division">Division</option>
+                <option value="conference">Conference</option>
                 <option value="state">State</option>
               </select>
             </div>
           </div>
 
+          {/* Bulk Actions Toolbar */}
+          <BulkActionsToolbar
+            items={filteredColleges}
+            selectedIds={selectedCollegeIds}
+            onSelectionChange={setSelectedCollegeIds}
+            onBulkAdd={handleBulkAddToInterests}
+            onBulkRemove={handleBulkRemoveFromInterests}
+            onBulkExport={handleBulkExport}
+            itemName="colleges"
+            className="mb-4"
+          />
+
           {/* College Grid */}
           {filteredColleges.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredColleges.map(college => (
-                <CollegeCard
+                <SelectableItem
                   key={college.id}
-                  college={college}
-                  isInterested={interestedSchools.has(college.id)}
-                  onAddInterest={() => handleAddInterest(college)}
-                  onRemoveInterest={() => handleRemoveInterest(college.id)}
-                  onViewProgram={() => handleViewProgram(college)}
-                />
+                  id={college.id}
+                  isSelected={selectedCollegeIds.has(college.id)}
+                  onSelect={handleSelectionChange}
+                >
+                  <CollegeCard
+                    college={college}
+                    isInterested={interestedSchools.has(college.id)}
+                    onAddInterest={() => handleAddInterest(college)}
+                    onRemoveInterest={() => handleRemoveInterest(college.id)}
+                    onViewProgram={() => handleViewProgram(college)}
+                  />
+                </SelectableItem>
               ))}
             </div>
           ) : (

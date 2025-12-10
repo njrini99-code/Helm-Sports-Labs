@@ -1,5 +1,4 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createClient } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -13,7 +12,7 @@ export default async function PublicProfilePage({
   params: Promise<{ id: string }> 
 }) {
   const { id } = await params;
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = await createClient();
   
   // Fetch public profile data (team/coach profile - no auth required)
   const { data: profile, error } = await supabase
@@ -32,9 +31,7 @@ export default async function PublicProfilePage({
         organization_state,
         logo_url,
         about
-      ),
-      players:team_memberships(count),
-      commits:college_interest(count).eq('interest_level', 'committed')
+      )
     `)
     .eq('id', id)
     .single();
@@ -44,12 +41,27 @@ export default async function PublicProfilePage({
   }
 
   const coach = Array.isArray(profile.coach) ? profile.coach[0] : profile.coach;
-  const playerCount = Array.isArray(profile.players) 
-    ? profile.players.length 
-    : (profile.players as any)?.count || 0;
-  const commitCount = Array.isArray(profile.commits) 
-    ? profile.commits.length 
-    : (profile.commits as any)?.count || 0;
+  
+  // Get player count separately
+  const { count: playerCount } = await supabase
+    .from('team_memberships')
+    .select('*', { count: 'exact', head: true })
+    .eq('team_id', id);
+  
+  // Get player IDs for this team
+  const { data: teamMembers } = await supabase
+    .from('team_memberships')
+    .select('player_id')
+    .eq('team_id', id);
+  
+  const playerIds = teamMembers?.map(m => m.player_id) || [];
+  
+  // Get commit count separately (for players on this team)
+  const { count: commitCount } = await supabase
+    .from('college_interest')
+    .select('*', { count: 'exact', head: true })
+    .eq('interest_level', 'committed')
+    .in('player_id', playerIds.length > 0 ? playerIds : ['00000000-0000-0000-0000-000000000000']);
 
   const teamName = profile.name || coach?.school_name || coach?.organization_name || 'Team';
   const location = [
@@ -90,10 +102,10 @@ export default async function PublicProfilePage({
                   <Users className="w-4 h-4" />
                   {playerCount} Players
                 </span>
-                {commitCount > 0 && (
+                {(commitCount || 0) > 0 && (
                   <span className="flex items-center gap-1">
                     <GraduationCap className="w-4 h-4" />
-                    {commitCount} Commits
+                    {commitCount || 0} Commits
                   </span>
                 )}
               </div>
@@ -119,14 +131,14 @@ export default async function PublicProfilePage({
           <Card>
             <CardContent className="p-4 text-center">
               <Users className="w-6 h-6 mx-auto mb-2 text-blue-600" />
-              <p className="text-2xl font-bold">{playerCount}</p>
+              <p className="text-2xl font-bold">{playerCount || 0}</p>
               <p className="text-xs text-muted-foreground">Players</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <GraduationCap className="w-6 h-6 mx-auto mb-2 text-emerald-600" />
-              <p className="text-2xl font-bold">{commitCount}</p>
+              <p className="text-2xl font-bold">{commitCount || 0}</p>
               <p className="text-xs text-muted-foreground">College Commits</p>
             </CardContent>
           </Card>
