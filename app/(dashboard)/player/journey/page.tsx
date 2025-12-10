@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -273,7 +274,7 @@ export default function PlayerJourneyPage() {
       v.status === 'scheduled' && new Date(v.event_date) > new Date()
     ).length;
     const recentActivity = journeyEvents.filter(e => 
-      new Date(e.created_at || e.event_date) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+      new Date(e.event_date) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
     ).length;
     
     return {
@@ -400,8 +401,8 @@ export default function PlayerJourneyPage() {
                   <Award className={`w-5 h-5 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
                 </div>
                 <div>
-                  <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{stats.activeOffers}</p>
-                  <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Active Offers</p>
+                  <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{stats.totalOffers}</p>
+                  <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Total Offers</p>
                 </div>
               </div>
             </CardContent>
@@ -413,8 +414,8 @@ export default function PlayerJourneyPage() {
                   <MessageSquare className={`w-5 h-5 ${isDark ? 'text-purple-400' : 'text-purple-600'}`} />
                 </div>
                 <div>
-                  <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{stats.totalInteractions}</p>
-                  <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Interactions</p>
+                  <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{journeyEvents.length}</p>
+                  <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Total Events</p>
                 </div>
               </div>
             </CardContent>
@@ -427,9 +428,9 @@ export default function PlayerJourneyPage() {
                 </div>
                 <div>
                   <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                    {stats.completedMilestones}/{stats.totalMilestones}
+                    {journeyEvents.filter(e => e.status === 'completed').length}/{journeyEvents.length}
                   </p>
-                  <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Milestones</p>
+                  <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Completed Events</p>
                 </div>
               </div>
             </CardContent>
@@ -567,76 +568,78 @@ export default function PlayerJourneyPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {['academic', 'athletic', 'recruiting', 'administrative'].map(category => {
-                  const categoryMilestones = MOCK_MILESTONES.filter(m => m.category === category);
-                  if (categoryMilestones.length === 0) return null;
-                  
-                  return (
-                    <div key={category}>
-                      <div className={`flex items-center gap-2 mb-3 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                        {category === 'academic' && <GraduationCap className="w-4 h-4" />}
-                        {category === 'athletic' && <Trophy className="w-4 h-4" />}
-                        {category === 'recruiting' && <Users className="w-4 h-4" />}
-                        {category === 'administrative' && <FileText className="w-4 h-4" />}
-                        <span className="text-xs font-medium uppercase tracking-wide capitalize">{category}</span>
+                {journeyEvents.length === 0 ? (
+                  <p className={`text-sm text-center py-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                    No journey events yet. Start tracking your recruiting journey!
+                  </p>
+                ) : (
+                  <div className="space-y-3">
+                    {journeyEvents.slice(0, 10).map(event => (
+                      <div
+                        key={event.id}
+                        className={`flex items-start gap-3 p-4 rounded-xl ${
+                          event.status === 'completed'
+                            ? isDark ? 'bg-emerald-500/10' : 'bg-emerald-50'
+                            : event.status === 'scheduled'
+                            ? isDark ? 'bg-blue-500/10' : 'bg-blue-50'
+                            : isDark ? 'bg-slate-700/30' : 'bg-slate-50'
+                        }`}
+                      >
+                        <div className={`p-2 rounded-lg ${
+                          event.status === 'completed' ? 'bg-emerald-500/20' :
+                          event.status === 'scheduled' ? 'bg-blue-500/20' :
+                          'bg-slate-500/20'
+                        }`}>
+                          {event.event_type === 'offer' && <Award className={`w-4 h-4 ${
+                            event.status === 'completed' ? 'text-emerald-400' :
+                            event.status === 'scheduled' ? 'text-blue-400' :
+                            'text-slate-400'
+                          }`} />}
+                          {event.event_type === 'campus_visit' && <MapPin className={`w-4 h-4 ${
+                            event.status === 'completed' ? 'text-emerald-400' :
+                            event.status === 'scheduled' ? 'text-blue-400' :
+                            'text-slate-400'
+                          }`} />}
+                          {event.event_type === 'evaluation' && <Trophy className={`w-4 h-4 ${
+                            event.status === 'completed' ? 'text-emerald-400' :
+                            event.status === 'scheduled' ? 'text-blue-400' :
+                            'text-slate-400'
+                          }`} />}
+                          {!['offer', 'campus_visit', 'evaluation'].includes(event.event_type) && <CheckCircle2 className={`w-4 h-4 ${
+                            event.status === 'completed' ? 'text-emerald-400' :
+                            event.status === 'scheduled' ? 'text-blue-400' :
+                            'text-slate-400'
+                          }`} />}
+                        </div>
+                        <div className="flex-1">
+                          <p className={`font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                            {event.title}
+                          </p>
+                          {event.description && (
+                            <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                              {event.description}
+                            </p>
+                          )}
+                          {event.college && (
+                            <p className={`text-xs mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                              {event.college.name}
+                            </p>
+                          )}
+                          <p className={`text-xs mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                            {new Date(event.event_date).toLocaleDateString()}
+                          </p>
+                        </div>
+                        <Badge variant={
+                          event.status === 'completed' ? 'default' :
+                          event.status === 'scheduled' ? 'secondary' : 'outline'
+                        }>
+                          {event.status === 'completed' ? 'Completed' :
+                           event.status === 'scheduled' ? 'Scheduled' : 'Upcoming'}
+                        </Badge>
                       </div>
-                      <div className="space-y-2">
-                        {categoryMilestones.map(milestone => (
-                          <div
-                            key={milestone.id}
-                            className={`flex items-start gap-3 p-4 rounded-xl ${
-                              milestone.status === 'completed'
-                                ? isDark ? 'bg-emerald-500/10' : 'bg-emerald-50'
-                                : milestone.status === 'overdue'
-                                ? isDark ? 'bg-red-500/10' : 'bg-red-50'
-                                : isDark ? 'bg-slate-700/30' : 'bg-slate-50'
-                            }`}
-                          >
-                            <div className={`mt-0.5 ${
-                              milestone.status === 'completed' ? 'text-emerald-500' : 
-                              milestone.status === 'in_progress' ? 'text-blue-500' :
-                              milestone.status === 'overdue' ? 'text-red-500' :
-                              isDark ? 'text-slate-500' : 'text-slate-400'
-                            }`}>
-                              {milestone.status === 'completed' ? (
-                                <CheckCircle2 className="w-5 h-5" />
-                              ) : milestone.status === 'in_progress' ? (
-                                <Clock className="w-5 h-5" />
-                              ) : (
-                                <Circle className="w-5 h-5" />
-                              )}
-                            </div>
-                            <div className="flex-1">
-                              <div className="flex items-start justify-between gap-2">
-                                <div>
-                                  <p className={`font-medium text-sm ${
-                                    milestone.status === 'completed'
-                                      ? isDark ? 'text-emerald-400' : 'text-emerald-700'
-                                      : isDark ? 'text-white' : 'text-slate-800'
-                                  }`}>
-                                    {milestone.title}
-                                  </p>
-                                  <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                    {milestone.description}
-                                  </p>
-                                </div>
-                                <div className="text-right shrink-0">
-                                  <MilestoneStatusBadge status={milestone.status} />
-                                  <p className={`text-xs mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                    {milestone.completedDate 
-                                      ? `Completed ${new Date(milestone.completedDate).toLocaleDateString()}`
-                                      : `Due ${new Date(milestone.targetDate).toLocaleDateString()}`
-                                    }
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
+                    ))}
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -673,56 +676,83 @@ export default function PlayerJourneyPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {filteredInteractions.map(interaction => (
-                  <div
-                    key={interaction.id}
-                    className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/30' : 'bg-slate-50'}`}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex items-start gap-3">
-                        <Avatar className="h-10 w-10">
-                          <AvatarImage src={interaction.collegeLogo} />
-                          <AvatarFallback className={`text-xs font-medium ${isDark ? 'bg-slate-600 text-white' : 'bg-emerald-100 text-emerald-700'}`}>
-                            {interaction.collegeName.slice(0, 2).toUpperCase()}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <p className={`font-medium text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                              {interaction.collegeName}
-                            </p>
-                            <Badge variant="outline" className="text-[10px]">{interaction.division}</Badge>
-                            <InteractionTypeBadge type={interaction.type} />
+                {filteredInteractions.length === 0 ? (
+                  <p className={`text-sm text-center py-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                    No interactions yet. Start connecting with college coaches!
+                  </p>
+                ) : (
+                  filteredInteractions.map(interaction => {
+                    const college = interaction.college;
+                    const metadata = interaction.metadata || {};
+                    const eventTypeMap: Record<string, string> = {
+                      'email': 'Email',
+                      'call': 'Phone Call',
+                      'message': 'Message',
+                      'campus_visit': 'Campus Visit',
+                      'camp': 'Camp',
+                      'evaluation': 'Evaluation',
+                      'offer': 'Offer',
+                      'showcase': 'Showcase',
+                      'meeting': 'Meeting',
+                    };
+                    
+                    return (
+                      <div
+                        key={interaction.id}
+                        className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/30' : 'bg-slate-50'}`}
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex items-start gap-3">
+                            <Avatar className="h-10 w-10">
+                              <AvatarImage src={college?.logo_url || undefined} />
+                              <AvatarFallback className={`text-xs font-medium ${isDark ? 'bg-slate-600 text-white' : 'bg-emerald-100 text-emerald-700'}`}>
+                                {college?.name?.slice(0, 2).toUpperCase() || 'CO'}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <p className={`font-medium text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                                  {college?.name || interaction.title}
+                                </p>
+                                {college?.division && (
+                                  <Badge variant="outline" className="text-[10px]">{college.division}</Badge>
+                                )}
+                                <Badge variant="secondary" className="text-[10px]">
+                                  {eventTypeMap[interaction.event_type] || interaction.event_type}
+                                </Badge>
+                              </div>
+                              <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                {interaction.description || interaction.title}
+                              </p>
+                              {metadata.contactName && (
+                                <p className={`text-xs mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                                  Contact: {metadata.contactName} {metadata.contactRole && `(${metadata.contactRole})`}
+                                </p>
+                              )}
+                              {interaction.location && (
+                                <p className={`text-xs mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                                  <MapPin className="w-3 h-3 inline mr-1" />
+                                  {interaction.location}
+                                </p>
+                              )}
+                            </div>
                           </div>
-                          <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                            {interaction.description}
-                          </p>
-                          {interaction.contactName && (
-                            <p className={`text-xs mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                              Contact: {interaction.contactName} {interaction.contactRole && `(${interaction.contactRole})`}
+                          <div className="text-right shrink-0">
+                            <p className={`text-xs font-medium ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                              {new Date(interaction.event_date).toLocaleDateString()}
                             </p>
-                          )}
-                          {interaction.notes && (
-                            <p className={`text-xs mt-2 italic ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                              &ldquo;{interaction.notes}&rdquo;
-                            </p>
-                          )}
+                            {metadata.followUpDate && (
+                              <Badge className="mt-1 bg-amber-500/20 text-amber-400 text-[10px]">
+                                <Bell className="w-3 h-3 mr-1" />
+                                Follow up {new Date(metadata.followUpDate).toLocaleDateString()}
+                              </Badge>
+                            )}
+                          </div>
                         </div>
                       </div>
-                      <div className="text-right shrink-0">
-                        <p className={`text-xs font-medium ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
-                          {new Date(interaction.date).toLocaleDateString()}
-                        </p>
-                        {interaction.followUpDate && (
-                          <Badge className="mt-1 bg-amber-500/20 text-amber-400 text-[10px]">
-                            <Bell className="w-3 h-3 mr-1" />
-                            Follow up {new Date(interaction.followUpDate).toLocaleDateString()}
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                    );
+                  })
+                )}
               </div>
             </CardContent>
           </Card>
@@ -730,155 +760,158 @@ export default function PlayerJourneyPage() {
 
         {activeTab === 'offers' && (
           <div className="space-y-4">
-            {MOCK_OFFERS.map(offer => (
-              <Card 
-                key={offer.id}
-                className={`overflow-hidden ${
-                  offer.status === 'accepted'
-                    ? isDark ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-emerald-50 border-emerald-200'
-                    : isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'
-                }`}
-              >
-                <CardContent className="p-0">
-                  <div 
-                    className={`p-4 cursor-pointer ${isDark ? 'hover:bg-slate-700/30' : 'hover:bg-slate-50'}`}
-                    onClick={() => setExpandedOffer(expandedOffer === offer.id ? null : offer.id)}
-                  >
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex items-start gap-4">
-                        <Avatar className="h-14 w-14">
-                          <AvatarImage src={offer.collegeLogo} />
-                          <AvatarFallback className={`text-lg font-bold ${isDark ? 'bg-slate-600 text-white' : 'bg-emerald-100 text-emerald-700'}`}>
-                            {offer.collegeName.slice(0, 2).toUpperCase()}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                              {offer.collegeName}
-                            </h3>
-                            <Badge variant="outline" className="text-[10px]">{offer.division}</Badge>
-                            <OfferStatusBadge status={offer.status} />
-                          </div>
-                          <div className="flex items-center gap-3 mt-1">
-                            <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                              <MapPin className="w-3 h-3 inline mr-1" />
-                              {offer.location}
-                            </span>
-                            <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                              {offer.conference}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2 mt-2">
-                            <Badge className={`${
-                              offer.scholarshipType === 'full' 
-                                ? 'bg-emerald-500/20 text-emerald-400' 
-                                : offer.scholarshipType === 'partial'
-                                ? 'bg-blue-500/20 text-blue-400'
-                                : 'bg-slate-500/20 text-slate-400'
-                            } text-[10px]`}>
-                              <DollarSign className="w-3 h-3 mr-1" />
-                              {offer.scholarshipPercentage ? `${offer.scholarshipPercentage}%` : offer.scholarshipType.replace('_', ' ')}
-                            </Badge>
-                            <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                              Offered {new Date(offer.offerDate).toLocaleDateString()}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        {offer.deadline && offer.daysUntilDeadline && offer.daysUntilDeadline > 0 && (
-                          <Badge className={`${
-                            offer.daysUntilDeadline <= 7 
-                              ? 'bg-red-500/20 text-red-400' 
-                              : 'bg-amber-500/20 text-amber-400'
-                          } mb-2`}>
-                            <Timer className="w-3 h-3 mr-1" />
-                            {offer.daysUntilDeadline}d left
-                          </Badge>
-                        )}
-                        <ChevronDown className={`w-5 h-5 ${isDark ? 'text-slate-400' : 'text-slate-500'} transition-transform ${
-                          expandedOffer === offer.id ? 'rotate-180' : ''
-                        }`} />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Expanded Content */}
-                  {expandedOffer === offer.id && (
-                    <div className={`px-4 pb-4 border-t ${isDark ? 'border-slate-700/50' : 'border-slate-200'}`}>
-                      <div className="pt-4 grid md:grid-cols-2 gap-4">
-                        {/* Pros & Cons */}
-                        <div>
-                          <p className={`text-xs font-medium mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                            PROS
-                          </p>
-                          <div className="space-y-1">
-                            {offer.pros?.map((pro, idx) => (
-                              <div key={idx} className="flex items-center gap-2">
-                                <Check className="w-4 h-4 text-emerald-500" />
-                                <span className={`text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{pro}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                        <div>
-                          <p className={`text-xs font-medium mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                            CONS
-                          </p>
-                          <div className="space-y-1">
-                            {offer.cons?.map((con, idx) => (
-                              <div key={idx} className="flex items-center gap-2">
-                                <X className="w-4 h-4 text-red-400" />
-                                <span className={`text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{con}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Notes */}
-                      {offer.notes && (
-                        <div className={`mt-4 p-3 rounded-lg ${isDark ? 'bg-slate-700/30' : 'bg-slate-100'}`}>
-                          <p className={`text-xs font-medium mb-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                            Notes
-                          </p>
-                          <p className={`text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{offer.notes}</p>
-                        </div>
-                      )}
-
-                      {/* Actions */}
-                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-dashed ${isDark ? 'border-slate-700/50' : 'border-slate-200'}">
-                        <div className="flex items-center gap-2">
-                          {offer.coachEmail && (
-                            <Button variant="outline" size="sm" className={isDark ? 'border-slate-600' : ''}>
-                              <Mail className="w-4 h-4 mr-1" />
-                              Contact Coach
-                            </Button>
-                          )}
-                          <Button variant="outline" size="sm" className={isDark ? 'border-slate-600' : ''}>
-                            <Edit2 className="w-4 h-4 mr-1" />
-                            Edit
-                          </Button>
-                        </div>
-                        {['pending', 'considering'].includes(offer.status) && (
-                          <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm" className="text-red-400 border-red-500/30 hover:bg-red-500/10">
-                              <X className="w-4 h-4 mr-1" />
-                              Decline
-                            </Button>
-                            <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600">
-                              <Check className="w-4 h-4 mr-1" />
-                              Accept Offer
-                            </Button>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
+            {groupedEvents.offers.length === 0 ? (
+              <Card className={isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}>
+                <CardContent className="p-8 text-center">
+                  <Award className={`w-12 h-12 mx-auto mb-3 ${isDark ? 'text-slate-600' : 'text-slate-400'}`} />
+                  <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                    No offers yet. Keep working hard and updating your profile!
+                  </p>
                 </CardContent>
               </Card>
-            ))}
+            ) : (
+              groupedEvents.offers.map(offer => {
+                const college = offer.college;
+                const metadata = offer.metadata || {};
+                const offerDate = new Date(offer.event_date);
+                const deadline = metadata.deadline ? new Date(metadata.deadline) : null;
+                const daysUntilDeadline = deadline ? Math.ceil((deadline.getTime() - Date.now()) / (1000 * 60 * 60 * 24)) : null;
+                
+                return (
+                  <Card 
+                    key={offer.id}
+                    className={`overflow-hidden ${
+                      offer.status === 'completed'
+                        ? isDark ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-emerald-50 border-emerald-200'
+                        : isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'
+                    }`}
+                  >
+                    <CardContent className="p-0">
+                      <div 
+                        className={`p-4 cursor-pointer ${isDark ? 'hover:bg-slate-700/30' : 'hover:bg-slate-50'}`}
+                        onClick={() => setExpandedOffer(expandedOffer === offer.id ? null : offer.id)}
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex items-start gap-4">
+                            <Avatar className="h-14 w-14">
+                              <AvatarImage src={college?.logo_url || undefined} />
+                              <AvatarFallback className={`text-lg font-bold ${isDark ? 'bg-slate-600 text-white' : 'bg-emerald-100 text-emerald-700'}`}>
+                                {college?.name?.slice(0, 2).toUpperCase() || 'CO'}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                                  {college?.name || offer.title}
+                                </h3>
+                                {college?.division && (
+                                  <Badge variant="outline" className="text-[10px]">{college.division}</Badge>
+                                )}
+                                <Badge variant={offer.status === 'completed' ? 'default' : 'secondary'}>
+                                  {offer.status === 'completed' ? 'Accepted' : offer.status === 'scheduled' ? 'Considering' : 'Pending'}
+                                </Badge>
+                              </div>
+                              <div className="flex items-center gap-3 mt-1">
+                                {college?.city && college?.state && (
+                                  <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                    <MapPin className="w-3 h-3 inline mr-1" />
+                                    {college.city}, {college.state}
+                                  </span>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-2 mt-2">
+                                {metadata.scholarshipPercentage && (
+                                  <Badge className={`${
+                                    metadata.scholarshipPercentage === 100
+                                      ? 'bg-emerald-500/20 text-emerald-400' 
+                                      : 'bg-blue-500/20 text-blue-400'
+                                  } text-[10px]`}>
+                                    <DollarSign className="w-3 h-3 mr-1" />
+                                    {metadata.scholarshipPercentage}% Scholarship
+                                  </Badge>
+                                )}
+                                <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                  Offered {offerDate.toLocaleDateString()}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            {deadline && daysUntilDeadline && daysUntilDeadline > 0 && (
+                              <Badge className={`${
+                                daysUntilDeadline <= 7 
+                                  ? 'bg-red-500/20 text-red-400' 
+                                  : 'bg-amber-500/20 text-amber-400'
+                              } mb-2`}>
+                                <Timer className="w-3 h-3 mr-1" />
+                                {daysUntilDeadline}d left
+                              </Badge>
+                            )}
+                            <ChevronDown className={`w-5 h-5 ${isDark ? 'text-slate-400' : 'text-slate-500'} transition-transform ${
+                              expandedOffer === offer.id ? 'rotate-180' : ''
+                            }`} />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Expanded Content */}
+                      {expandedOffer === offer.id && (
+                        <div className={`px-4 pb-4 border-t ${isDark ? 'border-slate-700/50' : 'border-slate-200'}`}>
+                          {/* Description */}
+                          {offer.description && (
+                            <div className="pt-4">
+                              <p className={`text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                                {offer.description}
+                              </p>
+                            </div>
+                          )}
+
+                          {/* Metadata Notes */}
+                          {metadata.notes && (
+                            <div className={`mt-4 p-3 rounded-lg ${isDark ? 'bg-slate-700/30' : 'bg-slate-100'}`}>
+                              <p className={`text-xs font-medium mb-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                Notes
+                              </p>
+                              <p className={`text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{metadata.notes}</p>
+                            </div>
+                          )}
+
+                          {/* Actions */}
+                          <div className={`flex items-center justify-between mt-4 pt-4 border-t ${isDark ? 'border-slate-700/50' : 'border-slate-200'}`}>
+                            <div className="flex items-center gap-2">
+                              {college && (
+                                <Button variant="outline" size="sm" className={isDark ? 'border-slate-600' : ''} asChild>
+                                  <Link href={`/college/${college.id}`}>
+                                    <ExternalLink className="w-4 h-4 mr-1" />
+                                    View College
+                                  </Link>
+                                </Button>
+                              )}
+                              <Button variant="outline" size="sm" className={isDark ? 'border-slate-600' : ''}>
+                                <Edit2 className="w-4 h-4 mr-1" />
+                                Edit
+                              </Button>
+                            </div>
+                            {offer.status !== 'completed' && (
+                              <div className="flex items-center gap-2">
+                                <Button variant="outline" size="sm" className="text-red-400 border-red-500/30 hover:bg-red-500/10">
+                                  <X className="w-4 h-4 mr-1" />
+                                  Decline
+                                </Button>
+                                <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600">
+                                  <Check className="w-4 h-4 mr-1" />
+                                  Accept Offer
+                                </Button>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                );
+              })
+            )}
           </div>
         )}
 
@@ -902,9 +935,9 @@ export default function PlayerJourneyPage() {
                         <th className={`text-left py-3 px-4 text-xs font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                           Factor
                         </th>
-                        {MOCK_OFFERS.filter(o => ['pending', 'considering'].includes(o.status)).map(offer => (
+                        {groupedEvents.offers.filter(o => o.status !== 'completed').map(offer => (
                           <th key={offer.id} className={`text-center py-3 px-4 text-xs font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            {offer.collegeName}
+                            {offer.college?.name || offer.title}
                           </th>
                         ))}
                       </tr>
@@ -913,7 +946,6 @@ export default function PlayerJourneyPage() {
                       {[
                         { label: 'Scholarship', key: 'scholarship' },
                         { label: 'Division', key: 'division' },
-                        { label: 'Conference', key: 'conference' },
                         { label: 'Location', key: 'location' },
                         { label: 'Deadline', key: 'deadline' },
                       ].map(factor => (
@@ -921,31 +953,38 @@ export default function PlayerJourneyPage() {
                           <td className={`py-3 px-4 text-sm ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                             {factor.label}
                           </td>
-                          {MOCK_OFFERS.filter(o => ['pending', 'considering'].includes(o.status)).map(offer => (
-                            <td key={offer.id} className={`text-center py-3 px-4 text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                              {factor.key === 'scholarship' && (
-                                <Badge className={`${
-                                  (offer.scholarshipPercentage || 0) >= 75 
-                                    ? 'bg-emerald-500/20 text-emerald-400' 
-                                    : 'bg-blue-500/20 text-blue-400'
-                                }`}>
-                                  {offer.scholarshipPercentage}%
-                                </Badge>
-                              )}
-                              {factor.key === 'division' && offer.division}
-                              {factor.key === 'conference' && offer.conference}
-                              {factor.key === 'location' && offer.location}
-                              {factor.key === 'deadline' && offer.deadline && (
-                                <Badge className={`${
-                                  (offer.daysUntilDeadline || 0) <= 7 
-                                    ? 'bg-red-500/20 text-red-400' 
-                                    : 'bg-slate-500/20 text-slate-400'
-                                }`}>
-                                  {offer.daysUntilDeadline}d
-                                </Badge>
-                              )}
-                            </td>
-                          ))}
+                          {groupedEvents.offers.filter(o => o.status !== 'completed').map(offer => {
+                            const metadata = offer.metadata || {};
+                            const deadline = metadata.deadline ? new Date(metadata.deadline) : null;
+                            const daysUntilDeadline = deadline ? Math.ceil((deadline.getTime() - Date.now()) / (1000 * 60 * 60 * 24)) : null;
+                            
+                            return (
+                              <td key={offer.id} className={`text-center py-3 px-4 text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                                {factor.key === 'scholarship' && metadata.scholarshipPercentage && (
+                                  <Badge className={`${
+                                    metadata.scholarshipPercentage >= 75 
+                                      ? 'bg-emerald-500/20 text-emerald-400' 
+                                      : 'bg-blue-500/20 text-blue-400'
+                                  }`}>
+                                    {metadata.scholarshipPercentage}%
+                                  </Badge>
+                                )}
+                                {factor.key === 'division' && offer.college?.division}
+                                {factor.key === 'location' && offer.college?.city && offer.college?.state && 
+                                  `${offer.college.city}, ${offer.college.state}`
+                                }
+                                {factor.key === 'deadline' && deadline && daysUntilDeadline && daysUntilDeadline > 0 && (
+                                  <Badge className={`${
+                                    daysUntilDeadline <= 7 
+                                      ? 'bg-red-500/20 text-red-400' 
+                                      : 'bg-slate-500/20 text-slate-400'
+                                  }`}>
+                                    {daysUntilDeadline}d
+                                  </Badge>
+                                )}
+                              </td>
+                            );
+                          })}
                         </tr>
                       ))}
                     </tbody>
@@ -1016,8 +1055,32 @@ export default function PlayerJourneyPage() {
                       Ready to Decide?
                     </h3>
                     <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                      You have {MOCK_OFFERS.filter(o => ['pending', 'considering'].includes(o.status)).length} active offers to consider. 
-                      Your next deadline is in {Math.min(...MOCK_OFFERS.filter(o => o.daysUntilDeadline).map(o => o.daysUntilDeadline!))} days.
+                      {groupedEvents.offers.filter(o => o.status !== 'completed').length > 0 ? (
+                        <>
+                          You have {groupedEvents.offers.filter(o => o.status !== 'completed').length} active offer{groupedEvents.offers.filter(o => o.status !== 'completed').length !== 1 ? 's' : ''} to consider.
+                          {groupedEvents.offers.filter(o => {
+                            const metadata = o.metadata || {};
+                            const deadline = metadata.deadline ? new Date(metadata.deadline) : null;
+                            return deadline && deadline > new Date();
+                          }).length > 0 && (
+                            <> Your next deadline is in {Math.min(...groupedEvents.offers
+                              .filter(o => {
+                                const metadata = o.metadata || {};
+                                const deadline = metadata.deadline ? new Date(metadata.deadline) : null;
+                                return deadline && deadline > new Date();
+                              })
+                              .map(o => {
+                                const metadata = o.metadata || {};
+                                const deadline = metadata.deadline ? new Date(metadata.deadline) : null;
+                                return deadline ? Math.ceil((deadline.getTime() - Date.now()) / (1000 * 60 * 60 * 24)) : Infinity;
+                              })
+                              .filter(d => d !== Infinity)
+                            )} days.</>
+                          )}
+                        </>
+                      ) : (
+                        <>No active offers at this time. Keep updating your profile and reaching out to coaches!</>
+                      )}
                     </p>
                     <div className="flex items-center gap-3 mt-4">
                       <Button className="bg-emerald-500 hover:bg-emerald-600">
