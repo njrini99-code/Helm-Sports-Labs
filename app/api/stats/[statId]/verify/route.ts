@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/server';
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { statId: string } }
+  { params }: { params: Promise<{ statId: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -17,7 +17,7 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const statId = params.statId;
+    const { statId } = await params;
 
     // Get stat and verify coach owns the team
     const { data: stat, error: statError } = await supabase

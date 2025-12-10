@@ -110,9 +110,8 @@ export function TeamScoutCard({
 
   // Handlers
   const handleViewTeamPage = () => {
-    const basePath = team.type === 'high_school' ? '/teams/high-school' : 
-                     team.type === 'juco' ? '/teams/juco' : '/teams/showcase';
-    router.push(`${basePath}/${team.id}`);
+    // Route to college coach's view of the team
+    router.push(`/coach/college/teams/${team.id}`);
     onClose();
   };
 
@@ -195,14 +194,12 @@ export function TeamScoutCard({
       onClose={onClose}
       headerContent={headerContent}
       onOpenInNewTab={() => {
-        const basePath = team.type === 'high_school' ? '/teams/high-school' : 
-                        team.type === 'juco' ? '/teams/juco' : '/teams/showcase';
-        window.open(`${basePath}/${team.id}`, '_blank');
+        // Route to college coach's view of the team
+        window.open(`/coach/college/teams/${team.id}`, '_blank');
       }}
       onCopyLink={() => {
-        const basePath = team.type === 'high_school' ? '/teams/high-school' : 
-                        team.type === 'juco' ? '/teams/juco' : '/teams/showcase';
-        navigator.clipboard.writeText(`${window.location.origin}${basePath}/${team.id}`);
+        // Route to college coach's view of the team
+        navigator.clipboard.writeText(`${window.location.origin}/coach/college/teams/${team.id}`);
         toast.success('Link copied');
       }}
     >

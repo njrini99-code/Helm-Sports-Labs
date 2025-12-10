@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/server';
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { teamId: string } }
+  { params }: { params: Promise<{ teamId: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -17,7 +17,7 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const teamId = params.teamId;
+    const { teamId } = await params;
     const searchParams = request.nextUrl.searchParams;
     const messageType = searchParams.get('type') || 'all';
 
@@ -99,7 +99,7 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { teamId: string } }
+  { params }: { params: Promise<{ teamId: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -109,7 +109,7 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const teamId = params.teamId;
+    const { teamId } = await params;
     const body = await request.json();
     const {
       message_type = 'team',
@@ -166,7 +166,7 @@ export async function POST(
       finalRecipientIds = memberships?.map((m: any) => m.player_id) || [];
 
       // If parent messages enabled, include parents
-      if (team.parent_access_enabled) {
+      if ((team as any).parent_access_enabled) {
         const { data: parentAccess } = await supabase
           .from('parent_access')
           .select('parent_id')

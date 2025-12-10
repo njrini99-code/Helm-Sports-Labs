@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/server';
  */
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { messageId: string } }
+  { params }: { params: Promise<{ messageId: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -17,7 +17,7 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const messageId = params.messageId;
+    const { messageId } = await params;
 
     // Get user's profile
     const { data: profile } = await supabase

@@ -180,7 +180,8 @@ export function QuickActionToolbar({
     if (userRole === 'coach') {
       router.push(`/coach/player/${result.id}`);
     } else {
-      router.push(`/coach/${result.id}`);
+      // For players, navigate to their profile page
+      router.push(`/player/${result.id}`);
     }
     setIsOpen(false);
     setSearchQuery('');

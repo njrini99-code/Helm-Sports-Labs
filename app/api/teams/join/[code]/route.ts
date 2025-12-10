@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/server';
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { code: string } }
+  { params }: { params: Promise<{ code: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -17,7 +17,7 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const inviteCode = params.code;
+    const { code: inviteCode } = await params;
 
     // Find invitation
     const { data: invitation, error: inviteError } = await supabase
@@ -127,11 +127,11 @@ export async function POST(
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { code: string } }
+  { params }: { params: Promise<{ code: string }> }
 ) {
   try {
     const supabase = await createClient();
-    const inviteCode = params.code;
+    const { code: inviteCode } = await params;
 
     // Find invitation with team details
     const { data: invitation, error: inviteError } = await supabase

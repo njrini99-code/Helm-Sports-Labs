@@ -143,14 +143,16 @@ export function PlayerScoutCard({
 
   const handleViewHighSchool = () => {
     if (player.highSchoolId) {
-      router.push(`/teams/high-school/${player.highSchoolId}`);
+      // Route to college coach's view of the team
+      router.push(`/coach/college/teams/${player.highSchoolId}`);
       onClose();
     }
   };
 
   const handleViewShowcaseTeam = () => {
     if (player.showcaseTeamId) {
-      router.push(`/teams/showcase/${player.showcaseTeamId}`);
+      // Route to college coach's view of the team
+      router.push(`/coach/college/teams/${player.showcaseTeamId}`);
       onClose();
     }
   };

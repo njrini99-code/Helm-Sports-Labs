@@ -11,7 +11,7 @@ import { Shield, Video, Compass, Users } from "lucide-react";
 import { createClient } from '@/lib/supabase/client';
 import { isDevMode, getDevRole } from '@/lib/dev-mode';
 import { logError } from '@/lib/utils/errorLogger';
-import { HeroSection } from '@/components/landing/HeroSection';
+import { HeroSectionLight } from '@/components/landing/HeroSectionLight';
 import { BentoGrid } from '@/components/landing/BentoGrid';
 import { TestimonialsCarousel } from '@/components/landing/TestimonialsCarousel';
 import { FinalCTASection } from '@/components/landing/FinalCTASection';
@@ -206,26 +206,26 @@ export default function HomePage() {
   // LANDING PAGE - for unauthenticated users
   // ═══════════════════════════════════════════════════════════════════════
   return (
-    <main className="min-h-screen bg-slate-950 text-white scroll-smooth">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 text-slate-900 scroll-smooth">
       {/* Scroll Progress Indicator */}
       <ScrollProgress />
       
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-slate-950/80 border-b border-white/5 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/70 border-b border-emerald-100/50 shadow-sm">
         <nav className="max-w-7xl mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-white tracking-tight">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/50">
+            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-slate-900 tracking-tight">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
                 <span className="text-white font-black text-lg">SP</span>
               </div>
-              <span>Scout<span className="bg-gradient-to-r from-emerald-400 to-teal-400 text-transparent bg-clip-text">Pulse</span></span>
+              <span>Scout<span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-transparent bg-clip-text">Pulse</span></span>
             </Link>
             
             <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-sm font-medium text-white/60 hover:text-white transition-colors">
+              <a href="#features" className="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors">
                 Features
               </a>
-              <a href="#testimonials" className="text-sm font-medium text-white/60 hover:text-white transition-colors">
+              <a href="#testimonials" className="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors">
                 Testimonials
               </a>
             </div>
@@ -233,11 +233,11 @@ export default function HomePage() {
             <div className="flex items-center gap-4">
               <Link 
                 href="/auth/login" 
-                className="text-sm font-medium text-white/60 hover:text-white transition-colors px-4 py-2"
+                className="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors px-4 py-2"
               >
                 Log In
               </Link>
-              <Button asChild variant="gradient" size="sm">
+              <Button asChild className="bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/25" size="sm">
                 <Link href="/auth/signup">Get Started</Link>
               </Button>
             </div>
@@ -246,7 +246,7 @@ export default function HomePage() {
       </header>
 
       {/* HERO SECTION */}
-      <HeroSection />
+      <HeroSectionLight />
 
       {/* Section Divider */}
       <SectionDivider />
@@ -274,32 +274,32 @@ export default function HomePage() {
       <DevModeSelector />
 
       {/* Footer */}
-      <footer className="relative bg-slate-950 border-t border-white/5">
+      <footer className="relative backdrop-blur-xl bg-white/60 border-t border-emerald-100/50">
         <div className="max-w-7xl mx-auto px-6 py-12">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="text-center md:text-left">
-              <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-white mb-2">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/50">
+              <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-slate-900 mb-2">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
                   <span className="text-white font-black text-lg">SP</span>
                 </div>
-                <span>Scout<span className="bg-gradient-to-r from-emerald-400 to-teal-400 text-transparent bg-clip-text">Pulse</span></span>
+                <span>Scout<span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-transparent bg-clip-text">Pulse</span></span>
               </Link>
-              <p className="text-sm text-white/40">Modern. Simple. Trusted.</p>
+              <p className="text-sm text-slate-500">Modern. Simple. Trusted.</p>
             </div>
             <div className="flex items-center gap-8">
-              <Link href="#" className="text-sm text-white/40 hover:text-white transition-colors">
+              <Link href="#" className="text-sm text-slate-500 hover:text-emerald-600 transition-colors">
                 Privacy
               </Link>
-              <Link href="#" className="text-sm text-white/40 hover:text-white transition-colors">
+              <Link href="#" className="text-sm text-slate-500 hover:text-emerald-600 transition-colors">
                 Terms
               </Link>
-              <Link href="#" className="text-sm text-white/40 hover:text-white transition-colors">
+              <Link href="#" className="text-sm text-slate-500 hover:text-emerald-600 transition-colors">
                 Contact
               </Link>
             </div>
           </div>
-          <div className="text-center mt-8 pt-8 border-t border-white/5">
-            <p className="text-sm text-white/40">
+          <div className="text-center mt-8 pt-8 border-t border-emerald-100/50">
+            <p className="text-sm text-slate-500">
               © {new Date().getFullYear()} ScoutPulse. Built to help serious athletes and serious programs connect.
             </p>
           </div>

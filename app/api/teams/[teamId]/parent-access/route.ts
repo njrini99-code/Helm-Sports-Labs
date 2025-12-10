@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/server';
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { teamId: string } }
+  { params }: { params: Promise<{ teamId: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -17,7 +17,7 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const teamId = params.teamId;
+    const { teamId } = await params;
 
     // Verify coach owns this team
     const { data: team, error: teamError } = await supabase
@@ -85,7 +85,7 @@ export async function GET(
  */
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { teamId: string } }
+  { params }: { params: Promise<{ teamId: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -95,7 +95,7 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const teamId = params.teamId;
+    const { teamId } = await params;
     const body = await request.json();
     const { enabled } = body;
 
@@ -144,67 +144,4 @@ export async function PUT(
   }
 }
 
-/**
- * Remove parent access
- * DELETE /api/teams/[teamId]/parent-access/[parentAccessId]
- */
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { teamId: string; parentAccessId: string } }
-) {
-  try {
-    const supabase = await createClient();
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-
-    if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const { teamId, parentAccessId } = params;
-
-    // Verify coach owns this team
-    const { data: team, error: teamError } = await supabase
-      .from('teams')
-      .select('coach_id')
-      .eq('id', teamId)
-      .single();
-
-    if (teamError || !team) {
-      return NextResponse.json({ error: 'Team not found' }, { status: 404 });
-    }
-
-    // Get coach ID
-    const { data: coach } = await supabase
-      .from('coaches')
-      .select('id')
-      .eq('user_id', user.id)
-      .single();
-
-    if (!coach || coach.id !== team.coach_id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
-    }
-
-    // Delete parent access
-    const { error: deleteError } = await supabase
-      .from('parent_access')
-      .delete()
-      .eq('id', parentAccessId)
-      .eq('team_id', teamId);
-
-    if (deleteError) {
-      return NextResponse.json(
-        { error: 'Failed to remove parent access' },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Error removing parent access:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
-}
 

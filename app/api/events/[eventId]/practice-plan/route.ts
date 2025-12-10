@@ -7,11 +7,11 @@ import { createClient } from '@/lib/supabase/server';
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { eventId: string } }
+  { params }: { params: Promise<{ eventId: string }> }
 ) {
   try {
     const supabase = await createClient();
-    const eventId = params.eventId;
+    const { eventId } = await params;
 
     const { data: plan, error: planError } = await supabase
       .from('practice_plans')
@@ -42,7 +42,7 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { eventId: string } }
+  { params }: { params: Promise<{ eventId: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -52,7 +52,7 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const eventId = params.eventId;
+    const { eventId } = await params;
     const body = await request.json();
     const { plan_content, plan_pdf_url } = body;
 

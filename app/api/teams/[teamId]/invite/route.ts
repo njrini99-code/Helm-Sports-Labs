@@ -21,7 +21,7 @@ function generateInviteCode(length: number = 12): string {
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { teamId: string } }
+  { params }: { params: Promise<{ teamId: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -31,7 +31,7 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const teamId = params.teamId;
+    const { teamId } = await params;
     const body = await request.json();
     const { expiresInDays, maxUses } = body;
 
@@ -126,7 +126,7 @@ export async function POST(
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { teamId: string } }
+  { params }: { params: Promise<{ teamId: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -136,7 +136,7 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const teamId = params.teamId;
+    const { teamId } = await params;
 
     // Verify coach owns this team
     const { data: team, error: teamError } = await supabase

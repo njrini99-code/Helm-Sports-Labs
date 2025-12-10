@@ -55,10 +55,10 @@ export async function POST(request: NextRequest) {
     }
 
     const teamId = membership.team_id;
-    const team = membership.teams;
+    const team = Array.isArray(membership.teams) ? membership.teams[0] : membership.teams;
 
     // Check if team allows parent access
-    if (team && !team.parent_access_enabled) {
+    if (team && !(team as any).parent_access_enabled) {
       return NextResponse.json(
         { error: 'Parent access is disabled for this team' },
         { status: 403 }

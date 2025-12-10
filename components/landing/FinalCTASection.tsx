@@ -5,16 +5,14 @@ import Link from 'next/link';
 
 export function FinalCTASection() {
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section className="relative py-32 overflow-hidden bg-gradient-to-b from-white via-emerald-50/30 to-slate-50">
       {/* Particle background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-emerald-950/30 to-slate-950"></div>
-        
         {/* Animated particles using CSS */}
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-emerald-400/30 rounded-full"
+            className="absolute w-1 h-1 bg-emerald-400/20 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -30,15 +28,15 @@ export function FinalCTASection() {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto backdrop-blur-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 rounded-3xl p-12 md:p-16 shadow-2xl shadow-black/30"
+          className="max-w-4xl mx-auto backdrop-blur-2xl bg-white/70 border border-emerald-200/50 rounded-3xl p-12 md:p-16 shadow-2xl shadow-emerald-500/10"
         >
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-5xl md:text-6xl font-bold text-white mb-6"
+            className="text-5xl md:text-6xl font-bold text-slate-900 mb-6"
           >
-            Ready to Get <span className="bg-gradient-to-r from-emerald-400 to-teal-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(16,185,129,0.5)]">Recruited</span>?
+            Ready to Get <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-transparent bg-clip-text">Recruited</span>?
           </motion.h2>
           
           <motion.p
@@ -46,7 +44,7 @@ export function FinalCTASection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-white/60 mb-8"
+            className="text-xl text-slate-600 mb-8"
           >
             Join thousands of players who've found their perfect college fit
           </motion.p>
@@ -59,7 +57,7 @@ export function FinalCTASection() {
           >
             <Link
               href="/auth/signup"
-              className="group inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-lg font-semibold rounded-xl shadow-2xl shadow-emerald-500/50 hover:shadow-emerald-500/70 transition-all duration-300 hover:-translate-y-1 hover:scale-105"
+              className="group inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-lg font-semibold rounded-xl shadow-2xl shadow-emerald-500/30 hover:shadow-emerald-500/40 transition-all duration-300 hover:-translate-y-1 hover:scale-105"
             >
               <span>Start Your Journey</span>
               <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -73,7 +71,7 @@ export function FinalCTASection() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="text-sm text-white/40 mt-6"
+            className="text-sm text-slate-500 mt-6"
           >
             No credit card required • Get started in under 2 minutes
           </motion.p>

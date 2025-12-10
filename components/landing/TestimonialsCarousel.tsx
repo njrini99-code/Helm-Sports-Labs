@@ -46,25 +46,23 @@ const duplicatedTestimonials = [...testimonials, ...testimonials];
 
 export function TestimonialsCarousel() {
   return (
-    <section className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-emerald-950/20 to-slate-950"></div>
-      
+    <section className="relative py-32 overflow-hidden bg-gradient-to-b from-slate-50/50 to-white">
       <div className="relative container mx-auto px-6">
         <div className="text-center mb-20">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-5xl font-bold text-white mb-6"
+            className="text-5xl font-bold text-slate-900 mb-6"
           >
-            Trusted by <span className="bg-gradient-to-r from-emerald-400 to-teal-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(16,185,129,0.5)]">Thousands</span>
+            Trusted by <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-transparent bg-clip-text">Thousands</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-white/60"
+            className="text-xl text-slate-600"
           >
             See what players and coaches are saying
           </motion.p>
@@ -73,14 +71,14 @@ export function TestimonialsCarousel() {
         {/* Infinite scroll testimonials */}
         <div className="relative">
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
           
           <div className="flex gap-6 animate-scroll">
             {duplicatedTestimonials.map((testimonial, i) => (
               <div 
                 key={i} 
-                className="flex-shrink-0 w-96 backdrop-blur-2xl bg-white/5 border border-white/10 rounded-2xl p-8 hover:border-emerald-500/30 transition-all duration-300 shadow-xl shadow-black/20 hover:shadow-emerald-500/10"
+                className="flex-shrink-0 w-96 backdrop-blur-2xl bg-white/70 border border-emerald-200/50 rounded-2xl p-8 hover:border-emerald-400/60 transition-all duration-300 shadow-lg shadow-emerald-500/5 hover:shadow-xl hover:shadow-emerald-500/10"
               >
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, j) => (
@@ -89,12 +87,12 @@ export function TestimonialsCarousel() {
                     </svg>
                   ))}
                 </div>
-                <p className="text-white/80 mb-6 leading-relaxed">"{testimonial.quote}"</p>
+                <p className="text-slate-700 mb-6 leading-relaxed">"{testimonial.quote}"</p>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-teal-400"></div>
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-teal-400 shadow-lg"></div>
                   <div>
-                    <div className="font-semibold text-white">{testimonial.name}</div>
-                    <div className="text-sm text-white/50">{testimonial.role}</div>
+                    <div className="font-semibold text-slate-900">{testimonial.name}</div>
+                    <div className="text-sm text-slate-500">{testimonial.role}</div>
                   </div>
                 </div>
               </div>
