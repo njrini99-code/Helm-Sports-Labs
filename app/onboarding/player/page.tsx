@@ -57,8 +57,7 @@ export default function PlayerOnboarding() {
     perfect_game_url: '',
     twitter_url: '',
     primary_goal: '',
-  })
-          )};
+  });
 
   useEffect(() => {
     checkAuth();
@@ -166,8 +165,7 @@ export default function PlayerOnboarding() {
 
       if (error) {
         toast.error('Error saving profile');
-        logError(error, { component: 'PlayerOnboarding', action: 'handleSubmit' })
-          )};
+        logError(error, { component: 'PlayerOnboarding', action: 'handleSubmit' });
         return;
       }
 
@@ -176,8 +174,7 @@ export default function PlayerOnboarding() {
         router.push('/player');
       }, 2000);
     } catch (error) {
-      logError(error, { component: 'PlayerOnboarding', action: 'handleSubmit', metadata: { unexpected: true } })
-          )};
+      logError(error, { component: 'PlayerOnboarding', action: 'handleSubmit', metadata: { unexpected: true } });
       toast.error('An error occurred');
     } finally {
       setSaving(false);
@@ -234,7 +231,7 @@ export default function PlayerOnboarding() {
           </div>
           <Progress value={(currentStep / 3) * 100} className="h-2" />
           <div className="flex items-center justify-between">
-            {{STEPS.length === 0 ? (
+            {STEPS.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>

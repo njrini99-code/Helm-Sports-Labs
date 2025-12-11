@@ -364,21 +364,18 @@ export default function PlayerDiscoverPage() {
       division: college.division,
       status: 'interested',
       interest_level: 'medium',
-    })
-          )});
+    }));
 
     const { error } = await supabase
       .from('recruiting_interests')
       .upsert(inserts, {
         onConflict: 'player_id,college_id',
         ignoreDuplicates: false,
-      })
-          )};
+      });
 
     if (error) {
       toast.error('Failed to add some schools');
-      logError(error, { component: 'PlayerDiscover', action: 'bulkAddInterest' })
-          )};
+      logError(error, { component: 'PlayerDiscover', action: 'bulkAddInterest' });
       return;
     }
 
@@ -755,9 +752,6 @@ export default function PlayerDiscoverPage() {
               />
             </motion.div>
           </motion.div>
-        </div>
-      </div>
-
         </div>
       </div>
 

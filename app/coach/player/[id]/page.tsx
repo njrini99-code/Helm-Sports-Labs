@@ -199,8 +199,7 @@ const MOCK_VIDEOS: PlayerVideo[] = [
 // HELPER COMPONENTS
 // ═══════════════════════════════════════════════════════════════════════════
 
-function ContactTypeBadge({ type }: { type: ContactHistory['type'] })
-          )} {
+function ContactTypeBadge({ type }: { type: ContactHistory['type'] }) {
   const configs: Record<ContactHistory['type'], { bg: string; text: string; icon: React.ElementType }> = {
     email: { bg: 'bg-blue-500/20', text: 'text-blue-400', icon: Mail },
     call: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', icon: Phone },
@@ -219,8 +218,7 @@ function ContactTypeBadge({ type }: { type: ContactHistory['type'] })
   );
 }
 
-function NoteCategoryBadge({ category }: { category?: RecruitmentNote['category'] })
-          )} {
+function NoteCategoryBadge({ category }: { category?: RecruitmentNote['category'] }) {
   if (!category) return null;
   const configs: Record<string, { bg: string; text: string }> = {
     general: { bg: 'bg-slate-500/20', text: 'text-slate-400' },
@@ -249,8 +247,7 @@ function StatCard({
   trend?: 'up' | 'down' | 'neutral';
   comparison?: string;
   isDark: boolean;
-})
-          )} {
+}) {
   return (
     <div className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/30' : 'bg-slate-50'}`}>
       <p className={`text-xs font-medium mb-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -323,8 +320,7 @@ export default function CoachPlayerProfilePage() {
       .from('player_metrics')
       .select('*')
       .eq('player_id', playerId)
-      .order('updated_at', { ascending: false })
-          )};
+      .order('updated_at', { ascending: false });
 
     if (metricsData) {
       setMetrics(metricsData);
@@ -335,8 +331,7 @@ export default function CoachPlayerProfilePage() {
       .from('player_achievements')
       .select('*')
       .eq('player_id', playerId)
-      .order('achievement_date', { ascending: false })
-          )};
+      .order('achievement_date', { ascending: false });
 
     if (achievementsData) {
       setAchievements(achievementsData);
@@ -421,8 +416,7 @@ export default function CoachPlayerProfilePage() {
           stage: 'Watchlist',
         }, {
           onConflict: 'coach_id,player_id'
-        })
-          )};
+        });
 
       if (error) {
         toast.error('Failed to add to watchlist');

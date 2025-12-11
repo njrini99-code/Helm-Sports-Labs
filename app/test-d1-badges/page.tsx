@@ -50,7 +50,7 @@ export default function TestD1BadgesPage() {
             <CardTitle>Player Dashboard Style</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            {{testMetrics.length === 0 ? (
+            {testMetrics.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>

@@ -198,11 +198,10 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
         <div className="floating-shape absolute bottom-20 right-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
         <div className="floating-shape absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl" />
       </motion.div>
-
       <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
   className="error-page-container relative z-10 w-full max-w-lg">
         {/* Main error card */}
         <motion.div

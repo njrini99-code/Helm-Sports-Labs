@@ -34,8 +34,7 @@ export default function HsCoachRosterPage() {
         const rosterData = await getHighSchoolRoster(org.id, filters);
         setPlayers(rosterData);
       } catch (error) {
-        logError(error, { component: 'HsCoachRosterPage', action: 'loadRoster' })
-          )};
+        logError(error, { component: 'HsCoachRosterPage', action: 'loadRoster' });
         toast.error('Failed to load roster');
       } finally {
         setLoading(false);
@@ -51,14 +50,15 @@ export default function HsCoachRosterPage() {
   );
 
   const openMessageSelected = () => {
-    const participants = {selectedPlayers.length === 0 ? (
+    const participants = selectedPlayers.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
               <p className="text-white/40 text-sm">Check back later</p>
             </div>
           ) : (
-            selectedPlayers.map((p) => p.profileId);
+            selectedPlayers.map((p) => p.profileId)
+    );
     setMessageParticipants(participants);
     setMessageModalOpen(true);
   };
@@ -99,8 +99,7 @@ export default function HsCoachRosterPage() {
             const next = new Set(prev);
             next.has(id) ? next.delete(id) : next.add(id);
             return next;
-          })
-          )}
+          });
         }
       />
       <HsNewConversationModal

@@ -121,8 +121,7 @@ export default function ProgramPage() {
             email: (programData.users as any).email,
             phone: (programData.users as any).phone
           }] : []
-        })
-          )};
+        });
       } catch (err) {
         console.error('Error loading program:', err);
         setError('Failed to load program information');
@@ -341,7 +340,7 @@ export default function ProgramPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {program.{coaches.length === 0 ? (
+                  {program.coaches.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>

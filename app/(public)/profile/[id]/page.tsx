@@ -113,7 +113,6 @@ export default async function PublicProfilePage({
                   </span>
                 )}
               </motion.div>
-
               {coach?.about && (
                 <p className="mt-4 text-sm text-muted-foreground max-w-2xl">
                   {coach.about}

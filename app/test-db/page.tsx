@@ -82,8 +82,7 @@ export default function TestDBPage() {
 
   if (!results) return null;
 
-  const testEntries = Object.entries(results.tests || {})
-          )};
+  const testEntries = Object.entries(results.tests || {});
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-8">
@@ -170,7 +169,7 @@ export default function TestDBPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {{testEntries.length === 0 ? (
+              {testEntries.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>

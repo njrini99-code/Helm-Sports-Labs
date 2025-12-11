@@ -181,7 +181,7 @@ export default function NotFound() {
     if (!pathname) return [];
     
     const segments = pathname.split('/').filter(Boolean);
-    return {segments.length === 0 ? (
+    return segments.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -195,7 +195,7 @@ export default function NotFound() {
         .replace(/\b\w/g, (c) => c.toUpperCase());
       return { href, label };
     })
-          )};
+    );
   }, [pathname]);
 
   // Filter suggestions based on search
@@ -235,11 +235,10 @@ export default function NotFound() {
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-500/5 rounded-full blur-3xl" />
       </motion.div>
-
       <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
   className="not-found-container relative z-10 w-full max-w-2xl">
         {/* Breadcrumb Navigation */}
         {breadcrumbs.length > 0 && (

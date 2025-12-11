@@ -74,7 +74,6 @@ export default async function CollegeDetailPage({
                   </span>
                 )}
               </motion.div>
-
               {college.stadium_name && (
                 <div className="mt-3 text-sm text-muted-foreground">
                   <Building2 className="w-4 h-4 inline mr-1" />

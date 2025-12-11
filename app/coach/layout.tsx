@@ -208,7 +208,7 @@ export default function CoachLayout({
               </Link>
               
               <div className="hidden lg:flex items-center gap-1">
-                {{navItems.length === 0 ? (
+                {navItems.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -231,7 +231,7 @@ export default function CoachLayout({
                     </Link>
                   );
                 })
-          )}}
+              )}
               </div>
             </div>
             
@@ -277,8 +277,7 @@ export default function CoachLayout({
                 <span className="text-xs">{item.label}</span>
               </Link>
             );
-          })
-          )}}
+          })}
         </div>
       </div>
 

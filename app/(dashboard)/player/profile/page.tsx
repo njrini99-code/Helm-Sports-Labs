@@ -443,7 +443,6 @@ function ProfileEditContent() {
               </div>
             </motion.div>
           </TabsContent>
-
           <TabsContent value="physical">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

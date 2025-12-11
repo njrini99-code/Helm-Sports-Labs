@@ -60,8 +60,7 @@ export default function CoachOnboarding() {
     program_level: '',
     program_values: '',
     about: '',
-  })
-          )};
+  });
 
   useEffect(() => {
     checkAuth();
@@ -96,8 +95,7 @@ export default function CoachOnboarding() {
     }
 
     if (coach?.full_name) {
-      setFormData(prev => ({ ...prev, full_name: coach.full_name || '' })
-          )});
+      setFormData(prev => ({ ...prev, full_name: coach.full_name || '' }));
     }
 
     setLoading(false);
@@ -180,8 +178,7 @@ export default function CoachOnboarding() {
 
       if (error) {
         toast.error('Error saving profile');
-        logError(error, { component: 'CoachOnboarding', action: 'handleSubmit' })
-          )};
+        logError(error, { component: 'CoachOnboarding', action: 'handleSubmit' });
         return;
       }
 
@@ -194,8 +191,7 @@ export default function CoachOnboarding() {
         router.push(dashboardPath);
       }, 2000);
     } catch (error) {
-      logError(error, { component: 'CoachOnboarding', action: 'handleSubmit', metadata: { unexpected: true } })
-          )};
+      logError(error, { component: 'CoachOnboarding', action: 'handleSubmit', metadata: { unexpected: true } });
       toast.error('An error occurred');
     } finally {
       setSaving(false);

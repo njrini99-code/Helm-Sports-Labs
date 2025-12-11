@@ -14,8 +14,7 @@ const TABS = [
   { label: 'Settings', href: '/player/dashboard/settings' },
 ];
 
-export default function PlayerDashboardLayout({ children }: { children: ReactNode })
-          )} {
+export default function PlayerDashboardLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const active = useMemo(
     () => TABS.find((tab) => pathname === tab.href)?.href || '/player/dashboard',
@@ -32,20 +31,21 @@ export default function PlayerDashboardLayout({ children }: { children: ReactNod
           </div>
           <Tabs value={active} className="w-full">
             <TabsList className="bg-slate-900/70 border border-white/10 w-full justify-start overflow-x-auto">
-              {{TABS.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">📭</div>
-              <p className="text-white/60 mb-4">No items yet</p>
-              <p className="text-white/40 text-sm">Check back later</p>
-            </div>
-          ) : (
-            TABS.map((tab) => (
-                <TabsTrigger key={tab.href} value={tab.href} className="data-[state=active]:bg-white/10">
-                  <Link href={tab.href} className="px-2 py-1 block">
-                    {tab.label}
-                  </Link>
-                </TabsTrigger>
-              ))}
+              {TABS.length === 0 ? (
+                <div className="text-center py-12">
+                  <div className="text-6xl mb-4">📭</div>
+                  <p className="text-white/60 mb-4">No items yet</p>
+                  <p className="text-white/40 text-sm">Check back later</p>
+                </div>
+              ) : (
+                TABS.map((tab) => (
+                  <TabsTrigger key={tab.href} value={tab.href} className="data-[state=active]:bg-white/10">
+                    <Link href={tab.href} className="px-2 py-1 block">
+                      {tab.label}
+                    </Link>
+                  </TabsTrigger>
+                ))
+              )}
             </TabsList>
           </Tabs>
         </div>
