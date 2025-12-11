@@ -245,7 +245,7 @@ function PlayerListSkeleton({ count = 5 }: { count?: number }) {
           </div>
           
           {/* Action skeleton */}
-          <div className="h-8 w-20 rounded-lg skeleton-shimmer" />
+          <div className="h-8 w-20 rounded-2xl skeleton-shimmer" />
         </div>
       ))}
     </div>
@@ -483,7 +483,7 @@ function FallbackContent({
         {onRefresh && (
           <button
             onClick={onRefresh}
-            className="shrink-0 px-3 py-1 text-sm rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 transition-colors"
+            className="shrink-0 px-3 py-1 text-sm rounded-2xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 transition-colors"
           >
             Refresh
           </button>

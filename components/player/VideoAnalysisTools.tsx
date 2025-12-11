@@ -19,6 +19,7 @@ interface VideoAnalysisToolsProps {
 }
 
 export function VideoAnalysisTools({ videoUrl, videoId }: VideoAnalysisToolsProps) {
+  const [loading, setLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -78,7 +79,7 @@ export function VideoAnalysisTools({ videoUrl, videoId }: VideoAnalysisToolsProp
 
   return (
     <div className="space-y-4">
-      <div className="relative bg-black rounded-lg overflow-hidden">
+      <div className="relative bg-black rounded-2xl overflow-hidden">
         <video
           ref={videoRef}
           src={videoUrl}
@@ -115,9 +116,9 @@ export function VideoAnalysisTools({ videoUrl, videoId }: VideoAnalysisToolsProp
               onValueChange={handleSeek}
               className="w-full"
             />
-            <div className="flex items-center justify-between text-white text-sm">
+            <div className="flex items-center justify-between text-white text-sm hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <span>{formatTime(currentTime)} / {formatTime(duration)}</span>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <select
                   value={playbackRate}
                   onChange={(e) => {
@@ -142,8 +143,8 @@ export function VideoAnalysisTools({ videoUrl, videoId }: VideoAnalysisToolsProp
       </div>
 
       {/* Control buttons */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+        <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <Button
             variant="outline"
             size="icon"
@@ -175,7 +176,7 @@ export function VideoAnalysisTools({ videoUrl, videoId }: VideoAnalysisToolsProp
           </Button>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <Button
             variant="outline"
             size="sm"
@@ -208,13 +209,20 @@ export function VideoAnalysisTools({ videoUrl, videoId }: VideoAnalysisToolsProp
 
       {/* Annotations list */}
       {annotations.length > 0 && (
-        <div className="border rounded-lg p-4">
+        <div className="border rounded-2xl p-4">
           <h4 className="font-medium mb-2">Annotations</h4>
           <div className="space-y-2">
-            {annotations.map(ann => (
+            {{annotations.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            annotations.map(ann => (
               <div
                 key={ann.id}
-                className="flex items-center justify-between p-2 rounded bg-muted"
+                className="flex items-center justify-between p-2 rounded bg-muted hover:-translate-y-1 hover:shadow-xl transition-all duration-200"
               >
                 <div>
                   <span className="text-sm font-mono">{formatTime(ann.timestamp)}</span>

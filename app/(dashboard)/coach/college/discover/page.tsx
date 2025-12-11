@@ -26,6 +26,19 @@ import {
   Video,
   CheckCircle,
 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { pageTransition, staggerContainer, staggerItem } from '@/lib/animations';
+import {
+  glassCardPremium,
+  glassCardInteractive as glassCardInteractiveEnhanced,
+  glassStatCard as glassStatCardEnhanced,
+  glassPanel as glassPanelEnhanced,
+  glassHero as glassHeroEnhanced,
+  glassButton as glassButtonEnhanced,
+  glassDarkZone as glassDarkZoneEnhanced,
+  glassListItem as glassListItemEnhanced,
+  cn,
+} from '@/lib/glassmorphism-enhanced';
 import { DiscoverMap } from '@/components/coach/college/discover-map';
 import { type DiscoverFiltersState } from '@/components/coach/college/discover-filters';
 import { 
@@ -36,6 +49,7 @@ import {
 } from '@/components/coach/college/discover-state-panel';
 import { PlayerScoutCard, type PlayerScoutCardData } from '@/components/coach/scout-card';
 import { toast } from 'sonner';
+import { useToast } from '@/components/ui/use-toast';
 import { 
   getRecruitsByState, 
   getStateRecruitCounts,
@@ -43,6 +57,9 @@ import {
   removePlayerFromWatchlist,
   type RecruitFilters 
 } from '@/lib/queries/recruits';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { SkipLink } from '@/components/ui/skip-link';
+import { EnhancedSearch } from '@/components/ui/enhanced-search';
 import { 
   getTeamsByState, 
   getJucosByState,
@@ -74,6 +91,7 @@ const POSITIONS = ['P', 'C', '1B', '2B', 'SS', '3B', 'OF', 'RHP', 'LHP'];
 
 export default function CollegeCoachDiscoverPage() {
   const router = useRouter();
+  const { toast: showToast } = useToast();
   const [selectedState, setSelectedState] = useState<string | null>(null);
   const [activeEntityType, setActiveEntityType] = useState<EntityType>('players');
   const [search, setSearch] = useState('');
@@ -253,14 +271,26 @@ export default function CollegeCoachDiscoverPage() {
     // #endregion agent log
 
     if (!coachId) {
-      toast.error('Please log in as a coach');
+      showToast({
+        variant: 'error',
+        title: 'Authentication required',
+        description: 'Please log in as a coach to add players to your watchlist.',
+      });
       return;
     }
     const success = await addPlayerToWatchlist(coachId, playerId);
     if (success) {
-      toast.success(`${playerName} added to watchlist`);
+      showToast({
+        variant: 'success',
+        title: 'Added to watchlist',
+        description: `${playerName} has been added to your watchlist.`,
+      });
     } else {
-      toast.error('Failed to add to watchlist');
+      showToast({
+        variant: 'error',
+        title: 'Failed to add',
+        description: 'Unable to add player to watchlist. Please try again.',
+      });
     }
   }, [coachId]);
 
@@ -303,9 +333,17 @@ export default function CollegeCoachDiscoverPage() {
     if (status === null || status === undefined) {
       const success = await removePlayerFromWatchlist(coachId, playerId);
       if (success) {
-        toast.success('Removed from pipeline');
+        showToast({
+          variant: 'default',
+          title: 'Removed from pipeline',
+          description: 'Player has been removed from your recruiting pipeline.',
+        });
       } else {
-        toast.error('Failed to remove from pipeline');
+        showToast({
+          variant: 'error',
+          title: 'Failed to remove',
+          description: 'Unable to remove player from pipeline. Please try again.',
+        });
       }
       return;
     }
@@ -313,32 +351,93 @@ export default function CollegeCoachDiscoverPage() {
     // Update the status in the database
     const success = await addPlayerToWatchlist(coachId, playerId, status);
     if (success) {
-      toast.success('Status updated');
+      showToast({
+        variant: 'success',
+        title: 'Status updated',
+        description: 'Player status has been updated successfully.',
+      });
     } else {
-      toast.error('Failed to update status');
+      showToast({
+        variant: 'error',
+        title: 'Failed to update',
+        description: 'Unable to update player status. Please try again.',
+      });
     }
   };
 
   const handleScoutCardAddNote = async (playerId: string, note: string) => {
-    // TODO: Implement note adding in database
-    toast.success('Note saved');
-    // Note: Using console.log for development debugging of TODO feature
-    if (process.env.NODE_ENV === 'development') {
-      console.log('Add note:', playerId, note);
+    if (!coachId) {
+      showToast({
+        variant: 'error',
+        title: 'Authentication required',
+        description: 'Coach ID not found. Please log in again.',
+      });
+      return;
+    }
+
+    if (!note.trim()) {
+      showToast({
+        variant: 'error',
+        title: 'Invalid note',
+        description: 'Note cannot be empty. Please enter some text.',
+      });
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/coach-notes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          player_id: playerId,
+          note_content: note.trim(),
+          is_private: true,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to save note');
+      }
+
+      showToast({
+        variant: 'success',
+        title: 'Note saved',
+        description: 'Your note has been saved successfully.',
+      });
+    } catch (error) {
+      console.error('Error saving note:', error);
+      showToast({
+        variant: 'error',
+        title: 'Failed to save note',
+        description: error instanceof Error ? error.message : 'An unexpected error occurred.',
+      });
     }
   };
 
   const handleToggleWatchlist = async (playerId: string, isOnWatchlist: boolean) => {
     if (!coachId) return;
-    if (isOnWatchlist) {
-      // Add to watchlist
-      const success = await addPlayerToWatchlist(coachId, playerId, 'watchlist');
-      if (!success) {
-        toast.error('Failed to add to watchlist');
+    try {
+      if (isOnWatchlist) {
+        // Add to watchlist
+        const success = await addPlayerToWatchlist(coachId, playerId, 'watchlist');
+        if (success) {
+          toast.success('Added to watchlist');
+        } else {
+          toast.error('Failed to add to watchlist');
+        }
+      } else {
+        // Remove from watchlist
+        const success = await removePlayerFromWatchlist(coachId, playerId);
+        if (success) {
+          toast.success('Removed from watchlist');
+        } else {
+          toast.error('Failed to remove from watchlist');
+        }
       }
-    } else {
-      // Remove from watchlist - would need a removeFromWatchlist function
-      toast.info('Removed from watchlist');
+    } catch (error) {
+      console.error('Error toggling watchlist:', error);
+      toast.error(isOnWatchlist ? 'Failed to add to watchlist' : 'Failed to remove from watchlist');
     }
   };
 
@@ -419,61 +518,153 @@ export default function CollegeCoachDiscoverPage() {
 
   if (initialLoading) {
     return (
-      <div className="min-h-screen bg-background p-6">
-        <div className="max-w-6xl mx-auto space-y-4">
-          <Skeleton className="h-14 rounded-2xl" />
-          <Skeleton className="h-[380px] rounded-3xl" />
-          <Skeleton className="h-48 rounded-3xl" />
+      <div className="min-h-screen">
+        <SkipLink href="#discover-content">Skip to discover content</SkipLink>
+        <div className="max-w-7xl mx-auto px-4 md:px-6 pt-4">
+          <Breadcrumbs
+            items={[
+              { label: 'Dashboard', href: '/coach/college' },
+              { label: 'Discover', href: '/coach/college/discover' },
+            ]}
+          />
+        </div>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500 mx-auto mb-4" />
+            <p className="text-muted-foreground">Loading recruits...</p>
+          </div>
         </div>
       </div>
     );
   }
 
+
   const totalStatesWithRecruits = Object.keys(stateStats).length;
 
   return (
-    <div className="min-h-screen bg-slate-50/50">
-      <div className="max-w-6xl mx-auto px-4 md:px-6 py-5 space-y-4">
-        
-        {/* ═══════════════════════════════════════════════════════════════════
-            HEADER - Tight, focused
-        ═══════════════════════════════════════════════════════════════════ */}
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h1 className="text-xl font-semibold text-slate-900">Discover recruits</h1>
-            <p className="text-sm text-slate-500 mt-0.5">
-              Use the map and filters to find players, teams, and JUCO programs.
-            </p>
-          </div>
-          <Badge className="shrink-0 px-3 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-medium">
-            <MapPin className="w-3.5 h-3.5 mr-1.5" strokeWidth={2} />
-            {totalStatesWithRecruits} states with recruits
-          </Badge>
-        </div>
+    <motion.div 
+      className="min-h-screen"
+      initial={pageTransition.initial}
+      animate={pageTransition.animate}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+    >
+      {/* Skip Link */}
+      <SkipLink href="#discover-content">Skip to discover content</SkipLink>
 
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-4">
+        <Breadcrumbs
+          items={[
+            { label: 'Dashboard', href: '/coach/college' },
+            { label: 'Discover', href: '/coach/college/discover' },
+          ]}
+        />
+      </div>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          ULTIMATE GLASSMORPHISM DISCOVER ZONE
+      ═══════════════════════════════════════════════════════════════════ */}
+      <div id="discover-content" className={cn(glassDarkZoneEnhanced, "pb-12 relative overflow-hidden")}>
+        {/* Animated gradient orbs */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '0s' }} />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+        
+        {/* Subtle grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.02] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+
+        <div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 space-y-6 relative z-10">
+          
         {/* ═══════════════════════════════════════════════════════════════════
-            MAP CARD
+            PREMIUM GLASS HEADER
         ═══════════════════════════════════════════════════════════════════ */}
-        <Card className="rounded-3xl border border-slate-200/80 bg-white shadow-sm overflow-hidden">
-          {/* Map Header */}
-          <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-            <h2 className="text-base font-semibold text-slate-800">Where the talent lives</h2>
-            <div className="flex items-center gap-4 text-xs text-slate-500">
-              <span className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-200" />
-                Low activity
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                High activity
-              </span>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
+          <div className={cn(glassHeroEnhanced, "p-6 relative overflow-hidden")}>
+            {/* Animated gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-blue-500/5 opacity-50 animate-pulse" />
+            
+            <div className="relative z-10 flex items-start justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className={cn(
+                    "p-2.5 rounded-xl backdrop-blur-lg",
+                    "bg-gradient-to-br from-emerald-500/20 to-emerald-600/10",
+                    "border border-emerald-400/30 shadow-lg shadow-emerald-500/20"
+                  )}>
+                    <Search className="w-5 h-5 text-emerald-300" strokeWidth={2} />
+                  </div>
+                  <Badge className={cn(
+                    "backdrop-blur-lg bg-emerald-500/25 text-emerald-200 border border-emerald-400/40",
+                    "shadow-[0_2px_10px_rgba(16,185,129,0.3)]"
+                  )}>
+                    <Sparkles className="w-3 h-3 mr-1.5" strokeWidth={2} />
+                    Discover
+                  </Badge>
+                </div>
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 bg-gradient-to-r from-white via-white to-white/90 bg-clip-text text-transparent">
+                  Discover Recruits
+                </h1>
+                <p className="text-sm text-white/70">
+                  Use the map and filters to find players, teams, and JUCO programs.
+                </p>
+              </div>
+              <Badge className={cn(
+                "shrink-0 px-4 py-2 backdrop-blur-lg",
+                "bg-emerald-500/25 text-emerald-200 border border-emerald-400/40",
+                "shadow-lg shadow-emerald-500/20"
+              )}>
+                <MapPin className="w-4 h-4 mr-1.5" strokeWidth={2} />
+                {totalStatesWithRecruits} states with recruits
+              </Badge>
             </div>
           </div>
-          
-          {/* Map */}
-          <div className="p-4">
-            <DiscoverMap
-              selectedState={selectedState}
+        </motion.div>
+
+        {/* ═══════════════════════════════════════════════════════════════════
+            PREMIUM GLASS MAP CARD
+        ═══════════════════════════════════════════════════════════════════ */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <div className={cn(glassPanelEnhanced, "overflow-hidden")}>
+            {/* Map Header */}
+            <div className="px-6 py-5 border-b border-white/[0.1] flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className={cn(
+                  "p-2 rounded-lg backdrop-blur-lg",
+                  "bg-gradient-to-br from-blue-500/20 to-blue-600/10",
+                  "border border-blue-400/30"
+                )}>
+                  <MapPin className="w-4 h-4 text-blue-300" strokeWidth={2} />
+                </div>
+                <h2 className="text-lg font-bold text-white">Where the talent lives</h2>
+              </div>
+              <div className="flex items-center gap-4 text-xs text-white/70">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-200 shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
+                  Low activity
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+                  High activity
+                </span>
+              </div>
+            </div>
+            
+            {/* Map */}
+            <div className="p-5">
+              <DiscoverMap
+                selectedState={selectedState}
               onSelect={handleSelectState}
               onClearSelection={() => handleSelectState('')}
               states={Object.entries(stateStats).map(([code, stats]) => ({
@@ -509,11 +700,7 @@ export default function CollegeCoachDiscoverPage() {
             </div>
           )}
         </Card>
-
-        {/* ═══════════════════════════════════════════════════════════════════
-            FILTERS PANEL
-        ═══════════════════════════════════════════════════════════════════ */}
-        <Card className="rounded-3xl border border-slate-200/80 bg-white shadow-sm overflow-hidden">
+        <Card className="rounded-3xl border border-slate-200/80 bg-white/10 backdrop-blur-md border border-white/20 shadow-sm overflow-hidden">
           {/* Filters Header */}
           {/* #region agent log */}
           <script dangerouslySetInnerHTML={{
@@ -584,17 +771,20 @@ export default function CollegeCoachDiscoverPage() {
 
           {showFilters && (
             <div className="px-5 pb-5 border-t border-slate-100 space-y-4">
-              {/* Search */}
+              {/* Enhanced Search */}
               <div className="pt-4">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <Input
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search by name..."
-                    className="pl-10 h-9 bg-slate-50 border-slate-200 text-sm"
-                  />
-                </div>
+                <EnhancedSearch
+                  placeholder="Search by name, position, or school..."
+                  value={search}
+                  onChange={setSearch}
+                  onSearch={setSearch}
+                  suggestions={filteredPlayers.slice(0, 5).map(p => ({
+                    id: p.id,
+                    label: p.name,
+                    category: `${p.primaryPosition} • ${p.state}`,
+                  }))}
+                  className="w-full"
+                />
               </div>
 
               {/* Position chips */}
@@ -719,7 +909,7 @@ export default function CollegeCoachDiscoverPage() {
         {/* ═══════════════════════════════════════════════════════════════════
             RESULTS SECTION
         ═══════════════════════════════════════════════════════════════════ */}
-        <Card className="rounded-3xl border border-slate-200/80 bg-white shadow-sm overflow-hidden">
+        <Card className="rounded-3xl border border-slate-200/80 bg-white/10 backdrop-blur-md border border-white/20 shadow-sm overflow-hidden">
           {/* Results Header */}
           <div className="px-5 py-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
@@ -734,15 +924,15 @@ export default function CollegeCoachDiscoverPage() {
             {/* Entity Type Tabs */}
             <Tabs value={activeEntityType} onValueChange={(v) => setActiveEntityType(v as EntityType)}>
               <TabsList className="h-8 bg-slate-100 border-0 p-0.5">
-                <TabsTrigger value="players" className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                <TabsTrigger value="players" className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-white/10 backdrop-blur-md border border-white/20 data-[state=active]:shadow-sm">
                   <User className="w-3.5 h-3.5" strokeWidth={2} />
                   Players
                 </TabsTrigger>
-                <TabsTrigger value="teams" className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                <TabsTrigger value="teams" className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-white/10 backdrop-blur-md border border-white/20 data-[state=active]:shadow-sm">
                   <Building className="w-3.5 h-3.5" strokeWidth={2} />
                   Teams
                 </TabsTrigger>
-                <TabsTrigger value="juco" className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                <TabsTrigger value="juco" className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-white/10 backdrop-blur-md border border-white/20 data-[state=active]:shadow-sm">
                   <GraduationCap className="w-3.5 h-3.5" strokeWidth={2} />
                   JUCO
                 </TabsTrigger>
@@ -853,7 +1043,7 @@ function PlayerResultCard({
   return (
     <div 
       onClick={onView}
-      className="rounded-2xl border border-slate-200/80 bg-white hover:bg-slate-50/50 hover:border-slate-300/80 hover:shadow-md p-4 transition-all cursor-pointer group"
+      className="rounded-2xl border border-slate-200/80 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-slate-50/50 hover:border-slate-300/80 hover:shadow-xl p-4 transition-all cursor-pointer group"
     >
       <div className="flex items-center gap-4">
         {/* Avatar */}
@@ -878,17 +1068,17 @@ function PlayerResultCard({
           <div className="flex items-center gap-1.5 mt-2 flex-wrap">
             {player.verified && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-medium">
-                <Sparkles className="w-3 h-3" /> Verified
+                <Sparkles className="w-3 h-3" strokeWidth={2} /> Verified
               </span>
             )}
             {player.trending && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 border border-blue-200 text-[10px] font-medium">
-                <TrendingUp className="w-3 h-3" /> Trending
+                <TrendingUp className="w-3 h-3" strokeWidth={2} /> Trending
               </span>
             )}
             {player.topSchool && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-medium">
-                <Star className="w-3 h-3" /> Top 5
+                <Star className="w-3 h-3" strokeWidth={2} /> Top 5
               </span>
             )}
           </div>
@@ -902,6 +1092,7 @@ function PlayerResultCard({
             className="h-8 px-3 text-xs text-slate-600 hover:text-slate-800"
             onClick={onView}
           >
+            <User className="w-3.5 h-3.5 mr-1.5" strokeWidth={2} />
             View profile
             <ArrowUpRight className="w-3.5 h-3.5 ml-1" strokeWidth={2} />
           </Button>
@@ -916,7 +1107,7 @@ function PlayerResultCard({
           </Button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -932,7 +1123,7 @@ function TeamResultCard({
   return (
     <div 
       onClick={onView}
-      className="rounded-2xl border border-slate-200/80 bg-white hover:bg-slate-50/50 hover:border-slate-300/80 hover:shadow-md p-4 transition-all cursor-pointer group"
+      className="rounded-2xl border border-slate-200/80 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-slate-50/50 hover:border-slate-300/80 hover:shadow-xl p-4 transition-all cursor-pointer group"
     >
       <div className="flex items-center gap-4">
         <div className="h-11 w-11 rounded-xl bg-blue-100 border border-blue-200 flex items-center justify-center shadow-sm">
@@ -977,7 +1168,7 @@ function JucoResultCard({
   return (
     <div 
       onClick={onView}
-      className="rounded-2xl border border-slate-200/80 bg-white hover:bg-slate-50/50 hover:border-slate-300/80 hover:shadow-md p-4 transition-all cursor-pointer group"
+      className="rounded-2xl border border-slate-200/80 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-slate-50/50 hover:border-slate-300/80 hover:shadow-xl p-4 transition-all cursor-pointer group"
     >
       <div className="flex items-center gap-4">
         <div className="h-11 w-11 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center shadow-sm">

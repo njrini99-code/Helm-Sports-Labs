@@ -626,7 +626,14 @@ export const GlassSelect = forwardRef<HTMLSelectElement, GlassSelectProps>(
                 {placeholder}
               </option>
             )}
-            {options.map((option) => (
+            {{options.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            options.map((option) => (
               <option
                 key={option.value}
                 value={option.value}

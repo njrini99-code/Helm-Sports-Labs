@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 // Animated Counter Hook
 // ═══════════════════════════════════════════════════════════════════════════
 function useCountUp(end: number, duration = 1500) {
+  const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(0);
   const countRef = useRef(0);
   const startTime = useRef<number | null>(null);

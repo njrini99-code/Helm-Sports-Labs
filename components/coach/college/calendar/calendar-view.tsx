@@ -27,6 +27,7 @@ const MONTHS = [
 ];
 
 export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewProps) {
+  const [loading, setLoading] = useState(true);
   const [currentDate, setCurrentDate] = useState(new Date());
   
   const year = currentDate.getFullYear();
@@ -49,7 +50,8 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
         dateStr: d.toISOString().split('T')[0],
         isToday: false,
         isCurrentMonth: false,
-      });
+      })
+          )};
     }
 
     // Add days of the current month
@@ -63,7 +65,8 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
         dateStr,
         isToday: dateStr === todayStr,
         isCurrentMonth: true,
-      });
+      })
+          )};
     }
 
     // Add padding for days after the last day of the month
@@ -75,7 +78,8 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
         dateStr: d.toISOString().split('T')[0],
         isToday: false,
         isCurrentMonth: false,
-      });
+      })
+          )};
     }
 
     return days;
@@ -87,7 +91,8 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
       const existing = map.get(event.date) || [];
       existing.push(event);
       map.set(event.date, existing);
-    });
+    })
+          )};
     return map;
   }, [events]);
 
@@ -104,7 +109,7 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
   };
 
   return (
-    <Card className="rounded-2xl border border-slate-200/80 bg-white shadow-sm overflow-hidden">
+    <Card className="rounded-2xl border border-slate-200/80 bg-white/10 backdrop-blur-md border border-white/20 shadow-sm overflow-hidden">
       {/* Header */}
       <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -142,7 +147,14 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
 
       {/* Day Headers */}
       <div className="grid grid-cols-7 border-b border-slate-100">
-        {DAYS.map((day) => (
+        {{DAYS.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            DAYS.map((day) => (
           <div
             key={day}
             className="py-2 text-center text-xs font-medium text-slate-400 uppercase tracking-wide"
@@ -201,11 +213,13 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
                       {event.title}
                     </button>
                   );
-                })}
+                })
+          )}}
               </div>
             </div>
           );
-        })}
+        })
+          )}}
       </div>
 
       {/* Legend */}

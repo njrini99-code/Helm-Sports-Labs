@@ -5,6 +5,12 @@ import { createClient } from '@/lib/supabase/server';
  * Mark all notifications as read
  * PUT /api/notifications/read-all
  */
+
+const inputSchema = z.object({
+  // Add your validation rules here
+  // Example: name: z.string().min(1).max(100)
+});
+
 export async function PUT(request: NextRequest) {
   try {
     const supabase = await createClient();

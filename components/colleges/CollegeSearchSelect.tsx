@@ -153,7 +153,7 @@ export function CollegeSearchSelect({
       {/* Selected Value Display */}
       {value ? (
         <div className="flex items-center gap-3 p-3 bg-[#0B1020] border border-white/10 rounded-xl">
-          <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center">
             {value.logo_url ? (
               <img src={value.logo_url} alt={value.name} className="w-8 h-8 object-contain" loading="lazy" />
             ) : (
@@ -174,7 +174,7 @@ export function CollegeSearchSelect({
           {!disabled && (
             <button
               onClick={handleClear}
-              className="p-1.5 hover:bg-white/10 rounded-lg transition-colors"
+              className="p-1.5 hover:bg-white/10 rounded-2xl transition-colors"
             >
               <X className="w-4 h-4 text-white/50" />
             </button>
@@ -221,7 +221,7 @@ export function CollegeSearchSelect({
                     : 'hover:bg-white/5'
                 }`}
               >
-                <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center flex-shrink-0">
                   {college.logo_url ? (
                     <img src={college.logo_url} alt={college.name} className="w-8 h-8 object-contain" loading="lazy" />
                   ) : (

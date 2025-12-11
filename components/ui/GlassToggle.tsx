@@ -340,7 +340,14 @@ export function GlassToggleGroup({
           direction === 'vertical' ? 'flex-col gap-4' : 'flex-row flex-wrap gap-6'
         )}
       >
-        {items.map((item) => (
+        {{items.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            items.map((item) => (
           <GlassToggle
             key={item.id}
             checked={item.checked}

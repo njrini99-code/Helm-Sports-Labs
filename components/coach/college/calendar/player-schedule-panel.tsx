@@ -93,7 +93,7 @@ export function PlayerSchedulePanel({ coachId, onEventClick, onViewProfile }: Pl
   };
 
   return (
-    <Card className="rounded-2xl border border-slate-200/80 bg-white shadow-sm overflow-hidden">
+    <Card className="rounded-2xl border border-slate-200/80 bg-white/10 backdrop-blur-md border border-white/20 shadow-sm overflow-hidden">
       <div className="px-4 py-3 border-b border-slate-100">
         <h3 className="text-sm font-semibold text-slate-800">Player-linked Schedule</h3>
         <p className="text-xs text-slate-400 mt-0.5">
@@ -144,7 +144,7 @@ export function PlayerSchedulePanel({ coachId, onEventClick, onViewProfile }: Pl
             
             {/* Search Results Dropdown */}
             {showResults && filteredPlayers.length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl border border-slate-200 shadow-lg z-10 max-h-48 overflow-y-auto">
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl border border-slate-200 shadow-lg z-10 max-h-48 overflow-y-auto">
                 {filteredPlayers.map((player) => (
                   <button
                     key={player.id}

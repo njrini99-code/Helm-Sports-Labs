@@ -56,7 +56,7 @@ export function EmptyState({
         )}
       </div>
       {(actionLabel || secondaryActionLabel) && (
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
       {actionLabel && onAction && (
             <Button variant="primary" size="sm" onClick={onAction} className="gap-2">
               <Plus className="h-4 w-4" />

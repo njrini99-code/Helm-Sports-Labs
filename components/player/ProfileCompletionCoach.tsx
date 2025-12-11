@@ -134,8 +134,8 @@ export function ProfileCompletionCoach() {
 
   return (
     <div className="bg-gradient-to-br from-emerald-50 to-blue-50 dark:from-emerald-950/20 dark:to-blue-950/20 rounded-2xl p-6 border border-emerald-200/50 dark:border-emerald-800/50">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between mb-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+        <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <Sparkles className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
           <h3 className="text-lg font-semibold">Profile Completion</h3>
         </div>
@@ -153,8 +153,8 @@ export function ProfileCompletionCoach() {
               Complete your profile to attract more coaches!
             </p>
             {nextItem && (
-              <div className="bg-white/50 dark:bg-slate-800/50 rounded-lg p-3 mb-3">
-                <div className="flex items-center gap-2 mb-2">
+              <div className="bg-white/50 dark:bg-slate-800/50 rounded-2xl p-3 mb-3">
+                <div className="flex items-center gap-2 mb-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                   {nextItem.icon}
                   <span className="font-medium">{nextItem.label}</span>
                   <span className="ml-auto text-sm text-emerald-600 dark:text-emerald-400">
@@ -174,7 +174,14 @@ export function ProfileCompletionCoach() {
 
           <div className="space-y-2">
             <p className="text-xs font-medium text-muted-foreground">Checklist:</p>
-            {items.map((item) => (
+            {{items.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            items.map((item) => (
               <div
                 key={item.id}
                 className={cn(
@@ -200,7 +207,7 @@ export function ProfileCompletionCoach() {
           </div>
 
           {completion >= 75 && (
-            <div className="mt-4 p-3 bg-emerald-100/50 dark:bg-emerald-900/30 rounded-lg flex items-center gap-2">
+            <div className="mt-4 p-3 bg-emerald-100/50 dark:bg-emerald-900/30 rounded-2xl flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <TrendingUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <p className="text-sm text-emerald-700 dark:text-emerald-300">
                 Great progress! Players with complete profiles get 3x more views.

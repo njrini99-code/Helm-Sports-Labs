@@ -36,6 +36,7 @@ const COMMON_METRICS = [
 ];
 
 export function AddMetricModal({ playerId, onSuccess, trigger }: AddMetricModalProps) {
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({

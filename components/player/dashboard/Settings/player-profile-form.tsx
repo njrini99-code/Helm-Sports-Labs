@@ -10,6 +10,7 @@ import { updatePlayerProfile } from '@/lib/api/player/updatePlayerProfile';
 import { toast } from 'sonner';
 
 export function PlayerProfileForm({ player, profile }: { player: Player; profile: Profile }) {
+  const [loading, setLoading] = useState(true);
   const [fullName, setFullName] = useState(profile.full_name || '');
   const [city, setCity] = useState(player.city || '');
   const [state, setState] = useState(player.state || '');

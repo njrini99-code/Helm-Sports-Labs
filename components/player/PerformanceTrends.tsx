@@ -130,7 +130,7 @@ export function PerformanceTrends({ playerId, statType = 'era' }: PerformanceTre
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div>
           <h3 className="text-lg font-semibold">{statLabels[statType]} Trend</h3>
           <p className="text-sm text-muted-foreground">Performance over time</p>

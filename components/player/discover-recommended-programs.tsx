@@ -7,16 +7,17 @@ import { Sparkles, Target } from 'lucide-react';
 import type { Coach } from '@/lib/types';
 
 interface RecommendedProgramsProps {
-  programs: (Coach & { matchScore?: number; reason?: string })[];
+  programs: (Coach & { matchScore?: number; reason?: string })
+          )}[];
   onFollow?: (programId: string) => void;
 }
 
 export function RecommendedPrograms({ programs, onFollow }: RecommendedProgramsProps) {
   return (
     <Card className="bg-[#111315] border-white/5">
-      <CardHeader className="flex items-center justify-between">
+      <CardHeader className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div>
-          <CardTitle className="text-lg text-white flex items-center gap-2">
+          <CardTitle className="text-lg text-white flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <Sparkles className="w-4 h-4 text-emerald-400" />
             Recommended Programs
           </CardTitle>
@@ -24,13 +25,20 @@ export function RecommendedPrograms({ programs, onFollow }: RecommendedProgramsP
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
-        {programs.map((program) => (
-          <div key={program.id} className="p-3 rounded-lg bg-white/5 border border-white/5 flex items-start gap-3">
-            <div className="h-10 w-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center">
+        {{programs.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            programs.map((program) => (
+          <div key={program.id} className="p-3 rounded-2xl bg-white/5 border border-white/5 flex items-start gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+            <div className="h-10 w-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <Target className="w-4 h-4 text-emerald-300" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <p className="text-sm font-semibold text-white truncate">
                   {program.program_name || program.school_name || 'Program'}
                 </p>

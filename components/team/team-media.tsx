@@ -23,7 +23,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useState } from 'react';
-import { addTeamMedia } from '@/lib/queries/team';
+import { addTeamMedia, deleteTeamMedia } from '@/lib/queries/team';
 import { toast } from 'sonner';
 
 interface TeamMediaProps {
@@ -154,7 +154,7 @@ export function TeamMedia({ teamId, media, mode, onUpdate }: TeamMediaProps) {
                   {photos.map((item) => (
                     <div
                       key={item.id}
-                      className="relative aspect-square rounded-lg overflow-hidden bg-[#0B0D0F] border border-white/5 group"
+                      className="relative aspect-square rounded-2xl overflow-hidden bg-[#0B0D0F] border border-white/5 group"
                     >
                       <img
                         src={item.url}
@@ -172,9 +172,17 @@ export function TeamMedia({ teamId, media, mode, onUpdate }: TeamMediaProps) {
                           variant="ghost"
                           size="sm"
                           className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-red-500/80 hover:bg-red-500"
-                          onClick={() => {
-                            // TODO: Implement delete
-                            toast.info('Delete functionality coming soon');
+                          onClick={async () => {
+                            if (!confirm('Are you sure you want to delete this photo?')) {
+                              return;
+                            }
+                            const success = await deleteTeamMedia(item.id);
+                            if (success) {
+                              toast.success('Photo deleted');
+                              onUpdate?.();
+                            } else {
+                              toast.error('Failed to delete photo');
+                            }
                           }}
                         >
                           <Trash2 className="w-4 h-4" />
@@ -197,7 +205,7 @@ export function TeamMedia({ teamId, media, mode, onUpdate }: TeamMediaProps) {
                   {videos.map((item) => (
                     <div
                       key={item.id}
-                      className="relative aspect-video rounded-lg overflow-hidden bg-[#0B0D0F] border border-white/5 group"
+                      className="relative aspect-video rounded-2xl overflow-hidden bg-[#0B0D0F] border border-white/5 group"
                     >
                       <iframe
                         src={item.url}
@@ -218,9 +226,17 @@ export function TeamMedia({ teamId, media, mode, onUpdate }: TeamMediaProps) {
                           variant="ghost"
                           size="sm"
                           className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-red-500/80 hover:bg-red-500"
-                          onClick={() => {
-                            // TODO: Implement delete
-                            toast.info('Delete functionality coming soon');
+                          onClick={async () => {
+                            if (!confirm('Are you sure you want to delete this photo?')) {
+                              return;
+                            }
+                            const success = await deleteTeamMedia(item.id);
+                            if (success) {
+                              toast.success('Photo deleted');
+                              onUpdate?.();
+                            } else {
+                              toast.error('Failed to delete photo');
+                            }
                           }}
                         >
                           <Trash2 className="w-4 h-4" />

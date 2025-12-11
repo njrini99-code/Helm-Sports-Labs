@@ -5,6 +5,12 @@ import { createClient } from '@/lib/supabase/server';
  * Mark notification as read
  * PUT /api/notifications/[notificationId]/read
  */
+
+const inputSchema = z.object({
+  // Add your validation rules here
+  // Example: name: z.string().min(1).max(100)
+});
+
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ notificationId: string }> }

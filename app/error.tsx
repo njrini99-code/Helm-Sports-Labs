@@ -136,6 +136,7 @@ interface ErrorPageProps {
 }
 
 export default function ErrorPage({ error, reset }: ErrorPageProps) {
+  const [loading, setLoading] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
   const [copied, setCopied] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
@@ -196,18 +197,30 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
         <div className="floating-shape absolute top-20 left-10 w-72 h-72 bg-red-500/5 rounded-full blur-3xl" />
         <div className="floating-shape absolute bottom-20 right-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
         <div className="floating-shape absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl" />
-      </div>
+      </motion.div>
 
-      <div className="error-page-container relative z-10 w-full max-w-lg">
+      <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="error-page-container relative z-10 w-full max-w-lg">
         {/* Main error card */}
-        <div className="glass-card rounded-3xl shadow-2xl overflow-hidden">
+        <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="glass-card rounded-3xl shadow-2xl overflow-hidden">
           {/* Header */}
           <div className="p-8 text-center border-b border-white/10">
-            <div className="error-icon-container inline-block mb-6">
+            <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="error-icon-container inline-block mb-6">
               <div className="error-icon-pulse p-5 rounded-2xl bg-red-500/20 inline-block">
                 <AlertTriangle className="w-12 h-12 text-red-400" />
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             <h1 className="text-2xl font-bold text-white mb-3">
               Oops! Something went wrong
@@ -216,10 +229,14 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
               We encountered an unexpected error while processing your request.
               Don&apos;t worry, your data is safe.
             </p>
-          </div>
+          </motion.div>
 
           {/* Error info */}
-          <div className="p-4 mx-4 mt-4 rounded-xl glass-card-darker">
+          <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="p-4 mx-4 mt-4 rounded-xl glass-card-darker">
             <div className="flex items-start gap-3">
               <Bug className="w-5 h-5 text-red-400 mt-0.5 shrink-0" />
               <div className="flex-1 min-w-0">
@@ -234,10 +251,10 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
                     Error ID: {error.digest}
                   </p>
                 )}
-              </div>
+              </motion.div>
               <button
                 onClick={handleCopyError}
-                className="p-2 rounded-lg hover:bg-white/10 transition-colors shrink-0"
+                className="p-2 rounded-2xl hover:bg-white/10 transition-colors shrink-0"
                 title="Copy error details"
               >
                 {copied ? (
@@ -246,8 +263,8 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
                   <Copy className="w-4 h-4 text-white/40 hover:text-white/60" />
                 )}
               </button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Development details */}
           {isDev && error.stack && (
@@ -269,14 +286,18 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
 
               {showDetails && (
                 <div className="details-expanded">
-                  <div className="p-4 rounded-xl glass-card-darker mb-4">
+                  <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="p-4 rounded-xl glass-card-darker mb-4">
                     <pre className="text-xs text-white/50 overflow-x-auto whitespace-pre-wrap font-mono max-h-64 overflow-y-auto">
                       {error.stack}
                     </pre>
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
               )}
-            </div>
+            </motion.div>
           )}
 
           {/* Actions */}
@@ -311,8 +332,8 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
                 <Home className="w-4 h-4" />
                 Home
               </Link>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Footer */}
           <div className="px-6 py-4 border-t border-white/10 bg-white/5">
@@ -328,9 +349,9 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
                 Get Help
                 <ExternalLink className="w-3 h-3" />
               </Link>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         {/* Helpful tips */}
         <div className="mt-6 text-center">
@@ -345,8 +366,8 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
             <span className="px-3 py-1.5 rounded-full glass-card text-xs text-white/60">
               Check your connection
             </span>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Dev mode indicator */}
         {isDev && (
@@ -355,9 +376,9 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
               Development Mode
             </span>
-          </div>
+          </motion.div>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

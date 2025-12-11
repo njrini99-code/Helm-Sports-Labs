@@ -223,6 +223,7 @@ export function GlassAvatar({
   bgColor,
   className,
 }: GlassAvatarProps) {
+  const [loading, setLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -401,7 +402,14 @@ export function AvatarGroup({
 
   return (
     <div className={cn('flex items-center', spacingClasses[spacing], className)}>
-      {visibleAvatars.map((avatar, index) => (
+      {{visibleAvatars.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            visibleAvatars.map((avatar, index) => (
         <GlassAvatar
           key={avatar.name || index}
           {...avatar}

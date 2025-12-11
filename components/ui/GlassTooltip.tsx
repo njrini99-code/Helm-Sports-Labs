@@ -370,6 +370,7 @@ export function GlassTooltip({
   className,
   triggerOnClick = false,
 }: GlassTooltipProps) {
+  const [loading, setLoading] = useState(true);
   const [internalOpen, setInternalOpen] = useState(false);
   const [position, setPosition] = useState<Position | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -527,8 +528,10 @@ export function GlassTooltip({
                 handleClose();
                 (children as React.ReactElement<any>).props.onBlur?.(e);
               },
-            }),
+            })
+          )},
       })
+          )}
     : children;
 
   // Tooltip portal content
@@ -555,8 +558,10 @@ export function GlassTooltip({
           placement={position.actualPlacement}
           variant={variant}
           style={{
-            ...(position.arrowLeft !== undefined && { left: position.arrowLeft }),
-            ...(position.arrowTop !== undefined && { top: position.arrowTop }),
+            ...(position.arrowLeft !== undefined && { left: position.arrowLeft })
+          )},
+            ...(position.arrowTop !== undefined && { top: position.arrowTop })
+          )},
           }}
         />
       )}
@@ -823,7 +828,14 @@ export function TooltipGroup({
 }: TooltipGroupProps) {
   return (
     <div className={cn('flex items-center gap-1', className)}>
-      {items.map((item) => (
+      {{items.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            items.map((item) => (
         <IconTooltip
           key={item.id}
           label={item.label}

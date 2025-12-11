@@ -35,7 +35,11 @@ export default async function CollegeDetailPage({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50/20">
-      <div className="container mx-auto px-4 md:px-6 py-8">
+      <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="container mx-auto px-4 md:px-6 py-8">
         {/* Header */}
         <div className="glassmorphism rounded-xl p-8 mb-6">
           <div className="flex items-start gap-6 flex-col md:flex-row">
@@ -69,15 +73,15 @@ export default async function CollegeDetailPage({
                     {college.city}, {college.state}
                   </span>
                 )}
-              </div>
-              
+              </motion.div>
+
               {college.stadium_name && (
                 <div className="mt-3 text-sm text-muted-foreground">
                   <Building2 className="w-4 h-4 inline mr-1" />
                   {college.stadium_name}
-                </div>
+                </motion.div>
               )}
-            </div>
+            </motion.div>
             
             <div className="flex flex-col gap-2">
               <Button size="lg" className="bg-emerald-500 hover:bg-emerald-600">
@@ -92,9 +96,9 @@ export default async function CollegeDetailPage({
                   </a>
                 </Button>
               )}
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -126,7 +130,7 @@ export default async function CollegeDetailPage({
               <p className="text-xs text-muted-foreground">Location</p>
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
 
         {/* Additional sections can be added here */}
         <div className="grid md:grid-cols-2 gap-6">
@@ -161,9 +165,9 @@ export default async function CollegeDetailPage({
               </Button>
             </CardContent>
           </Card>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }
 

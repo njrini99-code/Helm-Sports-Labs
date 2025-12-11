@@ -245,6 +245,7 @@ export function GlassProgressBar({
   animatedStripes = false,
   className,
 }: GlassProgressBarProps) {
+  const [loading, setLoading] = useState(true);
   const [animatedValue, setAnimatedValue] = useState(animate ? 0 : value);
   const [isVisible, setIsVisible] = useState(false);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -350,7 +351,7 @@ export function GlassProgressBar({
     >
       {/* Top label */}
       {showLabel && labelPosition === 'top' && (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <span className={cn(sizes.label, styles.label, 'font-medium')}>
             Progress
           </span>
@@ -416,7 +417,7 @@ export function GlassProgressBar({
 
           {/* Inside label */}
           {showLabel && labelPosition === 'inside' && size !== 'xs' && size !== 'sm' && (
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <span
                 className={cn(
                   sizes.labelInside,
@@ -499,11 +500,11 @@ export function SkillRatingBar({
 
   return (
     <div className={cn('space-y-1.5', className)}>
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center justify-between gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <span className={cn('font-medium', sizes.label, styles.label)}>
           {name}
         </span>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           {showTrend && TrendIcon && trend !== null && (
             <span className={cn('flex items-center gap-0.5 text-xs', trendColor)}>
               <TrendIcon className="h-3 w-3" />
@@ -572,7 +573,14 @@ export function SkillRatingGroup({
         </h3>
       )}
       <div className="space-y-4">
-        {skills.map((skill) => (
+        {{skills.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            skills.map((skill) => (
           <SkillRatingBar
             key={skill.name}
             name={skill.name}
@@ -710,7 +718,8 @@ export function CircularProgress({
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke={color || `url(#${gradientId})`}
+          stroke={color || `url(#${gradientId})
+          )}`}
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeDasharray={circumference}
@@ -724,7 +733,7 @@ export function CircularProgress({
 
       {/* Center label */}
       {showLabel && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <span className={cn('font-bold', styles.label, size >= 80 ? 'text-xl' : 'text-base')}>
             {label || `${Math.round(animatedValue)}%`}
           </span>
@@ -860,14 +869,15 @@ export function MultiProgressBar({
               style={{ width: `${width}%` }}
             />
           );
-        })}
+        })
+          )}}
       </div>
 
       {/* Legend */}
       {showLegend && (
         <div className="flex flex-wrap gap-4">
           {segments.map((segment, index) => (
-            <div key={index} className="flex items-center gap-2">
+            <div key={index} className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <div className={cn('h-3 w-3 rounded-full', segment.color)} />
               <span className={cn('text-sm', styles.label)}>
                 {segment.label || `Segment ${index + 1}`}

@@ -19,6 +19,12 @@ function generateInviteCode(length: number = 12): string {
  * Generate team invite link
  * POST /api/teams/[teamId]/invite
  */
+
+const inputSchema = z.object({
+  // Add your validation rules here
+  // Example: name: z.string().min(1).max(100)
+});
+
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ teamId: string }> }

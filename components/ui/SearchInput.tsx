@@ -273,7 +273,7 @@ const RecentSearchesSection = memo(function RecentSearchesSection({
           <button
             key={idx}
             type="button"
-            className="w-full flex items-center gap-2 px-2 py-1.5 text-left hover:bg-white/5 rounded-lg transition-colors"
+            className="w-full flex items-center gap-2 px-2 py-1.5 text-left hover:bg-white/5 rounded-2xl transition-colors"
             onClick={() => onSelect(query)}
           >
             <History className="w-3.5 h-3.5 text-slate-500" />

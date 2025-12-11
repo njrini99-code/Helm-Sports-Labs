@@ -40,6 +40,7 @@ export function AdvancedFilters({
   availableStates = [],
   className,
 }: AdvancedFiltersProps) {
+  const [loading, setLoading] = useState(true);
   const [isExpanded, setIsExpanded] = useState(false);
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
@@ -47,7 +48,8 @@ export function AdvancedFilters({
     key: K,
     value: FilterState[K]
   ) => {
-    onFiltersChange({ ...filters, [key]: value });
+    onFiltersChange({ ...filters, [key]: value })
+          )};
   };
 
   const toggleArrayFilter = <K extends 'divisions' | 'conferences' | 'states' | 'regions'>(
@@ -71,7 +73,8 @@ export function AdvancedFilters({
       hasWebsite: null,
       minCommitCount: null,
       maxCommitCount: null,
-    });
+    })
+          )};
   };
 
   const activeFilterCount = 
@@ -92,10 +95,11 @@ export function AdvancedFilters({
     title: string; 
     sectionKey: string;
     children: React.ReactNode;
-  }) => {
+  })
+          )} => {
     const isOpen = expandedSection === sectionKey;
     return (
-      <div className="border border-slate-200 rounded-lg overflow-hidden">
+      <div className="border border-slate-200 rounded-2xl overflow-hidden">
         <button
           onClick={() => setExpandedSection(isOpen ? null : sectionKey)}
           className="w-full px-4 py-3 flex items-center justify-between bg-slate-50 hover:bg-slate-100 transition-colors"
@@ -108,7 +112,7 @@ export function AdvancedFilters({
           )}
         </button>
         {isOpen && (
-          <div className="p-4 bg-white border-t border-slate-200">
+          <div className="p-4 bg-white/10 backdrop-blur-md border border-white/20 border-t border-slate-200">
             {children}
           </div>
         )}
@@ -158,7 +162,14 @@ export function AdvancedFilters({
       {/* Quick Filter Chips */}
       {!isExpanded && activeFilterCount > 0 && (
         <div className="flex flex-wrap gap-2">
-          {filters.divisions.map(div => (
+          {filters.{divisions.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            divisions.map(div => (
             <Badge
               key={div}
               variant="secondary"

@@ -86,7 +86,8 @@ export function SmartSchedulingAssistant({
       const busySlots = (existingEvents || []).map(e => ({
         start: new Date(e.start_time),
         end: new Date(e.end_time)
-      }));
+      })
+          )});
 
       // Generate suggested time slots (business hours: 9 AM - 5 PM)
       const suggestions: TimeSlot[] = [];
@@ -110,7 +111,8 @@ export function SmartSchedulingAssistant({
           timezone: coachTimezone,
           available: !hasConflict,
           reason: hasConflict ? 'Conflict with existing event' : undefined
-        });
+        })
+          )};
       }
 
       setSuggestedSlots(suggestions);
@@ -127,7 +129,8 @@ export function SmartSchedulingAssistant({
       hour: 'numeric',
       minute: '2-digit',
       hour12: true
-    }).format(date);
+    })
+          )}.format(date);
   };
 
   const calculateTravelTime = async (location1: string, location2: string): Promise<number> => {
@@ -168,7 +171,14 @@ export function SmartSchedulingAssistant({
           ) : (
             <div className="space-y-2">
               <p className="text-sm font-medium">Suggested Time Slots</p>
-              {suggestedSlots.map((slot, idx) => (
+              {{suggestedSlots.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            suggestedSlots.map((slot, idx) => (
                 <div
                   key={idx}
                   className={cn(
@@ -210,7 +220,7 @@ export function SmartSchedulingAssistant({
       )}
 
       {selectedDate && suggestedSlots.length > 0 && (
-        <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800">
+        <div className="p-3 rounded-2xl bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800">
           <div className="flex items-start gap-2">
             <AlertCircle className="w-4 h-4 text-blue-600 dark:text-blue-400 mt-0.5" />
             <div className="flex-1">

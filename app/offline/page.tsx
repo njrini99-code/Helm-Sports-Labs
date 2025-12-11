@@ -12,9 +12,9 @@ export default function OfflinePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
       <div className="text-center max-w-md">
-        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto mb-6">
+        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto mb-6 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <WifiOff className="w-10 h-10 text-white" />
         </div>
         

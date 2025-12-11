@@ -208,7 +208,14 @@ export default function CoachLayout({
               </Link>
               
               <div className="hidden lg:flex items-center gap-1">
-                {navItems.map((item) => {
+                {{navItems.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            navItems.map((item) => {
                   const isActive = pathname === item.href || 
                     (item.href !== basePath && pathname.startsWith(item.href));
                   return (
@@ -223,7 +230,8 @@ export default function CoachLayout({
                       {item.label}
                     </Link>
                   );
-                })}
+                })
+          )}}
               </div>
             </div>
             
@@ -269,7 +277,8 @@ export default function CoachLayout({
                 <span className="text-xs">{item.label}</span>
               </Link>
             );
-          })}
+          })
+          )}}
         </div>
       </div>
 

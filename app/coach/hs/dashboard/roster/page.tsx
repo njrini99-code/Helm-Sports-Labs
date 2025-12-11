@@ -34,7 +34,8 @@ export default function HsCoachRosterPage() {
         const rosterData = await getHighSchoolRoster(org.id, filters);
         setPlayers(rosterData);
       } catch (error) {
-        logError(error, { component: 'HsCoachRosterPage', action: 'loadRoster' });
+        logError(error, { component: 'HsCoachRosterPage', action: 'loadRoster' })
+          )};
         toast.error('Failed to load roster');
       } finally {
         setLoading(false);
@@ -50,14 +51,21 @@ export default function HsCoachRosterPage() {
   );
 
   const openMessageSelected = () => {
-    const participants = selectedPlayers.map((p) => p.profileId);
+    const participants = {selectedPlayers.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            selectedPlayers.map((p) => p.profileId);
     setMessageParticipants(participants);
     setMessageModalOpen(true);
   };
 
   if (loadingOrg) {
     return (
-      <div className="flex items-center justify-center py-12">
+      <div className="flex items-center justify-center py-12 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div className="w-6 h-6 bg-emerald-400/20 rounded animate-pulse" />
       </div>
     );
@@ -92,6 +100,7 @@ export default function HsCoachRosterPage() {
             next.has(id) ? next.delete(id) : next.add(id);
             return next;
           })
+          )}
         }
       />
       <HsNewConversationModal

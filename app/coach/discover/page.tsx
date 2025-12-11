@@ -241,7 +241,7 @@ export default function CoachDiscoverPage() {
         </div>
         
         {hoveredState && (
-          <div className="absolute top-4 right-4 bg-[#161a1f] border border-white/10 rounded-lg p-4 shadow-xl z-10">
+          <div className="absolute top-4 right-4 bg-[#161a1f] border border-white/10 rounded-2xl p-4 shadow-xl z-10">
             <h3 className="font-semibold text-white mb-2">{hoveredState}</h3>
             <p className="text-sm text-slate-300">
               {getStateCount(hoveredState)} Recruits

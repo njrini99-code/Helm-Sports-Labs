@@ -77,7 +77,7 @@ export function PlayerOverviewHero({ player, profile }: { player: Player; profil
 
 function StatChip({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg border border-white/10 bg-white/5 px-3 py-2">
+    <div className="rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
       <p className="text-[11px] uppercase tracking-wide text-slate-400">{label}</p>
       <p className="text-sm font-medium text-white">{value}</p>
     </div>

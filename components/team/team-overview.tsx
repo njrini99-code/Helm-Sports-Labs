@@ -28,11 +28,13 @@ interface TeamOverviewProps {
 }
 
 export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewProps) {
+  const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     about: team.about || '',
     program_values: team.program_values || '',
-  });
+  })
+          )};
 
   const isOwner = mode === 'owner';
 
@@ -40,7 +42,8 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
     const success = await updateTeamInfo(team.id, {
       about: formData.about,
       program_values: formData.program_values,
-    });
+    })
+          )};
 
     if (success) {
       toast.success('Team info updated');
@@ -79,7 +82,8 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
                     </label>
                     <Textarea
                       value={formData.about}
-                      onChange={(e) => setFormData({ ...formData, about: e.target.value })}
+                      onChange={(e) => setFormData({ ...formData, about: e.target.value })
+          )}}
                       className="bg-[#0B0D0F] border-white/10 text-white"
                       rows={4}
                       placeholder="Describe your program..."
@@ -91,7 +95,8 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
                     </label>
                     <Textarea
                       value={formData.program_values}
-                      onChange={(e) => setFormData({ ...formData, program_values: e.target.value })}
+                      onChange={(e) => setFormData({ ...formData, program_values: e.target.value })
+          )}}
                       className="bg-[#0B0D0F] border-white/10 text-white"
                       rows={3}
                       placeholder="What values drive your program?"
@@ -135,7 +140,14 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-2">
-              {team.placement_highlights.map((highlight, idx) => (
+              {team.{placement_highlights.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            placement_highlights.map((highlight, idx) => (
                 <Badge
                   key={idx}
                   variant="outline"

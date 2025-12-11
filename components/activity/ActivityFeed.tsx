@@ -195,10 +195,10 @@ export function ActivityFeed({ userId, userRole }: { userId?: string; userRole?:
         {groupedActivities.map((group, idx) => (
           <div
             key={idx}
-            className="p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors cursor-pointer"
+            className="p-3 rounded-2xl border bg-card hover:bg-accent/50 transition-colors cursor-pointer"
           >
             <div className="flex items-start gap-3">
-              <div className="p-2 rounded-lg bg-primary/10">
+              <div className="p-2 rounded-2xl bg-primary/10">
                 {getActivityIcon(group.type)}
               </div>
               <div className="flex-1 min-w-0">

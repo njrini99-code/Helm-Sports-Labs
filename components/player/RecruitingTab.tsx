@@ -186,7 +186,7 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
                 <select
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value as RecruitingInterestStatus)}
-                  className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                  className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
                 >
                   {STATUS_OPTIONS.map(opt => (
                     <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -201,7 +201,7 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
                   value={newCoachName}
                   onChange={(e) => setNewCoachName(e.target.value)}
                   placeholder="Coach name"
-                  className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-lg text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                  className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-2xl text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
                 />
               </div>
 
@@ -212,13 +212,13 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
                   onChange={(e) => setNewNotes(e.target.value)}
                   placeholder="Any notes about this school..."
                   rows={2}
-                  className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-lg text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 resize-none"
+                  className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-2xl text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 resize-none"
                 />
               </div>
 
               <button
                 onClick={handleAddInterest}
-                className="w-full py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-medium transition-colors"
+                className="w-full py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl font-medium transition-colors"
               >
                 Add to List
               </button>
@@ -253,7 +253,7 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
                   <select
                     value={editStatus}
                     onChange={(e) => setEditStatus(e.target.value as RecruitingInterestStatus)}
-                    className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                    className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-2xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
                   >
                     {STATUS_OPTIONS.map(opt => (
                       <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -264,13 +264,13 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
                     onChange={(e) => setEditNotes(e.target.value)}
                     placeholder="Notes..."
                     rows={2}
-                    className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-lg text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 resize-none"
+                    className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-2xl text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 resize-none"
                   />
                 </div>
               ) : (
                 /* View Mode */
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center flex-shrink-0">
                     {interest.college?.logo_url ? (
                       <img src={interest.college.logo_url} alt="" className="w-10 h-10 object-contain" loading="lazy" />
                     ) : (
@@ -326,7 +326,7 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
               className="bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/20"
             >
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
                   <School className="w-6 h-6 text-emerald-400" />
                 </div>
                 <div className="flex-1">

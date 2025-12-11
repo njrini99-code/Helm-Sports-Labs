@@ -57,7 +57,8 @@ export default function PlayerOnboarding() {
     perfect_game_url: '',
     twitter_url: '',
     primary_goal: '',
-  });
+  })
+          )};
 
   useEffect(() => {
     checkAuth();
@@ -165,7 +166,8 @@ export default function PlayerOnboarding() {
 
       if (error) {
         toast.error('Error saving profile');
-        logError(error, { component: 'PlayerOnboarding', action: 'handleSubmit' });
+        logError(error, { component: 'PlayerOnboarding', action: 'handleSubmit' })
+          )};
         return;
       }
 
@@ -174,7 +176,8 @@ export default function PlayerOnboarding() {
         router.push('/player');
       }, 2000);
     } catch (error) {
-      logError(error, { component: 'PlayerOnboarding', action: 'handleSubmit', metadata: { unexpected: true } });
+      logError(error, { component: 'PlayerOnboarding', action: 'handleSubmit', metadata: { unexpected: true } })
+          )};
       toast.error('An error occurred');
     } finally {
       setSaving(false);
@@ -231,7 +234,14 @@ export default function PlayerOnboarding() {
           </div>
           <Progress value={(currentStep / 3) * 100} className="h-2" />
           <div className="flex items-center justify-between">
-            {STEPS.map((step, idx) => {
+            {{STEPS.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            STEPS.map((step, idx) => {
               const StepIcon = step.icon;
               const isActive = currentStep === idx + 1;
               const isCompleted = currentStep > idx + 1;
@@ -253,7 +263,8 @@ export default function PlayerOnboarding() {
                   </p>
                 </div>
               );
-            })}
+            })
+          )}}
           </div>
         </div>
 
@@ -268,7 +279,8 @@ export default function PlayerOnboarding() {
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Grad Year *</Label>
-                <Select value={formData.grad_year} onValueChange={(v) => setFormData({ ...formData, grad_year: v })}>
+                <Select value={formData.grad_year} onValueChange={(v) => setFormData({ ...formData, grad_year: v })
+          )}}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Select year" />
                   </SelectTrigger>
@@ -284,7 +296,8 @@ export default function PlayerOnboarding() {
                 <Label>High School *</Label>
                 <Input
                   value={formData.high_school_name}
-                  onChange={(e) => setFormData({ ...formData, high_school_name: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, high_school_name: e.target.value })
+          )}}
                   placeholder="Your high school"
                   className="bg-[#111315] border-white/10"
                 />
@@ -294,7 +307,8 @@ export default function PlayerOnboarding() {
                 <Label>City</Label>
                 <Input
                   value={formData.high_school_city}
-                  onChange={(e) => setFormData({ ...formData, high_school_city: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, high_school_city: e.target.value })
+          )}}
                   placeholder="City"
                   className="bg-[#111315] border-white/10"
                 />
@@ -302,7 +316,8 @@ export default function PlayerOnboarding() {
 
               <div className="space-y-2">
                 <Label>State</Label>
-                <Select value={formData.high_school_state} onValueChange={(v) => setFormData({ ...formData, high_school_state: v })}>
+                <Select value={formData.high_school_state} onValueChange={(v) => setFormData({ ...formData, high_school_state: v })
+          )}}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Select state" />
                   </SelectTrigger>
@@ -318,7 +333,8 @@ export default function PlayerOnboarding() {
                 <Label>Showcase / Travel Team (Optional)</Label>
                 <Input
                   value={formData.showcase_team_name}
-                  onChange={(e) => setFormData({ ...formData, showcase_team_name: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, showcase_team_name: e.target.value })
+          )}}
                   placeholder="Team name"
                   className="bg-[#111315] border-white/10"
                 />
@@ -338,7 +354,8 @@ export default function PlayerOnboarding() {
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Height (Feet) *</Label>
-                <Select value={formData.height_feet} onValueChange={(v) => setFormData({ ...formData, height_feet: v })}>
+                <Select value={formData.height_feet} onValueChange={(v) => setFormData({ ...formData, height_feet: v })
+          )}}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Feet" />
                   </SelectTrigger>
@@ -352,7 +369,8 @@ export default function PlayerOnboarding() {
 
               <div className="space-y-2">
                 <Label>Height (Inches) *</Label>
-                <Select value={formData.height_inches} onValueChange={(v) => setFormData({ ...formData, height_inches: v })}>
+                <Select value={formData.height_inches} onValueChange={(v) => setFormData({ ...formData, height_inches: v })
+          )}}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Inches" />
                   </SelectTrigger>
@@ -369,7 +387,8 @@ export default function PlayerOnboarding() {
                 <Input
                   type="number"
                   value={formData.weight_lbs}
-                  onChange={(e) => setFormData({ ...formData, weight_lbs: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, weight_lbs: e.target.value })
+          )}}
                   placeholder="Weight"
                   className="bg-[#111315] border-white/10"
                 />
@@ -377,7 +396,8 @@ export default function PlayerOnboarding() {
 
               <div className="space-y-2">
                 <Label>Primary Position *</Label>
-                <Select value={formData.primary_position} onValueChange={(v) => setFormData({ ...formData, primary_position: v })}>
+                <Select value={formData.primary_position} onValueChange={(v) => setFormData({ ...formData, primary_position: v })
+          )}}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Select position" />
                   </SelectTrigger>
@@ -391,7 +411,8 @@ export default function PlayerOnboarding() {
 
               <div className="space-y-2">
                 <Label>Secondary Position</Label>
-                <Select value={formData.secondary_position} onValueChange={(v) => setFormData({ ...formData, secondary_position: v })}>
+                <Select value={formData.secondary_position} onValueChange={(v) => setFormData({ ...formData, secondary_position: v })
+          )}}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Optional" />
                   </SelectTrigger>
@@ -406,7 +427,8 @@ export default function PlayerOnboarding() {
 
               <div className="space-y-2">
                 <Label>Throws *</Label>
-                <Select value={formData.throws} onValueChange={(v) => setFormData({ ...formData, throws: v })}>
+                <Select value={formData.throws} onValueChange={(v) => setFormData({ ...formData, throws: v })
+          )}}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
@@ -419,7 +441,8 @@ export default function PlayerOnboarding() {
 
               <div className="space-y-2">
                 <Label>Bats *</Label>
-                <Select value={formData.bats} onValueChange={(v) => setFormData({ ...formData, bats: v })}>
+                <Select value={formData.bats} onValueChange={(v) => setFormData({ ...formData, bats: v })
+          )}}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
@@ -450,7 +473,8 @@ export default function PlayerOnboarding() {
                     <button
                       key={goal}
                       type="button"
-                      onClick={() => setFormData({ ...formData, primary_goal: goal })}
+                      onClick={() => setFormData({ ...formData, primary_goal: goal })
+          )}}
                       aria-label={`Select goal: ${goal}`}
                       aria-pressed={formData.primary_goal === goal}
                       className={`p-4 rounded-xl border-2 text-left transition-all ${
@@ -473,7 +497,8 @@ export default function PlayerOnboarding() {
                   <Input
                     type="url"
                     value={formData.perfect_game_url}
-                    onChange={(e) => setFormData({ ...formData, perfect_game_url: e.target.value })}
+                    onChange={(e) => setFormData({ ...formData, perfect_game_url: e.target.value })
+          )}}
                     placeholder="https://perfectgame.org/..."
                     className="bg-[#111315] border-white/10"
                   />
@@ -484,7 +509,8 @@ export default function PlayerOnboarding() {
                   <Input
                     type="url"
                     value={formData.twitter_url}
-                    onChange={(e) => setFormData({ ...formData, twitter_url: e.target.value })}
+                    onChange={(e) => setFormData({ ...formData, twitter_url: e.target.value })
+          )}}
                     placeholder="https://twitter.com/..."
                     className="bg-[#111315] border-white/10"
                   />

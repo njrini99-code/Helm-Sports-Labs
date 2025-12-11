@@ -115,6 +115,7 @@ export function PlayerScoutCard({
   onToggleWatchlist,
 }: PlayerScoutCardProps) {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [showNoteInput, setShowNoteInput] = useState(false);
   const [noteText, setNoteText] = useState('');
 
@@ -282,7 +283,14 @@ export function PlayerScoutCard({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-44">
-            {STATUS_OPTIONS.map(opt => (
+            {{STATUS_OPTIONS.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            STATUS_OPTIONS.map(opt => (
               <DropdownMenuItem 
                 key={opt.value} 
                 onClick={() => handleStatusChange(opt.value)}
@@ -324,7 +332,7 @@ export function PlayerScoutCard({
             {/* Left column */}
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="h-12 w-12 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center">
+                <div className="h-12 w-12 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center">
                   <Shirt className="w-5 h-5 text-emerald-600" />
                 </div>
                 <div>
@@ -669,7 +677,7 @@ export function PlayerScoutCard({
                 {player.notes.slice(0, 2).map(note => (
                   <div 
                     key={note.id} 
-                    className="text-sm p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700"
+                    className="text-sm p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700"
                   >
                     <p className="text-slate-600 dark:text-slate-300 line-clamp-2">{note.content}</p>
                     <p className="text-[10px] text-slate-400 mt-1.5">

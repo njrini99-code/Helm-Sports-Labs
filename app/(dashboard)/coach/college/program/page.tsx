@@ -524,22 +524,22 @@ export default function CollegeCoachProgramPage() {
                 {(editForm.twitter_url || editForm.instagram_url || editForm.youtube_url || editForm.program_website) && (
                   <div className="flex items-center gap-2 mt-3">
                     {editForm.twitter_url && (
-                      <a href={editForm.twitter_url} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
+                      <a href={editForm.twitter_url} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-2xl bg-white/10 hover:bg-white/20 transition-colors">
                         <Twitter className="w-3.5 h-3.5 text-white/60" />
                       </a>
                     )}
                     {editForm.instagram_url && (
-                      <a href={editForm.instagram_url} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
+                      <a href={editForm.instagram_url} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-2xl bg-white/10 hover:bg-white/20 transition-colors">
                         <Instagram className="w-3.5 h-3.5 text-white/60" />
                       </a>
                     )}
                     {editForm.youtube_url && (
-                      <a href={editForm.youtube_url} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
+                      <a href={editForm.youtube_url} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-2xl bg-white/10 hover:bg-white/20 transition-colors">
                         <Youtube className="w-3.5 h-3.5 text-white/60" />
                       </a>
                     )}
                     {editForm.program_website && (
-                      <a href={editForm.program_website} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
+                      <a href={editForm.program_website} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-2xl bg-white/10 hover:bg-white/20 transition-colors">
                         <Globe className="w-3.5 h-3.5 text-white/60" />
                       </a>
                     )}
@@ -572,7 +572,7 @@ export default function CollegeCoachProgramPage() {
               <div className="flex gap-2 w-full md:w-auto">
                 <Button 
                   onClick={() => setIsPreviewMode(false)}
-                  className="flex-1 md:flex-none h-10 gap-2 bg-white text-slate-800 hover:bg-white/90 text-sm"
+                  className="flex-1 md:flex-none h-10 gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-slate-800 hover:bg-white/90 text-sm"
                 >
                   <EyeOff className="w-4 h-4" />
                   Exit Preview
@@ -711,7 +711,7 @@ export default function CollegeCoachProgramPage() {
             <div className={`p-6 border-b ${isDark ? 'border-slate-700' : 'border-slate-200'}`}>
               <div className="flex items-center justify-between">
                 <h2 className={`text-xl font-semibold ${theme.text}`}>Brand & Theme</h2>
-                <button onClick={() => setShowThemeEditor(false)} className="p-2 rounded-lg hover:bg-slate-100">
+                <button onClick={() => setShowThemeEditor(false)} className="p-2 rounded-2xl hover:bg-slate-100">
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -738,7 +738,7 @@ export default function CollegeCoachProgramPage() {
                       type="color"
                       value={editForm.primary_color || '#00C27A'}
                       onChange={(e) => setEditForm({ ...editForm, primary_color: e.target.value })}
-                      className="w-12 h-10 rounded-lg cursor-pointer border-0"
+                      className="w-12 h-10 rounded-2xl cursor-pointer border-0"
                     />
                     <Input
                       value={editForm.primary_color || '#00C27A'}
@@ -754,7 +754,7 @@ export default function CollegeCoachProgramPage() {
                       type="color"
                       value={editForm.secondary_color || '#003B2A'}
                       onChange={(e) => setEditForm({ ...editForm, secondary_color: e.target.value })}
-                      className="w-12 h-10 rounded-lg cursor-pointer border-0"
+                      className="w-12 h-10 rounded-2xl cursor-pointer border-0"
                     />
                     <Input
                       value={editForm.secondary_color || '#003B2A'}
@@ -933,7 +933,7 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
           <CardContent className="space-y-3">
             {coach.program_division && (
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg" style={{ backgroundColor: theme.accentBg }}>
+                <div className="p-2 rounded-2xl" style={{ backgroundColor: theme.accentBg }}>
                   <Trophy className="w-4 h-4" style={{ color: theme.accent }} />
                 </div>
                 <div>
@@ -944,7 +944,7 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
             )}
             {coach.athletic_conference && (
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg" style={{ backgroundColor: theme.accentBg }}>
+                <div className="p-2 rounded-2xl" style={{ backgroundColor: theme.accentBg }}>
                   <Award className="w-4 h-4" style={{ color: theme.accent }} />
                 </div>
                 <div>
@@ -955,7 +955,7 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
             )}
             {(coach.school_city || coach.school_state) && (
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg" style={{ backgroundColor: theme.accentBg }}>
+                <div className="p-2 rounded-2xl" style={{ backgroundColor: theme.accentBg }}>
                   <MapPin className="w-4 h-4" style={{ color: theme.accent }} />
                 </div>
                 <div>
@@ -975,7 +975,7 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
           <CardContent className="space-y-3">
             {coach.email_contact && (
               <a href={`mailto:${coach.email_contact}`} className="flex items-center gap-3 group">
-                <div className="p-2 rounded-lg bg-blue-500/10">
+                <div className="p-2 rounded-2xl bg-blue-500/10">
                   <Mail className="w-4 h-4 text-blue-500" />
                 </div>
                 <span className={`text-sm group-hover:underline ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{coach.email_contact}</span>
@@ -983,7 +983,7 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
             )}
             {coach.phone_contact && (
               <a href={`tel:${coach.phone_contact}`} className="flex items-center gap-3 group">
-                <div className="p-2 rounded-lg bg-green-500/10">
+                <div className="p-2 rounded-2xl bg-green-500/10">
                   <Phone className="w-4 h-4 text-green-500" />
                 </div>
                 <span className={`text-sm group-hover:underline ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{coach.phone_contact}</span>

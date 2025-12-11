@@ -22,6 +22,7 @@ type UnauthorizedReason = 'role' | 'session_expired' | 'not_authenticated' | 'co
 export default function UnauthorizedPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [loading, setLoading] = useState(true);
   const [countdown, setCountdown] = useState(10);
   const [autoRedirect, setAutoRedirect] = useState(true);
 
@@ -204,7 +205,7 @@ export default function UnauthorizedPage() {
 
         {/* Debug info (only in development) */}
         {process.env.NODE_ENV === 'development' && (
-          <div className="mt-4 p-4 bg-slate-800/50 rounded-lg border border-slate-700/50 text-xs text-slate-500">
+          <div className="mt-4 p-4 bg-slate-800/50 rounded-2xl border border-slate-700/50 text-xs text-slate-500">
             <p><strong>Debug Info:</strong></p>
             <p>Reason: {reason}</p>
             <p>Return URL: {returnUrl}</p>

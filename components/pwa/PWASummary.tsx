@@ -15,6 +15,7 @@ import { logMobileTestingReport, DEVICE_SIZES } from '@/lib/pwa/mobileTesting';
 import { isTouchDevice, getDeviceType } from '@/lib/pwa/touchTargets';
 
 export function PWASummary() {
+  const [loading, setLoading] = useState(true);
   const [swipeDirection, setSwipeDirection] = useState<string>('');
   const [deviceInfo, setDeviceInfo] = useState<any>(null);
   const pushNotifications = usePushNotifications();
@@ -33,7 +34,8 @@ export function PWASummary() {
       },
       isPWA: window.matchMedia('(display-mode: standalone)').matches,
       isOnline: navigator.onLine,
-    });
+    })
+          )};
   }, []);
 
   return (
@@ -111,7 +113,7 @@ export function PWASummary() {
           onSwipeRight={() => setSwipeDirection('Right')}
           onSwipeUp={() => setSwipeDirection('Up')}
           onSwipeDown={() => setSwipeDirection('Down')}
-          className="p-8 bg-emerald-500/10 rounded-xl border border-emerald-500/20 text-center min-h-[200px] flex items-center justify-center"
+          className="p-8 bg-emerald-500/10 rounded-xl border border-emerald-500/20 text-center min-h-[200px] flex items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200"
         >
           <div>
             <p className="text-white text-lg mb-2">Swipe here</p>
@@ -147,7 +149,14 @@ export function PWASummary() {
       <div className="p-4 bg-white/5 rounded-xl border border-white/10">
         <h2 className="text-xl font-semibold text-white mb-4">Supported Device Sizes</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-sm">
-          {DEVICE_SIZES.map((device) => (
+          {{DEVICE_SIZES.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            DEVICE_SIZES.map((device) => (
             <div key={device.name} className="p-2 bg-white/5 rounded">
               <div className="font-medium text-white">{device.name}</div>
               <div className="text-gray-400">

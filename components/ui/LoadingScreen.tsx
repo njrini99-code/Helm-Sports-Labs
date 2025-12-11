@@ -18,6 +18,7 @@ export function LoadingScreen({
   variant = 'fullscreen',
   className,
 }: LoadingScreenProps) {
+  const [loading, setLoading] = useState(true);
   const [animatedProgress, setAnimatedProgress] = useState(0);
 
   useEffect(() => {
@@ -55,10 +56,10 @@ export function LoadingScreen({
       'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950',
       className
     )}>
-      <div className="flex flex-col items-center space-y-6 animate-fade-in">
+      <div className="flex flex-col items-center space-y-6 animate-fade-in hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         {/* ScoutPulse Logo */}
         <div className="relative">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/50 animate-logo-pulse">
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/50 animate-logo-pulse hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <span className="text-3xl font-bold text-white">SP</span>
           </div>
           <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-emerald-400/60 animate-ping" />

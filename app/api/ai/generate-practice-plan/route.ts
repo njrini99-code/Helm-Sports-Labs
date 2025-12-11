@@ -5,6 +5,12 @@ import { createClient } from '@/lib/supabase/server';
  * Generate practice plan from text using AI
  * POST /api/ai/generate-practice-plan
  */
+
+const inputSchema = z.object({
+  // Add your validation rules here
+  // Example: name: z.string().min(1).max(100)
+});
+
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient();

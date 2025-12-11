@@ -36,6 +36,7 @@ interface TeamRosterProps {
 
 export function TeamRoster({ teamId, members, mode, onUpdate }: TeamRosterProps) {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [positionFilter, setPositionFilter] = useState<string>('all');
   const [gradYearFilter, setGradYearFilter] = useState<string>('all');
@@ -165,7 +166,7 @@ export function TeamRoster({ teamId, members, mode, onUpdate }: TeamRosterProps)
             {filteredMembers.map((member) => (
               <div
                 key={member.id}
-                className="flex items-center justify-between p-3 rounded-lg bg-[#0B0D0F] border border-white/5 hover:border-white/10 transition-colors"
+                className="flex items-center justify-between p-3 rounded-2xl bg-[#0B0D0F] border border-white/5 hover:border-white/10 transition-colors"
               >
                 <div className="flex-1">
                   <PlayerListItem

@@ -17,7 +17,7 @@ export interface Notification {
   related_id?: string;
   related_type?: 'player' | 'coach' | 'message' | 'conversation' | 'evaluation';
   action_url?: string;
-  is_read: boolean;
+  read: boolean;
   read_at?: string;
   created_at: string;
   updated_at: string;
@@ -80,7 +80,7 @@ export async function getUnreadCount(): Promise<{
       .from('notifications')
       .select('*', { count: 'exact', head: true })
       .eq('user_id', user.id)
-      .eq('is_read', false);
+      .eq('read', false);
 
     if (error) throw error;
 
@@ -109,7 +109,7 @@ export async function markNotificationAsRead(notificationId: string): Promise<{
 
     const { error } = await supabase
       .from('notifications')
-      .update({ is_read: true })
+      .update({ read: true })
       .eq('id', notificationId);
 
     if (error) throw error;
@@ -138,9 +138,9 @@ export async function markAllNotificationsAsRead(): Promise<{
 
     const { error } = await supabase
       .from('notifications')
-      .update({ is_read: true })
+      .update({ read: true })
       .eq('user_id', user.id)
-      .eq('is_read', false);
+      .eq('read', false);
 
     if (error) throw error;
 

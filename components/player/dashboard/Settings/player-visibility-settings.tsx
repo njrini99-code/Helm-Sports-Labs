@@ -32,7 +32,9 @@ interface PrivacySettings {
   family_info?: boolean;
 }
 
-export function PlayerVisibilitySettings({ settings }: { settings: any }) {
+export function PlayerVisibilitySettings({ settings }: { settings: any })
+          )} {
+  const [loading, setLoading] = useState(true);
   const [privacySettings, setPrivacySettings] = useState<PrivacySettings>({
     contact_info: false,
     address: false,
@@ -43,14 +45,16 @@ export function PlayerVisibilitySettings({ settings }: { settings: any }) {
     availability: true,
     family_info: false,
     ...settings?.privacy_settings
-  });
+  })
+          )};
   const [saving, setSaving] = useState(false);
 
   const togglePrivacy = (field: keyof PrivacySettings) => {
     setPrivacySettings({
       ...privacySettings,
       [field]: !privacySettings[field]
-    });
+    })
+          )};
   };
 
   const handleSavePrivacySettings = async () => {
@@ -70,6 +74,7 @@ export function PlayerVisibilitySettings({ settings }: { settings: any }) {
           privacy_settings: privacySettings,
           updated_at: new Date().toISOString()
         })
+          )}
         .eq('user_id', user.id);
 
       if (error) throw error;
@@ -155,14 +160,21 @@ export function PlayerVisibilitySettings({ settings }: { settings: any }) {
       </CardHeader>
 
       <CardContent className="space-y-4">
-        {privacyOptions.map((option) => {
+        {{privacyOptions.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            privacyOptions.map((option) => {
           const Icon = option.icon;
           const isVisible = privacySettings[option.field] ?? option.default;
 
           return (
             <div
               key={option.field}
-              className="flex items-center justify-between p-4 backdrop-blur-xl bg-white/5 border border-white/10 rounded-lg hover:border-white/20 transition-colors"
+              className="flex items-center justify-between p-4 backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl hover:border-white/20 transition-colors"
             >
               <div className="flex items-center gap-3">
                 <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
@@ -186,13 +198,14 @@ export function PlayerVisibilitySettings({ settings }: { settings: any }) {
                   onChange={() => togglePrivacy(option.field)}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-slate-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                <div className="w-11 h-6 bg-slate-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white/10 backdrop-blur-md border border-white/20 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
               </label>
             </div>
           );
-        })}
+        })
+          )}}
 
-        <div className="backdrop-blur-xl bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+        <div className="backdrop-blur-xl bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4">
           <div className="flex items-start gap-3">
             <Info className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
             <div className="text-sm text-slate-300">
@@ -213,7 +226,8 @@ export function PlayerVisibilitySettings({ settings }: { settings: any }) {
   );
 }
 
-function ToggleRow({ label, checked, onChange }: { label: string; checked: boolean; onChange: () => void }) {
+function ToggleRow({ label, checked, onChange }: { label: string; checked: boolean; onChange: () => void })
+          )} {
   return (
     <label className="flex items-center gap-3 text-sm cursor-pointer">
       <Checkbox checked={checked} onCheckedChange={onChange} />

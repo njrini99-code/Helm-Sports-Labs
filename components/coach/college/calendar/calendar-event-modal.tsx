@@ -70,6 +70,7 @@ export function CalendarEventModal({
 }: CalendarEventModalProps) {
   const isEditing = !!event;
 
+  const [loading, setLoading] = useState(true);
   const [type, setType] = useState<CalendarEventType>(preselectedType || 'evaluation');
   const [title, setTitle] = useState('');
   const [date, setDate] = useState(preselectedDate || '');
@@ -127,7 +128,8 @@ export function CalendarEventModal({
         const fullName = `${p.firstName || ''} ${p.lastName || ''}`.toLowerCase();
         const isNotSelected = !selectedPlayers.some((sp) => sp.id === p.id);
         return fullName.includes(playerSearch.toLowerCase()) && isNotSelected;
-      });
+      })
+          )};
       setSearchResults(results);
     } else {
       setSearchResults([]);
@@ -158,8 +160,16 @@ export function CalendarEventModal({
         location: location || undefined,
         notes: notes || undefined,
         opponentEventName: type === 'evaluation' ? opponentEventName || undefined : undefined,
-        playerIds: selectedPlayers.map((p) => p.id),
-      });
+        playerIds: {selectedPlayers.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            selectedPlayers.map((p) => p.id),
+      })
+          )};
       onClose();
     } finally {
       setSaving(false);
@@ -337,7 +347,7 @@ export function CalendarEventModal({
 
               {/* Search Results Dropdown */}
               {showPlayerSearch && searchResults.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg border border-slate-200 shadow-lg z-10 max-h-32 overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 mt-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl border border-slate-200 shadow-lg z-10 max-h-32 overflow-y-auto">
                   {searchResults.map((player) => (
                     <button
                       key={player.id}

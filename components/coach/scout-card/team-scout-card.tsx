@@ -88,6 +88,7 @@ export function TeamScoutCard({
   onPlayerClick,
 }: TeamScoutCardProps) {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [showNoteInput, setShowNoteInput] = useState(false);
   const [noteText, setNoteText] = useState('');
 
@@ -285,11 +286,11 @@ export function TeamScoutCard({
 
           {/* Stats Grid */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+            <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
               <p className="text-2xl font-bold text-slate-800 dark:text-white">{team.totalPlayers || 0}</p>
               <p className="text-xs text-slate-500">Total Players</p>
             </div>
-            <div className="p-3 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800/30">
+            <div className="p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800/30">
               <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">{team.playersOnWatchlist || 0}</p>
               <p className="text-xs text-slate-500">On Your Watchlist</p>
             </div>
@@ -300,7 +301,15 @@ export function TeamScoutCard({
             <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700">
               <p className="text-[10px] uppercase text-slate-400 tracking-wide mb-2">By Class</p>
               <div className="flex flex-wrap gap-1.5">
-                {team.gradYearBreakdown.map(({ year, count }) => (
+                {team.{gradYearBreakdown.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            gradYearBreakdown.map(({ year, count })
+          )} => (
                   <Badge key={year} variant="outline" className="text-xs">
                     '{year.toString().slice(-2)}: {count}
                   </Badge>
@@ -319,7 +328,7 @@ export function TeamScoutCard({
               {team.recentCommits.slice(0, 3).map((commit) => (
                 <div 
                   key={commit.id}
-                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
+                  className="flex items-center gap-3 p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
                   onClick={() => onPlayerClick?.(commit.id)}
                 >
                   <Trophy className="w-4 h-4 text-amber-500" />
@@ -355,7 +364,7 @@ export function TeamScoutCard({
               {team.staff.slice(0, 3).map((member) => (
                 <div 
                   key={member.id}
-                  className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50"
+                  className="flex items-center justify-between p-2 rounded-2xl bg-slate-50 dark:bg-slate-800/50"
                 >
                   <div>
                     <p className="text-sm font-medium text-slate-800 dark:text-white">{member.name}</p>
@@ -397,7 +406,7 @@ export function TeamScoutCard({
               {team.notes.slice(0, 2).map(note => (
                 <div 
                   key={note.id} 
-                  className="text-sm p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700"
+                  className="text-sm p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700"
                 >
                   <p className="text-slate-600 dark:text-slate-300 line-clamp-2">{note.content}</p>
                   <p className="text-[10px] text-slate-400 mt-1.5">

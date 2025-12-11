@@ -53,6 +53,19 @@ import {
   glassDarkZone,
   glassLightZone,
 } from '@/lib/glassmorphism';
+import {
+  glassCardPremium,
+  glassCardInteractive as glassCardInteractiveEnhanced,
+  glassStatCard as glassStatCardEnhanced,
+  glassPanel as glassPanelEnhanced,
+  glassHero as glassHeroEnhanced,
+  glassButton as glassButtonEnhanced,
+  glassDarkZone as glassDarkZoneEnhanced,
+  glassListItem as glassListItemEnhanced,
+  cn,
+} from '@/lib/glassmorphism-enhanced';
+import { motion } from 'framer-motion';
+import { pageTransition, staggerContainer, staggerItem } from '@/lib/animations';
 import { useTheme } from '@/lib/theme-context';
 import Link from 'next/link';
 import type { Coach } from '@/lib/types';
@@ -329,198 +342,202 @@ export default function HSCoachDashboard() {
   }
 
   return (
-    <div className={`min-h-screen transition-colors ${isDark ? 'bg-slate-900' : 'bg-gradient-to-b from-slate-50 via-slate-50 to-amber-50/20'}`}>
+    <motion.div 
+      className="min-h-screen"
+      initial={pageTransition.initial}
+      animate={pageTransition.animate}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+    >
       {/* ═══════════════════════════════════════════════════════════════════
-          HERO BANNER
+          ULTIMATE GLASSMORPHISM HERO ZONE
       ═══════════════════════════════════════════════════════════════════ */}
-      <section 
-        className="relative overflow-hidden"
-        style={{
-          background: isDark 
-            ? `linear-gradient(160deg, #1a1a2e 0%, #16213e 40%, #0f0f1a 100%)`
-            : `linear-gradient(160deg, #451a03 0%, #78350f 40%, #92400e 100%)`,
-        }}
-      >
-        {/* Subtle radial glows */}
+      <div className={cn(glassDarkZoneEnhanced, "pb-12 relative overflow-hidden")}>
+        {/* Animated gradient orbs */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '0s' }} />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+        
+        {/* Subtle grid pattern */}
         <div 
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 opacity-[0.02] pointer-events-none"
           style={{
-            background: `
-              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}18, ${programColor}08 40%, transparent 70%),
-              radial-gradient(ellipse 60% 40% at 75% 60%, ${programColor}10, transparent 50%)
-            `,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }}
-        />
-        
-        {/* Noise texture */}
-        <div 
-          className="absolute inset-0 pointer-events-none opacity-[0.04]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-            backgroundRepeat: 'repeat',
-          }}
-        />
-        
-        {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:40px_40px]" />
-        </div>
-        
-        {/* Ambient orbs */}
-        <div 
-          className="absolute -top-20 -right-20 w-80 h-80 rounded-full blur-[100px] opacity-[0.15] pointer-events-none"
-          style={{ background: programColor }}
-        />
-        <div 
-          className="absolute -bottom-32 -left-20 w-64 h-64 rounded-full blur-[80px] opacity-[0.1] pointer-events-none"
-          style={{ background: programColor }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-            {/* School Logo */}
-            <div className="relative group">
-              <div 
-                className="absolute inset-0 rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity"
-                style={{ background: programColor }}
-              />
-              <Avatar className="relative h-20 w-20 md:h-24 md:w-24 ring-4 ring-white/20 shadow-2xl rounded-2xl">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 space-y-8 relative z-10">
+          
+      {/* ═══════════════════════════════════════════════════════════════════
+          PREMIUM GLASSMORPHISM HERO BANNER
+      ═══════════════════════════════════════════════════════════════════ */}
+      <motion.section 
+        className="relative"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
+        {/* Premium Glass Hero Card */}
+        <div className={cn(glassHeroEnhanced, "p-6 md:p-8 relative overflow-hidden")}>
+          {/* Animated gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-orange-500/5 opacity-50 animate-pulse" />
+          
+          <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
+            {/* Premium Logo Badge with Enhanced Glow */}
+            <motion.div 
+              className="relative group"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="absolute -inset-2 rounded-2xl bg-gradient-to-br from-amber-500/30 to-orange-500/20 blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500" />
+              <Avatar className="relative h-20 w-20 md:h-24 md:w-24 ring-2 ring-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.5)] rounded-2xl">
                 <AvatarImage src={coach?.logo_url ?? undefined} className="rounded-2xl object-cover" />
                 <AvatarFallback 
-                  className="rounded-2xl text-2xl md:text-3xl font-bold text-white"
-                  style={{ background: programColor }}
+                  className="rounded-2xl text-2xl md:text-3xl font-bold text-white bg-gradient-to-br from-amber-500 to-orange-600"
                 >
                   {schoolInitials}
                 </AvatarFallback>
               </Avatar>
-            </div>
+              {/* Glow effect */}
+              <div className="absolute -inset-3 rounded-2xl bg-amber-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </motion.div>
 
-            {/* School Info */}
+            {/* Premium School Info */}
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-3 mb-2 flex-wrap">
-                <h1 className="text-3xl lg:text-4xl font-bold text-white truncate">
-                  {schoolName}
-                </h1>
-                <Badge className="bg-white/10 text-white/90 border-white/20 backdrop-blur-sm">
-                  <Building2 className="w-3 h-3 mr-1" />
+              <motion.h1 
+                className="text-3xl md:text-4xl font-bold text-white mb-2 bg-gradient-to-r from-white via-white to-white/90 bg-clip-text text-transparent"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                {schoolName}
+              </motion.h1>
+              <div className="flex flex-wrap items-center gap-3 mb-3">
+                <span className={cn(
+                  "px-3 py-1.5 rounded-full text-xs font-semibold",
+                  "backdrop-blur-lg bg-white/10 text-white border border-white/20"
+                )}>
+                  <Building2 className="w-3.5 h-3.5 inline mr-1.5" />
                   High School
-                </Badge>
-              </div>
-
-              <div className="flex flex-wrap gap-x-4 gap-y-1 text-white/70 text-sm mb-2">
+                </span>
                 {location && (
-                  <span className="flex items-center gap-1">
-                    <MapPin className="w-4 h-4" style={{ color: programColor }} />
+                  <span className="flex items-center gap-1.5 text-sm text-white/70">
+                    <MapPin className="w-4 h-4" />
                     {location}
                   </span>
                 )}
-                <span className="flex items-center gap-1">
+                <span className="flex items-center gap-1.5 text-sm text-white/70">
                   <Users className="w-4 h-4" />
                   {roster.length} Players
                 </span>
               </div>
 
               {coach?.full_name && (
-                <div className="text-white/60 text-sm mb-2">
+                <p className="text-sm text-white/60 mb-4">
                   <span className="font-medium text-white/80">{coach.full_name}</span>
                   {' — Head Coach'}
-                </div>
+                </p>
               )}
 
-              {/* Profile Completion */}
-              <div className="flex items-center gap-3 mt-3">
+              {/* Premium Profile Completion */}
+              <div className="flex items-center gap-4">
                 <div className="flex-1 max-w-xs">
-                  <div className="flex items-center justify-between text-xs mb-1">
-                    <span className="text-white/60">Profile</span>
-                    <span className="text-white/80 font-medium">{profileCompletion}%</span>
+                  <div className="flex items-center justify-between text-xs mb-2">
+                    <span className="text-white/70 uppercase tracking-wide font-medium">Profile</span>
+                    <span className="font-bold text-amber-300">{profileCompletion}%</span>
                   </div>
-                  <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full rounded-full transition-all duration-1000"
-                      style={{ 
-                        width: `${profileCompletion}%`, 
-                        background: `linear-gradient(90deg, ${programColor}, ${programColor}cc)` 
-                      }}
+                  <div className="h-2 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
+                    <motion.div 
+                      className="h-full rounded-full bg-gradient-to-r from-amber-500 to-orange-400 shadow-lg shadow-amber-500/30"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${profileCompletion}%` }}
+                      transition={{ duration: 1.5, ease: 'easeOut', delay: 0.3 }}
                     />
                   </div>
                 </div>
                 {profileCompletion < 100 && (
                   <Link href="/coach/high-school/program">
-                    <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/10 h-7 text-xs">
-                      Complete profile <ChevronRight className="w-3 h-3 ml-1" />
-                    </Button>
+                    <span className="text-xs text-amber-300/80 hover:text-amber-300 transition-colors flex items-center gap-1.5 group">
+                      Complete profile
+                      <ChevronRight className="w-3 h-3" strokeWidth={2} />
+                    </span>
                   </Link>
                 )}
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="flex flex-col gap-2">
-              <Link href="/coach/high-school/program">
-                <Button 
-                  variant="outline" 
-                  className="bg-white/10 border-white/20 text-white hover:bg-white/20 gap-2"
-                >
-                  <Edit className="w-4 h-4" />
-                  Edit Profile
-                </Button>
+            {/* Premium Action Buttons */}
+            <motion.div 
+              className="flex gap-3 w-full md:w-auto"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <Link href="/coach/high-school/program" className="flex-1 md:flex-none">
+                <button className={cn(glassButtonEnhanced.secondary, "w-full md:w-auto flex items-center gap-2")}>
+                  <Edit className="w-3.5 h-3.5" strokeWidth={2} />
+                  <span>Edit Profile</span>
+                </button>
               </Link>
-              <Button
-                variant="ghost"
-                className="text-white/70 hover:text-white hover:bg-white/10 gap-2"
+              <button
+                className={cn(glassButtonEnhanced.ghost, "flex items-center gap-2")}
                 onClick={() => router.push(`/profile/${team?.id}`)}
               >
-                <ExternalLink className="w-4 h-4" />
-                View Public
-              </Button>
-            </div>
+                <ExternalLink className="w-3.5 h-3.5" strokeWidth={2} />
+                <span>View Public</span>
+              </button>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
+
+          {/* B. ULTIMATE GLASSMORPHISM STAT CARDS ROW */}
+          <motion.div 
+            className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 -mt-5 relative z-10"
+            variants={staggerContainer as any}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div variants={staggerItem as any}>
+              <PremiumGlassStatCard
+                icon={<Users className="w-4 h-4" strokeWidth={2} />}
+                value={roster.length}
+                label="Roster Size"
+                color="blue"
+              />
+            </motion.div>
+            <motion.div variants={staggerItem as any}>
+              <PremiumGlassStatCard
+                icon={<GraduationCap className="w-4 h-4" strokeWidth={2} />}
+                value={seniors.length}
+                label="Seniors (2025)"
+                color="purple"
+              />
+            </motion.div>
+            <motion.div variants={staggerItem as any}>
+              <PremiumGlassStatCard
+                icon={<Star className="w-4 h-4" strokeWidth={2} />}
+                value={juniors.length}
+                label="Juniors (2026)"
+                color="amber"
+              />
+            </motion.div>
+            <motion.div variants={staggerItem as any}>
+              <PremiumGlassStatCard
+                icon={<Eye className="w-4 h-4" strokeWidth={2} />}
+                value={collegeInterest.length}
+                label="College Interest"
+                trend={collegeInterest.length > 0 ? 12 : undefined}
+                color="emerald"
+              />
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
 
       {/* ═══════════════════════════════════════════════════════════════════
           MAIN CONTENT
       ═══════════════════════════════════════════════════════════════════ */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 space-y-6">
-        {/* Stats Row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatCard 
-            icon={Users} 
-            value={roster.length} 
-            label="Roster Size"
-            iconBg={isDark ? 'bg-blue-500/10' : 'bg-blue-100'}
-            iconColor={isDark ? 'text-blue-400' : 'text-blue-600'}
-            isDark={isDark}
-          />
-          <StatCard 
-            icon={GraduationCap} 
-            value={seniors.length} 
-            label="Seniors (2025)"
-            trend="neutral"
-            trendValue="Active"
-            iconBg={isDark ? 'bg-purple-500/10' : 'bg-purple-100'}
-            iconColor={isDark ? 'text-purple-400' : 'text-purple-600'}
-            isDark={isDark}
-          />
-          <StatCard 
-            icon={Star} 
-            value={juniors.length} 
-            label="Juniors (2026)"
-            iconBg={isDark ? 'bg-amber-500/10' : 'bg-amber-100'}
-            iconColor={isDark ? 'text-amber-400' : 'text-amber-600'}
-            isDark={isDark}
-          />
-          <StatCard 
-            icon={Eye} 
-            value={collegeInterest.length} 
-            label="College Interest"
-            trend="up"
-            trendValue="Active"
-            iconBg={isDark ? 'bg-emerald-500/10' : 'bg-emerald-100'}
-            iconColor={isDark ? 'text-emerald-400' : 'text-emerald-600'}
-            isDark={isDark}
-          />
-        </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Left Column - Roster & Schedule */}
@@ -1036,6 +1053,119 @@ export default function HSCoachDashboard() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Premium Glass Stat Card Component
+// ═══════════════════════════════════════════════════════════════════════════
+function PremiumGlassStatCard({ 
+  icon, 
+  value, 
+  label, 
+  sublabel,
+  trend,
+  highlight,
+  color = 'emerald',
+}: { 
+  icon: React.ReactNode;
+  value: number;
+  label: string;
+  sublabel?: string;
+  trend?: number;
+  highlight?: boolean;
+  color?: 'emerald' | 'blue' | 'purple' | 'amber';
+}) {
+  const colorClasses = {
+    emerald: {
+      bg: 'from-emerald-500/20 to-emerald-600/10',
+      border: 'border-emerald-400/30',
+      icon: 'text-emerald-300',
+      glow: 'shadow-emerald-500/20',
+      hover: 'hover:border-emerald-400/50 hover:shadow-emerald-500/30',
+    },
+    blue: {
+      bg: 'from-blue-500/20 to-blue-600/10',
+      border: 'border-blue-400/30',
+      icon: 'text-blue-300',
+      glow: 'shadow-blue-500/20',
+      hover: 'hover:border-blue-400/50 hover:shadow-blue-500/30',
+    },
+    purple: {
+      bg: 'from-purple-500/20 to-purple-600/10',
+      border: 'border-purple-400/30',
+      icon: 'text-purple-300',
+      glow: 'shadow-purple-500/20',
+      hover: 'hover:border-purple-400/50 hover:shadow-purple-500/30',
+    },
+    amber: {
+      bg: 'from-amber-500/20 to-amber-600/10',
+      border: 'border-amber-400/30',
+      icon: 'text-amber-300',
+      glow: 'shadow-amber-500/20',
+      hover: 'hover:border-amber-400/50 hover:shadow-amber-500/30',
+    },
+  };
+
+  const colors = colorClasses[color];
+
+  return (
+    <motion.div 
+      className={cn(
+        glassStatCardEnhanced,
+        `bg-gradient-to-br ${colors.bg}`,
+        `border ${colors.border}`,
+        `shadow-lg ${colors.glow}`,
+        colors.hover,
+        highlight && 'ring-2 ring-amber-400/40'
+      )}
+      whileHover={{ scale: 1.03, y: -4 }}
+      transition={{ duration: 0.3 }}
+    >
+      {/* Animated gradient overlay */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${colors.bg} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl`} />
+      
+      {/* Trend badge */}
+      {trend !== undefined && (
+        <motion.span 
+          className={cn(
+            "absolute top-3 right-3 flex items-center gap-1 text-[11px] font-semibold px-2 py-1 rounded-full",
+            "backdrop-blur-lg bg-emerald-500/25 text-emerald-200 border border-emerald-400/40",
+            "shadow-[0_2px_10px_rgba(16,185,129,0.3)]"
+          )}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <TrendingUp className="w-3 h-3" strokeWidth={2} />
+          +{trend}%
+        </motion.span>
+      )}
+      
+      <div className="relative z-10 flex items-start gap-3">
+        <div className={cn(
+          "p-2 rounded-lg backdrop-blur-lg",
+          `bg-white/[0.1] border ${colors.border}`,
+          colors.icon
+        )}>
+          {icon}
+        </div>
+        <div className="flex-1 min-w-0">
+          <motion.p 
+            className="text-2xl font-bold text-white mb-1"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {value.toLocaleString()}
+          </motion.p>
+          <p className="text-xs text-white/90 font-semibold mb-0.5">{label}</p>
+          {sublabel && (
+            <p className="text-[10px] text-white/60">{sublabel}</p>
+          )}
+        </div>
+      </div>
+    </motion.div>
   );
 }

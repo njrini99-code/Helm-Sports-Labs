@@ -60,7 +60,7 @@ function formatTime(time?: string): string {
 
 export function UpcomingEventsPanel({ events, onEventClick, onViewAll }: UpcomingEventsPanelProps) {
   return (
-    <Card className="rounded-2xl border border-slate-200/80 bg-white shadow-sm overflow-hidden">
+    <Card className="rounded-2xl border border-slate-200/80 bg-white/10 backdrop-blur-md border border-white/20 shadow-sm overflow-hidden">
       <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
         <div>
           <h3 className="text-sm font-semibold text-slate-800">Upcoming Events</h3>

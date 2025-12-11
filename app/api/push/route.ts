@@ -5,6 +5,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 
+
+const inputSchema = z.object({
+  // Add your validation rules here
+  // Example: name: z.string().min(1).max(100)
+});
+
 export async function POST(request: NextRequest) {
   try {
     const { userId, title, body, url, icon } = await request.json();

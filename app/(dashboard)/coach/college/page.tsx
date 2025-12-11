@@ -15,6 +15,17 @@ import {
   glassDarkZone,
   glassLightZone,
 } from '@/lib/glassmorphism';
+import {
+  glassCardPremium,
+  glassCardInteractive as glassCardInteractiveEnhanced,
+  glassStatCard as glassStatCardEnhanced,
+  glassPanel as glassPanelEnhanced,
+  glassHero as glassHeroEnhanced,
+  glassButton as glassButtonEnhanced,
+  glassDarkZone as glassDarkZoneEnhanced,
+  glassListItem as glassListItemEnhanced,
+  cn,
+} from '@/lib/glassmorphism-enhanced';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -59,11 +70,14 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
+import { useToast } from '@/components/ui/use-toast';
 import { createClient } from '@/lib/supabase/client';
 import { isDevMode, DEV_ENTITY_IDS } from '@/lib/dev-mode';
 import type { Coach } from '@/lib/types';
 import { CoachDashboardSkeleton } from '@/components/ui/loading-state';
 import { getCoachCamps } from '@/lib/queries/camp-registration';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { SkipLink } from '@/components/ui/skip-link';
 
 interface PipelineStats {
   watchlist: number;
@@ -133,6 +147,7 @@ interface Camp {
 
 export default function CollegeCoachDashboard() {
   const router = useRouter();
+  const { toast: showToast } = useToast();
   const [activityFilter, setActivityFilter] = useState('all');
   const [coach, setCoach] = useState<Coach | null>(null);
   const [pipeline, setPipeline] = useState<PipelineStats>({ watchlist: 0, highPriority: 0, offersExtended: 0, committed: 0 });
@@ -414,7 +429,11 @@ export default function CollegeCoachDashboard() {
   const toggleWatchlist = (playerId: string, playerName: string) => {
     const isAdding = !watchlistStates[playerId];
     setWatchlistStates(prev => ({ ...prev, [playerId]: isAdding }));
-    toast.success(isAdding ? `${playerName} added to watchlist` : `${playerName} removed from watchlist`);
+    showToast({
+      variant: isAdding ? 'success' : 'default',
+      title: isAdding ? 'Added to watchlist' : 'Removed from watchlist',
+      description: `${playerName} ${isAdding ? 'added to' : 'removed from'} watchlist`,
+    });
   };
 
   const handlePipelineClick = (status: string) => router.push(`/coach/college/recruiting-planner?status=${status}`);
@@ -430,6 +449,19 @@ export default function CollegeCoachDashboard() {
     return <CoachDashboardSkeleton />;
   }
 
+  if (!coach) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-lg text-muted-foreground">Coach profile not found</p>
+          <Button onClick={() => router.push('/onboarding/coach')} className="mt-4">
+            Complete Onboarding
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   const programName = coach?.school_name || coach?.program_name || 'Maine University';
   const programInitials = programName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
   const philosophy = coach?.program_philosophy || coach?.about?.slice(0, 100) || 'Building champions on and off the field';
@@ -441,14 +473,45 @@ export default function CollegeCoachDashboard() {
       animate={pageTransition.animate}
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
+      {/* Skip Link */}
+      <SkipLink href="#main-dashboard-content">Skip to main content</SkipLink>
+
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-4">
+        <Breadcrumbs
+          items={[
+            { label: 'Dashboard', href: '/coach/college' },
+            { label: 'Overview' },
+          ]}
+        />
+      </div>
+
       {/* ═══════════════════════════════════════════════════════════════════
-          HERO BANNER - Program-Themed with Refined Ambient Glow
+          ULTIMATE GLASSMORPHISM HERO ZONE
       ═══════════════════════════════════════════════════════════════════ */}
-      <section 
-        className="relative overflow-hidden"
-        style={{
-          background: `linear-gradient(160deg, #0A3B2E 0%, #062A20 40%, #041A14 100%)`,
-        }}
+      <div id="main-dashboard-content" className={cn(glassDarkZoneEnhanced, "pb-12 relative overflow-hidden")}>
+        {/* Animated gradient orbs */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '0s' }} />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+        
+        {/* Subtle grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.02] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+
+        <div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 space-y-8 relative z-10">
+          
+      {/* ═══════════════════════════════════════════════════════════════════
+          PREMIUM GLASSMORPHISM HERO BANNER
+      ═══════════════════════════════════════════════════════════════════ */}
+      <motion.section 
+        className="relative"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         {/* Subtle multi-stop radial glow - ambient shine */}
         <div 
@@ -493,7 +556,7 @@ export default function CollegeCoachDashboard() {
           style={{ background: programColor }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
+        <div id="main-dashboard-content" className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             {/* Floating Logo Badge with Glow */}
             <div className="relative group">
@@ -576,12 +639,8 @@ export default function CollegeCoachDashboard() {
               </Button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
-
-      {/* ═══════════════════════════════════════════════════════════════════
-          METRIC CARDS - Animated Count-Up with Hover Effects
-      ═══════════════════════════════════════════════════════════════════ */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 -mt-5 relative z-10">
         <motion.div 
           className="grid grid-cols-3 gap-3 md:gap-4"
@@ -655,7 +714,7 @@ export default function CollegeCoachDashboard() {
                     <SelectItem value="camps">Camp interest</SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
+              </motion.div>
 
               <div className="divide-y divide-border/30">
                 {filteredActivities.map((activity) => (
@@ -676,9 +735,9 @@ export default function CollegeCoachDashboard() {
                     <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </button>
                 </Link>
-              </div>
-            </div>
-          </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
 
           {/* RIGHT COLUMN - Pipeline + Camps */}
           <div className="space-y-5">
@@ -695,7 +754,7 @@ export default function CollegeCoachDashboard() {
                     <ChevronRight className="w-3.5 h-3.5" />
                   </Button>
                 </Link>
-              </div>
+              </motion.div>
 
               <div className="grid grid-cols-2 gap-3">
                 <PipelineCard
@@ -730,7 +789,7 @@ export default function CollegeCoachDashboard() {
                   accentColor="#22C55E"
                   onClick={() => handlePipelineClick('committed')}
                 />
-              </div>
+              </motion.div>
 
               <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-border/30">
                 <Link href="/coach/college/discover">
@@ -745,8 +804,8 @@ export default function CollegeCoachDashboard() {
                     Watchlist
                   </Button>
                 </Link>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* Upcoming Camps - Horizontal Scroll */}
             <Card glass className="rounded-2xl p-5">
@@ -754,14 +813,14 @@ export default function CollegeCoachDashboard() {
                 <div>
                   <h2 className="text-lg font-semibold text-foreground">Upcoming Camps</h2>
                   <p className="text-xs text-muted-foreground">Events you're hosting</p>
-                </div>
+                </motion.div>
                 <Link href="/coach/college/camps">
                   <Button variant="ghost" size="sm" className="h-7 text-xs text-primary hover:text-primary/80 gap-1">
                     All camps
                     <ChevronRight className="w-3.5 h-3.5" />
                   </Button>
                 </Link>
-              </div>
+              </motion.div>
 
               {/* Horizontal Scrollable Camps */}
               <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x snap-mandatory scrollbar-hide">
@@ -773,7 +832,7 @@ export default function CollegeCoachDashboard() {
                     onClick={() => handleCampClick(camp.id)}
                   />
                 ))}
-              </div>
+              </motion.div>
 
               <Link href="/coach/college/camps?action=create" className="block mt-4">
                 <Button 
@@ -785,8 +844,8 @@ export default function CollegeCoachDashboard() {
                 </Button>
               </Link>
             </Card>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Custom CSS for scrollbar hiding */}
@@ -833,12 +892,12 @@ function MetricCard({ icon, value, label, trend, trendDirection, accentColor, on
           style={{ color: accentColor }}
         >
           {icon}
-        </div>
+        </motion.div>
         <div className={`flex items-center gap-0.5 text-xs font-medium ${isPositive ? 'text-emerald-500' : 'text-red-500'}`}>
           {isPositive ? <TrendingUp className="w-3.5 h-3.5" strokeWidth={2} /> : <TrendingDown className="w-3.5 h-3.5" strokeWidth={2} />}
           {trend}%
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
       
       <p className="text-3xl font-bold text-foreground tabular-nums tracking-tight">{animatedValue.toLocaleString()}</p>
       <p className="text-[11px] text-muted-foreground mt-1.5 uppercase tracking-wider font-medium">{label}</p>
@@ -882,7 +941,7 @@ function ActivityRow({ activity, isWatchlisted, onView, onToggleWatchlist }: Act
           <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
           <span>{activity.time}</span>
         </p>
-      </div>
+      </motion.div>
 
       {/* Actions */}
       <div className="flex items-center gap-1 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" onClick={(e) => e.stopPropagation()}>
@@ -905,8 +964,8 @@ function ActivityRow({ activity, isWatchlisted, onView, onToggleWatchlist }: Act
             <Star className={`w-4 h-4 ${isWatchlisted ? 'fill-current' : ''}`} />
           </Button>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -923,18 +982,18 @@ function PipelineCard({ icon, label, count, avatars, accentColor, onClick }: Pip
   return (
     <button
       onClick={onClick}
-      className="group relative rounded-xl bg-muted/30 hover:bg-muted/50 border border-transparent hover:border-border/50 p-4 text-left transition-all duration-200 hover:shadow-md"
+      className="group relative rounded-xl bg-muted/30 hover:bg-muted/50 border border-transparent hover:border-border/50 p-4 text-left transition-all duration-200 hover:shadow-xl"
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-2">
         <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">{label}</span>
         <div 
-          className="p-1.5 rounded-lg bg-white/60 dark:bg-white/10 shadow-sm flex items-center justify-center transition-transform group-hover:scale-105"
+          className="p-1.5 rounded-2xl bg-white/60 dark:bg-white/10 shadow-sm flex items-center justify-center transition-transform group-hover:scale-105"
           style={{ color: accentColor }}
         >
           {icon}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Count */}
       <p className="text-2xl font-bold text-foreground tracking-tight">{count}</p>
@@ -951,11 +1010,15 @@ function PipelineCard({ icon, label, count, avatars, accentColor, onClick }: Pip
             </Avatar>
           ))}
           {avatars.length > 4 && (
-            <div className="h-6 w-6 rounded-full bg-muted ring-2 ring-card flex items-center justify-center text-[10px] text-muted-foreground font-medium">
+            <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="h-6 w-6 rounded-full bg-muted ring-2 ring-card flex items-center justify-center text-[10px] text-muted-foreground font-medium">
               +{avatars.length - 4}
-            </div>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       )}
     </button>
   );
@@ -991,7 +1054,7 @@ function CampCard({ camp, programColor, onClick }: CampCardProps) {
         <Badge className={`absolute top-2 left-2 text-[10px] px-2 py-0.5 ${status.bg} ${status.text} border-0`}>
           {status.label}
         </Badge>
-      </div>
+      </motion.div>
 
       {/* Content */}
       <div className="p-3">
@@ -1007,14 +1070,14 @@ function CampCard({ camp, programColor, onClick }: CampCardProps) {
             <MapPin className="w-3 h-3" />
             {camp.location.split(',')[0]}
           </span>
-        </div>
+        </motion.div>
 
         {/* Capacity Bar */}
         <div className="mt-3">
           <div className="flex items-center justify-between text-[10px] mb-1">
             <span className="text-muted-foreground">Capacity</span>
             <span className="font-medium text-foreground">{camp.attending}/{camp.capacity}</span>
-          </div>
+          </motion.div>
           <div className="h-1.5 bg-muted rounded-full overflow-hidden">
             <div 
               className="h-full rounded-full transition-all"
@@ -1023,19 +1086,19 @@ function CampCard({ camp, programColor, onClick }: CampCardProps) {
                 background: fillPercent > 90 ? '#F59E0B' : programColor 
               }}
             />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Stats Row */}
         <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/30">
           <div className="text-center">
             <p className="text-sm font-semibold" style={{ color: programColor }}>{camp.attending}</p>
             <p className="text-[9px] text-muted-foreground uppercase">Attending</p>
-          </div>
+          </motion.div>
           <div className="text-center">
             <p className="text-sm font-semibold text-muted-foreground">{camp.interested}</p>
             <p className="text-[9px] text-muted-foreground uppercase">Interested</p>
-          </div>
+          </motion.div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground">
@@ -1057,8 +1120,8 @@ function CampCard({ camp, programColor, onClick }: CampCardProps) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }

@@ -168,7 +168,7 @@ export function RecruitingPipeline({ entries, onStatusChange, filters }: Recruit
                   entriesForStatus.map(entry => (
                     <div
                       key={entry.id}
-                      className="p-2 rounded-lg bg-slate-900/50 border border-white/5 hover:border-blue-500/30 transition-colors"
+                      className="p-2 rounded-2xl bg-slate-900/50 border border-white/5 hover:border-blue-500/30 transition-colors"
                     >
                       <PlayerListItem
                         player={entry.player}

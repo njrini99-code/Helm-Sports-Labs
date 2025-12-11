@@ -25,6 +25,7 @@ export function HsNewConversationModal({
   orgId: string;
   coachProfileId: string;
 }) {
+  const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState(defaultTitle || '');
   const [participantIds, setParticipantIds] = useState<string[]>(defaultParticipantProfileIds || []);
   const [conversationType, setConversationType] = useState<ConversationType>(type);

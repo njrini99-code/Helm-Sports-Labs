@@ -396,7 +396,7 @@ export default function PublicPlayerProfilePage() {
                 {/* Quick Stats */}
                 <div className="flex flex-wrap gap-4 text-slate-300 mb-4">
                   {player.primary_position && (
-                    <span className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
+                    <span className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-white/5 border border-white/10">
                       <Target className="w-4 h-4 text-[#00C27A]" />
                       <span className="font-medium">{player.primary_position}</span>
                       {player.secondary_position && (
@@ -405,13 +405,13 @@ export default function PublicPlayerProfilePage() {
                     </span>
                   )}
                   {player.grad_year && (
-                    <span className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
+                    <span className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-white/5 border border-white/10">
                       <Calendar className="w-4 h-4 text-blue-400" />
                       <span className="font-medium">Class of {player.grad_year}</span>
                     </span>
                   )}
                   {height && (
-                    <span className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
+                    <span className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-white/5 border border-white/10">
                       <Ruler className="w-4 h-4 text-purple-400" />
                       <span className="font-medium">
                         {height}
@@ -420,7 +420,7 @@ export default function PublicPlayerProfilePage() {
                     </span>
                   )}
                   {player.throws && player.bats && (
-                    <span className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
+                    <span className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-white/5 border border-white/10">
                       <BarChart3 className="w-4 h-4 text-amber-400" />
                       <span className="font-medium">{player.throws}/{player.bats}</span>
                     </span>
@@ -650,7 +650,7 @@ export default function PublicPlayerProfilePage() {
                           href={video.video_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-[#00C27A] text-white rounded-lg hover:bg-[#00d889] transition-colors"
+                          className="flex items-center gap-2 px-4 py-2 bg-[#00C27A] text-white rounded-2xl hover:bg-[#00d889] transition-colors"
                         >
                           <ExternalLink className="w-4 h-4" />
                           Watch
@@ -690,7 +690,7 @@ export default function PublicPlayerProfilePage() {
                     {achievements.map((achievement) => (
                       <div
                         key={achievement.id}
-                        className="flex items-start gap-4 p-4 rounded-lg bg-white/5 border border-white/5 hover:border-[#00C27A]/30 transition-colors"
+                        className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-[#00C27A]/30 transition-colors"
                       >
                         <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00C27A]/20 flex items-center justify-center">
                           <Award className="w-5 h-5 text-[#00C27A]" />

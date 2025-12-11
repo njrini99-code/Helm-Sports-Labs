@@ -80,7 +80,7 @@ export function SkeletonText({
 export function SkeletonCard({ className }: { className?: string }) {
   return (
     <div className={cn('p-4 rounded-xl bg-white/5 border border-white/10 space-y-4', className)}>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <Skeleton variant="circular" width={40} height={40} />
         <div className="flex-1 space-y-2">
           <Skeleton height="1rem" className="w-1/3" />
@@ -105,7 +105,7 @@ export function SkeletonTable({
   return (
     <div className={cn('space-y-2', className)}>
       {/* Header */}
-      <div className="flex gap-4 p-3 bg-white/5 rounded-lg">
+      <div className="flex gap-4 p-3 bg-white/5 rounded-2xl">
         {Array.from({ length: cols }).map((_, i) => (
           <Skeleton key={i} height="1rem" className="flex-1" />
         ))}
@@ -127,14 +127,14 @@ export function DashboardSkeleton({ className }: { className?: string }) {
   return (
     <div className={cn('p-6 space-y-6', className)}>
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div className="space-y-2">
           <Skeleton height="2rem" className="w-64" />
           <Skeleton height="1rem" className="w-40" />
         </div>
         <div className="flex gap-2">
-          <Skeleton width={40} height={40} className="rounded-lg" />
-          <Skeleton width={128} height={40} className="rounded-lg" />
+          <Skeleton width={40} height={40} className="rounded-2xl" />
+          <Skeleton width={128} height={40} className="rounded-2xl" />
         </div>
       </div>
 
@@ -148,9 +148,9 @@ export function DashboardSkeleton({ className }: { className?: string }) {
               animationDelay: `${i * 50}ms`,
             }}
           >
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <Skeleton height="1rem" className="w-24" />
-              <Skeleton width={32} height={32} className="rounded-lg" />
+              <Skeleton width={32} height={32} className="rounded-2xl" />
             </div>
             <Skeleton height="2rem" className="w-20" />
             <Skeleton height="0.75rem" className="w-16" />
@@ -162,13 +162,13 @@ export function DashboardSkeleton({ className }: { className?: string }) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10 space-y-4">
           <Skeleton height="1.5rem" className="w-40" />
-          <Skeleton height="256px" className="w-full rounded-lg" />
+          <Skeleton height="256px" className="w-full rounded-2xl" />
         </div>
         <div className="space-y-4">
           <div className="p-5 rounded-xl bg-white/5 border border-white/10 space-y-3">
             <Skeleton height="1.25rem" className="w-32" />
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="flex items-center gap-3">
+              <div key={i} className="flex items-center gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <Skeleton variant="circular" width={32} height={32} />
                 <div className="flex-1 space-y-1">
                   <Skeleton height="1rem" className="w-full" />

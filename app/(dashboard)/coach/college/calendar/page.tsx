@@ -230,7 +230,7 @@ export default function CollegeCoachCalendarPage() {
           <div className="flex items-center gap-2">
             {/* View Toggle */}
             <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as ViewMode)}>
-              <TabsList className="h-8 bg-white border border-slate-200 p-0.5">
+              <TabsList className="h-8 bg-white/10 backdrop-blur-md border border-white/20 border border-slate-200 p-0.5">
                 <TabsTrigger 
                   value="month" 
                   className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-slate-100 data-[state=active]:shadow-none"
@@ -417,7 +417,7 @@ const CustomToolbar = ({ label, onNavigate, onView }: any) => {
       </div>
       <button
         onClick={() => onNavigate('TODAY')}
-        className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition-colors"
+        className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl transition-colors"
       >
         Today
       </button>

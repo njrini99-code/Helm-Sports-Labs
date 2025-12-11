@@ -16,12 +16,14 @@ interface AddAchievementModalProps {
 }
 
 export function AddAchievementModal({ playerId, onSuccess, trigger }: AddAchievementModalProps) {
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
     achievement_text: '',
     achievement_date: '',
-  });
+  })
+          )};
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +43,8 @@ export function AddAchievementModal({ playerId, onSuccess, trigger }: AddAchieve
           player_id: playerId,
           achievement_text: formData.achievement_text,
           achievement_date: formData.achievement_date || null,
-        });
+        })
+          )};
 
       if (error) {
         toast.error('Failed to add achievement');
@@ -51,7 +54,8 @@ export function AddAchievementModal({ playerId, onSuccess, trigger }: AddAchieve
 
       toast.success('Achievement added!');
       setOpen(false);
-      setFormData({ achievement_text: '', achievement_date: '' });
+      setFormData({ achievement_text: '', achievement_date: '' })
+          )};
       onSuccess?.();
     } catch (error) {
       console.error('Error adding achievement:', error);
@@ -96,7 +100,8 @@ export function AddAchievementModal({ playerId, onSuccess, trigger }: AddAchieve
             <Label>Achievement *</Label>
             <Input
               value={formData.achievement_text}
-              onChange={(e) => setFormData({ ...formData, achievement_text: e.target.value })}
+              onChange={(e) => setFormData({ ...formData, achievement_text: e.target.value })
+          )}}
               placeholder="e.g., All-Conference Team 2024"
             />
           </div>
@@ -104,11 +109,19 @@ export function AddAchievementModal({ playerId, onSuccess, trigger }: AddAchieve
           <div className="space-y-2">
             <Label className="text-sm text-slate-500">Quick Add</Label>
             <div className="flex flex-wrap gap-2">
-              {quickAddAchievements.map((achievement) => (
+              {{quickAddAchievements.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            quickAddAchievements.map((achievement) => (
                 <button
                   key={achievement}
                   type="button"
-                  onClick={() => setFormData({ ...formData, achievement_text: achievement })}
+                  onClick={() => setFormData({ ...formData, achievement_text: achievement })
+          )}}
                   className="px-2 py-1 text-xs rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
                 >
                   {achievement}
@@ -122,7 +135,8 @@ export function AddAchievementModal({ playerId, onSuccess, trigger }: AddAchieve
             <Input
               type="date"
               value={formData.achievement_date}
-              onChange={(e) => setFormData({ ...formData, achievement_date: e.target.value })}
+              onChange={(e) => setFormData({ ...formData, achievement_date: e.target.value })
+          )}}
             />
           </div>
           

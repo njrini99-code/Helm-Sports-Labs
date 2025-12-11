@@ -96,7 +96,7 @@ export function ScoutCardShell({
         aria-modal="true"
       >
         {/* Header */}
-        <div className="flex-shrink-0 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
+        <div className="flex-shrink-0 border-b border-slate-200 dark:border-slate-700 bg-white/10 backdrop-blur-md border border-white/20 dark:bg-slate-900">
           <div className="flex items-start justify-between p-4 gap-3">
             {/* Header Content */}
             <div className="flex-1 min-w-0">
@@ -194,7 +194,7 @@ export function ScoutCardSection({
 
 export function ScoutCardActions({ children }: { children: ReactNode }) {
   return (
-    <div className="flex flex-wrap items-center gap-2 px-4 py-3 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+    <div className="flex flex-wrap items-center gap-2 px-4 py-3 bg-white/10 backdrop-blur-md border border-white/20 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
       {children}
     </div>
   );
@@ -214,7 +214,7 @@ export function ScoutCardMetricTile({
   icon?: ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+    <div className="flex flex-col items-center p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
       {icon && <div className="text-emerald-500 mb-1">{icon}</div>}
       <div className="flex items-baseline gap-1">
         <span className="text-xl font-bold text-slate-800 dark:text-white">{value}</span>

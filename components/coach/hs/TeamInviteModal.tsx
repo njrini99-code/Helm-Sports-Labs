@@ -181,7 +181,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
         <div className="space-y-6">
           {/* Generate New Invite */}
           {!newInvite && (
-            <div className="space-y-4 p-4 border rounded-lg bg-slate-50">
+            <div className="space-y-4 p-4 border rounded-2xl bg-slate-50">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="expires">Expires in (days)</Label>
@@ -229,8 +229,8 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
 
           {/* New Invite Display */}
           {newInvite && (
-            <div className="space-y-4 p-4 border-2 border-blue-200 rounded-lg bg-blue-50">
-              <div className="flex items-center justify-between">
+            <div className="space-y-4 p-4 border-2 border-blue-200 rounded-2xl bg-blue-50">
+              <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <h3 className="font-semibold text-blue-900">New Invitation Link</h3>
                 <Button
                   variant="ghost"
@@ -289,7 +289,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                 </div>
 
                 {qrCodeUrl && (
-                  <div className="flex justify-center p-4 bg-white rounded border">
+                  <div className="flex justify-center p-4 bg-white/10 backdrop-blur-md border border-white/20 rounded border">
                     <img src={qrCodeUrl} alt="QR Code" className="w-48 h-48" />
                   </div>
                 )}
@@ -313,10 +313,10 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                 {invitations.map((inv) => (
                   <div
                     key={inv.id}
-                    className="flex items-center justify-between p-3 border rounded-lg"
+                    className="flex items-center justify-between p-3 border rounded-2xl hover:-translate-y-1 hover:shadow-xl transition-all duration-200"
                   >
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
+                      <div className="flex items-center gap-2 mb-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                         <code className="text-xs font-mono bg-slate-100 px-2 py-1 rounded">
                           {inv.invite_code}
                         </code>
@@ -327,7 +327,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                             </Badge>
                           )}
                       </div>
-                      <div className="flex items-center gap-4 text-xs text-slate-500">
+                      <div className="flex items-center gap-4 text-xs text-slate-500 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                         <span>
                           Uses: {inv.current_uses}
                           {inv.max_uses ? ` / ${inv.max_uses}` : ' / ∞'}

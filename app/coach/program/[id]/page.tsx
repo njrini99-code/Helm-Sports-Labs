@@ -121,7 +121,8 @@ export default function ProgramPage() {
             email: (programData.users as any).email,
             phone: (programData.users as any).phone
           }] : []
-        });
+        })
+          )};
       } catch (err) {
         console.error('Error loading program:', err);
         setError('Failed to load program information');
@@ -166,7 +167,7 @@ export default function ProgramPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white/10 backdrop-blur-md border border-white/20 border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-6">
           <div className="flex items-center gap-4">
             <Button
@@ -340,7 +341,14 @@ export default function ProgramPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {program.coaches.map((coach, index) => (
+                  {program.{coaches.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            coaches.map((coach, index) => (
                     <div key={index} className="flex items-center gap-3">
                       <Avatar className="w-10 h-10">
                         <AvatarFallback>

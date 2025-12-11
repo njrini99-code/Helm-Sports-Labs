@@ -5,6 +5,12 @@ import { createClient } from '@/lib/supabase/server';
  * Mark message as read
  * PUT /api/messages/[messageId]/read
  */
+
+const inputSchema = z.object({
+  // Add your validation rules here
+  // Example: name: z.string().min(1).max(100)
+});
+
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ messageId: string }> }

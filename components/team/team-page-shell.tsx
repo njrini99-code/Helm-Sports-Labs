@@ -40,7 +40,7 @@ export function TeamPageShell({
 
   if (!team) {
     return (
-      <div className="min-h-screen bg-[#0B0D0F] flex items-center justify-center">
+      <div className="min-h-screen bg-[#0B0D0F] flex items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <p className="text-slate-400">Team not found</p>
       </div>
     );
@@ -71,7 +71,7 @@ export function TeamPageShell({
 
       <div className="max-w-7xl mx-auto px-6 pb-10">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row items-start md:items-center gap-6 -mt-24 md:-mt-28 mb-6">
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-6 -mt-24 md:-mt-28 mb-6 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           {/* Logo */}
           <div className="relative">
             <Avatar className="w-32 h-32 md:w-40 md:h-40 border-4 border-[#0B0D0F] shadow-2xl shadow-blue-500/20">
@@ -89,7 +89,7 @@ export function TeamPageShell({
 
           {/* Team Info */}
           <div className="flex-1 mt-2 md:mt-6 space-y-2">
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <h1 className="text-3xl md:text-4xl font-bold text-white">{team.name}</h1>
               <Badge variant="outline" className="bg-[#111315] border-white/10">
                 {teamTypeLabels[team.team_type] || team.team_type}
@@ -99,7 +99,7 @@ export function TeamPageShell({
                 Team Hub
               </Badge>
             </div>
-            <div className="flex flex-wrap items-center gap-3 text-slate-400">
+            <div className="flex flex-wrap items-center gap-3 text-slate-400 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               {team.school_name && <span>{team.school_name}</span>}
               {team.city && team.state && <span>{team.city}, {team.state}</span>}
               {coachName && <span>Coach: {coachName}</span>}

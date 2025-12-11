@@ -245,9 +245,10 @@ function LoadingSkeleton({ rows = 3, showAvatar = false, showImage = false }: Lo
         </div>
       )}
       {showImage && (
-        <div className="h-40 skeleton-shimmer rounded-lg" />
+        <div className="h-40 skeleton-shimmer rounded-2xl" />
       )}
-      {Array.from({ length: rows }).map((_, i) => (
+      {Array.from({ length: rows })
+          )}.map((_, i) => (
         <div 
           key={i} 
           className="h-4 skeleton-shimmer rounded"
@@ -297,7 +298,7 @@ function ErrorState({ message = 'Something went wrong', onRetry }: ErrorStatePro
       {onRetry && (
         <button
           onClick={onRetry}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-all duration-200 retry-button"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-all duration-200 retry-button"
         >
           <RefreshCw className="w-4 h-4" />
           Try Again
@@ -472,7 +473,14 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
         {...props}
       >
         {/* Ripple Effects */}
-        {ripples.map((ripple) => (
+        {{ripples.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            ripples.map((ripple) => (
           <span
             key={ripple.id}
             className="ripple"
@@ -767,7 +775,7 @@ export function GlassCardHeader({
       <div className={cn('flex items-center justify-between gap-4', className)}>
         <div className="flex items-center gap-3">
           {icon && (
-            <div className="p-2 rounded-lg bg-white/10 shrink-0">
+            <div className="p-2 rounded-2xl bg-white/10 shrink-0">
               {icon}
             </div>
           )}
@@ -902,7 +910,7 @@ export function GlassStatCard({
           )}
         </div>
         {icon && (
-          <div className="p-2 rounded-lg bg-white/10">
+          <div className="p-2 rounded-2xl bg-white/10">
             {icon}
           </div>
         )}

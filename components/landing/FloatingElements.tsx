@@ -12,7 +12,14 @@ const floatingElements = [
 export function FloatingElements() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {floatingElements.map((element, i) => (
+      {{floatingElements.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            floatingElements.map((element, i) => (
         <motion.div
           key={i}
           className="absolute w-2 h-2 rounded-full bg-emerald-400/20 blur-sm"

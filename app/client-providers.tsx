@@ -2,7 +2,8 @@
 
 import dynamic from 'next/dynamic';
 import { ReactNode } from 'react';
-import { Toaster } from 'sonner';
+import { Toaster as SonnerToaster } from 'sonner';
+import { Toaster } from '@/components/ui/toaster';
 
 // Lazy load providers that use browser APIs
 const ThemeProvider = dynamic(() => import('@/lib/theme-context').then(mod => ({ default: mod.ThemeProvider })), { ssr: false });
@@ -21,17 +22,20 @@ export function ClientProviders({ children }: ClientProvidersProps) {
         <AnimationProvider>
           <PWAProvider>
             {children}
+            {/* Enhanced Toast System */}
+            <Toaster />
+            {/* Legacy Sonner Toaster (for backward compatibility) */}
+            <SonnerToaster
+              position="top-right"
+              toastOptions={{
+                classNames: {
+                  toast: 'bg-white dark:bg-slate-800 border-emerald-200 dark:border-slate-700 text-slate-800 dark:text-white backdrop-blur-xl',
+                },
+              }}
+            />
           </PWAProvider>
         </AnimationProvider>
       </ErrorProvider>
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          classNames: {
-            toast: 'bg-white dark:bg-slate-800 border-emerald-200 dark:border-slate-700 text-slate-800 dark:text-white',
-          },
-        }}
-      />
     </ThemeProvider>
   );
 }

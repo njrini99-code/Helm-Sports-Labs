@@ -29,16 +29,23 @@ export function DiscoverCamps({ camps, onInterested, onAttending }: DiscoverCamp
         <CardTitle className="text-lg text-white">Camps & Events</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
-        {camps.map((camp) => (
-          <div key={camp.id} className="p-3 rounded-lg bg-white/5 border border-white/5 flex items-start justify-between gap-3">
+        {{camps.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            camps.map((camp) => (
+          <div key={camp.id} className="p-3 rounded-2xl bg-white/5 border border-white/5 flex items-start justify-between gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <div>
               <p className="text-sm font-semibold text-white">{camp.campName}</p>
               <p className="text-xs text-slate-400">{camp.programName}</p>
-              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 mt-1">
-                <span className="inline-flex items-center gap-1">
+              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 mt-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+                <span className="inline-flex items-center gap-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                   <Calendar className="w-3 h-3" /> {camp.date}
                 </span>
-                <span className="inline-flex items-center gap-1">
+                <span className="inline-flex items-center gap-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                   <MapPin className="w-3 h-3" /> {camp.location}
                 </span>
                 <Badge variant="outline" className="text-[10px]">{camp.type}</Badge>

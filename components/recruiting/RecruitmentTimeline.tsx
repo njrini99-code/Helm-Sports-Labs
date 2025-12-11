@@ -89,16 +89,16 @@ export function RecruitmentTimeline({
   };
 
   if (loading) {
-    return <div className="p-4">Loading timeline...</div>;
+    return <div className="p-4">Loading timeline...</motion.div>;
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div>
           <h3 className="text-lg font-semibold">Recruitment Timeline</h3>
           <p className="text-sm text-muted-foreground">Track your recruiting journey</p>
-        </div>
+        </motion.div>
         <Button
           size="sm"
           onClick={() => setShowAddForm(!showAddForm)}
@@ -106,10 +106,14 @@ export function RecruitmentTimeline({
           <Plus className="w-4 h-4 mr-2" />
           Add Event
         </Button>
-      </div>
+      </motion.div>
 
       {showAddForm && (
-        <div className="p-4 border rounded-lg bg-card">
+        <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="p-4 border rounded-2xl bg-card hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <h4 className="font-medium mb-3">Quick Add Event</h4>
           <div className="grid grid-cols-2 gap-2">
             {EVENT_TEMPLATES.map(template => {
@@ -133,8 +137,8 @@ export function RecruitmentTimeline({
                 </Button>
               );
             })}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
 
       <div className="relative">
@@ -152,20 +156,20 @@ export function RecruitmentTimeline({
                   event.createdBy === 'coach' ? "border-blue-500" : "border-emerald-500"
                 )}>
                   <Icon className="w-4 h-4" />
-                </div>
+                </motion.div>
 
                 {/* Event content */}
                 <div className="flex-1 pb-6">
-                  <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center justify-between mb-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                     <h4 className="font-medium">{event.title}</h4>
                     <span className="text-xs text-muted-foreground">
                       {format(event.date, 'MMM d, yyyy')}
                     </span>
-                  </div>
+                  </motion.div>
                   {event.description && (
                     <p className="text-sm text-muted-foreground mb-2">{event.description}</p>
                   )}
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                     <span className={cn(
                       "text-xs px-2 py-0.5 rounded-full",
                       event.createdBy === 'coach' 
@@ -179,21 +183,21 @@ export function RecruitmentTimeline({
                         {event.attachments.length} attachment(s)
                       </span>
                     )}
-                  </div>
-                </div>
-              </div>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {events.length === 0 && (
           <div className="p-8 text-center text-muted-foreground">
             <Calendar className="w-12 h-12 mx-auto mb-2 opacity-50" />
             <p className="text-sm">No timeline events yet.</p>
             <p className="text-xs mt-1">Add events to track your recruiting progress.</p>
-          </div>
+          </motion.div>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

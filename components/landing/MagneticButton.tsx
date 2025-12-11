@@ -20,6 +20,7 @@ export function MagneticButton({
   variant = 'primary'
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [loading, setLoading] = useState(true);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {

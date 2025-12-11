@@ -205,7 +205,7 @@ export function SkeletonCard({ variant = 'dark', showImage = false, showAvatar =
       variant === 'dark' ? 'bg-white/5 border-white/10' : 'bg-slate-100 border-slate-200'
     )}>
       {showImage && (
-        <Skeleton variant={variant} className="h-40 w-full rounded-lg mb-4" />
+        <Skeleton variant={variant} className="h-40 w-full rounded-2xl mb-4" />
       )}
       {showAvatar && (
         <div className="flex items-center gap-3 mb-4">
@@ -218,8 +218,8 @@ export function SkeletonCard({ variant = 'dark', showImage = false, showAvatar =
       )}
       <SkeletonText variant={variant} lines={3} />
       <div className="flex gap-2 mt-4">
-        <Skeleton variant={variant} className="h-8 w-20 rounded-lg" />
-        <Skeleton variant={variant} className="h-8 w-20 rounded-lg" />
+        <Skeleton variant={variant} className="h-8 w-20 rounded-2xl" />
+        <Skeleton variant={variant} className="h-8 w-20 rounded-2xl" />
       </div>
     </div>
   );
@@ -260,7 +260,7 @@ export function SkeletonList({ items = 5, variant = 'dark', showIcon = true }: S
     <div className="space-y-3">
       {Array.from({ length: items }).map((_, i) => (
         <div key={i} className="flex items-center gap-3">
-          {showIcon && <Skeleton variant={variant} className="w-10 h-10 rounded-lg shrink-0" />}
+          {showIcon && <Skeleton variant={variant} className="w-10 h-10 rounded-2xl shrink-0" />}
           <div className="flex-1">
             <Skeleton variant={variant} className="h-4 w-3/4 mb-2" />
             <Skeleton variant={variant} className="h-3 w-1/2" />
@@ -491,7 +491,7 @@ export function FilterLoading({ loading, children, className }: FilterLoadingPro
       {children}
       {loading && (
         <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm rounded-xl flex items-center justify-center z-10 fade-in-up">
-          <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-white/10 backdrop-blur-md">
+          <div className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/10 backdrop-blur-md">
             <div className="h-4 w-4 bg-emerald-400/20 rounded animate-pulse" />
             <span className="text-sm text-white">Applying filters...</span>
           </div>

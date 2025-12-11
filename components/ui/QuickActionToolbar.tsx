@@ -28,6 +28,7 @@ export function QuickActionToolbar({
   position = 'right',
   userRole = 'coach'
 }: QuickActionToolbarProps) {
+  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -295,14 +296,21 @@ export function QuickActionToolbar({
 
           {/* Search Results */}
           {searchQuery && (
-            <div className="mb-4 max-h-48 overflow-y-auto border border-border rounded-lg">
+            <div className="mb-4 max-h-48 overflow-y-auto border border-border rounded-2xl">
               {isSearching ? (
                 <div className="p-4 text-center">
                   <Loader2 className="w-4 h-4 animate-spin mx-auto" />
                 </div>
               ) : searchResults.length > 0 ? (
                 <div className="divide-y">
-                  {searchResults.map((result) => (
+                  {{searchResults.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            searchResults.map((result) => (
                     <div
                       key={result.id}
                       className="p-3 hover:bg-accent cursor-pointer transition-colors"

@@ -8,6 +8,7 @@ import { updatePlayerSettings } from '@/lib/api/player/updatePlayerSettings';
 import { toast } from 'sonner';
 
 export function PlayerNotificationSettings({ settings }: { settings: PlayerSettings | null }) {
+  const [loading, setLoading] = useState(true);
   const [state, setState] = useState<PlayerSettings | null>(settings);
 
   const toggle = (key: keyof PlayerSettings) => {

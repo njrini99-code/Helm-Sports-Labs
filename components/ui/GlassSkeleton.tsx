@@ -69,11 +69,11 @@ export function CardSkeleton({
       )}
     >
       {showImage && (
-        <Skeleton variant={variant} className="h-40 w-full rounded-lg" />
+        <Skeleton variant={variant} className="h-40 w-full rounded-2xl" />
       )}
       
       {showAvatar && (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <Skeleton variant={variant} className="h-10 w-10 rounded-full" />
           <div className="space-y-2 flex-1">
             <Skeleton variant={variant} className="h-4 w-1/3" />
@@ -120,9 +120,9 @@ export function StatsCardSkeleton({
         className
       )}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <Skeleton variant={variant} className="h-4 w-24" />
-        <Skeleton variant={variant} className="h-8 w-8 rounded-lg" />
+        <Skeleton variant={variant} className="h-8 w-8 rounded-2xl" />
       </div>
       <Skeleton variant={variant} className="h-8 w-20" />
       <Skeleton variant={variant} className="h-3 w-16" />
@@ -152,7 +152,7 @@ export function ProfileCardSkeleton({
         className
       )}
     >
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <Skeleton variant={variant} className="h-20 w-20 rounded-full" />
         <div className="space-y-2 text-center w-full">
           <Skeleton variant={variant} className="h-5 w-32 mx-auto" />
@@ -160,8 +160,8 @@ export function ProfileCardSkeleton({
         </div>
       </div>
       <div className="flex justify-center gap-4 pt-2">
-        <Skeleton variant={variant} className="h-9 w-24 rounded-lg" />
-        <Skeleton variant={variant} className="h-9 w-24 rounded-lg" />
+        <Skeleton variant={variant} className="h-9 w-24 rounded-2xl" />
+        <Skeleton variant={variant} className="h-9 w-24 rounded-2xl" />
       </div>
     </div>
   );
@@ -209,8 +209,8 @@ export function ListItemSkeleton({
       
       {showActions && (
         <div className="flex gap-2">
-          <Skeleton variant={variant} className="h-8 w-8 rounded-lg" />
-          <Skeleton variant={variant} className="h-8 w-8 rounded-lg" />
+          <Skeleton variant={variant} className="h-8 w-8 rounded-2xl" />
+          <Skeleton variant={variant} className="h-8 w-8 rounded-2xl" />
         </div>
       )}
     </div>
@@ -386,7 +386,7 @@ export function PlayerCardSkeleton({
         className
       )}
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <Skeleton variant={variant} className="h-16 w-16 rounded-full" />
         <div className="flex-1 space-y-2">
           <Skeleton variant={variant} className="h-5 w-32" />
@@ -405,8 +405,8 @@ export function PlayerCardSkeleton({
         ))}
       </div>
       <div className="flex gap-2">
-        <Skeleton variant={variant} className="h-9 flex-1 rounded-lg" />
-        <Skeleton variant={variant} className="h-9 w-9 rounded-lg" />
+        <Skeleton variant={variant} className="h-9 flex-1 rounded-2xl" />
+        <Skeleton variant={variant} className="h-9 w-9 rounded-2xl" />
       </div>
     </div>
   );
@@ -436,13 +436,13 @@ export function ChartSkeleton({
         className
       )}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <Skeleton variant={variant} className="h-5 w-32" />
-        <Skeleton variant={variant} className="h-8 w-24 rounded-lg" />
+        <Skeleton variant={variant} className="h-8 w-24 rounded-2xl" />
       </div>
       
       {type === 'bar' && (
-        <div className="flex items-end justify-around h-48 gap-2 pt-4">
+        <div className="flex items-end justify-around h-48 gap-2 pt-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           {Array.from({ length: 7 }).map((_, i) => (
             <Skeleton
               key={i}
@@ -455,20 +455,20 @@ export function ChartSkeleton({
       )}
       
       {type === 'line' && (
-        <div className="h-48 flex items-center justify-center">
-          <Skeleton variant={variant} className="h-full w-full rounded-lg" />
+        <div className="h-48 flex items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+          <Skeleton variant={variant} className="h-full w-full rounded-2xl" />
         </div>
       )}
       
       {type === 'pie' && (
-        <div className="h-48 flex items-center justify-center">
+        <div className="h-48 flex items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <Skeleton variant={variant} className="h-40 w-40 rounded-full" />
         </div>
       )}
       
       <div className="flex justify-center gap-4">
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="flex items-center gap-2">
+          <div key={i} className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <Skeleton variant={variant} className="h-3 w-3 rounded-full" />
             <Skeleton variant={variant} className="h-3 w-16" />
           </div>
@@ -508,14 +508,14 @@ export function FormSkeleton({
         {Array.from({ length: fields }).map((_, i) => (
           <div key={i} className="space-y-2">
             <Skeleton variant={variant} className="h-4 w-24" />
-            <Skeleton variant={variant} className="h-10 w-full rounded-lg" />
+            <Skeleton variant={variant} className="h-10 w-full rounded-2xl" />
           </div>
         ))}
       </div>
       
       <div className="flex gap-3 pt-2">
-        <Skeleton variant={variant} className="h-10 w-24 rounded-lg" />
-        <Skeleton variant={variant} className="h-10 w-20 rounded-lg" />
+        <Skeleton variant={variant} className="h-10 w-24 rounded-2xl" />
+        <Skeleton variant={variant} className="h-10 w-20 rounded-2xl" />
       </div>
     </div>
   );
@@ -531,14 +531,14 @@ export function PageHeaderSkeleton({
 }) {
   return (
     <div className={cn('space-y-4', className)}>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div className="space-y-2">
           <Skeleton variant={variant} className="h-8 w-48" />
           <Skeleton variant={variant} className="h-4 w-64" />
         </div>
         <div className="flex gap-2">
-          <Skeleton variant={variant} className="h-10 w-10 rounded-lg" />
-          <Skeleton variant={variant} className="h-10 w-32 rounded-lg" />
+          <Skeleton variant={variant} className="h-10 w-10 rounded-2xl" />
+          <Skeleton variant={variant} className="h-10 w-32 rounded-2xl" />
         </div>
       </div>
     </div>

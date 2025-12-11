@@ -352,20 +352,36 @@ Time: ${new Date().toISOString()}
         `}</style>
       </head>
       <body>
-        <div className="container">
-          <div className="card">
+        <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="container">
+          <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="card">
             <div className="header">
-              <div className="icon-container">
+              <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="icon-container">
                 <AlertOctagon className="icon" />
-              </div>
+              </motion.div>
               <h1>Critical Error</h1>
               <p className="subtitle">
                 The application encountered a critical error and couldn&apos;t recover.
                 Please try reloading the page.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="error-box">
+            <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="error-box">
               <div className="error-header">
                 <Bug className="error-icon" />
                 <div className="error-content">
@@ -374,16 +390,16 @@ Time: ${new Date().toISOString()}
                   {error.digest && (
                     <p className="error-digest">ID: {error.digest}</p>
                   )}
-                </div>
-                <button onClick={handleCopyError} className="copy-btn" title="Copy error">
+                </motion.div>
+                <button onClick={handleCopyError} className="copy-btn hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-200" title="Copy error">
                   {copied ? (
                     <Check className="copy-icon success" />
                   ) : (
                     <Copy className="copy-icon" />
                   )}
                 </button>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {isDev && error.stack && (
               <>
@@ -405,32 +421,32 @@ Time: ${new Date().toISOString()}
                 {showDetails && (
                   <div className="stack-trace">
                     <pre>{error.stack}</pre>
-                  </div>
+                  </motion.div>
                 )}
               </>
             )}
 
             <div className="actions">
-              <button onClick={reset} className="btn btn-primary">
-                <RefreshCw className="btn-icon" />
+              <button onClick={reset} className="btn btn-primary hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-200">
+                <RefreshCw className="btn-icon hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-200" />
                 Try Again
               </button>
-              <div className="btn-grid">
-                <button onClick={handleReload} className="btn btn-secondary">
-                  <RefreshCw className="btn-icon" />
+              <div className="btn-grid hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-200">
+                <button onClick={handleReload} className="btn btn-secondary hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-200">
+                  <RefreshCw className="btn-icon hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-200" />
                   Reload
                 </button>
-                <button onClick={handleGoHome} className="btn btn-secondary">
-                  <Home className="btn-icon" />
+                <button onClick={handleGoHome} className="btn btn-secondary hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-200">
+                  <Home className="btn-icon hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-200" />
                   Home
                 </button>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             <div className="footer">
               {new Date().toLocaleTimeString()} · {error.digest?.slice(0, 8) || 'GLOBAL-ERR'}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {isDev && (
             <div style={{ textAlign: 'center' }}>
@@ -438,9 +454,9 @@ Time: ${new Date().toISOString()}
                 <span className="dev-dot" />
                 Development Mode
               </span>
-            </div>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       </body>
     </html>
   );

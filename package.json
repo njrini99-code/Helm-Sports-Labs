@@ -14,10 +14,13 @@
     "seed": "node scripts/seed-data.js",
     "test:db": "node scripts/test-db-connection-direct.js",
     "test:supabase": "node scripts/test-supabase-client.js",
-    "migrate": "node scripts/run-migrations.js"
+    "migrate": "node scripts/run-migrations.js",
+    "bug:scan": "node scripts/auto-bug-scanner.js",
+    "bug:scan:once": "node -e \"const scanner = require('./scripts/auto-bug-scanner'); scanner.runScan().then(() => process.exit(0)).catch(err => { console.error(err); process.exit(1); })\""
   },
   "dependencies": {
     "@anthropic-ai/claude-code": "^2.0.61",
+    "@heroicons/react": "^2.2.0",
     "@hookform/resolvers": "^3.9.0",
     "@next/bundle-analyzer": "^16.0.7",
     "@radix-ui/react-accordion": "^1.2.0",

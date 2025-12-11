@@ -531,9 +531,9 @@ function CollegeCard({
     >
       <div className="flex items-start gap-3">
         {/* College Logo */}
-        <Avatar className="w-10 h-10 rounded-lg ring-2 ring-white/50 shadow-md">
-          <AvatarImage src={college.logoUrl} className="rounded-lg" />
-          <AvatarFallback className="rounded-lg bg-gradient-to-br from-slate-600 to-slate-700 text-white text-xs font-bold">
+        <Avatar className="w-10 h-10 rounded-2xl ring-2 ring-white/50 shadow-xl">
+          <AvatarImage src={college.logoUrl} className="rounded-2xl" />
+          <AvatarFallback className="rounded-2xl bg-gradient-to-br from-slate-600 to-slate-700 text-white text-xs font-bold">
             {initials}
           </AvatarFallback>
         </Avatar>

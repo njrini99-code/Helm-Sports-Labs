@@ -13,7 +13,7 @@ export function PlayerEventsFilters({
 }) {
   return (
     <Card className="bg-slate-900/70 border-white/5 p-4 text-white">
-      <div className="flex flex-wrap gap-3 items-center">
+      <div className="flex flex-wrap gap-3 items-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div className="space-y-1">
           <p className="text-[11px] uppercase tracking-wide text-slate-400">Type</p>
           <Select value={value.type} onValueChange={(type) => onChange({ ...value, type: type as EventFilter['type'] })}>

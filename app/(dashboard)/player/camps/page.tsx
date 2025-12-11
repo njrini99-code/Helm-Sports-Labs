@@ -167,7 +167,7 @@ export default function PlayerCampsPage() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input
                 placeholder="Search camps..."
-                className="pl-9 h-9 bg-white border-slate-200"
+                className="pl-9 h-9 bg-white/10 backdrop-blur-md border border-white/20 border-slate-200"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -177,7 +177,7 @@ export default function PlayerCampsPage() {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)}>
-          <TabsList className="h-10 p-1 bg-white border border-slate-200">
+          <TabsList className="h-10 p-1 bg-white/10 backdrop-blur-md border border-white/20 border border-slate-200">
             <TabsTrigger value="discover" className="h-8 px-4 data-[state=active]:bg-emerald-500 data-[state=active]:text-white">
               <Calendar className="w-4 h-4 mr-2" />
               Discover Camps
@@ -276,7 +276,7 @@ function CampCard({ camp, isRegistered, onRegister, onCancel, loading }: CampCar
     .slice(0, 2) || 'CP';
 
   return (
-    <Card className="bg-white border-slate-200 hover:border-emerald-300 hover:shadow-lg transition-all">
+    <Card className="bg-white/10 backdrop-blur-md border border-white/20 border-slate-200 hover:border-emerald-300 hover:shadow-lg transition-all">
       <CardContent className="p-5">
         <div className="flex items-start gap-4">
           {/* Program Logo */}
@@ -412,7 +412,7 @@ function RegistrationCard({ registration, onCancel, loading }: RegistrationCardP
   };
 
   return (
-    <Card className="bg-white border-slate-200">
+    <Card className="bg-white/10 backdrop-blur-md border border-white/20 border-slate-200">
       <CardContent className="p-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">

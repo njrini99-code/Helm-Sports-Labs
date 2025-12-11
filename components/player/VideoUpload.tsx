@@ -532,10 +532,10 @@ export function VideoUpload({
 
       {/* Selected/Uploading/Success State */}
       {status !== 'idle' && selectedFile && (
-        <div className="border border-slate-200 rounded-2xl p-4 bg-white">
+        <div className="border border-slate-200 rounded-2xl p-4 bg-white/10 backdrop-blur-md border border-white/20">
           <div className="flex items-start gap-4">
             {/* Thumbnail Preview */}
-            <div className="relative w-32 h-20 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
+            <div className="relative w-32 h-20 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0">
               {thumbnailUrl ? (
                 <img 
                   src={thumbnailUrl} 
@@ -736,7 +736,7 @@ export function VideoUpload({
 
             {/* File Info */}
             {selectedFile && (
-              <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+              <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-2xl">
                 <FileVideo className="w-5 h-5 text-slate-400" />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-slate-700 truncate">
@@ -796,7 +796,7 @@ export function VideoGallery({ videos, onDelete, onPlay, isEditable = false }: V
       {videos.map((video) => (
         <div
           key={video.id}
-          className="group relative bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-lg transition-all"
+          className="group relative bg-white/10 backdrop-blur-md border border-white/20 border border-slate-200 rounded-xl overflow-hidden hover:shadow-lg transition-all"
         >
           {/* Thumbnail */}
           <div className="relative aspect-video bg-slate-100">

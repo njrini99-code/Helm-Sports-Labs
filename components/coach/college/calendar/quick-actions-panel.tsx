@@ -18,7 +18,7 @@ interface QuickActionsPanelProps {
 
 export function QuickActionsPanel({ onAddEvent, onSyncGoogle }: QuickActionsPanelProps) {
   return (
-    <Card className="rounded-2xl border border-slate-200/80 bg-white shadow-sm overflow-hidden">
+    <Card className="rounded-2xl border border-slate-200/80 bg-white/10 backdrop-blur-md border border-white/20 shadow-sm overflow-hidden">
       <div className="px-4 py-3 border-b border-slate-100">
         <h3 className="text-sm font-semibold text-slate-800">Quick Actions</h3>
       </div>

@@ -29,12 +29,20 @@ interface DiscoverRecruitListProps {
 }
 
 export function DiscoverRecruitList({ recruits, onAddToWatchlist }: DiscoverRecruitListProps) {
+  const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(12);
   const visibleRecruits = recruits.slice(0, visible);
 
   return (
     <div className="space-y-3">
-      {visibleRecruits.map((recruit) => (
+      {{visibleRecruits.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            visibleRecruits.map((recruit) => (
         <Card key={recruit.id} className="bg-[#111315] border-white/5 hover:border-emerald-500/30 transition-colors">
           <CardContent className="p-4">
             <div className="flex items-start gap-3">

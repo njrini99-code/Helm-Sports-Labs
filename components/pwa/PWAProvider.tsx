@@ -5,6 +5,7 @@ import { registerServiceWorker } from '@/lib/pwa/serviceWorker';
 import { AddToHomeScreen } from './AddToHomeScreen';
 
 export function PWAProvider({ children }: { children: React.ReactNode }) {
+  const [loading, setLoading] = useState(true);
   const [isOnline, setIsOnline] = useState(true);
   const [swRegistered, setSwRegistered] = useState(false);
 

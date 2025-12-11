@@ -34,7 +34,8 @@ export function ProgramNeedsForm({ onSuccess }: ProgramNeedsFormProps) {
     min_pitch_velo: null,
     min_exit_velo: null,
     max_sixty_time: null,
-  });
+  })
+          )};
 
   useEffect(() => {
     loadNeeds();
@@ -122,7 +123,14 @@ export function ProgramNeedsForm({ onSuccess }: ProgramNeedsFormProps) {
       <div>
         <Label className="text-base font-semibold mb-3 block">Grad Years Needed</Label>
         <div className="flex flex-wrap gap-2">
-          {GRAD_YEARS.map(year => (
+          {{GRAD_YEARS.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            GRAD_YEARS.map(year => (
             <div key={year} className="flex items-center space-x-2">
               <Checkbox
                 id={`grad-${year}`}
@@ -131,7 +139,8 @@ export function ProgramNeedsForm({ onSuccess }: ProgramNeedsFormProps) {
                   setNeeds({
                     ...needs,
                     grad_years_needed: toggleArrayItem(needs.grad_years_needed || [], year),
-                  });
+                  })
+          )};
                 }}
               />
               <Label htmlFor={`grad-${year}`} className="text-sm font-normal cursor-pointer">
@@ -154,7 +163,8 @@ export function ProgramNeedsForm({ onSuccess }: ProgramNeedsFormProps) {
                   setNeeds({
                     ...needs,
                     positions_needed: toggleArrayItem(needs.positions_needed || [], position),
-                  });
+                  })
+          )};
                 }}
               />
               <Label htmlFor={`pos-${position}`} className="text-sm font-normal cursor-pointer">
@@ -172,7 +182,8 @@ export function ProgramNeedsForm({ onSuccess }: ProgramNeedsFormProps) {
             id="min-pitch-velo"
             type="number"
             value={needs.min_pitch_velo || ''}
-            onChange={(e) => setNeeds({ ...needs, min_pitch_velo: e.target.value ? parseFloat(e.target.value) : null })}
+            onChange={(e) => setNeeds({ ...needs, min_pitch_velo: e.target.value ? parseFloat(e.target.value) : null })
+          )}}
             placeholder="85"
           />
         </div>
@@ -182,7 +193,8 @@ export function ProgramNeedsForm({ onSuccess }: ProgramNeedsFormProps) {
             id="min-exit-velo"
             type="number"
             value={needs.min_exit_velo || ''}
-            onChange={(e) => setNeeds({ ...needs, min_exit_velo: e.target.value ? parseFloat(e.target.value) : null })}
+            onChange={(e) => setNeeds({ ...needs, min_exit_velo: e.target.value ? parseFloat(e.target.value) : null })
+          )}}
             placeholder="90"
           />
         </div>
@@ -193,7 +205,8 @@ export function ProgramNeedsForm({ onSuccess }: ProgramNeedsFormProps) {
             type="number"
             step="0.1"
             value={needs.max_sixty_time || ''}
-            onChange={(e) => setNeeds({ ...needs, max_sixty_time: e.target.value ? parseFloat(e.target.value) : null })}
+            onChange={(e) => setNeeds({ ...needs, max_sixty_time: e.target.value ? parseFloat(e.target.value) : null })
+          )}}
             placeholder="7.0"
           />
         </div>
@@ -211,7 +224,8 @@ export function ProgramNeedsForm({ onSuccess }: ProgramNeedsFormProps) {
                   setNeeds({
                     ...needs,
                     preferred_states: toggleArrayItem(needs.preferred_states || [], state),
-                  });
+                  })
+          )};
                 }}
               />
               <Label htmlFor={`state-${state}`} className="text-sm font-normal cursor-pointer">

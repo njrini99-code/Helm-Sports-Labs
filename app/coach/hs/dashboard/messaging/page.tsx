@@ -14,7 +14,7 @@ export default function HsCoachMessagingPage() {
 
   if (loadingCoach || loadingOrg) {
     return (
-      <div className="flex items-center justify-center py-12">
+      <div className="flex items-center justify-center py-12 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div className="w-6 h-6 bg-emerald-400/20 rounded animate-pulse" />
       </div>
     );

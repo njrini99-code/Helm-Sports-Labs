@@ -1,10 +1,10 @@
 /**
  * Recruiting Intelligence & Planner Queries
  * 
- * TODO: Add database migrations for:
- * - player_engagement table (profile views, watchlist adds, activity tracking)
- * - program_needs table (coach recruiting criteria)
- * - recruit_watchlist table (pipeline statuses)
+ * Note: All required tables are now created in migrations:
+ * - player_engagement table (migration 008_player_engagement_events.sql)
+ * - program_needs table (migration 004_complete_schema.sql)
+ * - recruit_watchlist table (migration 004_complete_schema.sql)
  */
 
 import { createClient } from '@/lib/supabase/client';
@@ -373,10 +373,33 @@ export async function getRecommendedRecruitsForProgram(coachId: string): Promise
     }
 
     // Top schools bonus (if coach's school is in player's top schools)
-    // TODO: Get coach's school name and check
     if (player.top_schools && player.top_schools.length > 0) {
-      matchScore += 5;
-      matchReasons.push('Interested in your program');
+      // Get coach's school/program name
+      const { data: coachData } = await supabase
+        .from('coaches')
+        .select('program_name, school_name')
+        .eq('id', coachId)
+        .single();
+
+      const coachSchoolName = coachData?.program_name || coachData?.school_name;
+      
+      if (coachSchoolName) {
+        // Check if coach's school is in player's top schools
+        const isInterested = player.top_schools.some((school: string) => 
+          school.toLowerCase().includes(coachSchoolName.toLowerCase()) ||
+          coachSchoolName.toLowerCase().includes(school.toLowerCase())
+        );
+        
+        if (isInterested) {
+          matchScore += 10; // Higher bonus for explicit interest
+          matchReasons.push('Interested in your program');
+        } else {
+          matchScore += 5; // Still bonus for having top schools listed
+        }
+      } else {
+        matchScore += 5;
+        matchReasons.push('Has top schools listed');
+      }
     }
 
     return {
@@ -731,6 +754,80 @@ export async function addPlayerToWatchlist(
   }
 
   return !error;
+}
+
+/**
+ * Add or update notes for a player in the watchlist
+ */
+export async function addNoteToPlayer(
+  coachId: string,
+  playerId: string,
+  note: string
+): Promise<boolean> {
+  const supabase = createClient();
+  
+  // Check if entry exists in recruit_watchlist
+  const { data: existing } = await supabase
+    .from('recruit_watchlist')
+    .select('id, notes')
+    .eq('coach_id', coachId)
+    .eq('player_id', playerId)
+    .maybeSingle();
+
+  if (existing) {
+    // Update existing notes (append new note with timestamp)
+    const timestamp = new Date().toLocaleString();
+    const updatedNotes = existing.notes 
+      ? `${existing.notes}\n\n[${timestamp}] ${note}`
+      : `[${timestamp}] ${note}`;
+    
+    const { error } = await supabase
+      .from('recruit_watchlist')
+      .update({
+        notes: updatedNotes,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', existing.id);
+
+    if (!error) return true;
+  }
+
+  // If not in watchlist, add to watchlist with note
+  const { error: insertError } = await supabase
+    .from('recruit_watchlist')
+    .insert({
+      coach_id: coachId,
+      player_id: playerId,
+      status: 'watchlist',
+      notes: `[${new Date().toLocaleString()}] ${note}`,
+    });
+
+  // Also update legacy recruits table if exists
+  if (!insertError) {
+    const { data: legacyExisting } = await supabase
+      .from('recruits')
+      .select('id, notes')
+      .eq('coach_id', coachId)
+      .eq('player_id', playerId)
+      .maybeSingle();
+
+    if (legacyExisting) {
+      const timestamp = new Date().toLocaleString();
+      const updatedNotes = legacyExisting.notes 
+        ? `${legacyExisting.notes}\n\n[${timestamp}] ${note}`
+        : `[${timestamp}] ${note}`;
+      
+      await supabase
+        .from('recruits')
+        .update({
+          notes: updatedNotes,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', legacyExisting.id);
+    }
+  }
+
+  return !insertError;
 }
 
 /**

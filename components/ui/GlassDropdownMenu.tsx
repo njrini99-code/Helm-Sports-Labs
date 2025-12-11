@@ -461,8 +461,10 @@ interface SubMenuComponentProps {
 
 function SubMenuComponent({ item, isActive }: SubMenuComponentProps) {
   const { variant, size } = useDropdownContext();
+  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [subMenuPosition, setSubMenuPosition] = useState({ top: 0, left: 0 });
+  const [subMenuPosition, setSubMenuPosition] = useState({ top: 0, left: 0 })
+          )};
   const triggerRef = useRef<HTMLButtonElement>(null);
   const subMenuRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout>();
@@ -491,7 +493,8 @@ function SubMenuComponent({ item, isActive }: SubMenuComponentProps) {
         top = window.innerHeight - subMenuRect.height - 8;
       }
 
-      setSubMenuPosition({ top, left });
+      setSubMenuPosition({ top, left })
+          )};
     }
   }, [isOpen]);
 
@@ -580,7 +583,14 @@ function MenuContent({ items }: MenuContentProps) {
 
   return (
     <div className="px-1">
-      {items.map((item, index) => {
+      {{items.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            items.map((item, index) => {
         // Separator
         if ('type' in item && item.type === 'separator') {
           return (
@@ -655,7 +665,8 @@ function MenuContent({ items }: MenuContentProps) {
             onSelect={() => setActiveIndex(selectableIndex)}
           />
         );
-      })}
+      })
+          )}}
     </div>
   );
 }
@@ -682,7 +693,8 @@ export function GlassDropdownMenu({
 }: GlassDropdownMenuProps) {
   const [internalOpen, setInternalOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
+  const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 })
+          )};
   const [mounted, setMounted] = useState(false);
 
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -782,7 +794,8 @@ export function GlassDropdownMenu({
       const padding = 8;
       left = Math.max(padding, Math.min(left, viewportWidth - menuRect.width - padding + scrollX));
 
-      setMenuPosition({ top, left });
+      setMenuPosition({ top, left })
+          )};
     };
 
     requestAnimationFrame(updatePosition);
@@ -1126,7 +1139,8 @@ export function SortMenu({
       id: option.value,
       value: option.value,
       label: option.label,
-    })),
+    })
+          )}),
   ];
 
   return (

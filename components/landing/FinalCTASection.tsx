@@ -21,9 +21,13 @@ export function FinalCTASection() {
             }}
           />
         ))}
-      </div>
+      </motion.div>
 
-      <div className="relative z-10 container mx-auto px-6 text-center">
+      <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="relative z-10 container mx-auto px-6 text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -76,7 +80,7 @@ export function FinalCTASection() {
             No credit card required • Get started in under 2 minutes
           </motion.p>
         </motion.div>
-      </div>
+      </motion.div>
 
       <style jsx>{`
         @keyframes float {

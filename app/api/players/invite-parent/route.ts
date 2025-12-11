@@ -1,11 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { randomBytes } from 'crypto';
+import { sendEmail } from '@/lib/emails/sendEmail';
+import { getParentInvitationEmail } from '@/lib/emails/templates';
+import { z } from 'zod';
 
 /**
  * Player invites a parent
  * POST /api/players/invite-parent
  */
+
+const inviteParentInputSchema = z.object({
+  parentEmail: z.string().email('Invalid email address'),
+  relationship: z.enum(['parent', 'guardian', 'family']).default('parent'),
+});
+
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient();
@@ -16,7 +25,17 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { parentEmail, relationship = 'parent' } = body;
+    
+    // Validate input
+    const validationResult = inviteParentInputSchema.safeParse(body);
+    if (!validationResult.success) {
+      return NextResponse.json(
+        { error: 'Invalid input', details: validationResult.error.errors },
+        { status: 400 }
+      );
+    }
+    
+    const { parentEmail, relationship } = validationResult.data;
 
     if (!parentEmail) {
       return NextResponse.json(
@@ -28,7 +47,7 @@ export async function POST(request: NextRequest) {
     // Get player profile
     const { data: player, error: playerError } = await supabase
       .from('players')
-      .select('id')
+      .select('id, first_name, last_name, full_name')
       .eq('user_id', user.id)
       .single();
 
@@ -132,8 +151,32 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: Send invitation email to parent
-    // For now, return success
+    // Generate invitation token for signup link
+    const invitationToken = randomBytes(32).toString('hex');
+    const invitationLink = `${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.app'}/auth/signup?token=${invitationToken}&email=${encodeURIComponent(parentEmail)}&role=parent`;
+
+    // Store invitation token (optional - for tracking)
+    await supabase
+      .from('parent_access')
+      .update({ invitation_token: invitationToken })
+      .eq('id', access.id);
+
+    // Send invitation email
+    const playerName = player.full_name || `${player.first_name || ''} ${player.last_name || ''}`.trim() || 'Your child';
+    const teamName = team ? (team as any).name : undefined;
+    
+    const { subject, html } = getParentInvitationEmail({
+      playerName,
+      teamName,
+      invitationLink,
+      relationship,
+    });
+
+    await sendEmail({
+      to: parentEmail,
+      subject,
+      html,
+    });
 
     return NextResponse.json({
       success: true,

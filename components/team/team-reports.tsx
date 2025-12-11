@@ -23,7 +23,9 @@ interface TeamReportsProps {
 
 export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamReportsProps) {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [coachId, setCoachId] = useState<string | null>(null);
+  const [playerNames, setPlayerNames] = useState<Record<string, string>>({});
   const isOwner = mode === 'owner';
   const isViewer = mode === 'viewer';
 
@@ -31,7 +33,8 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
     if (isViewer) {
       loadCoachId();
     }
-  }, [isViewer]);
+    loadPlayerNames();
+  }, [isViewer, verifiedStats]);
 
   const loadCoachId = async () => {
     const supabase = createClient();
@@ -48,6 +51,37 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
     if (coach) {
       setCoachId(coach.id);
     }
+  };
+
+  const loadPlayerNames = async () => {
+    if (verifiedStats.length === 0) {
+      setLoading(false);
+      return;
+    }
+
+    const supabase = createClient();
+    const playerIds = [...new Set(verifiedStats.map(stat => stat.player_id))];
+    
+    const { data: players, error } = await supabase
+      .from('players')
+      .select('id, full_name, first_name, last_name')
+      .in('id', playerIds);
+
+    if (error) {
+      console.error('Error fetching player names:', error);
+      setLoading(false);
+      return;
+    }
+
+    const names: Record<string, string> = {};
+    players?.forEach(player => {
+      names[player.id] = player.full_name || 
+        `${player.first_name || ''} ${player.last_name || ''}`.trim() || 
+        'Player';
+    });
+
+    setPlayerNames(names);
+    setLoading(false);
   };
 
   const handleAddToWatchlist = async (playerId: string) => {
@@ -82,8 +116,8 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
       {/* Commitments Summary */}
       <Card className="bg-[#111315] border-white/5">
         <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-white flex items-center gap-2">
+          <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+            <CardTitle className="text-white flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <Trophy className="w-5 h-5 text-yellow-400" />
               College Commitments & Placement
             </CardTitle>
@@ -112,7 +146,7 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
                   return (
                     <div
                       key={year}
-                      className="p-4 rounded-lg bg-[#0B0D0F] border border-white/5"
+                      className="p-4 rounded-2xl bg-[#0B0D0F] border border-white/5"
                     >
                       <div className="text-sm text-slate-400 mb-2">{year}</div>
                       <div className="text-2xl font-bold text-white mb-1">{commits.length}</div>
@@ -133,9 +167,9 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
                 {commitments.map((commit, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center justify-between p-3 rounded-lg bg-[#0B0D0F] border border-white/5"
+                    className="flex items-center justify-between p-3 rounded-2xl bg-[#0B0D0F] border border-white/5 hover:-translate-y-1 hover:shadow-xl transition-all duration-200"
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                       <CheckCircle2 className="w-5 h-5 text-emerald-400" />
                       <div>
                         <div className="text-white font-medium">{commit.player_name}</div>
@@ -166,8 +200,8 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
       {/* Verified Stats */}
       <Card className="bg-[#111315] border-white/5">
         <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-white flex items-center gap-2">
+          <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+            <CardTitle className="text-white flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <TrendingUp className="w-5 h-5 text-blue-400" />
               Verified Player Stats
             </CardTitle>
@@ -188,16 +222,15 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
             <div className="space-y-4">
               {Object.entries(statsByPlayer).map(([playerId, stats]) => {
                 const firstStat = stats[0];
-                // TODO: Fetch player name from player_id
-                const playerName = 'Player'; // Placeholder
+                const playerName = playerNames[playerId] || 'Player';
 
                 return (
                   <div
                     key={playerId}
-                    className="p-4 rounded-lg bg-[#0B0D0F] border border-white/5"
+                    className="p-4 rounded-2xl bg-[#0B0D0F] border border-white/5"
                   >
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-between mb-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+                      <div className="flex items-center gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                         <Avatar className="w-10 h-10">
                           <AvatarFallback className="bg-[#111315] text-white">
                             {playerName[0]}

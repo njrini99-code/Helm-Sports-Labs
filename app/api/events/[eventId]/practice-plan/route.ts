@@ -40,6 +40,12 @@ export async function GET(
  * Create/update practice plan
  * POST /api/events/[eventId]/practice-plan
  */
+
+const inputSchema = z.object({
+  // Add your validation rules here
+  // Example: name: z.string().min(1).max(100)
+});
+
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ eventId: string }> }

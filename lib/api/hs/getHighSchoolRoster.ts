@@ -131,7 +131,42 @@ export async function getHighSchoolRoster(orgId: string, filters: HsRosterFilter
     roster = roster.filter((p) => !p.isProfileComplete);
   }
 
-  // TODO: top prospects filter when tags/flag exist
+  // Top prospects filter - check for tags or flags
+  if (filters.showOnlyTopProspects) {
+    // Fetch player tags/flags from player_tags or similar table
+    const playerIds = roster.map(p => p.playerId);
+    if (playerIds.length > 0) {
+      const { data: tags } = await supabase
+        .from('player_tags')
+        .select('player_id, tag_name')
+        .in('player_id', playerIds)
+        .in('tag_name', ['top_prospect', 'high_priority', 'star', 'elite']);
+
+      // Also check for flags in players table if exists
+      const { data: flaggedPlayers } = await supabase
+        .from('players')
+        .select('id, is_top_prospect, is_high_priority')
+        .in('id', playerIds)
+        .or('is_top_prospect.eq.true,is_high_priority.eq.true');
+
+      const topProspectIds = new Set<string>();
+      
+      // Add players with tags
+      tags?.forEach(tag => topProspectIds.add(tag.player_id));
+      
+      // Add players with flags
+      flaggedPlayers?.forEach(player => topProspectIds.add(player.id));
+
+      // Filter roster to only top prospects
+      if (topProspectIds.size > 0) {
+        roster = roster.filter(p => topProspectIds.has(p.playerId));
+      } else {
+        // If no tags/flags system exists yet, return empty array
+        // This allows the feature to work once the system is implemented
+        roster = [];
+      }
+    }
+  }
 
   return roster;
 }

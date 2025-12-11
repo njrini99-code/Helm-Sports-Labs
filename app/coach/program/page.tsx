@@ -227,7 +227,7 @@ export default function CoachProgramPage() {
             <div className="relative group">
               <div className={`w-24 h-24 rounded-xl flex items-center justify-center border-4 shadow-xl ${isDark ? 'bg-slate-800 border-slate-900' : 'bg-white border-emerald-100'}`}>
                 {coach.logo_url ? (
-                  <Image src={coach.logo_url || '/placeholder-logo.png'} alt="Logo" width={120} height={120} className="w-full h-full object-cover rounded-lg" />
+                  <Image src={coach.logo_url || '/placeholder-logo.png'} alt="Logo" width={120} height={120} className="w-full h-full object-cover rounded-2xl" />
                 ) : (
                   <Building className={`w-12 h-12 ${isDark ? 'text-slate-500' : 'text-emerald-400'}`} />
                 )}

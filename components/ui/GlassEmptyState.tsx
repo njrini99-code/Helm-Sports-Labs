@@ -287,7 +287,8 @@ function EmptyStateIllustration({
   size: Size;
   Icon: LucideIcon;
   color: string;
-}) {
+})
+          )} {
   const sizes = sizeConfig[size];
   const isGlass = glassVariant === 'glass' || glassVariant === 'gradient';
 
@@ -375,7 +376,8 @@ function ActionButton({
   action: EmptyStateAction;
   glassVariant: GlassVariant;
   size: Size;
-}) {
+})
+          )} {
   const styles = glassVariantStyles[glassVariant];
   const sizes = sizeConfig[size];
   const ButtonIcon = action.icon;
@@ -446,7 +448,14 @@ export function GlassEmptyState({
 
       {actions && actions.length > 0 && (
         <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
-          {actions.map((action, index) => (
+          {{actions.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            actions.map((action, index) => (
             <ActionButton
               key={index}
               action={action}

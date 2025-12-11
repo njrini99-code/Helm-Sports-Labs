@@ -24,6 +24,7 @@ interface AddVideoModalProps {
 }
 
 export function AddVideoModal({ playerId, onSuccess, trigger }: AddVideoModalProps) {
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({

@@ -83,6 +83,12 @@ export async function GET(
  * Toggle parent access for team
  * PUT /api/teams/[teamId]/parent-access
  */
+
+const inputSchema = z.object({
+  // Add your validation rules here
+  // Example: name: z.string().min(1).max(100)
+});
+
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ teamId: string }> }

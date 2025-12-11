@@ -19,7 +19,7 @@ export interface RecruitPipelineEntry {
   position_role: string | null;
 }
 
-// TODO: Add Supabase migration for recruit_watchlist table and policies.
+// Note: recruit_watchlist table and policies are defined in migration 004_complete_schema.sql
 
 export async function getRecruitingPipelineForCoach(coachId: string): Promise<RecruitPipelineEntry[]> {
   const supabase = createClient();
@@ -95,4 +95,42 @@ export async function addPlayerToWatchlist(
     throw error;
   }
   return true;
+}
+
+export async function removeFromWatchlist(
+  coachId: string,
+  playerId: string
+): Promise<boolean> {
+  const supabase = createClient();
+  const { error } = await supabase
+    .from('recruit_watchlist')
+    .delete()
+    .eq('coach_id', coachId)
+    .eq('player_id', playerId);
+
+  if (error) {
+    console.error('removeFromWatchlist failed', error);
+    throw error;
+  }
+  return true;
+}
+
+export async function isPlayerOnWatchlist(
+  coachId: string,
+  playerId: string
+): Promise<boolean> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('recruit_watchlist')
+    .select('id')
+    .eq('coach_id', coachId)
+    .eq('player_id', playerId)
+    .single();
+
+  if (error && error.code !== 'PGRST116') { // PGRST116 = not found, which is fine
+    console.error('isPlayerOnWatchlist failed', error);
+    throw error;
+  }
+  
+  return !!data;
 }

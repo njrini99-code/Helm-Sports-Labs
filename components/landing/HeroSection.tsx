@@ -30,8 +30,8 @@ export function HeroSection() {
             speed={0.4}
             delay={0.4}
           />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Noise texture overlay for depth */}
       <div 
@@ -51,7 +51,11 @@ export function HeroSection() {
       <FloatingElements />
 
       {/* Hero Content */}
-      <div className="relative z-10 container mx-auto px-6 pt-32 pb-20 text-center">
+      <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="relative z-10 container mx-auto px-6 pt-32 pb-20 text-center">
         {/* Logo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -61,7 +65,7 @@ export function HeroSection() {
         >
           <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 flex items-center justify-center shadow-2xl shadow-emerald-500/50 backdrop-blur-xl border border-white/20">
             <span className="text-white font-black text-3xl">SP</span>
-          </div>
+          </motion.div>
         </motion.div>
         {/* Eyebrow text */}
         <motion.div
@@ -141,7 +145,7 @@ export function HeroSection() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity"></motion.div>
           </MagneticButton>
 
           <MagneticButton 
@@ -170,12 +174,12 @@ export function HeroSection() {
             <div key={i} className="text-center">
               <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 text-transparent bg-clip-text mb-2">
                 <AnimatedCounter value={stat.value} />{stat.suffix}
-              </div>
-              <div className="text-sm text-white/50">{stat.label}</div>
-            </div>
+              </motion.div>
+              <div className="text-sm text-white/50">{stat.label}</motion.div>
+            </motion.div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
 
       <style jsx>{`
         .animation-delay-2000 {
@@ -185,6 +189,6 @@ export function HeroSection() {
           animation-delay: 4s;
         }
       `}</style>
-    </div>
+    </motion.div>
   );
 }

@@ -12,7 +12,7 @@ interface Notification {
   type: string;
   title: string;
   message: string;
-  is_read: boolean;
+  read: boolean;
   created_at: string;
   action_url?: string;
 }
@@ -55,7 +55,7 @@ export default function CoachNotificationsPage() {
     try {
       const { error } = await supabase
         .from('notifications')
-        .update({ is_read: true })
+        .update({ read: true })
         .eq('id', notificationId);
 
       if (error) {
@@ -64,7 +64,7 @@ export default function CoachNotificationsPage() {
       }
 
       setNotifications(prev =>
-        prev.map(n => n.id === notificationId ? { ...n, is_read: true } : n)
+        prev.map(n => n.id === notificationId ? { ...n, read: true } : n)
       );
     } catch (error) {
       logError(error, { component: 'NotificationsPage', action: 'markAsRead', metadata: { notificationId } });
@@ -79,16 +79,16 @@ export default function CoachNotificationsPage() {
 
       const { error } = await supabase
         .from('notifications')
-        .update({ is_read: true })
+        .update({ read: true })
         .eq('user_id', user.id)
-        .eq('is_read', false);
+        .eq('read', false);
 
       if (error) {
         toast.error('Failed to mark all as read');
         return;
       }
 
-      setNotifications(prev => prev.map(n => ({ ...n, is_read: true })));
+      setNotifications(prev => prev.map(n => ({ ...n, read: true })));
       toast.success('All notifications marked as read');
     } catch (error) {
       logError(error, { component: 'NotificationsPage', action: 'markAllAsRead' });
@@ -146,7 +146,7 @@ export default function CoachNotificationsPage() {
           <div className="mb-4">
             <button
               onClick={markAllAsRead}
-              className="flex items-center gap-2 px-4 py-2 bg-[#00C27A] hover:bg-[#00A565] text-white rounded-lg text-sm font-medium transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-[#00C27A] hover:bg-[#00A565] text-white rounded-2xl text-sm font-medium transition-colors"
             >
               <Check className="w-4 h-4" />
               Mark all as read
@@ -171,12 +171,12 @@ export default function CoachNotificationsPage() {
               <Card
                 key={notification.id}
                 className={`p-4 hover:bg-slate-50 transition-colors ${
-                  !notification.is_read ? 'border-[#00C27A]/30 bg-emerald-50/30' : ''
+                  !notification.read ? 'border-[#00C27A]/30 bg-emerald-50/30' : ''
                 }`}
               >
                 <div className="flex items-start gap-4">
                   {/* Unread indicator */}
-                  {!notification.is_read && (
+                  {!notification.read && (
                     <div className="w-2 h-2 mt-2 bg-[#00C27A] rounded-full flex-shrink-0" />
                   )}
 
@@ -196,12 +196,12 @@ export default function CoachNotificationsPage() {
                         <a
                           href={notification.action_url}
                           className="text-[#00C27A] hover:text-[#00A565] text-sm font-medium"
-                          onClick={() => !notification.is_read && markAsRead(notification.id)}
+                          onClick={() => !notification.read && markAsRead(notification.id)}
                         >
                           View →
                         </a>
                       )}
-                      {!notification.is_read && (
+                      {!notification.read && (
                         <button
                           onClick={() => markAsRead(notification.id)}
                           className="text-slate-600 hover:text-slate-800 text-sm flex items-center gap-1"

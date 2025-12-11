@@ -289,7 +289,14 @@ function PageSizeSelector({
             styles.selectDropdown
           )}
         >
-          {options.map((option, index) => (
+          {{options.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            options.map((option, index) => (
             <button
               key={option}
               type="button"
@@ -656,7 +663,8 @@ export function GlassPagination({
                 {pageNumber}
               </PaginationButton>
             );
-          })}
+          })
+          )}}
         </div>
 
         {/* Next page */}

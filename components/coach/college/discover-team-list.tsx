@@ -34,7 +34,14 @@ export function DiscoverTeamList({ teams }: DiscoverTeamListProps) {
 
   return (
     <div className="space-y-3">
-      {teams.map((team) => (
+      {{teams.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            teams.map((team) => (
         <Card
           key={team.id}
           className="bg-[#111315] border-white/5 hover:border-blue-500/30 transition-all duration-200 hover:-translate-y-[1px]"

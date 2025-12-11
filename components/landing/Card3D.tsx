@@ -11,6 +11,7 @@ interface Card3DProps {
 
 export function Card3D({ children, className = '', intensity = 15 }: Card3DProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [loading, setLoading] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
   const x = useMotionValue(0);

@@ -304,7 +304,7 @@ export default function PlayerTeamPage() {
                   {coachEmail && (
                     <a 
                       href={`mailto:${coachEmail}`}
-                      className="ml-auto px-3 py-1.5 rounded-lg bg-white/[0.06] border border-white/[0.1] text-xs text-white/70 hover:bg-white/[0.1] transition-colors flex items-center gap-1"
+                      className="ml-auto px-3 py-1.5 rounded-2xl bg-white/[0.06] border border-white/[0.1] text-xs text-white/70 hover:bg-white/[0.1] transition-colors flex items-center gap-1"
                     >
                       <Mail className="w-3 h-3" />
                       Contact
@@ -344,7 +344,7 @@ export default function PlayerTeamPage() {
           {activeTab === 'overview' && (
             <div className="grid md:grid-cols-2 gap-6">
               {/* Upcoming Events */}
-              <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 border border-slate-200 rounded-2xl overflow-hidden">
                 <div className="p-5 border-b border-slate-100">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -372,7 +372,7 @@ export default function PlayerTeamPage() {
                           key={event.id}
                           className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100"
                         >
-                          <div className="w-12 h-12 rounded-lg bg-blue-100 border border-blue-200 flex flex-col items-center justify-center">
+                          <div className="w-12 h-12 rounded-2xl bg-blue-100 border border-blue-200 flex flex-col items-center justify-center">
                             <span className="text-[10px] font-medium text-blue-600 uppercase">
                               {new Date(event.start_time).toLocaleDateString('en-US', { month: 'short' })}
                             </span>
@@ -395,7 +395,7 @@ export default function PlayerTeamPage() {
               </div>
 
               {/* Team Roster Preview */}
-              <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 border border-slate-200 rounded-2xl overflow-hidden">
                 <div className="p-5 border-b border-slate-100">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -451,7 +451,7 @@ export default function PlayerTeamPage() {
 
           {/* Roster Tab */}
           {activeTab === 'roster' && (
-            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 border border-slate-200 rounded-2xl overflow-hidden">
               <div className="p-5 border-b border-slate-100">
                 <h3 className="font-semibold text-slate-800">Team Roster</h3>
                 <p className="text-sm text-slate-500">{members.length} players</p>
@@ -499,7 +499,7 @@ export default function PlayerTeamPage() {
 
           {/* Schedule Tab */}
           {activeTab === 'schedule' && (
-            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 border border-slate-200 rounded-2xl overflow-hidden">
               <div className="p-5 border-b border-slate-100">
                 <h3 className="font-semibold text-slate-800">Team Schedule</h3>
                 <p className="text-sm text-slate-500">{events.length} events</p>
@@ -575,7 +575,7 @@ export default function PlayerTeamPage() {
 
           {/* Media Tab */}
           {activeTab === 'media' && (
-            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 border border-slate-200 rounded-2xl overflow-hidden">
               <div className="p-5 border-b border-slate-100">
                 <h3 className="font-semibold text-slate-800">Team Media</h3>
                 <p className="text-sm text-slate-500">{media.length} items</p>
@@ -610,7 +610,7 @@ export default function PlayerTeamPage() {
                             href={item.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 rounded-lg bg-white/20 text-white hover:bg-white/30 transition-colors"
+                            className="p-2 rounded-2xl bg-white/20 text-white hover:bg-white/30 transition-colors"
                           >
                             <ArrowUpRight className="w-5 h-5" />
                           </a>

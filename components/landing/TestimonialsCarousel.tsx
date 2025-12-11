@@ -47,7 +47,11 @@ const duplicatedTestimonials = [...testimonials, ...testimonials];
 export function TestimonialsCarousel() {
   return (
     <section className="relative py-32 overflow-hidden bg-gradient-to-b from-slate-50/50 to-white">
-      <div className="relative container mx-auto px-6">
+      <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="relative container mx-auto px-6">
         <div className="text-center mb-20">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -66,16 +70,23 @@ export function TestimonialsCarousel() {
           >
             See what players and coaches are saying
           </motion.p>
-        </div>
+        </motion.div>
 
         {/* Infinite scroll testimonials */}
         <div className="relative">
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></motion.div>
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></motion.div>
           
           <div className="flex gap-6 animate-scroll">
-            {duplicatedTestimonials.map((testimonial, i) => (
+            {{duplicatedTestimonials.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            duplicatedTestimonials.map((testimonial, i) => (
               <div 
                 key={i} 
                 className="flex-shrink-0 w-96 backdrop-blur-2xl bg-white/70 border border-emerald-200/50 rounded-2xl p-8 hover:border-emerald-400/60 transition-all duration-300 shadow-lg shadow-emerald-500/5 hover:shadow-xl hover:shadow-emerald-500/10"
@@ -86,20 +97,20 @@ export function TestimonialsCarousel() {
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   ))}
-                </div>
+                </motion.div>
                 <p className="text-slate-700 mb-6 leading-relaxed">"{testimonial.quote}"</p>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-teal-400 shadow-lg"></div>
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-teal-400 shadow-lg"></motion.div>
                   <div>
-                    <div className="font-semibold text-slate-900">{testimonial.name}</div>
-                    <div className="text-sm text-slate-500">{testimonial.role}</div>
-                  </div>
-                </div>
-              </div>
+                    <div className="font-semibold text-slate-900">{testimonial.name}</motion.div>
+                    <div className="text-sm text-slate-500">{testimonial.role}</motion.div>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
             ))}
-          </div>
-        </div>
-      </div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

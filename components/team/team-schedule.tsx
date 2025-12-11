@@ -36,6 +36,7 @@ interface TeamScheduleProps {
 }
 
 export function TeamSchedule({ teamId, events, mode, onUpdate }: TeamScheduleProps) {
+  const [loading, setLoading] = useState(true);
   const [isAdding, setIsAdding] = useState(false);
   const [formData, setFormData] = useState({
     event_type: 'game' as ScheduleEvent['event_type'],
@@ -234,7 +235,7 @@ export function TeamSchedule({ teamId, events, mode, onUpdate }: TeamSchedulePro
               return (
                 <div
                   key={event.id}
-                  className="p-4 rounded-lg bg-[#0B0D0F] border border-white/5 hover:border-white/10 transition-colors"
+                  className="p-4 rounded-2xl bg-[#0B0D0F] border border-white/5 hover:border-white/10 transition-colors"
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">

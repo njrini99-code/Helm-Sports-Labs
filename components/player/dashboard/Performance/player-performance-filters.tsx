@@ -10,14 +10,16 @@ export function PlayerPerformanceFilters({
 }: {
   value: PerformanceFilters;
   onChange: (val: PerformanceFilters) => void;
-}) {
+})
+          )} {
   return (
     <Card className="bg-slate-900/70 border-white/5 p-4 text-white">
-      <div className="flex flex-wrap gap-3 items-center">
+      <div className="flex flex-wrap gap-3 items-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <FilterSelect
           label="Source"
           value={value.source}
-          onChange={(source) => onChange({ ...value, source: source as 'high_school' | 'showcase' | 'all' })}
+          onChange={(source) => onChange({ ...value, source: source as 'high_school' | 'showcase' | 'all' })
+          )}}
           options={[
             { value: 'all', label: 'All' },
             { value: 'high_school', label: 'High School' },
@@ -27,7 +29,8 @@ export function PlayerPerformanceFilters({
         <FilterSelect
           label="Date"
           value={value.dateRange.preset || '30d'}
-          onChange={(preset) => onChange({ ...value, dateRange: { ...value.dateRange, preset: preset as '7d' | '30d' | 'season' } })}
+          onChange={(preset) => onChange({ ...value, dateRange: { ...value.dateRange, preset: preset as '7d' | '30d' | 'season' } })
+          )}}
           options={[
             { value: '7d', label: 'Last 7d' },
             { value: '30d', label: 'Last 30d' },
@@ -37,7 +40,8 @@ export function PlayerPerformanceFilters({
         <FilterSelect
           label="Level"
           value={value.level || 'all'}
-          onChange={(level) => onChange({ ...value, level: level === 'all' ? undefined : level })}
+          onChange={(level) => onChange({ ...value, level: level === 'all' ? undefined : level })
+          )}}
           options={[
             { value: 'all', label: 'All levels' },
             { value: 'Varsity', label: 'Varsity' },
@@ -48,7 +52,8 @@ export function PlayerPerformanceFilters({
         <FilterSelect
           label="Game Type"
           value={value.gameType || 'all'}
-          onChange={(gameType) => onChange({ ...value, gameType: gameType === 'all' ? undefined : gameType })}
+          onChange={(gameType) => onChange({ ...value, gameType: gameType === 'all' ? undefined : gameType })
+          )}}
           options={[
             { value: 'all', label: 'All types' },
             { value: 'game', label: 'Game' },
@@ -71,7 +76,8 @@ function FilterSelect({
   value: string;
   onChange: (val: string) => void;
   options: { value: string; label: string }[];
-}) {
+})
+          )} {
   return (
     <div className="space-y-1">
       <p className="text-[11px] uppercase tracking-wide text-slate-400">{label}</p>
@@ -80,7 +86,14 @@ function FilterSelect({
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          {options.map((opt) => (
+          {{options.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            options.map((opt) => (
             <SelectItem key={opt.value} value={opt.value}>
               {opt.label}
             </SelectItem>

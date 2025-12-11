@@ -12,7 +12,7 @@ interface Notification {
   type: string;
   title: string;
   message: string;
-  is_read: boolean;
+  read: boolean;
   created_at: string;
   action_url?: string;
   related_id?: string;
@@ -55,7 +55,7 @@ export function NotificationBell() {
         }
 
         setNotifications(data || []);
-        setUnreadCount(data?.filter(n => !n.is_read).length || 0);
+        setUnreadCount(data?.filter(n => !n.read).length || 0);
       } catch (error) {
         console.error('Error in fetchNotifications:', error);
       } finally {
@@ -114,7 +114,7 @@ export function NotificationBell() {
             );
 
             // Update unread count
-            if (updatedNotification.is_read) {
+            if (updatedNotification.read) {
               setUnreadCount(prev => Math.max(0, prev - 1));
             }
           }
@@ -151,7 +151,7 @@ export function NotificationBell() {
     try {
       const { error } = await supabase
         .from('notifications')
-        .update({ is_read: true })
+        .update({ read: true })
         .eq('id', notificationId);
 
       if (error) {
@@ -161,7 +161,7 @@ export function NotificationBell() {
 
       // Optimistically update local state
       setNotifications(prev =>
-        prev.map(n => n.id === notificationId ? { ...n, is_read: true } : n)
+        prev.map(n => n.id === notificationId ? { ...n, read: true } : n)
       );
       setUnreadCount(prev => Math.max(0, prev - 1));
     } catch (error) {
@@ -177,7 +177,7 @@ export function NotificationBell() {
 
       const { error } = await supabase
         .from('notifications')
-        .update({ is_read: true })
+        .update({ read: true })
         .eq('user_id', user.id)
         .eq('is_read', false);
 
@@ -199,7 +199,7 @@ export function NotificationBell() {
   // Handle notification click
   const handleNotificationClick = (notification: Notification) => {
     // Mark as read
-    if (!notification.is_read) {
+    if (!notification.read) {
       markAsRead(notification.id);
     }
 
@@ -244,7 +244,7 @@ export function NotificationBell() {
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-96 max-w-[calc(100vw-2rem)] bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50">
+        <div className="absolute right-0 mt-2 w-96 max-w-[calc(100vw-2rem)] bg-white/10 backdrop-blur-md border border-white/20 dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-700">
             <h3 className="font-semibold text-slate-900 dark:text-white">
@@ -283,7 +283,7 @@ export function NotificationBell() {
                 >
                   <div className="flex items-start gap-3">
                     {/* Unread Indicator */}
-                    {!notification.is_read && (
+                    {!notification.read && (
                       <div className="w-2 h-2 mt-2 bg-[#00C27A] rounded-full flex-shrink-0" />
                     )}
 

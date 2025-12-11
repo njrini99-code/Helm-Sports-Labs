@@ -25,10 +25,14 @@ import {
 } from 'lucide-react';
 import { PlayerDiscoverSkeleton } from '@/components/ui/loading-state';
 import { toast } from 'sonner';
+import { useToast } from '@/components/ui/use-toast';
 import { getColleges, type College } from '@/lib/api/player/recruitingInterests';
 import { logError } from '@/lib/utils/errorLogger';
 import { isDevMode, DEV_ENTITY_IDS } from '@/lib/dev-mode';
 import { cn } from '@/lib/utils';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { SkipLink } from '@/components/ui/skip-link';
+import { EnhancedSearch } from '@/components/ui/enhanced-search';
 import { 
   glassCard, 
   glassCardHover, 
@@ -41,6 +45,19 @@ import {
   glassSegmentedPillActive,
   glassSegmentedPillInactive,
 } from '@/lib/glassmorphism';
+import {
+  glassCardPremium,
+  glassCardInteractive as glassCardInteractiveEnhanced,
+  glassStatCard as glassStatCardEnhanced,
+  glassPanel as glassPanelEnhanced,
+  glassHero as glassHeroEnhanced,
+  glassButton as glassButtonEnhanced,
+  glassDarkZone as glassDarkZoneEnhanced,
+  glassListItem as glassListItemEnhanced,
+  cn,
+} from '@/lib/glassmorphism-enhanced';
+import { motion } from 'framer-motion';
+import { pageTransition, staggerContainer, staggerItem } from '@/lib/animations';
 import { AnimatedNumber } from '@/components/ui/AnimatedNumber';
 import Image from 'next/image';
 import { AdvancedFilters, type FilterState } from '@/components/search/AdvancedFilters';
@@ -73,6 +90,7 @@ const STATE_TO_REGION: Record<string, string> = {
 
 export default function PlayerDiscoverPage() {
   const router = useRouter();
+  const { toast: showToast } = useToast();
   const [colleges, setColleges] = useState<College[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -264,13 +282,21 @@ export default function PlayerDiscoverPage() {
       });
 
     if (error) {
-      toast.error('Failed to add school');
+      showToast({
+        variant: 'error',
+        title: 'Failed to add school',
+        description: error.message,
+      });
       logError(error, { component: 'PlayerDiscover', action: 'addInterest' });
       return;
     }
 
     setInterestedSchools(prev => new Set([...Array.from(prev), college.id]));
-    toast.success(`Added ${college.name} to your interests!`);
+    showToast({
+      variant: 'success',
+      title: 'School added!',
+      description: `${college.name} has been added to your interests.`,
+    });
   };
 
   const handleRemoveInterest = async (collegeId: string) => {
@@ -294,7 +320,11 @@ export default function PlayerDiscoverPage() {
       next.delete(collegeId);
       return next;
     });
-    toast.success('Removed from interests');
+    showToast({
+      variant: 'default',
+      title: 'Removed',
+      description: 'School removed from your interests.',
+    });
   };
 
   const clearFilters = () => {
@@ -334,18 +364,21 @@ export default function PlayerDiscoverPage() {
       division: college.division,
       status: 'interested',
       interest_level: 'medium',
-    }));
+    })
+          )});
 
     const { error } = await supabase
       .from('recruiting_interests')
       .upsert(inserts, {
         onConflict: 'player_id,college_id',
         ignoreDuplicates: false,
-      });
+      })
+          )};
 
     if (error) {
       toast.error('Failed to add some schools');
-      logError(error, { component: 'PlayerDiscover', action: 'bulkAddInterest' });
+      logError(error, { component: 'PlayerDiscover', action: 'bulkAddInterest' })
+          )};
       return;
     }
 
@@ -356,7 +389,11 @@ export default function PlayerDiscoverPage() {
       return next;
     });
 
-    toast.success(`Added ${collegeIds.length} school${collegeIds.length === 1 ? '' : 's'} to your interests!`);
+    showToast({
+      variant: 'success',
+      title: 'Schools added!',
+      description: `Added ${collegeIds.length} school${collegeIds.length === 1 ? '' : 's'} to your interests.`,
+    });
   };
 
   const handleBulkRemoveFromInterests = async (collegeIds: string[]) => {
@@ -371,7 +408,11 @@ export default function PlayerDiscoverPage() {
       .in('college_id', collegeIds);
 
     if (error) {
-      toast.error('Failed to remove some schools');
+      showToast({
+        variant: 'error',
+        title: 'Failed to remove some schools',
+        description: error.message,
+      });
       return;
     }
 
@@ -382,7 +423,11 @@ export default function PlayerDiscoverPage() {
       return next;
     });
 
-    toast.success(`Removed ${collegeIds.length} school${collegeIds.length === 1 ? '' : 's'} from your interests`);
+    showToast({
+      variant: 'default',
+      title: 'Schools removed',
+      description: `Removed ${collegeIds.length} school${collegeIds.length === 1 ? '' : 's'} from your interests.`,
+    });
   };
 
   const handleBulkExport = async (selectedColleges: College[]) => {
@@ -413,7 +458,11 @@ export default function PlayerDiscoverPage() {
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
 
-    toast.success(`Exported ${selectedColleges.length} colleges`);
+    showToast({
+      variant: 'success',
+      title: 'Export successful',
+      description: `Exported ${selectedColleges.length} colleges to CSV.`,
+    });
   };
 
   const handleSelectionChange = (id: string, selected: boolean) => {
@@ -445,75 +494,110 @@ export default function PlayerDiscoverPage() {
   }
 
   return (
-    <div className="min-h-screen">
-      {/* ═══════════════════════════════════════════════════════════════════
-          DARK HERO ZONE
-      ═══════════════════════════════════════════════════════════════════ */}
-      <div className={glassDarkZone}>
-        <div className="max-w-6xl mx-auto px-4 md:px-6 pt-6 pb-8 space-y-6">
-          
-          {/* Hero Header */}
-          <section className="relative">
-            <div className="absolute inset-0 rounded-3xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-emerald-900/10" />
-              <div 
-                className="absolute inset-0 opacity-[0.03]"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                }}
-              />
-            </div>
+    <motion.div 
+      className="min-h-screen"
+      initial={pageTransition.initial}
+      animate={pageTransition.animate}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+    >
+      {/* Skip Link */}
+      <SkipLink href="#discover-content">Skip to discover content</SkipLink>
 
-            <div className="relative p-5 md:p-6">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-4">
+        <Breadcrumbs
+          items={[
+            { label: 'Dashboard', href: '/player' },
+            { label: 'Discover', href: '/player/discover' },
+          ]}
+        />
+      </div>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          ULTIMATE GLASSMORPHISM DISCOVER HERO ZONE
+      ═══════════════════════════════════════════════════════════════════ */}
+      <div id="discover-content" className={cn(glassDarkZoneEnhanced, "pb-12 relative overflow-hidden")}>
+        {/* Animated gradient orbs */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '0s' }} />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+        
+        {/* Subtle grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.02] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+
+        <div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 space-y-6 relative z-10">
+          
+          {/* Premium Glass Hero Header */}
+          <motion.section 
+            className="relative"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
+            <div className={cn(glassHeroEnhanced, "p-6 md:p-8 relative overflow-hidden")}>
+              {/* Animated gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-emerald-500/5 opacity-50 animate-pulse" />
+              
+              <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="p-2 rounded-xl bg-purple-500/20">
-                      <GraduationCap className="w-5 h-5 text-purple-400" />
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className={cn(
+                      "p-2.5 rounded-xl backdrop-blur-lg",
+                      "bg-gradient-to-br from-purple-500/20 to-purple-600/10",
+                      "border border-purple-400/30 shadow-lg shadow-purple-500/20"
+                    )}>
+                      <GraduationCap className="w-5 h-5 text-purple-300" strokeWidth={2} />
                     </div>
-                    <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30">
-                      <Sparkles className="w-3 h-3 mr-1" />
+                    <Badge className={cn(
+                      "backdrop-blur-lg bg-purple-500/25 text-purple-200 border border-purple-400/40",
+                      "shadow-[0_2px_10px_rgba(168,85,247,0.3)]"
+                    )}>
+                      <Sparkles className="w-3 h-3 mr-1.5" strokeWidth={2} />
                       Discover
                     </Badge>
                   </div>
-                  <h1 className="text-2xl md:text-3xl font-bold text-white">Find Your Program</h1>
-                  <p className="text-white/60 mt-1">Explore college baseball programs that match your goals</p>
+                  <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 bg-gradient-to-r from-white via-white to-white/90 bg-clip-text text-transparent">
+                    Find Your Program
+                  </h1>
+                  <p className="text-sm text-white/70">Explore college baseball programs that match your goals</p>
                 </div>
                 
-                <div className="flex items-center gap-3">
-                  <div className="px-4 py-2 rounded-xl bg-white/[0.08] border border-white/[0.12]">
-                    <p className="text-2xl font-bold text-white">
-                      <AnimatedNumber value={interestedSchools.size} duration={800} />
-                    </p>
-                    <p className="text-[10px] text-white/50 uppercase tracking-wide">In Your List</p>
-                  </div>
-                </div>
+                <motion.div 
+                  className={cn(
+                    "px-5 py-3 rounded-xl backdrop-blur-lg",
+                    "bg-white/[0.08] border border-white/[0.15]",
+                    "shadow-lg shadow-purple-500/10"
+                  )}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  <p className="text-3xl font-bold text-white mb-1">
+                    <AnimatedNumber value={interestedSchools.size} duration={800} />
+                  </p>
+                  <p className="text-[10px] text-white/60 uppercase tracking-wide font-medium">In Your List</p>
+                </motion.div>
               </div>
             </div>
-          </section>
+          </motion.section>
 
-          {/* Search Bar */}
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search schools, cities, states, or conferences..."
-              className={cn(
-                glassInput,
-                'w-full pl-12 pr-4 py-3.5 text-base'
-              )}
-            />
-            {search && (
-              <button 
-                onClick={() => setSearch('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-white/10 transition-colors"
-              >
-                <X className="w-4 h-4 text-white/50" />
-              </button>
-            )}
-          </div>
+          {/* Enhanced Search Bar */}
+          <EnhancedSearch
+            placeholder="Search schools, cities, states, or conferences..."
+            value={search}
+            onChange={setSearch}
+            onSearch={setSearch}
+            suggestions={filteredColleges.slice(0, 5).map(c => ({
+              id: c.id,
+              label: c.name,
+              category: `${c.division} • ${c.state || 'N/A'}`,
+            }))}
+            className="w-full"
+          />
 
           {/* Filter Chips Row */}
           <div className="flex flex-wrap items-center gap-3">
@@ -521,70 +605,89 @@ export default function PlayerDiscoverPage() {
               onClick={() => setShowFilters(!showFilters)}
               className={cn(
                 'flex items-center gap-2 px-4 py-2 rounded-xl border transition-all',
+                'backdrop-blur-lg',
                 showFilters 
-                  ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300' 
-                  : 'bg-white/[0.05] border-white/[0.12] text-white/70 hover:bg-white/[0.08]'
+                  ? 'bg-emerald-500/25 border-emerald-500/40 text-emerald-200 shadow-lg shadow-emerald-500/20' 
+                  : 'bg-white/[0.08] border-white/[0.15] text-white/70 hover:bg-white/[0.12] hover:border-white/20'
               )}
             >
-              <SlidersHorizontal className="w-4 h-4" />
-              Filters
+              <SlidersHorizontal className="w-4 h-4" strokeWidth={2} />
+              <span className="font-medium">Filters</span>
               {hasActiveFilters && (
-                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
               )}
             </button>
 
-            {/* Division Pills */}
-            <div className={glassSegmentedControl}>
+            {/* Premium Division Pills */}
+            <div className={cn(
+              "flex gap-1.5 p-1.5 rounded-full backdrop-blur-xl",
+              "bg-white/[0.08] border border-white/[0.15]"
+            )}>
               {DIVISIONS.map((div) => (
-                <button
+                <motion.button
                   key={div}
                   onClick={() => setDivisionFilter(div)}
-                  className={divisionFilter === div ? glassSegmentedPillActive : glassSegmentedPillInactive}
+                  className={cn(
+                    'px-4 py-2 rounded-full text-xs font-medium transition-all',
+                    divisionFilter === div 
+                      ? 'bg-white text-emerald-700 shadow-lg shadow-emerald-500/20' 
+                      : 'text-white/70 hover:text-white hover:bg-white/[0.05]'
+                  )}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {div}
-                </button>
+                </motion.button>
               ))}
             </div>
 
             {hasActiveFilters && (
               <button
                 onClick={clearFilters}
-                className="text-xs text-white/50 hover:text-white/70 flex items-center gap-1 transition-colors"
+                className="text-xs text-white/60 hover:text-white/90 flex items-center gap-1.5 transition-colors px-3 py-1.5 rounded-lg hover:bg-white/[0.08]"
               >
-                <X className="w-3 h-3" />
+                <X className="w-3.5 h-3.5" strokeWidth={2} />
                 Clear all
               </button>
             )}
           </div>
 
-          {/* Expanded Filters Panel */}
+          {/* Premium Glass Filters Panel */}
           {showFilters && (
-            <div className={cn(glassCard, 'p-4 animate-in slide-in-from-top-2 duration-200 space-y-4')}>
-              {/* Legacy Quick Filters */}
+            <motion.div 
+              className={cn(glassPanelEnhanced, 'p-6 space-y-5')}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Region Filters */}
               <div className="flex flex-wrap gap-4">
                 <div className="flex-1 min-w-[200px]">
-                  <label className="text-xs font-medium text-white/60 mb-2 block">Region</label>
+                  <label className="text-xs font-semibold text-white/80 mb-3 block uppercase tracking-wide">Region</label>
                   <div className="flex flex-wrap gap-2">
                     {REGIONS.map((region) => (
-                      <button
+                      <motion.button
                         key={region}
                         onClick={() => setRegionFilter(region)}
                         className={cn(
-                          'px-3 py-1.5 rounded-lg text-xs font-medium transition-all',
+                          'px-4 py-2 rounded-lg text-xs font-medium transition-all backdrop-blur-lg',
                           regionFilter === region
-                            ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300'
-                            : 'bg-white/[0.05] border border-white/[0.08] text-white/60 hover:bg-white/[0.08]'
+                            ? 'bg-emerald-500/25 border border-emerald-500/40 text-emerald-200 shadow-lg shadow-emerald-500/20'
+                            : 'bg-white/[0.08] border border-white/[0.15] text-white/70 hover:bg-white/[0.12] hover:border-white/20'
                         )}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                       >
                         {region}
-                      </button>
+                      </motion.button>
                     ))}
                   </div>
                 </div>
               </div>
 
               {/* Filter Presets */}
-              <div className="pt-4 border-t border-white/[0.08]">
+              <div className="pt-5 border-t border-white/[0.1]">
                 <FilterPresets
                   currentFilters={advancedFilters}
                   onLoadPreset={setAdvancedFilters}
@@ -592,7 +695,7 @@ export default function PlayerDiscoverPage() {
               </div>
 
               {/* Advanced Filters */}
-              <div className="pt-4 border-t border-white/[0.08]">
+              <div className="pt-5 border-t border-white/[0.1]">
                 <AdvancedFilters
                   filters={advancedFilters}
                   onFiltersChange={setAdvancedFilters}
@@ -603,8 +706,13 @@ export default function PlayerDiscoverPage() {
               </div>
               
               {hasActiveFilters && (
-                <div className="mt-4 pt-3 border-t border-white/[0.08]">
-                  <p className="text-xs text-white/50">
+                <motion.div 
+                  className="mt-5 pt-4 border-t border-white/[0.1]"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <p className="text-xs text-white/60 font-medium">
                     Showing: {divisionFilter !== 'All' ? divisionFilter : 'All divisions'} 
                     {regionFilter !== 'All' ? ` • ${regionFilter}` : ''}
                     {advancedFilters.divisions.length > 0 && ` • ${advancedFilters.divisions.length} division(s)`}
@@ -612,51 +720,78 @@ export default function PlayerDiscoverPage() {
                     {advancedFilters.states.length > 0 && ` • ${advancedFilters.states.length} state(s)`}
                     {search ? ` • "${search}"` : ''}
                   </p>
-                </div>
+                </motion.div>
               )}
-            </div>
+            </motion.div>
           )}
 
-          {/* Stats Row */}
-          <div className="grid grid-cols-3 gap-3">
-            <GlassStatTile 
-              icon={<Building2 className="w-4 h-4" />}
-              value={colleges.length}
-              label="Programs"
-            />
-            <GlassStatTile 
-              icon={<Filter className="w-4 h-4" />}
-              value={filteredColleges.length}
-              label="Matching"
-              accent
-            />
-            <GlassStatTile 
-              icon={<Heart className="w-4 h-4" />}
-              value={interestedSchools.size}
-              label="Interested"
-            />
-          </div>
+          {/* Premium Glass Stats Row */}
+          <motion.div 
+            className="grid grid-cols-3 gap-4"
+            variants={staggerContainer as any}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div variants={staggerItem as any}>
+              <GlassStatTile 
+                icon={<Building2 className="w-4 h-4" strokeWidth={2} />}
+                value={colleges.length}
+                label="Programs"
+              />
+            </motion.div>
+            <motion.div variants={staggerItem as any}>
+              <GlassStatTile 
+                icon={<Filter className="w-4 h-4" strokeWidth={2} />}
+                value={filteredColleges.length}
+                label="Matching"
+                accent
+              />
+            </motion.div>
+            <motion.div variants={staggerItem as any}>
+              <GlassStatTile 
+                icon={<Heart className="w-4 h-4" strokeWidth={2} />}
+                value={interestedSchools.size}
+                label="Interested"
+              />
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+
         </div>
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════
-          LIGHT CONTENT ZONE
+          ULTIMATE GLASSMORPHISM LIGHT CONTENT ZONE
       ═══════════════════════════════════════════════════════════════════ */}
-      <div className={glassLightZone}>
-        <div className="max-w-6xl mx-auto px-4 md:px-6 py-8">
+      <div className={cn(glassTransitionZone, "py-12 relative overflow-hidden")}>
+        {/* Animated gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/5 to-transparent opacity-50" />
+        
+        <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
           
-          {/* Results Header */}
-          <div className="flex items-center justify-between mb-6">
+          {/* Premium Results Header */}
+          <motion.div 
+            className="flex items-center justify-between mb-6"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             <div>
-              <h2 className="text-lg font-semibold text-slate-800">Programs</h2>
-              <p className="text-sm text-slate-500">{filteredColleges.length} results</p>
+              <h2 className="text-xl font-bold text-slate-800 mb-1">Programs</h2>
+              <p className="text-sm text-slate-600 font-medium">{filteredColleges.length} results</p>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-500">Sort by:</span>
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-slate-600 font-medium">Sort by:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as 'name' | 'division' | 'state' | 'conference')}
-                className="text-xs px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-colors"
+                className={cn(
+                  "text-xs px-4 py-2 rounded-xl border backdrop-blur-lg",
+                  "bg-white/[0.8] border-slate-200/50 text-slate-700",
+                  "hover:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20",
+                  "transition-all duration-300 shadow-sm hover:shadow-md"
+                )}
               >
                 <option value="name">Name</option>
                 <option value="division">Division</option>
@@ -664,7 +799,7 @@ export default function PlayerDiscoverPage() {
                 <option value="state">State</option>
               </select>
             </div>
-          </div>
+          </motion.div>
 
           {/* Bulk Actions Toolbar */}
           <BulkActionsToolbar
@@ -678,44 +813,65 @@ export default function PlayerDiscoverPage() {
             className="mb-4"
           />
 
-          {/* College Grid */}
+          {/* Premium Glass College Grid */}
           {filteredColleges.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredColleges.map(college => (
-                <SelectableItem
+            <motion.div 
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
+              variants={staggerContainer as any}
+              initial="hidden"
+              animate="visible"
+            >
+              {filteredColleges.map((college, index) => (
+                <motion.div
                   key={college.id}
-                  id={college.id}
-                  isSelected={selectedCollegeIds.has(college.id)}
-                  onSelect={handleSelectionChange}
+                  variants={staggerItem as any}
+                  custom={index}
                 >
-                  <CollegeCard
-                    college={college}
-                    isInterested={interestedSchools.has(college.id)}
-                    onAddInterest={() => handleAddInterest(college)}
-                    onRemoveInterest={() => handleRemoveInterest(college.id)}
-                    onViewProgram={() => handleViewProgram(college)}
-                  />
-                </SelectableItem>
+                  <SelectableItem
+                    id={college.id}
+                    isSelected={selectedCollegeIds.has(college.id)}
+                    onSelect={handleSelectionChange}
+                  >
+                    <CollegeCard
+                      college={college}
+                      isInterested={interestedSchools.has(college.id)}
+                      onAddInterest={() => handleAddInterest(college)}
+                      onRemoveInterest={() => handleRemoveInterest(college.id)}
+                      onViewProgram={() => handleViewProgram(college)}
+                    />
+                  </SelectableItem>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           ) : (
-            <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center">
-              <div className="w-16 h-16 mx-auto rounded-full bg-slate-100 flex items-center justify-center mb-4">
-                <GraduationCap className="w-8 h-8 text-slate-400" />
+            <motion.div 
+              className={cn(
+                glassPanelEnhanced,
+                "p-12 text-center"
+              )}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-purple-500/20 to-emerald-500/20 border border-purple-400/30 flex items-center justify-center mb-4 backdrop-blur-lg">
+                <GraduationCap className="w-8 h-8 text-purple-300" strokeWidth={2} />
               </div>
-              <p className="text-slate-800 font-medium">No programs match your filters</p>
+              <p className="text-slate-800 font-semibold text-lg">No programs match your filters</p>
               <p className="text-sm text-slate-500 mt-1">Try adjusting your search or filters</p>
               <button
                 onClick={clearFilters}
-                className="mt-4 px-4 py-2 bg-emerald-500 text-white text-sm font-medium rounded-lg hover:bg-emerald-600 transition-colors"
+                className={cn(
+                  glassButtonEnhanced.primary,
+                  "mt-6 px-6 py-2.5 text-sm font-semibold"
+                )}
               >
                 Clear Filters
               </button>
-            </div>
+            </motion.div>
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -735,18 +891,30 @@ function GlassStatTile({
   accent?: boolean;
 }) {
   return (
-    <div className={cn(glassStatCard, 'text-center')}>
+    <motion.div 
+      className={cn(
+        glassStatCardEnhanced,
+        'text-center p-4',
+        accent 
+          ? 'bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 border-emerald-400/30 shadow-lg shadow-emerald-500/20' 
+          : 'bg-gradient-to-br from-white/[0.08] to-white/[0.05] border-white/[0.15]'
+      )}
+      whileHover={{ scale: 1.05, y: -2 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className={cn(
-        'w-8 h-8 mx-auto rounded-full flex items-center justify-center mb-2',
-        accent ? 'bg-emerald-500/20 text-emerald-400' : 'bg-white/[0.1] text-white/60'
+        'w-9 h-9 mx-auto rounded-xl flex items-center justify-center mb-3 backdrop-blur-lg',
+        accent 
+          ? 'bg-emerald-500/25 border border-emerald-400/30 text-emerald-300' 
+          : 'bg-white/[0.1] border border-white/[0.15] text-white/70'
       )}>
         {icon}
       </div>
-      <p className={cn('text-xl font-bold', accent ? 'text-emerald-400' : 'text-white')}>
+      <p className={cn('text-2xl font-bold mb-1', accent ? 'text-emerald-300' : 'text-white')}>
         <AnimatedNumber value={value} duration={1000} />
       </p>
-      <p className="text-[10px] text-white/50 uppercase tracking-wide">{label}</p>
-    </div>
+      <p className="text-[10px] text-white/60 uppercase tracking-wide font-medium">{label}</p>
+    </motion.div>
   );
 }
 
@@ -775,13 +943,20 @@ function CollegeCard({
   };
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-4 hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-500/10 hover:-translate-y-0.5 transition-all duration-200 group">
+    <motion.div 
+      className={cn(
+        glassCardInteractiveEnhanced,
+        "p-5 group cursor-pointer"
+      )}
+      whileHover={{ scale: 1.02, y: -4 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="flex items-start gap-3">
-        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200/50 flex items-center justify-center flex-shrink-0">
+        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 border border-emerald-400/30 flex items-center justify-center flex-shrink-0 backdrop-blur-lg shadow-lg shadow-emerald-500/10 group-hover:shadow-emerald-500/20 transition-shadow">
           {college.logo_url ? (
             <Image src={college.logo_url} alt={college.name} width={36} height={36} className="object-contain" />
           ) : (
-            <GraduationCap className="w-6 h-6 text-emerald-600" />
+            <GraduationCap className="w-5 h-5 text-emerald-300" strokeWidth={2} />
           )}
         </div>
         <div className="flex-1 min-w-0">

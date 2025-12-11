@@ -431,7 +431,7 @@ export default function HsCoachOverviewPage() {
                           {members.slice(0, 6).map((member) => (
                             <div
                               key={member.id}
-                              className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer group"
+                              className="flex items-center gap-3 p-2 rounded-2xl hover:bg-muted/50 transition-colors cursor-pointer group"
                               onClick={() => router.push(`/coach/player/${member.player.id}`)}
                             >
                               <Avatar className="h-8 w-8 ring-1 ring-white/10">

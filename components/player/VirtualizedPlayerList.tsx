@@ -336,6 +336,7 @@ function FilterBar({
   onClearFilters,
   hasActiveFilters,
 }: FilterBarProps) {
+  const [loading, setLoading] = useState(true);
   const [showPositions, setShowPositions] = useState(false);
   const [showYears, setShowYears] = useState(false);
   const [showSort, setShowSort] = useState(false);
@@ -381,7 +382,7 @@ function FilterBar({
             {positions.map((pos) => (
               <label
                 key={pos}
-                className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-white/5 cursor-pointer"
+                className="flex items-center gap-2 px-2 py-1.5 rounded-2xl hover:bg-white/5 cursor-pointer"
               >
                 <input
                   type="checkbox"
@@ -425,7 +426,7 @@ function FilterBar({
             {gradYears.map((year) => (
               <label
                 key={year}
-                className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-white/5 cursor-pointer"
+                className="flex items-center gap-2 px-2 py-1.5 rounded-2xl hover:bg-white/5 cursor-pointer"
               >
                 <input
                   type="checkbox"
@@ -448,7 +449,7 @@ function FilterBar({
             setShowPositions(false);
             setShowYears(false);
           }}
-          className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 text-slate-300 border border-white/10 hover:border-white/20 text-sm transition-all"
+          className="flex items-center gap-2 px-3 py-2 rounded-2xl bg-white/5 text-slate-300 border border-white/10 hover:border-white/20 text-sm transition-all"
         >
           {sortOrder === 'asc' ? (
             <ChevronUp className="w-4 h-4" />
@@ -492,7 +493,7 @@ function FilterBar({
       {hasActiveFilters && (
         <button
           onClick={onClearFilters}
-          className="px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-red-500/10 transition-colors"
+          className="px-3 py-2 rounded-2xl text-sm text-red-400 hover:bg-red-500/10 transition-colors"
         >
           Clear filters
         </button>
@@ -756,7 +757,7 @@ export function VirtualizedPlayerList({
             {hasActiveFilters && (
               <button
                 onClick={handleClearFilters}
-                className="mt-3 px-4 py-2 text-sm text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-colors"
+                className="mt-3 px-4 py-2 text-sm text-emerald-400 hover:bg-emerald-500/10 rounded-2xl transition-colors"
               >
                 Clear all filters
               </button>

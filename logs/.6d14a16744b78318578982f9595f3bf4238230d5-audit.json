@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/ricknini/scoutpulse/logs/.6d14a16744b78318578982f9595f3bf4238230d5-audit.json",
+    "files": [
+        {
+            "date": 1765049266195,
+            "name": "/Users/ricknini/scoutpulse/logs/mcp-puppeteer-2025-12-06.log",
+            "hash": "dc725986f3ad3c88038a50f8aca4fe2b00308d375c04ea851bfbc4db46d287d9"
+        },
+        {
+            "date": 1765131556015,
+            "name": "/Users/ricknini/scoutpulse/logs/mcp-puppeteer-2025-12-07.log",
+            "hash": "ca0afc727fe9cd05db6d438c9073d52f75462365ebd21f2c08b744f29ff780a6"
+        }
+    ],
+    "hashType": "sha256"
+}

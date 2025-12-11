@@ -790,7 +790,7 @@ export default function CollegeCoachWatchlistPage() {
             
             {/* View Mode Toggle */}
             <div className="flex items-center gap-2">
-              <div className="flex items-center bg-white border border-slate-200 rounded-lg p-1">
+              <div className="flex items-center bg-white/10 backdrop-blur-md border border-white/20 border border-slate-200 rounded-2xl p-1">
                 <button
                   onClick={() => setViewMode('kanban')}
                   className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
@@ -816,7 +816,7 @@ export default function CollegeCoachWatchlistPage() {
           </div>
 
           {/* Pipeline Progress Bar */}
-          <div className="bg-white rounded-xl border border-slate-200 p-4">
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl border border-slate-200 p-4">
             <div className="flex items-center gap-2 mb-3">
               <Target className="w-4 h-4 text-emerald-600" />
               <span className="text-sm font-medium text-slate-700">Pipeline Progress</span>
@@ -853,7 +853,7 @@ export default function CollegeCoachWatchlistPage() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input
                 placeholder="Search recruits..."
-                className="pl-9 h-9 bg-white border-slate-200 text-sm"
+                className="pl-9 h-9 bg-white/10 backdrop-blur-md border border-white/20 border-slate-200 text-sm"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -942,7 +942,7 @@ export default function CollegeCoachWatchlistPage() {
               ADVANCED FILTERS PANEL
           ═══════════════════════════════════════════════════════════════════ */}
           {showFilters && (
-            <div className="bg-white rounded-xl border border-slate-200 p-4 space-y-4">
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl border border-slate-200 p-4 space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-slate-700">Advanced Filters</span>
                 <Button variant="ghost" size="sm" className="h-7 text-xs text-slate-500" onClick={clearFilters}>
@@ -1217,7 +1217,7 @@ export default function CollegeCoachWatchlistPage() {
             <div className="flex items-center gap-2 flex-1 flex-wrap">
               {/* Move to Stage */}
               <Select onValueChange={handleBulkMoveStage} disabled={bulkActionLoading}>
-                <SelectTrigger className="h-8 w-36 text-xs bg-white border-emerald-200">
+                <SelectTrigger className="h-8 w-36 text-xs bg-white/10 backdrop-blur-md border border-white/20 border-emerald-200">
                   <SelectValue placeholder="Move to..." />
                 </SelectTrigger>
                 <SelectContent>
@@ -1234,7 +1234,7 @@ export default function CollegeCoachWatchlistPage() {
 
               {/* Set Priority */}
               <Select onValueChange={handleBulkSetPriority} disabled={bulkActionLoading}>
-                <SelectTrigger className="h-8 w-36 text-xs bg-white border-emerald-200">
+                <SelectTrigger className="h-8 w-36 text-xs bg-white/10 backdrop-blur-md border border-white/20 border-emerald-200">
                   <SelectValue placeholder="Set priority..." />
                 </SelectTrigger>
                 <SelectContent>
@@ -1323,7 +1323,7 @@ export default function CollegeCoachWatchlistPage() {
             LIST VIEW
         ═══════════════════════════════════════════════════════════════════ */}
         {viewMode === 'list' && (
-          <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl border border-slate-200 overflow-hidden">
             <table className="w-full">
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
@@ -1574,9 +1574,9 @@ function RecruitBoardCard({ recruit, stage, onView, onMessage, onRemove, onUpdat
         </button>
 
         {/* Avatar */}
-        <Avatar className="h-9 w-9 rounded-lg shadow-sm flex-shrink-0">
+        <Avatar className="h-9 w-9 rounded-2xl shadow-sm flex-shrink-0">
           <AvatarImage src={recruit.player?.avatar_url || undefined} />
-          <AvatarFallback className="rounded-lg bg-emerald-100 text-emerald-700 text-xs font-semibold">
+          <AvatarFallback className="rounded-2xl bg-emerald-100 text-emerald-700 text-xs font-semibold">
             {initials}
           </AvatarFallback>
         </Avatar>
@@ -1746,9 +1746,9 @@ function RecruitListRow({ recruit, isSelected, onToggleSelect, onView, onMessage
       </td>
       <td className="px-4 py-3">
         <div className="flex items-center gap-3">
-          <Avatar className="h-8 w-8 rounded-lg">
+          <Avatar className="h-8 w-8 rounded-2xl">
             <AvatarImage src={recruit.player?.avatar_url || undefined} />
-            <AvatarFallback className="rounded-lg bg-emerald-100 text-emerald-700 text-xs font-semibold">
+            <AvatarFallback className="rounded-2xl bg-emerald-100 text-emerald-700 text-xs font-semibold">
               {initials}
             </AvatarFallback>
           </Avatar>

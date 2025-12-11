@@ -9,6 +9,7 @@ interface ConfettiProps {
 }
 
 export const Confetti = ({ show, onComplete }: ConfettiProps) => {
+  const [loading, setLoading] = useState(true);
   const [pieces, setPieces] = useState<Array<{ id: number; x: number; color: string }>>([]);
 
   useEffect(() => {

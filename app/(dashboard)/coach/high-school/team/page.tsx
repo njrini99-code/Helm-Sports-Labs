@@ -11,6 +11,7 @@ import { TeamMedia } from '@/components/team/team-media';
 import { TeamReports } from '@/components/team/team-reports';
 import {
   getTeamForOwner,
+  createTeamForCoach,
   getTeamRoster,
   getTeamSchedule,
   getTeamMedia,
@@ -75,11 +76,35 @@ export default function HighSchoolTeamPage() {
 
     setCoachName(coachFullName);
 
-    const teamData = await getTeamForOwner(coachId!);
+    let teamData = await getTeamForOwner(coachId!);
     if (!teamData) {
-      // TODO: Create team if doesn't exist or redirect to create
-      setLoading(false);
-      return;
+      // Create team if doesn't exist
+      const { data: coach } = await supabase
+        .from('coaches')
+        .select('school_name, city, state')
+        .eq('id', coachId!)
+        .single();
+
+      if (coach) {
+        teamData = await createTeamForCoach(coachId!, {
+          name: coach.school_name || 'My Team',
+          team_type: 'high_school',
+          school_name: coach.school_name || null,
+          city: coach.city || null,
+          state: coach.state || null,
+        });
+
+        if (!teamData) {
+          console.error('Failed to create team');
+          setLoading(false);
+          return;
+        }
+      } else {
+        // If coach not found, redirect to onboarding
+        router.push('/onboarding/coach');
+        setLoading(false);
+        return;
+      }
     }
 
     setTeam(teamData);
@@ -100,7 +125,7 @@ export default function HighSchoolTeamPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0B0D0F] flex items-center justify-center">
+      <div className="min-h-screen bg-[#0B0D0F] flex items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div className="w-8 h-8 bg-blue-400/20 rounded animate-pulse" />
       </div>
     );
@@ -108,7 +133,7 @@ export default function HighSchoolTeamPage() {
 
   if (!team) {
     return (
-      <div className="min-h-screen bg-[#0B0D0F] flex items-center justify-center">
+      <div className="min-h-screen bg-[#0B0D0F] flex items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div className="text-center">
           <p className="text-slate-400 mb-4">No team found</p>
           <p className="text-sm text-slate-500">Create your team to get started</p>
@@ -120,10 +145,18 @@ export default function HighSchoolTeamPage() {
   const mode: TeamPageMode = 'owner';
 
   // Map media to TeamMedia format
-  const mediaItems = media.map(m => ({
-    ...m,
-    team_id: team.id,
-  }));
+  const mediaItems = media.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            media.map(m => ({
+              ...m,
+              team_id: team.id,
+            }))
+          );
 
   return (
     <TeamPageShell

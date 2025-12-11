@@ -19,6 +19,7 @@ export function PageTransition({
   animation = 'fade',
 }: PageTransitionProps) {
   const pathname = usePathname();
+  const [loading, setLoading] = useState(true);
   const [displayChildren, setDisplayChildren] = useState(children);
   const [isTransitioning, setIsTransitioning] = useState(false);
 

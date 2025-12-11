@@ -50,6 +50,7 @@ export function BulkActionsToolbar<T extends { id: string }>({
   className,
   itemName = 'items',
 }: BulkActionsToolbarProps<T>) {
+  const [loading, setLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
   const selectedCount = selectedIds.size;
   const allSelected = selectedCount === items.length && items.length > 0;
@@ -59,7 +60,14 @@ export function BulkActionsToolbar<T extends { id: string }>({
     if (allSelected) {
       onSelectionChange(new Set());
     } else {
-      onSelectionChange(new Set(items.map(item => item.id)));
+      onSelectionChange(new Set({items.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            items.map(item => item.id)));
     }
   };
 

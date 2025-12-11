@@ -14,9 +14,9 @@ export function HsRosterBulkActions({
   onMessageSelected: () => void;
 }) {
   return (
-    <Card className="bg-emerald-500/10 border border-emerald-500/30 text-white p-3 flex flex-wrap items-center gap-2">
+    <Card className="bg-emerald-500/10 border border-emerald-500/30 text-white p-3 flex flex-wrap items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
       <p className="text-sm">Selected {selected.length} player(s)</p>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <Button size="sm" variant="outline" className="border-white/20 text-white" onClick={onMessageSelected}>
           Message Selected
         </Button>

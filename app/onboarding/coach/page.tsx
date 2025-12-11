@@ -60,7 +60,8 @@ export default function CoachOnboarding() {
     program_level: '',
     program_values: '',
     about: '',
-  });
+  })
+          )};
 
   useEffect(() => {
     checkAuth();
@@ -95,7 +96,8 @@ export default function CoachOnboarding() {
     }
 
     if (coach?.full_name) {
-      setFormData(prev => ({ ...prev, full_name: coach.full_name || '' }));
+      setFormData(prev => ({ ...prev, full_name: coach.full_name || '' })
+          )});
     }
 
     setLoading(false);
@@ -178,7 +180,8 @@ export default function CoachOnboarding() {
 
       if (error) {
         toast.error('Error saving profile');
-        logError(error, { component: 'CoachOnboarding', action: 'handleSubmit' });
+        logError(error, { component: 'CoachOnboarding', action: 'handleSubmit' })
+          )};
         return;
       }
 
@@ -191,7 +194,8 @@ export default function CoachOnboarding() {
         router.push(dashboardPath);
       }, 2000);
     } catch (error) {
-      logError(error, { component: 'CoachOnboarding', action: 'handleSubmit', metadata: { unexpected: true } });
+      logError(error, { component: 'CoachOnboarding', action: 'handleSubmit', metadata: { unexpected: true } })
+          )};
       toast.error('An error occurred');
     } finally {
       setSaving(false);
@@ -250,7 +254,14 @@ export default function CoachOnboarding() {
           </div>
           <Progress value={(currentStep / 2) * 100} className="h-2" />
           <div className="flex items-center justify-between">
-            {STEPS.map((step, idx) => {
+            {{STEPS.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            STEPS.map((step, idx) => {
               const StepIcon = step.icon;
               const isActive = currentStep === idx + 1;
               const isCompleted = currentStep > idx + 1;
@@ -272,7 +283,8 @@ export default function CoachOnboarding() {
                   </p>
                 </div>
               );
-            })}
+            })
+          )}}
           </div>
         </div>
 
@@ -289,7 +301,8 @@ export default function CoachOnboarding() {
                 <Label>Full Name *</Label>
                 <Input
                   value={formData.full_name}
-                  onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, full_name: e.target.value })
+          )}}
                   placeholder="Your full name"
                   className="bg-[#111315] border-white/10"
                 />
@@ -301,7 +314,8 @@ export default function CoachOnboarding() {
                     <Label>School Name *</Label>
                     <Input
                       value={formData.school_name}
-                      onChange={(e) => setFormData({ ...formData, school_name: e.target.value })}
+                      onChange={(e) => setFormData({ ...formData, school_name: e.target.value })
+          )}}
                       placeholder="University or High School name"
                       className="bg-[#111315] border-white/10"
                     />
@@ -311,7 +325,8 @@ export default function CoachOnboarding() {
                     <Label>City</Label>
                     <Input
                       value={formData.city}
-                      onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                      onChange={(e) => setFormData({ ...formData, city: e.target.value })
+          )}}
                       placeholder="City"
                       className="bg-[#111315] border-white/10"
                     />
@@ -319,7 +334,8 @@ export default function CoachOnboarding() {
 
                   <div className="space-y-2">
                     <Label>State</Label>
-                    <Select value={formData.state} onValueChange={(v) => setFormData({ ...formData, state: v })}>
+                    <Select value={formData.state} onValueChange={(v) => setFormData({ ...formData, state: v })
+          )}}>
                       <SelectTrigger className="bg-[#111315] border-white/10">
                         <SelectValue placeholder="Select state" />
                       </SelectTrigger>
@@ -335,7 +351,8 @@ export default function CoachOnboarding() {
                     <Label>Staff Role</Label>
                     <Input
                       value={formData.staff_role}
-                      onChange={(e) => setFormData({ ...formData, staff_role: e.target.value })}
+                      onChange={(e) => setFormData({ ...formData, staff_role: e.target.value })
+          )}}
                       placeholder="e.g., Head Coach, Assistant Coach, Recruiting Coordinator"
                       className="bg-[#111315] border-white/10"
                     />
@@ -349,7 +366,8 @@ export default function CoachOnboarding() {
                     <Label>Organization Name *</Label>
                     <Input
                       value={formData.organization_name}
-                      onChange={(e) => setFormData({ ...formData, organization_name: e.target.value })}
+                      onChange={(e) => setFormData({ ...formData, organization_name: e.target.value })
+          )}}
                       placeholder="Organization or program name"
                       className="bg-[#111315] border-white/10"
                     />
@@ -359,7 +377,8 @@ export default function CoachOnboarding() {
                     <Label>City</Label>
                     <Input
                       value={formData.city}
-                      onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                      onChange={(e) => setFormData({ ...formData, city: e.target.value })
+          )}}
                       placeholder="City"
                       className="bg-[#111315] border-white/10"
                     />
@@ -367,7 +386,8 @@ export default function CoachOnboarding() {
 
                   <div className="space-y-2">
                     <Label>State</Label>
-                    <Select value={formData.state} onValueChange={(v) => setFormData({ ...formData, state: v })}>
+                    <Select value={formData.state} onValueChange={(v) => setFormData({ ...formData, state: v })
+          )}}>
                       <SelectTrigger className="bg-[#111315] border-white/10">
                         <SelectValue placeholder="Select state" />
                       </SelectTrigger>
@@ -396,7 +416,8 @@ export default function CoachOnboarding() {
               {programLevels.length > 0 && (
                 <div className="space-y-2">
                   <Label>Program Level</Label>
-                  <Select value={formData.program_level} onValueChange={(v) => setFormData({ ...formData, program_level: v })}>
+                  <Select value={formData.program_level} onValueChange={(v) => setFormData({ ...formData, program_level: v })
+          )}}>
                     <SelectTrigger className="bg-[#111315] border-white/10">
                       <SelectValue placeholder="Select level" />
                     </SelectTrigger>
@@ -413,7 +434,8 @@ export default function CoachOnboarding() {
                 <Label>Program Values</Label>
                 <Textarea
                   value={formData.program_values}
-                  onChange={(e) => setFormData({ ...formData, program_values: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, program_values: e.target.value })
+          )}}
                   placeholder="What does your program stand for? What values guide your team?"
                   className="bg-[#111315] border-white/10 min-h-[100px]"
                 />
@@ -423,7 +445,8 @@ export default function CoachOnboarding() {
                 <Label>About the Program</Label>
                 <Textarea
                   value={formData.about}
-                  onChange={(e) => setFormData({ ...formData, about: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, about: e.target.value })
+          )}}
                   placeholder="Tell recruits about your program, facilities, and what makes it special..."
                   className="bg-[#111315] border-white/10 min-h-[120px]"
                 />

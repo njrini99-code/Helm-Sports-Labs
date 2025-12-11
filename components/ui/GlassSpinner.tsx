@@ -126,7 +126,7 @@ export function GlassSpinner({
   // Full screen overlay
   if (fullScreen) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/20 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/20 backdrop-blur-sm hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         {spinnerContent}
       </div>
     );
@@ -135,7 +135,7 @@ export function GlassSpinner({
   // Overlay within container
   if (overlay) {
     return (
-      <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/60 backdrop-blur-sm rounded-xl">
+      <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/60 backdrop-blur-sm rounded-xl hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         {spinnerContent}
       </div>
     );
@@ -185,8 +185,8 @@ export function GlassPageLoader({
   subtitle = 'Please wait...' 
 }: GlassPageLoaderProps) {
   return (
-    <div className="min-h-[60vh] flex items-center justify-center">
-      <div className="flex flex-col items-center">
+    <div className="min-h-[60vh] flex items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+      <div className="flex flex-col items-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         {/* Glass Card */}
         <div className="relative p-8 rounded-3xl bg-white/30 backdrop-blur-xl border border-white/40 shadow-2xl shadow-black/10">
           {/* Animated Gradient Background */}
@@ -195,7 +195,7 @@ export function GlassPageLoader({
           </div>
 
           {/* Content */}
-          <div className="relative flex flex-col items-center">
+          <div className="relative flex flex-col items-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             {/* Multi-ring Spinner */}
             <div className="relative w-20 h-20">
               {/* Outer Ring */}
@@ -221,7 +221,7 @@ export function GlassPageLoader({
             <p className="mt-1 text-sm text-slate-500">{subtitle}</p>
 
             {/* Progress Dots */}
-            <div className="flex items-center gap-1.5 mt-4">
+            <div className="flex items-center gap-1.5 mt-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               {[0, 1, 2].map((i) => (
                 <div
                   key={i}

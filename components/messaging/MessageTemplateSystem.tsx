@@ -54,7 +54,8 @@ export function MessageTemplateSystem({
 }: { 
   onSelectTemplate?: (content: string) => void;
   playerData?: Record<string, any>;
-}) {
+})
+          )} {
   const [templates, setTemplates] = useState<MessageTemplate[]>(DEFAULT_TEMPLATES);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
@@ -77,16 +78,25 @@ export function MessageTemplateSystem({
         .from('message_templates')
         .select('*')
         .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+          )};
 
       if (data) {
-        setCustomTemplates(data.map(t => ({
+        setCustomTemplates({data.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            data.map(t => ({
           id: t.id,
           name: t.name,
           category: t.category || 'Custom',
           content: t.content,
           variables: extractVariables(t.content)
-        })));
+        })
+          )}));
       }
     } catch (error) {
       console.error('Error loading templates:', error);
@@ -105,7 +115,8 @@ export function MessageTemplateSystem({
     variables.forEach(variable => {
       const value = data[variable] || `{{${variable}}}`;
       result = result.replace(new RegExp(`\\{\\{${variable}\\}\\}`, 'g'), value);
-    });
+    })
+          )};
     
     return result;
   };
@@ -117,7 +128,8 @@ export function MessageTemplateSystem({
     const matchesSearch = template.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          template.content.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
-  });
+  })
+          )};
 
   const handleTemplateSelect = (template: MessageTemplate) => {
     setSelectedTemplate(template);

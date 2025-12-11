@@ -14,14 +14,16 @@ export function HsScheduleFilters({
   teams: Team[];
   value: Filters;
   onChange: (val: Filters) => void;
-}) {
+})
+          )} {
   return (
     <Card className="bg-slate-900/70 border-white/5 p-4 text-white">
-      <div className="flex flex-wrap gap-3 items-center">
+      <div className="flex flex-wrap gap-3 items-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <FilterSelect
           label="View"
           value={value.view}
-          onChange={(view) => onChange({ ...value, view: view as Filters['view'] })}
+          onChange={(view) => onChange({ ...value, view: view as Filters['view'] })
+          )}}
           options={[
             { value: 'list', label: 'List' },
             { value: 'month', label: 'Month' },
@@ -31,16 +33,26 @@ export function HsScheduleFilters({
         <FilterSelect
           label="Team"
           value={value.teamId || 'all'}
-          onChange={(teamId) => onChange({ ...value, teamId: teamId === 'all' ? undefined : teamId })}
+          onChange={(teamId) => onChange({ ...value, teamId: teamId === 'all' ? undefined : teamId })
+          )}}
           options={[
             { value: 'all', label: 'All teams' },
-            ...teams.map((t) => ({ value: t.id, label: t.name })),
+            ...{teams.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            teams.map((t) => ({ value: t.id, label: t.name })
+          )}),
           ]}
         />
         <FilterSelect
           label="Type"
           value={value.type || 'all'}
-          onChange={(type) => onChange({ ...value, type: type === 'all' ? undefined : type })}
+          onChange={(type) => onChange({ ...value, type: type === 'all' ? undefined : type })
+          )}}
           options={[
             { value: 'all', label: 'All types' },
             { value: 'game', label: 'Games' },
@@ -63,7 +75,8 @@ function FilterSelect({
   value: string;
   onChange: (val: string) => void;
   options: { value: string; label: string }[];
-}) {
+})
+          )} {
   return (
     <div className="space-y-1">
       <p className="text-[11px] uppercase tracking-wide text-slate-400">{label}</p>

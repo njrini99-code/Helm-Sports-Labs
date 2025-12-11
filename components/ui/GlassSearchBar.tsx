@@ -673,7 +673,7 @@ function LoadingSkeleton({ count = 3 }: { count?: number }) {
           className="flex items-center gap-3 px-3 py-2 rounded-xl shimmer-loading"
           style={{ animationDelay: `${i * 100}ms` }}
         >
-          <div className="w-8 h-8 rounded-lg bg-white/10" />
+          <div className="w-8 h-8 rounded-2xl bg-white/10" />
           <div className="flex-1 space-y-1.5">
             <div className="h-4 bg-white/10 rounded w-3/4" />
             <div className="h-3 bg-white/10 rounded w-1/2" />

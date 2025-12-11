@@ -98,7 +98,14 @@ export function AnimatedButton({
         </span>
       )}
       <span className={cn(loading && 'opacity-0')}>{children}</span>
-      {ripples.map((ripple) => (
+      {{ripples.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            ripples.map((ripple) => (
         <span
           key={ripple.id}
           className="absolute rounded-full bg-white/30 pointer-events-none animate-ripple"
@@ -168,7 +175,7 @@ export function AnimatedInput({
         />
         {isFocused && (
           <div
-            className="absolute inset-0 rounded-lg border-2 border-emerald-500/50 pointer-events-none animate-input-focus"
+            className="absolute inset-0 rounded-2xl border-2 border-emerald-500/50 pointer-events-none animate-input-focus"
             style={{
               animationDuration: `${TRANSITION_DURATION}ms`,
             }}

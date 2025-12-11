@@ -42,8 +42,10 @@ export function GlassDropdown({
   className,
   disabled = false,
 }: GlassDropdownProps) {
+  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState({ top: 0, left: 0 });
+  const [position, setPosition] = useState({ top: 0, left: 0 })
+          )};
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -53,7 +55,8 @@ export function GlassDropdown({
       setPosition({
         top: rect.bottom + 8,
         left: align === 'right' ? rect.right : rect.left,
-      });
+      })
+          )};
     }
   }, [align]);
 
@@ -134,7 +137,14 @@ export function GlassDropdown({
         right: align === 'right' ? window.innerWidth - position.left : 'auto',
       }}
     >
-      {items.map((item, index) => {
+      {{items.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            items.map((item, index) => {
         if (item.divider) {
           return (
             <div
@@ -162,7 +172,8 @@ export function GlassDropdown({
             {item.label}
           </button>
         );
-      })}
+      })
+          )}}
     </div>
   );
 
@@ -232,7 +243,8 @@ export function GlassSelectDropdown({
   className,
 }: GlassSelectDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
+  const [position, setPosition] = useState({ top: 0, left: 0, width: 0 })
+          )};
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -245,7 +257,8 @@ export function GlassSelectDropdown({
         top: rect.bottom + 4,
         left: rect.left,
         width: rect.width,
-      });
+      })
+          )};
     }
   }, []);
 

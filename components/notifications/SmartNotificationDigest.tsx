@@ -37,8 +37,9 @@ export function SmartNotificationDigest() {
         .from('notifications')
         .select('*')
         .eq('user_id', user.id)
-        .eq('is_read', false)
+        .eq('read', false)
         .order('created_at', { ascending: false })
+          )}
         .limit(50);
 
       if (!notifications) return;
@@ -64,7 +65,8 @@ export function SmartNotificationDigest() {
           items: [],
           icon: getNotificationIcon(type),
           label: getNotificationLabel(type)
-        });
+        })
+          )};
       }
 
       const group = groupsMap.get(type)!;
@@ -73,7 +75,8 @@ export function SmartNotificationDigest() {
       if (new Date(notif.created_at) > group.latest) {
         group.latest = new Date(notif.created_at);
       }
-    });
+    })
+          )};
 
     return Array.from(groupsMap.values()).sort((a, b) => 
       b.latest.getTime() - a.latest.getTime()
@@ -142,7 +145,7 @@ export function SmartNotificationDigest() {
         <select
           value={digestMode}
           onChange={(e) => setDigestMode(e.target.value as any)}
-          className="text-sm border rounded-lg px-2 py-1"
+          className="text-sm border rounded-2xl px-2 py-1"
         >
           <option value="immediate">Immediate</option>
           <option value="hourly">Hourly</option>
@@ -151,20 +154,28 @@ export function SmartNotificationDigest() {
       </div>
 
       <div className="space-y-2">
-        {groups.map((group) => (
+        {{groups.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            groups.map((group) => (
           <div
             key={group.type}
-            className="p-4 rounded-lg border bg-card hover:bg-accent/50 transition-colors cursor-pointer"
+            className="p-4 rounded-2xl border bg-card hover:bg-accent/50 transition-colors cursor-pointer"
           >
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <div className="p-2 rounded-lg bg-primary/10">
+                <div className="p-2 rounded-2xl bg-primary/10">
                   {group.icon}
                 </div>
                 <div>
                   <p className="font-medium">{group.label}</p>
                   <p className="text-xs text-muted-foreground">
-                    {formatDistanceToNow(group.latest, { addSuffix: true })}
+                    {formatDistanceToNow(group.latest, { addSuffix: true })
+          )}}
                   </p>
                 </div>
               </div>

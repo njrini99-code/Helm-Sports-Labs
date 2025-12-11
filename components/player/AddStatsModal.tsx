@@ -26,6 +26,7 @@ interface AddStatsModalProps {
 }
 
 export function AddStatsModal({ playerId, onSuccess, trigger, open: controlledOpen, onClose }: AddStatsModalProps) {
+  const [loading, setLoading] = useState(true);
   const [internalOpen, setInternalOpen] = useState(false);
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
 

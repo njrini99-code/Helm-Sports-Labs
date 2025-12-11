@@ -356,3 +356,97 @@ export function getSuccessStoriesEmail(data: EmailTemplateData): { subject: stri
     html,
   };
 }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PARENT INVITATION EMAIL TEMPLATE
+// ═══════════════════════════════════════════════════════════════════════════
+
+export function getParentInvitationEmail(data: {
+  playerName: string;
+  teamName?: string;
+  invitationLink: string;
+  relationship?: string;
+}): { subject: string; html: string } {
+  const { playerName, teamName, invitationLink, relationship = 'parent' } = data;
+
+  const html = baseEmailTemplate({
+    title: 'You\'ve Been Invited to ScoutPulse',
+    content: `
+      <tr>
+        <td style="padding: 40px 20px; text-align: center;">
+          <h1 style="color: #ffffff; font-size: 28px; font-weight: bold; margin: 0 0 20px 0;">
+            You've Been Invited! 🎉
+          </h1>
+          <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
+            Hi there,
+          </p>
+          <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
+            <strong>${playerName}</strong> has invited you to join ScoutPulse as their ${relationship}.
+            ${teamName ? `They're part of <strong>${teamName}</strong>.` : ''}
+          </p>
+          <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
+            As a parent on ScoutPulse, you'll be able to:
+          </p>
+
+          <!-- Benefits -->
+          <div style="text-align: left; margin: 30px 0;">
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
+                        border-radius: 8px; padding: 20px; margin: 20px 0;">
+              <h3 style="color: #10b981; font-size: 18px; font-weight: 600; margin: 0 0 10px 0;">
+                📊 View Performance & Stats
+              </h3>
+              <p style="color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0;">
+                Track your child's progress, game statistics, and achievements all in one place.
+              </p>
+            </div>
+
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
+                        border-radius: 8px; padding: 20px; margin: 20px 0;">
+              <h3 style="color: #10b981; font-size: 18px; font-weight: 600; margin: 0 0 10px 0;">
+                🏫 Stay Connected with Coaches
+              </h3>
+              <p style="color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0;">
+                Receive updates from coaches and stay informed about team activities and opportunities.
+              </p>
+            </div>
+
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
+                        border-radius: 8px; padding: 20px; margin: 20px 0;">
+              <h3 style="color: #10b981; font-size: 18px; font-weight: 600; margin: 0 0 10px 0;">
+                🎯 Support Their Journey
+              </h3>
+              <p style="color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0;">
+                Help guide your child's recruiting journey and celebrate their milestones together.
+              </p>
+            </div>
+          </div>
+
+          <!-- CTA Button -->
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
+            <tr>
+              <td align="center">
+                <a href="${invitationLink}" 
+                   style="display: inline-block; padding: 16px 32px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
+                          color: #ffffff; text-decoration: none; border-radius: 12px; font-weight: 600; font-size: 16px;
+                          min-width: 200px; text-align: center;">
+                  Accept Invitation
+                </a>
+              </td>
+            </tr>
+          </table>
+
+          <p style="color: #64748b; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0;">
+            This invitation link will expire in 7 days. If you have any questions, 
+            <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.app'}/support" 
+            style="color: #10b981; text-decoration: none;">contact our support team</a>.
+          </p>
+        </td>
+      </tr>
+    `,
+  });
+
+  return {
+    subject: `${playerName} Invited You to ScoutPulse`,
+    html,
+  };
+}

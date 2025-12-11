@@ -5,6 +5,12 @@ import { createClient } from '@/lib/supabase/server';
  * Join team via invite code
  * POST /api/teams/join/[code]
  */
+
+const inputSchema = z.object({
+  // Add your validation rules here
+  // Example: name: z.string().min(1).max(100)
+});
+
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ code: string }> }

@@ -38,12 +38,14 @@ export function DiscoverFilters({ value, onChange }: DiscoverFiltersProps) {
       const current = value[field] as string[];
       const hasItem = current.includes(item as string);
       const next = hasItem ? current.filter((i) => i !== item) : [...current, item as string];
-      onChange({ ...value, [field]: next });
+      onChange({ ...value, [field]: next })
+          )};
     } else if (field === 'gradYears') {
       const current = value[field] as number[];
       const hasItem = current.includes(item as number);
       const next = hasItem ? current.filter((i) => i !== item) : [...current, item as number];
-      onChange({ ...value, [field]: next });
+      onChange({ ...value, [field]: next })
+          )};
     }
   };
 
@@ -64,7 +66,8 @@ export function DiscoverFilters({ value, onChange }: DiscoverFiltersProps) {
       hasVideo: false,
       verifiedOnly: false,
       recentActivity: false,
-    });
+    })
+          )};
   };
 
   const activeCount = useMemo(() => {
@@ -97,7 +100,14 @@ export function DiscoverFilters({ value, onChange }: DiscoverFiltersProps) {
         <div>
           <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Position</p>
           <div className="flex flex-wrap gap-2">
-            {POSITIONS.map((pos) => {
+            {{POSITIONS.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            POSITIONS.map((pos) => {
               const active = value.positions.includes(pos);
               return (
                 <Badge
@@ -113,7 +123,8 @@ export function DiscoverFilters({ value, onChange }: DiscoverFiltersProps) {
                   {pos}
                 </Badge>
               );
-            })}
+            })
+          )}}
           </div>
         </div>
 
@@ -136,7 +147,8 @@ export function DiscoverFilters({ value, onChange }: DiscoverFiltersProps) {
                   {year}
                 </Badge>
               );
-            })}
+            })
+          )}}
           </div>
         </div>
 
@@ -159,7 +171,8 @@ export function DiscoverFilters({ value, onChange }: DiscoverFiltersProps) {
                   {state}
                 </button>
               );
-            })}
+            })
+          )}}
           </div>
         </div>
 
@@ -173,7 +186,8 @@ export function DiscoverFilters({ value, onChange }: DiscoverFiltersProps) {
                   size="sm"
                   variant={value.bats === hand ? 'default' : 'outline'}
                   className="flex-1"
-                  onClick={() => onChange({ ...value, bats: value.bats === hand ? null : hand })}
+                  onClick={() => onChange({ ...value, bats: value.bats === hand ? null : hand })
+          )}}
                 >
                   {hand}
                 </Button>
@@ -189,7 +203,8 @@ export function DiscoverFilters({ value, onChange }: DiscoverFiltersProps) {
                   size="sm"
                   variant={value.throws === hand ? 'default' : 'outline'}
                   className="flex-1"
-                  onClick={() => onChange({ ...value, throws: value.throws === hand ? null : hand })}
+                  onClick={() => onChange({ ...value, throws: value.throws === hand ? null : hand })
+          )}}
                 >
                   {hand}
                 </Button>
@@ -207,19 +222,22 @@ export function DiscoverFilters({ value, onChange }: DiscoverFiltersProps) {
             label="Height (in)"
             minValue={value.minHeight}
             maxValue={value.maxHeight}
-            onChange={(min, max) => onChange({ ...value, minHeight: min, maxHeight: max })}
+            onChange={(min, max) => onChange({ ...value, minHeight: min, maxHeight: max })
+          )}}
           />
           <NumberRange
             label="Weight (lbs)"
             minValue={value.minWeight}
             maxValue={value.maxWeight}
-            onChange={(min, max) => onChange({ ...value, minWeight: min, maxWeight: max })}
+            onChange={(min, max) => onChange({ ...value, minWeight: min, maxWeight: max })
+          )}}
           />
           <NumberRange
             label="60 Time (s)"
             minValue={null}
             maxValue={value.maxSixtyTime}
-            onChange={(_, max) => onChange({ ...value, maxSixtyTime: max })}
+            onChange={(_, max) => onChange({ ...value, maxSixtyTime: max })
+          )}}
             placeholderMax="≤"
           />
         </div>
@@ -228,30 +246,35 @@ export function DiscoverFilters({ value, onChange }: DiscoverFiltersProps) {
           <NumberInput
             label="FB Velo min"
             value={value.minPitchVelo}
-            onChange={(val) => onChange({ ...value, minPitchVelo: val })}
+            onChange={(val) => onChange({ ...value, minPitchVelo: val })
+          )}}
             suffix="mph"
           />
           <NumberInput
             label="Exit Velo min"
             value={value.minExitVelo}
-            onChange={(val) => onChange({ ...value, minExitVelo: val })}
+            onChange={(val) => onChange({ ...value, minExitVelo: val })
+          )}}
             suffix="mph"
           />
           <div className="flex flex-col gap-2">
             <TogglePill
               label="Has video"
               active={value.hasVideo}
-              onClick={() => onChange({ ...value, hasVideo: !value.hasVideo })}
+              onClick={() => onChange({ ...value, hasVideo: !value.hasVideo })
+          )}}
             />
             <TogglePill
               label="Verified metrics"
               active={value.verifiedOnly}
-              onClick={() => onChange({ ...value, verifiedOnly: !value.verifiedOnly })}
+              onClick={() => onChange({ ...value, verifiedOnly: !value.verifiedOnly })
+          )}}
             />
             <TogglePill
               label="Recent activity"
               active={value.recentActivity}
-              onClick={() => onChange({ ...value, recentActivity: !value.recentActivity })}
+              onClick={() => onChange({ ...value, recentActivity: !value.recentActivity })
+          )}}
             />
           </div>
         </div>
@@ -272,7 +295,8 @@ function NumberRange({
   maxValue: number | null;
   onChange: (min: number | null, max: number | null) => void;
   placeholderMax?: string;
-}) {
+})
+          )} {
   return (
     <div className="space-y-2">
       <p className="text-xs uppercase tracking-wide text-muted-foreground">{label}</p>
@@ -307,7 +331,8 @@ function NumberInput({
   value: number | null;
   onChange: (val: number | null) => void;
   suffix?: string;
-}) {
+})
+          )} {
   return (
     <div className="space-y-2">
       <p className="text-xs uppercase tracking-wide text-muted-foreground">{label}</p>
@@ -337,7 +362,8 @@ function TogglePill({
   label: string;
   active: boolean;
   onClick: () => void;
-}) {
+})
+          )} {
   return (
     <button
       type="button"

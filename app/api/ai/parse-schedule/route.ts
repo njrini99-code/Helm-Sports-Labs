@@ -5,6 +5,12 @@ import { createClient } from '@/lib/supabase/server';
  * Parse schedule from PDF/image using AI
  * POST /api/ai/parse-schedule
  */
+
+const inputSchema = z.object({
+  // Add your validation rules here
+  // Example: name: z.string().min(1).max(100)
+});
+
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient();

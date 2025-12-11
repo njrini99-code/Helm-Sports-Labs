@@ -10,6 +10,7 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 export function AddToHomeScreen() {
+  const [loading, setLoading] = useState(true);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showPrompt, setShowPrompt] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
@@ -124,14 +125,14 @@ export function AddToHomeScreen() {
           <div className="flex gap-2">
             <button
               onClick={handleInstallClick}
-              className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg transition-colors duration-300 flex items-center justify-center gap-2 min-h-[44px]"
+              className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-2xl transition-colors duration-300 flex items-center justify-center gap-2 min-h-[44px]"
             >
               <Download className="w-4 h-4" />
               Install
             </button>
             <button
               onClick={handleDismiss}
-              className="p-2 text-gray-400 hover:text-white transition-colors duration-300 rounded-lg min-w-[44px] min-h-[44px] flex items-center justify-center"
+              className="p-2 text-gray-400 hover:text-white transition-colors duration-300 rounded-2xl min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label="Dismiss"
             >
               <X className="w-5 h-5" />
@@ -187,7 +188,7 @@ function IOSInstallInstructions() {
               setShowInstructions(false);
               localStorage.setItem('pwa-ios-instructions-shown', 'true');
             }}
-            className="w-full px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg transition-colors duration-300 min-h-[44px]"
+            className="w-full px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-2xl transition-colors duration-300 min-h-[44px]"
           >
             Got it
           </button>

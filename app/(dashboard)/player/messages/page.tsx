@@ -30,6 +30,16 @@ import {
   glassInput,
   glassDarkZone,
 } from '@/lib/glassmorphism';
+import {
+  glassCardPremium,
+  glassPanel as glassPanelEnhanced,
+  glassButton as glassButtonEnhanced,
+  glassDarkZone as glassDarkZoneEnhanced,
+  glassListItem as glassListItemEnhanced,
+  cn as cnEnhanced,
+} from '@/lib/glassmorphism-enhanced';
+import { motion } from 'framer-motion';
+import { pageTransition } from '@/lib/animations';
 
 interface Conversation {
   id: string;
@@ -333,26 +343,45 @@ export default function PlayerMessagesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0b1720] to-[#0f172a]">
-      <div className="max-w-6xl mx-auto px-4 md:px-6 py-6">
+    <motion.div 
+      className={cn(glassDarkZoneEnhanced, "min-h-screen pb-12 relative overflow-hidden")}
+      initial={pageTransition.initial}
+      animate={pageTransition.animate}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+    >
+      {/* Animated gradient orbs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '0s' }} />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+      
+      <div className="max-w-6xl mx-auto px-4 md:px-6 py-8 relative z-10">
         
-        {/* Header */}
-        <div className="mb-6">
+        {/* Premium Glass Header */}
+        <motion.div 
+          className="mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-white">Messages</h1>
-              <p className="text-white/60 text-sm mt-1">Connect with coaches and programs</p>
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 bg-gradient-to-r from-white via-white to-white/90 bg-clip-text text-transparent">
+                Messages
+              </h1>
+              <p className="text-white/70 text-sm">Connect with coaches and programs</p>
             </div>
             {totalUnread > 0 && (
-              <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30">
+              <Badge className={cnEnhanced(
+                "backdrop-blur-lg bg-emerald-500/25 text-emerald-200 border border-emerald-400/40",
+                "shadow-lg shadow-emerald-500/20 px-4 py-2"
+              )}>
                 {totalUnread} unread
               </Badge>
             )}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Chat Container */}
-        <div className={cn(glassCard, 'overflow-hidden h-[calc(100vh-180px)] flex')}>
+        {/* Premium Glass Chat Container */}
+        <div className={cnEnhanced(glassPanelEnhanced, 'overflow-hidden h-[calc(100vh-200px)] flex')}>
           
           {/* Conversations List (Left) */}
           <div className={cn(
@@ -362,7 +391,7 @@ export default function PlayerMessagesPage() {
             {/* Search */}
             <div className="p-4 border-b border-white/[0.08]">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" strokeWidth={2} />
                 <input
                   type="text"
                   placeholder="Search conversations..."
@@ -378,7 +407,7 @@ export default function PlayerMessagesPage() {
               {conversations.length === 0 ? (
                 <div className="p-8 text-center">
                   <div className="w-14 h-14 mx-auto rounded-full bg-white/[0.06] flex items-center justify-center mb-3">
-                    <MessageSquare className="w-7 h-7 text-white/30" />
+                    <MessageSquare className="w-6 h-6 text-white/40" strokeWidth={2} />
                   </div>
                   <p className="text-white/70 font-medium">No conversations yet</p>
                   <p className="text-xs text-white/40 mt-1">Messages from coaches will appear here</p>
@@ -456,9 +485,9 @@ export default function PlayerMessagesPage() {
                 <div className="p-4 border-b border-white/[0.08] flex items-center gap-3">
                   <button 
                     onClick={() => setShowMobileChat(false)}
-                    className="md:hidden p-2 -ml-2 rounded-lg hover:bg-white/[0.05] transition-colors"
+                    className="md:hidden p-2 -ml-2 rounded-2xl hover:bg-white/[0.05] transition-colors"
                   >
-                    <ChevronLeft className="w-5 h-5 text-white/70" />
+                    <ChevronLeft className="w-5 h-5 text-white/70" strokeWidth={2} />
                   </button>
                   <Avatar className="w-10 h-10 ring-2 ring-white/10">
                     <AvatarImage src={selectedConv.program_logo || undefined} />
@@ -471,19 +500,19 @@ export default function PlayerMessagesPage() {
                       {selectedConv.program_name || selectedConv.coach_name || 'Unknown'}
                     </p>
                     <p className="text-xs text-emerald-400 flex items-center gap-1">
-                      <Circle className="w-2 h-2 fill-current" />
+                      <Circle className="w-2 h-2 fill-current" strokeWidth={2} />
                       Active now
                     </p>
                   </div>
                   <div className="flex items-center gap-1">
-                    <button className="p-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/60 hover:text-white">
-                      <Phone className="w-5 h-5" />
+                    <button className="p-2 rounded-2xl hover:bg-white/[0.05] transition-colors text-white/60 hover:text-white">
+                      <Phone className="w-4 h-4" strokeWidth={2} />
                     </button>
-                    <button className="p-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/60 hover:text-white">
-                      <Video className="w-5 h-5" />
+                    <button className="p-2 rounded-2xl hover:bg-white/[0.05] transition-colors text-white/60 hover:text-white">
+                      <Video className="w-4 h-4" strokeWidth={2} />
                     </button>
-                    <button className="p-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/60 hover:text-white">
-                      <Info className="w-5 h-5" />
+                    <button className="p-2 rounded-2xl hover:bg-white/[0.05] transition-colors text-white/60 hover:text-white">
+                      <Info className="w-4 h-4" strokeWidth={2} />
                     </button>
                   </div>
                 </div>
@@ -545,7 +574,7 @@ export default function PlayerMessagesPage() {
                                     <CheckCheck className={cn(
                                       'w-3.5 h-3.5',
                                       msg.read ? 'text-emerald-200' : 'text-emerald-100/60'
-                                    )} />
+                                    )} strokeWidth={2} />
                                   )}
                                 </div>
                               </div>
@@ -562,7 +591,7 @@ export default function PlayerMessagesPage() {
                 <div className="p-4 border-t border-white/[0.08]">
                   <div className="flex items-center gap-2">
                     <button className="p-2.5 rounded-xl hover:bg-white/[0.05] transition-colors text-white/50 hover:text-white/70">
-                      <Paperclip className="w-5 h-5" />
+                      <Paperclip className="w-4 h-4" strokeWidth={2} />
                     </button>
                     <div className="flex-1 relative">
                       <input
@@ -579,7 +608,7 @@ export default function PlayerMessagesPage() {
                         className={cn(glassInput, 'w-full py-3 pr-12')}
                       />
                       <button className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/60 transition-colors">
-                        <Smile className="w-5 h-5" />
+                        <Smile className="w-4 h-4" strokeWidth={2} />
                       </button>
                     </div>
                     <button
@@ -595,7 +624,7 @@ export default function PlayerMessagesPage() {
                       {sending ? (
                         <div className="w-5 h-5 bg-white/20 rounded animate-pulse" />
                       ) : (
-                        <Send className="w-5 h-5" />
+                        <Send className="w-4 h-4" strokeWidth={2} />
                       )}
                     </button>
                   </div>
@@ -615,6 +644,6 @@ export default function PlayerMessagesPage() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

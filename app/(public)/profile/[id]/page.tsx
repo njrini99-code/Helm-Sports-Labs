@@ -71,7 +71,11 @@ export default async function PublicProfilePage({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-background/80">
-      <div className="container mx-auto px-4 md:px-6 py-8">
+      <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+  className="container mx-auto px-4 md:px-6 py-8">
         {/* Header */}
         <div className="glassmorphism rounded-xl p-8 mb-6">
           <div className="flex items-start gap-6 flex-col md:flex-row">
@@ -108,23 +112,23 @@ export default async function PublicProfilePage({
                     {commitCount || 0} Commits
                   </span>
                 )}
-              </div>
-              
+              </motion.div>
+
               {coach?.about && (
                 <p className="mt-4 text-sm text-muted-foreground max-w-2xl">
                   {coach.about}
                 </p>
               )}
-            </div>
+            </motion.div>
             
             <div className="flex flex-col gap-2">
               <Button size="lg" className="bg-emerald-500 hover:bg-emerald-600">
                 <Mail className="mr-2 h-4 w-4" />
                 Contact Coach
               </Button>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -156,7 +160,7 @@ export default async function PublicProfilePage({
               <p className="text-xs text-muted-foreground">Type</p>
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
 
         {/* Additional Info */}
         <Card>
@@ -175,8 +179,8 @@ export default async function PublicProfilePage({
             )}
           </CardContent>
         </Card>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 

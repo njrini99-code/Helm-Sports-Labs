@@ -11,6 +11,7 @@ import Link from 'next/link';
 export default function VerifyEmailPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'pending' | 'verifying' | 'verified' | 'error'>('pending');
   const [resending, setResending] = useState(false);
