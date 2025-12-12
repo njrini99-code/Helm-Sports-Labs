@@ -649,3 +649,5 @@ BEGIN
   RAISE NOTICE 'Indexes and policies added';
 END $$;
 
+
+
