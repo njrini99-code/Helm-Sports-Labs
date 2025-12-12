@@ -22,88 +22,75 @@ async function audit() {
 
   // 1. Check Database Indexes
   console.log('\n📊 Checking Database...');
-  
+
+  // Run all database queries in parallel for speed
+  const [
+    { data: playersNoEngagement },
+    { data: engagementPlayers },
+    { data: playersNoName },
+    { data: playersWithMetrics },
+    { data: coaches },
+    { data: programNeeds }
+  ] = await Promise.all([
+    supabase.from('players').select('id').eq('onboarding_completed', true),
+    supabase.from('player_engagement').select('player_id'),
+    supabase.from('players').select('id').is('full_name', null),
+    supabase.from('player_metrics').select('player_id'),
+    supabase.from('coaches').select('id').eq('coach_type', 'college'),
+    supabase.from('program_needs').select('coach_id')
+  ]);
+
   // Check for players without engagement data
-  const { data: playersNoEngagement } = await supabase
-    .from('players')
-    .select('id')
-    .eq('onboarding_completed', true);
-  
-  const { data: engagementPlayers } = await supabase
-    .from('player_engagement')
-    .select('player_id');
-  
   const engagedIds = new Set(engagementPlayers?.map(e => e.player_id) || []);
   const missingEngagement = playersNoEngagement?.filter(p => !engagedIds.has(p.id)) || [];
-  
+
   if (missingEngagement.length > 0) {
     issues.push(`${missingEngagement.length} players missing engagement data (affects trending)`);
   }
-  
+
   // Check for players without full_name
-  const { data: playersNoName } = await supabase
-    .from('players')
-    .select('id')
-    .is('full_name', null);
-  
   if (playersNoName?.length > 0) {
     issues.push(`${playersNoName.length} players missing full_name`);
   }
-  
+
   // Check for players without metrics
-  const { data: playersWithMetrics } = await supabase
-    .from('player_metrics')
-    .select('player_id');
-  
   const metricsIds = new Set(playersWithMetrics?.map(m => m.player_id) || []);
   const playersNoMetrics = playersNoEngagement?.filter(p => !metricsIds.has(p.id)) || [];
-  
+
   if (playersNoMetrics.length > 5) {
     suggestions.push(`${playersNoMetrics.length} players have no metrics (consider adding sample data)`);
   }
-  
+
   // Check coaches without program_needs
-  const { data: coaches } = await supabase
-    .from('coaches')
-    .select('id')
-    .eq('coach_type', 'college');
-  
-  const { data: programNeeds } = await supabase
-    .from('program_needs')
-    .select('coach_id');
-  
   const needsCoachIds = new Set(programNeeds?.map(n => n.coach_id) || []);
   const coachesNoNeeds = coaches?.filter(c => !needsCoachIds.has(c.id)) || [];
-  
+
   if (coachesNoNeeds.length > 0) {
     suggestions.push(`${coachesNoNeeds.length} college coaches without program_needs (affects AI recommendations)`);
   }
-  
+
   console.log('  ✓ Database audit complete');
 
   // 2. Check for missing avatar URLs
   console.log('\n🖼️  Checking Media...');
-  
-  const { data: playersNoAvatar } = await supabase
-    .from('players')
-    .select('id')
-    .is('avatar_url', null)
-    .eq('onboarding_completed', true);
-  
+
+  // Run media queries in parallel
+  const [
+    { data: playersNoAvatar },
+    { data: coachesNoLogo }
+  ] = await Promise.all([
+    supabase.from('players').select('id').is('avatar_url', null).eq('onboarding_completed', true),
+    supabase.from('coaches').select('id').is('logo_url', null).eq('onboarding_completed', true)
+  ]);
+
   if (playersNoAvatar?.length > 10) {
     suggestions.push(`${playersNoAvatar.length} players without avatar URLs (shows fallback initials)`);
   }
-  
-  const { data: coachesNoLogo } = await supabase
-    .from('coaches')
-    .select('id')
-    .is('logo_url', null)
-    .eq('onboarding_completed', true);
-  
+
   if (coachesNoLogo?.length > 0) {
     suggestions.push(`${coachesNoLogo.length} coaches/programs without logos`);
   }
-  
+
   console.log('  ✓ Media audit complete');
 
   // 3. Check state coverage for map
@@ -128,32 +115,24 @@ async function audit() {
 
   // 4. Check code files for common issues
   console.log('\n📝 Checking Code Patterns...');
-  
-  const srcDir = path.join(__dirname, '..');
-  
-  // Check for console.log statements
-  const checkForConsoleLog = (dir) => {
-    let count = 0;
-    const files = fs.readdirSync(dir, { withFileTypes: true });
-    for (const file of files) {
-      if (file.isDirectory() && !file.name.startsWith('.') && file.name !== 'node_modules') {
-        count += checkForConsoleLog(path.join(dir, file.name));
-      } else if (file.name.endsWith('.tsx') || file.name.endsWith('.ts')) {
-        const content = fs.readFileSync(path.join(dir, file.name), 'utf8');
-        const matches = content.match(/console\.log/g);
-        if (matches) count += matches.length;
-      }
-    }
-    return count;
-  };
-  
+
+  const { execSync } = require('child_process');
+
+  // Check for console.log statements using grep (much faster!)
   try {
-    const consoleLogCount = checkForConsoleLog(path.join(srcDir, 'app'));
+    const grepResult = execSync(
+      'grep -r "console\\.log" app --include="*.ts" --include="*.tsx" 2>/dev/null | wc -l',
+      { encoding: 'utf8', cwd: path.join(__dirname, '..') }
+    ).trim();
+
+    const consoleLogCount = parseInt(grepResult) || 0;
     if (consoleLogCount > 10) {
       suggestions.push(`${consoleLogCount} console.log statements in app/ (consider removing for production)`);
     }
-  } catch (e) {}
-  
+  } catch (e) {
+    // If grep fails (e.g., no matches found), that's fine
+  }
+
   console.log('  ✓ Code pattern check complete');
 
   // 5. Summary
