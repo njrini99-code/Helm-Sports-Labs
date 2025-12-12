@@ -8,6 +8,7 @@ import anthropic
 import subprocess
 import time
 import os
+import sys
 
 class ScoutPulseAutonomousBuilder:
     def __init__(self, api_key, scoutpulse_path):
@@ -144,7 +145,12 @@ def main():
     print("╚════════════════════════════════════════════════════════════╝\n")
     
     # Configuration
-    API_KEY = "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"
+    API_KEY = os.getenv('ANTHROPIC_API_KEY')
+    if not API_KEY:
+        API_KEY = input("Enter your Anthropic API key: ").strip()
+        if not API_KEY:
+            print("❌ API key required. Set ANTHROPIC_API_KEY environment variable or enter it when prompted.")
+            sys.exit(1)
     SCOUTPULSE_PATH = input("📂 Enter ScoutPulse project path: ")
     
     builder = ScoutPulseAutonomousBuilder(API_KEY, SCOUTPULSE_PATH)
