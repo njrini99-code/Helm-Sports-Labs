@@ -37,7 +37,7 @@ const SelectTrigger = React.forwardRef<
       <ChevronDown className="h-4 w-4 opacity-60" strokeWidth={2} />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
-))};
+));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
 const SelectScrollUpButton = React.forwardRef<
@@ -54,7 +54,7 @@ const SelectScrollUpButton = React.forwardRef<
   >
     <ChevronUp className="h-4 w-4" strokeWidth={2} />
   </SelectPrimitive.ScrollUpButton>
-))};
+));
 SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
 
 const SelectScrollDownButton = React.forwardRef<
@@ -71,7 +71,7 @@ const SelectScrollDownButton = React.forwardRef<
   >
     <ChevronDown className="h-4 w-4" strokeWidth={2} />
   </SelectPrimitive.ScrollDownButton>
-))};
+));
 SelectScrollDownButton.displayName =
   SelectPrimitive.ScrollDownButton.displayName;
 
@@ -112,7 +112,7 @@ const SelectContent = React.forwardRef<
       <SelectScrollDownButton />
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
-))};
+));
 SelectContent.displayName = SelectPrimitive.Content.displayName;
 
 const SelectLabel = React.forwardRef<
@@ -146,7 +146,7 @@ const SelectItem = React.forwardRef<
     </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
   </SelectPrimitive.Item>
-))};
+));
 SelectItem.displayName = SelectPrimitive.Item.displayName;
 
 const SelectSeparator = React.forwardRef<

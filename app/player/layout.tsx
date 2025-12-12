@@ -139,7 +139,8 @@ export default function PlayerLayout({
                     <item.icon className="w-4 h-4" />
                     {item.label}
                   </Link>
-                )})
+                ))
+              )}
             </div>
             </div>
       <div className="flex items-center gap-3">
@@ -178,7 +179,7 @@ export default function PlayerLayout({
                 {item.label}
               </span>
             </Link>
-)}
+          ))}
         </div>
       </div>
       {/* Main Content */}

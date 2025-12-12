@@ -264,8 +264,8 @@ function TeamCard({
 
   return (
     <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
   transition={{duration: 0.3 }}
   className="rounded-xl border border-border bg-card text-card-foreground p-3 hover:border-primary/40 hover:shadow-xl transition-all">
       <div className="flex items-start gap-3">
@@ -324,8 +324,8 @@ function JucoCard({
 }) {
   return (
     <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
   transition={{duration: 0.3 }}
   className="rounded-xl border border-border bg-card text-card-foreground p-3 hover:border-primary/40 hover:shadow-xl transition-all">
       <div className="flex items-start gap-3">

@@ -111,8 +111,8 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
         {players.map((player) => (
           <div key={player.id} className="relative">
             <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
   transition={{duration: 0.3 }}
   className="p-4 border rounded-2xl bg-card hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <div className="flex items-center justify-between mb-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">

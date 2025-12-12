@@ -179,7 +179,7 @@ export function NotificationBell() {
         .from('notifications')
         .update({ read: true })
         .eq('user_id', user.id)
-        .eq('is_read', false);
+        .eq('read', false);
 
       if (error) {
         console.error('Error marking all as read:', error);
@@ -188,7 +188,7 @@ export function NotificationBell() {
       }
 
       // Update local state
-      setNotifications(prev => prev.map(n => ({ ...n, is_read: true })));
+      setNotifications(prev => prev.map(n => ({ ...n, read: true })));
       setUnreadCount(0);
       toast.success('All notifications marked as read');
     } catch (error) {
@@ -276,14 +276,14 @@ export function NotificationBell() {
                   onClick={() => handleNotificationClick(notification)}
                   className={cn(
                     "w-full px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors border-b border-slate-100 dark:border-slate-700/50 last:border-b-0",
-                    !notification.is_read && "bg-[#00C27A]/5"
+                    !notification.read && "bg-[#00C27A]/5"
                   )}
                 >
                   <div className="flex items-start gap-3">
                     {/* Unread Indicator */}
                     {!notification.read && (
                       <div className="w-2 h-2 mt-2 bg-[#00C27A] rounded-full flex-shrink-0"></div>
-)}
+                    )}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
                         <p className="text-sm font-medium text-slate-900 dark:text-white truncate">
@@ -299,7 +299,8 @@ export function NotificationBell() {
                     </div>
                   </div>
                 </button>
-              )})
+              ))
+            )}
           </div>
       {/* Footer */}
           {notifications.length > 0 && (

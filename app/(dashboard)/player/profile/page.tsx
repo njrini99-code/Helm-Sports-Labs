@@ -273,9 +273,9 @@ function ProfileEditContent() {
         {/* Premium Glass Header */}
         <motion.div 
           className="flex items-center justify-between"
-          initial={ opacity: 0, y: 20 }
-          animate={ opacity: 1, y: 0 }
-          transition={{duration: 0.5 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
         >
           <div className="flex items-center gap-4">
             <Link href="/player" className={cnEnhanced(
@@ -293,7 +293,7 @@ function ProfileEditContent() {
               <p className="text-white/70 text-sm">Update your information</p>
             </div>
           </div>
-          <motion.div whileHover={ scale: 1.02 } whileTap={ scale: 0.98 }>
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Button 
               onClick={handleSave} 
               disabled={saving}
@@ -315,9 +315,9 @@ function ProfileEditContent() {
         </motion.div>
       {/* Premium Glass Avatar Section */}
         <motion.div
-          initial={ opacity: 0, y: 20 }
-          animate={ opacity: 1, y: 0 }
-          transition={{duration: 0.5, delay: 0.1 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
           <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
             <div className="flex items-center gap-6">
@@ -359,9 +359,9 @@ function ProfileEditContent() {
       {/* Basic Info */}
           <TabsContent value="basic">
             <motion.div
-              initial={ opacity: 0, y: 20 }
-              animate={ opacity: 1, y: 0 }
-              transition={{duration: 0.5, delay: 0.2 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
             >
               <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
                 <div className="mb-6">
@@ -441,9 +441,9 @@ function ProfileEditContent() {
           </TabsContent>
         <TabsContent value="physical">
           <motion.div
-            initial={ opacity: 0, y: 20 }
-              animate={ opacity: 1, y: 0 }
-              transition={{duration: 0.5, delay: 0.3 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             >
               <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
                 <div className="mb-6">
@@ -547,9 +547,9 @@ function ProfileEditContent() {
       {/* About */}
           <TabsContent value="about">
             <motion.div
-              initial={ opacity: 0, y: 20 }
-              animate={ opacity: 1, y: 0 }
-              transition={{duration: 0.5, delay: 0.4 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
             >
               <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
                 <div className="mb-6">
@@ -595,9 +595,9 @@ function ProfileEditContent() {
       {/* Recruiting */}
           <TabsContent value="recruiting">
             <motion.div
-              initial={ opacity: 0, y: 20 }
-              animate={ opacity: 1, y: 0 }
-              transition={{duration: 0.5, delay: 0.5 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
             >
               <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
                 <div className="mb-6">
@@ -666,9 +666,9 @@ function ProfileEditContent() {
       {/* Links */}
           <TabsContent value="links">
             <motion.div
-              initial={ opacity: 0, y: 20 }
-              animate={ opacity: 1, y: 0 }
-              transition={{duration: 0.5, delay: 0.6 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
             >
               <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
                 <div className="mb-6">

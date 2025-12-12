@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Shield, Video, Compass, Users, Menu, X } from "lucide-react";
+import { cn } from '@/lib/utils';
 import {
   glassCardPremium,
   glassPanel as glassPanelEnhanced,
@@ -240,7 +241,7 @@ export default function HomePage() {
               >
                 Log In
               </Link>
-              <motion.div whileHover={ scale: 1.05 } whileTap={ scale: 0.95 }>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button 
                   asChild 
                   className={cn(
@@ -299,7 +300,7 @@ export default function HomePage() {
             >
               Log In
             </Link>
-            <motion.div whileHover={ scale: 1.02 } whileTap={ scale: 0.98 }>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button
                 asChild
                 className={cn(glassButtonEnhanced.primary, "w-full")}

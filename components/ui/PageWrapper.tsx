@@ -167,9 +167,9 @@ export function FadeInView({
   return (
     <motion.div
       className={className}
-      initial={ opacity: 0, ...directionVariants[direction].initial }
-      whileInView={ opacity: 1, ...directionVariants[direction].animate }
-      viewport={ once, margin: '-50px' }
+      initial={{ opacity: 0, ...directionVariants[direction].initial }}
+      whileInView={{ opacity: 1, ...directionVariants[direction].animate }}
+      viewport={{ once: true, margin: '-50px' }}
       transition={{duration: 0.5, ease: 'easeOut', delay }}
     >
       {children}
@@ -229,8 +229,8 @@ export function SectionReveal({
   return (
     <motion.section
       className={className}
-      initial={ opacity: 0, y: 20 }
-      animate={ opacity: 1, y: 0 }
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{duration: 0.4, 
         ease: 'easeOut', 
         delay: 0.1 + index * 0.1 

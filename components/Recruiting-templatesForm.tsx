@@ -35,8 +35,8 @@ export default function Recruiting-templatesForm({ onSuccess }: { onSuccess?: ()
 
   return (
     <motion.form
-      initial={ opacity: 0, y: 20 }
-      animate={ opacity: 1, y: 0 }
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       onSubmit={handleSubmit}
       className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 space-y-4"
     >

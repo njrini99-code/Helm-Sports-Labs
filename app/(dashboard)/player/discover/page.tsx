@@ -524,8 +524,8 @@ export default function PlayerDiscoverPage() {
           {/* Premium Glass Hero Header */}
           <motion.section 
             className="relative"
-            initial={ opacity: 0, y: 20 }
-            animate={ opacity: 1, y: 0 }
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{duration: 0.6, ease: 'easeOut' }}
           >
             <div className={cn(glassHeroEnhanced, "p-6 md:p-8 relative overflow-hidden")}>
@@ -560,8 +560,8 @@ export default function PlayerDiscoverPage() {
                     "bg-white/[0.08] border border-white/[0.15]",
                     "shadow-lg shadow-purple-500/10"
                   )}
-                  initial={ opacity: 0, scale: 0.9 }
-                  animate={ opacity: 1, scale: 1 }
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{duration: 0.5, delay: 0.2 }}
                 >
                   <p className="text-3xl font-bold text-white mb-1">
@@ -619,8 +619,8 @@ export default function PlayerDiscoverPage() {
                       ? 'bg-white text-emerald-700 shadow-lg shadow-emerald-500/20' 
                       : 'text-white/70 hover:text-white hover:bg-white/[0.05]'
                   )}
-                  whileHover={ scale: 1.05 }
-                  whileTap={ scale: 0.95 }
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {div}
                 </motion.button>
@@ -640,9 +640,9 @@ export default function PlayerDiscoverPage() {
           {showFilters && (
             <motion.div 
               className={cn(glassPanelEnhanced, 'p-6 space-y-5')}
-              initial={ opacity: 0, height: 0 }
-              animate={ opacity: 1, height: 'auto' }
-              exit={ opacity: 0, height: 0 }
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={ opacity: 0, height: 0 }}
               transition={{duration: 0.3 }}
             >
               {/* Region Filters */}
@@ -660,8 +660,8 @@ export default function PlayerDiscoverPage() {
                             ? 'bg-emerald-500/25 border border-emerald-500/40 text-emerald-200 shadow-lg shadow-emerald-500/20'
                             : 'bg-white/[0.08] border border-white/[0.15] text-white/70 hover:bg-white/[0.12] hover:border-white/20'
                         )}
-                        whileHover={ scale: 1.05 }
-                        whileTap={ scale: 0.95 }
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                       >
                         {region}
                       </motion.button>
@@ -688,8 +688,8 @@ export default function PlayerDiscoverPage() {
       {hasActiveFilters && (
                 <motion.div 
                   className="mt-5 pt-4 border-t border-white/[0.1]"
-                  initial={ opacity: 0 }
-                  animate={ opacity: 1 }
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
                   transition={{duration: 0.3 }}
                 >
                   <p className="text-xs text-white/60 font-medium">
@@ -747,8 +747,8 @@ export default function PlayerDiscoverPage() {
           {/* Premium Results Header */}
           <motion.div 
             className="flex items-center justify-between mb-6"
-            initial={ opacity: 0, y: 10 }
-            animate={ opacity: 1, y: 0 }
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{duration: 0.5, delay: 0.2 }}
           >
             <div>
@@ -822,8 +822,8 @@ export default function PlayerDiscoverPage() {
                 glassPanelEnhanced,
                 "p-12 text-center"
               )}
-              initial={ opacity: 0, y: 20 }
-              animate={ opacity: 1, y: 0 }
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{duration: 0.5 }}
             >
               <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-purple-500/20 to-emerald-500/20 border border-purple-400/30 flex items-center justify-center mb-4 backdrop-blur-lg">
@@ -872,7 +872,7 @@ function GlassStatTile({
           ? 'bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 border-emerald-400/30 shadow-lg shadow-emerald-500/20' 
           : 'bg-gradient-to-br from-white/[0.08] to-white/[0.05] border-white/[0.15]'
       )}
-      whileHover={ scale: 1.05, y: -2 }
+      whileHover={{ scale: 1.05, y: -2 }}
       transition={{duration: 0.3 }}
     >
       <div className={cn(
@@ -921,7 +921,7 @@ function CollegeCard({
         glassCardInteractiveEnhanced,
         "p-5 group cursor-pointer"
       )}
-      whileHover={ scale: 1.02, y: -4 }
+      whileHover={{ scale: 1.02, y: -4 }}
       transition={{duration: 0.3 }}
     >
       <div className="flex items-start gap-3">

@@ -31,7 +31,8 @@ export function rateLimit(
     Object.keys(store).forEach((k) => {
       if (store[k].resetTime < now) {
         delete store[k];
-      });
+      }
+    });
   }
 
   const entry = store[key];

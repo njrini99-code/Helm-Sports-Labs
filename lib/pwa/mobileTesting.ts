@@ -98,7 +98,8 @@ export function testTouchTargets(): Array<{
         height,
         minSize: MIN_SIZE,
       });
-    });
+    }
+  });
   
   return issues;
 }

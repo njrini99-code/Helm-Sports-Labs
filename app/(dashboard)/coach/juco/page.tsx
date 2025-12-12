@@ -449,8 +449,8 @@ export default function JUCOCoachDashboard() {
       ═══════════════════════════════════════════════════════════════════ */}
       <motion.section 
         className="relative"
-        initial={ opacity: 0, y: 20 }
-        animate={ opacity: 1, y: 0 }
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{duration: 0.6, ease: 'easeOut' }}
       >
         {/* Premium Glass Hero Card */}
@@ -461,8 +461,8 @@ export default function JUCOCoachDashboard() {
             {/* Premium Logo Badge with Enhanced Glow */}
             <motion.div 
               className="relative group"
-              initial={ opacity: 0, scale: 0.9 }
-              animate={ opacity: 1, scale: 1 }
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{duration: 0.5 }}
             >
               <div className="absolute -inset-2 rounded-2xl bg-gradient-to-br from-cyan-500/30 to-blue-500/20 blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
@@ -481,8 +481,8 @@ export default function JUCOCoachDashboard() {
             <div className="flex-1 min-w-0">
               <motion.h1 
                 className="text-3xl md:text-4xl font-bold text-white mb-2 bg-gradient-to-r from-white via-white to-white/90 bg-clip-text text-transparent"
-                initial={ opacity: 0, x: -20 }
-                animate={ opacity: 1, x: 0 }
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{duration: 0.5, delay: 0.1 }}
               >
                 {programName}
@@ -526,7 +526,7 @@ export default function JUCOCoachDashboard() {
                   <div className="h-2 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
                     <motion.div 
                       className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-400 shadow-lg shadow-cyan-500/30"
-                      initial={ width: 0 }
+                      initial={{ width: 0 }
                       animate={{ width: `${profileCompletion}%` }}
                       transition={{duration: 1.5, ease: 'easeOut', delay: 0.3 }}
                     />
@@ -545,8 +545,8 @@ export default function JUCOCoachDashboard() {
       {/* Premium Action Buttons */}
             <motion.div 
               className="flex gap-3 w-full md:w-auto"
-              initial={ opacity: 0, x: 20 }
-              animate={ opacity: 1, x: 0 }
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{duration: 0.5, delay: 0.2 }}
             >
               <button
@@ -942,7 +942,7 @@ function PremiumGlassStatCard({
         colors.hover,
         highlight && 'ring-2 ring-amber-400/40'
       )}
-      whileHover={ scale: 1.03, y: -4 }
+      whileHover={{ scale: 1.03, y: -4 }}
       transition={{duration: 0.3 }}
     >
       {/* Animated gradient overlay */}
@@ -955,8 +955,8 @@ function PremiumGlassStatCard({
             "backdrop-blur-lg bg-emerald-500/25 text-emerald-200 border border-emerald-400/40",
             "shadow-[0_2px_10px_rgba(16,185,129,0.3)]"
           )}
-          initial={ opacity: 0, scale: 0.8 }
-          animate={ opacity: 1, scale: 1 }
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{delay: 0.2 }}
         >
           <TrendingUp className="w-3 h-3" strokeWidth={2} />
@@ -974,8 +974,8 @@ function PremiumGlassStatCard({
         <div className="flex-1 min-w-0">
           <motion.p 
             className="text-2xl font-bold text-white mb-1"
-            initial={ opacity: 0, y: 10 }
-            animate={ opacity: 1, y: 0 }
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{duration: 0.5 }}
           >
             {value.toLocaleString()}

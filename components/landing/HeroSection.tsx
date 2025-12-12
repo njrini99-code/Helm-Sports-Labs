@@ -45,14 +45,14 @@ export function HeroSection() {
 
       {/* Hero Content */}
       <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
   transition={{duration: 0.3 }}
   className="relative z-10 container mx-auto px-6 pt-32 pb-20 text-center">
         {/* Logo */}
         <motion.div
-          initial={ opacity: 0, scale: 0.8 }
-          animate={ opacity: 1, scale: 1 }
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{duration: 0.5, delay: 0.2 }}
           className="mb-12 flex justify-center"
         >
@@ -62,8 +62,8 @@ export function HeroSection() {
         </motion.div>
         {/* Eyebrow text */}
         <motion.div
-          initial={ opacity: 0, y: 20 }
-          animate={ opacity: 1, y: 0 }
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{duration: 0.5 }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-xl bg-white/5 border border-white/10 mb-8"
         >
@@ -119,8 +119,8 @@ export function HeroSection() {
         </TextReveal>
       {/* Premium CTA buttons with magnetic effect */}
         <motion.div
-          initial={ opacity: 0, y: 20 }
-          animate={ opacity: 1, y: 0 }
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{duration: 0.6, delay: 0.3 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
@@ -149,8 +149,8 @@ export function HeroSection() {
         </motion.div>
       {/* Animated stats with counting numbers */}
         <motion.div
-          initial={ opacity: 0 }
-          animate={ opacity: 1 }
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{duration: 0.6, delay: 0.4 }}
           className="mt-16 flex flex-wrap justify-center gap-8 md:gap-16"
         >

@@ -10,8 +10,8 @@ import {
   glassPanel as glassPanelEnhanced,
   glassButton as glassButtonEnhanced,
   glassDarkZone as glassDarkZoneEnhanced,
-  cn,
 } from '@/lib/glassmorphism-enhanced';
+import { cn } from '@/lib/utils';
 
 export function HeroSectionLight() {
   return (
@@ -25,29 +25,29 @@ export function HeroSectionLight() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/30 backdrop-blur-[2px]"></div>
 {/* Subtle emerald tint overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/10 via-transparent to-teal-900/10"></div>
-      </motion.div>
+      </div>
       {/* Hero Content */}
       <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
-  transition={{duration: 0.3 }}
-  className="relative z-10 container mx-auto px-6 pt-24 pb-20">
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="relative z-10 container mx-auto px-6 pt-24 pb-20">
         <div className="max-w-4xl mx-auto">
           {/* Position content slightly right of center to avoid competing with bright lights on left */}
           <div className="text-center" style={{marginLeft: 'auto', marginRight: 'auto', paddingLeft: '5%' }}>
             
             {/* Text Content - Slightly Right of Center */}
             <motion.div
-              initial={ opacity: 0, y: 30 }
-              animate={ opacity: 1, y: 0 }
-              transition={{duration: 0.6 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
               className="space-y-8"
             >
               {/* Premium Glass Badge */}
               <motion.div
-                initial={ opacity: 0, scale: 0.9 }
-                animate={ opacity: 1, scale: 1 }
-                transition={{duration: 0.5, delay: 0.2 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
                 className={cn(
                   "inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full backdrop-blur-xl",
                   "bg-white/[0.08] border border-white/[0.15]",
@@ -74,12 +74,12 @@ export function HeroSectionLight() {
               </p>
       {/* CTA Buttons */}
               <motion.div 
-                initial={ opacity: 0, y: 20 }
-                animate={ opacity: 1, y: 0 }
-                transition={{duration: 0.6, delay: 0.3 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
                 className="flex flex-col sm:flex-row gap-4 justify-center"
               >
-                <motion.div whileHover={ scale: 1.02 } whileTap={ scale: 0.98 }>
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     asChild
                     size="lg"
@@ -95,7 +95,7 @@ export function HeroSectionLight() {
                     </Link>
                   </Button>
                 </motion.div>
-      <motion.div whileHover={ scale: 1.02 } whileTap={ scale: 0.98 }>
+      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     asChild
                     variant="outline"
@@ -117,9 +117,9 @@ export function HeroSectionLight() {
               </motion.div>
       {/* Stats */}
               <motion.div
-                initial={ opacity: 0, y: 20 }
-                animate={ opacity: 1, y: 0 }
-                transition={{duration: 0.6, delay: 0.4 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
                 className="flex flex-wrap gap-6 sm:gap-8 pt-8 justify-center"
                 role="region"
                 aria-label="Platform statistics"
@@ -132,16 +132,16 @@ export function HeroSectionLight() {
                   <div key={i} className="text-center">
                     <div className="text-3xl md:text-4xl font-bold text-emerald-400 mb-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]">
                       {stat.value}
-                    </motion.div>
-                    <div className="text-sm text-white font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">{stat.label}</motion.div>
-                  </motion.div>
-)}
+                    </div>
+                    <div className="text-sm text-white font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">{stat.label}</div>
+                  </div>
+                ))}
               </motion.div>
             </motion.div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </motion.div>
-      </motion.div>
+    </div>
   );
 }
 

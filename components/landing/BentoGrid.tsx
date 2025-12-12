@@ -9,33 +9,33 @@ export function BentoGrid() {
   return (
     <section className="relative py-32 bg-gradient-to-b from-white to-slate-50/50">
       <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
   transition={{duration: 0.3 }}
   className="container mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-20">
           <motion.div
-            initial={ opacity: 0, y: 20 }
-            whileInView={ opacity: 1, y: 0 }
-            viewport={ once: true }
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             className="inline-block px-4 py-2 rounded-full backdrop-blur-xl bg-emerald-50 border border-emerald-200/50 text-emerald-600 text-sm font-medium mb-4 shadow-sm"
           >
             Everything You Need
           </motion.div>
       <motion.h2
-            initial={ opacity: 0, y: 20 }
-            whileInView={ opacity: 1, y: 0 }
-            viewport={ once: true }
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{delay: 0.1 }}
             className="text-5xl md:text-6xl font-bold text-slate-900 mb-6"
           >
             Built for <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-transparent bg-clip-text">Success</span>
           </motion.h2>
       <motion.p
-            initial={ opacity: 0, y: 20 }
-            whileInView={ opacity: 1, y: 0 }
-            viewport={ once: true }
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{delay: 0.2 }}
             className="text-xl text-slate-600 max-w-2xl mx-auto"
           >
@@ -48,9 +48,9 @@ export function BentoGrid() {
           {/* Large feature card - Video Highlights */}
           <Card3D intensity={10} className="col-span-1 md:col-span-6 lg:col-span-8 row-span-2">
             <motion.div
-              initial={ opacity: 0, y: 20 }
-              whileInView={ opacity: 1, y: 0 }
-              viewport={ once: true }
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               className="group relative rounded-3xl backdrop-blur-2xl bg-white/70 border border-emerald-200/50 p-8 md:p-12 overflow-hidden hover:border-emerald-400/60 transition-all duration-500 shadow-xl shadow-emerald-500/5 hover:shadow-2xl hover:shadow-emerald-500/10"
             >
             {/* Animated gradient orb */}
@@ -81,9 +81,9 @@ export function BentoGrid() {
       {/* Medium feature card - Stats Tracking */}
           <Card3D intensity={8} className="col-span-1 md:col-span-3 lg:col-span-4">
             <motion.div
-              initial={ opacity: 0, y: 20 }
-              whileInView={ opacity: 1, y: 0 }
-              viewport={ once: true }
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{delay: 0.1 }}
               className="group relative rounded-3xl backdrop-blur-2xl bg-white/60 border border-emerald-200/40 p-8 overflow-hidden hover:border-teal-400/60 transition-all duration-500 shadow-lg shadow-emerald-500/5 hover:shadow-xl hover:shadow-teal-500/10"
             >
@@ -106,9 +106,9 @@ export function BentoGrid() {
       {/* Small feature card - Direct Messaging */}
           <Card3D intensity={8} className="col-span-1 md:col-span-3 lg:col-span-4">
             <motion.div
-              initial={ opacity: 0, y: 20 }
-              whileInView={ opacity: 1, y: 0 }
-              viewport={ once: true }
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{delay: 0.15 }}
               className="group relative rounded-3xl backdrop-blur-2xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 p-8 overflow-hidden hover:border-cyan-500/30 transition-all duration-500 shadow-xl shadow-black/20 hover:shadow-cyan-500/10"
             >
@@ -130,9 +130,9 @@ export function BentoGrid() {
       {/* Medium feature card - Player Profiles */}
           <Card3D intensity={8} className="col-span-1 md:col-span-3 lg:col-span-4">
             <motion.div
-              initial={ opacity: 0, y: 20 }
-              whileInView={ opacity: 1, y: 0 }
-              viewport={ once: true }
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{delay: 0.2 }}
               className="group relative rounded-3xl backdrop-blur-2xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 p-8 overflow-hidden hover:border-purple-500/30 transition-all duration-500 shadow-xl shadow-black/20 hover:shadow-purple-500/10"
             >
@@ -154,9 +154,9 @@ export function BentoGrid() {
       {/* Small feature card - Smart Matching */}
           <Card3D intensity={8} className="col-span-1 md:col-span-3 lg:col-span-4">
             <motion.div
-              initial={ opacity: 0, y: 20 }
-              whileInView={ opacity: 1, y: 0 }
-              viewport={ once: true }
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{delay: 0.25 }}
               className="group relative rounded-3xl backdrop-blur-2xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 p-8 overflow-hidden hover:border-orange-500/30 transition-all duration-500 shadow-xl shadow-black/20 hover:shadow-orange-500/10"
             >
@@ -178,9 +178,9 @@ export function BentoGrid() {
       {/* Large feature card - College Network */}
           <Card3D intensity={10} className="col-span-1 md:col-span-6 lg:col-span-8 row-span-2">
             <motion.div
-              initial={ opacity: 0, y: 20 }
-              whileInView={ opacity: 1, y: 0 }
-              viewport={ once: true }
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{delay: 0.3 }}
               className="group relative rounded-3xl backdrop-blur-2xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 p-8 md:p-12 overflow-hidden hover:border-teal-500/30 transition-all duration-500"
             >
@@ -212,10 +212,10 @@ export function BentoGrid() {
                       { bottom: '15%', left: '25%' },
                       { bottom: '25%', right: '20%' },
                     ].map((pos, i) => (
-                      <div key={i} className="absolute" style={{pos}}>
+                      <div key={i} className="absolute" style={pos}>
                         <div className="w-8 h-8 rounded-full bg-emerald-400/60 border border-white/20"></div>
                       </div>
-)}
+                    ))}
                   </div>
                 </div>
               </div>
@@ -225,9 +225,9 @@ export function BentoGrid() {
       {/* Small feature card - Fast Performance */}
           <Card3D intensity={8} className="col-span-1 md:col-span-3 lg:col-span-4">
             <motion.div
-              initial={ opacity: 0, y: 20 }
-              whileInView={ opacity: 1, y: 0 }
-              viewport={ once: true }
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{delay: 0.35 }}
               className="group relative rounded-3xl backdrop-blur-2xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 p-8 overflow-hidden hover:border-indigo-500/30 transition-all duration-500 shadow-xl shadow-black/20 hover:shadow-indigo-500/10"
             >

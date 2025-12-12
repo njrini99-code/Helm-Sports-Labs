@@ -41,18 +41,18 @@ export function BottomSheet({
       {open && (
         <>
           <motion.div
-            initial={ opacity: 0 }
-            animate={ opacity: 1 }
-            exit={ opacity: 0 }
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{duration: 0.2 }}
             className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
             onClick={() => onOpenChange(false)}
             aria-hidden="true"
           />
           <motion.div
-            initial={ y: '100%' }
-            animate={ y: 0 }
-            exit={ y: '100%' }
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '100%' }}
             transition={{type: 'spring', damping: 30, stiffness: 300 }}
             className={cn(
               'fixed bottom-0 left-0 right-0 z-50 bg-background border-t rounded-t-3xl shadow-2xl max-h-[90vh] overflow-hidden flex flex-col',

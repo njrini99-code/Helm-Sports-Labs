@@ -597,8 +597,8 @@ function MetricCard({ icon, value, label, accentColor }: MetricCardProps) {
   return (
     <motion.button
       className="group relative backdrop-blur-2xl bg-white/10 border border-white/15 rounded-2xl shadow-xl shadow-black/20 p-4 md:p-5 text-left transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-white/25 overflow-hidden"
-      whileHover={ y: -4 }
-      whileTap={ scale: 0.98 }
+      whileHover={{ y: -4 }}
+      whileTap={{ scale: 0.98 }}
     >
       {/* Accent glow on hover */}
       <div 

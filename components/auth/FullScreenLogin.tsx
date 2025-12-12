@@ -249,8 +249,8 @@ export function FullScreenLogin() {
       {/* Premium Glass Login Card */}
       <motion.div 
         className="relative z-10 w-full max-w-md px-6 py-8 sm:px-8 sm:py-10"
-        initial={ opacity: 0, y: 30 }
-        animate={ opacity: 1, y: 0 }
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{duration: 0.6, ease: 'easeOut' }}
       >
         <div className={cn(glassPanelEnhanced, "p-8 sm:p-10 relative overflow-hidden")}>
@@ -259,8 +259,8 @@ export function FullScreenLogin() {
 {/* Logo with Premium Animation */}
           <motion.div 
             className="flex flex-col items-center mb-8 relative z-10"
-            initial={ opacity: 0, scale: 0.9 }
-            animate={ opacity: 1, scale: 1 }
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{duration: 0.5, delay: 0.2 }}
           >
             <div className="relative mb-4">
@@ -300,8 +300,8 @@ export function FullScreenLogin() {
                   "bg-red-500/15 border border-red-500/30 text-red-300 text-sm",
                   "shadow-lg shadow-red-500/20"
                 )}
-                initial={ opacity: 0, x: -10 }
-                animate={ opacity: 1, x: 0 }
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{duration: 0.3 }}
               >
                 <AlertCircle className="w-4 h-4" strokeWidth={2} />
@@ -395,8 +395,8 @@ export function FullScreenLogin() {
                 "w-full py-4 text-base font-semibold",
                 "disabled:opacity-50 disabled:cursor-not-allowed"
               )}
-              whileHover={ scale: isLoading ? 1 : 1.02 }
-              whileTap={ scale: isLoading ? 1 : 0.98 }
+              whileHover={{ scale: isLoading ? 1 : 1.02 }
+              whileTap={{ scale: isLoading ? 1 : 0.98 }
             >
               {isLoading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -428,8 +428,8 @@ export function FullScreenLogin() {
                   "shadow-lg shadow-white/5 hover:shadow-xl hover:shadow-white/10",
                   "transition-all duration-300"
                 )}
-                whileHover={ scale: 1.02 }
-                whileTap={ scale: 0.98 }
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path
@@ -457,8 +457,8 @@ export function FullScreenLogin() {
                   "shadow-lg shadow-white/5 hover:shadow-xl hover:shadow-white/10",
                   "transition-all duration-300"
                 )}
-                whileHover={ scale: 1.02 }
-                whileTap={ scale: 0.98 }
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.16c-.15-2.05 1.66-3.78 3.74-4.04.27 2.21-1.81 4.08-3.74 4.04z" />

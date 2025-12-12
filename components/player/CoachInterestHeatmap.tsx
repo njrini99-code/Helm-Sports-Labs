@@ -130,24 +130,24 @@ export function CoachInterestHeatmap() {
       </motion.div>
       <div className="grid grid-cols-3 gap-4">
         <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
   transition={{duration: 0.3 }}
   className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <p className="text-sm text-muted-foreground">Total Views</p>
           <p className="text-2xl font-bold">{totalViews}</p>
         </motion.div>
         <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
   transition={{duration: 0.3 }}
   className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <p className="text-sm text-muted-foreground">Unique Coaches</p>
           <p className="text-2xl font-bold">{uniqueCoaches}</p>
         </motion.div>
         <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
   transition={{duration: 0.3 }}
   className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <p className="text-sm text-muted-foreground">Hot Prospects</p>

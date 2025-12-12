@@ -263,7 +263,7 @@ const SidebarContext = createContext<SidebarContextType>({
   setCollapsed: () => {},
   mobileOpen: false,
   setMobileOpen: () => {},
-}});
+});
 
 export function useSidebar() {
   return useContext(SidebarContext);
@@ -357,22 +357,25 @@ function MenuItem({
         ],
         collapsed && 'justify-center px-2'
       )}
-      style={{transitionTimingFunction: SPRING_EASING,
+      style={{
+        transitionTimingFunction: SPRING_EASING,
       }}
     >
       {/* Active indicator bar */}
       {isItemActive && variant === 'glass' && (
         <div
           className="sidebar-active-indicator absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-emerald-500 rounded-r-full"
-          style={{marginLeft: '-12px' }}></div>
-)}
+          style={{ marginLeft: '-12px' }}
+        />
+      )}
+
       {/* Icon */}
       <div
         className={cn(
           'shrink-0 transition-transform duration-200',
           isItemActive && 'scale-110'
         )}
-        style={{transitionTimingFunction: SPRING_EASING }}
+        style={{ transitionTimingFunction: SPRING_EASING }}
       >
         <Icon
           className={cn(
@@ -381,6 +384,7 @@ function MenuItem({
           )}
         />
       </div>
+
       {/* Label */}
       {!collapsed && (
         <span
@@ -391,7 +395,8 @@ function MenuItem({
         >
           {item.label}
         </span>
-)}
+      )}
+
       {/* Badge */}
       {!collapsed && item.badge && (
         <span
@@ -403,7 +408,8 @@ function MenuItem({
         >
           {item.badge}
         </span>
-)}
+      )}
+
       {/* Tooltip for collapsed state */}
       {collapsed && (
         <div
@@ -417,10 +423,10 @@ function MenuItem({
         >
           {item.label}
           {item.badge && (
-            <span className="ml-2 text-emerald-400">({item.badge}})</span>
-)}
+            <span className="ml-2 text-emerald-400">({item.badge})</span>
+          )}
         </div>
-)}
+      )}
     </Link>
   );
 }
@@ -447,7 +453,6 @@ function MobileSidebar({
   className,
 }: MobileSidebarProps) {
   const pathname = usePathname();
-  const [loading, setLoading] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
   const styles = VARIANT_STYLES[variant];
 
@@ -495,12 +500,15 @@ function MobileSidebar({
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/60"
-        style={{animation: isClosing
+        style={{
+          animation: isClosing
             ? 'sidebar-backdrop-out 250ms ease-out forwards'
             : 'sidebar-backdrop-in 250ms ease-out forwards',
         }}
-        onClick={handleClose}></div>
-{/* Sidebar */}
+        onClick={handleClose}
+      />
+
+      {/* Sidebar */}
       <div
         className={cn(
           'absolute top-0 bottom-0 w-72 flex flex-col',
@@ -510,7 +518,7 @@ function MobileSidebar({
           className
         )}
         style={{
-          animation: `${slideAnimation}} 300ms ${SPRING_EASING} forwards`,
+          animation: `${slideAnimation} 300ms ${SPRING_EASING} forwards`,
         }}
       >
         {/* Close button */}
@@ -524,28 +532,24 @@ function MobileSidebar({
         >
           <X className="w-5 h-5" />
         </button>
-      {/* Logo */}
+
+        {/* Logo */}
         {logo && (
           <div className="p-6 border-b border-white/10">
             {logo}
           </div>
-)}
+        )}
+
         {/* Header */}
         {header && (
           <div className="px-4 py-3 border-b border-white/10">
             {header}
           </div>
-)}
+        )}
+
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto p-4 space-y-6">
-          {{sections.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">📭</div>
-              <p className="text-white/60 mb-4">No items yet</p>
-              <p className="text-white/40 text-sm">Check back later</p>
-            </div>
-          ) : (
-            sections.map((section) => (
+          {sections.map((section) => (
             <div key={section.id}>
               {section.title && (
                 <h3
@@ -556,7 +560,7 @@ function MobileSidebar({
                 >
                   {section.title}
                 </h3>
-)}
+              )}
               <div className="space-y-1">
                 {section.items.map((item) => (
                   <MenuItem
@@ -567,17 +571,18 @@ function MobileSidebar({
                     isItemActive={checkActive(item.href)}
                     onNavigate={handleClose}
                   />
-                })
+                ))}
               </div>
             </div>
-)}
+          ))}
         </nav>
-      {/* Footer */}
+
+        {/* Footer */}
         {footer && (
           <div className="p-4 border-t border-white/10">
             {footer}
           </div>
-)}
+        )}
       </div>
     </div>
   );
@@ -632,12 +637,12 @@ export function GlassSidebar({
 
   return (
     <SidebarContext.Provider
-      value={
+      value={{
         collapsed,
         setCollapsed,
         mobileOpen: isMobileOpen,
         setMobileOpen,
-      }
+      }}
     >
       {/* Mobile Toggle Button */}
       <button
@@ -652,6 +657,7 @@ export function GlassSidebar({
       >
         <Menu className="w-5 h-5" />
       </button>
+
       {/* Mobile Sidebar */}
       <MobileSidebar
         isOpen={isMobileOpen}
@@ -675,7 +681,8 @@ export function GlassSidebar({
           'transition-all duration-300',
           className
         )}
-        style={{width: sidebarWidth,
+        style={{
+          width: sidebarWidth,
           transitionTimingFunction: SPRING_EASING,
         }}
       >
@@ -689,13 +696,15 @@ export function GlassSidebar({
           >
             {logo}
           </div>
-)}
+        )}
+
         {/* Header */}
         {header && !collapsed && (
           <div className="px-4 py-3 border-b border-white/10">
             {header}
           </div>
-)}
+        )}
+
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto overflow-x-hidden p-3 space-y-6">
           {sections.map((section) => (
@@ -710,10 +719,10 @@ export function GlassSidebar({
                 >
                   {section.title}
                 </h3>
-)}
+              )}
               {section.title && collapsed && (
-                <div className="w-8 h-px bg-white/10 mx-auto mb-2"></div>
-)}
+                <div className="w-8 h-px bg-white/10 mx-auto mb-2" />
+              )}
               <div className="space-y-1">
                 {section.items.map((item) => (
                   <MenuItem
@@ -723,12 +732,13 @@ export function GlassSidebar({
                     variant={variant}
                     isItemActive={checkActive(item.href)}
                   />
-                })
+                ))}
               </div>
             </div>
-)}
+          ))}
         </nav>
-      {/* Footer */}
+
+        {/* Footer */}
         {footer && (
           <div
             className={cn(
@@ -738,7 +748,8 @@ export function GlassSidebar({
           >
             {footer}
           </div>
-)}
+        )}
+
         {/* Collapse Toggle */}
         {collapsible && (
           <button
@@ -750,7 +761,7 @@ export function GlassSidebar({
               'transition-all duration-200 z-50',
               position === 'left' ? '-right-3' : '-left-3'
             )}
-            style={{transitionTimingFunction: SPRING_EASING }}
+            style={{ transitionTimingFunction: SPRING_EASING }}
           >
             {position === 'left' ? (
               collapsed ? (
@@ -764,14 +775,17 @@ export function GlassSidebar({
               <ChevronRight className="w-4 h-4" />
             )}
           </button>
-)}
+        )}
       </aside>
+
       {/* Spacer for main content */}
       <div
         className="hidden lg:block shrink-0 transition-all duration-300"
-        style={{width: sidebarWidth,
+        style={{
+          width: sidebarWidth,
           transitionTimingFunction: SPRING_EASING,
-        }}></div>
+        }}
+      />
     </SidebarContext.Provider>
   );
 }
@@ -801,6 +815,7 @@ export function SidebarTrigger({ className }: SidebarTriggerProps) {
       >
         <Menu className="w-5 h-5" />
       </button>
+
       {/* Desktop collapse trigger */}
       <button
         onClick={() => setCollapsed(!collapsed)}

@@ -14,45 +14,45 @@ export function FinalCTASection() {
             key={i}
             className="absolute w-1 h-1 bg-emerald-400/20 rounded-full"
             style={{
-              left: `${Math.random() * 100}}%`,
+              left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
               animationDelay: `${Math.random() * 2}s`,
             }}></div>
-)}
-      </motion.div>
+        ))}
+      </div>
       <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
   transition={{duration: 0.3 }}
   className="relative z-10 container mx-auto px-6 text-center">
         <motion.div
-          initial={ opacity: 0, scale: 0.95 }
-          whileInView={ opacity: 1, scale: 1 }
-          viewport={ once: true }
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
           className="max-w-4xl mx-auto backdrop-blur-2xl bg-white/70 border border-emerald-200/50 rounded-3xl p-12 md:p-16 shadow-2xl shadow-emerald-500/10"
         >
           <motion.h2
-            initial={ opacity: 0, y: 20 }
-            whileInView={ opacity: 1, y: 0 }
-            viewport={ once: true }
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             className="text-5xl md:text-6xl font-bold text-slate-900 mb-6"
           >
             Ready to Get <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-transparent bg-clip-text">Recruited</span>?
           </motion.h2>
       <motion.p
-            initial={ opacity: 0, y: 20 }
-            whileInView={ opacity: 1, y: 0 }
-            viewport={ once: true }
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{delay: 0.1 }}
             className="text-xl text-slate-600 mb-8"
           >
             Join thousands of players who've found their perfect college fit
           </motion.p>
       <motion.div
-            initial={ opacity: 0, y: 20 }
-            whileInView={ opacity: 1, y: 0 }
-            viewport={ once: true }
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{delay: 0.2 }}
           >
             <Link
@@ -66,9 +66,9 @@ export function FinalCTASection() {
             </Link>
           </motion.div>
       <motion.p
-            initial={ opacity: 0 }
-            whileInView={ opacity: 1 }
-            viewport={ once: true }
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{delay: 0.3 }}
             className="text-sm text-slate-500 mt-6"
           >

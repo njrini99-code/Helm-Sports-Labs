@@ -560,7 +560,7 @@ export function AnimatedCard({
       ? {
           animation: `${getAnimationKeyframes()} ${duration}ms ${SPRING_EASINGS.bounce} forwards`,
         }
-      : { opacity: 0 }
+      : { opacity: 0 }}
     : {};
 
   return (

@@ -279,7 +279,7 @@ const RecentSearchesSection = memo(function RecentSearchesSection({
             <History className="w-3.5 h-3.5 text-slate-500" />
             <span className="text-sm text-slate-300">{query}</span>
           </button>
-)}
+        ))}
       </div>
     </div>
   );

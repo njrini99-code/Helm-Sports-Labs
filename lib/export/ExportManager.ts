@@ -93,7 +93,8 @@ export class ExportManager {
         if (y > 280) {
           doc.addPage();
           y = 20;
-        });
+        }
+      });
     }
   }
 
@@ -123,7 +124,8 @@ export class ExportManager {
       if (y > 280) {
         doc.addPage();
         y = 20;
-      });
+      }
+    });
   }
 
   private static generateGenericReport(doc: jsPDF, data: any): void {

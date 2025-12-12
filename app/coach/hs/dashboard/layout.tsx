@@ -89,7 +89,8 @@ export default function HsCoachDashboardLayout({ children }: { children: ReactNo
                       {tab.label}
                     </Link>
                   </TabsTrigger>
-                )})
+                ))
+              )}
             </TabsList>
           </Tabs>
         </div>

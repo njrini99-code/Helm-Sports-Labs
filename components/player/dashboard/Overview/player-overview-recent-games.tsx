@@ -101,27 +101,28 @@ export function PlayerOverviewRecentGames({ playerId }: { playerId: string }) {
         <button className="text-xs text-emerald-300 hover:text-emerald-200">View in Performance</button>
       </div>
       <div className="divide-y divide-white/5">
-        {{games.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">📭</div>
-              <p className="text-white/60 mb-4">No items yet</p>
-              <p className="text-white/40 text-sm">Check back later</p>
-            </div>
-          ) : (
-            games.map((g) => (
-          <div key={g.id} className="py-3 flex items-center justify-between gap-3">
-            <div>
-              <p className="text-sm font-medium">{g.opponent}</p>
-              <p className="text-[12px] text-slate-400">{formatDate(g.date)} • {g.event}</p>
-            </div>
-            <div className="flex items-center gap-4 text-right">
-              <Stat label="PTS" value={g.points} />
-              <Stat label="FG%" value={g.fgPct} />
-              <Stat label="3P%" value={g.threePct} />
-              <Stat label="FT%" value={g.ftPct} />
-            </div>
+        {games.length === 0 ? (
+          <div className="text-center py-12">
+            <div className="text-6xl mb-4">📭</div>
+            <p className="text-white/60 mb-4">No items yet</p>
+            <p className="text-white/40 text-sm">Check back later</p>
           </div>
-)}
+        ) : (
+          games.map((g) => (
+            <div key={g.id} className="py-3 flex items-center justify-between gap-3">
+              <div>
+                <p className="text-sm font-medium">{g.opponent}</p>
+                <p className="text-[12px] text-slate-400">{formatDate(g.date)} • {g.event}</p>
+              </div>
+              <div className="flex items-center gap-4 text-right">
+                <Stat label="PTS" value={g.points} />
+                <Stat label="FG%" value={g.fgPct} />
+                <Stat label="3P%" value={g.threePct} />
+                <Stat label="FT%" value={g.ftPct} />
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </Card>
   );

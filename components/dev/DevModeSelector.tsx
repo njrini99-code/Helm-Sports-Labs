@@ -108,10 +108,11 @@ export function DevModeSelector() {
                         <span>{option.label}</span>
                         {isActive && (
                           <div className="ml-auto w-2 h-2 rounded-full bg-emerald-400"></div>
-)}
+                        )}
                       </button>
                     );
-                  }})
+                  })
+                )}
               </div>
             </div>
           </>

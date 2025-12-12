@@ -354,21 +354,21 @@ Time: ${new Date().toISOString()}
       </head>
       <body>
         <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
-  transition={{duration: 0.3 }}
-  className="container">
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="container">
           <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
-  transition={{duration: 0.3 }}
-  className="card">
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="card">
             <div className="header">
               <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
-  transition={{duration: 0.3 }}
-  className="icon-container">
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="icon-container">
                 <AlertOctagon className="icon" />
               </motion.div>
               <h1>Critical Error</h1>
@@ -378,10 +378,10 @@ Time: ${new Date().toISOString()}
               </p>
             </div>
             <motion.div
-              initial={ opacity: 0, y: 20 }
-              animate={ opacity: 1, y: 0 }
-              transition={{duration: 0.3 }}
-  className="error-box">
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="error-box">
               <div className="error-header">
                 <Bug className="error-icon" />
                 <div className="error-content">

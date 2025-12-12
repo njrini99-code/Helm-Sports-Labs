@@ -234,7 +234,7 @@ export function QuickActionToolbar({
         position === 'left' && 'left-4 top-1/2 -translate-y-1/2',
         position === 'bottom' && 'bottom-4 left-1/2 -translate-x-1/2',
         isCollapsed && 'translate-x-0',
-        !isOpen && !isCollapsed && (position === 'right' ? 'translate-x-full' : position === 'left' ? '-translate-x-full' : 'translate-y-full'})
+        !isOpen && !isCollapsed && (position === 'right' ? 'translate-x-full' : position === 'left' ? '-translate-x-full' : 'translate-y-full')
     >
       {isCollapsed ? (
         // Collapsed state - floating button

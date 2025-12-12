@@ -448,8 +448,8 @@ export default function PlayerDashboardPage() {
           {/* A. ULTIMATE GLASSMORPHISM HERO PROFILE BANNER */}
           <motion.section 
             className="relative"
-            initial={ opacity: 0, y: 20 }
-            animate={ opacity: 1, y: 0 }
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{duration: 0.6, ease: 'easeOut' }}
           >
             {/* Premium Glass Hero Card with Multi-layer Effects */}
@@ -463,8 +463,8 @@ export default function PlayerDashboardPage() {
                 {/* Left: Avatar + Info with Enhanced Glass Effects */}
                 <motion.div 
                   className="flex items-center gap-5"
-                  initial={ opacity: 0, x: -20 }
-                  animate={ opacity: 1, x: 0 }
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
                   transition={{duration: 0.5, delay: 0.1 }}
                 >
                   {/* Premium Avatar with Glass Ring */}
@@ -482,8 +482,8 @@ export default function PlayerDashboardPage() {
       <div className="flex-1">
                     <motion.h1 
                       className="text-3xl md:text-4xl font-bold text-white mb-2 bg-gradient-to-r from-white via-white to-white/90 bg-clip-text text-transparent"
-                      initial={ opacity: 0 }
-                      animate={ opacity: 1 }
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
                       transition={{duration: 0.5, delay: 0.2 }}
                     >
                       {fullName}
@@ -492,8 +492,8 @@ export default function PlayerDashboardPage() {
                       {player.grad_year && (
                         <motion.span 
                           className="text-sm text-white/80 font-medium"
-                          initial={ opacity: 0, scale: 0.9 }
-                          animate={ opacity: 1, scale: 1 }
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
                           transition={{duration: 0.3, delay: 0.3 }}
                         >
                           Class of {player.grad_year}
@@ -507,8 +507,8 @@ export default function PlayerDashboardPage() {
                             "shadow-[0_4px_20px_rgba(16,185,129,0.3)]",
                             "hover:bg-emerald-500/35 hover:border-emerald-400/50 transition-all duration-300"
                           )}
-                          initial={ opacity: 0, scale: 0.9 }
-                          animate={ opacity: 1, scale: 1 }
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
                           transition={{duration: 0.3, delay: 0.35 }}
                         >
                           {player.primary_position}
@@ -517,8 +517,8 @@ export default function PlayerDashboardPage() {
                       {location && (
                         <motion.span 
                           className="flex items-center gap-1.5 text-sm text-white/70"
-                          initial={ opacity: 0, scale: 0.9 }
-                          animate={ opacity: 1, scale: 1 }
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
                           transition={{duration: 0.3, delay: 0.4 }}
                         >
                           <MapPin className="w-4 h-4" strokeWidth={2} />
@@ -529,8 +529,8 @@ export default function PlayerDashboardPage() {
                     {player.primary_goal && (
                       <motion.p 
                         className="mt-3 text-sm text-white/60 italic max-w-md"
-                        initial={ opacity: 0 }
-                        animate={ opacity: 1 }
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
                         transition={{duration: 0.5, delay: 0.5 }}
                       >
                         "{player.primary_goal}"
@@ -541,8 +541,8 @@ export default function PlayerDashboardPage() {
       {/* Right: Premium Action Buttons */}
                 <motion.div 
                   className="flex flex-col items-start md:items-end gap-3"
-                  initial={ opacity: 0, x: 20 }
-                  animate={ opacity: 1, x: 0 }
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
                   transition={{duration: 0.5, delay: 0.2 }}
                 >
                   <div className="flex gap-3">
@@ -643,8 +643,8 @@ export default function PlayerDashboardPage() {
             {/* TEAM HUB - Premium Glass Panel */}
             <motion.div 
               className={cn(glassPanelEnhanced, "overflow-hidden")}
-              initial={ opacity: 0, y: 20 }
-              animate={ opacity: 1, y: 0 }
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{duration: 0.6, delay: 0.2 }}
             >
               <div className="p-6 md:p-8 relative">
@@ -796,8 +796,8 @@ export default function PlayerDashboardPage() {
       {/* COLLEGE JOURNEY - Premium Glass Panel */}
             <motion.div 
               className={cn(glassPanelEnhanced, "overflow-hidden")}
-              initial={ opacity: 0, y: 20 }
-              animate={ opacity: 1, y: 0 }
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{duration: 0.6, delay: 0.3 }}
             >
               <div className="p-5 md:p-6">
@@ -1397,7 +1397,7 @@ function PremiumGlassStatCard({
         colors.hover,
         highlight && 'ring-2 ring-amber-400/40'
       )}
-      whileHover={ scale: 1.03, y: -4 }
+      whileHover={{ scale: 1.03, y: -4 }}
       transition={{duration: 0.3 }}
     >
       {/* Animated gradient overlay */}
@@ -1410,8 +1410,8 @@ function PremiumGlassStatCard({
             "backdrop-blur-lg bg-emerald-500/25 text-emerald-200 border border-emerald-400/40",
             "shadow-[0_2px_10px_rgba(16,185,129,0.3)]"
           )}
-          initial={ opacity: 0, scale: 0.8 }
-          animate={ opacity: 1, scale: 1 }
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{delay: 0.2 }}
         >
           <TrendingUp className="w-3 h-3" />
@@ -1429,8 +1429,8 @@ function PremiumGlassStatCard({
         <div className="flex-1 min-w-0">
           <motion.p 
             className="text-2xl font-bold text-white mb-1"
-            initial={ opacity: 0, y: 10 }
-            animate={ opacity: 1, y: 0 }
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{duration: 0.5 }}
           >
             {value.toLocaleString()}

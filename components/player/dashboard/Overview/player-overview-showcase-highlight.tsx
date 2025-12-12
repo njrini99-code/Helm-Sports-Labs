@@ -56,17 +56,17 @@ export function PlayerOverviewShowcaseHighlight({ playerId }: { playerId: string
         return;
       }
 
-      const eval = evaluations[0];
-      const evaluator = eval.evaluator as any;
-      const event = eval.events as any;
+      const evaluation = evaluations[0];
+      const evaluator = evaluation.evaluator as any;
+      const event = evaluation.events as any;
 
       // Extract tags from evaluation notes or strengths
       const tags: string[] = [];
-      if (eval.strengths && Array.isArray(eval.strengths)) {
-        tags.push(...eval.strengths.slice(0, 3));
-      } else if (eval.evaluation_notes) {
+      if (evaluation.strengths && Array.isArray(evaluation.strengths)) {
+        tags.push(...evaluation.strengths.slice(0, 3));
+      } else if (evaluation.evaluation_notes) {
         // Try to extract key phrases
-        const notes = eval.evaluation_notes.toLowerCase();
+        const notes = evaluation.evaluation_notes.toLowerCase();
         if (notes.includes('high motor')) tags.push('High motor');
         if (notes.includes('finisher')) tags.push('Finisher');
         if (notes.includes('two-way')) tags.push('Two-way');
@@ -75,8 +75,8 @@ export function PlayerOverviewShowcaseHighlight({ playerId }: { playerId: string
       }
 
       setHighlight({
-        event: event?.event_name || eval.event_name || 'Showcase Event',
-        grade: eval.overall_grade || eval.grade || 0,
+        event: event?.event_name || evaluation.event_name || 'Showcase Event',
+        grade: evaluation.overall_grade || evaluation.grade || 0,
         evaluator: evaluator?.full_name || evaluator?.program_name || 'Evaluator',
         tags: tags.length > 0 ? tags : ['Showcase performance'],
       });
@@ -143,7 +143,8 @@ export function PlayerOverviewShowcaseHighlight({ playerId }: { playerId: string
               <Badge key={tag} className="bg-white/10 border-white/20 text-white">
                 {tag}
               </Badge>
-            )})
+            ))
+          )}
         </div>
       </div>
     </Card>

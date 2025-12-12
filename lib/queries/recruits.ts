@@ -1026,7 +1026,8 @@ export async function getStateRecruitCounts(): Promise<Record<string, { total: n
 
     if (player.grad_year) {
       counts[state].byYear[player.grad_year] = (counts[state].byYear[player.grad_year] || 0) + 1;
-    });
+    }
+  });
 
   return counts;
 }

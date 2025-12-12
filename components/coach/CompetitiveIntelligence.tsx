@@ -116,16 +116,16 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
         <h3 className="text-lg font-semibold mb-2">Competitive Intelligence</h3>
         <div className="grid grid-cols-2 gap-4 mb-4">
           <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
   transition={{duration: 0.3 }}
   className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <p className="text-sm text-muted-foreground">High Competition</p>
             <p className="text-2xl font-bold">{highCompetition}</p>
           </motion.div>
           <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
   transition={{duration: 0.3 }}
   className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <p className="text-sm text-muted-foreground">Avg. Competition</p>

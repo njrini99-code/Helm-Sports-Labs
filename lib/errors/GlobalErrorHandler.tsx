@@ -750,7 +750,7 @@ export function GlobalErrorDisplay() {
             >
               {strategy.label}
             </button>
-)}
+          ))}
         </div>
       </div>
     </div>

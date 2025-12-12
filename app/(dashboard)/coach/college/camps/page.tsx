@@ -193,7 +193,7 @@ export default function CollegeCoachCamps() {
                   <Input
                     placeholder="Summer Prospect Camp"
                     value={formData.name}
-                    onChange={(e) => setFormData(f => ({ ...f, name: e.target.value })}
+                    onChange={(e) => setFormData(f => ({ ...f, name: e.target.value }))}
                     required
                     className={theme.inputBg}
                   />
@@ -202,7 +202,7 @@ export default function CollegeCoachCamps() {
                   <Label className={theme.text}>Event Type</Label>
                   <Select
                     value={formData.event_type}
-                    onValueChange={(v) => setFormData(f => ({ ...f, event_type: v }})
+                    onValueChange={(v) => setFormData(f => ({ ...f, event_type: v }))}
                   >
                     <SelectTrigger className={theme.inputBg}>
                       <SelectValue />
@@ -358,9 +358,9 @@ export default function CollegeCoachCamps() {
                     </div>
                   </CardContent>
                 </Card>
-)}
+              ))}
             </div>
-)}
+          )}
         </div>
       {/* Past Events */}
         {pastEvents.length > 0 && (
@@ -380,10 +380,10 @@ export default function CollegeCoachCamps() {
                     </div>
                   </CardContent>
                 </Card>
-)}
+              ))}
             </div>
           </div>
-)}
+        )}
       </div>
     </div>
   );

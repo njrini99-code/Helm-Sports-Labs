@@ -135,8 +135,8 @@ export function CampusVisitCoordinator({
       </motion.div>
               {showRequestForm && (
         <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
   transition={{duration: 0.3 }}
   className="p-4 border rounded-2xl bg-card hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <h4 className="font-medium mb-3">Request Campus Visit</h4>

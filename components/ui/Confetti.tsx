@@ -46,7 +46,7 @@ export const Confetti = ({ show, onComplete }: ConfettiProps) => {
             left: `${piece.x}}%`,
             top: '-10px',
           }}
-          initial={ y: -10, opacity: 1, rotate: 0 }
+          initial={{ y: -10, opacity: 1, rotate: 0 }}
           animate={
             y: typeof window !== 'undefined' ? window.innerHeight + 10 : 1000,
             opacity: [1, 1, 0],

@@ -5,6 +5,7 @@ export const dynamic = 'force-dynamic';
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 import {
   Search,
   Home,
@@ -181,21 +182,15 @@ export default function NotFound() {
     if (!pathname) return [];
     
     const segments = pathname.split('/').filter(Boolean);
-    return segments.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">📭</div>
-              <p className="text-white/60 mb-4">No items yet</p>
-              <p className="text-white/40 text-sm">Check back later</p>
-            </div>
-          ) : (
-            segments.map((segment, index) => {
+    if (segments.length === 0) return [];
+    
+    return segments.map((segment, index) => {
       const href = '/' + segments.slice(0, index + 1).join('/');
       const label = segment
         .replace(/-/g, ' ')
         .replace(/\b\w/g, (c) => c.toUpperCase());
       return { href, label };
-    })
-    );
+    });
   }, [pathname]);
 
   // Filter suggestions based on search
@@ -236,9 +231,9 @@ export default function NotFound() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-500/5 rounded-full blur-3xl"></div>
       </div>
       <motion.div
-        initial={ opacity: 0, y: 20 }
-        animate={ opacity: 1, y: 0 }
-        transition={{duration: 0.3 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
         className="not-found-container relative z-10 w-full max-w-2xl"
       >
         {/* Breadcrumb Navigation */}
@@ -266,9 +261,9 @@ export default function NotFound() {
                     >
                       {crumb.label}
                     </Link>
-)}
+                  )}
                 </li>
-)}
+              ))}
             </ol>
           </nav>
 )}
@@ -303,10 +298,10 @@ export default function NotFound() {
             </p>
             <form onSubmit={handleSearch} className="relative">
               <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
-  transition={{duration: 0.3 }}
-  className="search-container relative">
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="search-container relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
                 <input
                   type="text"
@@ -337,13 +332,13 @@ export default function NotFound() {
                           key={suggestion.href}
                           href={suggestion.href}
                           className="suggestion-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors"
-                          style={{ animationDelay: `${index * 50}}ms` }}
+                          style={{ animationDelay: `${index * 50}ms` }}
                         >
                           <Search className="w-4 h-4 text-white/40" />
                           <span className="text-white/80">{suggestion.query}</span>
                           <ChevronRight className="w-4 h-4 text-white/30 ml-auto" />
                         </Link>
-)}
+                      ))}
                     </div>
                   </div>
                 </div>

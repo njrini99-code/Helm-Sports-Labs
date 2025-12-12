@@ -20,7 +20,8 @@ export function PWAProvider({ children }: { children: React.ReactNode }) {
         if (process.env.NODE_ENV === 'development') {
           console.log('[PWA] Service worker registered');
         }
-      });
+      }
+    });
 
     // Monitor online/offline status
     const handleOnline = () => {

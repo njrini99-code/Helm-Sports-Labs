@@ -283,7 +283,7 @@ export default function CollegeCoachCalendarPage() {
               {['month', 'week', 'day', 'agenda'].map((v) => (
                 <button
                   key={v}
-                  onClick={() => setViewMode(v as View)}}
+                  onClick={() => setViewMode(v as View)}
                   className={`px-4 py-2 rounded-lg transition-colors ${
                     viewMode === v
                       ? 'bg-emerald-500 text-white'
@@ -292,7 +292,7 @@ export default function CollegeCoachCalendarPage() {
                 >
                   {v.charAt(0).toUpperCase() + v.slice(1)}
                 </button>
-)}
+              ))}
             </div>
       {/* Calendar */}
             <div className="backdrop-blur-2xl bg-white/10 border border-white/15 rounded-2xl p-6 h-[600px]">
@@ -304,7 +304,7 @@ export default function CollegeCoachCalendarPage() {
                   start: event.startTime && event.date ? new Date(`${event.date}T${event.startTime}`) : new Date(event.date),
                   end: event.endTime && event.date ? new Date(`${event.date}T${event.endTime}`) : new Date(event.date),
                   resource: event,
-                }})
+                }))}
                 startAccessor="start"
                 endAccessor="end"
                 view={viewMode}
@@ -313,10 +313,10 @@ export default function CollegeCoachCalendarPage() {
                 onSelectEvent={(event) => handleEventClick(event.resource)}
                 onSelectSlot={(slotInfo) => handleSlotSelect(slotInfo)}
                 selectable
-                components={
+                components={{
                   event: CustomEvent,
                   toolbar: CustomToolbar,
-                }
+                }}
               />
             </div>
           </div>

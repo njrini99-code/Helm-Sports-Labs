@@ -503,9 +503,9 @@ export default function CollegeCoachDashboard() {
       ═══════════════════════════════════════════════════════════════════ */}
       <motion.section 
         className="relative"
-        initial={ opacity: 0, y: 20 }
-        animate={ opacity: 1, y: 0 }
-        transition={{duration: 0.6, ease: 'easeOut' }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         {/* Subtle multi-stop radial glow - ambient shine */}
         <div 
@@ -970,10 +970,10 @@ function PipelineCard({ icon, label, count, avatars, accentColor, onClick }: Pip
 )}
           {avatars.length > 4 && (
             <motion.div
-  initial={ opacity: 0, y: 20 }
-  animate={ opacity: 1, y: 0 }
-  transition={{duration: 0.3 }}
-  className="h-6 w-6 rounded-full bg-muted ring-2 ring-card flex items-center justify-center text-[10px] text-muted-foreground font-medium">
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="h-6 w-6 rounded-full bg-muted ring-2 ring-card flex items-center justify-center text-[10px] text-muted-foreground font-medium">
               +{avatars.length - 4}
             </motion.div>
 )}

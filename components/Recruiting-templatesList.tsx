@@ -50,8 +50,8 @@ export default function Recruiting-templatesList() {
       {items.map((item, index) => (
         <motion.div
           key={item.id}
-          initial={ opacity: 0, y: 20 }
-          animate={ opacity: 1, y: 0 }
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{delay: index * 0.1 }}
           className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 hover:bg-white/15 hover:-translate-y-1 transition-all duration-200"
         >

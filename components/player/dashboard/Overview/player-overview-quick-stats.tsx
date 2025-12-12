@@ -59,7 +59,8 @@ export function PlayerOverviewQuickStats({ playerId }: { playerId: string }) {
           statMap['3P%'] = { label: '3P%', value: value.includes('%') ? value : `${value}%` };
         } else if (label.includes('free throw') || label.includes('ft%')) {
           statMap['FT%'] = { label: 'FT%', value: value.includes('%') ? value : `${value}%` };
-        });
+        }
+      });
 
       // Convert to array and add helper text for most recent
       const statsArray = Object.values(statMap);
@@ -95,12 +96,13 @@ export function PlayerOverviewQuickStats({ playerId }: { playerId: string }) {
             </div>
           ) : (
             stats.map((stat) => (
-          <div key={stat.label} className="rounded-xl bg-white/5 border border-white/10 px-3 py-2">
-            <p className="text-[11px] uppercase tracking-wide text-slate-400">{stat.label}</p>
-            <p className="text-lg font-semibold">{stat.value}</p>
-            {stat.helper && <p className="text-[11px] text-slate-500">{stat.helper}</p>}
-          </div>
-)}
+              <div key={stat.label} className="rounded-xl bg-white/5 border border-white/10 px-3 py-2">
+                <p className="text-[11px] uppercase tracking-wide text-slate-400">{stat.label}</p>
+                <p className="text-lg font-semibold">{stat.value}</p>
+                {stat.helper && <p className="text-[11px] text-slate-500">{stat.helper}</p>}
+              </div>
+            ))
+          )}
       </div>
     </Card>
   );

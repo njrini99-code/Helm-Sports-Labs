@@ -79,10 +79,10 @@ export function LoadingScreen({
               key={i}
               className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce"
               style={{
-                animationDelay: `${i * 150}}ms`,
+                animationDelay: `${i * 150}ms`,
                 animationDuration: '1s',
               }}></div>
-)}
+          ))}
         </div>
       {/* Progress Bar */}
         {showProgress && (
@@ -90,7 +90,7 @@ export function LoadingScreen({
             <div
               className="h-full bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full transition-all duration-300 ease-out"
               style={{
-                width: `${animatedProgress}}%`,
+                width: `${animatedProgress}%`,
                 transition: 'width 300ms cubic-bezier(0.4, 0, 0.2, 1)',
               }}></div>
           </div>
