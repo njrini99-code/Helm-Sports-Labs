@@ -234,8 +234,7 @@ export function QuickActionToolbar({
         position === 'left' && 'left-4 top-1/2 -translate-y-1/2',
         position === 'bottom' && 'bottom-4 left-1/2 -translate-x-1/2',
         isCollapsed && 'translate-x-0',
-        !isOpen && !isCollapsed && (position === 'right' ? 'translate-x-full' : position === 'left' ? '-translate-x-full' : 'translate-y-full')
-      )}
+        !isOpen && !isCollapsed && (position === 'right' ? 'translate-x-full' : position === 'left' ? '-translate-x-full' : 'translate-y-full'})
     >
       {isCollapsed ? (
         // Collapsed state - floating button
@@ -275,8 +274,7 @@ export function QuickActionToolbar({
               </Button>
             </div>
           </div>
-
-          {/* Search */}
+      {/* Search */}
           <div className="relative mb-4">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
@@ -291,10 +289,9 @@ export function QuickActionToolbar({
                 <Command className="w-3 h-3" />
                 <span>K</span>
               </div>
-            )}
+)}
           </div>
-
-          {/* Search Results */}
+      {/* Search Results */}
           {searchQuery && (
             <div className="mb-4 max-h-48 overflow-y-auto border border-border rounded-2xl">
               {isSearching ? (
@@ -339,18 +336,17 @@ export function QuickActionToolbar({
                           <BookmarkPlus className="w-3 h-3 mr-1" />
                           Add to Watchlist
                         </Button>
-                      )}
+)}
                     </div>
-                  ))}
+)}
                 </div>
               ) : (
                 <div className="p-4 text-center text-sm text-muted-foreground">
                   No results found
                 </div>
-              )}
+)}
             </div>
-          )}
-
+)}
           {/* Quick Actions */}
           <div className="space-y-2">
             <Button
@@ -364,10 +360,9 @@ export function QuickActionToolbar({
                 <span className="ml-auto bg-primary text-primary-foreground rounded-full px-2 py-0.5 text-xs font-semibold">
                   {unreadCount}
                 </span>
-              )}
+)}
             </Button>
-
-            {userRole === 'coach' && (
+      {userRole === 'coach' && (
               <Button
                 variant="outline"
                 className="w-full justify-start"
@@ -376,8 +371,7 @@ export function QuickActionToolbar({
                 <Search className="w-4 h-4 mr-2" />
                 Discover Players
               </Button>
-            )}
-
+)}
             {userRole === 'player' && (
               <Button
                 variant="outline"
@@ -387,10 +381,9 @@ export function QuickActionToolbar({
                 <Search className="w-4 h-4 mr-2" />
                 Discover Colleges
               </Button>
-            )}
+)}
           </div>
-
-          {/* Keyboard Shortcuts Hint */}
+      {/* Keyboard Shortcuts Hint */}
           <div className="mt-4 pt-4 border-t border-border text-xs text-muted-foreground space-y-1">
             <div className="flex items-center justify-between">
               <span>Search</span>
@@ -406,7 +399,7 @@ export function QuickActionToolbar({
             </div>
           </div>
         </div>
-      )}
+)}
     </div>
   );
 

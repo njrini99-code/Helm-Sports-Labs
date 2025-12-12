@@ -52,12 +52,10 @@ export function FeaturedPrograms({ programs, onFollow }: FeaturedProgramsProps) 
                   )}
                 </p>
               </div>
-
-              <p className="text-sm text-slate-300 line-clamp-2">
+      <p className="text-sm text-slate-300 line-clamp-2">
                 {program.program_values || program.about || 'Player development focused. Competitive schedule.'}
               </p>
-
-              <div className="flex gap-2">
+      <div className="flex gap-2">
                 <Button size="sm" variant="outline" className="flex-1">
                   View Program
                 </Button>
@@ -67,7 +65,7 @@ export function FeaturedPrograms({ programs, onFollow }: FeaturedProgramsProps) 
               </div>
             </CardContent>
           </Card>
-        ))}
+)}
       </div>
     </div>
   );

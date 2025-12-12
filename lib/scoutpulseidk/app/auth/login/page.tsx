@@ -218,7 +218,7 @@ function InlineToast({ toast, onClose }: { toast: ToastState; onClose: () => voi
           <p className="font-semibold text-white text-sm">{toast.title}</p>
           {toast.description && (
             <p className="text-slate-400 text-sm mt-1">{toast.description}</p>
-          )}
+)}
         </div>
         <button
           onClick={onClose}
@@ -455,7 +455,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center px-4 py-8">
       {/* Toast Notification */}
-      <InlineToast toast={toast} onClose={() => setToast((prev) => ({ ...prev, show: false }))} />
+      <InlineToast toast={toast} onClose={() => setToast((prev) => ({ ...prev, show: false }}) />
 
       <div className="w-full max-w-lg">
         <Link
@@ -465,8 +465,7 @@ export default function LoginPage() {
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Back to home
         </Link>
-
-        <div
+<div
           className={cn(
             'bg-slate-900/90 backdrop-blur-xl rounded-2xl p-8 border border-white/5 shadow-2xl',
             'login-form-enter',
@@ -481,8 +480,7 @@ export default function LoginPage() {
             </Link>
             <p className="text-slate-400">Sign in to your account</p>
           </div>
-
-          {/* Success State */}
+{/* Success State */}
           {isSuccess ? (
             <div className="text-center py-8">
               <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-4">
@@ -503,8 +501,7 @@ export default function LoginPage() {
                       <p className="text-red-400 text-sm">{errors.general}</p>
                     </div>
                   </div>
-                )}
-
+)}
                 {/* Email Field */}
                 <div className="space-y-2">
                   <label htmlFor="email" className="block text-sm font-medium text-slate-300">
@@ -538,10 +535,9 @@ export default function LoginPage() {
                       <AlertCircle className="w-3.5 h-3.5" />
                       {errors.email}
                     </p>
-                  )}
+)}
                 </div>
-
-                {/* Password Field */}
+{/* Password Field */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <label htmlFor="password" className="block text-sm font-medium text-slate-300">
@@ -598,10 +594,9 @@ export default function LoginPage() {
                       <AlertCircle className="w-3.5 h-3.5" />
                       {errors.password}
                     </p>
-                  )}
+)}
                 </div>
-
-                {/* Submit Button */}
+{/* Submit Button */}
                 <button
                   type="submit"
                   disabled={isLoading}
@@ -627,18 +622,16 @@ export default function LoginPage() {
                   )}
                 </button>
               </form>
-
-              {/* Divider */}
+{/* Divider */}
               <div className="relative my-8">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-white/10" />
+                  <div className="w-full border-t border-white/10"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-4 bg-slate-900 text-slate-500">or continue with</span>
                 </div>
               </div>
-
-              {/* Dev Mode Toggle */}
+{/* Dev Mode Toggle */}
               <button
                 type="button"
                 onClick={() => setShowDevMode(!showDevMode)}
@@ -646,15 +639,13 @@ export default function LoginPage() {
               >
                 {showDevMode ? 'Hide' : 'Show'} Development Mode
               </button>
-
-              {/* Dev Mode Accounts */}
+{/* Dev Mode Accounts */}
               {showDevMode && (
                 <div className="space-y-3">
                   <div className="px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-lg">
                     <p className="text-xs text-amber-400 text-center">⚡ Development Mode</p>
                   </div>
-
-                  {DEV_ACCOUNTS.map((account) => {
+{DEV_ACCOUNTS.map((account) => {
                     const Icon = account.icon;
                     const isDevLoading = devLoading === account.id;
 
@@ -685,8 +676,7 @@ export default function LoginPage() {
                     );
                   })}
                 </div>
-              )}
-
+)}
               {/* Sign Up Link */}
               <p className="text-center text-slate-400 text-sm mt-8">
                 Don't have an account?{' '}

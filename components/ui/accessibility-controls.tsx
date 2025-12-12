@@ -87,16 +87,14 @@ export function AccessibilityControls({ className }: AccessibilityControlsProps)
             </Button>
           </div>
         </div>
-
-        <DropdownMenuSeparator />
+      <DropdownMenuSeparator />
 
         <DropdownMenuItem onClick={() => setHighContrast(!highContrast)}>
           <Contrast className="mr-2 h-4 w-4" />
           <span>High Contrast</span>
           {highContrast && <span className="ml-auto text-xs">✓</span>}
         </DropdownMenuItem>
-
-        <DropdownMenuItem onClick={() => setReducedMotion(!reducedMotion)}>
+      <DropdownMenuItem onClick={() => setReducedMotion(!reducedMotion)}>
           <Eye className="mr-2 h-4 w-4" />
           <span>Reduce Motion</span>
           {reducedMotion && <span className="ml-auto text-xs">✓</span>}

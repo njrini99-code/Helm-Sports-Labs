@@ -200,10 +200,10 @@ export function AIMatchList() {
                       <ul className="list-disc list-inside space-y-0.5">
                         {match.match_reasons.slice(0, 3).map((reason, i) => (
                           <li key={i}>{reason}</li>
-                        ))}
+)}
                       </ul>
                     </div>
-                  )}
+)}
                   <div className="flex gap-2 mt-2">
                     <Button
                       size="sm"
@@ -224,7 +224,7 @@ export function AIMatchList() {
                 </div>
               </div>
             </div>
-          ))}
+)}
         </div>
       </CardContent>
     </Card>

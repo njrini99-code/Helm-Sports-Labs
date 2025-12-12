@@ -74,7 +74,7 @@ export const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
         {...props}
       >
         {loading ? (
-          <div className="h-4 w-4 bg-white/20 rounded animate-pulse" />
+          <div className="h-4 w-4 bg-white/20 rounded animate-pulse"></div>
         ) : icon ? (
           icon
         ) : null}

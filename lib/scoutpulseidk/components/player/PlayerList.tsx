@@ -230,24 +230,22 @@ function PlayerListSkeleton({ count = 5 }: { count?: number }) {
           className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5"
         >
           {/* Avatar skeleton */}
-          <div className="w-12 h-12 rounded-full skeleton-shimmer" />
-          
-          {/* Content skeleton */}
+          <div className="w-12 h-12 rounded-full skeleton-shimmer"></div>
+{/* Content skeleton */}
           <div className="flex-1 space-y-2">
             <div className="flex items-center gap-2">
-              <div className="h-4 w-32 rounded skeleton-shimmer" />
-              <div className="h-5 w-12 rounded-full skeleton-shimmer" />
+              <div className="h-4 w-32 rounded skeleton-shimmer"></div>
+              <div className="h-5 w-12 rounded-full skeleton-shimmer"></div>
             </div>
             <div className="flex items-center gap-2">
-              <div className="h-5 w-16 rounded-full skeleton-shimmer" />
-              <div className="h-4 w-20 rounded skeleton-shimmer" />
+              <div className="h-5 w-16 rounded-full skeleton-shimmer"></div>
+              <div className="h-4 w-20 rounded skeleton-shimmer"></div>
             </div>
           </div>
-          
-          {/* Action skeleton */}
-          <div className="h-8 w-20 rounded-lg skeleton-shimmer" />
+{/* Action skeleton */}
+          <div className="h-8 w-20 rounded-lg skeleton-shimmer"></div>
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -323,10 +321,10 @@ function EmptyState({
           onClick={action.onClick}
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-all hover:scale-105"
         >
-          <action.icon className="w-4 h-4" />
+          <action.icon className="w-4 h-4"></a>
           {action.label}
         </button>
-      )}
+)}
     </div>
   );
 }
@@ -370,19 +368,15 @@ function ErrorState({
           <AlertCircle className="w-10 h-10 text-red-400" />
         )}
       </div>
-      
-      <h3 className="text-xl font-semibold text-white mb-2">
+<h3 className="text-xl font-semibold text-white mb-2">
         {isNetworkError ? 'Connection Lost' : 'Failed to Load Players'}
       </h3>
-      
-      <p className="text-slate-400 max-w-sm mb-2">{error.message}</p>
-      
-      {error.code && (
+<p className="text-slate-400 max-w-sm mb-2">{error.message}</p>
+{error.code && (
         <p className="text-xs text-slate-500 mb-4 font-mono">
           Error code: {error.code}
         </p>
-      )}
-
+)}
       {canRetry && onRetry && (
         <div className="space-y-3">
           <button
@@ -399,20 +393,18 @@ function ErrorState({
             <RefreshCw className={cn('w-4 h-4', isRetrying && 'retry-spinning')} />
             {isRetrying ? 'Retrying...' : 'Try Again'}
           </button>
-          
-          {retryCount > 0 && (
+{retryCount > 0 && (
             <p className="text-xs text-slate-500">
               Attempt {retryCount} of {maxRetries}
             </p>
-          )}
+)}
         </div>
-      )}
-
+)}
       {!canRetry && retryCount >= maxRetries && (
         <p className="text-sm text-red-400">
           Maximum retry attempts reached. Please try again later.
         </p>
-      )}
+)}
     </div>
   );
 }
@@ -455,7 +447,7 @@ function FallbackContent({
             <RefreshCw className="w-4 h-4" />
             Try Again
           </button>
-        )}
+)}
       </div>
     );
   }
@@ -487,14 +479,13 @@ function FallbackContent({
           >
             Refresh
           </button>
-        )}
+)}
       </div>
-
-      {/* Cached players list */}
+{/* Cached players list */}
       <div className="space-y-3 opacity-80">
         {cachedPlayers.map((player) => (
           <PlayerListItem key={player.id} player={player} />
-        ))}
+        })
       </div>
     </div>
   );
@@ -797,17 +788,15 @@ export function PlayerList({
               className={itemClassName}
             />
           )
-        ))}
+        })
       </div>
-
-      {/* Loading more indicator */}
+{/* Loading more indicator */}
       {loadingState === 'loading' && players.length > 0 && (
         <div className="flex items-center justify-center py-4">
           <Loader2 className="w-5 h-5 text-emerald-400 animate-spin" />
           <span className="ml-2 text-sm text-slate-400">Loading more...</span>
         </div>
-      )}
-
+)}
       {/* Load more button */}
       {enablePagination && hasMore && loadingState !== 'loading' && (
         <div className="flex justify-center pt-4">
@@ -819,14 +808,13 @@ export function PlayerList({
             Load More
           </button>
         </div>
-      )}
-
+)}
       {/* Total count */}
       {total > 0 && (
         <p className="text-center text-sm text-slate-500 pt-2">
           Showing {players.length} of {total} players
         </p>
-      )}
+)}
     </div>
   );
 }

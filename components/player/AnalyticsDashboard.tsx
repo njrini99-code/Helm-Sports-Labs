@@ -141,8 +141,7 @@ export function AnalyticsDashboard({ playerId, timeRange = 30 }: AnalyticsDashbo
             See how coaches are engaging with your profile
           </p>
         </div>
-
-        <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3">
           <div className="flex gap-2">
             {[7, 30, 90].map((days) => (
               <button
@@ -156,7 +155,7 @@ export function AnalyticsDashboard({ playerId, timeRange = 30 }: AnalyticsDashbo
               >
                 {days}d
               </button>
-            ))}
+)}
           </div>
           <Button
             variant="outline"
@@ -169,7 +168,6 @@ export function AnalyticsDashboard({ playerId, timeRange = 30 }: AnalyticsDashbo
           </Button>
         </div>
       </div>
-
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <MetricCard
@@ -201,7 +199,6 @@ export function AnalyticsDashboard({ playerId, timeRange = 30 }: AnalyticsDashbo
           color="green"
         />
       </div>
-
       {/* Advanced Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Line Chart for View Trend */}
@@ -210,7 +207,7 @@ export function AnalyticsDashboard({ playerId, timeRange = 30 }: AnalyticsDashbo
             name: new Date(day.view_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
             value: day.view_count,
             coaches: day.unique_coaches,
-          }))}
+          }})
           dataKey="value"
           title="Profile Views Over Time"
           showArea={true}
@@ -219,7 +216,6 @@ export function AnalyticsDashboard({ playerId, timeRange = 30 }: AnalyticsDashbo
         {/* Top Viewing Coaches */}
         <TopCoachesCard coaches={topCoaches} />
       </div>
-
       {/* Additional Charts Row */}
       {topCoaches.length > 0 && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -228,7 +224,7 @@ export function AnalyticsDashboard({ playerId, timeRange = 30 }: AnalyticsDashbo
             data={topCoaches.map(coach => ({
               name: coach.program_name || 'Unknown',
               value: coach.view_count,
-            }))}
+            }})
             title="Views by Program"
           />
 
@@ -249,7 +245,7 @@ export function AnalyticsDashboard({ playerId, timeRange = 30 }: AnalyticsDashbo
             />
           )}
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -293,7 +289,7 @@ function MetricCard({ icon, label, value, change, color }: MetricCardProps) {
             {isNegative && <TrendingDown className="h-3 w-3" />}
             {Math.abs(change)}%
           </div>
-        )}
+)}
       </div>
       <div className="mt-4">
         <div className="text-2xl font-bold text-slate-800">{value.toLocaleString()}</div>
@@ -326,7 +322,6 @@ function ViewTrendChart({ trend }: { trend: ViewTrend[] }) {
         <Calendar className="h-5 w-5 text-[#00C27A]" />
         View Trend
       </h3>
-
       <ScrollArea className="w-full">
         <div className="space-y-3 pr-4">
           {trend.slice(0, 14).reverse().map((day, index) => {
@@ -340,8 +335,7 @@ function ViewTrendChart({ trend }: { trend: ViewTrend[] }) {
                 <div className="flex-1 h-8 bg-slate-100 rounded-2xl overflow-hidden relative">
                   <div
                     className="h-full bg-gradient-to-r from-[#00C27A] to-emerald-400 rounded-2xl transition-all duration-500"
-                    style={{ width: `${percentage}%` }}
-                  />
+                    style={{ width: `${percentage}}%` }}></div>
                   <div className="absolute inset-0 flex items-center px-3 text-xs font-medium text-slate-700">
                     {day.view_count} {day.view_count === 1 ? 'view' : 'views'}
                   </div>
@@ -379,7 +373,6 @@ function TopCoachesCard({ coaches }: { coaches: TopCoach[] }) {
         <Users className="h-5 w-5 text-[#00C27A]" />
         Who's Viewing
       </h3>
-
       <ScrollArea className="h-[280px]">
         <div className="space-y-3 pr-4">
           {coaches.map((coach, index) => {
@@ -402,8 +395,7 @@ function TopCoachesCard({ coaches }: { coaches: TopCoach[] }) {
                       {initials}
                     </AvatarFallback>
                   </Avatar>
-
-                  <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0">
                     <div className="font-medium text-slate-800 truncate">
                       {coach.full_name || 'Anonymous Coach'}
                     </div>
@@ -412,8 +404,7 @@ function TopCoachesCard({ coaches }: { coaches: TopCoach[] }) {
                     </div>
                   </div>
                 </div>
-
-                <div className="text-right">
+      <div className="text-right">
                   <Badge
                     variant="secondary"
                     className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100"

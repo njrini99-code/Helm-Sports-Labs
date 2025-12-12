@@ -80,14 +80,13 @@ export function SmartSchedulingAssistant({
       const { data: existingEvents } = await supabase
         .from('calendar_events')
         .select('start_time, end_time')
-        .gte('start_time', new Date(selectedDate).toISOString())
+        .gte('start_time', new Date(selectedDate).toISOString()}
         .lt('start_time', new Date(new Date(selectedDate).getTime() + 24 * 60 * 60 * 1000).toISOString());
 
       const busySlots = (existingEvents || []).map(e => ({
         start: new Date(e.start_time),
         end: new Date(e.end_time)
-      })
-          )});
+      }}));
 
       // Generate suggested time slots (business hours: 9 AM - 5 PM)
       const suggestions: TimeSlot[] = [];
@@ -102,7 +101,7 @@ export function SmartSchedulingAssistant({
         // Check for conflicts
         const hasConflict = busySlots.some(busy => 
           (isAfter(slotStart, busy.start) && isBefore(slotStart, busy.end)) ||
-          (isAfter(busy.start, slotStart) && isBefore(busy.start, slotEnd))
+          (isAfter(busy.start, slotStart) && isBefore(busy.start, slotEnd)}
         );
 
         suggestions.push({
@@ -111,8 +110,7 @@ export function SmartSchedulingAssistant({
           timezone: coachTimezone,
           available: !hasConflict,
           reason: hasConflict ? 'Conflict with existing event' : undefined
-        })
-          )};
+        })});;
       }
 
       setSuggestedSlots(suggestions);
@@ -129,8 +127,7 @@ export function SmartSchedulingAssistant({
       hour: 'numeric',
       minute: '2-digit',
       hour12: true
-    })
-          )}.format(date);
+    }}).format(date);
   };
 
   const calculateTravelTime = async (location1: string, location2: string): Promise<number> => {
@@ -146,7 +143,6 @@ export function SmartSchedulingAssistant({
           Select a date to see optimal meeting times
         </p>
       </div>
-
       <div>
         <label className="text-sm font-medium mb-1 block">Select Date</label>
         <Input
@@ -156,7 +152,6 @@ export function SmartSchedulingAssistant({
           min={format(new Date(), 'yyyy-MM-dd')}
         />
       </div>
-
       {selectedDate && (
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -165,8 +160,7 @@ export function SmartSchedulingAssistant({
             <span>•</span>
             <span>Player: {playerTimezone}</span>
           </div>
-
-          {loading ? (
+      {loading ? (
             <div className="text-center py-8 text-muted-foreground">Generating suggestions...</div>
           ) : (
             <div className="space-y-2">
@@ -210,15 +204,14 @@ export function SmartSchedulingAssistant({
                         <AlertCircle className="w-3 h-3" />
                         <span>{slot.reason}</span>
                       </div>
-                    )}
+)}
                   </div>
                 </div>
-              ))}
+)}
             </div>
-          )}
+)}
         </div>
-      )}
-
+)}
       {selectedDate && suggestedSlots.length > 0 && (
         <div className="p-3 rounded-2xl bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800">
           <div className="flex items-start gap-2">
@@ -235,7 +228,7 @@ export function SmartSchedulingAssistant({
             </div>
           </div>
         </div>
-      )}
+)}
     </div>
   );
 }

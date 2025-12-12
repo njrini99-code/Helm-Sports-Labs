@@ -347,7 +347,7 @@ export default function CoachMessagesPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -369,8 +369,7 @@ export default function CoachMessagesPage() {
             </Button>
           </Link>
         </div>
-
-        <div className="grid lg:grid-cols-3 gap-6 h-[calc(100vh-250px)]">
+      <div className="grid lg:grid-cols-3 gap-6 h-[calc(100vh-250px)]">
           {/* Left Pane - Conversations List */}
           <Card className={`lg:col-span-1 flex flex-col ${theme.cardBg}`}>
             <CardContent className="p-0 flex flex-col h-full">
@@ -386,8 +385,7 @@ export default function CoachMessagesPage() {
                   />
                 </div>
               </div>
-
-              {/* Filters */}
+      {/* Filters */}
               <div className={`p-3 border-b flex gap-2 ${theme.divider}`}>
                 <Button
                   size="sm"
@@ -396,14 +394,14 @@ export default function CoachMessagesPage() {
                 >
                   All
                 </Button>
-                <Button
+        <Button
                   size="sm"
                   className={`flex-1 ${filter === 'unread' ? buttonStyles.active : buttonStyles.inactive}`}
                   onClick={() => setFilter('unread')}
                 >
                   Unread
                 </Button>
-                <Button
+        <Button
                   size="sm"
                   className={`flex-1 ${filter === 'starred' ? buttonStyles.active : buttonStyles.inactive}`}
                   onClick={() => setFilter('starred')}
@@ -412,8 +410,7 @@ export default function CoachMessagesPage() {
                   Starred
                 </Button>
               </div>
-
-              {/* Conversations */}
+      {/* Conversations */}
               <div className="flex-1 overflow-y-auto">
                 {filteredConversations.length === 0 ? (
                   <div className={`p-8 text-center ${theme.textMuted}`}>
@@ -456,28 +453,27 @@ export default function CoachMessagesPage() {
                                   <span className="px-2 py-0.5 bg-emerald-500 text-white text-xs rounded-full font-semibold">
                                     {conv.unread_count}
                                   </span>
-                                )}
+)}
                               </div>
                             </div>
                             {conv.last_message && (
                               <p className={`text-sm truncate ${theme.textMuted}`}>{conv.last_message}</p>
-                            )}
+)}
                             {conv.last_message_at && (
                               <p className={`text-xs mt-1 ${theme.textMuted}`}>
                                 {new Date(conv.last_message_at).toLocaleDateString()}
                               </p>
-                            )}
+)}
                           </div>
                         </div>
                       </button>
-                    ))}
+)}
                   </div>
-                )}
+)}
               </div>
             </CardContent>
           </Card>
-
-          {/* Right Pane - Chat View */}
+      {/* Right Pane - Chat View */}
           <Card className={`lg:col-span-2 flex flex-col ${theme.cardBg}`}>
             {selectedConversation && currentConversation ? (
               <>
@@ -503,7 +499,7 @@ export default function CoachMessagesPage() {
                         <Eye className="w-4 h-4 mr-2" />
                         View Profile
                       </Button>
-                      <Button 
+        <Button 
                         size="sm" 
                         className={buttonStyles.secondary}
                         onClick={() => handleAddToWatchlist(currentConversation.player_id, currentConversation.player_name || 'Player')}
@@ -511,7 +507,7 @@ export default function CoachMessagesPage() {
                         <UserPlus className="w-4 h-4 mr-2" />
                         Watchlist
                       </Button>
-                      <Button 
+        <Button 
                         variant="ghost" 
                         size="sm"
                         className={buttonStyles.ghost}
@@ -522,8 +518,7 @@ export default function CoachMessagesPage() {
                     </div>
                   </div>
                 </CardContent>
-
-                {/* Messages */}
+      {/* Messages */}
                 <CardContent className="flex-1 overflow-y-auto p-4 space-y-4">
                   {messages.length === 0 ? (
                     <div className={`flex items-center justify-center h-full ${theme.textMuted}`}>
@@ -554,20 +549,18 @@ export default function CoachMessagesPage() {
                           </p>
                         </div>
                       </div>
-                    ))
-                  )}
+                    )})
                 </CardContent>
-
-                {/* Message Input */}
+      {/* Message Input */}
                 <CardContent className={`p-4 border-t ${theme.divider}`}>
                   <div className="flex items-center gap-2">
                     <Button variant="ghost" size="sm" className={buttonStyles.ghost}>
                       <Paperclip className="w-4 h-4" />
                     </Button>
-                    <Button variant="ghost" size="sm" className={buttonStyles.ghost}>
+        <Button variant="ghost" size="sm" className={buttonStyles.ghost}>
                       <Video className="w-4 h-4" />
                     </Button>
-                    <Input
+        <Input
                       placeholder="Type a message..."
                       className={`flex-1 ${theme.inputBg}`}
                       value={messageText}
@@ -585,7 +578,7 @@ export default function CoachMessagesPage() {
                       className={buttonStyles.primary}
                     >
                       {sending ? (
-                        <div className="w-4 h-4 bg-white/20 rounded animate-pulse" />
+                        <div className="w-4 h-4 bg-white/20 rounded animate-pulse"></div>
                       ) : (
                         <>
                           <Send className="w-4 h-4 mr-2" />
@@ -610,7 +603,7 @@ export default function CoachMessagesPage() {
                   </Link>
                 </div>
               </CardContent>
-            )}
+)}
           </Card>
         </div>
       </div>

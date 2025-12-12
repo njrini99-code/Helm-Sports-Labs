@@ -211,8 +211,7 @@ export function useApiQuery<T = any>(
   useState(() => {
     if (options.immediate !== false && options.enabled !== false) {
       refetch();
-    }
-  });
+    });
 
   return {
     data: state.data,

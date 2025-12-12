@@ -170,7 +170,7 @@ export function CollegeSearchSelect({
             <span className={`px-2 py-0.5 rounded text-xs font-medium ${getDivisionColor(value.division)}`}>
               {value.division}
             </span>
-          )}
+)}
           {!disabled && (
             <button
               onClick={handleClear}
@@ -178,7 +178,7 @@ export function CollegeSearchSelect({
             >
               <X className="w-4 h-4 text-white/50" />
             </button>
-          )}
+)}
         </div>
       ) : (
         /* Search Input */
@@ -201,12 +201,11 @@ export function CollegeSearchSelect({
           />
           {isLoading && (
             <div className="absolute right-3 top-1/2 -translate-y-1/2">
-              <div className="w-4 h-4 border-2 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin"></div>
             </div>
-          )}
+)}
         </div>
-      )}
-
+)}
       {/* Dropdown Results */}
       {isOpen && results.length > 0 && !value && (
         <div className="absolute z-50 w-full mt-2 bg-[#0B1020] border border-white/10 rounded-xl shadow-xl overflow-hidden">
@@ -233,7 +232,7 @@ export function CollegeSearchSelect({
                     {college.name}
                     {college.nickname && (
                       <span className="text-white/50 font-normal"> ({college.nickname})</span>
-                    )}
+)}
                   </p>
                   <div className="flex items-center gap-2 text-sm text-white/50">
                     <MapPin className="w-3 h-3" />
@@ -251,19 +250,18 @@ export function CollegeSearchSelect({
                   <span className={`px-2 py-0.5 rounded text-xs font-medium flex-shrink-0 ${getDivisionColor(college.division)}`}>
                     {college.division}
                   </span>
-                )}
+)}
               </button>
-            ))}
+)}
           </div>
         </div>
-      )}
-
+)}
       {/* No Results */}
       {isOpen && query && results.length === 0 && !isLoading && !value && (
         <div className="absolute z-50 w-full mt-2 p-4 bg-[#0B1020] border border-white/10 rounded-xl text-center">
           <p className="text-white/50">No colleges found for &quot;{query}&quot;</p>
         </div>
-      )}
+)}
     </div>
   );
 }

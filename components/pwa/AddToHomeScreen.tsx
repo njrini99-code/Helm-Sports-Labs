@@ -105,24 +105,21 @@ export function AddToHomeScreen() {
         'p-4 animate-slide-up',
         showPrompt ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
       )}
-      style={{
-        transition: 'opacity 300ms cubic-bezier(0.4, 0, 0.2, 1), transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+      style={{transition: 'opacity 300ms cubic-bezier(0.4, 0, 0.2, 1), transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
       }}
     >
       <div className="flex items-start gap-3">
         <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
           <Smartphone className="w-6 h-6 text-white" />
         </div>
-        
-        <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0">
           <h3 className="text-white font-semibold text-sm mb-1">
             Install ScoutPulse
           </h3>
           <p className="text-gray-400 text-xs mb-3">
             Add to your home screen for quick access and offline support
           </p>
-          
-          <div className="flex gap-2">
+      <div className="flex gap-2">
             <button
               onClick={handleInstallClick}
               className="flex-1 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-2xl transition-colors duration-300 flex items-center justify-center gap-2 min-h-[44px]"
@@ -172,8 +169,7 @@ function IOSInstallInstructions() {
         <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
           <Smartphone className="w-6 h-6 text-white" />
         </div>
-        
-        <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0">
           <h3 className="text-white font-semibold text-sm mb-2">
             Install ScoutPulse on iOS
           </h3>
@@ -182,8 +178,7 @@ function IOSInstallInstructions() {
             <li>Scroll down and tap <span className="text-white">"Add to Home Screen"</span></li>
             <li>Tap <span className="text-white">"Add"</span> in the top right</li>
           </ol>
-          
-          <button
+      <button
             onClick={() => {
               setShowInstructions(false);
               localStorage.setItem('pwa-ios-instructions-shown', 'true');

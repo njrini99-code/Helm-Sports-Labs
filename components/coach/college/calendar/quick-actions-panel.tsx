@@ -22,7 +22,6 @@ export function QuickActionsPanel({ onAddEvent, onSyncGoogle }: QuickActionsPane
       <div className="px-4 py-3 border-b border-slate-100">
         <h3 className="text-sm font-semibold text-slate-800">Quick Actions</h3>
       </div>
-
       <div className="p-3 space-y-2">
         <Button
           variant="outline"
@@ -32,8 +31,7 @@ export function QuickActionsPanel({ onAddEvent, onSyncGoogle }: QuickActionsPane
           <ClipboardCheck className="w-4 h-4" strokeWidth={2} />
           Schedule Player Evaluation
         </Button>
-
-        <Button
+      <Button
           variant="outline"
           className="w-full justify-start gap-2 h-9 text-xs border-purple-200 text-purple-700 hover:bg-purple-50 hover:border-purple-300"
           onClick={() => onAddEvent('visit')}
@@ -41,8 +39,7 @@ export function QuickActionsPanel({ onAddEvent, onSyncGoogle }: QuickActionsPane
           <UserCheck className="w-4 h-4" strokeWidth={2} />
           Schedule Player Visit
         </Button>
-
-        <Button
+      <Button
           variant="outline"
           className="w-full justify-start gap-2 h-9 text-xs border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-300"
           onClick={() => onAddEvent('camp')}
@@ -50,8 +47,7 @@ export function QuickActionsPanel({ onAddEvent, onSyncGoogle }: QuickActionsPane
           <Tent className="w-4 h-4" strokeWidth={2} />
           Create Camp Event
         </Button>
-
-        <div className="pt-2 border-t border-slate-100 mt-3">
+      <div className="pt-2 border-t border-slate-100 mt-3">
           <Button
             variant="ghost"
             className="w-full justify-start gap-2 h-9 text-xs text-slate-600 hover:text-slate-800"

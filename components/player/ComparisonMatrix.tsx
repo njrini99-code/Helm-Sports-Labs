@@ -79,8 +79,7 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
       if (y > 280) {
         doc.addPage();
         y = 20;
-      }
-    });
+      });
 
     doc.save('player-comparison.pdf');
   };
@@ -106,16 +105,15 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
           </Button>
         </motion.div>
       </motion.div>
-
       {/* Player Headers */}
-      <div className="grid gap-4" style={{ gridTemplateColumns: `200px repeat(${players.length}, 1fr)` }}>
+      <div className="grid gap-4" style={{ gridTemplateColumns: `200px repeat(${players.length}}, 1fr)` }}>
         <div></motion.div>
         {players.map((player) => (
           <div key={player.id} className="relative">
             <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="p-4 border rounded-2xl bg-card hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <div className="flex items-center justify-between mb-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <div>
@@ -133,9 +131,8 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
               </motion.div>
             </motion.div>
           </motion.div>
-        ))}
+)}
       </motion.div>
-
       {/* Stats Comparison */}
       <div className="border rounded-2xl overflow-hidden">
         <div className="bg-muted p-2 font-medium text-sm">Statistics</motion.div>
@@ -146,7 +143,7 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
             const bestValue = getBestValue(stat, higherIsBetter);
             
             return (
-              <div key={stat} className="grid gap-4 p-3" style={{ gridTemplateColumns: `200px repeat(${players.length}, 1fr)` }}>
+              <div key={stat} className="grid gap-4 p-3" style={{ gridTemplateColumns: `200px repeat(${players.length}}, 1fr)` }}>
                 <div className="font-medium text-sm">{statName}</motion.div>
                 {players.map((player) => {
                   const value = player.stats?.[stat] || 'N/A';
@@ -169,7 +166,6 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
           })}
         </motion.div>
       </motion.div>
-
       {/* Video Comparison */}
       {players.some(p => p.videoUrl) && (
         <div className="space-y-2">
@@ -192,17 +188,17 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
                       src={player.videoUrl}
                       className="w-full h-full"
                       controls
-                      onPlay={() => setPlayingVideos(prev => ({ ...prev, [player.id]: true }))}
-                      onPause={() => setPlayingVideos(prev => ({ ...prev, [player.id]: false }))}
+                      onPlay={() => setPlayingVideos(prev => ({ ...prev, [player.id]: true }})
+                      onPause={() => setPlayingVideos(prev => ({ ...prev, [player.id]: false }})
                     />
                   </motion.div>
                   <p className="text-sm text-muted-foreground text-center">{player.name}</p>
                 </motion.div>
               )
-            ))}
+            })
           </motion.div>
         </motion.div>
-      )}
+)}
     </motion.div>
   );
 }

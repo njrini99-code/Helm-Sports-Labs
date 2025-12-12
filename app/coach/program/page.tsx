@@ -199,7 +199,7 @@ export default function CoachProgramPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -220,7 +220,7 @@ export default function CoachProgramPage() {
           <div className="absolute inset-0">
             <Image src={coach.banner_url} alt="Banner" fill className="object-cover opacity-30" />
           </div>
-        )}
+)}
         <div className="relative max-w-7xl mx-auto px-6 py-12">
           <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
             {/* Logo */}
@@ -236,10 +236,9 @@ export default function CoachProgramPage() {
                 <button className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
                   <Upload className="w-6 h-6 text-white" />
                 </button>
-              )}
+)}
             </div>
-
-            {/* Program Info */}
+      {/* Program Info */}
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
                 <h1 className="text-4xl font-bold text-white">{programName}</h1>
@@ -254,23 +253,23 @@ export default function CoachProgramPage() {
                     <Trophy className="w-4 h-4 text-amber-400" />
                     {coach.program_division}
                   </span>
-                )}
+)}
                 {coach.athletic_conference && (
                   <span>{coach.athletic_conference}</span>
-                )}
+)}
                 {location && (
                   <span className="flex items-center gap-1">
                     <MapPin className="w-4 h-4 text-emerald-400" />
                     {location}
                   </span>
-                )}
+)}
               </div>
               {coach.full_name && (
                 <div className="mt-2 text-emerald-100/60">
                   <span className="font-medium">{coach.full_name}</span>
                   {coach.staff_role && ` • ${coach.staff_role}`}
                 </div>
-              )}
+)}
               {(coach.email_contact || coach.phone_contact) && (
                 <div className="flex items-center gap-4 mt-3">
                   {coach.email_contact && (
@@ -278,18 +277,17 @@ export default function CoachProgramPage() {
                       <Mail className="w-4 h-4" />
                       {coach.email_contact}
                     </a>
-                  )}
+)}
                   {coach.phone_contact && (
                     <a href={`tel:${coach.phone_contact}`} className="flex items-center gap-1 text-sm text-emerald-100/60 hover:text-white transition-colors">
                       <Phone className="w-4 h-4" />
                       {coach.phone_contact}
                     </a>
-                  )}
+)}
                 </div>
-              )}
+)}
             </div>
-
-            {/* Action Buttons - Always visible */}
+      {/* Action Buttons - Always visible */}
             <div className="flex flex-col gap-2">
               {isEditing ? (
                 <>
@@ -298,10 +296,10 @@ export default function CoachProgramPage() {
                     disabled={saving}
                     className={`gap-2 ${buttonStyles.primary}`}
                   >
-                    {saving ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse" /> : <Save className="w-4 h-4" />}
+                    {saving ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse"></div> : <Save className="w-4 h-4" />}
                     Save Changes
                   </Button>
-                  <Button 
+        <Button 
                     onClick={() => setIsEditing(false)}
                     className={`gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20`}
                   >
@@ -318,14 +316,14 @@ export default function CoachProgramPage() {
                     <Edit className="w-4 h-4" />
                     Edit Program
                   </Button>
-                  <Button 
+        <Button 
                     onClick={handleViewPublicPage}
                     className={`gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20`}
                   >
                     <Eye className="w-4 h-4" />
                     View Public Page
                   </Button>
-                  <Button 
+        <Button 
                     onClick={handleDownloadPDF}
                     className={`gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20`}
                   >
@@ -338,7 +336,6 @@ export default function CoachProgramPage() {
           </div>
         </div>
       </div>
-
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         <Tabs defaultValue="about" className="space-y-6">
@@ -348,24 +345,23 @@ export default function CoachProgramPage() {
             <TabsTrigger value="camps">Camps & Events</TabsTrigger>
             <TabsTrigger value="commitments">Commitments</TabsTrigger>
           </TabsList>
-
-          {/* About Tab */}
+      {/* About Tab */}
           <TabsContent value="about" className="space-y-6">
             <Card className={theme.cardBg}>
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className={`text-lg ${theme.text}`}>About the Program</CardTitle>
                 {!isEditing && (
                   <Button 
-                    onClick={() => setIsEditing(true)} 
+                    onClick={() => setIsEditing(true)}
                     size="sm" 
                     className={buttonStyles.secondary}
                   >
                     <Edit className="w-4 h-4 mr-2" />
                     Edit
                   </Button>
-                )}
+)}
               </CardHeader>
-              <CardContent>
+        <CardContent>
                 {isEditing ? (
                   <Textarea
                     value={editForm.about}
@@ -383,25 +379,24 @@ export default function CoachProgramPage() {
                       Add Description
                     </Button>
                   </div>
-                )}
+)}
               </CardContent>
             </Card>
-
-            <Card className={theme.cardBg}>
+      <Card className={theme.cardBg}>
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className={`text-lg ${theme.text}`}>Program Values</CardTitle>
                 {!isEditing && (
                   <Button 
-                    onClick={() => setIsEditing(true)} 
+                    onClick={() => setIsEditing(true)}
                     size="sm" 
                     className={buttonStyles.secondary}
                   >
                     <Edit className="w-4 h-4 mr-2" />
                     Edit
                   </Button>
-                )}
+)}
               </CardHeader>
-              <CardContent>
+        <CardContent>
                 {isEditing ? (
                   <Textarea
                     value={editForm.program_values}
@@ -419,25 +414,24 @@ export default function CoachProgramPage() {
                       Add Values
                     </Button>
                   </div>
-                )}
+)}
               </CardContent>
             </Card>
-
-            <Card className={theme.cardBg}>
+      <Card className={theme.cardBg}>
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className={`text-lg ${theme.text}`}>What We Look For</CardTitle>
                 {!isEditing && (
                   <Button 
-                    onClick={() => setIsEditing(true)} 
+                    onClick={() => setIsEditing(true)}
                     size="sm" 
                     className={buttonStyles.secondary}
                   >
                     <Edit className="w-4 h-4 mr-2" />
                     Edit
                   </Button>
-                )}
+)}
               </CardHeader>
-              <CardContent>
+        <CardContent>
                 {isEditing ? (
                   <Textarea
                     value={editForm.what_we_look_for}
@@ -455,11 +449,10 @@ export default function CoachProgramPage() {
                       Add Details
                     </Button>
                   </div>
-                )}
+)}
               </CardContent>
             </Card>
-
-            <Card className={theme.cardBg}>
+      <Card className={theme.cardBg}>
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className={`text-lg flex items-center gap-2 ${theme.text}`}>
                   <GraduationCap className="w-5 h-5 text-purple-500" />
@@ -467,16 +460,16 @@ export default function CoachProgramPage() {
                 </CardTitle>
                 {!isEditing && (
                   <Button 
-                    onClick={() => setIsEditing(true)} 
+                    onClick={() => setIsEditing(true)}
                     size="sm" 
                     className={buttonStyles.secondary}
                   >
                     <Edit className="w-4 h-4 mr-2" />
                     Edit
                   </Button>
-                )}
+)}
               </CardHeader>
-              <CardContent>
+        <CardContent>
                 {isEditing ? (
                   <Textarea
                     value={editForm.academic_profile}
@@ -494,12 +487,11 @@ export default function CoachProgramPage() {
                       Add Academics
                     </Button>
                   </div>
-                )}
+)}
               </CardContent>
             </Card>
           </TabsContent>
-
-          {/* Facilities Tab */}
+      {/* Facilities Tab */}
           <TabsContent value="facilities" className="space-y-6">
             <Card className={theme.cardBg}>
               <CardHeader className="flex flex-row items-center justify-between">
@@ -509,16 +501,16 @@ export default function CoachProgramPage() {
                 </CardTitle>
                 {!isEditing && (
                   <Button 
-                    onClick={() => setIsEditing(true)} 
+                    onClick={() => setIsEditing(true)}
                     size="sm" 
                     className={buttonStyles.secondary}
                   >
                     <Edit className="w-4 h-4 mr-2" />
                     Edit
                   </Button>
-                )}
+)}
               </CardHeader>
-              <CardContent>
+        <CardContent>
                 {isEditing ? (
                   <div className="space-y-4">
                     <Textarea
@@ -538,7 +530,7 @@ export default function CoachProgramPage() {
                             <p className={`text-sm ${theme.textMuted}`}>Upload {facility}</p>
                           </div>
                         </button>
-                      ))}
+)}
                     </div>
                   </div>
                 ) : coach.facility_summary ? (
@@ -552,7 +544,7 @@ export default function CoachProgramPage() {
                             <p className={`text-sm ${theme.textMuted}`}>{facility}</p>
                           </div>
                         </div>
-                      ))}
+)}
                     </div>
                   </div>
                 ) : (
@@ -564,18 +556,17 @@ export default function CoachProgramPage() {
                       Add Facility Info
                     </Button>
                   </div>
-                )}
+)}
               </CardContent>
             </Card>
-
-            <Card className={theme.cardBg}>
+      <Card className={theme.cardBg}>
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className={`text-lg flex items-center gap-2 ${theme.text}`}>
                   <Video className="w-5 h-5 text-rose-500" />
                   Program Intro Video
                 </CardTitle>
-                <Button 
-                  onClick={() => toast.info('Video upload coming soon!')} 
+        <Button 
+                  onClick={() => toast.info('Video upload coming soon!')}
                   size="sm" 
                   className={buttonStyles.secondary}
                 >
@@ -602,12 +593,11 @@ export default function CoachProgramPage() {
                       </Button>
                     </div>
                   </div>
-                )}
+)}
               </CardContent>
             </Card>
           </TabsContent>
-
-          {/* Camps & Events Tab */}
+      {/* Camps & Events Tab */}
           <TabsContent value="camps" className="space-y-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className={`text-xl font-semibold ${theme.text}`}>Camps & Events</h2>
@@ -618,8 +608,7 @@ export default function CoachProgramPage() {
                 </Button>
               </Link>
             </div>
-
-            {camps.length === 0 ? (
+      {camps.length === 0 ? (
               <Card className={theme.cardBg}>
                 <CardContent className="py-20 text-center">
                   <Calendar className={`w-12 h-12 mx-auto mb-4 ${theme.textMuted}`} />
@@ -656,7 +645,7 @@ export default function CoachProgramPage() {
                                 <MapPin className="w-4 h-4" />
                                 {camp.location}
                               </span>
-                            )}
+)}
                             <span className="flex items-center gap-1">
                               <Users className="w-4 h-4" />
                               {camp.interested_count} interested
@@ -664,7 +653,7 @@ export default function CoachProgramPage() {
                           </div>
                           {camp.description && (
                             <p className={isDark ? 'text-slate-300' : 'text-slate-600'}>{camp.description}</p>
-                          )}
+)}
                         </div>
                         <div className="flex flex-col gap-2">
                           <Link href={`/coach/college/camps?camp=${camp.id}`}>
@@ -684,7 +673,7 @@ export default function CoachProgramPage() {
                             <Users className="w-4 h-4 mr-2" />
                             View Interested
                           </Button>
-                          <Button 
+        <Button 
                             size="sm" 
                             className={buttonStyles.outline}
                             onClick={() => {
@@ -699,12 +688,11 @@ export default function CoachProgramPage() {
                       </div>
                     </CardContent>
                   </Card>
-                ))}
+)}
               </div>
-            )}
+)}
           </TabsContent>
-
-          {/* Commitments Tab */}
+      {/* Commitments Tab */}
           <TabsContent value="commitments" className="space-y-6">
             <Card className={theme.cardBg}>
               <CardHeader className="flex flex-row items-center justify-between">
@@ -712,8 +700,8 @@ export default function CoachProgramPage() {
                   <Trophy className="w-5 h-5 text-amber-500" />
                   Commitment History
                 </CardTitle>
-                <Button 
-                  onClick={() => toast.info('Commitment tracking coming soon!')} 
+        <Button 
+                  onClick={() => toast.info('Commitment tracking coming soon!')}
                   size="sm" 
                   className={buttonStyles.secondary}
                 >

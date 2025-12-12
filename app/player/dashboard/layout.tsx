@@ -44,8 +44,7 @@ export default function PlayerDashboardLayout({ children }: { children: ReactNod
                       {tab.label}
                     </Link>
                   </TabsTrigger>
-                ))
-              )}
+                )})
             </TabsList>
           </Tabs>
         </div>

@@ -116,24 +116,23 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
         <h3 className="text-lg font-semibold mb-2">Competitive Intelligence</h3>
         <div className="grid grid-cols-2 gap-4 mb-4">
           <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <p className="text-sm text-muted-foreground">High Competition</p>
             <p className="text-2xl font-bold">{highCompetition}</p>
           </motion.div>
           <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <p className="text-sm text-muted-foreground">Avg. Competition</p>
             <p className="text-2xl font-bold">{avgCompetition.toFixed(1)}</p>
           </motion.div>
         </motion.div>
       </motion.div>
-
       <div className="space-y-2 max-h-96 overflow-y-auto">
         {data.map((item) => (
           <div
@@ -175,10 +174,9 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
               </motion.div>
             </motion.div>
           </motion.div>
-        ))}
+)}
       </motion.div>
-
-      {highCompetition > 0 && (
+              {highCompetition > 0 && (
         <div className="p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 flex items-start gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5" />
           <div className="flex-1">
@@ -190,7 +188,7 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
             </p>
           </motion.div>
         </motion.div>
-      )}
+)}
     </motion.div>
   );
 }

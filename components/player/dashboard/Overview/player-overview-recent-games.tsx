@@ -121,7 +121,7 @@ export function PlayerOverviewRecentGames({ playerId }: { playerId: string }) {
               <Stat label="FT%" value={g.ftPct} />
             </div>
           </div>
-        ))}
+)}
       </div>
     </Card>
   );

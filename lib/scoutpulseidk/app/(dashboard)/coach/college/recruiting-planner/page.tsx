@@ -252,7 +252,7 @@ export default function RecruitingPlannerPage() {
   const handleSaveStatus = async () => {
     if (!selectedEntry) return;
     setPipeline((prev) =>
-      prev.map((e) => (e.id === selectedEntry.id ? { ...e, status: pendingStatus, updated_at: new Date().toISOString() } : e))
+      prev.map((e) => (e.id === selectedEntry.id ? { ...e, status: pendingStatus, updated_at: new Date().toISOString() } : e)}
     );
     setStatusDialogOpen(false);
     const success = await updateRecruitStatus(selectedEntry.id, pendingStatus);
@@ -273,7 +273,7 @@ export default function RecruitingPlannerPage() {
   const handleSaveNote = async () => {
     if (!selectedEntry) return;
     setPipeline((prev) =>
-      prev.map((e) => (e.id === selectedEntry.id ? { ...e, notes: pendingNote, updated_at: new Date().toISOString() } : e))
+      prev.map((e) => (e.id === selectedEntry.id ? { ...e, notes: pendingNote, updated_at: new Date().toISOString() } : e)}
     );
     setNoteDialogOpen(false);
     const supabase = createClient();
@@ -337,8 +337,7 @@ export default function RecruitingPlannerPage() {
             <h1 className="text-xl font-semibold text-slate-900">Recruiting Planner</h1>
             <p className="text-sm text-slate-500 mt-0.5">Visualize your recruiting class by position.</p>
           </div>
-          
-          <div className="flex flex-wrap items-center gap-2">
+<div className="flex flex-wrap items-center gap-2">
             <Select value={statusFilter} onValueChange={(v) => setStatusFilter(v as any)}>
               <SelectTrigger className="h-9 w-[150px] text-sm bg-white border-slate-200">
                 <SelectValue placeholder="All statuses" />
@@ -348,15 +347,14 @@ export default function RecruitingPlannerPage() {
                 {Object.entries(STATUS_CONFIG).slice(0, 4).map(([key, config]) => (
                   <SelectItem key={key} value={key}>
                     <div className="flex items-center gap-2">
-                      <span className={`w-2 h-2 rounded-full ${config.dotClass}`} />
+                      <span className={`w-2 h-2 rounded-full ${config.dotClass}`}></span>
                       {config.label}
                     </div>
                   </SelectItem>
-                ))}
+)}
               </SelectContent>
             </Select>
-
-            <Select value={String(gradYearFilter)} onValueChange={(v) => setGradYearFilter(v === 'all' ? 'all' : Number(v))}>
+<Select value={String(gradYearFilter)} onValueChange={(v) => setGradYearFilter(v === 'all' ? 'all' : Number(v})>
               <SelectTrigger className="h-9 w-[110px] text-sm bg-white border-slate-200">
                 <SelectValue placeholder="All years" />
               </SelectTrigger>
@@ -364,20 +362,17 @@ export default function RecruitingPlannerPage() {
                 <SelectItem value="all">All years</SelectItem>
                 {[2025, 2026, 2027, 2028].map((y) => (
                   <SelectItem key={y} value={String(y)}>{y}</SelectItem>
-                ))}
+)}
               </SelectContent>
             </Select>
-
-            <div className="h-6 w-px bg-slate-200" />
-
-            <Button size="sm" variant="outline" className="h-9" onClick={() => setAddDialogOpen(true)}>
+<div className="h-6 w-px bg-slate-200"></div>
+<Button size="sm" variant="outline" className="h-9" onClick={() => setAddDialogOpen(true)}>
               <Plus className="w-4 h-4 mr-1.5" />
               Add Player
             </Button>
           </div>
         </div>
-
-        {/* Main Layout: Pipeline (Left) | Diamond (Right) */}
+{/* Main Layout: Pipeline (Left) | Diamond (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-5">
           
           {/* Left: Pipeline */}
@@ -388,11 +383,9 @@ export default function RecruitingPlannerPage() {
               onPlayerSelect={handlePlayerSelect}
               onChangeStatus={handleStatusChange}
               onAddNote={handleAddNote}
-              onViewProfile={handleViewProfile}
-            />
+              onViewProfile={handleViewProfile} />
           </div>
-
-          {/* Right: Diamond */}
+{/* Right: Diamond */}
           <div className="order-1 lg:order-2">
             <RecruitingDiamond
               playersByPosition={playersByPosition}
@@ -408,8 +401,7 @@ export default function RecruitingPlannerPage() {
             />
           </div>
         </div>
-
-        {/* Dialogs */}
+{/* Dialogs */}
         <Dialog open={statusDialogOpen} onOpenChange={setStatusDialogOpen}>
           <DialogContent className="sm:max-w-sm">
             <DialogHeader>
@@ -421,7 +413,7 @@ export default function RecruitingPlannerPage() {
               <SelectContent>
                 {Object.entries(STATUS_CONFIG).map(([key, config]) => (
                   <SelectItem key={key} value={key}>{config.label}</SelectItem>
-                ))}
+)}
               </SelectContent>
             </Select>
             <DialogFooter>
@@ -430,8 +422,7 @@ export default function RecruitingPlannerPage() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
-
-        <Dialog open={noteDialogOpen} onOpenChange={setNoteDialogOpen}>
+<Dialog open={noteDialogOpen} onOpenChange={setNoteDialogOpen}>
           <DialogContent className="sm:max-w-sm">
             <DialogHeader>
               <DialogTitle>Add Note</DialogTitle>
@@ -444,8 +435,7 @@ export default function RecruitingPlannerPage() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
-
-        <Dialog open={addDialogOpen} onOpenChange={setAddDialogOpen}>
+<Dialog open={addDialogOpen} onOpenChange={setAddDialogOpen}>
           <DialogContent className="sm:max-w-sm">
             <DialogHeader>
               <DialogTitle>Add Player</DialogTitle>
@@ -458,8 +448,7 @@ export default function RecruitingPlannerPage() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
-
-        {/* Position Modal */}
+{/* Position Modal */}
         <Dialog open={!!positionModalData} onOpenChange={() => setPositionModalData(null)}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
@@ -475,7 +464,7 @@ export default function RecruitingPlannerPage() {
                     className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all hover:shadow-sm ${config.bgClass} ${config.borderClass}`}
                     onClick={() => { handlePlayerSelect(player.id); setPositionModalData(null); }}
                   >
-                    <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium text-white" style={{ backgroundColor: config.color }}>
+                    <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium text-white" style={{backgroundColor: config.color }}>
                       {player.initials}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -527,17 +516,15 @@ function PipelinePanel({
         <h2 className="text-sm font-semibold text-slate-800">Pipeline by Status</h2>
         <p className="text-xs text-slate-400 mt-0.5">{pipeline.length} recruits</p>
       </div>
-      
-      <div className="grid grid-cols-2 gap-px bg-slate-100">
+<div className="grid grid-cols-2 gap-px bg-slate-100">
         {columns.map(({ status, config, entries }) => (
           <div key={status} className="bg-white p-3">
             <div className="flex items-center gap-2 mb-2.5">
-              <span className={`w-2.5 h-2.5 rounded-full ${config.dotClass}`} />
+              <span className={`w-2.5 h-2.5 rounded-full ${config.dotClass}`}></span>
               <span className="text-xs font-semibold text-slate-700 uppercase tracking-wide">{config.short}</span>
               <span className="ml-auto text-xs text-slate-400 font-medium">{entries.length}</span>
             </div>
-            
-            <div className="space-y-1.5 max-h-[200px] overflow-y-auto">
+<div className="space-y-1.5 max-h-[200px] overflow-y-auto">
               {entries.length === 0 ? (
                 <div className="py-6 text-center text-xs text-slate-300">No players</div>
               ) : (
@@ -550,10 +537,10 @@ function PipelinePanel({
                       className={`group flex items-center gap-2.5 p-2 rounded-xl border transition-all duration-200 cursor-pointer ${
                         isSelected ? `${config.bgClass} ${config.borderClass} shadow-sm ring-2` : 'border-transparent hover:bg-slate-50 hover:border-slate-100'
                       }`}
-                      style={isSelected ? { '--tw-ring-color': config.color } as any : {}}
+                      style={{isSelected ? { '--tw-ring-color': config.color }} as any : {}}
                       onClick={() => onPlayerSelect(entry.player.id)}
                     >
-                      <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold text-white flex-shrink-0" style={{ backgroundColor: config.color }}>
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold text-white flex-shrink-0" style={{backgroundColor: config.color }}>
                         {initials}
                       </div>
                       <div className="min-w-0 flex-1">
@@ -574,11 +561,10 @@ function PipelinePanel({
                       </DropdownMenu>
                     </div>
                   );
-                })
-              )}
+                }})
             </div>
           </div>
-        ))}
+)}
       </div>
     </div>
   );
@@ -616,29 +602,25 @@ function RecruitingDiamond({
         <div className="flex items-center gap-4">
           {Object.entries(STATUS_CONFIG).slice(0, 4).map(([key, config]) => (
             <div key={key} className="flex items-center gap-1.5">
-              <span className={`w-2 h-2 rounded-full ${config.dotClass}`} />
+              <span className={`w-2 h-2 rounded-full ${config.dotClass}`}></span>
               <span className="text-[10px] text-slate-500 font-medium">{config.short}</span>
             </div>
-          ))}
+)}
         </div>
       </div>
-
-      {/* Diamond Canvas */}
+{/* Diamond Canvas */}
       <div 
         className="relative w-full p-6"
-        style={{
-          aspectRatio: '4/3',
+        style={{aspectRatio: '4/3',
           minHeight: '440px',
           background: 'linear-gradient(170deg, #047857 0%, #065F46 50%, #064E3B 100%)',
         }}
       >
         {/* Soft radial glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(255,255,255,0.08),transparent_55%)]" />
-        
-        {/* Very soft vignette */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_55%,rgba(0,0,0,0.15))]" />
-
-        {/* Diamond Field Lines (SVG) */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(255,255,255,0.08),transparent_55%)]"></div>
+{/* Very soft vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_55%,rgba(0,0,0,0.15))]"></div>
+{/* Diamond Field Lines (SVG) */}
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
           {/* Outfield Arc - subtle */}
           <path d="M 45 200 Q 200 25 355 200" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" />
@@ -647,8 +629,7 @@ function RecruitingDiamond({
           {/* Home plate */}
           <path d="M 193 222 L 200 230 L 207 222 L 207 216 L 193 216 Z" fill="rgba(255,255,255,0.12)" />
         </svg>
-
-        {/* Position Clusters */}
+{/* Position Clusters */}
         {Object.entries(POSITION_SLOTS).map(([pos, coords]) => (
           <PositionCluster
             key={pos}
@@ -662,7 +643,7 @@ function RecruitingDiamond({
             onChangeStatus={onChangeStatus}
             onShowAll={() => onShowAllAtPosition(pos, playersByPosition[pos] || [])}
           />
-        ))}
+        })
       </div>
     </div>
   );
@@ -700,14 +681,13 @@ function PositionCluster({
   return (
     <div
       className="absolute flex flex-col items-center"
-      style={{ top: coords.top, left: coords.left, transform: 'translate(-50%, 0)' }}
+      style={{top: coords.top, left: coords.left, transform: 'translate(-50%, 0)' }}
     >
       {/* Position Label */}
       <div className="mb-1.5 text-[10px] font-bold text-white/60 uppercase tracking-wider">
         {position}
       </div>
-
-      {/* Player Stack */}
+{/* Player Stack */}
       <div className="flex flex-col items-center space-y-1">
         {players.length === 0 ? (
           <div className="px-3 py-1.5 rounded-lg bg-white/10 border border-white/15 text-[10px] text-white/40 italic">
@@ -726,7 +706,7 @@ function PositionCluster({
                 onViewProfile={() => onViewProfile(player.id)}
                 onChangeStatus={() => onChangeStatus(player)}
               />
-            ))}
+            })
             {extraCount > 0 && (
               <button
                 onClick={onShowAll}
@@ -734,7 +714,7 @@ function PositionCluster({
               >
                 +{extraCount} more
               </button>
-            )}
+)}
           </>
         )}
       </div>
@@ -805,17 +785,16 @@ function RecruitingDiamondPlayerPill({
           ${isSelected ? 'ring-2 ring-offset-2 ring-offset-emerald-700 scale-105 shadow-md' : ''}
           ${hovered && !isSelected ? 'scale-105 shadow-md border-opacity-100' : ''}
         `}
-        style={isSelected ? { '--tw-ring-color': config.color } as any : {}}
+        style={{isSelected ? { '--tw-ring-color': config.color }} as any : {}}
       >
         {/* Avatar Circle */}
         <div 
           className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-semibold text-white flex-shrink-0"
-          style={{ backgroundColor: config.color }}
+          style={{backgroundColor: config.color }}
         >
           {player.initials}
         </div>
-        
-        {/* Player Info - ALWAYS VISIBLE */}
+{/* Player Info - ALWAYS VISIBLE */}
         <div className="flex flex-col items-start min-w-0">
           <span className="text-xs font-medium text-slate-800 leading-tight" title={player.name}>
             {displayName}
@@ -825,18 +804,17 @@ function RecruitingDiamondPlayerPill({
           </span>
         </div>
       </button>
-
-      {/* Hover Tooltip - Enhanced info on hover with edge-aware positioning */}
+{/* Hover Tooltip - Enhanced info on hover with edge-aware positioning */}
       {hovered && (
         <div
           className={`absolute z-50 w-56 rounded-xl bg-white border border-slate-200 shadow-xl p-3 ${tooltipClasses}`}
-          style={{ animation: 'fadeIn 150ms ease-out' }}
+          style={{animation: 'fadeIn 150ms ease-out' }}
         >
           {/* Header */}
           <div className="flex items-start gap-3 mb-2.5">
             <div 
               className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold text-white flex-shrink-0"
-              style={{ backgroundColor: config.color }}
+              style={{backgroundColor: config.color }}
             >
               {player.initials}
             </div>
@@ -845,8 +823,7 @@ function RecruitingDiamondPlayerPill({
               <p className="text-xs text-slate-500">{player.primaryPosition} • Class of {player.gradYear}</p>
             </div>
           </div>
-
-          {/* Details */}
+{/* Details */}
           <div className="space-y-1 mb-2.5 text-xs text-slate-600">
             {(player.height || player.weight) && (
               <div className="flex items-center gap-1.5">
@@ -855,17 +832,15 @@ function RecruitingDiamondPlayerPill({
                 {player.height && player.weight && <span>•</span>}
                 {player.weight && <span>{player.weight} lbs</span>}
               </div>
-            )}
+)}
             {player.state && <div className="text-slate-500">{player.state}</div>}
           </div>
-
-          {/* Status Badge */}
+{/* Status Badge */}
           <div className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[10px] font-semibold mb-3 ${config.bgClass} border ${config.borderClass}`}>
-            <span className={`w-1.5 h-1.5 rounded-full ${config.dotClass}`} />
+            <span className={`w-1.5 h-1.5 rounded-full ${config.dotClass}`}></span>
             <span className={config.textClass}>{config.label}</span>
           </div>
-
-          {/* Actions */}
+{/* Actions */}
           <div className="flex items-center gap-2 pt-2 border-t border-slate-100">
             <button
               onClick={(e) => { e.stopPropagation(); onViewProfile(); }}
@@ -883,8 +858,7 @@ function RecruitingDiamondPlayerPill({
             </button>
           </div>
         </div>
-      )}
-
+)}
       <style jsx>{`
         @keyframes fadeIn {
           ${animationStyle}

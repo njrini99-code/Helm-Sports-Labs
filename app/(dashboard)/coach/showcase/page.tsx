@@ -53,7 +53,6 @@ import {
   glassButton as glassButtonEnhanced,
   glassDarkZone as glassDarkZoneEnhanced,
   glassListItem as glassListItemEnhanced,
-  cn,
 } from '@/lib/glassmorphism-enhanced';
 import { motion } from 'framer-motion';
 import { pageTransition, staggerContainer, staggerItem } from '@/lib/animations';
@@ -137,7 +136,7 @@ function StatCard({
                trend === 'down' ? <TrendingDown className="w-3 h-3 mr-0.5" /> : null}
               {trendValue}
             </Badge>
-          )}
+)}
         </div>
         <p className={`text-3xl font-bold mt-3 ${isDark ? 'text-white' : 'text-slate-800'}`}>
           {animatedValue}
@@ -343,7 +342,7 @@ export default function ShowcaseCoachDashboard() {
   // Computed values
   const upcomingEvents = useMemo(() => 
     schedule
-      .filter(e => new Date(e.start_time) >= new Date())
+      .filter(e => new Date(e.start_time) >= new Date()}
       .slice(0, 5),
     [schedule]
   );
@@ -381,7 +380,7 @@ export default function ShowcaseCoachDashboard() {
   if (loading) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${isDark ? 'bg-slate-900' : 'bg-slate-50'}`}>
-        <div className="w-8 h-8 bg-violet-500/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-violet-500/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -391,49 +390,44 @@ export default function ShowcaseCoachDashboard() {
       className="min-h-screen"
       initial={pageTransition.initial}
       animate={pageTransition.animate}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
+      transition={{duration: 0.3, ease: 'easeOut' }}
     >
       {/* ═══════════════════════════════════════════════════════════════════
           ULTIMATE GLASSMORPHISM HERO ZONE
       ═══════════════════════════════════════════════════════════════════ */}
       <div className={cn(glassDarkZoneEnhanced, "pb-12 relative overflow-hidden")}>
         {/* Animated gradient orbs */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-violet-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '0s' }} />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-pink-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
-        
-        {/* Subtle grid pattern */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-violet-500/20 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '0s' }}></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-pink-500/15 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '1s' }}></div>
+{/* Subtle grid pattern */}
         <div 
           className="absolute inset-0 opacity-[0.02] pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
-
-        <div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 space-y-8 relative z-10">
+          style={{backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+<div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 space-y-8 relative z-10">
           
       {/* ═══════════════════════════════════════════════════════════════════
           PREMIUM GLASSMORPHISM HERO BANNER
       ═══════════════════════════════════════════════════════════════════ */}
       <motion.section 
         className="relative"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
+        initial={ opacity: 0, y: 20 }
+        animate={ opacity: 1, y: 0 }
+        transition={{duration: 0.6, ease: 'easeOut' }}
       >
         {/* Premium Glass Hero Card */}
         <div className={cn(glassHeroEnhanced, "p-6 md:p-8 relative overflow-hidden")}>
           {/* Animated gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-pink-500/5 opacity-50 animate-pulse" />
-          
-          <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
+          <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-pink-500/5 opacity-50 animate-pulse"></div>
+<div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
             {/* Premium Logo Badge with Enhanced Glow */}
             <motion.div 
               className="relative group"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
+              initial={ opacity: 0, scale: 0.9 }
+              animate={ opacity: 1, scale: 1 }
+              transition={{duration: 0.5 }}
             >
-              <div className="absolute -inset-2 rounded-2xl bg-gradient-to-br from-violet-500/30 to-pink-500/20 blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500" />
+              <div className="absolute -inset-2 rounded-2xl bg-gradient-to-br from-violet-500/30 to-pink-500/20 blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
               <Avatar className="relative h-20 w-20 md:h-24 md:w-24 ring-2 ring-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.5)] rounded-2xl">
                 <AvatarImage src={coach?.logo_url ?? undefined} className="rounded-2xl object-cover" />
                 <AvatarFallback 
@@ -443,16 +437,15 @@ export default function ShowcaseCoachDashboard() {
                 </AvatarFallback>
               </Avatar>
               {/* Glow effect */}
-              <div className="absolute -inset-3 rounded-2xl bg-violet-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -inset-3 rounded-2xl bg-violet-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </motion.div>
-
-            {/* Premium Organization Info */}
+      {/* Premium Organization Info */}
             <div className="flex-1 min-w-0">
               <motion.h1 
                 className="text-3xl md:text-4xl font-bold text-white mb-2 bg-gradient-to-r from-white via-white to-white/90 bg-clip-text text-transparent"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
+                initial={ opacity: 0, x: -20 }
+                animate={ opacity: 1, x: 0 }
+                transition={{duration: 0.5, delay: 0.1 }}
               >
                 {orgName}
               </motion.h1>
@@ -469,7 +462,7 @@ export default function ShowcaseCoachDashboard() {
                     <MapPin className="w-4 h-4" />
                     {location}
                   </span>
-                )}
+)}
                 <span className="flex items-center gap-1.5 text-sm text-white/70">
                   <Users className="w-4 h-4" />
                   {roster.length} Players
@@ -479,16 +472,14 @@ export default function ShowcaseCoachDashboard() {
                     <Zap className="w-4 h-4" />
                     {coach.age_groups.join(', ')}
                   </span>
-                )}
+)}
               </div>
-
-              {coach?.full_name && (
+      {coach?.full_name && (
                 <p className="text-sm text-white/60 mb-4">
                   <span className="font-medium text-white/80">{coach.full_name}</span>
                   {' — Director'}
                 </p>
-              )}
-
+)}
               {/* Premium Profile Completion */}
               <div className="flex items-center gap-4">
                 <div className="flex-1 max-w-xs">
@@ -499,9 +490,9 @@ export default function ShowcaseCoachDashboard() {
                   <div className="h-2 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
                     <motion.div 
                       className="h-full rounded-full bg-gradient-to-r from-violet-500 to-pink-400 shadow-lg shadow-violet-500/30"
-                      initial={{ width: 0 }}
+                      initial={ width: 0 }
                       animate={{ width: `${profileCompletion}%` }}
-                      transition={{ duration: 1.5, ease: 'easeOut', delay: 0.3 }}
+                      transition={{duration: 1.5, ease: 'easeOut', delay: 0.3 }}
                     />
                   </div>
                 </div>
@@ -512,16 +503,15 @@ export default function ShowcaseCoachDashboard() {
                       <ChevronRight className="w-3 h-3" strokeWidth={2} />
                     </span>
                   </Link>
-                )}
+)}
               </div>
             </div>
-
-            {/* Premium Action Buttons */}
+      {/* Premium Action Buttons */}
             <motion.div 
               className="flex gap-3 w-full md:w-auto"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              initial={ opacity: 0, x: 20 }
+              animate={ opacity: 1, x: 0 }
+              transition={{duration: 0.5, delay: 0.2 }}
             >
               <Link href="/coach/showcase/program" className="flex-1 md:flex-none">
                 <button className={cn(glassButtonEnhanced.secondary, "w-full md:w-auto flex items-center gap-2")}>
@@ -540,8 +530,7 @@ export default function ShowcaseCoachDashboard() {
           </div>
         </div>
       </motion.section>
-
-          {/* B. ULTIMATE GLASSMORPHISM STAT CARDS ROW */}
+      {/* B. ULTIMATE GLASSMORPHISM STAT CARDS ROW */}
           <motion.div 
             className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 -mt-5 relative z-10"
             variants={staggerContainer as any}
@@ -586,7 +575,6 @@ export default function ShowcaseCoachDashboard() {
           </motion.div>
         </div>
       </div>
-
       {/* ═══════════════════════════════════════════════════════════════════
           MAIN CONTENT
       ═══════════════════════════════════════════════════════════════════ */}
@@ -621,7 +609,7 @@ export default function ShowcaseCoachDashboard() {
                   </Button>
                 </Link>
               </CardHeader>
-              <CardContent>
+        <CardContent>
                 <div className="space-y-3">
                   {upcomingShowcases && upcomingShowcases.length > 0 ? (
                     upcomingShowcases.map((event) => {
@@ -669,7 +657,7 @@ export default function ShowcaseCoachDashboard() {
                     <p className={`text-sm text-center py-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                       No upcoming showcases. Create one to get started!
                     </p>
-                  )}
+)}
                 </div>
                 <Link href="/coach/showcase/schedule">
                   <Button variant="outline" className="w-full mt-4 gap-2">
@@ -679,8 +667,7 @@ export default function ShowcaseCoachDashboard() {
                 </Link>
               </CardContent>
             </Card>
-
-            {/* Players by Grad Year */}
+      {/* Players by Grad Year */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-slate-800/60 border-slate-700/50' 
@@ -706,7 +693,7 @@ export default function ShowcaseCoachDashboard() {
                   </Button>
                 </Link>
               </CardHeader>
-              <CardContent>
+        <CardContent>
                 {roster.length === 0 ? (
                   <div className="text-center py-8">
                     <Users className={`w-12 h-12 mx-auto mb-3 ${isDark ? 'text-slate-600' : 'text-slate-400'}`} />
@@ -721,7 +708,7 @@ export default function ShowcaseCoachDashboard() {
                 ) : (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     {Object.entries(gradYearCounts)
-                      .sort((a, b) => Number(a[0]) - Number(b[0]))
+                      .sort((a, b) => Number(a[0]) - Number(b[0])}
                       .map(([year, count]) => (
                         <div
                           key={year}
@@ -736,14 +723,13 @@ export default function ShowcaseCoachDashboard() {
                             Class of {year}
                           </p>
                         </div>
-                      ))}
+)}
                   </div>
-                )}
+)}
               </CardContent>
             </Card>
           </div>
-
-          {/* Right Column */}
+      {/* Right Column */}
           <div className="space-y-6">
             {/* Top Performers */}
             <Card className={`overflow-hidden ${
@@ -766,7 +752,7 @@ export default function ShowcaseCoachDashboard() {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
+        <CardContent>
                 <div className="space-y-3">
                   {topPerformers && topPerformers.length > 0 ? (
                     topPerformers.map((performer, index) => {
@@ -833,12 +819,11 @@ export default function ShowcaseCoachDashboard() {
                     <p className={`text-sm text-center py-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                       No performance data yet. Record metrics at your next showcase!
                     </p>
-                  )}
+)}
                 </div>
               </CardContent>
             </Card>
-
-            {/* College Connections */}
+      {/* College Connections */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-slate-800/60 border-slate-700/50' 
@@ -859,7 +844,7 @@ export default function ShowcaseCoachDashboard() {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
+        <CardContent>
                 <div className="space-y-2">
                   {collegeConnections && collegeConnections.length > 0 ? (
                     collegeConnections.map((connection) => (
@@ -885,7 +870,7 @@ export default function ShowcaseCoachDashboard() {
                               <p className={`text-[10px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                                 {connection.college.division}
                               </p>
-                            )}
+)}
                           </div>
                         </div>
                         <Badge 
@@ -895,17 +880,16 @@ export default function ShowcaseCoachDashboard() {
                           {connection.count} {connection.count === 1 ? 'player' : 'players'}
                         </Badge>
                       </div>
-                    ))
+)}
                   ) : (
                     <p className={`text-sm text-center py-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                       No college connections yet. Keep promoting your players!
                     </p>
-                  )}
+)}
                 </div>
               </CardContent>
             </Card>
-
-            {/* Quick Actions */}
+      {/* Quick Actions */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-slate-800/60 border-slate-700/50' 
@@ -1015,13 +999,12 @@ function PremiumGlassStatCard({
         colors.hover,
         highlight && 'ring-2 ring-amber-400/40'
       )}
-      whileHover={{ scale: 1.03, y: -4 }}
-      transition={{ duration: 0.3 }}
+      whileHover={ scale: 1.03, y: -4 }
+      transition={{duration: 0.3 }}
     >
       {/* Animated gradient overlay */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${colors.bg} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl`} />
-      
-      {/* Trend badge */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${colors.bg} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl`}></div>
+{/* Trend badge */}
       {trend !== undefined && (
         <motion.span 
           className={cn(
@@ -1029,15 +1012,14 @@ function PremiumGlassStatCard({
             "backdrop-blur-lg bg-emerald-500/25 text-emerald-200 border border-emerald-400/40",
             "shadow-[0_2px_10px_rgba(16,185,129,0.3)]"
           )}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2 }}
+          initial={ opacity: 0, scale: 0.8 }
+          animate={ opacity: 1, scale: 1 }
+          transition={{delay: 0.2 }}
         >
           <TrendingUp className="w-3 h-3" strokeWidth={2} />
           +{trend}%
         </motion.span>
-      )}
-      
+)}
       <div className="relative z-10 flex items-start gap-3">
         <div className={cn(
           "p-2 rounded-lg backdrop-blur-lg",
@@ -1049,16 +1031,16 @@ function PremiumGlassStatCard({
         <div className="flex-1 min-w-0">
           <motion.p 
             className="text-2xl font-bold text-white mb-1"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={ opacity: 0, y: 10 }
+            animate={ opacity: 1, y: 0 }
+            transition={{duration: 0.5 }}
           >
             {value.toLocaleString()}
           </motion.p>
           <p className="text-xs text-white/90 font-semibold mb-0.5">{label}</p>
           {sublabel && (
             <p className="text-[10px] text-white/60">{sublabel}</p>
-          )}
+)}
         </div>
       </div>
     </motion.div>

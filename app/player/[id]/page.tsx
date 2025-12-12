@@ -326,7 +326,7 @@ export default function PublicPlayerProfilePage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-[#0A3B2E] via-[#0B0D0F] to-[#0B0D0F] flex items-center justify-center">
-        <div className="w-8 h-8 bg-[#00C27A]/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-[#00C27A]/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -368,10 +368,9 @@ export default function PublicPlayerProfilePage() {
         {/* Hero Section */}
         <div className="relative mb-8 rounded-3xl overflow-hidden bg-gradient-to-br from-[#0A3B2E] via-[#0B1410] to-[#0B0D0F] p-8 sm:p-12 border border-white/10">
           {/* Decorative Elements */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#00C27A]/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl" />
-
-          <div className="relative z-10">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#00C27A]/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl"></div>
+<div className="relative z-10">
             <div className="flex flex-col md:flex-row gap-8 items-start">
               {/* Avatar */}
               <Avatar className="w-28 h-28 sm:w-32 sm:h-32 border-4 border-[#00C27A]/30 ring-4 ring-white/5 shadow-2xl">
@@ -380,8 +379,7 @@ export default function PublicPlayerProfilePage() {
                   {initials}
                 </AvatarFallback>
               </Avatar>
-
-              {/* Player Info */}
+      {/* Player Info */}
               <div className="flex-1">
                 <div className="flex flex-wrap items-center gap-3 mb-3">
                   <h1 className="text-3xl sm:text-4xl font-bold text-white">{fullName}</h1>
@@ -390,10 +388,9 @@ export default function PublicPlayerProfilePage() {
                       <CheckCircle2 className="w-3 h-3 mr-1" />
                       Verified
                     </Badge>
-                  )}
+)}
                 </div>
-
-                {/* Quick Stats */}
+      {/* Quick Stats */}
                 <div className="flex flex-wrap gap-4 text-slate-300 mb-4">
                   {player.primary_position && (
                     <span className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-white/5 border border-white/10">
@@ -401,15 +398,15 @@ export default function PublicPlayerProfilePage() {
                       <span className="font-medium">{player.primary_position}</span>
                       {player.secondary_position && (
                         <span className="text-slate-400">/ {player.secondary_position}</span>
-                      )}
+)}
                     </span>
-                  )}
+)}
                   {player.grad_year && (
                     <span className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-white/5 border border-white/10">
                       <Calendar className="w-4 h-4 text-blue-400" />
                       <span className="font-medium">Class of {player.grad_year}</span>
                     </span>
-                  )}
+)}
                   {height && (
                     <span className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-white/5 border border-white/10">
                       <Ruler className="w-4 h-4 text-purple-400" />
@@ -418,16 +415,15 @@ export default function PublicPlayerProfilePage() {
                         {player.weight_lbs && ` • ${player.weight_lbs} lbs`}
                       </span>
                     </span>
-                  )}
+)}
                   {player.throws && player.bats && (
                     <span className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-white/5 border border-white/10">
                       <BarChart3 className="w-4 h-4 text-amber-400" />
                       <span className="font-medium">{player.throws}/{player.bats}</span>
                     </span>
-                  )}
+)}
                 </div>
-
-                {/* Location */}
+      {/* Location */}
                 {player.high_school_name && (
                   <div className="flex items-center gap-2 text-slate-400 mb-6">
                     <School className="w-4 h-4" />
@@ -440,15 +436,13 @@ export default function PublicPlayerProfilePage() {
                       </>
                     )}
                   </div>
-                )}
-
+)}
                 {/* Bio */}
                 {player.about_me && (
                   <p className="text-slate-300 max-w-2xl mb-6 leading-relaxed">
                     {player.about_me}
                   </p>
-                )}
-
+)}
                 {/* Action Buttons */}
                 <div className="flex flex-wrap gap-3">
                   {isCoach ? (
@@ -470,7 +464,7 @@ export default function PublicPlayerProfilePage() {
                           <Star className="w-4 h-4" />
                           Add to Watchlist
                         </Button>
-                      )}
+)}
                       <Button
                         onClick={handleMessage}
                         variant="outline"
@@ -487,7 +481,7 @@ export default function PublicPlayerProfilePage() {
                         Log in to Connect
                       </Button>
                     </Link>
-                  )}
+)}
                   <Button
                     onClick={handleShare}
                     variant="outline"
@@ -501,29 +495,27 @@ export default function PublicPlayerProfilePage() {
             </div>
           </div>
         </div>
-
-        {/* Tabs Section */}
+      {/* Tabs Section */}
         <Tabs defaultValue="stats" className="space-y-6">
           <TabsList className="bg-white/5 border border-white/10 p-1">
             <TabsTrigger value="stats" className="data-[state=active]:bg-[#00C27A] data-[state=active]:text-white">
               <BarChart3 className="w-4 h-4 mr-2" />
               Stats & Metrics
             </TabsTrigger>
-            <TabsTrigger value="videos" className="data-[state=active]:bg-[#00C27A] data-[state=active]:text-white">
+        <TabsTrigger value="videos" className="data-[state=active]:bg-[#00C27A] data-[state=active]:text-white">
               <Video className="w-4 h-4 mr-2" />
               Videos ({videos.length})
             </TabsTrigger>
-            <TabsTrigger value="achievements" className="data-[state=active]:bg-[#00C27A] data-[state=active]:text-white">
+        <TabsTrigger value="achievements" className="data-[state=active]:bg-[#00C27A] data-[state=active]:text-white">
               <Trophy className="w-4 h-4 mr-2" />
               Achievements
             </TabsTrigger>
-            <TabsTrigger value="evaluations" className="data-[state=active]:bg-[#00C27A] data-[state=active]:text-white">
+        <TabsTrigger value="evaluations" className="data-[state=active]:bg-[#00C27A] data-[state=active]:text-white">
               <Award className="w-4 h-4 mr-2" />
               Evaluations
             </TabsTrigger>
           </TabsList>
-
-          {/* Stats Tab */}
+      {/* Stats Tab */}
           <TabsContent value="stats" className="space-y-6">
             {metrics.length === 0 ? (
               <Card className="bg-white/5 backdrop-blur-sm border-white/10">
@@ -549,11 +541,10 @@ export default function PublicPlayerProfilePage() {
                           <span className="text-slate-400">{metric.metric_label}</span>
                           <span className="text-white font-semibold">{metric.metric_value}</span>
                         </div>
-                      ))}
+)}
                     </CardContent>
                   </Card>
-                )}
-
+)}
                 {/* Speed Metrics */}
                 {speedMetrics.length > 0 && (
                   <Card className="bg-white/5 backdrop-blur-sm border-white/10">
@@ -569,11 +560,10 @@ export default function PublicPlayerProfilePage() {
                           <span className="text-slate-400">{metric.metric_label}</span>
                           <span className="text-white font-semibold">{metric.metric_value}</span>
                         </div>
-                      ))}
+)}
                     </CardContent>
                   </Card>
-                )}
-
+)}
                 {/* Power Metrics */}
                 {powerMetrics.length > 0 && (
                   <Card className="bg-white/5 backdrop-blur-sm border-white/10">
@@ -589,11 +579,10 @@ export default function PublicPlayerProfilePage() {
                           <span className="text-slate-400">{metric.metric_label}</span>
                           <span className="text-white font-semibold">{metric.metric_value}</span>
                         </div>
-                      ))}
+)}
                     </CardContent>
                   </Card>
-                )}
-
+)}
                 {/* Other Metrics */}
                 {metrics.filter(m => !['velocity', 'speed', 'power'].includes(m.metric_type)).length > 0 && (
                   <Card className="bg-white/5 backdrop-blur-sm border-white/10">
@@ -605,21 +594,20 @@ export default function PublicPlayerProfilePage() {
                     </CardHeader>
                     <CardContent className="space-y-3">
                       {metrics
-                        .filter(m => !['velocity', 'speed', 'power'].includes(m.metric_type))
+                        .filter(m => !['velocity', 'speed', 'power'].includes(m.metric_type)}
                         .map((metric) => (
                           <div key={metric.id} className="flex justify-between items-center">
                             <span className="text-slate-400">{metric.metric_label}</span>
                             <span className="text-white font-semibold">{metric.metric_value}</span>
                           </div>
-                        ))}
+)}
                     </CardContent>
                   </Card>
-                )}
+)}
               </div>
-            )}
+)}
           </TabsContent>
-
-          {/* Videos Tab */}
+      {/* Videos Tab */}
           <TabsContent value="videos">
             {videos.length === 0 ? (
               <Card className="bg-white/5 backdrop-blur-sm border-white/10">
@@ -644,7 +632,7 @@ export default function PublicPlayerProfilePage() {
                         <div className="w-full h-full flex items-center justify-center">
                           <Video className="w-12 h-12 text-slate-600" />
                         </div>
-                      )}
+)}
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <a
                           href={video.video_url}
@@ -665,16 +653,15 @@ export default function PublicPlayerProfilePage() {
                         </Badge>
                         {video.recorded_date && (
                           <span>{new Date(video.recorded_date).toLocaleDateString()}</span>
-                        )}
+)}
                       </div>
                     </CardHeader>
                   </Card>
-                ))}
+)}
               </div>
-            )}
+)}
           </TabsContent>
-
-          {/* Achievements Tab */}
+      {/* Achievements Tab */}
           <TabsContent value="achievements">
             {achievements.length === 0 ? (
               <Card className="bg-white/5 backdrop-blur-sm border-white/10">
@@ -701,17 +688,16 @@ export default function PublicPlayerProfilePage() {
                             <p className="text-sm text-slate-400 mt-1">
                               {new Date(achievement.achievement_date).toLocaleDateString()}
                             </p>
-                          )}
+)}
                         </div>
                       </div>
-                    ))}
+)}
                   </div>
                 </CardContent>
               </Card>
-            )}
+)}
           </TabsContent>
-
-          {/* Evaluations Tab */}
+      {/* Evaluations Tab */}
           <TabsContent value="evaluations">
             {evaluations.length === 0 ? (
               <Card className="bg-white/5 backdrop-blur-sm border-white/10">
@@ -731,37 +717,36 @@ export default function PublicPlayerProfilePage() {
                             <CardTitle className="text-white text-lg mb-1">
                               {evaluation.evaluator.program_name}
                             </CardTitle>
-                          )}
+)}
                           {evaluation.evaluator?.full_name && (
                             <p className="text-slate-400 text-sm">by {evaluation.evaluator.full_name}</p>
-                          )}
+)}
                         </div>
                         {evaluation.overall_grade !== null && (
                           <Badge className="bg-[#00C27A]/20 text-[#00C27A] border-[#00C27A]/30 text-lg px-4 py-1">
                             {evaluation.overall_grade}/10
                           </Badge>
-                        )}
+)}
                       </div>
                     </CardHeader>
-                    <CardContent>
+        <CardContent>
                       {evaluation.strengths && (
                         <div className="mb-3">
                           <h4 className="text-sm font-semibold text-slate-300 mb-2">Strengths:</h4>
                           <p className="text-slate-400">{evaluation.strengths}</p>
                         </div>
-                      )}
+)}
                       <p className="text-xs text-slate-500">
                         {new Date(evaluation.eval_date).toLocaleDateString()}
                       </p>
                     </CardContent>
                   </Card>
-                ))}
+)}
               </div>
-            )}
+)}
           </TabsContent>
         </Tabs>
-
-        {/* Contact CTA for non-coaches */}
+      {/* Contact CTA for non-coaches */}
         {!isCoach && currentUserId !== player.user_id && (
           <Card className="mt-8 bg-gradient-to-r from-[#00C27A]/10 to-emerald-600/10 border-[#00C27A]/30">
             <CardContent className="p-8 text-center">
@@ -776,7 +761,7 @@ export default function PublicPlayerProfilePage() {
               </Link>
             </CardContent>
           </Card>
-        )}
+)}
       </div>
     </div>
   );

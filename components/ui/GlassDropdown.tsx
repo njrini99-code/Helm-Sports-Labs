@@ -44,8 +44,7 @@ export function GlassDropdown({
 }: GlassDropdownProps) {
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState({ top: 0, left: 0 })
-          )};
+  const [position, setPosition] = useState({ top: 0, left: 0 }});
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -55,8 +54,7 @@ export function GlassDropdown({
       setPosition({
         top: rect.bottom + 8,
         left: align === 'right' ? rect.right : rect.left,
-      })
-          )};
+      }});
     }
   }, [align]);
 
@@ -131,8 +129,7 @@ export function GlassDropdown({
         glassDropdown,
         className
       )}
-      style={{
-        top: position.top,
+      style={{top: position.top,
         left: align === 'right' ? 'auto' : position.left,
         right: align === 'right' ? window.innerWidth - position.left : 'auto',
       }}
@@ -149,8 +146,7 @@ export function GlassDropdown({
           return (
             <div
               key={`divider-${index}`}
-              className="my-1.5 border-t border-white/10"
-            />
+              className="my-1.5 border-t border-white/10"></div>
           );
         }
 
@@ -173,7 +169,7 @@ export function GlassDropdown({
           </button>
         );
       })
-          )}}
+          })
     </div>
   );
 
@@ -243,8 +239,7 @@ export function GlassSelectDropdown({
   className,
 }: GlassSelectDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState({ top: 0, left: 0, width: 0 })
-          )};
+  const [position, setPosition] = useState({ top: 0, left: 0, width: 0 }});
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -257,8 +252,7 @@ export function GlassSelectDropdown({
         top: rect.bottom + 4,
         left: rect.left,
         width: rect.width,
-      })
-          )};
+      }});
     }
   }, []);
 
@@ -319,8 +313,7 @@ export function GlassSelectDropdown({
         'fixed z-50 py-1.5 animate-in fade-in zoom-in-95 duration-150 max-h-60 overflow-y-auto',
         glassDropdown
       )}
-      style={{
-        top: position.top,
+      style={{top: position.top,
         left: position.left,
         width: position.width,
       }}
@@ -345,7 +338,7 @@ export function GlassSelectDropdown({
           </span>
           {option.value === value && <Check className="w-4 h-4" />}
         </button>
-      ))}
+)}
     </div>
   );
 
@@ -353,7 +346,7 @@ export function GlassSelectDropdown({
     <div className={cn('flex flex-col gap-1.5', fullWidth && 'w-full')}>
       {label && (
         <label className="text-sm font-medium text-white/80">{label}</label>
-      )}
+)}
       <button
         ref={triggerRef}
         onClick={handleToggle}
@@ -374,7 +367,7 @@ export function GlassSelectDropdown({
             <span className="flex items-center gap-2">
               {selectedOption.icon && (
                 <span className="w-4 h-4">{selectedOption.icon}</span>
-              )}
+)}
               {selectedOption.label}
             </span>
           ) : (

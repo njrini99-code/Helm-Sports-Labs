@@ -119,7 +119,7 @@ function StatCard({
                trend === 'down' ? <TrendingDown className="w-3 h-3 mr-0.5" /> : null}
               {trendValue}
             </Badge>
-          )}
+)}
         </div>
         <p className={`text-3xl font-bold mt-3 ${isDark ? 'text-white' : 'text-slate-800'}`}>
           {animatedValue}
@@ -258,7 +258,7 @@ export default function JUCOCoachDashboard() {
   // Computed values
   const upcomingEvents = useMemo(() => 
     schedule
-      .filter(e => new Date(e.start_time) >= new Date())
+      .filter(e => new Date(e.start_time) >= new Date()}
       .slice(0, 5),
     [schedule]
   );
@@ -300,8 +300,7 @@ export default function JUCOCoachDashboard() {
       ═══════════════════════════════════════════════════════════════════ */}
       <section 
         className="relative overflow-hidden"
-        style={{
-          background: isDark 
+        style={{background: isDark 
             ? `linear-gradient(160deg, #083344 0%, #0e4b61 40%, #0c4a5e 100%)`
             : `linear-gradient(160deg, #0e7490 0%, #0891b2 40%, #06b6d4 100%)`,
         }}
@@ -311,56 +310,45 @@ export default function JUCOCoachDashboard() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background: `
-              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}18, ${programColor}08 40%, transparent 70%),
+              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}}18, ${programColor}08 40%, transparent 70%),
               radial-gradient(ellipse 60% 40% at 75% 60%, ${programColor}10, transparent 50%)
             `,
-          }}
-        />
-        
-        {/* Noise texture */}
+          }}></div>
+{/* Noise texture */}
         <div 
           className="absolute inset-0 pointer-events-none opacity-[0.04]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          style={{backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'repeat',
-          }}
-        />
-        
-        {/* Grid pattern */}
+          }}></div>
+{/* Grid pattern */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:40px_40px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:40px_40px]"></div>
         </div>
-        
-        {/* Ambient orbs */}
+{/* Ambient orbs */}
         <div 
           className="absolute -top-20 -right-20 w-80 h-80 rounded-full blur-[100px] opacity-[0.2] pointer-events-none"
-          style={{ background: programColor }}
-        />
+          style={{background: programColor }}></div>
         <div 
           className="absolute -bottom-32 -left-20 w-64 h-64 rounded-full blur-[80px] opacity-[0.15] pointer-events-none"
-          style={{ background: '#22d3ee' }}
-        />
-
-        <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
+          style={{background: '#22d3ee' }}></div>
+<div className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             {/* Program Logo */}
             <div className="relative group">
               <div 
                 className="absolute inset-0 rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity"
-                style={{ background: programColor }}
-              />
+                style={{background: programColor }}></div>
               <Avatar className="relative h-20 w-20 md:h-24 md:w-24 ring-4 ring-white/20 shadow-2xl rounded-2xl">
                 <AvatarImage src={coach?.logo_url ?? undefined} className="rounded-2xl object-cover" />
                 <AvatarFallback 
                   className="rounded-2xl text-2xl md:text-3xl font-bold text-white"
-                  style={{ background: programColor }}
+                  style={{background: programColor }}
                 >
                   {programInitials}
                 </AvatarFallback>
               </Avatar>
             </div>
-
-            {/* Program Info */}
+{/* Program Info */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-3 mb-2 flex-wrap">
                 <h1 className="text-3xl lg:text-4xl font-bold text-white truncate">
@@ -371,31 +359,28 @@ export default function JUCOCoachDashboard() {
                   JUCO
                 </Badge>
               </div>
-
-              <div className="flex flex-wrap gap-x-4 gap-y-1 text-white/70 text-sm mb-2">
+<div className="flex flex-wrap gap-x-4 gap-y-1 text-white/70 text-sm mb-2">
                 <span className="flex items-center gap-1">
                   <Trophy className="w-4 h-4 text-amber-400" />
                   {conference}
                 </span>
                 {location && (
                   <span className="flex items-center gap-1">
-                    <MapPin className="w-4 h-4" style={{ color: programColor }} />
+                    <MapPin className="w-4 h-4" style={{color: programColor }} />
                     {location}
                   </span>
-                )}
+)}
                 <span className="flex items-center gap-1">
                   <Users className="w-4 h-4" />
                   {roster.length} Players
                 </span>
               </div>
-
-              {coach?.full_name && (
+{coach?.full_name && (
                 <div className="text-white/60 text-sm mb-2">
                   <span className="font-medium text-white/80">{coach.full_name}</span>
                   {' — Head Coach'}
                 </div>
-              )}
-
+)}
               {/* Profile Completion */}
               <div className="flex items-center gap-3 mt-3">
                 <div className="flex-1 max-w-xs">
@@ -407,10 +392,9 @@ export default function JUCOCoachDashboard() {
                     <div 
                       className="h-full rounded-full transition-all duration-1000"
                       style={{ 
-                        width: `${profileCompletion}%`, 
+                        width: `${profileCompletion}}%`, 
                         background: `linear-gradient(90deg, ${programColor}, #22d3ee)` 
-                      }}
-                    />
+                      }}></div>
                   </div>
                 </div>
                 {profileCompletion < 100 && (
@@ -419,11 +403,10 @@ export default function JUCOCoachDashboard() {
                       Complete profile <ChevronRight className="w-3 h-3 ml-1" />
                     </Button>
                   </Link>
-                )}
+)}
               </div>
             </div>
-
-            {/* Actions */}
+{/* Actions */}
             <div className="flex flex-col gap-2">
               <Button 
                 className="bg-white/10 border-white/20 text-white hover:bg-white/20 gap-2"
@@ -445,8 +428,7 @@ export default function JUCOCoachDashboard() {
           </div>
         </div>
       </section>
-
-      {/* ═══════════════════════════════════════════════════════════════════
+{/* ═══════════════════════════════════════════════════════════════════
           MAIN CONTENT
       ═══════════════════════════════════════════════════════════════════ */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 space-y-6">
@@ -462,7 +444,7 @@ export default function JUCOCoachDashboard() {
           />
           <StatCard 
             icon={ArrowRightLeft} 
-            value={MOCK_TRANSFER_CONNECTIONS.reduce((sum, c) => sum + c.playersTransferred, 0)} 
+            value={MOCK_TRANSFER_CONNECTIONS.reduce((sum, c) => sum + c.playersTransferred, 0)}
             label="D1/D2 Transfers"
             trend="up"
             trendValue="+3"
@@ -489,8 +471,7 @@ export default function JUCOCoachDashboard() {
             isDark={isDark}
           />
         </div>
-
-        <div className="grid lg:grid-cols-3 gap-6">
+<div className="grid lg:grid-cols-3 gap-6">
           {/* Left Column - Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Transfer Portal Search */}
@@ -558,7 +539,7 @@ export default function JUCOCoachDashboard() {
                         {player.status}
                       </Badge>
                     </div>
-                  ))}
+)}
                 </div>
                 <Link href="/coach/juco/transfer-portal">
                   <Button variant="outline" className="w-full mt-4 gap-2">
@@ -568,8 +549,7 @@ export default function JUCOCoachDashboard() {
                 </Link>
               </CardContent>
             </Card>
-
-            {/* Current Roster */}
+{/* Current Roster */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-slate-800/60 border-slate-700/50' 
@@ -638,20 +618,19 @@ export default function JUCOCoachDashboard() {
                                 <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                                   {member.player.high_school_state}
                                 </span>
-                              )}
+)}
                             </div>
                           </div>
                         </div>
                         <ChevronRight className={`w-4 h-4 ${isDark ? 'text-slate-500' : 'text-slate-400'}`} />
                       </div>
-                    ))}
+)}
                   </div>
-                )}
+)}
               </CardContent>
             </Card>
           </div>
-
-          {/* Right Column */}
+{/* Right Column */}
           <div className="space-y-6">
             {/* D1/D2 Connections */}
             <Card className={`overflow-hidden ${
@@ -702,12 +681,11 @@ export default function JUCOCoachDashboard() {
                         {connection.playersTransferred} transfers
                       </Badge>
                     </div>
-                  ))}
+)}
                 </div>
               </CardContent>
             </Card>
-
-            {/* Priority Needs */}
+{/* Priority Needs */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-slate-800/60 border-slate-700/50' 
@@ -754,12 +732,11 @@ export default function JUCOCoachDashboard() {
                         Need {need.count}
                       </p>
                     </div>
-                  ))}
+)}
                 </div>
               </CardContent>
             </Card>
-
-            {/* Quick Actions */}
+{/* Quick Actions */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-slate-800/60 border-slate-700/50' 
@@ -801,8 +778,7 @@ export default function JUCOCoachDashboard() {
             </Card>
           </div>
         </div>
-
-        {/* ═══════════════════════════════════════════════════════════════════
+{/* ═══════════════════════════════════════════════════════════════════
             TRANSFER TIMELINE & ACADEMIC TRACKING
         ═══════════════════════════════════════════════════════════════════ */}
         <div className="grid lg:grid-cols-2 gap-6">
@@ -832,9 +808,8 @@ export default function JUCOCoachDashboard() {
             <CardContent>
               <div className="relative">
                 {/* Timeline line */}
-                <div className={`absolute left-4 top-0 bottom-0 w-0.5 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`} />
-                
-                <div className="space-y-4">
+                <div className={`absolute left-4 top-0 bottom-0 w-0.5 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`}></div>
+<div className="space-y-4">
                   {MOCK_TRANSFER_DEADLINES.map((deadline, index) => (
                     <div key={deadline.id} className="relative pl-10">
                       {/* Timeline dot */}
@@ -844,9 +819,8 @@ export default function JUCOCoachDashboard() {
                           : deadline.status === 'upcoming'
                           ? 'bg-cyan-500 border-cyan-500 animate-pulse'
                           : isDark ? 'bg-slate-700 border-slate-600' : 'bg-white border-slate-300'
-                      }`} />
-                      
-                      <div className={`p-3 rounded-xl ${
+                      }`}></div>
+<div className={`p-3 rounded-xl ${
                         deadline.status === 'upcoming'
                           ? isDark ? 'bg-cyan-500/10 border border-cyan-500/30' : 'bg-cyan-50 border border-cyan-200'
                           : deadline.status === 'passed'
@@ -881,24 +855,23 @@ export default function JUCOCoachDashboard() {
                                 <Timer className="w-3 h-3 mr-1" />
                                 {deadline.daysUntil}d
                               </Badge>
-                            )}
+)}
                             {deadline.status === 'passed' && (
                               <Badge variant="outline" className="mt-1 text-[10px] opacity-50">
                                 <CheckCircle2 className="w-3 h-3 mr-1" />
                                 Done
                               </Badge>
-                            )}
+)}
                           </div>
                         </div>
                       </div>
                     </div>
-                  ))}
+)}
                 </div>
               </div>
             </CardContent>
           </Card>
-
-          {/* Academic Progress Tracking */}
+{/* Academic Progress Tracking */}
           <Card className={`overflow-hidden ${
             isDark 
               ? 'bg-slate-800/60 border-slate-700/50' 
@@ -947,7 +920,7 @@ export default function JUCOCoachDashboard() {
                               <AlertTriangle className="w-3 h-3 mr-1" />
                               At Risk
                             </Badge>
-                          )}
+)}
                         </div>
                         <div className="flex items-center gap-3">
                           <div className="text-right">
@@ -980,8 +953,7 @@ export default function JUCOCoachDashboard() {
             </CardContent>
           </Card>
         </div>
-
-        {/* ═══════════════════════════════════════════════════════════════════
+{/* ═══════════════════════════════════════════════════════════════════
             4-YEAR COLLEGE MATCHING
         ═══════════════════════════════════════════════════════════════════ */}
         <Card className={`overflow-hidden ${
@@ -1030,8 +1002,7 @@ export default function JUCOCoachDashboard() {
                       <Badge variant="outline" className="text-[10px]">{player.position}</Badge>
                     </div>
                   </div>
-                  
-                  <div className="space-y-2">
+<div className="space-y-2">
                     {player.matches.map((match, idx) => (
                       <div 
                         key={idx}
@@ -1069,17 +1040,15 @@ export default function JUCOCoachDashboard() {
                           {match.interestLevel}
                         </Badge>
                       </div>
-                    ))}
+)}
                   </div>
-                  
-                  <Button variant="ghost" size="sm" className={`w-full mt-3 text-xs ${isDark ? 'text-cyan-400 hover:text-cyan-300' : 'text-cyan-600 hover:text-cyan-700'}`}>
+<Button variant="ghost" size="sm" className={`w-full mt-3 text-xs ${isDark ? 'text-cyan-400 hover:text-cyan-300' : 'text-cyan-600 hover:text-cyan-700'}`}>
                     View all matches <ChevronRight className="w-3 h-3 ml-1" />
                   </Button>
                 </div>
-              ))}
+)}
             </div>
-            
-            <div className={`mt-4 p-4 rounded-xl ${isDark ? 'bg-gradient-to-r from-cyan-500/10 to-emerald-500/10 border border-cyan-500/20' : 'bg-gradient-to-r from-cyan-50 to-emerald-50 border border-cyan-200'}`}>
+<div className={`mt-4 p-4 rounded-xl ${isDark ? 'bg-gradient-to-r from-cyan-500/10 to-emerald-500/10 border border-cyan-500/20' : 'bg-gradient-to-r from-cyan-50 to-emerald-50 border border-cyan-200'}`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className={`p-2 rounded-lg ${isDark ? 'bg-cyan-500/20' : 'bg-cyan-100'}`}>

@@ -93,33 +93,27 @@ export function GlassSpinner({
             sizeClass.spinner,
             variantClass.border
           )}
-          style={{ animationDuration: '1s' }}
-        />
-        
-        {/* Center Dot with Pulse */}
+          style={{animationDuration: '1s' }}></div>
+{/* Center Dot with Pulse */}
         <div
           className={cn(
             'rounded-full animate-pulse',
             sizeClass.dot,
             variantClass.dot
-          )}
-        />
-
-        {/* Glow Effect */}
+          )}></div>
+{/* Glow Effect */}
         <div
           className={cn(
             'absolute inset-0 rounded-2xl opacity-50',
             `shadow-lg ${variantClass.glow}`
-          )}
-        />
+          )}></div>
       </div>
-
       {/* Label */}
       {label && (
         <p className={cn('font-medium animate-pulse', sizeClass.label, variantClass.label)}>
           {label}
         </p>
-      )}
+)}
     </div>
   );
 
@@ -191,44 +185,37 @@ export function GlassPageLoader({
         <div className="relative p-8 rounded-3xl bg-white/30 backdrop-blur-xl border border-white/40 shadow-2xl shadow-black/10">
           {/* Animated Gradient Background */}
           <div className="absolute inset-0 rounded-3xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-blue-500/10 animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-blue-500/10 animate-pulse"></div>
           </div>
-
-          {/* Content */}
+      {/* Content */}
           <div className="relative flex flex-col items-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             {/* Multi-ring Spinner */}
             <div className="relative w-20 h-20">
               {/* Outer Ring */}
               <div className="absolute inset-0 rounded-full border-4 border-slate-200/30 border-t-emerald-500 animate-spin" 
-                   style={{ animationDuration: '1.2s' }} />
-              
-              {/* Middle Ring */}
+                   style={{animationDuration: '1.2s' }}></div>
+{/* Middle Ring */}
               <div className="absolute inset-2 rounded-full border-[3px] border-slate-200/20 border-t-emerald-400 animate-spin"
-                   style={{ animationDuration: '0.9s', animationDirection: 'reverse' }} />
-              
-              {/* Inner Ring */}
+                   style={{animationDuration: '0.9s', animationDirection: 'reverse' }}></div>
+{/* Inner Ring */}
               <div className="absolute inset-4 rounded-full border-2 border-slate-200/10 border-t-emerald-300 animate-spin"
-                   style={{ animationDuration: '0.6s' }} />
-              
-              {/* Center Glow */}
-              <div className="absolute inset-6 rounded-full bg-emerald-500/20 animate-pulse" />
+                   style={{animationDuration: '0.6s' }}></div>
+{/* Center Glow */}
+              <div className="absolute inset-6 rounded-full bg-emerald-500/20 animate-pulse"></div>
               <div className="absolute inset-7 rounded-full bg-emerald-500/40 animate-pulse" 
-                   style={{ animationDelay: '0.3s' }} />
+                   style={{animationDelay: '0.3s' }}></div>
             </div>
-
-            {/* Text */}
+      {/* Text */}
             <h3 className="mt-6 text-lg font-semibold text-slate-700">{title}</h3>
             <p className="mt-1 text-sm text-slate-500">{subtitle}</p>
-
-            {/* Progress Dots */}
+      {/* Progress Dots */}
             <div className="flex items-center gap-1.5 mt-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               {[0, 1, 2].map((i) => (
                 <div
                   key={i}
                   className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce"
-                  style={{ animationDelay: `${i * 0.15}s`, animationDuration: '0.6s' }}
-                />
-              ))}
+                  style={{ animationDelay: `${i * 0.15}}s`, animationDuration: '0.6s' }}></div>
+)}
             </div>
           </div>
         </div>
@@ -260,8 +247,7 @@ export function InlineGlassSpinner({ size = 'sm', className }: InlineGlassSpinne
         'rounded-full border-current border-t-transparent animate-spin',
         sizes[size],
         className
-      )}
-    />
+      )}></div>
   );
 }
 

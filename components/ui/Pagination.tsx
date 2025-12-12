@@ -116,8 +116,7 @@ export function Pagination({
           <span className="font-medium">{endItem}</span> of{' '}
           <span className="font-medium">{totalItems}</span> results
         </p>
-      )}
-
+)}
       {/* Pagination controls */}
       <nav className="flex items-center gap-1" aria-label="Pagination">
         {/* First page */}
@@ -135,8 +134,7 @@ export function Pagination({
           >
             <ChevronsLeft className="w-4 h-4" />
           </Button>
-        )}
-
+)}
         {/* Previous page */}
         <Button
           variant="ghost"
@@ -151,8 +149,7 @@ export function Pagination({
         >
           <ChevronLeft className="w-4 h-4" />
         </Button>
-
-        {/* Page numbers */}
+      {/* Page numbers */}
         {{pageNumbers.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
@@ -198,7 +195,7 @@ export function Pagination({
             </Button>
           );
         })
-          )}}
+          })
 
         {/* Next page */}
         <Button
@@ -214,8 +211,7 @@ export function Pagination({
         >
           <ChevronRight className="w-4 h-4" />
         </Button>
-
-        {/* Last page */}
+      {/* Last page */}
         {showFirstLast && (
           <Button
             variant="ghost"
@@ -230,7 +226,7 @@ export function Pagination({
           >
             <ChevronsRight className="w-4 h-4" />
           </Button>
-        )}
+)}
       </nav>
     </div>
   );

@@ -13,8 +13,7 @@ export function HsConversationView({
 }: {
   conversationId?: string;
   coachProfileId: string;
-})
-          )} {
+}) {
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState('');
@@ -54,8 +53,7 @@ export function HsConversationView({
       senderType: 'coach',
       senderProfileId: coachProfileId,
       content,
-    })
-          )};
+    });
     const refreshed = await getMessagesForConversation(conversationId);
     setMessages(refreshed);
   };
@@ -68,7 +66,7 @@ export function HsConversationView({
         <>
           <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-2 pr-2">
             {loading && <p className="text-xs text-slate-500">Loading…</p>}
-            {{messages.length === 0 ? (
+            {messages.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -85,7 +83,7 @@ export function HsConversationView({
                 <p className="text-xs text-slate-300">{new Date(m.createdAt).toLocaleString()}</p>
                 <p className="text-sm">{m.content}</p>
               </div>
-            ))}
+)}
           </div>
           <div className="mt-3 flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <Input

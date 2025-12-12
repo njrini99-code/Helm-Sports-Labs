@@ -91,8 +91,7 @@ export function WeekDetailModal({ isOpen, onClose, weekNumber, year, userId }: W
             <X className="w-6 h-6" />
           </button>
         </div>
-
-        <div className="grid grid-cols-5 gap-4 p-6 border-b border-gray-200">
+<div className="grid grid-cols-5 gap-4 p-6 border-b border-gray-200">
           <div className="text-center">
             <div className="text-3xl font-bold text-blue-600">{stats.osvs}</div>
             <div className="text-sm text-gray-600">OSVs</div>
@@ -114,8 +113,7 @@ export function WeekDetailModal({ isOpen, onClose, weekNumber, year, userId }: W
             <div className="text-sm text-gray-600">Miles</div>
           </div>
         </div>
-
-        <div className="p-6 border-b border-gray-200">
+<div className="p-6 border-b border-gray-200">
           <div className="flex gap-2">
             <button
               onClick={() => setFilter('all')}
@@ -159,8 +157,7 @@ export function WeekDetailModal({ isOpen, onClose, weekNumber, year, userId }: W
             </button>
           </div>
         </div>
-
-        <div className="flex-1 overflow-y-auto p-6">
+<div className="flex-1 overflow-y-auto p-6">
           {loading ? (
             <div className="text-center py-12 text-gray-500">Loading...</div>
           ) : filteredDetails.length === 0 ? (
@@ -180,7 +177,7 @@ export function WeekDetailModal({ isOpen, onClose, weekNumber, year, userId }: W
                           <Briefcase className="w-4 h-4" />
                           {detail.industry}
                         </div>
-                      )}
+)}
                     </div>
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-medium ${
@@ -202,13 +199,13 @@ export function WeekDetailModal({ isOpen, onClose, weekNumber, year, userId }: W
                         <DollarSign className="w-4 h-4" />
                         ${detail.revenue.toFixed(2)}
                       </div>
-                    )}
+)}
                     {detail.distance_miles > 0 && (
                       <div className="flex items-center gap-1">
                         <MapPin className="w-4 h-4" />
                         {detail.distance_miles.toFixed(1)} mi
                       </div>
-                    )}
+)}
                     <div className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
                       {new Date(detail.created_at).toLocaleDateString()}
@@ -218,11 +215,11 @@ export function WeekDetailModal({ isOpen, onClose, weekNumber, year, userId }: W
                     <p className="mt-2 text-sm text-gray-700 bg-gray-50 p-2 rounded">
                       {detail.notes}
                     </p>
-                  )}
+)}
                 </div>
-              ))}
+)}
             </div>
-          )}
+)}
         </div>
       </div>
     </div>

@@ -111,12 +111,11 @@ export function ActivityFeed({ userId, userRole }: { userId?: string; userRole?:
       group.activities.push(activity);
       if (activity.timestamp > group.latest) {
         group.latest = activity.timestamp;
-      }
-    });
+      });
 
     setGroupedActivities(
-      Array.from(groups.values())
-        .sort((a, b) => b.latest.getTime() - a.latest.getTime())
+      Array.from(groups.values()}
+        .sort((a, b) => b.latest.getTime() - a.latest.getTime()}
     );
   };
 
@@ -190,7 +189,6 @@ export function ActivityFeed({ userId, userRole }: { userId?: string; userRole?:
           View All
         </Button>
       </div>
-
       <div className="space-y-2 max-h-96 overflow-y-auto">
         {groupedActivities.map((group, idx) => (
           <div
@@ -211,11 +209,11 @@ export function ActivityFeed({ userId, userRole }: { userId?: string; userRole?:
                     {group.activities.map(a => a.actorName).slice(0, 3).join(', ')}
                     {group.count > 3 && ` and ${group.count - 3} more`}
                   </p>
-                )}
+)}
               </div>
             </div>
           </div>
-        ))}
+)}
       </div>
     </div>
   );

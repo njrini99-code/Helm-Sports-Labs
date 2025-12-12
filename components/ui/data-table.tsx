@@ -90,7 +90,7 @@ export function DataTable<T>({
   }, [data, sortColumn, sortDirection, columns]);
 
   if (loading) {
-    return <TableSkeleton rows={5} columns={columns.length} className={className} />;
+    return <TableSkeleton rows={5} columns={columns.length} className={className}></Table>;
   }
 
   if (error) {
@@ -140,10 +140,10 @@ export function DataTable<T>({
                           <ChevronsUpDown className="h-3 w-3 opacity-50" />
                         )}
                       </span>
-                    )}
+)}
                   </div>
                 </th>
-              ))}
+)}
             </tr>
           </thead>
           <tbody className="divide-y">
@@ -172,7 +172,7 @@ export function DataTable<T>({
                         ? String(row[column.accessorKey] ?? '')
                         : ''}
                     </td>
-                  ))}
+)}
                 </tr>
               );
             })}

@@ -265,7 +265,7 @@ function StatCard({
             {trend === 'up' ? <TrendingUp className="w-3 h-3" /> : trend === 'down' ? <TrendingDown className="w-3 h-3" /> : null}
             {comparison}
           </div>
-        )}
+)}
       </div>
     </div>
   );
@@ -514,7 +514,7 @@ export default function CoachPlayerProfilePage() {
           <div className="flex items-center justify-between">
             <Button 
               variant="ghost" 
-              onClick={() => router.back()}
+              onClick={() => router.back()}}
               className={isDark ? 'text-slate-400 hover:text-white' : ''}
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -533,11 +533,10 @@ export default function CoachPlayerProfilePage() {
           </div>
         </div>
       </div>
-
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-6">
+<div className="max-w-7xl mx-auto px-4 md:px-6 py-6">
         {/* Player Header Card */}
         <Card className={`mb-6 overflow-hidden ${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white border-slate-200'}`}>
-          <div className={`h-24 bg-gradient-to-r ${isDark ? 'from-emerald-600/30 to-blue-600/30' : 'from-emerald-500/20 to-blue-500/20'}`} />
+          <div className={`h-24 bg-gradient-to-r ${isDark ? 'from-emerald-600/30 to-blue-600/30' : 'from-emerald-500/20 to-blue-500/20'}`}></div>
           <CardContent className="relative px-6 pb-6">
             <div className="flex flex-col lg:flex-row gap-6 -mt-12">
               {/* Avatar */}
@@ -547,8 +546,7 @@ export default function CoachPlayerProfilePage() {
                   {initials}
                 </AvatarFallback>
               </Avatar>
-
-              {/* Info */}
+{/* Info */}
               <div className="flex-1 pt-4 lg:pt-8">
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                   <div>
@@ -561,56 +559,53 @@ export default function CoachPlayerProfilePage() {
                           <Star className="w-3 h-3 mr-1 fill-current" />
                           Watchlist
                         </Badge>
-                      )}
+)}
                       {evaluationStatus === 'evaluated' && (
                         <Badge className="bg-emerald-500/20 text-emerald-400">
                           <CheckCircle2 className="w-3 h-3 mr-1" />
                           Evaluated
                         </Badge>
-                      )}
+)}
                     </div>
-                    
-                    <div className="flex flex-wrap gap-3 text-sm">
+<div className="flex flex-wrap gap-3 text-sm">
                       {player.grad_year && (
                         <span className={`flex items-center gap-1 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                           <GraduationCap className="w-4 h-4 text-blue-400" />
                           Class of {player.grad_year}
                         </span>
-                      )}
+)}
                       {player.primary_position && (
                         <span className={`flex items-center gap-1 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                           <Target className="w-4 h-4 text-emerald-400" />
                           {player.primary_position}
                           {player.secondary_position && ` / ${player.secondary_position}`}
                         </span>
-                      )}
+)}
                       {height && (
                         <span className={`flex items-center gap-1 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                           <Ruler className="w-4 h-4 text-purple-400" />
                           {height}
                           {player.weight_lbs && ` • ${player.weight_lbs} lbs`}
                         </span>
-                      )}
+)}
                       {player.throws && player.bats && (
                         <span className={`flex items-center gap-1 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                           <Activity className="w-4 h-4 text-amber-400" />
                           {player.throws}/{player.bats}
                         </span>
-                      )}
+)}
                     </div>
-
-                    {player.high_school_name && (
+{player.high_school_name && (
                       <div className={`flex items-center gap-1 mt-2 text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                         <MapPin className="w-4 h-4" />
                         {player.high_school_name}
                         {player.high_school_city && player.high_school_state && (
                           <span> • {player.high_school_city}, {player.high_school_state}</span>
-                        )}
+)}
                       </div>
-                    )}
+)}
                   </div>
-
-                  {/* Action Buttons */}
+{/* Action Buttons */}
                   <div className="flex flex-wrap gap-2">
                     <Button
                       variant={inWatchlist ? 'outline' : 'default'}
@@ -642,8 +637,7 @@ export default function CoachPlayerProfilePage() {
             </div>
           </CardContent>
         </Card>
-
-        {/* Quick Stats Row */}
+{/* Quick Stats Row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white border-slate-200'}`}>
             <CardContent className="p-4">
@@ -698,8 +692,7 @@ export default function CoachPlayerProfilePage() {
             </CardContent>
           </Card>
         </div>
-
-        {/* Main Content Tabs */}
+{/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className={`${isDark ? 'bg-slate-800/60' : 'bg-slate-100'} p-1`}>
             <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -709,8 +702,7 @@ export default function CoachPlayerProfilePage() {
             <TabsTrigger value="notes">Notes</TabsTrigger>
             <TabsTrigger value="academic">Academic</TabsTrigger>
           </TabsList>
-
-          {/* Overview Tab */}
+{/* Overview Tab */}
           <TabsContent value="overview">
             <div className="grid lg:grid-cols-2 gap-6">
               {/* Measurables */}
@@ -733,20 +725,19 @@ export default function CoachPlayerProfilePage() {
                               <CheckCircle2 className="w-3 h-3 text-emerald-400" />
                               <span className="text-[10px] text-emerald-400">Verified</span>
                             </div>
-                          )}
+)}
                         </div>
-                      ))
+)}
                     ) : (
                       <div className={`col-span-2 text-center py-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                         <Ruler className="w-12 h-12 mx-auto mb-2 opacity-50" />
                         <p>No measurables recorded</p>
                       </div>
-                    )}
+)}
                   </div>
                 </CardContent>
               </Card>
-
-              {/* Recent Activity */}
+{/* Recent Activity */}
               <Card className={isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white border-slate-200'}>
                 <CardHeader className="pb-3">
                   <CardTitle className={`text-base flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
@@ -768,7 +759,7 @@ export default function CoachPlayerProfilePage() {
                           </p>
                         </div>
                       </div>
-                    ))}
+)}
                   </div>
                   <Button 
                     variant="ghost" 
@@ -780,8 +771,7 @@ export default function CoachPlayerProfilePage() {
                   </Button>
                 </CardContent>
               </Card>
-
-              {/* Pinned Notes */}
+{/* Pinned Notes */}
               <Card className={`lg:col-span-2 ${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white border-slate-200'}`}>
                 <CardHeader className="pb-3">
                   <CardTitle className={`text-base flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
@@ -803,7 +793,7 @@ export default function CoachPlayerProfilePage() {
                             {note.coachName} • {new Date(note.createdAt).toLocaleDateString()}
                           </p>
                         </div>
-                      ))
+)}
                     ) : (
                       <div className={`col-span-2 text-center py-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                         <Pin className="w-12 h-12 mx-auto mb-2 opacity-50" />
@@ -817,14 +807,13 @@ export default function CoachPlayerProfilePage() {
                           Add Note
                         </Button>
                       </div>
-                    )}
+)}
                   </div>
                 </CardContent>
               </Card>
             </div>
           </TabsContent>
-
-          {/* Stats Tab */}
+{/* Stats Tab */}
           <TabsContent value="stats">
             <div className="space-y-6">
               {/* Hitting Stats */}
@@ -848,8 +837,7 @@ export default function CoachPlayerProfilePage() {
                   </div>
                 </CardContent>
               </Card>
-
-              {/* Pitching Stats */}
+{/* Pitching Stats */}
               <Card className={isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white border-slate-200'}>
                 <CardHeader className="pb-3">
                   <CardTitle className={`text-base flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
@@ -870,8 +858,7 @@ export default function CoachPlayerProfilePage() {
                   </div>
                 </CardContent>
               </Card>
-
-              {/* Fielding Stats */}
+{/* Fielding Stats */}
               <Card className={isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white border-slate-200'}>
                 <CardHeader className="pb-3">
                   <CardTitle className={`text-base flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
@@ -892,8 +879,7 @@ export default function CoachPlayerProfilePage() {
               </Card>
             </div>
           </TabsContent>
-
-          {/* Videos Tab */}
+{/* Videos Tab */}
           <TabsContent value="videos">
             <Card className={isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white border-slate-200'}>
               <CardHeader className="pb-3">
@@ -911,7 +897,7 @@ export default function CoachPlayerProfilePage() {
                       >
                         {filter}
                       </Badge>
-                    ))}
+)}
                   </div>
                 </div>
               </CardHeader>
@@ -928,7 +914,7 @@ export default function CoachPlayerProfilePage() {
                           <Badge className="absolute bottom-2 right-2 bg-black/70 text-white text-[10px]">
                             {video.duration}
                           </Badge>
-                        )}
+)}
                       </div>
                       <div className="p-4">
                         <div className="flex items-start justify-between gap-2">
@@ -942,7 +928,7 @@ export default function CoachPlayerProfilePage() {
                                 <span className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                                   {new Date(video.recorded_date).toLocaleDateString()}
                                 </span>
-                              )}
+)}
                             </div>
                           </div>
                           {video.views && (
@@ -950,17 +936,16 @@ export default function CoachPlayerProfilePage() {
                               <Eye className="w-3 h-3 inline mr-1" />
                               {video.views.toLocaleString()}
                             </span>
-                          )}
+)}
                         </div>
                       </div>
                     </div>
-                  ))}
+)}
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
-
-          {/* Contact History Tab */}
+{/* Contact History Tab */}
           <TabsContent value="contacts">
             <Card className={isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white border-slate-200'}>
               <CardHeader className="pb-3">
@@ -978,9 +963,8 @@ export default function CoachPlayerProfilePage() {
               <CardContent>
                 <div className="relative">
                   {/* Timeline line */}
-                  <div className={`absolute left-4 top-0 bottom-0 w-0.5 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`} />
-                  
-                  <div className="space-y-4">
+                  <div className={`absolute left-4 top-0 bottom-0 w-0.5 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`}></div>
+<div className="space-y-4">
                     {contactHistory.map((contact, index) => (
                       <div key={contact.id} className="relative pl-12">
                         {/* Timeline dot */}
@@ -994,9 +978,8 @@ export default function CoachPlayerProfilePage() {
                           contact.type === 'call' ? 'ring-emerald-500' :
                           contact.type === 'email' ? 'ring-blue-500' :
                           'ring-slate-500'
-                        }`} />
-                        
-                        <div className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/30' : 'bg-slate-50'}`}>
+                        }`}></div>
+<div className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/30' : 'bg-slate-50'}`}>
                           <div className="flex items-start justify-between gap-3">
                             <div className="flex-1">
                               <div className="flex items-center gap-2 mb-1">
@@ -1017,7 +1000,7 @@ export default function CoachPlayerProfilePage() {
                                 <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                                   <strong>Outcome:</strong> {contact.outcome}
                                 </p>
-                              )}
+)}
                               <p className={`text-xs mt-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                                 — {contact.coachName}
                               </p>
@@ -1027,18 +1010,17 @@ export default function CoachPlayerProfilePage() {
                                 <Calendar className="w-3 h-3 mr-1" />
                                 Follow up {new Date(contact.followUp).toLocaleDateString()}
                               </Badge>
-                            )}
+)}
                           </div>
                         </div>
                       </div>
-                    ))}
+)}
                   </div>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
-
-          {/* Notes Tab */}
+{/* Notes Tab */}
           <TabsContent value="notes">
             <Card className={isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white border-slate-200'}>
               <CardHeader className="pb-3">
@@ -1089,8 +1071,7 @@ export default function CoachPlayerProfilePage() {
                     </Button>
                   </div>
                 </div>
-
-                {/* Notes List */}
+{/* Notes List */}
                 <div className="space-y-4">
                   {sortedNotes.map((note) => (
                     <div 
@@ -1139,13 +1120,12 @@ export default function CoachPlayerProfilePage() {
                         </div>
                       </div>
                     </div>
-                  ))}
+)}
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
-
-          {/* Academic Tab */}
+{/* Academic Tab */}
           <TabsContent value="academic">
             <Card className={isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white border-slate-200'}>
               <CardHeader className="pb-3">
@@ -1198,8 +1178,7 @@ export default function CoachPlayerProfilePage() {
                     </div>
                   </div>
                 </div>
-
-                {/* Dream Schools */}
+{/* Dream Schools */}
                 {player.top_schools && player.top_schools.length > 0 && (
                   <div className="mt-6">
                     <p className={`text-xs font-medium mb-3 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -1211,17 +1190,16 @@ export default function CoachPlayerProfilePage() {
                           <GraduationCap className="w-3 h-3 mr-1" />
                           {school}
                         </Badge>
-                      ))}
+)}
                     </div>
                   </div>
-                )}
+)}
               </CardContent>
             </Card>
           </TabsContent>
         </Tabs>
       </div>
-
-      {/* Schedule Visit Modal */}
+{/* Schedule Visit Modal */}
       {showScheduleModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <Card className={`w-full max-w-md ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white'}`}>
@@ -1266,8 +1244,7 @@ export default function CoachPlayerProfilePage() {
             </CardContent>
           </Card>
         </div>
-      )}
-
+)}
       {/* Send Message Modal */}
       {showMessageModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -1307,7 +1284,7 @@ export default function CoachPlayerProfilePage() {
             </CardContent>
           </Card>
         </div>
-      )}
+)}
     </div>
   );
 }

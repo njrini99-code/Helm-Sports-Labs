@@ -394,8 +394,7 @@ export function StatusSelector({ currentStatus, onStatusChange, disabled, classN
         <StatusBadge status={displayStatus} isUpdating={isUpdating} />
         {!disabled && <ChevronDown className="w-4 h-4 text-white/40" />}
       </button>
-
-      {isOpen && (
+{isOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
           <div className="absolute left-0 top-full mt-2 z-50 dropdown-enter">
@@ -459,7 +458,7 @@ function Checkbox({ checked, onChange, indeterminate, disabled, className }: Che
       )}
     >
       {checked && <Check className="w-3 h-3 text-white check-icon" />}
-      {indeterminate && !checked && <div className="w-2 h-0.5 bg-white rounded" />}
+      {indeterminate && !checked && <div className="w-2 h-0.5 bg-white rounded"></div>}
     </button>
   );
 }
@@ -543,8 +542,7 @@ export function MatchActions({ match, onEdit, onDelete, onDuplicate, showMenu = 
       >
         <MoreHorizontal className="w-4 h-4" />
       </button>
-
-      {isMenuOpen && (
+{isMenuOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsMenuOpen(false)} />
           <div className="absolute right-0 top-full mt-1 z-50 dropdown-enter">
@@ -560,7 +558,7 @@ export function MatchActions({ match, onEdit, onDelete, onDuplicate, showMenu = 
                   <Edit2 className="w-4 h-4" />
                   Edit
                 </button>
-              )}
+)}
               {onDuplicate && (
                 <button
                   onClick={() => {
@@ -572,10 +570,10 @@ export function MatchActions({ match, onEdit, onDelete, onDuplicate, showMenu = 
                   <Copy className="w-4 h-4" />
                   Duplicate
                 </button>
-              )}
+)}
               {onDelete && (
                 <>
-                  <div className="my-1 border-t border-white/10" />
+                  <div className="my-1 border-t border-white/10"></div>
                   <button
                     onClick={handleDelete}
                     disabled={isDeleting}
@@ -641,7 +639,6 @@ export function MatchRow({
         {showCheckbox && (
           <Checkbox checked={selected} onChange={() => toggleSelection(match.id)} />
         )}
-
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3 mb-1">
             <h3 className="font-semibold text-white truncate">{match.title}</h3>
@@ -662,11 +659,10 @@ export function MatchRow({
                 <MapPin className="w-3.5 h-3.5" />
                 {match.location}
               </span>
-            )}
+)}
           </div>
         </div>
-
-        {/* Score (if completed) */}
+{/* Score (if completed) */}
         {match.status === 'completed' && match.homeScore !== undefined && match.awayScore !== undefined && (
           <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-white/5">
             <Trophy className="w-4 h-4 text-amber-400" />
@@ -674,8 +670,7 @@ export function MatchRow({
             <span className="text-white/40">-</span>
             <span className="font-bold text-white">{match.awayScore}</span>
           </div>
-        )}
-
+)}
         <MatchActions
           match={match}
           onEdit={onEdit}
@@ -687,8 +682,7 @@ export function MatchRow({
           {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
         </button>
       </div>
-
-      {/* Expanded Details */}
+{/* Expanded Details */}
       {isExpanded && (
         <div className={cn('border-t border-white/10 bg-white/5', isExpanded ? 'match-expand' : 'match-collapse')}>
           <div className="p-4 space-y-4">
@@ -700,7 +694,7 @@ export function MatchRow({
                   <p className="font-semibold text-white">{match.homeTeam || 'TBD'}</p>
                   {match.status === 'completed' && (
                     <p className="text-2xl font-bold text-white mt-1">{match.homeScore ?? '-'}</p>
-                  )}
+)}
                 </div>
                 <div className="px-4 py-2 rounded-lg bg-white/10">
                   <span className="text-white/60 font-medium">VS</span>
@@ -710,19 +704,17 @@ export function MatchRow({
                   <p className="font-semibold text-white">{match.awayTeam || 'TBD'}</p>
                   {match.status === 'completed' && (
                     <p className="text-2xl font-bold text-white mt-1">{match.awayScore ?? '-'}</p>
-                  )}
+)}
                 </div>
               </div>
-            )}
-
+)}
             {/* Description */}
             {match.description && (
               <div>
                 <p className="text-sm text-white/50 mb-1">Description</p>
                 <p className="text-white/80">{match.description}</p>
               </div>
-            )}
-
+)}
             {/* Metadata */}
             {match.metadata && Object.keys(match.metadata).length > 0 && (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -731,10 +723,9 @@ export function MatchRow({
                     <p className="text-xs text-white/50 capitalize mb-1">{key.replace(/_/g, ' ')}</p>
                     <p className="text-sm font-medium text-white">{String(value)}</p>
                   </div>
-                ))}
+)}
               </div>
-            )}
-
+)}
             {/* Timestamps */}
             <div className="flex items-center gap-6 text-xs text-white/40">
               {match.createdAt && <span>Created: {new Date(match.createdAt).toLocaleDateString()}</span>}
@@ -742,7 +733,7 @@ export function MatchRow({
             </div>
           </div>
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -805,10 +796,9 @@ export function FilterSortBar({
             >
               <X className="w-3 h-3 text-white/40" />
             </button>
-          )}
+)}
         </div>
-      )}
-
+)}
       {/* Filter Dropdown */}
       <div className="relative">
         <button
@@ -826,10 +816,9 @@ export function FilterSortBar({
             <span className="px-1.5 py-0.5 text-xs rounded-full bg-emerald-500 text-white">
               {activeFilters.length}
             </span>
-          )}
+)}
         </button>
-
-        {isFilterOpen && (
+{isFilterOpen && (
           <>
             <div className="fixed inset-0 z-40" onClick={() => setIsFilterOpen(false)} />
             <div className="absolute left-0 top-full mt-2 z-50 dropdown-enter">
@@ -848,12 +837,12 @@ export function FilterSortBar({
                     <span className="flex-1 text-left">{filter.label}</span>
                     {filter.count !== undefined && (
                       <span className="text-white/40">{filter.count}</span>
-                    )}
+)}
                   </button>
-                ))}
+)}
                 {activeFilters.length > 0 && (
                   <>
-                    <div className="my-1 border-t border-white/10" />
+                    <div className="my-1 border-t border-white/10"></div>
                     <button
                       onClick={() => {
                         onFilterChange([]);
@@ -870,8 +859,7 @@ export function FilterSortBar({
           </>
         )}
       </div>
-
-      {/* Sort Dropdown */}
+{/* Sort Dropdown */}
       <div className="relative">
         <button
           onClick={() => setIsSortOpen(!isSortOpen)}
@@ -891,11 +879,9 @@ export function FilterSortBar({
               <SortAsc className="w-4 h-4 sort-active" />
             ) : (
               <SortDesc className="w-4 h-4 sort-active" />
-            )
-          )}
+            })
         </button>
-
-        {isSortOpen && (
+{isSortOpen && (
           <>
             <div className="fixed inset-0 z-40" onClick={() => setIsSortOpen(false)} />
             <div className="absolute left-0 top-full mt-2 z-50 dropdown-enter">
@@ -932,8 +918,7 @@ export function FilterSortBar({
                           <SortAsc className="w-4 h-4" />
                         ) : (
                           <SortDesc className="w-4 h-4" />
-                        )
-                      )}
+                        })
                     </button>
                   );
                 })}
@@ -989,7 +974,7 @@ export function ConfirmModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm modal-backdrop" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm modal-backdrop" onClick={onClose}></div>
       <div className="relative w-full max-w-md modal-content">
         <div className="rounded-2xl bg-slate-800/95 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden">
           <div className="p-6">
@@ -998,7 +983,7 @@ export function ConfirmModal({
                 'p-3 rounded-xl',
                 confirmVariant === 'danger' ? 'bg-red-500/20' : 'bg-blue-500/20'
               )}>
-                <AlertTriangle className={cn(
+                <AlertTriangle className={cn className={cn(
                   'w-6 h-6',
                   confirmVariant === 'danger' ? 'text-red-400' : 'text-blue-400'
                 )} />
@@ -1105,10 +1090,8 @@ export function BulkActionsBar({
             </span>
             <span className="text-white/60">selected</span>
           </div>
-
-          <div className="w-px h-6 bg-white/10" />
-
-          {/* Status Change */}
+<div className="w-px h-6 bg-white/10"></div>
+{/* Status Change */}
           {onBulkStatusChange && (
             <div className="relative">
               <button
@@ -1120,8 +1103,7 @@ export function BulkActionsBar({
                 <span className="text-sm">Status</span>
                 <ChevronDown className="w-3 h-3" />
               </button>
-
-              {showStatusMenu && (
+{showStatusMenu && (
                 <>
                   <div className="fixed inset-0 z-40" onClick={() => setShowStatusMenu(false)} />
                   <div className="absolute left-0 bottom-full mb-2 z-50 dropdown-enter">
@@ -1145,8 +1127,7 @@ export function BulkActionsBar({
                 </>
               )}
             </div>
-          )}
-
+)}
           {/* Duplicate */}
           {onBulkDuplicate && (
             <button
@@ -1157,8 +1138,7 @@ export function BulkActionsBar({
               <Copy className="w-4 h-4" />
               <span className="text-sm">Duplicate</span>
             </button>
-          )}
-
+)}
           {/* Delete */}
           {onBulkDelete && (
             <button
@@ -1169,11 +1149,9 @@ export function BulkActionsBar({
               <Trash2 className="w-4 h-4" />
               <span className="text-sm">Delete</span>
             </button>
-          )}
-
-          <div className="w-px h-6 bg-white/10" />
-
-          <button
+)}
+          <div className="w-px h-6 bg-white/10"></div>
+<button
             onClick={onClearSelection}
             className="p-1.5 rounded-lg hover:bg-white/10 text-white/40 hover:text-white transition-all"
           >
@@ -1181,8 +1159,7 @@ export function BulkActionsBar({
           </button>
         </div>
       </div>
-
-      <ConfirmModal
+<ConfirmModal
         isOpen={showDeleteConfirm}
         onClose={() => setShowDeleteConfirm(false)}
         onConfirm={handleBulkDelete}
@@ -1385,10 +1362,9 @@ function MatchListContent({
               {allSelected ? 'Deselect all' : 'Select all'}
             </span>
           </div>
-        )}
+)}
       </div>
-
-      {/* Match list */}
+{/* Match list */}
       {matches.length === 0 ? (
         <div className="py-12 text-center">
           <Users className="w-12 h-12 text-white/20 mx-auto mb-4" />
@@ -1411,10 +1387,9 @@ function MatchListContent({
               onDuplicate={onDuplicate}
               showCheckbox={showBulkActions}
             />
-          ))}
+          })
         </div>
-      )}
-
+)}
       {/* Bulk actions bar */}
       {showBulkActions && (
         <BulkActionsBar
@@ -1427,12 +1402,12 @@ function MatchListContent({
           }
           onBulkDelete={
             onBulkDelete
-              ? () => onBulkDelete(Array.from(selectedIds))
+              ? () => onBulkDelete(Array.from(selectedIds)}
               : undefined
           }
           onBulkDuplicate={
             onBulkDuplicate
-              ? () => onBulkDuplicate(Array.from(selectedIds))
+              ? () => onBulkDuplicate(Array.from(selectedIds)}
               : undefined
           }
         />

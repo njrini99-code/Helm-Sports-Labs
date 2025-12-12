@@ -41,10 +41,8 @@ export async function registerServiceWorker(): Promise<globalThis.ServiceWorkerR
             console.log('[PWA] New service worker available');
             // Trigger update prompt
             window.dispatchEvent(new CustomEvent('sw-update-available'));
-          }
-        });
-      }
-    });
+          });
+      });
 
     // Handle controller change (update activated)
     navigator.serviceWorker.addEventListener('controllerchange', () => {

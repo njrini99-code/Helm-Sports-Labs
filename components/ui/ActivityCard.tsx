@@ -144,7 +144,6 @@ export function ActivityCard({
           <Icon className={cn('w-3 h-3', config.color)} />
         </div>
       </div>
-
       {/* Content */}
       <div className="flex-1 min-w-0">
         <p className={cn(
@@ -159,8 +158,7 @@ export function ActivityCard({
             {activity.action}
           </span>
         </p>
-        
-        {/* Meta info */}
+      {/* Meta info */}
         <div className="flex items-center gap-2 mt-0.5">
           {activity.user.position && (
             <Badge 
@@ -172,7 +170,7 @@ export function ActivityCard({
             >
               {activity.user.position}
             </Badge>
-          )}
+)}
           {activity.user.gradYear && (
             <span className={cn(
               'text-[10px]',
@@ -180,7 +178,7 @@ export function ActivityCard({
             )}>
               Class of {activity.user.gradYear}
             </span>
-          )}
+)}
           {activity.user.state && (
             <span className={cn(
               'text-[10px]',
@@ -188,7 +186,7 @@ export function ActivityCard({
             )}>
               {activity.user.state}
             </span>
-          )}
+)}
           <span className={cn(
             'text-[10px]',
             isDark ? 'text-slate-600' : 'text-slate-400'
@@ -197,7 +195,6 @@ export function ActivityCard({
           </span>
         </div>
       </div>
-
       {/* Actions */}
       {showActions && (
         <div className="flex items-center gap-1 flex-shrink-0">
@@ -217,7 +214,7 @@ export function ActivityCard({
               View
               <ChevronRight className="w-3 h-3" />
             </Button>
-          )}
+)}
           {onWatchlist && activity.entityId && (
             <Button 
               variant="ghost" 
@@ -235,9 +232,9 @@ export function ActivityCard({
             >
               <Bookmark className={cn('w-4 h-4', isInWatchlist && 'fill-current')} />
             </Button>
-          )}
+)}
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -291,9 +288,8 @@ export function ActivityList({
           onView={onView}
           onWatchlist={onWatchlist}
           isInWatchlist={activity.entityId ? watchlistIds.has(activity.entityId) : false}
-          showActions={showActions}
-        />
-      ))}
+          showActions={showActions} />
+      })
     </div>
   );
 }

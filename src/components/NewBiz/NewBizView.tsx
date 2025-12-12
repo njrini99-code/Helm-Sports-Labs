@@ -245,8 +245,7 @@ export function NewBizView() {
           Upload and manage businesses from your territory
         </p>
       </div>
-
-      <div
+<div
         className={`mb-6 border-2 border-dashed rounded-xl p-8 text-center transition-colors ${
           dragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300 bg-gray-50'
         }`}
@@ -270,15 +269,14 @@ export function NewBizView() {
           className="hidden"
         />
         <button
-          onClick={() => fileInputRef.current?.click()}
+          onClick={() => fileInputRef.current?.click()}}
           disabled={uploading}
           className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400"
         >
           {uploading ? 'Uploading...' : 'Select File'}
         </button>
       </div>
-
-      <div className="mb-6 space-y-4">
+<div className="mb-6 space-y-4">
         <div className="flex gap-4">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -300,8 +298,7 @@ export function NewBizView() {
             <span className="text-sm font-medium text-gray-700">Territory Only</span>
           </label>
         </div>
-
-        <div className="flex gap-4 items-center">
+<div className="flex gap-4 items-center">
           <div className="flex items-center gap-2">
             <Calendar className="h-5 w-5 text-gray-400" />
             <span className="text-sm font-medium text-gray-700">Report Date:</span>
@@ -333,11 +330,10 @@ export function NewBizView() {
             >
               Clear
             </button>
-          )}
+)}
         </div>
       </div>
-
-      {businesses.length === 0 ? (
+{businesses.length === 0 ? (
         <div className="text-center py-12 bg-gray-50 rounded-xl">
           <Building2 className="h-16 w-16 text-gray-400 mx-auto mb-4" />
           <p className="text-gray-600 text-lg">No businesses found</p>
@@ -360,93 +356,87 @@ export function NewBizView() {
                       <span className="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-800 rounded">
                         Out of Territory
                       </span>
-                    )}
+)}
                     {business.newbiz_lead_links?.length > 0 && (
                       <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded">
                         Matched to Lead
                       </span>
-                    )}
+)}
                     {business.business_status && (
                       <span className="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded">
                         {business.business_status}
                       </span>
-                    )}
+)}
                     {business.timeline && (
                       <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded">
                         {business.timeline}
                       </span>
-                    )}
+)}
                     {business.report_date && (
                       <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded flex items-center gap-1">
                         <Calendar className="h-3 w-3" />
                         {new Date(business.report_date).toLocaleDateString()}
                       </span>
-                    )}
+)}
                   </div>
-
-                  {business.address && (
+{business.address && (
                     <div className="flex items-center gap-2 text-gray-600 mb-2">
                       <MapPin className="h-4 w-4" />
                       <span className="text-sm">
                         {business.address}, {business.city}, {business.state} {business.zip}
                       </span>
                     </div>
-                  )}
-
+)}
                   {business.description && (
                     <div className="mb-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                       <p className="text-sm text-gray-800 leading-relaxed">{business.description}</p>
                     </div>
-                  )}
-
+)}
                   <div className="flex flex-wrap gap-3 text-sm">
                     {business.owner_name && (
                       <div className="flex items-center gap-2 text-gray-600">
                         <User className="h-4 w-4" />
                         <span>{business.owner_name}</span>
                       </div>
-                    )}
+)}
                     {business.contact_phone && (
                       <div className="flex items-center gap-2 text-gray-600">
                         <Phone className="h-4 w-4" />
                         <span>{business.contact_phone}</span>
                       </div>
-                    )}
+)}
                     {business.contact_email && (
                       <div className="flex items-center gap-2 text-gray-600">
                         <Mail className="h-4 w-4" />
                         <span>{business.contact_email}</span>
                       </div>
-                    )}
+)}
                     {business.industry && (
                       <div className="flex items-center gap-2 text-gray-600">
                         <Building2 className="h-4 w-4" />
                         <span>{business.industry}</span>
                       </div>
-                    )}
+)}
                     {business.rating && (
                       <div className="flex items-center gap-1">
                         {Array.from({ length: business.rating }).map((_, i) => (
                           <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        ))}
+                        })
                       </div>
-                    )}
+)}
                   </div>
                 </div>
-
-                <div className="flex gap-2">
+<div className="flex gap-2">
                   <span className={`px-3 py-1 rounded-full text-sm font-medium border ${getDealStageColor(business.deal_stage)}`}>
                     {business.deal_stage}
                   </span>
                 </div>
               </div>
-
-              {business.notes && (
+{business.notes && (
                 <div className="mb-4 p-3 bg-gray-50 rounded-lg">
                   <p className="text-sm text-gray-700">{business.notes}</p>
                 </div>
-              )}
-
+)}
               <div className="flex gap-2 flex-wrap">
                 {!business.np_set && (
                   <button
@@ -456,14 +446,13 @@ export function NewBizView() {
                     <Target className="h-4 w-4" />
                     Add to Follow-Up (NP)
                   </button>
-                )}
+)}
                 {business.np_set && (
                   <span className="flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-800 rounded-lg text-sm font-medium">
                     <CheckCircle className="h-4 w-4" />
                     Added to Follow-Up
                   </span>
-                )}
-
+)}
                 {!business.osv_completed && (
                   <button
                     onClick={() => handleAction(business.id, 'osv_completed')}
@@ -472,14 +461,13 @@ export function NewBizView() {
                     <CheckCircle className="h-4 w-4" />
                     Mark OSV Complete
                   </button>
-                )}
+)}
                 {business.osv_completed && (
                   <span className="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 rounded-lg text-sm font-medium">
                     <CheckCircle className="h-4 w-4" />
                     OSV Complete
                   </span>
-                )}
-
+)}
                 {!business.appointment_date && (
                   <button
                     onClick={() => {
@@ -493,14 +481,13 @@ export function NewBizView() {
                     <Calendar className="h-4 w-4" />
                     Schedule
                   </button>
-                )}
+)}
                 {business.appointment_date && (
                   <span className="flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-800 rounded-lg text-sm font-medium">
                     <Clock className="h-4 w-4" />
                     {new Date(business.appointment_date).toLocaleDateString()}
                   </span>
-                )}
-
+)}
                 {business.contact_phone && (
                   <a
                     href={`tel:${business.contact_phone}`}
@@ -509,8 +496,7 @@ export function NewBizView() {
                     <Phone className="h-4 w-4" />
                     Call
                   </a>
-                )}
-
+)}
                 {business.contact_email && (
                   <a
                     href={`mailto:${business.contact_email}`}
@@ -519,8 +505,7 @@ export function NewBizView() {
                     <Mail className="h-4 w-4" />
                     Email
                   </a>
-                )}
-
+)}
                 <button
                   onClick={() => handleDeleteBusiness(business.id, business.business_name)}
                   className="flex items-center gap-2 px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors text-sm font-medium ml-auto"
@@ -530,9 +515,9 @@ export function NewBizView() {
                 </button>
               </div>
             </div>
-          ))}
+)}
         </div>
-      )}
+)}
     </div>
   );
 }

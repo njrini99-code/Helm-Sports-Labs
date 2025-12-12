@@ -70,7 +70,7 @@ export function AIRecruitingAssistant() {
         ...player,
         score: calculateMatchScore(player, preferences),
         reasoning: generateReasoning(player, preferences)
-      }))
+      })}
       .sort((a, b) => b.score - a.score)
       .slice(0, 5)
       .map(p => ({
@@ -107,8 +107,7 @@ export function AIRecruitingAssistant() {
       }
       if (player?.graduation_year) {
         gradYears[player.graduation_year] = (gradYears[player.graduation_year] || 0) + 1;
-      }
-    });
+      });
 
     return {
       topPosition: Object.entries(positions).sort((a, b) => b[1] - a[1])[0]?.[0],
@@ -173,9 +172,9 @@ export function AIRecruitingAssistant() {
   if (loading) {
     return (
       <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="p-4 border rounded-2xl bg-card">
         <div className="flex items-center gap-2 mb-2">
           <Sparkles className="w-4 h-4 text-emerald-500" />
@@ -189,9 +188,9 @@ export function AIRecruitingAssistant() {
   if (recommendations.length === 0) {
     return (
       <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="p-4 border rounded-2xl bg-card">
         <div className="flex items-center gap-2 mb-2">
           <Sparkles className="w-4 h-4 text-emerald-500" />
@@ -206,9 +205,9 @@ export function AIRecruitingAssistant() {
 
   return (
     <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="border rounded-2xl bg-card">
       <div 
         className="p-4 cursor-pointer flex items-center justify-between"
@@ -227,8 +226,7 @@ export function AIRecruitingAssistant() {
           {isExpanded ? <X className="w-4 h-4" /> : <TrendingUp className="w-4 h-4" />}
         </Button>
       </motion.div>
-
-      {isExpanded && (
+              {isExpanded && (
         <div className="px-4 pb-4 space-y-3">
           {recommendations.map((player) => (
             <div
@@ -299,9 +297,9 @@ export function AIRecruitingAssistant() {
                 </Button>
               </motion.div>
             </motion.div>
-          ))}
+)}
         </motion.div>
-      )}
+)}
     </motion.div>
   );
 }

@@ -73,7 +73,7 @@ export function HsRosterTable({
                         <Badge key={t.teamId} className="bg-white/10 border-white/20 text-white">
                           {t.name}
                         </Badge>
-                      ))}
+)}
                     </div>
                   </td>
                   <td className="py-2 pr-3 align-top">{p.gradYear || '—'}</td>
@@ -88,8 +88,7 @@ export function HsRosterTable({
                     </Badge>
                   </td>
                 </tr>
-              ))
-            )}
+              )})
           </tbody>
         </table>
       </div>

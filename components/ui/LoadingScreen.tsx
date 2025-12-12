@@ -62,46 +62,40 @@ export function LoadingScreen({
           <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/50 animate-logo-pulse hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <span className="text-3xl font-bold text-white">SP</span>
           </div>
-          <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-emerald-400/60 animate-ping" />
-          <div className="absolute -top-2 -left-2 w-10 h-10 rounded-full bg-cyan-400/40 blur-xl animate-pulse" />
+          <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-emerald-400/60 animate-ping"></div>
+          <div className="absolute -top-2 -left-2 w-10 h-10 rounded-full bg-cyan-400/40 blur-xl animate-pulse"></div>
         </div>
-
-        {/* App Name */}
+      {/* App Name */}
         <div className="text-center">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-2">
             ScoutPulse
           </h1>
           <p className="text-gray-400 text-sm">{message}</p>
         </div>
-
-        {/* Loading Indicator */}
+      {/* Loading Indicator */}
         <div className="flex gap-2">
           {[0, 1, 2].map((i) => (
             <div
               key={i}
               className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce"
               style={{
-                animationDelay: `${i * 150}ms`,
+                animationDelay: `${i * 150}}ms`,
                 animationDuration: '1s',
-              }}
-            />
-          ))}
+              }}></div>
+)}
         </div>
-
-        {/* Progress Bar */}
+      {/* Progress Bar */}
         {showProgress && (
           <div className="w-64 h-1.5 rounded-full bg-white/10 overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full transition-all duration-300 ease-out"
               style={{
-                width: `${animatedProgress}%`,
+                width: `${animatedProgress}}%`,
                 transition: 'width 300ms cubic-bezier(0.4, 0, 0.2, 1)',
-              }}
-            />
+              }}></div>
           </div>
-        )}
+)}
       </div>
-
       <style jsx>{`
         @keyframes fade-in {
           from {

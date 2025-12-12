@@ -7,8 +7,7 @@ import { Sparkles, Target } from 'lucide-react';
 import type { Coach } from '@/lib/types';
 
 interface RecommendedProgramsProps {
-  programs: (Coach & { matchScore?: number; reason?: string })
-          )}[];
+  programs: (Coach & { matchScore?: number; reason?: string }})[];
   onFollow?: (programId: string) => void;
 }
 
@@ -49,7 +48,7 @@ export function RecommendedPrograms({ programs, onFollow }: RecommendedProgramsP
                   <Badge className="bg-emerald-500/20 text-emerald-100 border-emerald-500/30 text-[10px]">
                     Match {program.matchScore}/100
                   </Badge>
-                )}
+)}
               </div>
               <p className="text-xs text-slate-400 line-clamp-2">
                 {program.reason || 'Good fit for your grad year, position, and region.'}
@@ -60,7 +59,7 @@ export function RecommendedPrograms({ programs, onFollow }: RecommendedProgramsP
               </div>
             </div>
           </div>
-        ))}
+)}
       </CardContent>
     </Card>
   );

@@ -399,7 +399,7 @@ export default function CollegeCoachProgramPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -431,48 +431,41 @@ export default function CollegeCoachProgramPage() {
       <section 
         className="relative overflow-hidden"
         style={{
-          background: `linear-gradient(160deg, ${editForm.secondary_color || '#0A3B2E'} 0%, ${darkenColor(editForm.secondary_color || '#0A3B2E', 20)} 40%, ${darkenColor(editForm.secondary_color || '#0A3B2E', 40)} 100%)`,
+          background: `linear-gradient(160deg, ${editForm.secondary_color || '#0A3B2E'}} 0%, ${darkenColor(editForm.secondary_color || '#0A3B2E', 20)} 40%, ${darkenColor(editForm.secondary_color || '#0A3B2E', 40)} 100%)`,
         }}
       >
         {/* Subtle radial glow using program color */}
         <div 
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: `radial-gradient(ellipse 80% 60% at 20% 30%, ${programColor}20, transparent 60%)`,
-          }}
-        />
-        
-        {/* Subtle grid pattern */}
+            background: `radial-gradient(ellipse 80% 60% at 20% 30%, ${programColor}}20, transparent 60%)`,
+          }}></div>
+{/* Subtle grid pattern */}
         <div 
           className="absolute inset-0 pointer-events-none opacity-[0.04]"
           style={{
             backgroundImage: `linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)`,
             backgroundSize: '40px 40px',
-          }}
-        />
-        
-        {/* Vignette effect */}
+          }}></div>
+{/* Vignette effect */}
         <div 
           className="absolute inset-0 pointer-events-none"
           style={{
             background: `radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, rgba(0,0,0,0.25) 100%)`,
-          }}
-        />
-
-        <div className="relative max-w-6xl mx-auto px-4 md:px-6 py-6 md:py-10">
+          }}></div>
+<div className="relative max-w-6xl mx-auto px-4 md:px-6 py-6 md:py-10">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             
             {/* Floating Logo Badge with Glow */}
             <div className="relative group">
               <div 
                 className="absolute inset-0 rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity"
-                style={{ background: programColor }}
-              />
+                style={{background: programColor }}></div>
               <Avatar className="relative h-20 w-20 md:h-24 md:w-24 ring-4 ring-white/20 shadow-2xl rounded-2xl">
                 <AvatarImage src={coach?.logo_url ?? undefined} className="rounded-2xl object-cover" />
                 <AvatarFallback 
                   className="rounded-2xl text-2xl md:text-3xl font-bold text-white"
-                  style={{ background: programColor }}
+                  style={{background: programColor }}
                 >
                   {programInitials}
                 </AvatarFallback>
@@ -488,10 +481,9 @@ export default function CollegeCoachProgramPage() {
                     <span className="text-xs text-white">Upload Logo</span>
                   </div>
                 </Link>
-              )}
+)}
             </div>
-
-            {/* Program Info Card - Glassmorphism */}
+      {/* Program Info Card - Glassmorphism */}
             <div className="flex-1 min-w-0">
               <div className="backdrop-blur-sm bg-white/5 rounded-2xl p-4 md:p-5 border border-white/10">
                 <div className="flex items-center gap-3 mb-1 flex-wrap">
@@ -501,25 +493,21 @@ export default function CollegeCoachProgramPage() {
                     Verified
                   </Badge>
                 </div>
-                
-                <p className="text-white/70 text-sm">
+      <p className="text-white/70 text-sm">
                   {coach.program_division || 'D1'} · {coach.athletic_conference || 'Set Conference'}
                   {location && ` · ${location}`}
                 </p>
-                
-                {coach.full_name && (
+      {coach.full_name && (
                   <p className="text-white/50 text-xs mt-0.5 flex items-center gap-1.5">
                     <Users className="w-3 h-3" />
                     {coach.full_name}{coach.staff_role && ` — ${coach.staff_role}`}
                   </p>
-                )}
-                
+)}
                 {editForm.tagline && (
                   <p className="text-white/40 text-xs italic mt-3 line-clamp-1">
                     "{editForm.tagline}"
                   </p>
-                )}
-              
+)}
                 {/* Social Links */}
                 {(editForm.twitter_url || editForm.instagram_url || editForm.youtube_url || editForm.program_website) && (
                   <div className="flex items-center gap-2 mt-3">
@@ -527,39 +515,38 @@ export default function CollegeCoachProgramPage() {
                       <a href={editForm.twitter_url} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-2xl bg-white/10 hover:bg-white/20 transition-colors">
                         <Twitter className="w-3.5 h-3.5 text-white/60" />
                       </a>
-                    )}
+)}
                     {editForm.instagram_url && (
                       <a href={editForm.instagram_url} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-2xl bg-white/10 hover:bg-white/20 transition-colors">
                         <Instagram className="w-3.5 h-3.5 text-white/60" />
                       </a>
-                    )}
+)}
                     {editForm.youtube_url && (
                       <a href={editForm.youtube_url} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-2xl bg-white/10 hover:bg-white/20 transition-colors">
                         <Youtube className="w-3.5 h-3.5 text-white/60" />
                       </a>
-                    )}
+)}
                     {editForm.program_website && (
                       <a href={editForm.program_website} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-2xl bg-white/10 hover:bg-white/20 transition-colors">
                         <Globe className="w-3.5 h-3.5 text-white/60" />
                       </a>
-                    )}
+)}
                   </div>
-                )}
+)}
               </div>
             </div>
-
-            {/* Actions */}
+      {/* Actions */}
             {!isPreviewMode ? (
               <div className="flex gap-2 w-full md:w-auto">
                 <Button 
                   onClick={() => setShowThemeEditor(true)}
                   className="flex-1 md:flex-none h-10 gap-2 text-white shadow-lg hover:shadow-xl transition-all text-sm font-medium"
-                  style={{ background: programColor }}
+                  style={{background: programColor }}
                 >
                   <Palette className="w-4 h-4" />
                   Theme
                 </Button>
-                <Button
+        <Button
                   onClick={() => setIsPreviewMode(true)}
                   variant="outline"
                   className="flex-1 md:flex-none h-10 gap-2 border-white/20 text-white hover:bg-white/10 backdrop-blur-sm text-sm"
@@ -577,19 +564,18 @@ export default function CollegeCoachProgramPage() {
                   <EyeOff className="w-4 h-4" />
                   Exit Preview
                 </Button>
-                <Button 
+        <Button 
                   className="gap-2 text-white border border-white/30"
-                  style={{ backgroundColor: theme.accent }}
+                  style={{backgroundColor: theme.accent }}
                 >
                   <Heart className="w-4 h-4" />
                   Follow Program
                 </Button>
               </div>
-            )}
+)}
           </div>
         </div>
       </section>
-
       {/* ═══════════════════════════════════════════════════════════════════
           TABS
       ═══════════════════════════════════════════════════════════════════ */}
@@ -607,16 +593,15 @@ export default function CollegeCoachProgramPage() {
                     : `${isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100'}`
                   }
                 `}
-                style={activeTab === tab.id ? { backgroundColor: theme.accent } : undefined}
+                style={{activeTab === tab.id ? { backgroundColor: theme.accent }} : undefined}
               >
                 {tab.icon}
                 {tab.label}
               </button>
-            ))}
+)}
           </div>
         </div>
       </div>
-
       {/* ═══════════════════════════════════════════════════════════════════
           CONTENT
       ═══════════════════════════════════════════════════════════════════ */}
@@ -635,11 +620,9 @@ export default function CollegeCoachProgramPage() {
               saving={saving}
               isPreviewMode={isPreviewMode}
               theme={theme}
-              isDark={isDark}
-            />
+              isDark={isDark} />
           </div>
-        )}
-
+)}
         {/* STAFF TAB */}
         {activeTab === 'staff' && (
           <StaffSection
@@ -649,7 +632,6 @@ export default function CollegeCoachProgramPage() {
             programColor={programColor}
           />
         )}
-
         {/* FACILITIES TAB */}
         {activeTab === 'facilities' && (
           <FacilitiesSection
@@ -665,7 +647,6 @@ export default function CollegeCoachProgramPage() {
             isDark={isDark}
           />
         )}
-
         {/* CAMPS TAB */}
         {activeTab === 'camps' && (
           <CampsSection
@@ -675,7 +656,6 @@ export default function CollegeCoachProgramPage() {
             isDark={isDark}
           />
         )}
-
         {/* COMMITMENTS TAB */}
         {activeTab === 'commitments' && (
           <CommitmentsSection
@@ -684,7 +664,6 @@ export default function CollegeCoachProgramPage() {
             isDark={isDark}
           />
         )}
-
         {/* VALUES TAB */}
         {activeTab === 'values' && (
           <ValuesSection
@@ -701,7 +680,6 @@ export default function CollegeCoachProgramPage() {
           />
         )}
       </div>
-
       {/* ═══════════════════════════════════════════════════════════════════
           THEME EDITOR MODAL
       ═══════════════════════════════════════════════════════════════════ */}
@@ -716,20 +694,18 @@ export default function CollegeCoachProgramPage() {
                 </button>
               </div>
             </div>
-            
-            <div className="p-6 space-y-6">
+      <div className="p-6 space-y-6">
               {/* Preview Banner */}
               <div>
                 <label className={`text-sm font-medium ${theme.textMuted}`}>Preview</label>
                 <div 
                   className="mt-2 h-24 rounded-xl flex items-center justify-center"
-                  style={{ background: theme.banner.background }}
+                  style={{background: theme.banner.background }}
                 >
                   <span className="text-white/80 text-sm">Banner Preview</span>
                 </div>
               </div>
-
-              {/* Color Pickers */}
+      {/* Color Pickers */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className={`block text-sm font-medium mb-2 ${theme.textMuted}`}>Primary Color</label>
@@ -764,8 +740,7 @@ export default function CollegeCoachProgramPage() {
                   </div>
                 </div>
               </div>
-
-              {/* Dark Mode Toggle */}
+      {/* Dark Mode Toggle */}
               <div className="flex items-center justify-between">
                 <div>
                   <p className={`font-medium ${theme.text}`}>Dark Mode</p>
@@ -775,11 +750,10 @@ export default function CollegeCoachProgramPage() {
                   onClick={() => setEditForm({ ...editForm, use_dark_mode: !editForm.use_dark_mode })}
                   className={`w-12 h-7 rounded-full transition-colors ${editForm.use_dark_mode ? 'bg-emerald-500' : 'bg-slate-300'}`}
                 >
-                  <div className={`w-5 h-5 rounded-full bg-white shadow transition-transform ${editForm.use_dark_mode ? 'translate-x-6' : 'translate-x-1'}`} />
+                  <div className={`w-5 h-5 rounded-full bg-white shadow transition-transform ${editForm.use_dark_mode ? 'translate-x-6' : 'translate-x-1'}`}></div>
                 </button>
               </div>
-
-              {/* Tagline */}
+      {/* Tagline */}
               <div>
                 <label className={`block text-sm font-medium mb-2 ${theme.textMuted}`}>Tagline</label>
                 <Input
@@ -789,8 +763,7 @@ export default function CollegeCoachProgramPage() {
                   className={isDark ? 'bg-slate-700 border-slate-600' : ''}
                 />
               </div>
-
-              {/* Social Links */}
+      {/* Social Links */}
               <div className="space-y-3">
                 <label className={`block text-sm font-medium ${theme.textMuted}`}>Social Links</label>
                 <div className="flex items-center gap-2">
@@ -813,17 +786,16 @@ export default function CollegeCoachProgramPage() {
                 </div>
               </div>
             </div>
-
-            <div className={`p-6 border-t flex justify-end gap-3 ${isDark ? 'border-slate-700' : 'border-slate-200'}`}>
+      <div className={`p-6 border-t flex justify-end gap-3 ${isDark ? 'border-slate-700' : 'border-slate-200'}`}>
               <Button variant="outline" onClick={() => setShowThemeEditor(false)}>Cancel</Button>
-              <Button onClick={handleSaveTheme} disabled={saving} style={{ backgroundColor: theme.accent }} className="text-white">
-                {saving ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse mr-2" /> : <Save className="w-4 h-4 mr-2" />}
+              <Button onClick={handleSaveTheme} disabled={saving} style={{backgroundColor: theme.accent }} className="text-white">
+                {saving ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse mr-2"></div> : <Save className="w-4 h-4 mr-2" />}
                 Save Theme
               </Button>
             </div>
           </div>
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -848,9 +820,9 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
               <Button size="sm" variant="ghost" onClick={() => setEditingSection('about')}>
                 <Edit className="w-4 h-4 mr-1" /> Edit
               </Button>
-            )}
+)}
           </CardHeader>
-          <CardContent>
+        <CardContent>
             {editingSection === 'about' ? (
               <div className="space-y-3">
                 <Textarea
@@ -861,8 +833,8 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
                 />
                 <div className="flex justify-end gap-2">
                   <Button variant="outline" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
-                  <Button size="sm" onClick={() => handleSave?.({ about: editForm.about })} disabled={saving} style={{ backgroundColor: theme.accent }} className="text-white">
-                    {saving ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse" /> : 'Save'}
+                  <Button size="sm" onClick={() => handleSave?.({ about: editForm.about })} disabled={saving} style={{backgroundColor: theme.accent }} className="text-white">
+                    {saving ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse"></div> : 'Save'}
                   </Button>
                 </div>
               </div>
@@ -872,16 +844,15 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
               <div className={`text-center py-8 ${theme.textMuted}`}>
                 <p>No description added yet</p>
                 {!isPreviewMode && (
-                  <Button onClick={() => setEditingSection('about')} className="mt-4" style={{ backgroundColor: theme.accent }}>
+                  <Button onClick={() => setEditingSection('about')} className="mt-4" style={{backgroundColor: theme.accent }}>
                     <Plus className="w-4 h-4 mr-2" /> Add Description
                   </Button>
-                )}
+)}
               </div>
-            )}
+)}
           </CardContent>
         </Card>
-
-        {/* What We Look For */}
+      {/* What We Look For */}
         <Card className={theme.cardBg}>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className={`text-lg ${theme.text}`}>What We Look For</CardTitle>
@@ -889,9 +860,9 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
               <Button size="sm" variant="ghost" onClick={() => setEditingSection('look_for')}>
                 <Edit className="w-4 h-4 mr-1" /> Edit
               </Button>
-            )}
+)}
           </CardHeader>
-          <CardContent>
+        <CardContent>
             {editingSection === 'look_for' ? (
               <div className="space-y-3">
                 <Textarea
@@ -902,8 +873,8 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
                 />
                 <div className="flex justify-end gap-2">
                   <Button variant="outline" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
-                  <Button size="sm" onClick={() => handleSave?.({ what_we_look_for: editForm.what_we_look_for })} disabled={saving} style={{ backgroundColor: theme.accent }} className="text-white">
-                    {saving ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse" /> : 'Save'}
+                  <Button size="sm" onClick={() => handleSave?.({ what_we_look_for: editForm.what_we_look_for })} disabled={saving} style={{backgroundColor: theme.accent }} className="text-white">
+                    {saving ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse"></div> : 'Save'}
                   </Button>
                 </div>
               </div>
@@ -913,16 +884,15 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
               <div className={`text-center py-8 ${theme.textMuted}`}>
                 <p>Tell recruits what you're looking for</p>
                 {!isPreviewMode && (
-                  <Button onClick={() => setEditingSection('look_for')} className="mt-4" style={{ backgroundColor: theme.accent }}>
+                  <Button onClick={() => setEditingSection('look_for')} className="mt-4" style={{backgroundColor: theme.accent }}>
                     <Plus className="w-4 h-4 mr-2" /> Add Details
                   </Button>
-                )}
+)}
               </div>
-            )}
+)}
           </CardContent>
         </Card>
       </div>
-
       {/* Sidebar */}
       <div className="space-y-6">
         {/* Quick Info */}
@@ -930,49 +900,48 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
           <CardHeader className="pb-2">
             <CardTitle className={`text-lg ${theme.text}`}>Quick Info</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
+        <CardContent className="space-y-3">
             {coach.program_division && (
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-2xl" style={{ backgroundColor: theme.accentBg }}>
-                  <Trophy className="w-4 h-4" style={{ color: theme.accent }} />
+                <div className="p-2 rounded-2xl" style={{backgroundColor: theme.accentBg }}>
+                  <Trophy className="w-4 h-4" style={{color: theme.accent }} />
                 </div>
                 <div>
                   <p className={`text-xs ${theme.textMuted}`}>Division</p>
                   <p className={`font-medium ${theme.text}`}>{coach.program_division}</p>
                 </div>
               </div>
-            )}
+)}
             {coach.athletic_conference && (
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-2xl" style={{ backgroundColor: theme.accentBg }}>
-                  <Award className="w-4 h-4" style={{ color: theme.accent }} />
+                <div className="p-2 rounded-2xl" style={{backgroundColor: theme.accentBg }}>
+                  <Award className="w-4 h-4" style={{color: theme.accent }} />
                 </div>
                 <div>
                   <p className={`text-xs ${theme.textMuted}`}>Conference</p>
                   <p className={`font-medium ${theme.text}`}>{coach.athletic_conference}</p>
                 </div>
               </div>
-            )}
+)}
             {(coach.school_city || coach.school_state) && (
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-2xl" style={{ backgroundColor: theme.accentBg }}>
-                  <MapPin className="w-4 h-4" style={{ color: theme.accent }} />
+                <div className="p-2 rounded-2xl" style={{backgroundColor: theme.accentBg }}>
+                  <MapPin className="w-4 h-4" style={{color: theme.accent }} />
                 </div>
                 <div>
                   <p className={`text-xs ${theme.textMuted}`}>Location</p>
                   <p className={`font-medium ${theme.text}`}>{coach.school_city}, {coach.school_state}</p>
                 </div>
               </div>
-            )}
+)}
           </CardContent>
         </Card>
-
-        {/* Contact */}
+      {/* Contact */}
         <Card className={theme.cardBg}>
           <CardHeader className="pb-2">
             <CardTitle className={`text-lg ${theme.text}`}>Contact</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
+        <CardContent className="space-y-3">
             {coach.email_contact && (
               <a href={`mailto:${coach.email_contact}`} className="flex items-center gap-3 group">
                 <div className="p-2 rounded-2xl bg-blue-500/10">
@@ -980,7 +949,7 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
                 </div>
                 <span className={`text-sm group-hover:underline ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{coach.email_contact}</span>
               </a>
-            )}
+)}
             {coach.phone_contact && (
               <a href={`tel:${coach.phone_contact}`} className="flex items-center gap-3 group">
                 <div className="p-2 rounded-2xl bg-green-500/10">
@@ -988,11 +957,10 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
                 </div>
                 <span className={`text-sm group-hover:underline ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{coach.phone_contact}</span>
               </a>
-            )}
+)}
           </CardContent>
         </Card>
-
-        {/* Academics */}
+      {/* Academics */}
         <Card className={theme.cardBg}>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className={`text-lg flex items-center gap-2 ${theme.text}`}>
@@ -1003,9 +971,9 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
               <Button size="sm" variant="ghost" onClick={() => setEditingSection('academic')}>
                 <Edit className="w-4 h-4" />
               </Button>
-            )}
+)}
           </CardHeader>
-          <CardContent>
+        <CardContent>
             {editingSection === 'academic' ? (
               <div className="space-y-3">
                 <Textarea
@@ -1016,14 +984,14 @@ function AboutSection({ coach, editForm, setEditForm, editingSection, setEditing
                 />
                 <div className="flex justify-end gap-2">
                   <Button variant="outline" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
-                  <Button size="sm" onClick={() => handleSave?.({ academic_profile: editForm.academic_profile })} disabled={saving} style={{ backgroundColor: theme.accent }} className="text-white">Save</Button>
+                  <Button size="sm" onClick={() => handleSave?.({ academic_profile: editForm.academic_profile })} disabled={saving} style={{backgroundColor: theme.accent }} className="text-white">Save</Button>
                 </div>
               </div>
             ) : editForm.academic_profile ? (
               <p className={`text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{editForm.academic_profile}</p>
             ) : (
               <p className={`text-sm ${theme.textMuted}`}>No academic info added</p>
-            )}
+)}
           </CardContent>
         </Card>
       </div>
@@ -1046,12 +1014,11 @@ function FacilitiesSection({ coach, editForm, setEditForm, editingSection, setEd
           <p className={theme.textMuted}>Take a virtual tour of our world-class facilities</p>
         </div>
         {!isPreviewMode && (
-          <Button style={{ backgroundColor: theme.accent }} className="text-white" onClick={() => toast.info('Facility manager coming soon')}>
+          <Button style={{backgroundColor: theme.accent }} className="text-white" onClick={() => toast.info('Facility manager coming soon')}>
             <Settings2 className="w-4 h-4 mr-2" /> Manage Facilities
           </Button>
-        )}
+)}
       </div>
-
       {/* Description */}
       {(editForm.facility_summary || !isPreviewMode) && (
         <Card className={theme.cardBg}>
@@ -1066,7 +1033,7 @@ function FacilitiesSection({ coach, editForm, setEditForm, editingSection, setEd
                 />
                 <div className="flex justify-end gap-2">
                   <Button variant="outline" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
-                  <Button size="sm" onClick={() => handleSave?.({ facility_summary: editForm.facility_summary })} disabled={saving} style={{ backgroundColor: theme.accent }} className="text-white">Save</Button>
+                  <Button size="sm" onClick={() => handleSave?.({ facility_summary: editForm.facility_summary })} disabled={saving} style={{backgroundColor: theme.accent }} className="text-white">Save</Button>
                 </div>
               </div>
             ) : editForm.facility_summary ? (
@@ -1076,17 +1043,16 @@ function FacilitiesSection({ coach, editForm, setEditForm, editingSection, setEd
                   <Button size="sm" variant="ghost" onClick={() => setEditingSection('facility_desc')}>
                     <Edit className="w-4 h-4" />
                   </Button>
-                )}
+)}
               </div>
             ) : !isPreviewMode && (
               <Button onClick={() => setEditingSection('facility_desc')} variant="outline">
                 <Plus className="w-4 h-4 mr-2" /> Add Facility Description
               </Button>
-            )}
+)}
           </CardContent>
         </Card>
-      )}
-
+)}
       {/* Facility Cards */}
       <div className="grid md:grid-cols-2 gap-4">
         {SAMPLE_FACILITIES.map((facility) => (
@@ -1098,13 +1064,12 @@ function FacilitiesSection({ coach, editForm, setEditForm, editingSection, setEd
               <h3 className={`font-semibold ${theme.text}`}>{facility.name}</h3>
               <p className={`text-sm mt-1 ${theme.textMuted}`}>{facility.description}</p>
               {facility.stats && (
-                <p className="text-xs mt-2" style={{ color: theme.accent }}>{facility.stats}</p>
-              )}
+                <p className="text-xs mt-2" style={{color: theme.accent }}>{facility.stats}</p>
+)}
             </CardContent>
           </Card>
-        ))}
+)}
       </div>
-
       {/* Video Section */}
       <Card className={theme.cardBg}>
         <CardHeader>
@@ -1126,9 +1091,9 @@ function FacilitiesSection({ coach, editForm, setEditForm, editingSection, setEd
                 <Button className="mt-4" variant="outline" onClick={() => toast.info('Video upload coming soon')}>
                   <Upload className="w-4 h-4 mr-2" /> Upload Video
                 </Button>
-              )}
+)}
             </div>
-          )}
+)}
         </CardContent>
       </Card>
     </div>
@@ -1158,13 +1123,12 @@ function CampsSection({ camps, isPreviewMode, theme, isDark }: SectionProps) {
         </div>
         {!isPreviewMode && (
           <Link href="/coach/college/camps?action=create">
-            <Button style={{ backgroundColor: theme.accent }} className="text-white">
+            <Button style={{backgroundColor: theme.accent }} className="text-white">
               <Plus className="w-4 h-4 mr-2" /> Create Camp
             </Button>
           </Link>
-        )}
+)}
       </div>
-
       {campsList.length === 0 ? (
         <Card className={theme.cardBg}>
           <CardContent className="py-16 text-center">
@@ -1177,7 +1141,7 @@ function CampsSection({ camps, isPreviewMode, theme, isDark }: SectionProps) {
         <div className="space-y-4">
           {campsList.map((camp: CampEvent) => (
             <Card key={camp.id} className={`overflow-hidden ${theme.cardBg}`}>
-              <div className="h-1" style={{ backgroundColor: theme.accent }} />
+              <div className="h-1" style={{backgroundColor: theme.accent }}></div>
               <CardContent className="p-6">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div className="flex-1">
@@ -1197,7 +1161,7 @@ function CampsSection({ camps, isPreviewMode, theme, isDark }: SectionProps) {
                           <MapPin className="w-4 h-4" />
                           {camp.location}
                         </span>
-                      )}
+)}
                       <span className="flex items-center gap-1">
                         <Users className="w-4 h-4" />
                         {camp.interested_count} interested
@@ -1205,11 +1169,10 @@ function CampsSection({ camps, isPreviewMode, theme, isDark }: SectionProps) {
                     </div>
                     {camp.description && (
                       <p className={`mt-3 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{camp.description}</p>
-                    )}
+)}
                   </div>
-                  
-                  {isPreviewMode ? (
-                    <Button style={{ backgroundColor: theme.accent }} className="text-white">
+      {isPreviewMode ? (
+                    <Button style={{backgroundColor: theme.accent }} className="text-white">
                       <Heart className="w-4 h-4 mr-2" /> Interested
                     </Button>
                   ) : (
@@ -1225,13 +1188,13 @@ function CampsSection({ camps, isPreviewMode, theme, isDark }: SectionProps) {
                         </Button>
                       </Link>
                     </div>
-                  )}
+)}
                 </div>
               </CardContent>
             </Card>
-          ))}
+)}
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -1257,12 +1220,11 @@ function CommitmentsSection({ isPreviewMode, theme, isDark }: SectionProps) {
           <p className={theme.textMuted}>Recent additions to our program</p>
         </div>
         {!isPreviewMode && (
-          <Button style={{ backgroundColor: theme.accent }} className="text-white" onClick={() => toast.info('Commitment manager coming soon')}>
+          <Button style={{backgroundColor: theme.accent }} className="text-white" onClick={() => toast.info('Commitment manager coming soon')}>
             <Plus className="w-4 h-4 mr-2" /> Add Commitment
           </Button>
-        )}
+)}
       </div>
-
       {/* Filters */}
       <div className="flex gap-2 flex-wrap">
         <Badge variant="outline" className={isDark ? 'border-slate-600' : ''}>All Years</Badge>
@@ -1271,14 +1233,13 @@ function CommitmentsSection({ isPreviewMode, theme, isDark }: SectionProps) {
         <Badge variant="outline" className={isDark ? 'border-slate-600' : ''}>Pitchers</Badge>
         <Badge variant="outline" className={isDark ? 'border-slate-600' : ''}>Position Players</Badge>
       </div>
-
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {SAMPLE_COMMITMENTS.map((commit) => (
           <Card key={commit.id} className={theme.cardBg}>
             <CardContent className="p-4">
               <div className="flex items-start gap-3">
                 <Avatar className="w-12 h-12">
-                  <AvatarFallback style={{ backgroundColor: theme.accentBg, color: theme.accent }}>
+                  <AvatarFallback style={{backgroundColor: theme.accentBg, color: theme.accent }}>
                     {commit.name.split(' ').map(n => n[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
@@ -1296,7 +1257,7 @@ function CommitmentsSection({ isPreviewMode, theme, isDark }: SectionProps) {
               </div>
             </CardContent>
           </Card>
-        ))}
+)}
       </div>
     </div>
   );
@@ -1330,15 +1291,14 @@ function ValuesSection({ coach, editForm, setEditForm, editingSection, setEditin
             <Button variant="outline" onClick={() => toast.info('Values editor coming soon')}>
               <Settings2 className="w-4 h-4 mr-2" /> Manage Values
             </Button>
-          )}
+)}
         </div>
-
-        <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
           {SAMPLE_VALUES.map((value) => (
             <Card key={value.id} className={theme.cardBg}>
               <CardContent className="p-5 flex items-start gap-4">
-                <div className="p-3 rounded-xl" style={{ backgroundColor: theme.accentBg }}>
-                  <span style={{ color: theme.accent }}>{iconMap[value.icon || 'star']}</span>
+                <div className="p-3 rounded-xl" style={{backgroundColor: theme.accentBg }}>
+                  <span style={{color: theme.accent }}>{iconMap[value.icon || 'star']}</span>
                 </div>
                 <div>
                   <h4 className={`font-semibold ${theme.text}`}>{value.title}</h4>
@@ -1346,10 +1306,9 @@ function ValuesSection({ coach, editForm, setEditForm, editingSection, setEditin
                 </div>
               </CardContent>
             </Card>
-          ))}
+)}
         </div>
       </div>
-
       {/* Program Culture */}
       <Card className={theme.cardBg}>
         <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -1358,7 +1317,7 @@ function ValuesSection({ coach, editForm, setEditForm, editingSection, setEditin
             <Button size="sm" variant="ghost" onClick={() => setEditingSection('culture')}>
               <Edit className="w-4 h-4 mr-1" /> Edit
             </Button>
-          )}
+)}
         </CardHeader>
         <CardContent>
           {editingSection === 'culture' ? (
@@ -1371,7 +1330,7 @@ function ValuesSection({ coach, editForm, setEditForm, editingSection, setEditin
               />
               <div className="flex justify-end gap-2">
                 <Button variant="outline" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
-                <Button size="sm" onClick={() => handleSave?.({ program_values: editForm.program_values })} disabled={saving} style={{ backgroundColor: theme.accent }} className="text-white">Save</Button>
+                <Button size="sm" onClick={() => handleSave?.({ program_values: editForm.program_values })} disabled={saving} style={{backgroundColor: theme.accent }} className="text-white">Save</Button>
               </div>
             </div>
           ) : editForm.program_values ? (
@@ -1380,15 +1339,14 @@ function ValuesSection({ coach, editForm, setEditForm, editingSection, setEditin
             <div className={`text-center py-6 ${theme.textMuted}`}>
               <p>Describe what makes your program culture unique</p>
               {!isPreviewMode && (
-                <Button onClick={() => setEditingSection('culture')} className="mt-4" style={{ backgroundColor: theme.accent }}>
+                <Button onClick={() => setEditingSection('culture')} className="mt-4" style={{backgroundColor: theme.accent }}>
                   <Plus className="w-4 h-4 mr-2" /> Add Culture Info
                 </Button>
-              )}
+)}
             </div>
-          )}
+)}
         </CardContent>
       </Card>
-
       {/* Testimonials */}
       <div>
         <div className="flex items-center justify-between mb-4">
@@ -1400,20 +1358,19 @@ function ValuesSection({ coach, editForm, setEditForm, editingSection, setEditin
             <Button variant="outline" onClick={() => toast.info('Testimonials editor coming soon')}>
               <Plus className="w-4 h-4 mr-2" /> Add Testimonial
             </Button>
-          )}
+)}
         </div>
-
-        <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
           {SAMPLE_TESTIMONIALS.map((testimonial) => (
             <Card key={testimonial.id} className={theme.cardBg}>
               <CardContent className="p-6">
-                <Quote className="w-8 h-8 mb-3" style={{ color: theme.accent, opacity: 0.5 }} />
+                <Quote className="w-8 h-8 mb-3" style={{color: theme.accent, opacity: 0.5 }} />
                 <p className={`italic leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                   "{testimonial.quote}"
                 </p>
                 <div className="mt-4 flex items-center gap-3">
                   <Avatar className="w-10 h-10">
-                    <AvatarFallback style={{ backgroundColor: theme.accentBg, color: theme.accent }}>
+                    <AvatarFallback style={{backgroundColor: theme.accentBg, color: theme.accent }}>
                       {testimonial.author.split(' ').map(n => n[0]).join('')}
                     </AvatarFallback>
                   </Avatar>
@@ -1424,7 +1381,7 @@ function ValuesSection({ coach, editForm, setEditForm, editingSection, setEditin
                 </div>
               </CardContent>
             </Card>
-          ))}
+)}
         </div>
       </div>
     </div>
@@ -1457,14 +1414,13 @@ function StaffSection({ isPreviewMode, theme, isDark, programColor }: {
         {!isPreviewMode && (
           <Button 
             onClick={() => toast.info('Staff editor coming soon')}
-            style={{ backgroundColor: programColor }} 
+            style={{backgroundColor: programColor }} 
             className="text-white"
           >
             <Plus className="w-4 h-4 mr-2" /> Add Staff Member
           </Button>
-        )}
+)}
       </div>
-
       {/* Staff Grid */}
       {staff.length === 0 ? (
         <Card className={theme.cardBg}>
@@ -1473,10 +1429,10 @@ function StaffSection({ isPreviewMode, theme, isDark, programColor }: {
             <h3 className={`text-lg font-semibold mb-2 ${theme.text}`}>No Staff Added Yet</h3>
             <p className={`mb-6 ${theme.textMuted}`}>Show recruits who leads your program</p>
             {!isPreviewMode && (
-              <Button onClick={() => toast.info('Staff editor coming soon')} style={{ backgroundColor: programColor }} className="text-white">
+              <Button onClick={() => toast.info('Staff editor coming soon')} style={{backgroundColor: programColor }} className="text-white">
                 <Plus className="w-4 h-4 mr-2" /> Add Staff Member
               </Button>
-            )}
+)}
           </CardContent>
         </Card>
       ) : (
@@ -1491,20 +1447,19 @@ function StaffSection({ isPreviewMode, theme, isDark, programColor }: {
                   {/* Avatar */}
                   <div 
                     className="rounded-full p-0.5"
-                    style={{ background: `linear-gradient(135deg, ${programColor}40, ${programColor}10)` }}
+                    style={{ background: `linear-gradient(135deg, ${programColor}}40, ${programColor}10)` }}
                   >
                     <Avatar className="w-14 h-14">
                       <AvatarImage src={member.avatarUrl} />
                       <AvatarFallback 
                         className="text-lg font-semibold text-white"
-                        style={{ backgroundColor: programColor }}
+                        style={{backgroundColor: programColor }}
                       >
                         {getInitials(member.fullName)}
                       </AvatarFallback>
                     </Avatar>
                   </div>
-
-                  {/* Info */}
+      {/* Info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between">
                       <div>
@@ -1521,16 +1476,14 @@ function StaffSection({ isPreviewMode, theme, isDark, programColor }: {
                         >
                           <Edit className="w-4 h-4 text-slate-400" />
                         </button>
-                      )}
+)}
                     </div>
-
-                    {/* Bio */}
+      {/* Bio */}
                     {member.shortBio && (
                       <p className={`text-sm mt-2 line-clamp-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                         {member.shortBio}
                       </p>
-                    )}
-
+)}
                     {/* Recruiting Regions */}
                     {member.recruitingRegions && member.recruitingRegions.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-3">
@@ -1542,10 +1495,9 @@ function StaffSection({ isPreviewMode, theme, isDark, programColor }: {
                           >
                             {region}
                           </Badge>
-                        ))}
+)}
                       </div>
-                    )}
-
+)}
                     {/* Contact Row */}
                     <div className="flex items-center gap-2 mt-3">
                       {member.email && (
@@ -1554,18 +1506,18 @@ function StaffSection({ isPreviewMode, theme, isDark, programColor }: {
                           className={`p-1.5 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-700' : 'hover:bg-slate-100'}`}
                           title="Email"
                         >
-                          <Mail className="w-4 h-4" style={{ color: programColor }} />
+                          <Mail className="w-4 h-4" style={{color: programColor }} />
                         </a>
-                      )}
+)}
                       {member.phone && (
                         <a 
                           href={`tel:${member.phone}`}
                           className={`p-1.5 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-700' : 'hover:bg-slate-100'}`}
                           title="Phone"
                         >
-                          <Phone className="w-4 h-4" style={{ color: programColor }} />
+                          <Phone className="w-4 h-4" style={{color: programColor }} />
                         </a>
-                      )}
+)}
                       {member.socialLinks?.twitter && (
                         <a 
                           href={member.socialLinks.twitter}
@@ -1576,7 +1528,7 @@ function StaffSection({ isPreviewMode, theme, isDark, programColor }: {
                         >
                           <Twitter className="w-4 h-4 text-[#1DA1F2]" />
                         </a>
-                      )}
+)}
                       {member.socialLinks?.instagram && (
                         <a 
                           href={member.socialLinks.instagram}
@@ -1587,7 +1539,7 @@ function StaffSection({ isPreviewMode, theme, isDark, programColor }: {
                         >
                           <Instagram className="w-4 h-4 text-[#E4405F]" />
                         </a>
-                      )}
+)}
                       {member.socialLinks?.website && (
                         <a 
                           href={member.socialLinks.website}
@@ -1596,17 +1548,17 @@ function StaffSection({ isPreviewMode, theme, isDark, programColor }: {
                           className={`p-1.5 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-700' : 'hover:bg-slate-100'}`}
                           title="Website"
                         >
-                          <Globe className="w-4 h-4" style={{ color: programColor }} />
+                          <Globe className="w-4 h-4" style={{color: programColor }} />
                         </a>
-                      )}
+)}
                     </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
-          ))}
+)}
         </div>
-      )}
+)}
     </div>
   );
 }

@@ -118,7 +118,7 @@ export function PlayerComparison({
       <Card className={className}>
         <CardContent className="py-8">
           <div className="flex items-center justify-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500" />
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
           </div>
         </CardContent>
       </Card>
@@ -190,10 +190,10 @@ export function PlayerComparison({
                         >
                           <X className="w-3 h-3" />
                         </Button>
-                      )}
+)}
                     </div>
                   </th>
-                ))}
+)}
               </tr>
             </thead>
             <tbody>
@@ -213,7 +213,7 @@ export function PlayerComparison({
                     {players.map((player) => {
                       const value = getComparisonValue(player, field.key);
                       const formatted = value !== null
-                        ? (field.format ? field.format(value) : String(value))
+                        ? (field.format ? field.format(value) : String(value)}
                         : '—';
                       const isBest = field.higherIsBetter !== undefined &&
                         typeof value === 'number' &&

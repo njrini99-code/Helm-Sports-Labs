@@ -45,7 +45,7 @@ export default function CoachNotificationsPage() {
 
       setNotifications(data || []);
     } catch (error) {
-      logError(error, { component: 'NotificationsPage', action: 'loadNotifications', metadata: { catchBlock: true } });
+      logError(error, { component: 'NotificationsPage', action: 'loadNotifications', metadata: { catchBlock: true  } });
     } finally {
       setLoading(false);
     }
@@ -67,7 +67,7 @@ export default function CoachNotificationsPage() {
         prev.map(n => n.id === notificationId ? { ...n, read: true } : n)
       );
     } catch (error) {
-      logError(error, { component: 'NotificationsPage', action: 'markAsRead', metadata: { notificationId } });
+      logError(error, { component: 'NotificationsPage', action: 'markAsRead', metadata: { notificationId  } });
       toast.error('Failed to mark as read');
     }
   };
@@ -111,7 +111,7 @@ export default function CoachNotificationsPage() {
       setNotifications(prev => prev.filter(n => n.id !== notificationId));
       toast.success('Notification deleted');
     } catch (error) {
-      logError(error, { component: 'NotificationsPage', action: 'deleteNotification', metadata: { notificationId } });
+      logError(error, { component: 'NotificationsPage', action: 'deleteNotification', metadata: { notificationId  } });
       toast.error('Failed to delete notification');
     }
   };
@@ -140,8 +140,7 @@ export default function CoachNotificationsPage() {
             {unreadCount > 0 ? `${unreadCount} unread notification${unreadCount > 1 ? 's' : ''}` : 'All caught up!'}
           </p>
         </div>
-
-        {/* Actions */}
+      {/* Actions */}
         {unreadCount > 0 && (
           <div className="mb-4">
             <button
@@ -152,12 +151,11 @@ export default function CoachNotificationsPage() {
               Mark all as read
             </button>
           </div>
-        )}
-
+)}
         {/* Notifications List */}
         {loading ? (
           <div className="text-center py-12">
-            <div className="inline-block w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+            <div className="inline-block w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
           </div>
         ) : notifications.length === 0 ? (
           <Card className="p-12 text-center">
@@ -177,9 +175,8 @@ export default function CoachNotificationsPage() {
                 <div className="flex items-start gap-4">
                   {/* Unread indicator */}
                   {!notification.read && (
-                    <div className="w-2 h-2 mt-2 bg-[#00C27A] rounded-full flex-shrink-0" />
-                  )}
-
+                    <div className="w-2 h-2 mt-2 bg-[#00C27A] rounded-full flex-shrink-0"></div>
+)}
                   {/* Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-4 mb-1">
@@ -189,8 +186,7 @@ export default function CoachNotificationsPage() {
                       </span>
                     </div>
                     <p className="text-slate-600 text-sm mb-3">{notification.message}</p>
-
-                    {/* Actions */}
+      {/* Actions */}
                     <div className="flex items-center gap-3">
                       {notification.action_url && (
                         <a
@@ -200,7 +196,7 @@ export default function CoachNotificationsPage() {
                         >
                           View →
                         </a>
-                      )}
+)}
                       {!notification.read && (
                         <button
                           onClick={() => markAsRead(notification.id)}
@@ -209,7 +205,7 @@ export default function CoachNotificationsPage() {
                           <Check className="w-4 h-4" />
                           Mark read
                         </button>
-                      )}
+)}
                       <button
                         onClick={() => deleteNotification(notification.id)}
                         className="text-slate-400 hover:text-red-500 text-sm flex items-center gap-1 ml-auto"
@@ -221,9 +217,9 @@ export default function CoachNotificationsPage() {
                   </div>
                 </div>
               </Card>
-            ))}
+))})}
           </div>
-        )}
+)}
       </div>
     </div>
   );

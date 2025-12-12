@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   AlertOctagon,
   RefreshCw,
@@ -353,20 +354,20 @@ Time: ${new Date().toISOString()}
       </head>
       <body>
         <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="container">
           <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="card">
             <div className="header">
               <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="icon-container">
                 <AlertOctagon className="icon" />
               </motion.div>
@@ -375,11 +376,11 @@ Time: ${new Date().toISOString()}
                 The application encountered a critical error and couldn&apos;t recover.
                 Please try reloading the page.
               </p>
-            </motion.div>
+            </div>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
+              initial={ opacity: 0, y: 20 }
+              animate={ opacity: 1, y: 0 }
+              transition={{duration: 0.3 }}
   className="error-box">
               <div className="error-header">
                 <Bug className="error-icon" />
@@ -388,8 +389,8 @@ Time: ${new Date().toISOString()}
                   <p className="error-message">{error.message || 'An unexpected error occurred'}</p>
                   {error.digest && (
                     <p className="error-digest">ID: {error.digest}</p>
-                  )}
-                </motion.div>
+)}
+                </div>
                 <button onClick={handleCopyError} className="copy-btn hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-200" title="Copy error">
                   {copied ? (
                     <Check className="copy-icon success" />
@@ -397,9 +398,8 @@ Time: ${new Date().toISOString()}
                     <Copy className="copy-icon" />
                   )}
                 </button>
-              </motion.div>
+              </div>
             </motion.div>
-
             {isDev && error.stack && (
               <>
                 <button
@@ -407,7 +407,7 @@ Time: ${new Date().toISOString()}
                   className="details-toggle"
                 >
                   <span className="details-label">
-                    <Bug style={{ width: 16, height: 16 }} />
+                    <Bug style={{width: 16, height: 16 }} />
                     Stack Trace
                   </span>
                   {showDetails ? (
@@ -416,15 +416,13 @@ Time: ${new Date().toISOString()}
                     <ChevronDown className="chevron" />
                   )}
                 </button>
-
                 {showDetails && (
                   <div className="stack-trace">
                     <pre>{error.stack}</pre>
-                  </motion.div>
-                )}
+                  </div>
+)}
               </>
             )}
-
             <div className="actions">
               <button onClick={reset} className="btn btn-primary hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-200">
                 <RefreshCw className="btn-icon hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-200" />
@@ -439,22 +437,20 @@ Time: ${new Date().toISOString()}
                   <Home className="btn-icon hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-200" />
                   Home
                 </button>
-              </motion.div>
-            </motion.div>
-
+              </div>
+            </div>
             <div className="footer">
               {new Date().toLocaleTimeString()} · {error.digest?.slice(0, 8) || 'GLOBAL-ERR'}
-            </motion.div>
+            </div>
           </motion.div>
-
           {isDev && (
-            <div style={{ textAlign: 'center' }}>
+            <div style={{textAlign: 'center' }}>
               <span className="dev-badge">
-                <span className="dev-dot" />
+                <span className="dev-dot"></span>
                 Development Mode
               </span>
-            </motion.div>
-          )}
+            </div>
+)}
         </motion.div>
       </body>
     </html>

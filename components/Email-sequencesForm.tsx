@@ -35,8 +35,8 @@ export default function Email-sequencesForm({ onSuccess }: { onSuccess?: () => v
 
   return (
     <motion.form
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={ opacity: 0, y: 20 }
+      animate={ opacity: 1, y: 0 }
       onSubmit={handleSubmit}
       className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 space-y-4"
     >
@@ -51,7 +51,6 @@ export default function Email-sequencesForm({ onSuccess }: { onSuccess?: () => v
           placeholder="Enter name..."
         />
       </div>
-
       <div>
         <label className="block text-white mb-2 font-medium">Description</label>
         <textarea
@@ -62,7 +61,6 @@ export default function Email-sequencesForm({ onSuccess }: { onSuccess?: () => v
           placeholder="Enter description..."
         />
       </div>
-
       <button
         type="submit"
         disabled={loading}

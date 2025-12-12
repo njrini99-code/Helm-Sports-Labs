@@ -47,8 +47,7 @@ function DefaultErrorFallback({ error, resetError, errorInfo }: ErrorFallbackPro
             </p>
           </div>
         </div>
-
-        <div className="bg-card border rounded-xl p-6 space-y-4">
+      <div className="bg-card border rounded-xl p-6 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="font-semibold">Error Details</h2>
             <Button
@@ -59,8 +58,7 @@ function DefaultErrorFallback({ error, resetError, errorInfo }: ErrorFallbackPro
               {showDetails ? 'Hide' : 'Show'} Details
             </Button>
           </div>
-
-          {showDetails && (
+      {showDetails && (
             <div className="space-y-2">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Error Message</p>
@@ -75,12 +73,11 @@ function DefaultErrorFallback({ error, resetError, errorInfo }: ErrorFallbackPro
                     {errorInfo.componentStack}
                   </pre>
                 </div>
-              )}
+)}
             </div>
-          )}
+)}
         </div>
-
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+      <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button onClick={resetError} className="gap-2">
             <RefreshCw className="h-4 w-4" />
             Try Again

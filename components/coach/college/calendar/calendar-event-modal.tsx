@@ -128,8 +128,7 @@ export function CalendarEventModal({
         const fullName = `${p.firstName || ''} ${p.lastName || ''}`.toLowerCase();
         const isNotSelected = !selectedPlayers.some((sp) => sp.id === p.id);
         return fullName.includes(playerSearch.toLowerCase()) && isNotSelected;
-      })
-          )};
+      });
       setSearchResults(results);
     } else {
       setSearchResults([]);
@@ -160,16 +159,8 @@ export function CalendarEventModal({
         location: location || undefined,
         notes: notes || undefined,
         opponentEventName: type === 'evaluation' ? opponentEventName || undefined : undefined,
-        playerIds: {selectedPlayers.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">📭</div>
-              <p className="text-white/60 mb-4">No items yet</p>
-              <p className="text-white/40 text-sm">Check back later</p>
-            </div>
-          ) : (
-            selectedPlayers.map((p) => p.id),
-      })
-          )};
+        playerIds: selectedPlayers.length === 0 ? [] : selectedPlayers.map((p) => p.id),
+      });
       onClose();
     } finally {
       setSaving(false);
@@ -196,8 +187,7 @@ export function CalendarEventModal({
             {isEditing ? 'Edit Event' : 'Add Event'}
           </DialogTitle>
         </DialogHeader>
-
-        <div className="space-y-4 py-2">
+      <div className="space-y-4 py-2">
           {/* Event Type */}
           <div className="space-y-1.5">
             <Label className="text-xs font-medium text-slate-600">Event Type</Label>
@@ -212,12 +202,11 @@ export function CalendarEventModal({
                       {et.label}
                     </span>
                   </SelectItem>
-                ))}
+)}
               </SelectContent>
             </Select>
           </div>
-
-          {/* Title */}
+      {/* Title */}
           <div className="space-y-1.5">
             <Label className="text-xs font-medium text-slate-600">Title</Label>
             <Input
@@ -227,8 +216,7 @@ export function CalendarEventModal({
               className="h-9"
             />
           </div>
-
-          {/* Opponent/Event Name (for evaluations) */}
+      {/* Opponent/Event Name (for evaluations) */}
           {type === 'evaluation' && (
             <div className="space-y-1.5">
               <Label className="text-xs font-medium text-slate-600">Tournament / Event Name</Label>
@@ -239,8 +227,7 @@ export function CalendarEventModal({
                 className="h-9"
               />
             </div>
-          )}
-
+)}
           {/* Date & Time */}
           <div className="grid grid-cols-3 gap-3">
             <div className="space-y-1.5">
@@ -280,8 +267,7 @@ export function CalendarEventModal({
               />
             </div>
           </div>
-
-          {/* Location */}
+      {/* Location */}
           <div className="space-y-1.5">
             <Label className="text-xs font-medium text-slate-600 flex items-center gap-1">
               <MapPin className="w-3 h-3" />
@@ -294,15 +280,13 @@ export function CalendarEventModal({
               className="h-9"
             />
           </div>
-
-          {/* Linked Players */}
+      {/* Linked Players */}
           <div className="space-y-1.5">
             <Label className="text-xs font-medium text-slate-600 flex items-center gap-1">
               <Users className="w-3 h-3" />
               Linked Players
             </Label>
-
-            {/* Selected Players */}
+      {/* Selected Players */}
             {selectedPlayers.length > 0 && (
               <div className="flex flex-wrap gap-1.5 mb-2">
                 {selectedPlayers.map((player) => (
@@ -327,10 +311,9 @@ export function CalendarEventModal({
                       <X className="w-3 h-3" />
                     </button>
                   </Badge>
-                ))}
+)}
               </div>
-            )}
-
+)}
             {/* Player Search */}
             <div className="relative">
               <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
@@ -367,13 +350,12 @@ export function CalendarEventModal({
                         {player.primaryPosition} • {player.gradYear}
                       </span>
                     </button>
-                  ))}
+)}
                 </div>
-              )}
+)}
             </div>
           </div>
-
-          {/* Notes */}
+      {/* Notes */}
           <div className="space-y-1.5">
             <Label className="text-xs font-medium text-slate-600 flex items-center gap-1">
               <FileText className="w-3 h-3" />
@@ -387,8 +369,7 @@ export function CalendarEventModal({
             />
           </div>
         </div>
-
-        <DialogFooter className="flex items-center justify-between sm:justify-between">
+      <DialogFooter className="flex items-center justify-between sm:justify-between">
           {isEditing && onDelete ? (
             <Button
               variant="ghost"
@@ -407,8 +388,8 @@ export function CalendarEventModal({
               )}
             </Button>
           ) : (
-            <div />
-          )}
+            <div></div>
+)}
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={onClose} disabled={saving}>
               Cancel

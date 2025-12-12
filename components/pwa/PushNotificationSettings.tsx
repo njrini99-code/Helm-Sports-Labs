@@ -50,7 +50,7 @@ export function PushNotificationSettings() {
         >
           {isLoading ? (
             <span className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
-              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
               {isSubscribed ? 'Unsubscribing...' : 'Subscribing...'}
             </span>
           ) : isSubscribed ? (
@@ -63,23 +63,21 @@ export function PushNotificationSettings() {
               <Bell className="w-4 h-4" />
               Enable
             </span>
-          )}
+)}
         </TouchOptimizedButton>
       </div>
-
       {error && (
         <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-2xl">
           <p className="text-sm text-red-400">{error}</p>
         </div>
-      )}
-
+)}
       {isSubscribed && (
         <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl">
           <p className="text-sm text-emerald-400">
             ✓ Push notifications are enabled
           </p>
         </div>
-      )}
+)}
     </div>
   );
 }

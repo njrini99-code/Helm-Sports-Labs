@@ -124,7 +124,7 @@ function StatCard({
                trend === 'down' ? <TrendingDown className="w-3 h-3 mr-0.5" /> : null}
               {trendValue}
             </Badge>
-          )}
+)}
         </div>
         <p className={`text-3xl font-bold mt-3 ${isDark ? 'text-white' : 'text-slate-800'}`}>
           {animatedValue}
@@ -227,7 +227,7 @@ export default function HSCoachDashboard() {
   // Computed values
   const upcomingEvents = useMemo(() => 
     schedule
-      .filter(e => new Date(e.start_time) >= new Date())
+      .filter(e => new Date(e.start_time) >= new Date()}
       .slice(0, 5),
     [schedule]
   );
@@ -270,8 +270,7 @@ export default function HSCoachDashboard() {
       ═══════════════════════════════════════════════════════════════════ */}
       <section 
         className="relative overflow-hidden"
-        style={{
-          background: isDark 
+        style={{background: isDark 
             ? `linear-gradient(160deg, #1a1a2e 0%, #16213e 40%, #0f0f1a 100%)`
             : `linear-gradient(160deg, #451a03 0%, #78350f 40%, #92400e 100%)`,
         }}
@@ -281,56 +280,45 @@ export default function HSCoachDashboard() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background: `
-              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}18, ${programColor}08 40%, transparent 70%),
+              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}}18, ${programColor}08 40%, transparent 70%),
               radial-gradient(ellipse 60% 40% at 75% 60%, ${programColor}10, transparent 50%)
             `,
-          }}
-        />
-        
-        {/* Noise texture */}
+          }}></div>
+{/* Noise texture */}
         <div 
           className="absolute inset-0 pointer-events-none opacity-[0.04]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          style={{backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'repeat',
-          }}
-        />
-        
-        {/* Grid pattern */}
+          }}></div>
+{/* Grid pattern */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:40px_40px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:40px_40px]"></div>
         </div>
-        
-        {/* Ambient orbs */}
+{/* Ambient orbs */}
         <div 
           className="absolute -top-20 -right-20 w-80 h-80 rounded-full blur-[100px] opacity-[0.15] pointer-events-none"
-          style={{ background: programColor }}
-        />
+          style={{background: programColor }}></div>
         <div 
           className="absolute -bottom-32 -left-20 w-64 h-64 rounded-full blur-[80px] opacity-[0.1] pointer-events-none"
-          style={{ background: programColor }}
-        />
-
-        <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
+          style={{background: programColor }}></div>
+<div className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             {/* School Logo */}
             <div className="relative group">
               <div 
                 className="absolute inset-0 rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity"
-                style={{ background: programColor }}
-              />
+                style={{background: programColor }}></div>
               <Avatar className="relative h-20 w-20 md:h-24 md:w-24 ring-4 ring-white/20 shadow-2xl rounded-2xl">
                 <AvatarImage src={coach?.logo_url ?? undefined} className="rounded-2xl object-cover" />
                 <AvatarFallback 
                   className="rounded-2xl text-2xl md:text-3xl font-bold text-white"
-                  style={{ background: programColor }}
+                  style={{background: programColor }}
                 >
                   {schoolInitials}
                 </AvatarFallback>
               </Avatar>
             </div>
-
-            {/* School Info */}
+{/* School Info */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-3 mb-2 flex-wrap">
                 <h1 className="text-3xl lg:text-4xl font-bold text-white truncate">
@@ -341,27 +329,24 @@ export default function HSCoachDashboard() {
                   High School
                 </Badge>
               </div>
-
-              <div className="flex flex-wrap gap-x-4 gap-y-1 text-white/70 text-sm mb-2">
+<div className="flex flex-wrap gap-x-4 gap-y-1 text-white/70 text-sm mb-2">
                 {location && (
                   <span className="flex items-center gap-1">
-                    <MapPin className="w-4 h-4" style={{ color: programColor }} />
+                    <MapPin className="w-4 h-4" style={{color: programColor }} />
                     {location}
                   </span>
-                )}
+)}
                 <span className="flex items-center gap-1">
                   <Users className="w-4 h-4" />
                   {roster.length} Players
                 </span>
               </div>
-
-              {coach?.full_name && (
+{coach?.full_name && (
                 <div className="text-white/60 text-sm mb-2">
                   <span className="font-medium text-white/80">{coach.full_name}</span>
                   {' — Head Coach'}
                 </div>
-              )}
-
+)}
               {/* Profile Completion */}
               <div className="flex items-center gap-3 mt-3">
                 <div className="flex-1 max-w-xs">
@@ -373,10 +358,9 @@ export default function HSCoachDashboard() {
                     <div 
                       className="h-full rounded-full transition-all duration-1000"
                       style={{ 
-                        width: `${profileCompletion}%`, 
+                        width: `${profileCompletion}}%`, 
                         background: `linear-gradient(90deg, ${programColor}, ${programColor}cc)` 
-                      }}
-                    />
+                      }}></div>
                   </div>
                 </div>
                 {profileCompletion < 100 && (
@@ -385,11 +369,10 @@ export default function HSCoachDashboard() {
                       Complete profile <ChevronRight className="w-3 h-3 ml-1" />
                     </Button>
                   </Link>
-                )}
+)}
               </div>
             </div>
-
-            {/* Actions */}
+{/* Actions */}
             <div className="flex flex-col gap-2">
               <Link href="/coach/high-school/program">
                 <Button 
@@ -412,8 +395,7 @@ export default function HSCoachDashboard() {
           </div>
         </div>
       </section>
-
-      {/* ═══════════════════════════════════════════════════════════════════
+{/* ═══════════════════════════════════════════════════════════════════
           MAIN CONTENT
       ═══════════════════════════════════════════════════════════════════ */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 space-y-6">
@@ -447,7 +429,7 @@ export default function HSCoachDashboard() {
           />
           <StatCard 
             icon={Eye} 
-            value={MOCK_COLLEGE_INTEREST.reduce((sum, ci) => sum + ci.views, 0)} 
+            value={MOCK_COLLEGE_INTEREST.reduce((sum, ci) => sum + ci.views, 0)}
             label="College Views"
             trend="up"
             trendValue="+12%"
@@ -456,8 +438,7 @@ export default function HSCoachDashboard() {
             isDark={isDark}
           />
         </div>
-
-        <div className="grid lg:grid-cols-3 gap-6">
+<div className="grid lg:grid-cols-3 gap-6">
           {/* Left Column - Roster & Schedule */}
           <div className="lg:col-span-2 space-y-6">
             {/* Team Roster */}
@@ -533,13 +514,12 @@ export default function HSCoachDashboard() {
                         </div>
                         <ChevronRight className={`w-4 h-4 ${isDark ? 'text-slate-500' : 'text-slate-400'}`} />
                       </div>
-                    ))}
+)}
                   </div>
-                )}
+)}
               </CardContent>
             </Card>
-
-            {/* Upcoming Schedule */}
+{/* Upcoming Schedule */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-slate-800/60 border-slate-700/50' 
@@ -597,7 +577,7 @@ export default function HSCoachDashboard() {
                                   <MapPin className="w-3 h-3" />
                                   {event.location_name}
                                 </span>
-                              )}
+)}
                             </div>
                           </div>
                           <Badge 
@@ -612,14 +592,13 @@ export default function HSCoachDashboard() {
                           </Badge>
                         </div>
                       </div>
-                    ))}
+)}
                   </div>
-                )}
+)}
               </CardContent>
             </Card>
           </div>
-
-          {/* Right Column - College Interest & Activity */}
+{/* Right Column - College Interest & Activity */}
           <div className="space-y-6">
             {/* College Interest in Your Players */}
             <Card className={`overflow-hidden ${
@@ -680,15 +659,14 @@ export default function HSCoachDashboard() {
                           >
                             {school}
                           </Badge>
-                        ))}
+)}
                       </div>
                     </div>
-                  ))}
+)}
                 </div>
               </CardContent>
             </Card>
-
-            {/* Recent Activity */}
+{/* Recent Activity */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-slate-800/60 border-slate-700/50' 
@@ -755,12 +733,11 @@ export default function HSCoachDashboard() {
                         {activity.time}
                       </span>
                     </div>
-                  ))}
+)}
                 </div>
               </CardContent>
             </Card>
-
-            {/* Team Performance Metrics */}
+{/* Team Performance Metrics */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-slate-800/60 border-slate-700/50' 
@@ -812,8 +789,7 @@ export default function HSCoachDashboard() {
                 />
               </CardContent>
             </Card>
-
-            {/* Quick Actions */}
+{/* Quick Actions */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-slate-800/60 border-slate-700/50' 
@@ -853,8 +829,7 @@ export default function HSCoachDashboard() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Navigation Tools */}
+{/* Navigation Tools */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-gradient-to-br from-slate-800/80 to-slate-800/40 border-slate-700/50' 

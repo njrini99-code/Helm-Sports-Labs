@@ -261,8 +261,8 @@ export default function PlayerDashboardPage() {
     };
     const events = await getPlayerEventsTimeline(playerData.id, eventFilter);
     const upcoming = events
-      .filter(e => new Date(e.date) >= new Date())
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .filter(e => new Date(e.date) >= new Date()}
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()}
       .slice(0, 5);
     setUpcomingEvents(upcoming);
 
@@ -290,13 +290,13 @@ export default function PlayerDashboardPage() {
     return (
       <div className="min-h-screen bg-gradient-to-b from-[#0b1720] via-[#0f172a] to-[#f4f7fb]">
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-6 space-y-6">
-          <div className="h-44 rounded-2xl bg-white/5 animate-pulse" />
+          <div className="h-44 rounded-2xl bg-white/5 animate-pulse"></div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[1,2,3,4].map(i => <div key={i} className="h-28 rounded-2xl bg-white/5 animate-pulse" />)}
+            {[1,2,3,4].map(i => <div key={i} className="h-28 rounded-2xl bg-white/5 animate-pulse"></div>)}
           </div>
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="h-80 rounded-3xl bg-white/5 animate-pulse" />
-            <div className="h-80 rounded-3xl bg-white/5 animate-pulse" />
+            <div className="h-80 rounded-3xl bg-white/5 animate-pulse"></div>
+            <div className="h-80 rounded-3xl bg-white/5 animate-pulse"></div>
           </div>
         </div>
       </div>
@@ -329,16 +329,13 @@ export default function PlayerDashboardPage() {
           <section className="relative">
             {/* Background with subtle grid */}
             <div className="absolute inset-0 rounded-3xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-transparent to-emerald-900/10" />
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-transparent to-emerald-900/10"></div>
               <div 
                 className="absolute inset-0 opacity-[0.03]"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                }}
-              />
+                style={{backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                }}></div>
             </div>
-
-            {/* Floating Glass Hero Card */}
+{/* Floating Glass Hero Card */}
             <div className="relative p-1">
               <div 
                 className="relative bg-white/[0.08] backdrop-blur-xl rounded-2xl border border-white/[0.12] p-5 md:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] hover:shadow-[0_25px_60px_rgba(0,0,0,0.6)] hover:border-emerald-400/20 transition-all duration-300 group"
@@ -353,34 +350,32 @@ export default function PlayerDashboardPage() {
                         {initials}
                       </AvatarFallback>
                     </Avatar>
-                    
-                    <div>
+<div>
                       <h1 className="text-2xl md:text-3xl font-semibold text-white">{fullName}</h1>
                       <div className="flex flex-wrap items-center gap-2 mt-1.5">
                         {player.grad_year && (
                           <span className="text-sm text-white/70">Class of {player.grad_year}</span>
-                        )}
+)}
                         {player.primary_position && (
                           <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-medium border border-emerald-500/30">
                             {player.primary_position}
                           </span>
-                        )}
+)}
                         {location && (
                           <span className="flex items-center gap-1 text-sm text-white/60">
                             <MapPin className="w-3.5 h-3.5" />
                             {location}
                           </span>
-                        )}
+)}
                       </div>
                       {player.primary_goal && (
                         <p className="mt-2 text-sm text-white/60 italic">
                           "{player.primary_goal}"
                         </p>
-                      )}
+)}
                     </div>
                   </div>
-
-                  {/* Right: Actions */}
+{/* Right: Actions */}
                   <div className="flex flex-col items-start md:items-end gap-3">
                     <div className="flex gap-2">
                       <Button 
@@ -414,8 +409,7 @@ export default function PlayerDashboardPage() {
               </div>
             </div>
           </section>
-
-          {/* B. STAT CARDS ROW */}
+{/* B. STAT CARDS ROW */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             <GlassStatCard
               icon={<Eye className="w-4 h-4" />}
@@ -447,8 +441,7 @@ export default function PlayerDashboardPage() {
           </div>
         </div>
       </div>
-
-      {/* ═══════════════════════════════════════════════════════════════════
+{/* ═══════════════════════════════════════════════════════════════════
           TRANSITION GRADIENT + LIGHT CONTENT ZONE
       ═══════════════════════════════════════════════════════════════════ */}
       <div className="bg-gradient-to-b from-[#0f172a] via-[#1e293b] to-[#f4f7fb]">
@@ -469,8 +462,7 @@ export default function PlayerDashboardPage() {
                     <p className="text-xs text-white/50">Messages & schedule from your coaches</p>
                   </div>
                 </div>
-                
-                {/* Segmented Control */}
+{/* Segmented Control */}
                 <div className="flex gap-1 mt-4 p-1 bg-white/[0.06] rounded-full w-fit">
                   <button
                     onClick={() => setTeamHubTab('messages')}
@@ -493,8 +485,7 @@ export default function PlayerDashboardPage() {
                     Schedule
                   </button>
                 </div>
-
-                {/* Content */}
+{/* Content */}
                 <div className="mt-5">
                   {teamHubTab === 'messages' ? (
                     conversations.length === 0 ? (
@@ -536,15 +527,15 @@ export default function PlayerDashboardPage() {
                                 <span className="text-[10px] text-white/40">
                                   {formatTimeAgo(convo.lastMessageAt)}
                                 </span>
-                              )}
+)}
                               {convo.unreadCount > 0 && (
                                 <span className="px-1.5 py-0.5 bg-emerald-500 text-white text-[10px] font-medium rounded-full">
                                   {convo.unreadCount}
                                 </span>
-                              )}
+)}
                             </div>
                           </button>
-                        ))}
+)}
                         <button 
                           onClick={() => router.push('/player/messages')}
                           className="w-full mt-2 py-2.5 text-xs text-emerald-400 hover:text-emerald-300 flex items-center justify-center gap-1 rounded-xl hover:bg-white/[0.03] transition-all"
@@ -580,12 +571,12 @@ export default function PlayerDashboardPage() {
                             <div className="flex-1 min-w-0">
                               <p className="font-medium text-white/90 text-sm truncate">{event.label}</p>
                               <p className="text-xs text-white/50">
-                                {event.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                                {event.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase(})
                                 {event.location && ` • ${event.location}`}
                               </p>
                             </div>
                           </div>
-                        ))}
+)}
                         <button 
                           onClick={() => router.push('/player/team')}
                           className="w-full mt-2 py-2.5 text-xs text-emerald-400 hover:text-emerald-300 flex items-center justify-center gap-1 rounded-xl hover:bg-white/[0.03] transition-all"
@@ -593,13 +584,11 @@ export default function PlayerDashboardPage() {
                           View Full Calendar <ChevronRight className="w-4 h-4" />
                         </button>
                       </div>
-                    )
-                  )}
+)}
                 </div>
               </div>
             </div>
-
-            {/* COLLEGE JOURNEY */}
+{/* COLLEGE JOURNEY */}
             <div className="bg-white/[0.07] backdrop-blur-xl border border-white/[0.12] rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] overflow-hidden hover:border-white/20 transition-all duration-300">
               <div className="p-5 md:p-6">
                 <div className="flex items-center gap-3 mb-1">
@@ -611,8 +600,7 @@ export default function PlayerDashboardPage() {
                     <p className="text-xs text-white/50">Your path to the next level</p>
                   </div>
                 </div>
-                
-                {/* Segmented Control */}
+{/* Segmented Control */}
                 <div className="flex gap-1 mt-4 p-1 bg-white/[0.06] rounded-full w-fit">
                   <button
                     onClick={() => setCollegeJourneyTab('matches')}
@@ -645,8 +633,7 @@ export default function PlayerDashboardPage() {
                     Interested
                   </button>
                 </div>
-
-                {/* Content */}
+{/* Content */}
                 <div className="mt-5">
                   {recruitingData && recruitingData.schools.length > 0 ? (
                     <div>
@@ -666,12 +653,11 @@ export default function PlayerDashboardPage() {
                                 <p className="text-[10px] text-white/50">{school.conference || 'College'}</p>
                               </div>
                             </button>
-                          ))}
+)}
                         </div>
                         <ScrollBar orientation="horizontal" className="opacity-50" />
                       </ScrollArea>
-                      
-                      {recruitingData.summary && (
+{recruitingData.summary && (
                         <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-white/[0.06]">
                           <div className="text-center">
                             <p className="text-xl font-bold text-white">{recruitingData.summary.totalSchools}</p>
@@ -686,8 +672,7 @@ export default function PlayerDashboardPage() {
                             <p className="text-[10px] text-white/50 uppercase tracking-wide">Visits</p>
                           </div>
                         </div>
-                      )}
-                      
+)}
                       <button 
                         onClick={() => router.push('/player/discover')}
                         className="w-full mt-4 py-2.5 text-xs text-purple-400 hover:text-purple-300 flex items-center justify-center gap-1 rounded-xl hover:bg-white/[0.03] transition-all"
@@ -711,15 +696,14 @@ export default function PlayerDashboardPage() {
                         Find Schools
                       </Button>
                     </div>
-                  )}
+)}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* ═══════════════════════════════════════════════════════════════════
+{/* ═══════════════════════════════════════════════════════════════════
           LIGHT CONTENT ZONE - TABS
       ═══════════════════════════════════════════════════════════════════ */}
       <div className="bg-[#f4f7fb]">
@@ -757,13 +741,11 @@ export default function PlayerDashboardPage() {
                   About
                 </TabsTrigger>
               </TabsList>
-
-              {/* Tab Content */}
+{/* Tab Content */}
               <TabsContent value="analytics" className="mt-6">
                 {player && <AnalyticsDashboard playerId={player.id} timeRange={30} />}
               </TabsContent>
-
-              <TabsContent value="stats" className="mt-6 space-y-6">
+<TabsContent value="stats" className="mt-6 space-y-6">
                 {/* Quick Stats Summary Card */}
                 <LightCard>
                   <LightCardHeader 
@@ -783,7 +765,7 @@ export default function PlayerDashboardPage() {
                           >
                             {range === 'season' ? 'Season' : range === '30d' ? '30 Days' : '7 Days'}
                           </button>
-                        ))}
+)}
                       </div>
                     }
                   />
@@ -807,26 +789,23 @@ export default function PlayerDashboardPage() {
                               <LightStatTile label="K/G" value={statsSummary.strikeoutsPerGame.toFixed(1)} />
                             </div>
                           </div>
-                        )}
+)}
                       </div>
                     ) : (
                       <NoStatsEmptyState onAction={() => {}} />
                     )}
                   </div>
                 </LightCard>
-
-                {/* Performance Charts & Trends */}
+{/* Performance Charts & Trends */}
                 {statsSummary && statsSummary.gamesPlayed > 0 && (
                   <PlayerStatsCharts 
                     series={statsSeries}
                     summary={statsSummary}
                     position={player.primary_position || 'default'}
-                    dateRange={statsDateRange}
-                  />
+                    dateRange={statsDateRange} />
                 )}
               </TabsContent>
-
-              <TabsContent value="measurables" className="mt-6">
+<TabsContent value="measurables" className="mt-6">
                 <LightCard>
                   <LightCardHeader 
                     icon={<Ruler className="w-5 h-5 text-emerald-600" />}
@@ -851,8 +830,7 @@ export default function PlayerDashboardPage() {
                         value={player.height_feet && player.height_inches !== null
                           ? `${player.height_feet}'${player.height_inches}"`
                           : 'Not set'
-                        } 
-                      />
+                        } />
                       <LightStatTile label="Weight" value={player.weight_lbs ? `${player.weight_lbs} lbs` : 'Not set'} />
                       <LightStatTile label="Throws" value={player.throws || 'Not set'} />
                       <LightStatTile label="Bats" value={player.bats || 'Not set'} />
@@ -873,7 +851,7 @@ export default function PlayerDashboardPage() {
                                     <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 text-[10px]">
                                       <CheckCircle2 className="w-3 h-3 mr-1" /> Verified
                                     </Badge>
-                                  )}
+)}
                                   <D1Badge level={d1Level} size="sm" />
                                 </div>
                               </div>
@@ -882,12 +860,11 @@ export default function PlayerDashboardPage() {
                           );
                         })}
                       </div>
-                    )}
+)}
                   </div>
                 </LightCard>
               </TabsContent>
-
-              <TabsContent value="evaluations" className="mt-6">
+<TabsContent value="evaluations" className="mt-6">
                 <LightCard>
                   <LightCardHeader 
                     icon={<Star className="w-5 h-5 text-amber-500" />}
@@ -906,14 +883,13 @@ export default function PlayerDashboardPage() {
                       <div className="space-y-4">
                         {evaluations.map((evaluation) => (
                           <EvaluationCard key={evaluation.id} evaluation={evaluation} />
-                        ))}
+                        })
                       </div>
-                    )}
+)}
                   </div>
                 </LightCard>
               </TabsContent>
-
-              <TabsContent value="recruiting" className="mt-6">
+<TabsContent value="recruiting" className="mt-6">
                 <LightCard>
                   <LightCardHeader 
                     icon={<GraduationCap className="w-5 h-5 text-purple-600" />}
@@ -934,7 +910,7 @@ export default function PlayerDashboardPage() {
                             <LightStatTile label="Offers" value={recruitingData.summary.offers.toString()} accent />
                             <LightStatTile label="Visits" value={recruitingData.summary.visits.toString()} />
                           </div>
-                        )}
+)}
                         <div className="space-y-2">
                           {recruitingData.schools.map((school) => (
                             <div key={school.id} className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
@@ -951,7 +927,7 @@ export default function PlayerDashboardPage() {
                                 {school.status}
                               </Badge>
                             </div>
-                          ))}
+)}
                         </div>
                       </div>
                     ) : (
@@ -960,8 +936,7 @@ export default function PlayerDashboardPage() {
                   </div>
                 </LightCard>
               </TabsContent>
-
-              <TabsContent value="videos" className="mt-6">
+<TabsContent value="videos" className="mt-6">
                 <LightCard>
                   <LightCardHeader 
                     icon={<Video className="w-5 h-5 text-red-500" />}
@@ -995,9 +970,9 @@ export default function PlayerDashboardPage() {
                           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {gameVideos.map((video) => (
                               <VideoCard key={video.id} video={video} onDelete={refreshData} />
-                            ))}
+                            })
                           </div>
-                        )}
+)}
                       </TabsContent>
                       <TabsContent value="training">
                         {trainingVideos.length === 0 ? (
@@ -1009,16 +984,15 @@ export default function PlayerDashboardPage() {
                           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {trainingVideos.map((video) => (
                               <VideoCard key={video.id} video={video} onDelete={refreshData} />
-                            ))}
+                            })
                           </div>
-                        )}
+)}
                       </TabsContent>
                     </Tabs>
                   </div>
                 </LightCard>
               </TabsContent>
-
-              <TabsContent value="achievements" className="mt-6">
+<TabsContent value="achievements" className="mt-6">
                 <LightCard>
                   <LightCardHeader 
                     icon={<Trophy className="w-5 h-5 text-amber-500" />}
@@ -1053,17 +1027,16 @@ export default function PlayerDashboardPage() {
                                 <p className="text-xs text-slate-500 mt-1">
                                   {new Date(achievement.achievement_date).toLocaleDateString()}
                                 </p>
-                              )}
+)}
                             </div>
                           </div>
-                        ))}
+)}
                       </div>
-                    )}
+)}
                   </div>
                 </LightCard>
               </TabsContent>
-
-              <TabsContent value="about" className="mt-6">
+<TabsContent value="about" className="mt-6">
                 <LightCard>
                   <LightCardHeader 
                     icon={<User className="w-5 h-5 text-emerald-600" />}
@@ -1074,7 +1047,7 @@ export default function PlayerDashboardPage() {
                       <p className="text-slate-600 leading-relaxed">{player.about_me}</p>
                     ) : (
                       <p className="text-slate-400 italic">No bio yet. Add one to tell coaches about yourself.</p>
-                    )}
+)}
                     {player.primary_goal && (
                       <div>
                         <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Goal</h4>
@@ -1083,7 +1056,7 @@ export default function PlayerDashboardPage() {
                           {player.primary_goal}
                         </Badge>
                       </div>
-                    )}
+)}
                     {player.top_schools && player.top_schools.length > 0 && (
                       <div>
                         <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Dream Schools</h4>
@@ -1093,22 +1066,22 @@ export default function PlayerDashboardPage() {
                               <School className="w-3 h-3 mr-1" />
                               {school}
                             </Badge>
-                          ))}
+)}
                         </div>
                       </div>
-                    )}
+)}
                     {player.high_school_name && (
                       <div>
                         <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">High School</h4>
                         <p className="text-slate-700">{player.high_school_name}</p>
                       </div>
-                    )}
+)}
                     {player.showcase_team_name && (
                       <div>
                         <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Showcase Team</h4>
                         <p className="text-slate-700">{player.showcase_team_name}</p>
                       </div>
-                    )}
+)}
                   </div>
                 </LightCard>
               </TabsContent>
@@ -1149,8 +1122,7 @@ function GlassStatCard({
           <TrendingUp className="w-3 h-3" />
           +{trend}%
         </span>
-      )}
-      
+)}
       <div className="flex items-start gap-3">
         <div className="p-2 rounded-full bg-white/[0.1] text-white/70 group-hover:text-emerald-400 transition-colors">
           {icon}
@@ -1264,13 +1236,13 @@ function VideoCard({ video, onDelete }: { video: PlayerVideo; onDelete?: (id: st
               <Trash2 className="w-4 h-4" />
             )}
           </button>
-        )}
+)}
       </div>
       <div className="p-3">
         <p className="font-medium text-slate-800 text-sm truncate">{video.title}</p>
         {video.recorded_date && (
           <p className="text-xs text-slate-500">{new Date(video.recorded_date).toLocaleDateString()}</p>
-        )}
+)}
       </div>
     </div>
   );
@@ -1297,7 +1269,7 @@ function EvaluationCard({ evaluation }: { evaluation: Evaluation }) {
         </div>
         {evaluation.overall_grade && (
           <div className="text-2xl font-bold text-emerald-600">{evaluation.overall_grade.toFixed(1)}</div>
-        )}
+)}
       </div>
       {grades.length > 0 && (
         <div className="grid grid-cols-3 gap-2 mb-3">
@@ -1306,21 +1278,21 @@ function EvaluationCard({ evaluation }: { evaluation: Evaluation }) {
               <p className="text-xs text-slate-500">{grade.label}</p>
               <p className="font-semibold text-slate-800">{grade.value?.toFixed(1)}</p>
             </div>
-          ))}
+)}
         </div>
-      )}
+)}
       {evaluation.strengths && (
         <div className="mb-2">
           <p className="text-[10px] font-semibold text-slate-500 uppercase">Strengths</p>
           <p className="text-sm text-slate-700">{evaluation.strengths}</p>
         </div>
-      )}
+)}
       {evaluation.areas_to_improve && (
         <div>
           <p className="text-[10px] font-semibold text-slate-500 uppercase">Areas to Improve</p>
           <p className="text-sm text-slate-700">{evaluation.areas_to_improve}</p>
         </div>
-      )}
+)}
     </div>
   );
 }

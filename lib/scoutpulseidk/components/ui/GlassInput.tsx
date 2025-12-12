@@ -194,15 +194,14 @@ export const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
           <label className="text-sm font-medium text-slate-300">
             {label}
           </label>
-        )}
-
+)}
         {/* Input Wrapper */}
         <div
           className={cn(
             'relative flex items-center',
             fullWidth && 'w-full'
           )}
-          style={focusAnimationStyle}
+          style={{focusAnimationStyle}}
         >
           {/* Left Icon */}
           {leftIcon && (
@@ -213,8 +212,7 @@ export const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
             )}>
               {leftIcon}
             </div>
-          )}
-
+)}
           {/* Input */}
           <input
             ref={ref}
@@ -255,7 +253,7 @@ export const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
               // Custom
               className
             )}
-            style={focusAnimationStyle}
+            style={{focusAnimationStyle}}
             {...props}
           />
 
@@ -275,8 +273,7 @@ export const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
               >
                 <X className="w-full h-full" />
               </button>
-            )}
-
+)}
             {/* Password Toggle */}
             {type === 'password' && (
               <button
@@ -295,8 +292,7 @@ export const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
                   <Eye className="w-full h-full" />
                 )}
               </button>
-            )}
-
+)}
             {/* Validation Icon */}
             {validationState !== 'default' && !rightIcon && (
               <div className={cn(ICON_SIZE_STYLES[size], VALIDATION_ICON_COLORS[validationState])}>
@@ -304,18 +300,16 @@ export const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
                 {validationState === 'success' && <CheckCircle2 className="w-full h-full" />}
                 {validationState === 'warning' && <AlertCircle className="w-full h-full" />}
               </div>
-            )}
-
+)}
             {/* Custom Right Icon */}
             {rightIcon && (
               <div className={cn(ICON_SIZE_STYLES[size], 'text-white/60')}>
                 {rightIcon}
               </div>
-            )}
+)}
           </div>
         </div>
-
-        {/* Helper/Error/Success Text */}
+{/* Helper/Error/Success Text */}
         {(helperText || error || success) && (
           <p className={cn(
             'text-xs',
@@ -323,7 +317,7 @@ export const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
           )}>
             {error || success || helperText}
           </p>
-        )}
+)}
       </div>
     );
   }
@@ -388,8 +382,7 @@ export const GlassTextarea = forwardRef<HTMLTextAreaElement, GlassTextareaProps>
           <label className="text-sm font-medium text-slate-300">
             {label}
           </label>
-        )}
-
+)}
         {/* Textarea */}
         <textarea
           ref={ref}
@@ -437,7 +430,7 @@ export const GlassTextarea = forwardRef<HTMLTextAreaElement, GlassTextareaProps>
           )}>
             {error || success || helperText}
           </p>
-        )}
+)}
       </div>
     );
   }
@@ -482,14 +475,12 @@ export const GlassSearchInput = forwardRef<HTMLInputElement, GlassSearchInputPro
                 <path
                   className="opacity-75"
                   fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                />
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
               </svg>
             </div>
           ) : (
             <Search />
-          )
-        }
+          )}
         className={className}
         onChange={(e) => {
           props.onChange?.(e);
@@ -591,8 +582,7 @@ export const GlassSelect = forwardRef<HTMLSelectElement, GlassSelectProps>(
           <label className="text-sm font-medium text-slate-300">
             {label}
           </label>
-        )}
-
+)}
         {/* Select */}
         <div className="relative">
           <select
@@ -625,7 +615,7 @@ export const GlassSelect = forwardRef<HTMLSelectElement, GlassSelectProps>(
               <option value="" disabled className="text-slate-400 bg-slate-800">
                 {placeholder}
               </option>
-            )}
+)}
             {options.map((option) => (
               <option
                 key={option.value}
@@ -635,10 +625,9 @@ export const GlassSelect = forwardRef<HTMLSelectElement, GlassSelectProps>(
               >
                 {option.label}
               </option>
-            ))}
+)}
           </select>
-
-          {/* Dropdown Arrow */}
+{/* Dropdown Arrow */}
           <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-white/60">
             <svg
               className={ICON_SIZE_STYLES[size]}
@@ -650,18 +639,16 @@ export const GlassSelect = forwardRef<HTMLSelectElement, GlassSelectProps>(
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
+                d="M19 9l-7 7-7-7" />
             </svg>
           </div>
         </div>
-
-        {/* Helper/Error Text */}
+{/* Helper/Error Text */}
         {(helperText || error) && (
           <p className={cn('text-xs', error ? 'text-red-400' : 'text-slate-400')}>
             {error || helperText}
           </p>
-        )}
+)}
       </div>
     );
   }

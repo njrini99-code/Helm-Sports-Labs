@@ -28,34 +28,34 @@ export function SuccessAnimation({
 
   return (
     <motion.div
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      exit={{ scale: 0, opacity: 0 }}
+      initial={ scale: 0, opacity: 0 }
+      animate={ scale: 1, opacity: 1 }
+      exit={ scale: 0, opacity: 0 }
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
     >
       <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+        initial={ scale: 0 }
+        animate={ scale: 1 }
+        transition={{type: 'spring', stiffness: 200, damping: 15 }}
         className="bg-background rounded-2xl p-8 shadow-2xl text-center"
       >
         <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.1, type: 'spring', stiffness: 200, damping: 15 }}
+          initial={ scale: 0 }
+          animate={ scale: 1 }
+          transition={{delay: 0.1, type: 'spring', stiffness: 200, damping: 15 }}
         >
           <CheckCircle2 className="h-16 w-16 text-emerald-500 mx-auto" />
         </motion.div>
         {message && (
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            initial={ opacity: 0, y: 10 }
+            animate={ opacity: 1, y: 0 }
+            transition={{delay: 0.2 }}
             className="mt-4 text-lg font-medium"
           >
             {message}
           </motion.p>
-        )}
+)}
       </motion.div>
     </motion.div>
   );
@@ -72,7 +72,7 @@ export function ErrorShake({ children, trigger, className }: ErrorShakeProps) {
   return (
     <motion.div
       animate={trigger ? { x: [0, -10, 10, -10, 10, 0] } : {}}
-      transition={{ duration: 0.5 }}
+      transition={{duration: 0.5 }}
       className={cn(className)}
     >
       {children}
@@ -102,17 +102,17 @@ export function LoadingButton({
       <span className={cn(loading && 'opacity-0')}>{children}</span>
       {loading && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={ opacity: 0 }
+          animate={ opacity: 1 }
           className="absolute inset-0 flex items-center justify-center"
         >
           <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+            animate={ rotate: 360 }
+            transition={{duration: 1, repeat: Infinity, ease: 'linear' }}
             className="h-5 w-5 border-2 border-current border-t-transparent rounded-full"
           />
         </motion.div>
-      )}
+)}
     </button>
   );
 }
@@ -150,11 +150,11 @@ export function RippleButton({ children, onClick, className, ...props }: RippleB
         <motion.span
           key={ripple.id}
           className="absolute rounded-full bg-white/30"
-          initial={{ width: 0, height: 0, x: ripple.x, y: ripple.y }}
-          animate={{ width: 200, height: 200, x: ripple.x - 100, y: ripple.y - 100, opacity: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={ width: 0, height: 0, x: ripple.x, y: ripple.y }
+          animate={ width: 200, height: 200, x: ripple.x - 100, y: ripple.y - 100, opacity: 0 }
+          transition={{duration: 0.6 }}
         />
-      ))}
+      })
     </button>
   );
 }
@@ -168,9 +168,9 @@ interface HoverLiftProps {
 export function HoverLift({ children, className }: HoverLiftProps) {
   return (
     <motion.div
-      whileHover={{ y: -4, scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+      whileHover={ y: -4, scale: 1.02 }
+      whileTap={ scale: 0.98 }
+      transition={{type: 'spring', stiffness: 400, damping: 17 }}
       className={cn(className)}
     >
       {children}

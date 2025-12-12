@@ -279,29 +279,27 @@ const PlayerCardSkeleton = memo(function PlayerCardSkeleton({ size = 'md' }: { s
     <GlassCard className={cn(styles.padding, 'animate-pulse')} disableHover>
       <div className="flex items-start gap-3">
         {/* Avatar skeleton */}
-        <div className={cn(styles.avatar, 'rounded-xl bg-white/10')} />
-
-        {/* Content skeleton */}
+        <div className={cn(styles.avatar, 'rounded-xl bg-white/10')}></div>
+{/* Content skeleton */}
         <div className="flex-1 space-y-2">
           <div className="flex items-center gap-2">
-            <div className="h-4 bg-white/10 rounded w-24" />
-            <div className="h-4 bg-white/10 rounded w-12" />
+            <div className="h-4 bg-white/10 rounded w-24"></div>
+            <div className="h-4 bg-white/10 rounded w-12"></div>
           </div>
           <div className="flex gap-2">
-            <div className="h-3 bg-white/10 rounded w-16" />
-            <div className="h-3 bg-white/10 rounded w-20" />
+            <div className="h-3 bg-white/10 rounded w-16"></div>
+            <div className="h-3 bg-white/10 rounded w-20"></div>
           </div>
           <div className="flex gap-1.5 pt-1">
-            <div className="h-5 bg-white/10 rounded w-14" />
-            <div className="h-5 bg-white/10 rounded w-16" />
-            <div className="h-5 bg-white/10 rounded w-12" />
+            <div className="h-5 bg-white/10 rounded w-14"></div>
+            <div className="h-5 bg-white/10 rounded w-16"></div>
+            <div className="h-5 bg-white/10 rounded w-12"></div>
           </div>
         </div>
-
-        {/* Action skeleton */}
+{/* Action skeleton */}
         <div className="flex flex-col gap-1.5">
-          <div className="h-7 bg-white/10 rounded w-20" />
-          <div className="h-7 bg-white/10 rounded w-20" />
+          <div className="h-7 bg-white/10 rounded w-20"></div>
+          <div className="h-7 bg-white/10 rounded w-20"></div>
         </div>
       </div>
     </GlassCard>
@@ -345,7 +343,7 @@ const AnimatedStatBadge = memo(function AnimatedStatBadge({
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-2'
       )}
-      style={style}
+      style={{style}}
     >
       {children}
     </div>
@@ -498,7 +496,7 @@ export const PlayerCard = memo(function PlayerCard({
           : 'opacity-0 translate-y-5',
         className
       )}
-      style={containerStyle}
+      style={{containerStyle}}
     >
       <GlassCard
         size="full"
@@ -525,8 +523,7 @@ export const PlayerCard = memo(function PlayerCard({
                 <AvatarImage
                   src={player.avatarUrl}
                   alt={player.name}
-                  className="object-cover"
-                />
+                  className="object-cover" />
               ) : null}
               <AvatarFallback
                 className={cn(
@@ -538,16 +535,14 @@ export const PlayerCard = memo(function PlayerCard({
                 {initials}
               </AvatarFallback>
             </Avatar>
-
-            {/* Rating badge */}
+{/* Rating badge */}
             {player.rating && (
               <div className="absolute -bottom-1 -right-1 bg-amber-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-slate-900">
                 {player.rating}
               </div>
-            )}
+)}
           </div>
-
-          {/* Content */}
+{/* Content */}
           <div className="flex-1 min-w-0">
             {/* Name & badges row */}
             <div className="flex flex-wrap items-center gap-1.5">
@@ -561,7 +556,7 @@ export const PlayerCard = memo(function PlayerCard({
                 >
                   {player.gradYear}
                 </Badge>
-              )}
+)}
               <Badge
                 variant="outline"
                 className={cn(styles.badge, 'bg-cyan-500/10 border-cyan-500/30 text-cyan-400')}
@@ -575,10 +570,9 @@ export const PlayerCard = memo(function PlayerCard({
                 >
                   {player.secondaryPosition}
                 </Badge>
-              )}
+)}
             </div>
-
-            {/* Status badges */}
+{/* Status badges */}
             {(player.verified || player.trending || player.committed) && (
               <div className="flex flex-wrap items-center gap-1.5 mt-1">
                 {player.verified && (
@@ -587,31 +581,29 @@ export const PlayerCard = memo(function PlayerCard({
                       <Sparkles className="w-2.5 h-2.5" /> Verified
                     </Badge>
                   </AnimatedStatBadge>
-                )}
+)}
                 {player.trending && (
                   <AnimatedStatBadge index={1} staggerDelay={staggerDelay} disableAnimation={disableAnimation}>
                     <Badge className={cn(styles.badge, 'bg-blue-500/20 text-blue-400 border-blue-500/40 gap-0.5')}>
                       <TrendingUp className="w-2.5 h-2.5" /> Trending
                     </Badge>
                   </AnimatedStatBadge>
-                )}
+)}
                 {player.committed && player.committedTo && (
                   <AnimatedStatBadge index={2} staggerDelay={staggerDelay} disableAnimation={disableAnimation}>
                     <Badge className={cn(styles.badge, 'bg-purple-500/20 text-purple-400 border-purple-500/40 gap-0.5')}>
                       <CheckCircle2 className="w-2.5 h-2.5" /> {player.committedTo}
                     </Badge>
                   </AnimatedStatBadge>
-                )}
+)}
               </div>
-            )}
-
+)}
             {/* Location */}
             {location && variant !== 'minimal' && (
               <p className="text-xs text-slate-400 flex items-center gap-1 mt-1">
                 <MapPin className="w-3 h-3" /> {location}
               </p>
-            )}
-
+)}
             {/* Performance Score & Projected Value (detailed variant) */}
             {variant === 'detailed' && (
               <div className="flex items-center gap-3 mt-2">
@@ -641,8 +633,7 @@ export const PlayerCard = memo(function PlayerCard({
                   <span className="text-slate-500">({projectedValue.confidence}%)</span>
                 </div>
               </div>
-            )}
-
+)}
             {/* Metrics with stagger animation */}
             {displayedMetrics.length > 0 && variant !== 'minimal' && variant !== 'compact' && (
               <div className="flex flex-wrap gap-1.5 mt-2">
@@ -660,7 +651,7 @@ export const PlayerCard = memo(function PlayerCard({
                       {metric}
                     </Badge>
                   </AnimatedStatBadge>
-                ))}
+)}
                 {remainingMetricsCount > 0 && (
                   <AnimatedStatBadge index={7} staggerDelay={staggerDelay} disableAnimation={disableAnimation}>
                     <Badge
@@ -670,20 +661,18 @@ export const PlayerCard = memo(function PlayerCard({
                       +{remainingMetricsCount} more
                     </Badge>
                   </AnimatedStatBadge>
-                )}
+)}
               </div>
-            )}
-
+)}
             {/* Top school interest */}
             {player.topSchool && variant === 'detailed' && (
               <p className="text-xs text-slate-500 mt-2 flex items-center gap-1">
                 <Star className="w-3 h-3 text-amber-400" />
                 Top: {player.topSchool}
               </p>
-            )}
+)}
           </div>
-
-          {/* Actions */}
+{/* Actions */}
           {showActions && (customAction || onAddToWatchlist || onView) && (
             <div className="flex flex-col gap-1.5 shrink-0">
               {customAction}
@@ -708,7 +697,7 @@ export const PlayerCard = memo(function PlayerCard({
                     </>
                   )}
                 </Button>
-              )}
+)}
               {!customAction && onView && (
                 <Button
                   size="sm"
@@ -718,9 +707,9 @@ export const PlayerCard = memo(function PlayerCard({
                 >
                   <Eye className="w-3 h-3" /> View
                 </Button>
-              )}
+)}
             </div>
-          )}
+)}
         </div>
       </GlassCard>
     </div>
@@ -786,7 +775,7 @@ export const PlayerCardList = memo(function PlayerCardList({
       <div className={containerClassName}>
         {skeletons.map((_, i) => (
           <PlayerCardSkeleton key={i} size={size} />
-        ))}
+        })
       </div>
     );
   }
@@ -811,9 +800,8 @@ export const PlayerCardList = memo(function PlayerCardList({
           showActions={showActions}
           onAddToWatchlist={onAddToWatchlist}
           onView={onView}
-          isOnWatchlist={watchlistSet.has(player.id)}
-        />
-      ))}
+          isOnWatchlist={watchlistSet.has(player.id)} />
+      })
     </div>
   );
 });

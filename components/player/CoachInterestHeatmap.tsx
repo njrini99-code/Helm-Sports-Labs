@@ -71,10 +71,9 @@ export function CoachInterestHeatmap() {
         activity.viewCount++;
         if (new Date(view.created_at) > activity.lastViewed) {
           activity.lastViewed = new Date(view.created_at);
-        }
-      });
+        });
 
-      setActivities(Array.from(activityMap.values())
+      setActivities(Array.from(activityMap.values()}
         .sort((a, b) => b.viewCount - a.viewCount));
       setLoading(false);
     } catch (error) {
@@ -129,34 +128,32 @@ export function CoachInterestHeatmap() {
           </button>
         </motion.div>
       </motion.div>
-
       <div className="grid grid-cols-3 gap-4">
         <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <p className="text-sm text-muted-foreground">Total Views</p>
           <p className="text-2xl font-bold">{totalViews}</p>
         </motion.div>
         <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <p className="text-sm text-muted-foreground">Unique Coaches</p>
           <p className="text-2xl font-bold">{uniqueCoaches}</p>
         </motion.div>
         <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <p className="text-sm text-muted-foreground">Hot Prospects</p>
           <p className="text-2xl font-bold text-emerald-600">{hotProspects}</p>
         </motion.div>
       </motion.div>
-
       <div className="space-y-2 max-h-96 overflow-y-auto">
         {activities.map((activity) => (
           <div
@@ -202,14 +199,14 @@ export function CoachInterestHeatmap() {
                     <TrendingUp className="w-3 h-3" />
                     <span className="text-xs font-medium">High Interest</span>
                   </motion.div>
-                )}
+)}
               </motion.div>
               <span className="text-xs text-muted-foreground">
                 {activity.lastViewed.toLocaleDateString()}
               </span>
             </motion.div>
           </motion.div>
-        ))}
+)}
       </motion.div>
     </motion.div>
   );

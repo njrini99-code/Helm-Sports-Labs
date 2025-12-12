@@ -125,7 +125,7 @@ export default function CoachCampsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -147,7 +147,6 @@ export default function CoachCampsPage() {
           Create Event
         </Button>
       </div>
-
       {/* Create Event Modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
@@ -165,21 +164,20 @@ export default function CoachCampsPage() {
                   <Input
                     placeholder="Summer Prospect Camp"
                     value={formData.name}
-                    onChange={(e) => setFormData(f => ({ ...f, name: e.target.value }))}
+                    onChange={(e) => setFormData(f => ({ ...f, name: e.target.value }})
                     required
                   />
                 </div>
-
-                <div className="space-y-2">
+      <div className="space-y-2">
                   <Label>Event Type</Label>
                   <Select
                     value={formData.event_type}
-                    onValueChange={(v) => setFormData(f => ({ ...f, event_type: v }))}
+                    onValueChange={(v) => setFormData(f => ({ ...f, event_type: v }})
                   >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
+        <SelectContent>
                       <SelectItem value="Prospect Camp">Prospect Camp</SelectItem>
                       <SelectItem value="Clinic">Clinic</SelectItem>
                       <SelectItem value="Showcase">Showcase</SelectItem>
@@ -188,14 +186,13 @@ export default function CoachCampsPage() {
                     </SelectContent>
                   </Select>
                 </div>
-
-                <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-4">
                   <div className="space-y-2">
                     <Label>Date</Label>
                     <Input
                       type="date"
                       value={formData.event_date}
-                      onChange={(e) => setFormData(f => ({ ...f, event_date: e.target.value }))}
+                      onChange={(e) => setFormData(f => ({ ...f, event_date: e.target.value }})
                       required
                     />
                   </div>
@@ -204,7 +201,7 @@ export default function CoachCampsPage() {
                     <Input
                       type="time"
                       value={formData.start_time}
-                      onChange={(e) => setFormData(f => ({ ...f, start_time: e.target.value }))}
+                      onChange={(e) => setFormData(f => ({ ...f, start_time: e.target.value }})
                     />
                   </div>
                   <div className="space-y-2">
@@ -212,53 +209,48 @@ export default function CoachCampsPage() {
                     <Input
                       type="time"
                       value={formData.end_time}
-                      onChange={(e) => setFormData(f => ({ ...f, end_time: e.target.value }))}
+                      onChange={(e) => setFormData(f => ({ ...f, end_time: e.target.value }})
                     />
                   </div>
                 </div>
-
-                <div className="space-y-2">
+      <div className="space-y-2">
                   <Label>Location</Label>
                   <Input
                     placeholder="Stadium name and address"
                     value={formData.location}
-                    onChange={(e) => setFormData(f => ({ ...f, location: e.target.value }))}
+                    onChange={(e) => setFormData(f => ({ ...f, location: e.target.value }})
                   />
                 </div>
-
-                <div className="space-y-2">
+      <div className="space-y-2">
                   <Label>Description</Label>
                   <Textarea
                     placeholder="Describe the event..."
                     value={formData.description}
-                    onChange={(e) => setFormData(f => ({ ...f, description: e.target.value }))}
+                    onChange={(e) => setFormData(f => ({ ...f, description: e.target.value }})
                     rows={3}
                   />
                 </div>
-
-                <div className="space-y-2">
+      <div className="space-y-2">
                   <Label>Registration Link (optional)</Label>
                   <Input
                     placeholder="https://..."
                     value={formData.registration_link}
-                    onChange={(e) => setFormData(f => ({ ...f, registration_link: e.target.value }))}
+                    onChange={(e) => setFormData(f => ({ ...f, registration_link: e.target.value }})
                   />
                 </div>
-
-                <div className="flex gap-3 pt-4">
+      <div className="flex gap-3 pt-4">
                   <Button type="button" variant="outline" className="flex-1" onClick={() => setShowForm(false)}>
                     Cancel
                   </Button>
-                  <Button type="submit" variant="success" className="flex-1" disabled={saving}>
-                    {saving ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse" /> : 'Create Event'}
+        <Button type="submit" variant="success" className="flex-1" disabled={saving}>
+                    {saving ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse"></div> : 'Create Event'}
                   </Button>
                 </div>
               </form>
             </CardContent>
           </Card>
         </div>
-      )}
-
+)}
       {/* Events List */}
       <div className="space-y-8">
         {/* Upcoming Events */}
@@ -285,10 +277,8 @@ export default function CoachCampsPage() {
                         0 interested
                       </span>
                     </div>
-
-                    <h3 className="font-semibold text-white text-lg mb-3">{event.name}</h3>
-
-                    <div className="space-y-2 text-sm text-slate-400">
+      <h3 className="font-semibold text-white text-lg mb-3">{event.name}</h3>
+      <div className="space-y-2 text-sm text-slate-400">
                       <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4" />
                         {new Date(event.event_date).toLocaleDateString('en-US', {
@@ -303,22 +293,21 @@ export default function CoachCampsPage() {
                           <Clock className="w-4 h-4" />
                           {event.start_time}{event.end_time && ` - ${event.end_time}`}
                         </div>
-                      )}
+)}
                       {event.location && (
                         <div className="flex items-center gap-2">
                           <MapPin className="w-4 h-4" />
                           {event.location}
                         </div>
-                      )}
+)}
                     </div>
                   </CardContent>
                 </Card>
-              ))}
+)}
             </div>
-          )}
+)}
         </div>
-
-        {/* Past Events */}
+      {/* Past Events */}
         {pastEvents.length > 0 && (
           <div>
             <h2 className="text-xl font-semibold text-white mb-4">Past Events</h2>
@@ -336,10 +325,10 @@ export default function CoachCampsPage() {
                     </div>
                   </CardContent>
                 </Card>
-              ))}
+)}
             </div>
           </div>
-        )}
+)}
       </div>
     </div>
   );

@@ -231,15 +231,16 @@ export default function NotFound() {
     <div className="min-h-screen gradient-bg flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-500/5 rounded-full blur-3xl" />
-      </motion.div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-500/5 rounded-full blur-3xl"></div>
+      </div>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-  className="not-found-container relative z-10 w-full max-w-2xl">
+        initial={ opacity: 0, y: 20 }
+        animate={ opacity: 1, y: 0 }
+        transition={{duration: 0.3 }}
+        className="not-found-container relative z-10 w-full max-w-2xl"
+      >
         {/* Breadcrumb Navigation */}
         {breadcrumbs.length > 0 && (
           <nav className="mb-6">
@@ -265,13 +266,12 @@ export default function NotFound() {
                     >
                       {crumb.label}
                     </Link>
-                  )}
+)}
                 </li>
-              ))}
+)}
             </ol>
           </nav>
-        )}
-
+)}
         {/* Main Card */}
         <div className="glass rounded-3xl shadow-2xl overflow-hidden">
           {/* Header with 404 */}
@@ -280,36 +280,32 @@ export default function NotFound() {
               <span className="text-8xl md:text-9xl font-black gradient-text">
                 404
               </span>
-            </motion.div>
-
-            <h1 className="text-2xl md:text-3xl font-bold text-white mb-3">
+            </div>
+      <h1 className="text-2xl md:text-3xl font-bold text-white mb-3">
               Page Not Found
             </h1>
             <p className="text-white/60 max-w-md mx-auto text-lg">
               Looks like you&apos;ve ventured into uncharted territory. 
               The page you&apos;re looking for doesn&apos;t exist or has been moved.
             </p>
-
-            {/* Current path display */}
+      {/* Current path display */}
             {pathname && (
               <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full glass-darker text-sm">
                 <MapPin className="w-4 h-4 text-red-400" />
                 <code className="text-white/60">{pathname}</code>
-              </motion.div>
-            )}
-          </motion.div>
-
+              </div>
+)}
+          </div>
           {/* Search Section */}
           <div className="p-6 border-b border-white/10">
             <p className="text-sm text-white/50 mb-3 text-center">
               Try searching for what you need
             </p>
-            
             <form onSubmit={handleSearch} className="relative">
               <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="search-container relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
                 <input
@@ -329,10 +325,9 @@ export default function NotFound() {
                   >
                     <X className="w-4 h-4 text-white/40" />
                   </button>
-                )}
+)}
               </motion.div>
-
-              {/* Search Suggestions */}
+      {/* Search Suggestions */}
               {showSuggestions && filteredSuggestions.length > 0 && (
                 <div className="absolute left-0 right-0 top-full mt-2 z-20 search-dropdown">
                   <div className="glass rounded-xl shadow-xl overflow-hidden">
@@ -342,27 +337,25 @@ export default function NotFound() {
                           key={suggestion.href}
                           href={suggestion.href}
                           className="suggestion-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors"
-                          style={{ animationDelay: `${index * 50}ms` }}
+                          style={{ animationDelay: `${index * 50}}ms` }}
                         >
                           <Search className="w-4 h-4 text-white/40" />
                           <span className="text-white/80">{suggestion.query}</span>
                           <ChevronRight className="w-4 h-4 text-white/30 ml-auto" />
                         </Link>
-                      ))}
-                    </motion.div>
-                  </motion.div>
-                </motion.div>
-              )}
+)}
+                    </div>
+                  </div>
+                </div>
+)}
             </form>
-          </motion.div>
-
-          {/* Popular Pages */}
+          </div>
+      {/* Popular Pages */}
           <div className="p-6">
             <h2 className="text-sm font-semibold text-white/50 uppercase tracking-wider mb-4 flex items-center gap-2">
               <TrendingUp className="w-4 h-4" />
               Popular Pages
             </h2>
-
             <div className="grid sm:grid-cols-2 gap-3">
               {popularPages.map((page) => {
                 const Icon = page.icon;
@@ -374,7 +367,7 @@ export default function NotFound() {
                   >
                     <div className="p-2.5 rounded-xl bg-indigo-500/20 text-indigo-400 group-hover:bg-indigo-500/30 transition-colors">
                       <Icon className="w-5 h-5" />
-                    </motion.div>
+                    </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-medium text-white group-hover:text-indigo-300 transition-colors">
                         {page.label}
@@ -382,16 +375,14 @@ export default function NotFound() {
                       <p className="text-sm text-white/50 truncate">
                         {page.description}
                       </p>
-                    </motion.div>
+                    </div>
                     <ChevronRight className="link-arrow w-5 h-5 text-white/30 group-hover:text-white/60 transition-colors" />
                   </Link>
                 );
-              })
-          )}}
-            </motion.div>
-          </motion.div>
-
-          {/* Action Buttons */}
+              })}
+            </div>
+          </div>
+      {/* Action Buttons */}
           <div className="p-6 pt-0">
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
@@ -408,10 +399,9 @@ export default function NotFound() {
                 <ArrowLeft className="w-5 h-5" />
                 Go Back
               </button>
-            </motion.div>
-          </motion.div>
-
-          {/* Help Footer */}
+            </div>
+          </div>
+      {/* Help Footer */}
           <div className="px-6 py-4 border-t border-white/10 bg-white/5">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
               <p className="text-white/40">
@@ -425,18 +415,17 @@ export default function NotFound() {
                   <HelpCircle className="w-4 h-4" />
                   Help Center
                 </Link>
-                <Link
+        <Link
                   href="/contact"
                   className="flex items-center gap-1.5 text-white/60 hover:text-white transition-colors"
                 >
                   <MessageSquare className="w-4 h-4" />
                   Contact Us
                 </Link>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        </motion.div>
-
+              </div>
+            </div>
+          </div>
+        </div>
         {/* Quick Links */}
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           {[
@@ -455,10 +444,9 @@ export default function NotFound() {
                 {link.label}
               </Link>
             );
-          })
-          )}}
-        </motion.div>
+          })}
+        </div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 }

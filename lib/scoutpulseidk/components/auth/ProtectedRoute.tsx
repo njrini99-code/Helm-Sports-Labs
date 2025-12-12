@@ -537,8 +537,7 @@ export function ProtectedRoute({
             ));
           }
         }
-      }
-    });
+      });
 
     // Periodic session check
     const intervalId = setInterval(() => {

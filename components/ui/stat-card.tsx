@@ -108,7 +108,7 @@ export function StatCard({
             <div className={cn('rounded-lg', sizes.icon, styles.icon)}>
               {icon}
             </div>
-          )}
+)}
         </div>
         <div className="flex items-baseline gap-2">
           <p className={cn('font-bold text-foreground', sizes.value)}>{value}</p>
@@ -125,13 +125,13 @@ export function StatCard({
               )}
               {Math.abs(trend.value)}%
             </span>
-          )}
+)}
         </div>
         {description && (
           <p className={cn('text-muted-foreground', sizes.description)}>
             {description}
           </p>
-        )}
+)}
       </CardContent>
     </Card>
   );

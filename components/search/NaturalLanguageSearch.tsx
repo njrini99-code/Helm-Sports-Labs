@@ -100,8 +100,7 @@ export function NaturalLanguageSearch({
       }
 
       // Graduation year
-      const yearMatch = searchQuery.match(/\b(20\d{2})
-          )}\b/);
+      const yearMatch = searchQuery.match(/\b(20\d{2}})\b/);
       if (yearMatch) {
         filters.graduationYear = parseInt(yearMatch[1]);
       }
@@ -188,7 +187,6 @@ export function NaturalLanguageSearch({
           </Button>
         </div>
       </form>
-
       {/* Parsed Filters */}
       {parsedFilters && Object.keys(parsedFilters).length > 0 && (
         <div className="flex flex-wrap gap-2">
@@ -198,28 +196,27 @@ export function NaturalLanguageSearch({
               Position: {parsedFilters.position}
               <X className="w-3 h-3 cursor-pointer" onClick={() => removeFilter('position')} />
             </Badge>
-          )}
+)}
           {parsedFilters.state && (
             <Badge variant="secondary" className="gap-1">
               Location: {parsedFilters.state}
               <X className="w-3 h-3 cursor-pointer" onClick={() => removeFilter('state')} />
             </Badge>
-          )}
+)}
           {parsedFilters.graduationYear && (
             <Badge variant="secondary" className="gap-1">
               Class: {parsedFilters.graduationYear}
               <X className="w-3 h-3 cursor-pointer" onClick={() => removeFilter('graduationYear')} />
             </Badge>
-          )}
+)}
           {parsedFilters.handedness && (
             <Badge variant="secondary" className="gap-1">
               {parsedFilters.handedness === 'left' ? 'Left' : 'Right'}-handed
               <X className="w-3 h-3 cursor-pointer" onClick={() => removeFilter('handedness')} />
             </Badge>
-          )}
+)}
         </div>
-      )}
-
+)}
       {/* Recent Searches */}
       {recentSearches.length > 0 && query === '' && (
         <div className="space-y-1">
@@ -245,10 +242,10 @@ export function NaturalLanguageSearch({
               >
                 {search}
               </Button>
-            ))}
+)}
           </div>
         </div>
-      )}
+)}
     </div>
   );
 }

@@ -64,11 +64,10 @@ export function TeamPageShell({
             loading="lazy"
           />
         ) : (
-          <div className="w-full h-full bg-[radial-gradient(circle_at_25%_20%,rgba(59,130,246,0.25),transparent),radial-gradient(circle_at_80%_60%,rgba(16,185,129,0.18),transparent)]" />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0D0F] via-[#0B0D0F]/60 to-transparent" />
+          <div className="w-full h-full bg-[radial-gradient(circle_at_25%_20%,rgba(59,130,246,0.25),transparent),radial-gradient(circle_at_80%_60%,rgba(16,185,129,0.18),transparent)]"></div>
+)}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0D0F] via-[#0B0D0F]/60 to-transparent"></div>
       </div>
-
       <div className="max-w-7xl mx-auto px-6 pb-10">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6 -mt-24 md:-mt-28 mb-6 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
@@ -86,8 +85,7 @@ export function TeamPageShell({
               </AvatarFallback>
             </Avatar>
           </div>
-
-          {/* Team Info */}
+      {/* Team Info */}
           <div className="flex-1 mt-2 md:mt-6 space-y-2">
             <div className="flex flex-wrap items-center gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <h1 className="text-3xl md:text-4xl font-bold text-white">{team.name}</h1>
@@ -108,8 +106,7 @@ export function TeamPageShell({
               {team.program_values || 'Compete hard. Develop daily. Support teammates.'}
             </p>
           </div>
-
-          {/* Quick actions */}
+      {/* Quick actions */}
           <div className="flex flex-wrap gap-2">
             {mode === 'owner' ? (
               <>
@@ -131,11 +128,10 @@ export function TeamPageShell({
                 <ShieldCheck className="w-4 h-4" />
                 View Roster
               </Button>
-            )}
+)}
           </div>
         </div>
-
-        {/* Tabs */}
+      {/* Tabs */}
         <TeamTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
         {/* Content */}

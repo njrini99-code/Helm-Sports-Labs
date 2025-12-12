@@ -346,7 +346,7 @@ function MenuItemComponent({ item, isActive, onSelect }: MenuItemComponentProps)
         <span className={cn(sizes.shortcut, styles.shortcut, 'ml-auto pl-4')}>
           {item.shortcut}
         </span>
-      )}
+)}
     </button>
   );
 }
@@ -397,7 +397,7 @@ function CheckboxItemComponent({ item, isActive, onSelect }: CheckboxItemCompone
         <span className={cn(sizes.shortcut, styles.shortcut, 'ml-auto pl-4')}>
           {item.shortcut}
         </span>
-      )}
+)}
     </button>
   );
 }
@@ -463,8 +463,7 @@ function SubMenuComponent({ item, isActive }: SubMenuComponentProps) {
   const { variant, size } = useDropdownContext();
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [subMenuPosition, setSubMenuPosition] = useState({ top: 0, left: 0 })
-          )};
+  const [subMenuPosition, setSubMenuPosition] = useState({ top: 0, left: 0 }});
   const triggerRef = useRef<HTMLButtonElement>(null);
   const subMenuRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout>();
@@ -493,8 +492,7 @@ function SubMenuComponent({ item, isActive }: SubMenuComponentProps) {
         top = window.innerHeight - subMenuRect.height - 8;
       }
 
-      setSubMenuPosition({ top, left })
-          )};
+      setSubMenuPosition({ top, left }});
     }
   }, [isOpen]);
 
@@ -533,7 +531,6 @@ function SubMenuComponent({ item, isActive }: SubMenuComponentProps) {
         <span className="flex-1 text-left truncate">{item.label}</span>
         <ChevronRight className={cn(sizes.icon, styles.icon, 'shrink-0')} />
       </button>
-
       {isOpen &&
         createPortal(
           <div
@@ -543,8 +540,7 @@ function SubMenuComponent({ item, isActive }: SubMenuComponentProps) {
               sizes.menu,
               styles.menu
             )}
-            style={{
-              top: subMenuPosition.top,
+            style={{top: subMenuPosition.top,
               left: subMenuPosition.left,
               animation: 'glass-menu-slide-right 150ms ease-out',
             }}
@@ -596,8 +592,7 @@ function MenuContent({ items }: MenuContentProps) {
           return (
             <div
               key={item.id || `sep-${index}`}
-              className={cn('h-px my-1 mx-2', styles.separator)}
-            />
+              className={cn('h-px my-1 mx-2', styles.separator)}></div>
           );
         }
 
@@ -666,7 +661,7 @@ function MenuContent({ items }: MenuContentProps) {
           />
         );
       })
-          )}}
+          })
     </div>
   );
 }
@@ -693,8 +688,7 @@ export function GlassDropdownMenu({
 }: GlassDropdownMenuProps) {
   const [internalOpen, setInternalOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 })
-          )};
+  const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 }});
   const [mounted, setMounted] = useState(false);
 
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -794,8 +788,7 @@ export function GlassDropdownMenu({
       const padding = 8;
       left = Math.max(padding, Math.min(left, viewportWidth - menuRect.width - padding + scrollX));
 
-      setMenuPosition({ top, left })
-          )};
+      setMenuPosition({ top, left }});
     };
 
     requestAnimationFrame(updatePosition);
@@ -924,7 +917,6 @@ export function GlassDropdownMenu({
       >
         {trigger}
       </div>
-
       {/* Menu */}
       {isOpen &&
         mounted &&
@@ -942,7 +934,7 @@ export function GlassDropdownMenu({
               top: menuPosition.top,
               left: menuPosition.left,
               minWidth,
-              animation: `${getAnimation()} 150ms ease-out`,
+              animation: `${getAnimation()}} 150ms ease-out`,
             }}
           >
             <MenuContent items={items} />
@@ -1139,8 +1131,7 @@ export function SortMenu({
       id: option.value,
       value: option.value,
       label: option.label,
-    })
-          )}),
+    }})),
   ];
 
   return (

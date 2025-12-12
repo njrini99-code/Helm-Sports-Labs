@@ -239,9 +239,8 @@ export function NotificationBell() {
           <span className="absolute top-0 right-0 flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-[#00C27A] rounded-full">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
-        )}
+)}
       </button>
-
       {/* Dropdown */}
       {isOpen && (
         <div className="absolute right-0 mt-2 w-96 max-w-[calc(100vw-2rem)] bg-white/10 backdrop-blur-md border border-white/20 dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50">
@@ -257,10 +256,9 @@ export function NotificationBell() {
               >
                 Mark all read
               </button>
-            )}
+)}
           </div>
-
-          {/* Notifications List */}
+      {/* Notifications List */}
           <div className="max-h-[400px] overflow-y-auto">
             {loading ? (
               <div className="px-4 py-8 text-center text-slate-500 dark:text-slate-400">
@@ -284,9 +282,8 @@ export function NotificationBell() {
                   <div className="flex items-start gap-3">
                     {/* Unread Indicator */}
                     {!notification.read && (
-                      <div className="w-2 h-2 mt-2 bg-[#00C27A] rounded-full flex-shrink-0" />
-                    )}
-
+                      <div className="w-2 h-2 mt-2 bg-[#00C27A] rounded-full flex-shrink-0"></div>
+)}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
                         <p className="text-sm font-medium text-slate-900 dark:text-white truncate">
@@ -302,11 +299,9 @@ export function NotificationBell() {
                     </div>
                   </div>
                 </button>
-              ))
-            )}
+              )})
           </div>
-
-          {/* Footer */}
+      {/* Footer */}
           {notifications.length > 0 && (
             <div className="px-4 py-2 border-t border-slate-200 dark:border-slate-700">
               <button
@@ -319,9 +314,9 @@ export function NotificationBell() {
                 View all notifications
               </button>
             </div>
-          )}
+)}
         </div>
-      )}
+)}
     </div>
   );
 }

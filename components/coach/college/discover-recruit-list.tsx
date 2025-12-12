@@ -53,10 +53,9 @@ export function DiscoverRecruitList({ recruits, onAddToWatchlist }: DiscoverRecr
                   <AvatarFallback className="bg-emerald-500/10 text-emerald-200">
                     {recruit.name.slice(0, 2).toUpperCase()}
                   </AvatarFallback>
-                )}
+)}
               </Avatar>
-
-              <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <p className="font-semibold text-white">{recruit.name}</p>
                   <Badge variant="outline" className="text-xs">
@@ -65,25 +64,24 @@ export function DiscoverRecruitList({ recruits, onAddToWatchlist }: DiscoverRecr
                   <Badge variant="outline" className="text-xs">{recruit.primaryPosition}</Badge>
                   {recruit.secondaryPosition && (
                     <Badge variant="outline" className="text-xs">{recruit.secondaryPosition}</Badge>
-                  )}
+)}
                   {recruit.verified && (
                     <Badge className="bg-emerald-500/20 text-emerald-200 border-emerald-500/40 text-xs gap-1">
                       <Sparkles className="w-3 h-3" /> Verified
                     </Badge>
-                  )}
+)}
                   {recruit.trending && (
                     <Badge className="bg-blue-500/20 text-blue-100 border-blue-500/40 text-xs gap-1">
                       <TrendingUp className="w-3 h-3" /> Trending
                     </Badge>
-                  )}
+)}
                   {recruit.topSchool && (
                     <Badge className="bg-purple-500/20 text-purple-100 border-purple-500/40 text-xs">
                       Interested in {recruit.topSchool}
                     </Badge>
-                  )}
+)}
                 </div>
-
-                <div className="flex flex-wrap gap-3 text-xs text-slate-400 mt-2">
+      <div className="flex flex-wrap gap-3 text-xs text-slate-400 mt-2">
                   <span className="inline-flex items-center gap-1">
                     <User className="w-3 h-3" /> {recruit.height} • {recruit.weight} lbs
                   </span>
@@ -94,19 +92,17 @@ export function DiscoverRecruitList({ recruits, onAddToWatchlist }: DiscoverRecr
                     <span key={idx} className="inline-flex items-center gap-1">
                       <Calendar className="w-3 h-3" /> {metric}
                     </span>
-                  ))}
+)}
                 </div>
-
-                <div className="mt-3 flex flex-wrap gap-2">
+      <div className="mt-3 flex flex-wrap gap-2">
                   {recruit.metrics.slice(0, 3).map((metric, idx) => (
                     <Badge key={idx} variant="outline" className="text-xs bg-white/5">
                       {metric}
                     </Badge>
-                  ))}
+)}
                 </div>
               </div>
-
-              <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2">
                 <Button
                   size="sm"
                   variant="success"
@@ -122,15 +118,14 @@ export function DiscoverRecruitList({ recruits, onAddToWatchlist }: DiscoverRecr
             </div>
           </CardContent>
         </Card>
-      ))}
-
+)}
       {visible < recruits.length && (
         <div className="flex justify-center pt-2">
           <Button variant="outline" onClick={() => setVisible((v) => v + 8)}>
             Load more
           </Button>
         </div>
-      )}
+)}
     </div>
   );
 }

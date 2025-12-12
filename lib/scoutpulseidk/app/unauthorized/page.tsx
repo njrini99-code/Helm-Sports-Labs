@@ -109,11 +109,10 @@ export default function UnauthorizedPage() {
     <div className="min-h-screen bg-gradient-to-b from-[#0A0A0A] via-[#0d1117] to-[#111] text-white flex items-center justify-center p-4">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-amber-500/5 rounded-full blur-[100px]" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-amber-500/5 rounded-full blur-[100px]"></div>
       </div>
-
-      <div className="relative z-10 w-full max-w-lg">
+<div className="relative z-10 w-full max-w-lg">
         <Card className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-2xl">
           <CardContent className="p-8">
             {/* Icon & Badge */}
@@ -125,8 +124,7 @@ export default function UnauthorizedPage() {
                 {content.badge.text}
               </Badge>
             </div>
-
-            {/* Title & Description */}
+{/* Title & Description */}
             <div className="text-center mb-8">
               <h1 className="text-2xl font-bold text-white mb-3">
                 {content.title}
@@ -135,8 +133,7 @@ export default function UnauthorizedPage() {
                 {content.description}
               </p>
             </div>
-
-            {/* Countdown for expired sessions */}
+{/* Countdown for expired sessions */}
             {content.showCountdown && autoRedirect && (
               <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 mb-6">
                 <div className="flex items-center justify-between">
@@ -156,8 +153,7 @@ export default function UnauthorizedPage() {
                   </Button>
                 </div>
               </div>
-            )}
-
+)}
             {/* Actions */}
             <div className="space-y-3">
               {reason === 'session_expired' || reason === 'not_authenticated' ? (
@@ -169,15 +165,14 @@ export default function UnauthorizedPage() {
                 </Link>
               ) : (
                 <Button
-                  onClick={() => router.back()}
+                  onClick={() => router.back()}}
                   variant="outline"
                   className="w-full bg-white/5 border-white/10 text-white hover:bg-white/10 gap-2"
                 >
                   <ArrowLeft className="w-4 h-4" />
                   Go Back
                 </Button>
-              )}
-
+)}
               <Link href="/" className="block">
                 <Button
                   variant="ghost"
@@ -188,8 +183,7 @@ export default function UnauthorizedPage() {
                 </Button>
               </Link>
             </div>
-
-            {/* Help Link */}
+{/* Help Link */}
             <div className="mt-6 pt-6 border-t border-white/10 text-center">
               <a 
                 href="mailto:support@scoutpulse.com"
@@ -201,8 +195,7 @@ export default function UnauthorizedPage() {
             </div>
           </CardContent>
         </Card>
-
-        {/* Debug info (only in development) */}
+{/* Debug info (only in development) */}
         {process.env.NODE_ENV === 'development' && (
           <div className="mt-4 p-4 bg-slate-800/50 rounded-lg border border-slate-700/50 text-xs text-slate-500">
             <p><strong>Debug Info:</strong></p>
@@ -211,7 +204,7 @@ export default function UnauthorizedPage() {
             {requiredRole && <p>Required Role: {requiredRole}</p>}
             {userRole && <p>User Role: {userRole}</p>}
           </div>
-        )}
+)}
       </div>
     </div>
   );

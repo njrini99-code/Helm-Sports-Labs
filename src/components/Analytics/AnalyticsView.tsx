@@ -73,7 +73,7 @@ export function AnalyticsView() {
           name,
           count: data.count,
           revenue: data.revenue,
-        }))
+        })}
         .sort((a, b) => b.count - a.count)
         .slice(0, 5);
 
@@ -96,7 +96,7 @@ export function AnalyticsView() {
           name,
           count: data.count,
           revenue: data.revenue,
-        }))
+        })}
         .sort((a, b) => b.revenue - a.revenue)
         .slice(0, 5);
 
@@ -138,8 +138,7 @@ export function AnalyticsView() {
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Analytics Dashboard</h1>
         <p className="text-gray-600">Track your sales performance and insights</p>
       </div>
-
-      <div className="grid grid-cols-3 gap-6 mb-8">
+<div className="grid grid-cols-3 gap-6 mb-8">
         <MetricCard
           icon={Calendar}
           title="New Prospects (NP)"
@@ -177,8 +176,7 @@ export function AnalyticsView() {
           color="bg-slate-600"
         />
       </div>
-
-      <div className="grid grid-cols-2 gap-6 mb-8">
+<div className="grid grid-cols-2 gap-6 mb-8">
         <div className="bg-white border border-gray-200 rounded-xl p-6">
           <h3 className="text-lg font-bold text-gray-900 mb-4">Top Industries</h3>
           <div className="space-y-3">
@@ -192,11 +190,10 @@ export function AnalyticsView() {
                   ${industry.revenue.toLocaleString()}
                 </p>
               </div>
-            ))}
+)}
           </div>
         </div>
-
-        <div className="bg-white border border-gray-200 rounded-xl p-6">
+<div className="bg-white border border-gray-200 rounded-xl p-6">
           <h3 className="text-lg font-bold text-gray-900 mb-4">Top Zip Codes</h3>
           <div className="space-y-3">
             {zipStats.map((zip, index) => (
@@ -207,12 +204,11 @@ export function AnalyticsView() {
                 </div>
                 <p className="font-semibold text-gray-900">${zip.revenue.toLocaleString()}</p>
               </div>
-            ))}
+)}
           </div>
         </div>
       </div>
-
-      {insights && (
+{insights && (
         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
           <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-blue-600" />
@@ -220,7 +216,7 @@ export function AnalyticsView() {
           </h3>
           <div className="text-gray-700 whitespace-pre-line">{insights}</div>
         </div>
-      )}
+)}
     </div>
   );
 }

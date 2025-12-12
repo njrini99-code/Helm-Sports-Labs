@@ -20,8 +20,7 @@ export function PWAProvider({ children }: { children: React.ReactNode }) {
         if (process.env.NODE_ENV === 'development') {
           console.log('[PWA] Service worker registered');
         }
-      }
-    });
+      });
 
     // Monitor online/offline status
     const handleOnline = () => {
@@ -58,7 +57,7 @@ export function PWAProvider({ children }: { children: React.ReactNode }) {
         <div className="fixed top-0 left-0 right-0 z-50 bg-amber-500 text-white text-center py-2 text-sm">
           You're offline. Some features may be limited.
         </div>
-      )}
+)}
     </>
   );
 }

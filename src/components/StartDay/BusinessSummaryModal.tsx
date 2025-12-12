@@ -148,17 +148,14 @@ export function BusinessSummaryModal({ isOpen, onClose, lead }: BusinessSummaryM
     <>
       <div
         className="fixed inset-0 bg-black transition-opacity duration-300"
-        style={{
-          zIndex: 9998,
+        style={{zIndex: 9998,
           opacity: isOpen ? 0.5 : 0,
           pointerEvents: isOpen ? 'auto' : 'none'
         }}
-        onClick={onClose}
-      />
+        onClick={onClose}></div>
       <div
         className="fixed inset-y-0 right-0 w-full md:w-[600px] bg-white shadow-2xl flex flex-col transition-transform duration-300 ease-out overflow-hidden"
-        style={{
-          zIndex: 9999,
+        style={{zIndex: 9999,
           transform: isOpen ? 'translateX(0)' : 'translateX(100%)'
         }}
       >
@@ -177,8 +174,7 @@ export function BusinessSummaryModal({ isOpen, onClose, lead }: BusinessSummaryM
             <X className="w-6 h-6" />
           </button>
         </div>
-
-        <div className="p-6 overflow-y-auto flex-1">
+<div className="p-6 overflow-y-auto flex-1">
           {loading && !insight ? (
             <div className="text-center py-12">
               <Loader className="w-12 h-12 text-blue-600 animate-spin mx-auto mb-4" />
@@ -189,23 +185,20 @@ export function BusinessSummaryModal({ isOpen, onClose, lead }: BusinessSummaryM
             <div className="space-y-6">
               <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 border border-gray-200">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">{insight.business_name}</h3>
-
-                <div className="grid grid-cols-2 gap-4 mb-4">
+<div className="grid grid-cols-2 gap-4 mb-4">
                   {insight.years_open && (
                     <div>
                       <p className="text-sm text-gray-600 mb-1">Years Open</p>
                       <p className="text-xl font-bold text-gray-900">{insight.years_open} years</p>
                       <p className="text-xs text-gray-500">Since {new Date().getFullYear() - insight.years_open}</p>
                     </div>
-                  )}
-
+)}
                   {insight.industry && (
                     <div>
                       <p className="text-sm text-gray-600 mb-1">Industry</p>
                       <p className="text-lg font-semibold text-gray-900">{insight.industry}</p>
                     </div>
-                  )}
-
+)}
                   {insight.google_rating && (
                     <div>
                       <p className="text-sm text-gray-600 mb-1">Google Rating</p>
@@ -214,11 +207,10 @@ export function BusinessSummaryModal({ isOpen, onClose, lead }: BusinessSummaryM
                         <p className="text-xl font-bold text-gray-900">{insight.google_rating}</p>
                         {insight.review_count && (
                           <span className="text-sm text-gray-500">({insight.review_count} reviews)</span>
-                        )}
+)}
                       </div>
                     </div>
-                  )}
-
+)}
                   <div>
                     <p className="text-sm text-gray-600 mb-2">Business Focus</p>
                     <div className={`inline-flex items-center gap-2 px-3 py-2 ${getFocusColor(insight.focus)} text-white rounded-lg font-semibold`}>
@@ -231,8 +223,7 @@ export function BusinessSummaryModal({ isOpen, onClose, lead }: BusinessSummaryM
                   </div>
                 </div>
               </div>
-
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-5">
+<div className="bg-blue-50 border border-blue-200 rounded-xl p-5">
                 <div className="flex items-start gap-3 mb-3">
                   <FileText className="w-5 h-5 text-blue-600 flex-shrink-0 mt-1" />
                   <div>
@@ -241,8 +232,7 @@ export function BusinessSummaryModal({ isOpen, onClose, lead }: BusinessSummaryM
                   </div>
                 </div>
               </div>
-
-              <div className="bg-gradient-to-br from-purple-50 to-blue-50 border border-purple-200 rounded-xl p-5">
+<div className="bg-gradient-to-br from-purple-50 to-blue-50 border border-purple-200 rounded-xl p-5">
                 <div className="flex items-start gap-3">
                   <TrendingUp className="w-5 h-5 text-purple-600 flex-shrink-0 mt-1" />
                   <div>
@@ -251,15 +241,13 @@ export function BusinessSummaryModal({ isOpen, onClose, lead }: BusinessSummaryM
                   </div>
                 </div>
               </div>
-
-              {insight.nearby_clients && (
+{insight.nearby_clients && (
                 <div className="bg-green-50 border border-green-200 rounded-xl p-5">
                   <h4 className="font-bold text-gray-900 mb-2">Similar Clients Nearby</h4>
                   <p className="text-gray-700">{insight.nearby_clients}</p>
                   <p className="text-sm text-gray-600 mt-2">Mention these success stories to build credibility</p>
                 </div>
-              )}
-
+)}
               <div className="flex items-center justify-between pt-4 border-t border-gray-200">
                 <p className="text-xs text-gray-500">
                   Last updated: {new Date(insight.last_updated).toLocaleDateString()}
@@ -279,13 +267,13 @@ export function BusinessSummaryModal({ isOpen, onClose, lead }: BusinessSummaryM
               <Building2 className="w-16 h-16 text-gray-300 mx-auto mb-4" />
               <p className="text-gray-600">Unable to load business insights</p>
               <button
-                onClick={() => loadBusinessSummary()}
+                onClick={() => loadBusinessSummary()}}
                 className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
                 Try Again
               </button>
             </div>
-          )}
+)}
         </div>
       </div>
     </>

@@ -90,7 +90,7 @@ export default function ResetPasswordPage() {
   if (checking) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
-        <div className="w-8 h-8 bg-blue-500/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-blue-500/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -128,7 +128,7 @@ export default function ResetPasswordPage() {
             <p className="text-slate-400 mb-6">
               Your password has been reset successfully. Redirecting you to login...
             </p>
-            <div className="w-6 h-6 bg-blue-500/20 rounded animate-pulse mx-auto" />
+            <div className="w-6 h-6 bg-blue-500/20 rounded animate-pulse mx-auto"></div>
           </div>
         </div>
       </div>
@@ -145,16 +145,14 @@ export default function ResetPasswordPage() {
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Back to login
         </Link>
-
-        <div className="bg-slate-900/90 rounded-2xl p-8 border border-white/5 shadow-2xl animate-fade-in-up">
+      <div className="bg-slate-900/90 rounded-2xl p-8 border border-white/5 shadow-2xl animate-fade-in-up">
           <div className="text-center mb-8">
             <Link href="/" className="text-3xl font-bold text-white inline-block mb-2">
               Scout<span className="text-blue-500">Pulse</span>
             </Link>
             <p className="text-slate-400">Set your new password</p>
           </div>
-
-          <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="password">New password</Label>
               <Input
@@ -166,8 +164,7 @@ export default function ResetPasswordPage() {
                 autoComplete="new-password"
               />
             </div>
-
-            <div className="space-y-2">
+      <div className="space-y-2">
               <Label htmlFor="confirm-password">Confirm new password</Label>
               <Input
                 id="confirm-password"
@@ -178,8 +175,7 @@ export default function ResetPasswordPage() {
                 autoComplete="new-password"
               />
             </div>
-
-            <Button
+      <Button
               type="submit"
               disabled={loading}
               className="w-full"
@@ -187,7 +183,7 @@ export default function ResetPasswordPage() {
             >
               {loading ? (
                 <>
-                  <div className="w-4 h-4 bg-white/20 rounded animate-pulse mr-2" />
+                  <div className="w-4 h-4 bg-white/20 rounded animate-pulse mr-2"></div>
                   Updating...
                 </>
               ) : (

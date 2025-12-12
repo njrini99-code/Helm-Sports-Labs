@@ -428,7 +428,7 @@ export function AnimatedPage({
       };
 
   return (
-    <div className={cn('w-full', className)} style={animationStyle}>
+    <div className={cn('w-full', className)} style={{animationStyle}}>
       {children}
     </div>
   );
@@ -564,7 +564,7 @@ export function AnimatedCard({
     : {};
 
   return (
-    <div className={className} style={style}>
+    <div className={className} style={{style}}>
       {children}
     </div>
   );
@@ -619,26 +619,24 @@ export function LoadingTransition({
       {/* Loading State */}
       {showLoading && (
         <div
-          style={{
-            animation: loading
+          style={{animation: loading
               ? 'page-fade-in 200ms ease-out forwards'
               : 'loading-fade-out 200ms ease-out forwards',
           }}
         >
           {loadingContent}
         </div>
-      )}
-
+)}
       {/* Content */}
       {showContent && (
         <div
           style={{
-            animation: `content-fade-in ${duration}ms ${SPRING_EASINGS.gentle} forwards`,
+            animation: `content-fade-in ${duration}}ms ${SPRING_EASINGS.gentle} forwards`,
           }}
         >
           {children}
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -700,7 +698,7 @@ export function AnimatedList<T>({
           <div key={`skeleton-${index}`} className={itemClassName}>
             {renderSkeleton(index)}
           </div>
-        ))}
+)}
       </div>
     );
   }
@@ -710,8 +708,7 @@ export function AnimatedList<T>({
     return (
       <div
         className={className}
-        style={{
-          animation: `page-fade-in 300ms ease-out forwards`,
+        style={{animation: `page-fade-in 300ms ease-out forwards`,
         }}
       >
         {emptyContent}
@@ -734,7 +731,7 @@ export function AnimatedList<T>({
         >
           {renderItem(item, index)}
         </AnimatedCard>
-      ))}
+)}
     </div>
   );
 }

@@ -113,9 +113,8 @@ export function EnhancedSearch({
           >
             <X className="w-4 h-4" strokeWidth={2} />
           </button>
-        )}
+)}
       </div>
-
       {/* Suggestions Dropdown */}
       {isOpen && displaySuggestions.length > 0 && (
         <div className="absolute z-50 w-full mt-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg max-h-60 overflow-auto">
@@ -141,11 +140,11 @@ export function EnhancedSearch({
                       <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
                         {suggestion.category}
                       </div>
-                    )}
+)}
                   </div>
                   <Search className="w-4 h-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity ml-2 flex-shrink-0" strokeWidth={2} />
                 </button>
-              ))}
+)}
             </div>
           ) : (
             <div className="p-2">
@@ -165,11 +164,11 @@ export function EnhancedSearch({
                   <span className="text-sm text-slate-700 dark:text-slate-300 truncate">{item}</span>
                   <Search className="w-4 h-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity ml-2 flex-shrink-0" strokeWidth={2} />
                 </button>
-              ))}
+)}
             </div>
-          )}
+)}
         </div>
-      )}
+)}
     </div>
   );
 }

@@ -590,8 +590,7 @@ export function calculateRouteSummary(schedule: OptimizedSchedule[]): RouteSumma
       longestDrive = item.travelTimeFromPrevious;
       const prevBusiness = idx > 0 ? schedule[idx - 1].lead.business_name : 'Start';
       longestDriveBetween = `${prevBusiness} → ${item.lead.business_name}`;
-    }
-  });
+    });
 
   return {
     totalAppointments,

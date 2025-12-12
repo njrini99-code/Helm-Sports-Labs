@@ -37,7 +37,7 @@ export default function HsCoachDashboardLayout({ children }: { children: ReactNo
   if (loadingCoach || loadingOrg) {
     return (
       <div className="flex items-center justify-center py-12 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
-        <div className="w-6 h-6 bg-emerald-400/20 rounded animate-pulse" />
+        <div className="w-6 h-6 bg-emerald-400/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -89,8 +89,7 @@ export default function HsCoachDashboardLayout({ children }: { children: ReactNo
                       {tab.label}
                     </Link>
                   </TabsTrigger>
-                ))
-              )}
+                )})
             </TabsList>
           </Tabs>
         </div>

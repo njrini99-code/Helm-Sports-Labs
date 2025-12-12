@@ -138,8 +138,7 @@ export async function getPlayerPrograms(playerId: string): Promise<PlayerProgram
         eventCount: 1,
         lastEventDate: eventDate,
       });
-    }
-  });
+    });
 
   const showcaseOrgs = Array.from(orgMap.values())
     .map(({ org, eventCount, lastEventDate }) => ({

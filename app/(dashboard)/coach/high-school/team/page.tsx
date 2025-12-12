@@ -126,7 +126,7 @@ export default function HighSchoolTeamPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0B0D0F] flex items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
-        <div className="w-8 h-8 bg-blue-400/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-blue-400/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -155,7 +155,7 @@ export default function HighSchoolTeamPage() {
             media.map(m => ({
               ...m,
               team_id: team.id,
-            }))
+            })}
           );
 
   return (

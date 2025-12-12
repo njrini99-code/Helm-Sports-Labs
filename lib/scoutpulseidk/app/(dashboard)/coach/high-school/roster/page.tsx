@@ -207,8 +207,7 @@ function PlayerModal({ isOpen, onClose, player, onSave, loading }: PlayerModalPr
             {player ? 'Update player information' : 'Enter player details to add them to your roster'}
           </DialogDescription>
         </DialogHeader>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
+<form onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Info */}
           <div className="space-y-4">
             <h3 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>
@@ -249,8 +248,7 @@ function PlayerModal({ isOpen, onClose, player, onSave, loading }: PlayerModalPr
               </div>
             </div>
           </div>
-
-          {/* Baseball Info */}
+{/* Baseball Info */}
           <div className="space-y-4">
             <h3 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>
               Baseball Information
@@ -268,7 +266,7 @@ function PlayerModal({ isOpen, onClose, player, onSave, loading }: PlayerModalPr
                   <SelectContent>
                     {POSITIONS.map((pos) => (
                       <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-                    ))}
+)}
                   </SelectContent>
                 </Select>
               </div>
@@ -285,7 +283,7 @@ function PlayerModal({ isOpen, onClose, player, onSave, loading }: PlayerModalPr
                     <SelectItem value="none">None</SelectItem>
                     {POSITIONS.map((pos) => (
                       <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-                    ))}
+)}
                   </SelectContent>
                 </Select>
               </div>
@@ -311,7 +309,7 @@ function PlayerModal({ isOpen, onClose, player, onSave, loading }: PlayerModalPr
                   <SelectContent>
                     {GRAD_YEARS.map((year) => (
                       <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
-                    ))}
+)}
                   </SelectContent>
                 </Select>
               </div>
@@ -348,8 +346,7 @@ function PlayerModal({ isOpen, onClose, player, onSave, loading }: PlayerModalPr
               </div>
             </div>
           </div>
-
-          {/* Physical & Academic */}
+{/* Physical & Academic */}
           <div className="space-y-4">
             <h3 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>
               Physical & Academic
@@ -393,8 +390,7 @@ function PlayerModal({ isOpen, onClose, player, onSave, loading }: PlayerModalPr
               </div>
             </div>
           </div>
-
-          {/* Notes */}
+{/* Notes */}
           <div>
             <Label htmlFor="notes">Notes</Label>
             <Textarea
@@ -405,8 +401,7 @@ function PlayerModal({ isOpen, onClose, player, onSave, loading }: PlayerModalPr
               className={`min-h-[80px] ${isDark ? 'bg-slate-800 border-slate-700' : ''}`}
             />
           </div>
-
-          <DialogFooter>
+<DialogFooter>
             <Button type="button" variant="outline" onClick={onClose}>
               Cancel
             </Button>
@@ -459,8 +454,7 @@ function CollegeInterestModal({ isOpen, onClose, player }: CollegeInterestModalP
             Track college programs interested in this player
           </DialogDescription>
         </DialogHeader>
-
-        <div className="space-y-4">
+<div className="space-y-4">
           {interests.length === 0 ? (
             <div className="text-center py-8">
               <Building2 className={`w-12 h-12 mx-auto mb-3 ${isDark ? 'text-slate-600' : 'text-slate-400'}`} />
@@ -494,17 +488,15 @@ function CollegeInterestModal({ isOpen, onClose, player }: CollegeInterestModalP
                     </Badge>
                   </div>
                 </div>
-              ))}
+)}
             </div>
-          )}
-
+)}
           <Button variant="outline" className="w-full gap-2">
             <Plus className="w-4 h-4" />
             Add College Interest
           </Button>
         </div>
-
-        <DialogFooter>
+<DialogFooter>
           <Button variant="outline" onClick={onClose}>Close</Button>
         </DialogFooter>
       </DialogContent>
@@ -750,7 +742,7 @@ export default function HSCoachRosterPage() {
 
     const csvContent = [
       headers.join(','),
-      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(',')}
     ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
@@ -776,7 +768,7 @@ export default function HSCoachRosterPage() {
 
     const csvContent = [
       headers.join(','),
-      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(',')}
     ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
@@ -853,8 +845,7 @@ export default function HSCoachRosterPage() {
               </Button>
             </div>
           </div>
-
-          {/* Stats */}
+{/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
             <div className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/50' : 'bg-slate-100'}`}>
               <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{stats.total}</p>
@@ -875,8 +866,7 @@ export default function HSCoachRosterPage() {
           </div>
         </div>
       </div>
-
-      {/* Main Content */}
+{/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-6">
         <Card className={isDark ? 'bg-slate-800/60 border-slate-700' : 'bg-white border-slate-200'}>
           <CardHeader className="pb-4">
@@ -899,7 +889,7 @@ export default function HSCoachRosterPage() {
                   <SelectItem value="all">All Positions</SelectItem>
                   {positions.map((pos) => (
                     <SelectItem key={pos} value={pos || ''}>{pos}</SelectItem>
-                  ))}
+)}
                 </SelectContent>
               </Select>
               <Select value={gradYearFilter} onValueChange={setGradYearFilter}>
@@ -910,18 +900,17 @@ export default function HSCoachRosterPage() {
                   <SelectItem value="all">All Years</SelectItem>
                   {gradYears.map((year) => (
                     <SelectItem key={year} value={year?.toString() || ''}>{year}</SelectItem>
-                  ))}
+)}
                 </SelectContent>
               </Select>
             </div>
-
-            {/* Bulk Actions */}
+{/* Bulk Actions */}
             {selectedIds.size > 0 && (
               <div className={`flex items-center gap-3 mt-4 p-3 rounded-lg ${isDark ? 'bg-slate-700' : 'bg-slate-100'}`}>
                 <span className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>
                   {selectedIds.size} selected
                 </span>
-                <div className="flex-1" />
+                <div className="flex-1"></div>
                 <Button variant="outline" size="sm" onClick={handleBulkExport}>
                   <Download className="w-4 h-4 mr-2" />
                   Export
@@ -930,14 +919,13 @@ export default function HSCoachRosterPage() {
                   <Trash2 className="w-4 h-4 mr-2" />
                   Remove
                 </Button>
-                <Button variant="ghost" size="sm" onClick={() => setSelectedIds(new Set())}>
+                <Button variant="ghost" size="sm" onClick={() => setSelectedIds(new Set(})>
                   <X className="w-4 h-4" />
                 </Button>
               </div>
-            )}
+)}
           </CardHeader>
-
-          <CardContent>
+<CardContent>
             {/* Table */}
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -1014,7 +1002,7 @@ export default function HSCoachRosterPage() {
                             <Plus className="w-4 h-4 mr-2" />
                             Add your first player
                           </Button>
-                        )}
+)}
                       </td>
                     </tr>
                   ) : (
@@ -1086,7 +1074,7 @@ export default function HSCoachRosterPage() {
                               <Plus className="w-4 h-4" />
                               Add
                             </Button>
-                          )}
+)}
                         </td>
                         <td className="py-3 px-4">
                           <div className="flex items-center justify-end gap-1">
@@ -1129,25 +1117,22 @@ export default function HSCoachRosterPage() {
                           </div>
                         </td>
                       </tr>
-                    ))
-                  )}
+                    )})
                 </tbody>
               </table>
             </div>
-
-            {/* Pagination placeholder */}
+{/* Pagination placeholder */}
             {filteredRoster.length > 0 && (
               <div className={`flex items-center justify-between mt-4 pt-4 border-t ${isDark ? 'border-slate-700' : 'border-slate-200'}`}>
                 <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                   Showing {filteredRoster.length} of {roster.length} players
                 </p>
               </div>
-            )}
+)}
           </CardContent>
         </Card>
       </div>
-
-      {/* Modals */}
+{/* Modals */}
       <PlayerModal
         isOpen={playerModalOpen}
         onClose={() => setPlayerModalOpen(false)}

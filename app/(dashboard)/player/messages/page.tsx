@@ -36,7 +36,6 @@ import {
   glassButton as glassButtonEnhanced,
   glassDarkZone as glassDarkZoneEnhanced,
   glassListItem as glassListItemEnhanced,
-  cn as cnEnhanced,
 } from '@/lib/glassmorphism-enhanced';
 import { motion } from 'framer-motion';
 import { pageTransition } from '@/lib/animations';
@@ -347,20 +346,19 @@ export default function PlayerMessagesPage() {
       className={cn(glassDarkZoneEnhanced, "min-h-screen pb-12 relative overflow-hidden")}
       initial={pageTransition.initial}
       animate={pageTransition.animate}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
+      transition={{duration: 0.3, ease: 'easeOut' }}
     >
       {/* Animated gradient orbs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '0s' }} />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
-      
-      <div className="max-w-6xl mx-auto px-4 md:px-6 py-8 relative z-10">
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '0s' }}></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/15 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '1s' }}></div>
+<div className="max-w-6xl mx-auto px-4 md:px-6 py-8 relative z-10">
         
         {/* Premium Glass Header */}
         <motion.div 
           className="mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={ opacity: 0, y: 20 }
+          animate={ opacity: 1, y: 0 }
+          transition={{duration: 0.5 }}
         >
           <div className="flex items-center justify-between">
             <div>
@@ -376,11 +374,10 @@ export default function PlayerMessagesPage() {
               )}>
                 {totalUnread} unread
               </Badge>
-            )}
+)}
           </div>
         </motion.div>
-
-        {/* Premium Glass Chat Container */}
+      {/* Premium Glass Chat Container */}
         <div className={cnEnhanced(glassPanelEnhanced, 'overflow-hidden h-[calc(100vh-200px)] flex')}>
           
           {/* Conversations List (Left) */}
@@ -401,8 +398,7 @@ export default function PlayerMessagesPage() {
                 />
               </div>
             </div>
-
-            {/* Conversation List */}
+      {/* Conversation List */}
             <div className="flex-1 overflow-y-auto">
               {conversations.length === 0 ? (
                 <div className="p-8 text-center">
@@ -418,7 +414,7 @@ export default function PlayerMessagesPage() {
                     .filter(conv => 
                       !searchQuery || 
                       conv.program_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                      conv.coach_name?.toLowerCase().includes(searchQuery.toLowerCase())
+                      conv.coach_name?.toLowerCase().includes(searchQuery.toLowerCase()}
                     )
                     .map((conv) => (
                       <button
@@ -443,7 +439,7 @@ export default function PlayerMessagesPage() {
                               <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                                 {conv.unread_count}
                               </span>
-                            )}
+)}
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between mb-0.5">
@@ -457,7 +453,7 @@ export default function PlayerMessagesPage() {
                                 <span className="text-[10px] text-white/40 flex-shrink-0 ml-2">
                                   {formatTime(conv.last_message_at)}
                                 </span>
-                              )}
+)}
                             </div>
                             <p className={cn(
                               'text-sm truncate',
@@ -468,13 +464,12 @@ export default function PlayerMessagesPage() {
                           </div>
                         </div>
                       </button>
-                    ))}
+)}
                 </div>
-              )}
+)}
             </div>
           </div>
-
-          {/* Chat View (Right) */}
+      {/* Chat View (Right) */}
           <div className={cn(
             'flex-1 flex flex-col',
             showMobileChat ? 'flex' : 'hidden md:flex'
@@ -516,8 +511,7 @@ export default function PlayerMessagesPage() {
                     </button>
                   </div>
                 </div>
-
-                {/* Messages */}
+      {/* Messages */}
                 <div className="flex-1 overflow-y-auto p-4 space-y-4">
                   {messages.length === 0 ? (
                     <div className="h-full flex items-center justify-center">
@@ -548,8 +542,8 @@ export default function PlayerMessagesPage() {
                                     {selectedConv.program_name?.[0] || 'C'}
                                   </AvatarFallback>
                                 </Avatar>
-                              )}
-                              {!isPlayer && !showAvatar && <div className="w-7" />}
+)}
+                              {!isPlayer && !showAvatar && <div className="w-7"></div>}
                               
                               <div
                                 className={cn(
@@ -582,12 +576,11 @@ export default function PlayerMessagesPage() {
                           </div>
                         );
                       })}
-                      <div ref={messagesEndRef} />
+                      <div ref={messagesEndRef}></div>
                     </>
                   )}
                 </div>
-
-                {/* Message Input */}
+      {/* Message Input */}
                 <div className="p-4 border-t border-white/[0.08]">
                   <div className="flex items-center gap-2">
                     <button className="p-2.5 rounded-xl hover:bg-white/[0.05] transition-colors text-white/50 hover:text-white/70">
@@ -622,7 +615,7 @@ export default function PlayerMessagesPage() {
                       )}
                     >
                       {sending ? (
-                        <div className="w-5 h-5 bg-white/20 rounded animate-pulse" />
+                        <div className="w-5 h-5 bg-white/20 rounded animate-pulse"></div>
                       ) : (
                         <Send className="w-4 h-4" strokeWidth={2} />
                       )}
@@ -640,7 +633,7 @@ export default function PlayerMessagesPage() {
                   <p className="text-xs text-white/40 mt-1">Choose a coach or program to message</p>
                 </div>
               </div>
-            )}
+)}
           </div>
         </div>
       </div>

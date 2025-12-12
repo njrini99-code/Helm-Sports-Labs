@@ -14,8 +14,7 @@ export function QuickLogFAB() {
       >
         <Plus className="w-8 h-8 group-hover:rotate-90 transition-transform" />
       </button>
-
-      <QuickLogModal
+<QuickLogModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />

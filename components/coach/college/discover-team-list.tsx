@@ -65,21 +65,21 @@ export function DiscoverTeamList({ teams }: DiscoverTeamListProps) {
                     <span className="inline-flex items-center gap-1 text-xs text-slate-400">
                       <MapPin className="w-3 h-3" /> {team.city}, {team.state}
                     </span>
-                  )}
+)}
                 </div>
                 <div className="flex gap-3 text-xs text-slate-400 mt-2">
                   {team.playersCount !== undefined && (
                     <span className="inline-flex items-center gap-1">
                       <Users className="w-3 h-3" /> {team.playersCount} on ScoutPulse
                     </span>
-                  )}
+)}
                   {team.committedCount !== undefined && (
                     <span className="inline-flex items-center gap-1">
                       <Badge variant="outline" className="text-[10px] bg-emerald-500/10 text-emerald-200 border-emerald-500/30">
                         {team.committedCount} commitments
                       </Badge>
                     </span>
-                  )}
+)}
                 </div>
                 <div className="mt-3 flex gap-2">
                   <Button 
@@ -96,7 +96,7 @@ export function DiscoverTeamList({ teams }: DiscoverTeamListProps) {
             </div>
           </CardContent>
         </Card>
-      ))}
+)}
     </div>
   );
 }

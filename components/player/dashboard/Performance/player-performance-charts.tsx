@@ -32,8 +32,7 @@ export function PlayerPerformanceCharts({
                 <Bar label="FT%" value={point.ftPct ?? 0} />
               </div>
             </div>
-          ))
-        )}
+          )})
       </div>
     </Card>
   );
@@ -50,8 +49,7 @@ function Bar({ label, value }: { label: string; value: number }) {
       <div className="h-1.5 rounded-full bg-white/10 mt-1">
         <div
           className="h-1.5 rounded-full bg-emerald-500"
-          style={{ width: `${clamped}%` }}
-        />
+          style={{ width: `${clamped}}%` }}></div>
       </div>
     </div>
   );

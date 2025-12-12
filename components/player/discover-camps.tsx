@@ -68,7 +68,7 @@ export function DiscoverCamps({ camps, onInterested, onAttending }: DiscoverCamp
               </Button>
             </div>
           </div>
-        ))}
+)}
       </CardContent>
     </Card>
   );

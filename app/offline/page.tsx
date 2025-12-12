@@ -17,13 +17,11 @@ export default function OfflinePage() {
         <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto mb-6 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <WifiOff className="w-10 h-10 text-white" />
         </div>
-        
-        <h1 className="text-3xl font-bold text-white mb-4">You're Offline</h1>
+      <h1 className="text-3xl font-bold text-white mb-4">You're Offline</h1>
         <p className="text-gray-400 mb-8">
           It looks like you've lost your internet connection. Please check your network settings and try again.
         </p>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <AnimatedButton
             variant="primary"
             size="lg"
@@ -33,8 +31,7 @@ export default function OfflinePage() {
             <RefreshCw className="w-5 h-5 mr-2" />
             Retry
           </AnimatedButton>
-          
-          <Link href="/">
+      <Link href="/">
             <AnimatedButton
               variant="secondary"
               size="lg"
@@ -44,8 +41,7 @@ export default function OfflinePage() {
             </AnimatedButton>
           </Link>
         </div>
-
-        <div className="mt-8 p-4 bg-white/5 rounded-xl border border-white/10">
+      <div className="mt-8 p-4 bg-white/5 rounded-xl border border-white/10">
           <p className="text-sm text-gray-400">
             Some features may still work offline if you've visited them before.
           </p>

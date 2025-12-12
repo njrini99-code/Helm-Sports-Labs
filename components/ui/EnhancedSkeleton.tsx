@@ -47,8 +47,7 @@ export function Skeleton({
         animationClasses[animation],
         className
       )}
-      style={style}
-    />
+      style={{style}}></div>
   );
 }
 
@@ -71,7 +70,7 @@ export function SkeletonText({
           height={lineHeight}
           className={i === lines - 1 ? 'w-2/3' : 'w-full'}
         />
-      ))}
+      })
     </div>
   );
 }
@@ -108,16 +107,16 @@ export function SkeletonTable({
       <div className="flex gap-4 p-3 bg-white/5 rounded-2xl">
         {Array.from({ length: cols }).map((_, i) => (
           <Skeleton key={i} height="1rem" className="flex-1" />
-        ))}
+        })
       </div>
       {/* Rows */}
       {Array.from({ length: rows }).map((_, rowIndex) => (
         <div key={rowIndex} className="flex gap-4 p-3">
           {Array.from({ length: cols }).map((_, colIndex) => (
             <Skeleton key={colIndex} height="1rem" className="flex-1" />
-          ))}
+          })
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -137,7 +136,6 @@ export function DashboardSkeleton({ className }: { className?: string }) {
           <Skeleton width={128} height={40} className="rounded-2xl" />
         </div>
       </div>
-
       {/* Stats cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[1, 2, 3, 4].map((i) => (
@@ -145,7 +143,7 @@ export function DashboardSkeleton({ className }: { className?: string }) {
             key={i}
             className="p-5 rounded-xl bg-white/5 border border-white/10 space-y-3"
             style={{
-              animationDelay: `${i * 50}ms`,
+              animationDelay: `${i * 50}}ms`,
             }}
           >
             <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
@@ -155,9 +153,8 @@ export function DashboardSkeleton({ className }: { className?: string }) {
             <Skeleton height="2rem" className="w-20" />
             <Skeleton height="0.75rem" className="w-16" />
           </div>
-        ))}
+)}
       </div>
-
       {/* Main content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/10 space-y-4">
@@ -175,7 +172,7 @@ export function DashboardSkeleton({ className }: { className?: string }) {
                   <Skeleton height="0.75rem" className="w-2/3" />
                 </div>
               </div>
-            ))}
+)}
           </div>
         </div>
       </div>

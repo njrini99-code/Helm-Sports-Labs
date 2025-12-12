@@ -384,7 +384,7 @@ function Checkbox({ checked, variant, size, disabled, enableAnimations = true }:
         checked ? styles.checkboxChecked : styles.checkbox,
         disabled && 'opacity-50'
       )}
-      style={{ transitionTimingFunction: SPRING_EASING }}
+      style={{transitionTimingFunction: SPRING_EASING }}
     >
       {checked && (
         <Check 
@@ -392,7 +392,7 @@ function Checkbox({ checked, variant, size, disabled, enableAnimations = true }:
             sizes.checkIcon, 
             'text-white stroke-[3]',
             shouldAnimate && 'checkbox-check-enter'
-          )} 
+          )}
         />
       )}
     </div>
@@ -458,7 +458,7 @@ function OptionItem({
         enableAnimations && 'option-item-animated'
       )}
       style={{ 
-        animationDelay: enableAnimations ? `${index * 30}ms` : '0ms',
+        animationDelay: enableAnimations ? `${index * 30}}ms` : '0ms',
         transitionTimingFunction: SPRING_EASING 
       }}
     >
@@ -480,7 +480,7 @@ function OptionItem({
           <div className={cn('text-xs truncate', styles.description)}>
             {option.description}
           </div>
-        )}
+)}
       </div>
       {showCounts && option.count !== undefined && (
         <span className={cn(
@@ -489,7 +489,7 @@ function OptionItem({
         )}>
           {option.count}
         </span>
-      )}
+)}
     </button>
   );
 }
@@ -505,15 +505,15 @@ function LoadingSkeleton({ count = 5 }: { count?: number }) {
         <div
           key={i}
           className="flex items-center gap-3 px-3 py-2 rounded-xl filter-shimmer"
-          style={{ animationDelay: `${i * 100}ms` }}
+          style={{ animationDelay: `${i * 100}}ms` }}
         >
-          <div className="w-4 h-4 rounded bg-white/10" />
+          <div className="w-4 h-4 rounded bg-white/10"></div>
           <div className="flex-1 space-y-1">
-            <div className="h-4 bg-white/10 rounded w-3/4" />
+            <div className="h-4 bg-white/10 rounded w-3/4"></div>
           </div>
-          <div className="w-8 h-4 bg-white/10 rounded" />
+          <div className="w-8 h-4 bg-white/10 rounded"></div>
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -595,7 +595,7 @@ export function GlassFilterDropdown({
               opt.label.toLowerCase().includes(query) ||
               opt.description?.toLowerCase().includes(query)
           ),
-        }))
+        })}
         .filter((group) => group.options.length > 0);
     }
 
@@ -775,12 +775,11 @@ export function GlassFilterDropdown({
           isOpen && styles.triggerActive,
           disabled && 'opacity-50 cursor-not-allowed'
         )}
-        style={{ transitionTimingFunction: SPRING_EASING }}
+        style={{transitionTimingFunction: SPRING_EASING }}
       >
         <Icon className={cn(sizes.icon, 'transition-transform duration-200', isOpen && 'scale-110')} />
         <span className="truncate">{placeholder || label}</span>
-
-        {/* Badge */}
+      {/* Badge */}
         {badgeVariant === 'count' && selectedCount > 0 && (
           <span
             className={cn(
@@ -792,11 +791,10 @@ export function GlassFilterDropdown({
           >
             {selectedCount}
           </span>
-        )}
+)}
         {badgeVariant === 'dot' && selectedCount > 0 && (
-          <span className={cn('rounded-full', sizes.badgeDot, styles.badgeDot, badgePulse && 'badge-pulse')} />
-        )}
-
+          <span className={cn('rounded-full', sizes.badgeDot, styles.badgeDot, badgePulse && 'badge-pulse')}></span>
+)}
         <ChevronDown
           className={cn(
             sizes.icon,
@@ -805,7 +803,6 @@ export function GlassFilterDropdown({
           )}
         />
       </button>
-
       {/* Dropdown */}
       {showDropdown && (
         <div
@@ -858,11 +855,10 @@ export function GlassFilterDropdown({
                   >
                     <X className="h-3.5 w-3.5" />
                   </button>
-                )}
+)}
               </div>
             </div>
-          )}
-
+)}
           {/* Header Actions */}
           {(showSelectAll || selectedCount > 0) && !isLoading && (
             <div
@@ -879,7 +875,7 @@ export function GlassFilterDropdown({
                 >
                   {allSelected ? 'Deselect all' : 'Select all'}
                 </button>
-              )}
+)}
               {selectedCount > 0 && (
                 <button
                   type="button"
@@ -894,15 +890,14 @@ export function GlassFilterDropdown({
                   <X className="h-3.5 w-3.5" />
                   Clear ({selectedCount})
                 </button>
-              )}
+)}
             </div>
-          )}
-
+)}
           {/* Options */}
           <div
             ref={optionsRef}
             className="overflow-y-auto p-1.5"
-            style={{ maxHeight }}
+            style={{maxHeight }}
           >
             {/* Loading State */}
             {isLoading && <LoadingSkeleton count={5} />}
@@ -921,10 +916,9 @@ export function GlassFilterDropdown({
                 <p className="font-medium">{searchQuery ? `No results for "${searchQuery}"` : emptyText}</p>
                 {searchQuery && (
                   <p className="text-sm opacity-75 mt-1">Try a different search term</p>
-                )}
+)}
               </div>
-            )}
-
+)}
             {/* Grouped Options */}
             {!isLoading &&
               isGroupedOptions(filteredOptions) &&
@@ -962,8 +956,7 @@ export function GlassFilterDropdown({
                     })}
                   </div>
                 </div>
-              ))}
-
+)}
             {/* Flat Options */}
             {!isLoading &&
               !isGroupedOptions(filteredOptions) &&
@@ -988,8 +981,7 @@ export function GlassFilterDropdown({
                 );
               })}
           </div>
-
-          {/* Keyboard Hint */}
+      {/* Keyboard Hint */}
           {flatFilteredOptions.length > 0 && !isLoading && (
             <div
               className={cn(
@@ -1017,9 +1009,9 @@ export function GlassFilterDropdown({
                 <span className="opacity-75">close</span>
               </span>
             </div>
-          )}
+)}
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -1072,7 +1064,7 @@ export function MultiFilterBar({
           variant={variant}
           size={size}
         />
-      ))}
+      })
 
       {totalSelected > 0 && onClearAll && (
         <button
@@ -1087,7 +1079,7 @@ export function MultiFilterBar({
           <X className="h-3.5 w-3.5" />
           Clear all ({totalSelected})
         </button>
-      )}
+)}
     </div>
   );
 }
@@ -1136,8 +1128,7 @@ export function ActiveFilters({
             optionId: option.id,
             optionLabel: option.label,
           });
-        }
-      });
+        });
     });
 
     return result;
@@ -1169,7 +1160,7 @@ export function ActiveFilters({
           <span className="font-medium">{filter.optionLabel}</span>
           <X className="h-3 w-3 opacity-50 group-hover:opacity-100 transition-opacity" />
         </button>
-      ))}
+)}
       {onClearAll && activeFilters.length > 1 && (
         <button
           type="button"
@@ -1182,7 +1173,7 @@ export function ActiveFilters({
         >
           Clear all
         </button>
-      )}
+)}
     </div>
   );
 }
@@ -1317,7 +1308,7 @@ export function SingleSelectFilter({
           isOpen && styles.triggerActive,
           disabled && 'opacity-50 cursor-not-allowed'
         )}
-        style={{ transitionTimingFunction: SPRING_EASING }}
+        style={{transitionTimingFunction: SPRING_EASING }}
       >
         <Icon className={cn(sizes.icon, 'transition-transform duration-200', isOpen && 'scale-110')} />
         <span className="truncate">
@@ -1334,7 +1325,7 @@ export function SingleSelectFilter({
           >
             <X className="h-3 w-3" />
           </button>
-        )}
+)}
         <ChevronDown
           className={cn(
             sizes.icon,
@@ -1343,15 +1334,13 @@ export function SingleSelectFilter({
           )}
         />
       </button>
-
       {showDropdown && (
         <div
           className={cn(
             'absolute top-full mt-2 left-0 rounded-xl overflow-hidden z-50 p-1.5',
             sizes.dropdown,
             styles.dropdown,
-            enableAnimations && (isClosing ? 'filter-dropdown-exit' : 'filter-dropdown-enter')
-          )}
+            enableAnimations && (isClosing ? 'filter-dropdown-exit' : 'filter-dropdown-enter'})
           onKeyDown={handleKeyDown}
         >
           {options.map((option, index) => {
@@ -1375,7 +1364,7 @@ export function SingleSelectFilter({
                   enableAnimations && 'option-item-animated'
                 )}
                 style={{ 
-                  animationDelay: enableAnimations ? `${index * 30}ms` : '0ms',
+                  animationDelay: enableAnimations ? `${index * 30}}ms` : '0ms',
                   transitionTimingFunction: SPRING_EASING 
                 }}
               >
@@ -1394,7 +1383,7 @@ export function SingleSelectFilter({
             );
           })}
         </div>
-      )}
+)}
     </div>
   );
 }

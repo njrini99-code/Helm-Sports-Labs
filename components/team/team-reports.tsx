@@ -126,7 +126,7 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
                 <Plus className="w-4 h-4 mr-2" />
                 Add Commitment
               </Button>
-            )}
+)}
           </div>
         </CardHeader>
         <CardContent>
@@ -161,8 +161,7 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
                   );
                 })}
               </div>
-
-              {/* Commitments List */}
+      {/* Commitments List */}
               <div className="space-y-2">
                 {commitments.map((commit, idx) => (
                   <div
@@ -188,15 +187,14 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
                       >
                         View Profile
                       </Button>
-                    )}
+)}
                   </div>
-                ))}
+)}
               </div>
             </div>
-          )}
+)}
         </CardContent>
       </Card>
-
       {/* Verified Stats */}
       <Card className="bg-[#111315] border-white/5">
         <CardHeader>
@@ -210,7 +208,7 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
                 <Plus className="w-4 h-4 mr-2" />
                 Add Verified Stat
               </Button>
-            )}
+)}
           </div>
         </CardHeader>
         <CardContent>
@@ -260,7 +258,7 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
                             Add to Watchlist
                           </Button>
                         </div>
-                      )}
+)}
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                       {stats.map((stat) => (
@@ -269,18 +267,17 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
                           <div className="text-white font-semibold">{stat.value}</div>
                           {stat.event_name && (
                             <div className="text-xs text-slate-500 mt-1">{stat.event_name}</div>
-                          )}
+)}
                         </div>
-                      ))}
+)}
                     </div>
                   </div>
                 );
               })}
             </div>
-          )}
+)}
         </CardContent>
       </Card>
-
       {/* Export Options */}
       {isOwner && (
         <Card className="bg-[#111315] border-white/5">
@@ -298,7 +295,7 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
             </Button>
           </CardContent>
         </Card>
-      )}
+)}
     </div>
   );
 }

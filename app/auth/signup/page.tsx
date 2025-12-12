@@ -16,12 +16,10 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 flex items-center justify-center px-4">
       <SkipLink href="#signup-content">Skip to signup content</SkipLink>
-      
       {/* Theme Toggle */}
       <div className="absolute top-4 right-4 z-20">
         <ThemeToggle />
       </div>
-
       <div id="signup-content" className="w-full max-w-md">
         <Link 
           href="/" 
@@ -31,8 +29,7 @@ export default function SignupPage() {
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
           Back to home
         </Link>
-
-        <div className="bg-slate-900/90 dark:bg-slate-900/90 rounded-2xl p-8 border border-white/5 dark:border-white/5 shadow-2xl backdrop-blur-xl">
+      <div className="bg-slate-900/90 dark:bg-slate-900/90 rounded-2xl p-8 border border-white/5 dark:border-white/5 shadow-2xl backdrop-blur-xl">
           <div className="text-center mb-8">
             <Link 
               href="/" 
@@ -46,8 +43,7 @@ export default function SignupPage() {
               <p className="text-xs text-amber-400 dark:text-amber-400">⚡ Auth bypassed for development</p>
             </div>
           </div>
-
-          <EmptyState
+      <EmptyState
             icon={<UserPlus className="h-12 w-12" />}
             title="Development Mode"
             description="Email authentication is disabled for development. Use the login page to select a dashboard to view."

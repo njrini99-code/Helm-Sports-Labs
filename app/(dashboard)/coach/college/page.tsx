@@ -475,7 +475,6 @@ export default function CollegeCoachDashboard() {
     >
       {/* Skip Link */}
       <SkipLink href="#main-dashboard-content">Skip to main content</SkipLink>
-
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 pt-4">
         <Breadcrumbs
@@ -485,97 +484,78 @@ export default function CollegeCoachDashboard() {
           ]}
         />
       </div>
-
       {/* ═══════════════════════════════════════════════════════════════════
           ULTIMATE GLASSMORPHISM HERO ZONE
       ═══════════════════════════════════════════════════════════════════ */}
       <div id="main-dashboard-content" className={cn(glassDarkZoneEnhanced, "pb-12 relative overflow-hidden")}>
         {/* Animated gradient orbs */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '0s' }} />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
-        
-        {/* Subtle grid pattern */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '0s' }}></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/15 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '1s' }}></div>
+{/* Subtle grid pattern */}
         <div 
           className="absolute inset-0 opacity-[0.02] pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
-
-        <div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 space-y-8 relative z-10">
+          style={{backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+<div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 space-y-8 relative z-10">
           
       {/* ═══════════════════════════════════════════════════════════════════
           PREMIUM GLASSMORPHISM HERO BANNER
       ═══════════════════════════════════════════════════════════════════ */}
       <motion.section 
         className="relative"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
+        initial={ opacity: 0, y: 20 }
+        animate={ opacity: 1, y: 0 }
+        transition={{duration: 0.6, ease: 'easeOut' }}
       >
         {/* Subtle multi-stop radial glow - ambient shine */}
         <div 
           className="absolute inset-0 pointer-events-none"
           style={{
             background: `
-              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}18, ${programColor}08 40%, transparent 70%),
+              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}}18, ${programColor}08 40%, transparent 70%),
               radial-gradient(ellipse 60% 40% at 75% 60%, ${programColor}10, transparent 50%)
             `,
-          }}
-        />
-        
-        {/* Micro-noise texture overlay */}
+          }}></div>
+{/* Micro-noise texture overlay */}
         <div 
           className="absolute inset-0 pointer-events-none opacity-[0.04]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          style={{backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'repeat',
-          }}
-        />
-        
-        {/* Vignette effect around edges */}
+          }}></div>
+{/* Vignette effect around edges */}
         <div 
           className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `radial-gradient(ellipse 100% 100% at 50% 50%, transparent 50%, rgba(0,0,0,0.2) 100%)`,
-          }}
-        />
-        
-        {/* Subtle grid pattern */}
+          style={{background: `radial-gradient(ellipse 100% 100% at 50% 50%, transparent 50%, rgba(0,0,0,0.2) 100%)`,
+          }}></div>
+{/* Subtle grid pattern */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:40px_40px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:40px_40px]"></div>
         </div>
-        
-        {/* Soft ambient orbs - very subtle */}
+      {/* Soft ambient orbs - very subtle */}
         <div 
           className="absolute -top-20 -right-20 w-80 h-80 rounded-full blur-[100px] opacity-[0.12] pointer-events-none"
-          style={{ background: programColor }}
-        />
+          style={{background: programColor }}></div>
         <div 
           className="absolute -bottom-32 -left-20 w-64 h-64 rounded-full blur-[80px] opacity-[0.08] pointer-events-none"
-          style={{ background: programColor }}
-        />
-
-        <div id="main-dashboard-content" className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
+          style={{background: programColor }}></div>
+<div id="main-dashboard-content" className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             {/* Floating Logo Badge with Glow */}
             <div className="relative group">
               <div 
                 className="absolute inset-0 rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity"
-                style={{ background: programColor }}
-              />
+                style={{background: programColor }}></div>
               <Avatar className="relative h-20 w-20 md:h-24 md:w-24 ring-4 ring-white/20 shadow-2xl rounded-2xl">
                 <AvatarImage src={coach?.logo_url ?? undefined} className="rounded-2xl object-cover" />
                 <AvatarFallback 
                   className="rounded-2xl text-2xl md:text-3xl font-bold text-white"
-                  style={{ background: programColor }}
+                  style={{background: programColor }}
                 >
                   {programInitials}
                 </AvatarFallback>
               </Avatar>
             </div>
-
-            {/* Program Info Card */}
+      {/* Program Info Card */}
             <div className="flex-1 min-w-0">
               <div className={`${glassCard} p-4 md:p-5`}>
                 <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
@@ -588,24 +568,21 @@ export default function CollegeCoachDashboard() {
                   <UserCheck className="w-3 h-3" />
                   {coach?.full_name || 'Nicholas Rini'} — {coach?.coach_title || 'Head Coach'}
                 </p>
-                
-                {/* Philosophy tagline */}
+      {/* Philosophy tagline */}
                 <p className="text-white/40 text-xs italic mt-3 line-clamp-1">
                   "{philosophy}"
                 </p>
-
-                {/* Profile Completion */}
+      {/* Profile Completion */}
                 <div className="mt-4 flex items-center gap-4">
                   <div className="flex-1 max-w-xs">
                     <div className="flex items-center justify-between text-[10px] mb-1">
                       <span className="text-white/50 uppercase tracking-wide">Profile</span>
-                      <span className="font-semibold" style={{ color: programColor }}>{profileCompletion}%</span>
+                      <span className="font-semibold" style={{color: programColor }}>{profileCompletion}%</span>
                     </div>
                     <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
                       <div 
                         className="h-full rounded-full transition-all duration-1000 ease-out"
-                        style={{ width: `${profileCompletion}%`, background: programColor }}
-                      />
+                        style={{ width: `${profileCompletion}}%`, background: programColor }}></div>
                     </div>
                   </div>
                   <Link href="/coach/college/program">
@@ -617,13 +594,12 @@ export default function CollegeCoachDashboard() {
                 </div>
               </div>
             </div>
-
-            {/* Action Buttons */}
+      {/* Action Buttons */}
             <div className="flex gap-2 w-full md:w-auto">
               <Link href="/coach/college/program" className="flex-1 md:flex-none">
                 <Button 
                   className="w-full h-10 gap-2 text-white shadow-lg hover:shadow-xl transition-all text-sm font-medium"
-                  style={{ background: programColor }}
+                  style={{background: programColor }}
                 >
                   <Edit className="w-4 h-4" />
                   Edit Profile
@@ -642,7 +618,7 @@ export default function CollegeCoachDashboard() {
         </motion.div>
       </section>
       <section className="max-w-7xl mx-auto px-4 md:px-6 -mt-5 relative z-10">
-        <motion.div 
+        <motion.div
           className="grid grid-cols-3 gap-3 md:gap-4"
           variants={staggerContainer as any}
           initial="hidden"
@@ -683,7 +659,6 @@ export default function CollegeCoachDashboard() {
           </motion.div>
         </motion.div>
       </section>
-
       {/* ═══════════════════════════════════════════════════════════════════
           MAIN CONTENT GRID
       ═══════════════════════════════════════════════════════════════════ */}
@@ -698,7 +673,7 @@ export default function CollegeCoachDashboard() {
                 <div>
                   <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
                     Activity Feed
-                    <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                    <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
                   </h2>
                   <p className="text-xs text-muted-foreground">Recent interactions with your program</p>
                 </div>
@@ -706,7 +681,7 @@ export default function CollegeCoachDashboard() {
                   <SelectTrigger className="w-[130px] h-8 text-xs bg-muted/50 border-border/50">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+        <SelectContent>
                     <SelectItem value="all">All activity</SelectItem>
                     <SelectItem value="followers">Follows</SelectItem>
                     <SelectItem value="top5">Top 5 mentions</SelectItem>
@@ -715,8 +690,7 @@ export default function CollegeCoachDashboard() {
                   </SelectContent>
                 </Select>
               </motion.div>
-
-              <div className="divide-y divide-border/30">
+      <div className="divide-y divide-border/30">
                 {filteredActivities.map((activity) => (
                   <ActivityRow
                     key={activity.id}
@@ -725,10 +699,9 @@ export default function CollegeCoachDashboard() {
                     onView={() => handleViewPlayer(activity.playerId)}
                     onToggleWatchlist={() => toggleWatchlist(activity.playerId, activity.user.name)}
                   />
-                ))}
+                })
               </div>
-
-              <div className="px-5 py-3 bg-muted/30 border-t border-border/30">
+      <div className="px-5 py-3 bg-muted/30 border-t border-border/30">
                 <Link href="/coach/college/messages">
                   <button className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center justify-center gap-1 group">
                     View all messages & interactions
@@ -738,8 +711,7 @@ export default function CollegeCoachDashboard() {
               </motion.div>
             </motion.div>
           </motion.div>
-
-          {/* RIGHT COLUMN - Pipeline + Camps */}
+      {/* RIGHT COLUMN - Pipeline + Camps */}
           <div className="space-y-5">
             {/* Recruiting Pipeline */}
             <div className={`${glassPanel} p-5`}>
@@ -755,8 +727,7 @@ export default function CollegeCoachDashboard() {
                   </Button>
                 </Link>
               </motion.div>
-
-              <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3">
                 <PipelineCard
                   icon={<Bookmark className="w-[18px] h-[18px]" strokeWidth={1.75} />}
                   label="Watchlist"
@@ -790,8 +761,7 @@ export default function CollegeCoachDashboard() {
                   onClick={() => handlePipelineClick('committed')}
                 />
               </motion.div>
-
-              <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-border/30">
+      <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-border/30">
                 <Link href="/coach/college/discover">
                   <Button variant="outline" size="sm" className="w-full h-9 text-xs gap-1.5 border-border/50 hover:bg-muted/50">
                     <Users className="w-4 h-4" />
@@ -806,8 +776,7 @@ export default function CollegeCoachDashboard() {
                 </Link>
               </motion.div>
             </motion.div>
-
-            {/* Upcoming Camps - Horizontal Scroll */}
+      {/* Upcoming Camps - Horizontal Scroll */}
             <Card glass className="rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
                 <div>
@@ -821,8 +790,7 @@ export default function CollegeCoachDashboard() {
                   </Button>
                 </Link>
               </motion.div>
-
-              {/* Horizontal Scrollable Camps */}
+      {/* Horizontal Scrollable Camps */}
               <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x snap-mandatory scrollbar-hide">
                 {camps.map((camp) => (
                   <CampCard
@@ -831,13 +799,12 @@ export default function CollegeCoachDashboard() {
                     programColor={programColor}
                     onClick={() => handleCampClick(camp.id)}
                   />
-                ))}
+                })
               </motion.div>
-
-              <Link href="/coach/college/camps?action=create" className="block mt-4">
+      <Link href="/coach/college/camps?action=create" className="block mt-4">
                 <Button 
                   className="w-full h-9 gap-2 text-white text-xs font-medium shadow-lg hover:shadow-xl transition-all"
-                  style={{ background: programColor }}
+                  style={{background: programColor }}
                 >
                   <Plus className="w-4 h-4" />
                   Create New Camp
@@ -847,7 +814,6 @@ export default function CollegeCoachDashboard() {
           </motion.div>
         </motion.div>
       </section>
-
       {/* Custom CSS for scrollbar hiding */}
       <style jsx global>{`
         .scrollbar-hide::-webkit-scrollbar { display: none; }
@@ -883,13 +849,11 @@ function MetricCard({ icon, value, label, trend, trendDirection, accentColor, on
       {/* Accent glow on hover */}
       <div 
         className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity rounded-2xl"
-        style={{ background: `radial-gradient(circle at 30% 30%, ${accentColor}, transparent 70%)` }}
-      />
-
-      <div className="relative flex items-start justify-between mb-4">
+        style={{ background: `radial-gradient(circle at 30% 30%, ${accentColor}}, transparent 70%)` }}></div>
+<div className="relative flex items-start justify-between mb-4">
         <div 
           className="p-2.5 rounded-xl bg-white/60 dark:bg-white/10 shadow-sm backdrop-blur-sm flex items-center justify-center transition-transform group-hover:scale-105"
-          style={{ color: accentColor }}
+          style={{color: accentColor }}
         >
           {icon}
         </motion.div>
@@ -898,7 +862,6 @@ function MetricCard({ icon, value, label, trend, trendDirection, accentColor, on
           {trend}%
         </motion.div>
       </motion.div>
-      
       <p className="text-3xl font-bold text-foreground tabular-nums tracking-tight">{animatedValue.toLocaleString()}</p>
       <p className="text-[11px] text-muted-foreground mt-1.5 uppercase tracking-wider font-medium">{label}</p>
     </button>
@@ -925,7 +888,6 @@ function ActivityRow({ activity, isWatchlisted, onView, onToggleWatchlist }: Act
           {activity.user.name.split(' ').map(n => n[0]).join('')}
         </AvatarFallback>
       </Avatar>
-
       {/* Content */}
       <div className="flex-1 min-w-0">
         <p className="text-sm text-foreground leading-tight">
@@ -934,15 +896,14 @@ function ActivityRow({ activity, isWatchlisted, onView, onToggleWatchlist }: Act
         </p>
         <p className="text-xs text-muted-foreground mt-0.5 flex items-center gap-1.5">
           <span>{activity.user.position}</span>
-          <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
+          <span className="w-1 h-1 rounded-full bg-muted-foreground/50"></span>
           <span>Class of {activity.user.gradYear}</span>
-          <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
+          <span className="w-1 h-1 rounded-full bg-muted-foreground/50"></span>
           <span>{activity.user.state}</span>
-          <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
+          <span className="w-1 h-1 rounded-full bg-muted-foreground/50"></span>
           <span>{activity.time}</span>
         </p>
       </motion.div>
-
       {/* Actions */}
       <div className="flex items-center gap-1 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" onClick={(e) => e.stopPropagation()}>
         <Button
@@ -963,7 +924,7 @@ function ActivityRow({ activity, isWatchlisted, onView, onToggleWatchlist }: Act
           >
             <Star className={`w-4 h-4 ${isWatchlisted ? 'fill-current' : ''}`} />
           </Button>
-        )}
+)}
       </motion.div>
     </motion.div>
   );
@@ -989,15 +950,13 @@ function PipelineCard({ icon, label, count, avatars, accentColor, onClick }: Pip
         <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">{label}</span>
         <div 
           className="p-1.5 rounded-2xl bg-white/60 dark:bg-white/10 shadow-sm flex items-center justify-center transition-transform group-hover:scale-105"
-          style={{ color: accentColor }}
+          style={{color: accentColor }}
         >
           {icon}
         </motion.div>
       </motion.div>
-
       {/* Count */}
       <p className="text-2xl font-bold text-foreground tracking-tight">{count}</p>
-
       {/* Avatar Stack */}
       {avatars.length > 0 && (
         <div className="flex -space-x-2 mt-3">
@@ -1008,18 +967,18 @@ function PipelineCard({ icon, label, count, avatars, accentColor, onClick }: Pip
                 {String.fromCharCode(65 + i)}
               </AvatarFallback>
             </Avatar>
-          ))}
+)}
           {avatars.length > 4 && (
             <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="h-6 w-6 rounded-full bg-muted ring-2 ring-card flex items-center justify-center text-[10px] text-muted-foreground font-medium">
               +{avatars.length - 4}
             </motion.div>
-          )}
+)}
         </motion.div>
-      )}
+)}
     </button>
   );
 }
@@ -1047,15 +1006,14 @@ function CampCard({ camp, programColor, onClick }: CampCardProps) {
       {/* Mini Banner */}
       <div 
         className="h-16 relative overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${programColor}40, ${programColor}10)` }}
+        style={{ background: `linear-gradient(135deg, ${programColor}}40, ${programColor}10)` }}
       >
         <Calendar className="absolute right-3 top-3 w-8 h-8 text-white/20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
         <Badge className={`absolute top-2 left-2 text-[10px] px-2 py-0.5 ${status.bg} ${status.text} border-0`}>
           {status.label}
         </Badge>
       </motion.div>
-
       {/* Content */}
       <div className="p-3">
         <h3 className="font-semibold text-sm text-foreground truncate group-hover:text-primary transition-colors">
@@ -1071,8 +1029,7 @@ function CampCard({ camp, programColor, onClick }: CampCardProps) {
             {camp.location.split(',')[0]}
           </span>
         </motion.div>
-
-        {/* Capacity Bar */}
+      {/* Capacity Bar */}
         <div className="mt-3">
           <div className="flex items-center justify-between text-[10px] mb-1">
             <span className="text-muted-foreground">Capacity</span>
@@ -1082,17 +1039,16 @@ function CampCard({ camp, programColor, onClick }: CampCardProps) {
             <div 
               className="h-full rounded-full transition-all"
               style={{ 
-                width: `${fillPercent}%`, 
+                width: `${fillPercent}}%`, 
                 background: fillPercent > 90 ? '#F59E0B' : programColor 
               }}
             />
           </motion.div>
         </motion.div>
-
-        {/* Stats Row */}
+      {/* Stats Row */}
         <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/30">
           <div className="text-center">
-            <p className="text-sm font-semibold" style={{ color: programColor }}>{camp.attending}</p>
+            <p className="text-sm font-semibold" style={{color: programColor }}>{camp.attending}</p>
             <p className="text-[9px] text-muted-foreground uppercase">Attending</p>
           </motion.div>
           <div className="text-center">
@@ -1110,11 +1066,11 @@ function CampCard({ camp, programColor, onClick }: CampCardProps) {
                 <Edit className="w-3.5 h-3.5 mr-2" />
                 Edit Camp
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-xs">
+        <DropdownMenuItem className="text-xs">
                 <Users className="w-3.5 h-3.5 mr-2" />
                 Attendees
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-xs">
+        <DropdownMenuItem className="text-xs">
                 <Mail className="w-3.5 h-3.5 mr-2" />
                 Message Group
               </DropdownMenuItem>

@@ -34,14 +34,12 @@ export function PWASummary() {
       },
       isPWA: window.matchMedia('(display-mode: standalone)').matches,
       isOnline: navigator.onLine,
-    })
-          )};
+    }});
   }, []);
 
   return (
     <div className="p-6 space-y-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold text-white mb-6">PWA Features</h1>
-
       {/* Device Info */}
       {deviceInfo && (
         <div className="p-4 bg-white/5 rounded-xl border border-white/10">
@@ -71,8 +69,7 @@ export function PWASummary() {
             </div>
           </div>
         </div>
-      )}
-
+)}
       {/* Push Notifications */}
       <div className="p-4 bg-white/5 rounded-xl border border-white/10">
         <h2 className="text-xl font-semibold text-white mb-4">Push Notifications</h2>
@@ -86,14 +83,14 @@ export function PWASummary() {
           <div className="flex gap-2">
             <TouchOptimizedButton
               variant="primary"
-              onClick={() => pushNotifications.subscribe()}
+              onClick={() => pushNotifications.subscribe()}}
               disabled={pushNotifications.isLoading || pushNotifications.isSubscribed}
             >
               Subscribe
             </TouchOptimizedButton>
             <TouchOptimizedButton
               variant="secondary"
-              onClick={() => pushNotifications.unsubscribe()}
+              onClick={() => pushNotifications.unsubscribe()}}
               disabled={pushNotifications.isLoading || !pushNotifications.isSubscribed}
             >
               Unsubscribe
@@ -101,7 +98,6 @@ export function PWASummary() {
           </div>
         </div>
       </div>
-
       {/* Swipe Gestures */}
       <div className="p-4 bg-white/5 rounded-xl border border-white/10">
         <h2 className="text-xl font-semibold text-white mb-4">Swipe Gestures</h2>
@@ -121,11 +117,10 @@ export function PWASummary() {
               <p className="text-emerald-400 text-2xl font-bold">
                 Swiped {swipeDirection}!
               </p>
-            )}
+)}
           </div>
         </SwipeGestures>
       </div>
-
       {/* Touch Targets */}
       <div className="p-4 bg-white/5 rounded-xl border border-white/10">
         <h2 className="text-xl font-semibold text-white mb-4">Touch-Optimized Buttons</h2>
@@ -144,7 +139,6 @@ export function PWASummary() {
           </TouchOptimizedButton>
         </div>
       </div>
-
       {/* Device Sizes */}
       <div className="p-4 bg-white/5 rounded-xl border border-white/10">
         <h2 className="text-xl font-semibold text-white mb-4">Supported Device Sizes</h2>
@@ -164,7 +158,7 @@ export function PWASummary() {
               </div>
               <div className="text-gray-500 text-xs capitalize">{device.type}</div>
             </div>
-          ))}
+)}
         </div>
       </div>
     </div>

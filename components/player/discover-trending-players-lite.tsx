@@ -45,7 +45,7 @@ export function DiscoverTrendingPlayersLite({ players }: DiscoverTrendingPlayers
               {player.position}
             </Badge>
           </div>
-        ))}
+)}
       </CardContent>
     </Card>
   );

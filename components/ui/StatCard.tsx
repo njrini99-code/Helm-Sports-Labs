@@ -110,7 +110,7 @@ export function StatCard({
               {trend === 'down' && <TrendingDown className="w-3 h-3 mr-0.5" />}
               {trendValue}
             </Badge>
-          )}
+)}
         </div>
         <p className={cn(
           'text-3xl font-bold mt-3',

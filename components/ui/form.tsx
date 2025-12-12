@@ -35,7 +35,7 @@ const FormField = <
   ...props
 }: ControllerProps<TFieldValues, TName>) => {
   return (
-    <FormFieldContext.Provider value={{ name: props.name }}>
+    <FormFieldContext.Provider value={ name: props.name }>
       <Controller {...props} />
     </FormFieldContext.Provider>
   );
@@ -79,8 +79,8 @@ const FormItem = React.forwardRef<
   const id = React.useId();
 
   return (
-    <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn('space-y-2', className)} {...props} />
+    <FormItemContext.Provider value={ id }>
+      <div ref={ref} className={cn('space-y-2', className)} {...props}></div>
     </FormItemContext.Provider>
   );
 });
@@ -97,8 +97,7 @@ const FormLabel = React.forwardRef<
       ref={ref}
       className={cn(error && 'text-destructive', className)}
       htmlFor={formItemId}
-      {...props}
-    />
+      {...props}></Label>
   );
 });
 FormLabel.displayName = 'FormLabel';
@@ -136,8 +135,7 @@ const FormDescription = React.forwardRef<
       ref={ref}
       id={formDescriptionId}
       className={cn('text-sm text-muted-foreground', className)}
-      {...props}
-    />
+      {...props}></p>
   );
 });
 FormDescription.displayName = 'FormDescription';

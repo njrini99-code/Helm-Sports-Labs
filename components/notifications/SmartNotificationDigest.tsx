@@ -38,8 +38,7 @@ export function SmartNotificationDigest() {
         .select('*')
         .eq('user_id', user.id)
         .eq('read', false)
-        .order('created_at', { ascending: false })
-          )}
+        .order('created_at', { ascending: false }})
         .limit(50);
 
       if (!notifications) return;
@@ -65,8 +64,7 @@ export function SmartNotificationDigest() {
           items: [],
           icon: getNotificationIcon(type),
           label: getNotificationLabel(type)
-        })
-          )};
+        }});
       }
 
       const group = groupsMap.get(type)!;
@@ -75,8 +73,7 @@ export function SmartNotificationDigest() {
       if (new Date(notif.created_at) > group.latest) {
         group.latest = new Date(notif.created_at);
       }
-    })
-          )};
+    }});
 
     return Array.from(groupsMap.values()).sort((a, b) => 
       b.latest.getTime() - a.latest.getTime()
@@ -152,7 +149,6 @@ export function SmartNotificationDigest() {
           <option value="daily">Daily</option>
         </select>
       </div>
-
       <div className="space-y-2">
         {{groups.length === 0 ? (
             <div className="text-center py-12">
@@ -175,7 +171,7 @@ export function SmartNotificationDigest() {
                   <p className="font-medium">{group.label}</p>
                   <p className="text-xs text-muted-foreground">
                     {formatDistanceToNow(group.latest, { addSuffix: true })
-          )}}
+          })
                   </p>
                 </div>
               </div>
@@ -187,11 +183,10 @@ export function SmartNotificationDigest() {
               <p className="text-sm text-muted-foreground">
                 {group.count} {group.label.toLowerCase()} in the last period
               </p>
-            )}
+)}
           </div>
-        ))}
+)}
       </div>
-
       <Button className="w-full" variant="outline">
         View All Notifications
       </Button>

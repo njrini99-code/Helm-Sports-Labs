@@ -23,15 +23,13 @@ export function Skeleton({ className, variant = 'default', style }: SkeletonProp
         variantClasses[variant],
         className
       )}
-      style={{
-        backgroundSize: '200% 100%',
+      style={{backgroundSize: '200% 100%',
         backgroundImage:
           variant === 'default'
             ? 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)'
             : 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%)',
         ...style,
-      }}
-    />
+      }}></div>
   );
 }
 
@@ -71,7 +69,6 @@ export function CardSkeleton({
       {showImage && (
         <Skeleton variant={variant} className="h-40 w-full rounded-2xl" />
       )}
-      
       {showAvatar && (
         <div className="flex items-center gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <Skeleton variant={variant} className="h-10 w-10 rounded-full" />
@@ -80,8 +77,7 @@ export function CardSkeleton({
             <Skeleton variant={variant} className="h-3 w-1/4" />
           </div>
         </div>
-      )}
-      
+)}
       <div className="space-y-2">
         {Array.from({ length: lines }).map((_, i) => (
           <Skeleton
@@ -92,7 +88,7 @@ export function CardSkeleton({
               i === lines - 1 ? 'w-2/3' : 'w-full'
             )}
           />
-        ))}
+        })
       </div>
     </div>
   );
@@ -201,18 +197,16 @@ export function ListItemSkeleton({
       {showAvatar && (
         <Skeleton variant={variant} className="h-10 w-10 rounded-full shrink-0" />
       )}
-      
       <div className="flex-1 space-y-2">
         <Skeleton variant={variant} className="h-4 w-1/3" />
         <Skeleton variant={variant} className="h-3 w-1/2" />
       </div>
-      
       {showActions && (
         <div className="flex gap-2">
           <Skeleton variant={variant} className="h-8 w-8 rounded-2xl" />
           <Skeleton variant={variant} className="h-8 w-8 rounded-2xl" />
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -245,9 +239,8 @@ export function ListSkeleton({
           variant={variant}
           showAvatar={showAvatar}
           showActions={showActions}
-          className={i === items - 1 ? 'border-b-0' : ''}
-        />
-      ))}
+          className={i === items - 1 ? 'border-b-0' : ''} />
+      })
     </div>
   );
 }
@@ -281,7 +274,7 @@ export function TableRowSkeleton({
         <td className="p-4">
           <Skeleton variant={variant} className="h-4 w-4 rounded" />
         </td>
-      )}
+)}
       {Array.from({ length: columns }).map((_, i) => (
         <td key={i} className="p-4">
           <Skeleton
@@ -292,7 +285,7 @@ export function TableRowSkeleton({
             )}
           />
         </td>
-      ))}
+)}
     </tr>
   );
 }
@@ -335,15 +328,15 @@ export function TableSkeleton({
                 <th className="p-4 text-left">
                   <Skeleton variant={variant} className="h-4 w-4 rounded" />
                 </th>
-              )}
+)}
               {Array.from({ length: columns }).map((_, i) => (
                 <th key={i} className="p-4 text-left">
                   <Skeleton variant={variant} className="h-4 w-20" />
                 </th>
-              ))}
+)}
             </tr>
           </thead>
-        )}
+)}
         <tbody>
           {Array.from({ length: rows }).map((_, i) => (
             <TableRowSkeleton
@@ -351,9 +344,8 @@ export function TableSkeleton({
               variant={variant}
               columns={columns}
               showCheckbox={showCheckbox}
-              className={i === rows - 1 ? 'border-b-0' : ''}
-            />
-          ))}
+              className={i === rows - 1 ? 'border-b-0' : ''}></Table>
+)}
         </tbody>
       </table>
     </div>
@@ -402,7 +394,7 @@ export function PlayerCardSkeleton({
             <Skeleton variant={variant} className="h-6 w-12 mx-auto" />
             <Skeleton variant={variant} className="h-3 w-16 mx-auto" />
           </div>
-        ))}
+)}
       </div>
       <div className="flex gap-2">
         <Skeleton variant={variant} className="h-9 flex-1 rounded-2xl" />
@@ -440,7 +432,6 @@ export function ChartSkeleton({
         <Skeleton variant={variant} className="h-5 w-32" />
         <Skeleton variant={variant} className="h-8 w-24 rounded-2xl" />
       </div>
-      
       {type === 'bar' && (
         <div className="flex items-end justify-around h-48 gap-2 pt-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           {Array.from({ length: 7 }).map((_, i) => (
@@ -448,31 +439,28 @@ export function ChartSkeleton({
               key={i}
               variant={variant}
               className="w-8 rounded-t-md"
-              style={{ height: `${Math.random() * 60 + 40}%` }}
+              style={{ height: `${Math.random() * 60 + 40}}%` }}
             />
-          ))}
+          })
         </div>
-      )}
-      
+)}
       {type === 'line' && (
         <div className="h-48 flex items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <Skeleton variant={variant} className="h-full w-full rounded-2xl" />
         </div>
-      )}
-      
+)}
       {type === 'pie' && (
         <div className="h-48 flex items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <Skeleton variant={variant} className="h-40 w-40 rounded-full" />
         </div>
-      )}
-      
+)}
       <div className="flex justify-center gap-4">
         {Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <Skeleton variant={variant} className="h-3 w-3 rounded-full" />
             <Skeleton variant={variant} className="h-3 w-16" />
           </div>
-        ))}
+)}
       </div>
     </div>
   );
@@ -510,9 +498,8 @@ export function FormSkeleton({
             <Skeleton variant={variant} className="h-4 w-24" />
             <Skeleton variant={variant} className="h-10 w-full rounded-2xl" />
           </div>
-        ))}
+)}
       </div>
-      
       <div className="flex gap-3 pt-2">
         <Skeleton variant={variant} className="h-10 w-24 rounded-2xl" />
         <Skeleton variant={variant} className="h-10 w-20 rounded-2xl" />
@@ -567,7 +554,7 @@ export function CardGridSkeleton({
     <div className={cn('grid gap-4', gridCols[columns], className)}>
       {Array.from({ length: cards }).map((_, i) => (
         <CardSkeleton key={i} variant={variant} />
-      ))}
+      })
     </div>
   );
 }

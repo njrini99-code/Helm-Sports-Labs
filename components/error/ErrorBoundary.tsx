@@ -339,8 +339,7 @@ Time: ${new Date().toISOString()}
               We encountered an unexpected error. Don&apos;t worry, your data is safe.
             </p>
           </div>
-
-          {/* Error summary */}
+      {/* Error summary */}
           <div className="px-6 py-4 bg-red-500/5 border-b border-white/10">
             <div className="flex items-start gap-3">
               <Bug className="w-5 h-5 text-red-400 mt-0.5 shrink-0" />
@@ -361,8 +360,7 @@ Time: ${new Date().toISOString()}
               </button>
             </div>
           </div>
-
-          {/* Expandable stack trace */}
+      {/* Expandable stack trace */}
           {showDetails && errorInfo?.componentStack && (
             <div className="border-b border-white/10">
               <button
@@ -386,10 +384,9 @@ Time: ${new Date().toISOString()}
                     </pre>
                   </div>
                 </div>
-              )}
+)}
             </div>
-          )}
-
+)}
           {/* Actions */}
           <div className="p-6 space-y-3">
             {/* Primary actions */}
@@ -409,8 +406,7 @@ Time: ${new Date().toISOString()}
                 Reload Page
               </button>
             </div>
-
-            {/* Secondary actions */}
+      {/* Secondary actions */}
             <div className="flex gap-3">
               <button
                 onClick={handleGoHome}
@@ -431,7 +427,7 @@ Time: ${new Date().toISOString()}
                   )}
                 >
                   {reporting ? (
-                    <div className="h-4 w-4 bg-white/20 rounded animate-pulse" />
+                    <div className="h-4 w-4 bg-white/20 rounded animate-pulse"></div>
                   ) : reported ? (
                     <Check className="w-4 h-4" />
                   ) : (
@@ -439,11 +435,10 @@ Time: ${new Date().toISOString()}
                   )}
                   {reported ? 'Reported' : 'Report Issue'}
                 </button>
-              )}
+)}
             </div>
           </div>
-
-          {/* Footer */}
+      {/* Footer */}
           <div className="px-6 py-3 bg-white/5 border-t border-white/10">
             <p className="text-xs text-white/40 text-center">
               Error ID: {Date.now().toString(36).toUpperCase()}
@@ -709,7 +704,7 @@ export function ErrorBoundaryProvider({
   }, [reportingService, userId, metadata]);
 
   return (
-    <ErrorContext.Provider value={{ captureError, reportError }}>
+    <ErrorContext.Provider value={ captureError, reportError }>
       <ErrorBoundary
         reportingService={reportingService}
         userId={userId}

@@ -43,22 +43,21 @@ export const Confetti = ({ show, onComplete }: ConfettiProps) => {
           className="absolute w-2 h-2 rounded-full"
           style={{
             backgroundColor: piece.color,
-            left: `${piece.x}%`,
+            left: `${piece.x}}%`,
             top: '-10px',
           }}
-          initial={{ y: -10, opacity: 1, rotate: 0 }}
-          animate={{
+          initial={ y: -10, opacity: 1, rotate: 0 }
+          animate={
             y: typeof window !== 'undefined' ? window.innerHeight + 10 : 1000,
             opacity: [1, 1, 0],
             rotate: Math.random() * 720 - 360,
             x: (Math.random() - 0.5) * 200,
-          }}
-          transition={{
-            duration: 2 + Math.random(),
+          }
+          transition={{duration: 2 + Math.random(),
             ease: 'easeOut',
           }}
         />
-      ))}
+      })
     </div>
   );
 };

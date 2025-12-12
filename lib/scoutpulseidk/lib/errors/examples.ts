@@ -123,7 +123,7 @@ class PlayerService {
     // Try to fetch player
     const result = await tryCatch(async () => {
       // Simulate database query
-      // const player = await db.player.findUnique({ where: { id } });
+      // const player = await db.player.findUnique({ where: { id });
       const player = null; // Simulating not found
 
       if (!player) {
@@ -171,7 +171,7 @@ class PlayerService {
 
     return tryOrThrow(async () => {
       // Simulate delete
-      // await db.player.delete({ where: { id } });
+      // await db.player.delete({ where: { id });
       return { deleted: true, id };
     }, `Failed to delete player ${id}`, context);
   }

@@ -135,8 +135,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
               Step {step} of 3: {step === 1 ? 'Team Details' : step === 2 ? 'Location Info' : 'Review'}
             </p>
           </div>
-        )}
-
+)}
         <div className="bg-white rounded-3xl shadow-2xl p-8">
           {/* Header */}
           <div className="text-center mb-8">
@@ -146,8 +145,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome, Manager!</h1>
             <p className="text-gray-600">Let's set up your team in just a few steps</p>
           </div>
-
-          {/* Step 1: Team Details */}
+{/* Step 1: Team Details */}
           {step === 1 && (
             <div className="space-y-6">
               <div>
@@ -165,8 +163,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                 />
                 <p className="text-xs text-gray-500 mt-1">This will be visible to your team members</p>
               </div>
-
-              <div>
+<div>
                 <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
                   <Key className="w-4 h-4 text-blue-600" />
                   Location Number <span className="text-red-500">*</span>
@@ -180,8 +177,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                 />
                 <p className="text-xs text-gray-500 mt-1">Your office or territory identifier</p>
               </div>
-
-              <button
+<button
                 onClick={() => setStep(2)}
                 disabled={!formData.teamName.trim() || !formData.locationNumber.trim()}
                 className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-semibold text-lg flex items-center justify-center gap-2"
@@ -190,8 +186,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                 <ArrowRight className="w-5 h-5" />
               </button>
             </div>
-          )}
-
+)}
           {/* Step 2: Location Info */}
           {step === 2 && (
             <div className="space-y-6">
@@ -208,8 +203,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                 />
               </div>
-
-              <div className="grid grid-cols-2 gap-4">
+<div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-semibold text-gray-700 mb-2 block">State</label>
                   <input
@@ -231,8 +225,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                   />
                 </div>
               </div>
-
-              <div>
+<div>
                 <label className="text-sm font-semibold text-gray-700 mb-2 block">
                   Additional Credentials (Optional)
                 </label>
@@ -244,8 +237,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-none"
                 />
               </div>
-
-              <div className="flex gap-3">
+<div className="flex gap-3">
                 <button
                   onClick={() => setStep(1)}
                   className="flex-1 px-6 py-4 border-2 border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-all font-semibold text-lg"
@@ -261,8 +253,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                 </button>
               </div>
             </div>
-          )}
-
+)}
           {/* Step 3: Review & Generate Code */}
           {step === 3 && (
             <div className="space-y-6">
@@ -282,23 +273,22 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                       <span className="text-gray-600">City:</span>
                       <span className="font-semibold text-gray-900">{formData.city}</span>
                     </div>
-                  )}
+)}
                   {formData.state && (
                     <div className="flex justify-between">
                       <span className="text-gray-600">State:</span>
                       <span className="font-semibold text-gray-900">{formData.state}</span>
                     </div>
-                  )}
+)}
                   {formData.zipCode && (
                     <div className="flex justify-between">
                       <span className="text-gray-600">ZIP Code:</span>
                       <span className="font-semibold text-gray-900">{formData.zipCode}</span>
                     </div>
-                  )}
+)}
                 </div>
               </div>
-
-              <div className="bg-green-50 rounded-2xl p-6 border-2 border-green-200">
+<div className="bg-green-50 rounded-2xl p-6 border-2 border-green-200">
                 <h3 className="font-bold text-gray-900 mb-2 text-lg flex items-center gap-2">
                   <Key className="w-5 h-5 text-green-600" />
                   What Happens Next?
@@ -318,8 +308,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                   </li>
                 </ul>
               </div>
-
-              <div className="flex gap-3">
+<div className="flex gap-3">
                 <button
                   onClick={() => setStep(2)}
                   className="flex-1 px-6 py-4 border-2 border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-all font-semibold text-lg"
@@ -333,7 +322,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                 >
                   {loading ? (
                     <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" />
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                       Creating Team...
                     </>
                   ) : (
@@ -345,8 +334,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                 </button>
               </div>
             </div>
-          )}
-
+)}
           {/* Step 4: Success - Show Team Code */}
           {step === 4 && (
             <div className="space-y-6">
@@ -357,8 +345,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">Team Created Successfully!</h2>
                 <p className="text-gray-600">Your team is ready. Share this code with your sales reps.</p>
               </div>
-
-              <div className="bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl p-8 text-center">
+<div className="bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl p-8 text-center">
                 <p className="text-blue-100 text-sm font-semibold mb-3 uppercase tracking-wide">Your Team Code</p>
                 <div className="bg-white/20 backdrop-blur-sm rounded-xl p-6 mb-4">
                   <p className="text-5xl font-bold text-white tracking-widest font-mono">{teamCode}</p>
@@ -380,8 +367,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                   )}
                 </button>
               </div>
-
-              <div className="bg-blue-50 rounded-2xl p-6 border-2 border-blue-200">
+<div className="bg-blue-50 rounded-2xl p-6 border-2 border-blue-200">
                 <h3 className="font-bold text-gray-900 mb-3 text-lg">How to Share This Code</h3>
                 <ul className="text-sm text-gray-700 space-y-3">
                   <li className="flex items-start gap-3">
@@ -398,8 +384,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                   </li>
                 </ul>
               </div>
-
-              <button
+<button
                 onClick={onComplete}
                 className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all font-semibold text-lg flex items-center justify-center gap-2"
               >
@@ -407,7 +392,7 @@ export function ManagerOnboarding({ onComplete }: ManagerOnboardingProps) {
                 <ArrowRight className="w-5 h-5" />
               </button>
             </div>
-          )}
+)}
         </div>
       </div>
     </div>

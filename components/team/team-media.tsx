@@ -101,8 +101,7 @@ export function TeamMedia({ teamId, media, mode, onUpdate }: TeamMediaProps) {
                       <SelectItem value="video">Video</SelectItem>
                     </SelectContent>
                   </Select>
-
-                  <Input
+      <Input
                     placeholder="Media URL"
                     value={formData.url}
                     onChange={(e) => setFormData({ ...formData, url: e.target.value })}
@@ -133,7 +132,7 @@ export function TeamMedia({ teamId, media, mode, onUpdate }: TeamMediaProps) {
                 </div>
               </DialogContent>
             </Dialog>
-          )}
+)}
         </div>
       </CardHeader>
       <CardContent>
@@ -166,7 +165,7 @@ export function TeamMedia({ teamId, media, mode, onUpdate }: TeamMediaProps) {
                         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
                           <p className="text-white text-sm font-medium">{item.title}</p>
                         </div>
-                      )}
+)}
                       {isOwner && (
                         <Button
                           variant="ghost"
@@ -187,13 +186,12 @@ export function TeamMedia({ teamId, media, mode, onUpdate }: TeamMediaProps) {
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
-                      )}
+)}
                     </div>
-                  ))}
+)}
                 </div>
               </div>
-            )}
-
+)}
             {/* Videos */}
             {videos.length > 0 && (
               <div>
@@ -218,9 +216,9 @@ export function TeamMedia({ teamId, media, mode, onUpdate }: TeamMediaProps) {
                           <p className="text-white text-sm font-medium">{item.title}</p>
                           {item.description && (
                             <p className="text-slate-300 text-xs mt-1">{item.description}</p>
-                          )}
+)}
                         </div>
-                      )}
+)}
                       {isOwner && (
                         <Button
                           variant="ghost"
@@ -241,14 +239,14 @@ export function TeamMedia({ teamId, media, mode, onUpdate }: TeamMediaProps) {
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
-                      )}
+)}
                     </div>
-                  ))}
+)}
                 </div>
               </div>
-            )}
+)}
           </div>
-        )}
+)}
       </CardContent>
     </Card>
   );

@@ -41,10 +41,10 @@ export function FilterChips({
         {visibleFilters.map((filter) => (
           <motion.div
             key={filter.id}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.2 }}
+            initial={ opacity: 0, scale: 0.8 }
+            animate={ opacity: 1, scale: 1 }
+            exit={ opacity: 0, scale: 0.8 }
+            transition={{duration: 0.2 }}
           >
             <Button
               variant="secondary"
@@ -55,15 +55,14 @@ export function FilterChips({
               <span className="text-sm">
                 {filter.category && (
                   <span className="text-muted-foreground">{filter.category}: </span>
-                )}
+)}
                 {filter.label}
               </span>
               <X className="h-3 w-3" />
             </Button>
           </motion.div>
-        ))}
+)}
       </AnimatePresence>
-      
       {hiddenCount > 0 && (
         <Button
           variant="ghost"
@@ -72,8 +71,7 @@ export function FilterChips({
         >
           +{hiddenCount} more
         </Button>
-      )}
-      
+)}
       {onClearAll && filters.length > 1 && (
         <Button
           variant="ghost"
@@ -83,7 +81,7 @@ export function FilterChips({
         >
           Clear all
         </Button>
-      )}
+)}
     </div>
   );
 }

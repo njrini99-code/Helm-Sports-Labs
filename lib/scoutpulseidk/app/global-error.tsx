@@ -363,8 +363,7 @@ Time: ${new Date().toISOString()}
                 Please try reloading the page.
               </p>
             </div>
-
-            <div className="error-box">
+<div className="error-box">
               <div className="error-header">
                 <Bug className="error-icon" />
                 <div className="error-content">
@@ -372,7 +371,7 @@ Time: ${new Date().toISOString()}
                   <p className="error-message">{error.message || 'An unexpected error occurred'}</p>
                   {error.digest && (
                     <p className="error-digest">ID: {error.digest}</p>
-                  )}
+)}
                 </div>
                 <button onClick={handleCopyError} className="copy-btn" title="Copy error">
                   {copied ? (
@@ -383,15 +382,14 @@ Time: ${new Date().toISOString()}
                 </button>
               </div>
             </div>
-
-            {isDev && error.stack && (
+{isDev && error.stack && (
               <>
                 <button
                   onClick={() => setShowDetails(!showDetails)}
                   className="details-toggle"
                 >
                   <span className="details-label">
-                    <Bug style={{ width: 16, height: 16 }} />
+                    <Bug style={{width: 16, height: 16 }} />
                     Stack Trace
                   </span>
                   {showDetails ? (
@@ -400,15 +398,13 @@ Time: ${new Date().toISOString()}
                     <ChevronDown className="chevron" />
                   )}
                 </button>
-
-                {showDetails && (
+{showDetails && (
                   <div className="stack-trace">
                     <pre>{error.stack}</pre>
                   </div>
-                )}
+)}
               </>
             )}
-
             <div className="actions">
               <button onClick={reset} className="btn btn-primary">
                 <RefreshCw className="btn-icon" />
@@ -425,20 +421,18 @@ Time: ${new Date().toISOString()}
                 </button>
               </div>
             </div>
-
-            <div className="footer">
+<div className="footer">
               {new Date().toLocaleTimeString()} · {error.digest?.slice(0, 8) || 'GLOBAL-ERR'}
             </div>
           </div>
-
-          {isDev && (
-            <div style={{ textAlign: 'center' }}>
+{isDev && (
+            <div style={{textAlign: 'center' }}>
               <span className="dev-badge">
-                <span className="dev-dot" />
+                <span className="dev-dot"></span>
                 Development Mode
               </span>
             </div>
-          )}
+)}
         </div>
       </body>
     </html>

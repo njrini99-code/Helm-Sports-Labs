@@ -74,10 +74,8 @@ export function ScoutCardShell({
       <div 
         className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
         onClick={onClose}
-        aria-hidden="true"
-      />
-
-      {/* Panel - right side drawer */}
+        aria-hidden="true"></div>
+{/* Panel - right side drawer */}
       <div 
         className={`
           fixed z-50 bg-white dark:bg-slate-900 shadow-2xl
@@ -102,8 +100,7 @@ export function ScoutCardShell({
             <div className="flex-1 min-w-0">
               {headerContent}
             </div>
-
-            {/* Actions */}
+      {/* Actions */}
             <div className="flex items-center gap-1 flex-shrink-0">
               {/* 3-dot menu */}
               <DropdownMenu>
@@ -118,13 +115,13 @@ export function ScoutCardShell({
                       <ExternalLink className="w-4 h-4 mr-2" />
                       Open in new tab
                     </DropdownMenuItem>
-                  )}
+)}
                   {onCopyLink && (
                     <DropdownMenuItem onClick={onCopyLink}>
                       <Link2 className="w-4 h-4 mr-2" />
                       Copy link
                     </DropdownMenuItem>
-                  )}
+)}
                   {onExportPDF && (
                     <>
                       <DropdownMenuSeparator />
@@ -137,8 +134,7 @@ export function ScoutCardShell({
                   {customMenuItems}
                 </DropdownMenuContent>
               </DropdownMenu>
-
-              {/* Close button */}
+      {/* Close button */}
               <Button 
                 variant="ghost" 
                 size="icon" 
@@ -150,8 +146,7 @@ export function ScoutCardShell({
             </div>
           </div>
         </div>
-
-        {/* Scrollable Content */}
+      {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto bg-slate-50 dark:bg-slate-900/50">
           {children}
         </div>
@@ -184,7 +179,7 @@ export function ScoutCardSection({
           </h3>
           {action}
         </div>
-      )}
+)}
       <div className="p-4">
         {children}
       </div>
@@ -225,7 +220,7 @@ export function ScoutCardMetricTile({
         <span className="mt-1.5 text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
           {badge}
         </span>
-      )}
+)}
     </div>
   );
 }

@@ -79,17 +79,17 @@ export function DiscoveryPanel({
     new Set(
       leads
         .map((l) => l.industry)
-        .filter((i): i is string => Boolean(i) && typeof i === 'string' && isValidIndustry(i))
-        .map(i => i.trim().replace(/["\\]/g, ''))
+        .filter((i): i is string => Boolean(i) && typeof i === 'string' && isValidIndustry(i)}
+        .map(i => i.trim().replace(/["\\]/g, '')}
     )
   ).sort();
 
   const zipCodes = Array.from(
     new Set(
       leads
-        .map((l) => String(l.zip))
-        .filter((z) => z && z !== 'null' && isValidZipCode(z))
-        .map(z => z.trim())
+        .map((l) => String(l.zip)}
+        .filter((z) => z && z !== 'null' && isValidZipCode(z)}
+        .map(z => z.trim()}
     )
   ).sort();
 
@@ -151,7 +151,7 @@ export function DiscoveryPanel({
     return (
       item.business_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.address?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.industry?.toLowerCase().includes(searchQuery.toLowerCase())
+      item.industry?.toLowerCase().includes(searchQuery.toLowerCase()}
     );
   });
 
@@ -226,7 +226,7 @@ export function DiscoveryPanel({
                 )}
               </div>
             </div>
-          )}
+)}
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowManualEntryModal(true)}
@@ -245,8 +245,7 @@ export function DiscoveryPanel({
           </div>
         </div>
       </div>
-
-      {/* Content Area */}
+{/* Content Area */}
       <div className="flex-1 overflow-y-auto">
         {activeTab === 'search' && (
           <div className="flex h-full">
@@ -264,7 +263,7 @@ export function DiscoveryPanel({
                       <span className="px-1.5 py-0.5 bg-blue-600 text-white text-xs rounded-full">
                         {selectedIndustries.length}
                       </span>
-                    )}
+)}
                     {showIndustries ? (
                       <ChevronDown className="w-3 h-3 text-gray-500" />
                     ) : (
@@ -284,12 +283,11 @@ export function DiscoveryPanel({
                         />
                         <span className="text-gray-700 leading-tight">{industry}</span>
                       </label>
-                    ))}
+)}
                   </div>
-                )}
+)}
               </div>
-
-              {/* Zip Codes Filter */}
+{/* Zip Codes Filter */}
               <div className="border border-gray-200 rounded-lg overflow-hidden">
                 <button
                   onClick={() => setShowZipCodes(!showZipCodes)}
@@ -301,7 +299,7 @@ export function DiscoveryPanel({
                       <span className="px-1.5 py-0.5 bg-blue-600 text-white text-xs rounded-full">
                         {selectedZipCodes.length}
                       </span>
-                    )}
+)}
                     {showZipCodes ? (
                       <ChevronDown className="w-3 h-3 text-gray-500" />
                     ) : (
@@ -321,12 +319,11 @@ export function DiscoveryPanel({
                         />
                         <span className="text-gray-700">{zip}</span>
                       </label>
-                    ))}
+)}
                   </div>
-                )}
+)}
               </div>
-
-              {/* Clear Filters */}
+{/* Clear Filters */}
               {(selectedIndustries.length > 0 || selectedZipCodes.length > 0) && (
                 <button
                   onClick={() => {
@@ -337,10 +334,9 @@ export function DiscoveryPanel({
                 >
                   Clear Filters
                 </button>
-              )}
+)}
             </div>
-
-            {/* Results Area */}
+{/* Results Area */}
             <div className="flex-1 p-4 overflow-y-auto">
               {searchQuery.length < 2 && displayResults.length === 0 && (
                 <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
@@ -348,16 +344,14 @@ export function DiscoveryPanel({
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">Find businesses</h3>
                   <p className="text-gray-600">Search by name or filter by industry and zip code</p>
                 </div>
-              )}
-
+)}
               {searchQuery.length >= 2 && displayResults.length === 0 && !searching && (
                 <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
                   <Building2 className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">No businesses found</h3>
                   <p className="text-gray-600">Try a different search term or adjust your filters</p>
                 </div>
-              )}
-
+)}
               <div className="space-y-3">
                 {displayResults.map((lead) => (
                 <div key={lead.id} className="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow">
@@ -366,25 +360,25 @@ export function DiscoveryPanel({
                       <h3 className="font-semibold text-gray-900 truncate">{lead.business_name}</h3>
                       {lead.industry && (
                         <p className="text-sm text-gray-600 mt-1">{lead.industry}</p>
-                      )}
+)}
                       {lead.address && (
                         <div className="flex items-start gap-2 mt-2 text-sm text-gray-600">
                           <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
                           <span className="break-words">{lead.address}, {lead.city}, {lead.state} {lead.zip}</span>
                         </div>
-                      )}
+)}
                       {lead.phone && (
                         <p className="text-sm text-gray-600 mt-1">{lead.phone}</p>
-                      )}
+)}
                       {lead.google_rating && (
                         <div className="flex items-center gap-2 mt-2">
                           <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                           <span className="text-sm font-medium text-gray-900">{lead.google_rating}</span>
                           {lead.user_ratings_total && (
                             <span className="text-sm text-gray-500">({lead.user_ratings_total} reviews)</span>
-                          )}
+)}
                         </div>
-                      )}
+)}
                     </div>
                     <div className="flex flex-col gap-2">
                       <button
@@ -404,12 +398,11 @@ export function DiscoveryPanel({
                     </div>
                   </div>
                 </div>
-                ))}
+)}
               </div>
             </div>
           </div>
-        )}
-
+)}
         {activeTab === 'bank' && (
           <div className="p-4 space-y-3">
             {osvBank.length === 0 && (
@@ -418,8 +411,7 @@ export function DiscoveryPanel({
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Your OSV Bank is empty</h3>
                 <p className="text-gray-600">Add businesses from the Discover tab to build your OSV bank</p>
               </div>
-            )}
-
+)}
             {filteredBankItems.map((item) => (
               <div key={item.id} className="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow">
                 <div className="flex items-start justify-between gap-4">
@@ -427,31 +419,30 @@ export function DiscoveryPanel({
                     <h3 className="font-semibold text-gray-900 truncate">{item.business_name}</h3>
                     {item.industry && (
                       <p className="text-sm text-gray-600 mt-1">{item.industry}</p>
-                    )}
+)}
                     {item.address && (
                       <div className="flex items-start gap-2 mt-2 text-sm text-gray-600">
                         <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
                         <span className="break-words">{item.address}</span>
                       </div>
-                    )}
+)}
                     {item.google_rating && (
                       <div className="flex items-center gap-2 mt-2">
                         <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                         <span className="text-sm font-medium text-gray-900">{item.google_rating}</span>
                       </div>
-                    )}
+)}
                   </div>
                   <div className="text-sm text-gray-500">
                     <p>Drag to Start Day calendar</p>
                   </div>
                 </div>
               </div>
-            ))}
+)}
           </div>
-        )}
+)}
       </div>
-
-      {showImportModal && <CSVImport onClose={() => setShowImportModal(false)} onComplete={onRefresh} />}
+{showImportModal && <CSVImport onClose={() => setShowImportModal(false)} onComplete={onRefresh} />}
 
       {showManualEntryModal && (
         <ManualBusinessEntryModal

@@ -117,8 +117,7 @@ export default function PlayerLayout({
               <Link href="/player" className="text-xl font-bold text-white tracking-tight">
                 Scout<span className="text-emerald-400">Pulse</span>
               </Link>
-              
-              <div className="hidden md:flex items-center gap-1">
+<div className="hidden md:flex items-center gap-1">
                 {navItems.map((item) => (
                   <Link
                     key={item.href}
@@ -132,11 +131,10 @@ export default function PlayerLayout({
                     <item.icon className="w-4 h-4" />
                     {item.label}
                   </Link>
-                ))}
+)}
               </div>
             </div>
-            
-            <div className="flex items-center gap-3">
+<div className="flex items-center gap-3">
               <NotificationBell />
               <span className="text-sm text-white/60 hidden sm:block font-medium">
                 {playerName}
@@ -154,8 +152,7 @@ export default function PlayerLayout({
           </div>
         </nav>
       </header>
-
-      {/* Mobile Navigation */}
+{/* Mobile Navigation */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[#0a0f14]/95 border-t border-white/[0.06] backdrop-blur-xl z-50 safe-area-pb">
         <div className="flex justify-around py-2">
           {navItems.map((item) => (
@@ -173,11 +170,10 @@ export default function PlayerLayout({
                 {item.label}
               </span>
             </Link>
-          ))}
+)}
         </div>
       </div>
-
-      {/* Main Content */}
+{/* Main Content */}
       <main className="pb-20 md:pb-0">
         {children}
       </main>

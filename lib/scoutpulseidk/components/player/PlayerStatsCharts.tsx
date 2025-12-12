@@ -151,7 +151,7 @@ export function PlayerStatsCharts({
       if (index < 2) return { ...point, rollingAvg: point.avg };
       const window = chartData.slice(index - 2, index + 1);
       const rollingAvg = window.reduce((sum, p) => sum + p.avg, 0) / 3;
-      return { ...point, rollingAvg: Number(rollingAvg.toFixed(3)) };
+      return { ...point, rollingAvg: Number(rollingAvg.toFixed(3});
     });
   }, [chartData]);
 
@@ -188,11 +188,10 @@ export function PlayerStatsCharts({
         </div>
         <TrendBadge trend={avgTrend} />
       </div>
-
-      {/* Batting Average Trend Chart */}
+{/* Batting Average Trend Chart */}
       <GlassChartCard title="Batting Average Over Time" icon={<TrendingUp className="w-4 h-4" />}>
         <ResponsiveContainer width="100%" height={280}>
-          <AreaChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+          <AreaChart data={trendData} margin={ top: 10, right: 10, left: -20, bottom: 0 }>
             <defs>
               <linearGradient id="avgGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
@@ -202,14 +201,14 @@ export function PlayerStatsCharts({
             <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
             <XAxis 
               dataKey="name" 
-              tick={{ fontSize: 11, fill: '#64748b' }}
+              tick={ fontSize: 11, fill: '#64748b' }
               tickLine={false}
-              axisLine={{ stroke: '#e2e8f0' }}
+              axisLine={ stroke: '#e2e8f0' }
             />
             <YAxis 
               domain={[0, 0.5]}
               tickFormatter={(v) => v.toFixed(3)}
-              tick={{ fontSize: 11, fill: '#64748b' }}
+              tick={ fontSize: 11, fill: '#64748b' }
               tickLine={false}
               axisLine={false}
               width={50}
@@ -227,8 +226,7 @@ export function PlayerStatsCharts({
               stroke="#10b981" 
               strokeWidth={2}
               fill="url(#avgGradient)" 
-              name="Batting Avg"
-            />
+              name="Batting Avg" />
             <Line 
               type="monotone" 
               dataKey="rollingAvg" 
@@ -236,25 +234,23 @@ export function PlayerStatsCharts({
               strokeWidth={2}
               strokeDasharray="5 5"
               dot={false}
-              name="3-Game Rolling Avg"
-            />
+              name="3-Game Rolling Avg" />
           </AreaChart>
         </ResponsiveContainer>
       </GlassChartCard>
-
-      {/* Hits Per Game Bar Chart */}
+{/* Hits Per Game Bar Chart */}
       <GlassChartCard title="Hits Per Game" icon={<BarChart3 className="w-4 h-4" />}>
         <ResponsiveContainer width="100%" height={220}>
-          <BarChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+          <BarChart data={chartData} margin={ top: 10, right: 10, left: -20, bottom: 0 }>
             <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
             <XAxis 
               dataKey="name" 
-              tick={{ fontSize: 11, fill: '#64748b' }}
+              tick={ fontSize: 11, fill: '#64748b' }
               tickLine={false}
-              axisLine={{ stroke: '#e2e8f0' }}
+              axisLine={ stroke: '#e2e8f0' }
             />
             <YAxis 
-              tick={{ fontSize: 11, fill: '#64748b' }}
+              tick={ fontSize: 11, fill: '#64748b' }
               tickLine={false}
               axisLine={false}
               width={30}
@@ -269,13 +265,11 @@ export function PlayerStatsCharts({
           </BarChart>
         </ResponsiveContainer>
       </GlassChartCard>
-
-      {/* Position Comparison */}
+{/* Position Comparison */}
       <PositionComparison 
         summary={summary} 
         benchmark={benchmark} 
-        position={position}
-      />
+        position={position} />
 
       {/* Progress Indicators */}
       <ProgressIndicators summary={summary} benchmark={benchmark} />
@@ -299,9 +293,8 @@ function GlassChartCard({
   return (
     <div className="relative bg-white/80 backdrop-blur-xl rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
       {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-emerald-50/30 pointer-events-none" />
-      
-      <div className="relative p-5">
+      <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-emerald-50/30 pointer-events-none"></div>
+<div className="relative p-5">
         <div className="flex items-center gap-2 mb-4">
           {icon && <span className="text-emerald-600">{icon}</span>}
           <h4 className="text-sm font-semibold text-slate-700">{title}</h4>
@@ -347,14 +340,13 @@ function CustomTooltip({ active, payload, label }: any) {
         <div key={index} className="flex items-center gap-2 text-xs">
           <span 
             className="w-2 h-2 rounded-full" 
-            style={{ backgroundColor: entry.color }} 
-          />
+            style={{backgroundColor: entry.color }}></span>
           <span className="text-slate-600">{entry.name}:</span>
           <span className="font-semibold text-slate-800">
             {typeof entry.value === 'number' ? entry.value.toFixed(3) : entry.value}
           </span>
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -432,13 +424,11 @@ function PositionComparison({
               <PolarGrid stroke="#e2e8f0" />
               <PolarAngleAxis 
                 dataKey="subject" 
-                tick={{ fontSize: 11, fill: '#64748b' }}
-              />
+                tick={ fontSize: 11, fill: '#64748b' } />
               <PolarRadiusAxis 
                 angle={30} 
                 domain={[0, 150]} 
-                tick={{ fontSize: 9, fill: '#94a3b8' }}
-              />
+                tick={ fontSize: 9, fill: '#94a3b8' } />
               <Radar
                 name="D1 Average"
                 dataKey="benchmark"
@@ -455,13 +445,12 @@ function PositionComparison({
                 fillOpacity={0.3}
               />
               <Legend 
-                wrapperStyle={{ fontSize: 11 }}
+                wrapperStyle={ fontSize: 11 }
               />
             </RadarChart>
           </ResponsiveContainer>
         </div>
-
-        {/* Comparison Stats */}
+{/* Comparison Stats */}
         <div className="space-y-3">
           <StatComparisonBar
             label="Batting Average"
@@ -531,8 +520,7 @@ function StatComparisonBar({
         {/* Benchmark line */}
         <div 
           className="absolute top-0 bottom-0 w-0.5 bg-purple-500 z-10"
-          style={{ left: '66.66%' }}
-        />
+          style={{left: '66.66%' }}></div>
         {/* Player value */}
         <div 
           className={`h-full rounded-full transition-all duration-500 ${
@@ -540,8 +528,7 @@ function StatComparisonBar({
               ? 'bg-gradient-to-r from-emerald-400 to-emerald-500' 
               : 'bg-gradient-to-r from-amber-400 to-amber-500'
           }`}
-          style={{ width: `${Math.min(percentage * 0.6666, 100)}%` }}
-        />
+          style={{ width: `${Math.min(percentage * 0.6666, 100)}}%` }}></div>
       </div>
     </div>
   );
@@ -644,15 +631,13 @@ function GlassProgressCard({
   return (
     <div className={`relative ${classes.bg} backdrop-blur-xl rounded-2xl border border-white/60 p-4 overflow-hidden`}>
       {/* Glassmorphism overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/40 to-transparent pointer-events-none" />
-      
-      <div className="relative">
+      <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/40 to-transparent pointer-events-none"></div>
+<div className="relative">
         {/* Icon */}
         <div className={`w-8 h-8 rounded-xl ${classes.icon} flex items-center justify-center mb-3`}>
           {icon}
         </div>
-
-        {/* Progress Ring */}
+{/* Progress Ring */}
         <div className="relative w-20 h-20 mx-auto mb-3">
           <svg className="w-full h-full -rotate-90">
             <circle
@@ -672,8 +657,7 @@ function GlassProgressCard({
               strokeWidth="6"
               strokeLinecap="round"
               className={classes.ring}
-              style={{
-                strokeDasharray: circumference,
+              style={{strokeDasharray: circumference,
                 strokeDashoffset,
                 transition: 'stroke-dashoffset 0.5s ease-out',
               }}
@@ -685,8 +669,7 @@ function GlassProgressCard({
             </span>
           </div>
         </div>
-
-        {/* Stats */}
+{/* Stats */}
         <div className="text-center">
           <p className="text-xs text-slate-500 uppercase tracking-wide mb-1">{label}</p>
           <p className="text-xl font-bold text-slate-800">{format(value)}</p>
@@ -694,8 +677,7 @@ function GlassProgressCard({
             Target: {format(target)}
           </p>
         </div>
-
-        {/* Completion badge */}
+{/* Completion badge */}
         {isComplete && (
           <div className="absolute top-2 right-2">
             <span className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-500 text-white">
@@ -704,7 +686,7 @@ function GlassProgressCard({
               </svg>
             </span>
           </div>
-        )}
+)}
       </div>
     </div>
   );

@@ -125,15 +125,13 @@ export function LoginForm() {
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full -mr-16 -mt-16 opacity-50"></div>
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-cyan-100 rounded-full -ml-12 -mb-12 opacity-50"></div>
-
-        {/* Logo */}
+{/* Logo */}
         <div className="flex justify-center mb-6 relative">
           <div className="bg-gradient-to-br from-blue-600 to-cyan-500 p-5 rounded-2xl shadow-lg transform hover:scale-105 transition-transform">
             <Clock className="w-12 h-12 text-white" />
           </div>
         </div>
-
-        <div className="text-center mb-8 relative">
+<div className="text-center mb-8 relative">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
             TEMPO
           </h1>
@@ -143,8 +141,7 @@ export function LoginForm() {
             <span>AI-Powered Performance</span>
           </div>
         </div>
-
-        <form onSubmit={handleSubmit} className="space-y-5 relative">
+<form onSubmit={handleSubmit} className="space-y-5 relative">
           {isSignUp && (
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
@@ -160,8 +157,7 @@ export function LoginForm() {
                 />
               </div>
             </div>
-          )}
-
+)}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
             <div className="relative">
@@ -176,8 +172,7 @@ export function LoginForm() {
               />
             </div>
           </div>
-
-          <div>
+<div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -198,10 +193,9 @@ export function LoginForm() {
                 <PasswordRequirement met={passwordStrength.hasNumber} text="One number" />
                 <PasswordRequirement met={passwordStrength.hasSpecial} text="One special character" />
               </div>
-            )}
+)}
           </div>
-
-          {isSignUp && (
+{isSignUp && (
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">I am a...</label>
               <div className="grid grid-cols-2 gap-3">
@@ -245,8 +239,7 @@ export function LoginForm() {
                 </button>
               </div>
             </div>
-          )}
-
+)}
           {error && (
             <div className="bg-red-50 border-2 border-red-200 text-red-700 text-sm p-4 rounded-xl">
               <div className="flex items-start gap-2">
@@ -261,17 +254,15 @@ export function LoginForm() {
                 >
                   Resend confirmation email
                 </button>
-              )}
+)}
             </div>
-          )}
-
+)}
           {success && (
             <div className="bg-green-50 border-2 border-green-200 text-green-700 text-sm p-4 rounded-xl flex items-start gap-2">
               <Check className="w-5 h-5 flex-shrink-0 mt-0.5" />
               <span>{success}</span>
             </div>
-          )}
-
+)}
           <button
             type="submit"
             disabled={loading}
@@ -289,8 +280,7 @@ export function LoginForm() {
             )}
           </button>
         </form>
-
-        <div className="mt-6 text-center relative">
+<div className="mt-6 text-center relative">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-200"></div>
@@ -299,8 +289,7 @@ export function LoginForm() {
               <span className="px-4 bg-white text-gray-500">or</span>
             </div>
           </div>
-
-          <button
+<button
             onClick={() => {
               setIsSignUp(!isSignUp);
               setError('');
@@ -327,7 +316,7 @@ function PasswordRequirement({ met, text }: { met: boolean; text: string }) {
         <div className="flex-shrink-0 w-4 h-4 bg-gray-100 rounded-full flex items-center justify-center">
           <X className="w-3 h-3 text-gray-400" />
         </div>
-      )}
+)}
       <span className={met ? 'text-green-700 font-medium' : 'text-gray-600'}>{text}</span>
     </div>
   );

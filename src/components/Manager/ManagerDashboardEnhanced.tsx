@@ -191,7 +191,7 @@ export function ManagerDashboardEnhanced() {
     const { data: leads } = await supabase
       .from('leads')
       .select('*')
-      .in('user_id', userIds.map(id => id.toString()))
+      .in('user_id', userIds.map(id => id.toString())}
       .not('follow_up_notes', 'is', null)
       .or('status.eq.follow_up,status.eq.contacted')
       .order('follow_up_date', { ascending: true })
@@ -237,7 +237,7 @@ export function ManagerDashboardEnhanced() {
     const { data: weeklyLeads } = await supabase
       .from('leads')
       .select('*')
-      .eq('user_id', rep.rep_id.toString())
+      .eq('user_id', rep.rep_id.toString()}
       .gte('created_at', weekAgo.toISOString());
 
     const weeklyBreakdown = {
@@ -253,7 +253,7 @@ export function ManagerDashboardEnhanced() {
     const { data: recentLeadsData } = await supabase
       .from('leads')
       .select('business_name, status, deal_value, updated_at')
-      .eq('user_id', rep.rep_id.toString())
+      .eq('user_id', rep.rep_id.toString()}
       .order('updated_at', { ascending: false })
       .limit(10);
 
@@ -306,8 +306,7 @@ export function ManagerDashboardEnhanced() {
             </h1>
             <p className="text-gray-600 mt-1">Week View • Real-time Performance</p>
           </div>
-
-          <div className="flex items-center gap-4">
+<div className="flex items-center gap-4">
             {/* Team Selector */}
             <select
               value={selectedTeam?.id || ''}
@@ -321,28 +320,25 @@ export function ManagerDashboardEnhanced() {
                 <option key={team.id} value={team.id}>
                   {team.team_name}
                 </option>
-              ))}
+)}
             </select>
-
-            <button className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-md flex items-center gap-2 relative font-semibold">
+<button className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-md flex items-center gap-2 relative font-semibold">
               <MessageSquare className="w-5 h-5" />
               Rep Requests
               {followUpRequests.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold shadow-lg">
                   {followUpRequests.length}
                 </span>
-              )}
+)}
             </button>
-
-            <button className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all shadow-md flex items-center gap-2 font-semibold">
+<button className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all shadow-md flex items-center gap-2 font-semibold">
               <FileText className="w-5 h-5" />
               Export Report
             </button>
           </div>
         </div>
       </div>
-
-      {/* Main Content */}
+{/* Main Content */}
       <div className="max-w-7xl mx-auto p-6">
         {/* Team Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
@@ -356,8 +352,7 @@ export function ManagerDashboardEnhanced() {
             <div className="text-4xl font-bold text-gray-900 mb-1">{teamMetrics.active_reps}</div>
             <div className="text-sm text-gray-600">Active Reps</div>
           </div>
-
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+<div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
             <div className="flex items-center justify-between mb-4">
               <div className="bg-gradient-to-br from-green-500 to-green-600 p-3 rounded-xl">
                 <Target className="w-6 h-6 text-white" />
@@ -367,8 +362,7 @@ export function ManagerDashboardEnhanced() {
             <div className="text-4xl font-bold text-gray-900 mb-1">{avgOSVPerRep}</div>
             <div className="text-sm text-gray-600">Avg OSV per Rep</div>
           </div>
-
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+<div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
             <div className="flex items-center justify-between mb-4">
               <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-3 rounded-xl">
                 <TrendingUp className="w-6 h-6 text-white" />
@@ -378,8 +372,7 @@ export function ManagerDashboardEnhanced() {
             <div className="text-4xl font-bold text-gray-900 mb-1">{avgNPPerRep}</div>
             <div className="text-sm text-gray-600">Avg NP per Rep</div>
           </div>
-
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+<div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
             <div className="flex items-center justify-between mb-4">
               <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-3 rounded-xl">
                 <DollarSign className="w-6 h-6 text-white" />
@@ -390,8 +383,7 @@ export function ManagerDashboardEnhanced() {
             <div className="text-sm text-gray-600">Pipeline Value</div>
           </div>
         </div>
-
-        {/* Team Leaderboard */}
+{/* Team Leaderboard */}
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-6">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
@@ -405,8 +397,7 @@ export function ManagerDashboardEnhanced() {
             </div>
             <div className="text-sm text-gray-500">{teamMetrics.active_reps} Active Reps</div>
           </div>
-
-          <div className="space-y-4">
+<div className="space-y-4">
             {repMetrics.map((rep, index) => {
               const osvGoal = defaultGoals.awv_goal; // Default weekly goal
               const npGoal = 60; // Default NP goal
@@ -436,8 +427,7 @@ export function ManagerDashboardEnhanced() {
                       <div className="text-sm text-gray-600">Goal Achievement</div>
                     </div>
                   </div>
-
-                  <div className="grid grid-cols-4 gap-4 mb-4">
+<div className="grid grid-cols-4 gap-4 mb-4">
                     <div className="bg-white rounded-lg p-4 border border-gray-200">
                       <div className="flex items-center gap-2 mb-2">
                         <Target className="w-4 h-4 text-blue-600" />
@@ -446,8 +436,7 @@ export function ManagerDashboardEnhanced() {
                       <div className="text-2xl font-bold text-gray-900">{rep.osv_count}</div>
                       <div className="text-xs text-gray-500">of {osvGoal}</div>
                     </div>
-
-                    <div className="bg-white rounded-lg p-4 border border-gray-200">
+<div className="bg-white rounded-lg p-4 border border-gray-200">
                       <div className="flex items-center gap-2 mb-2">
                         <Users className="w-4 h-4 text-green-600" />
                         <span className="text-xs font-semibold text-gray-600 uppercase">NP</span>
@@ -455,8 +444,7 @@ export function ManagerDashboardEnhanced() {
                       <div className="text-2xl font-bold text-gray-900">{rep.np_count}</div>
                       <div className="text-xs text-gray-500">of {npGoal}</div>
                     </div>
-
-                    <div className="bg-white rounded-lg p-4 border border-gray-200">
+<div className="bg-white rounded-lg p-4 border border-gray-200">
                       <div className="flex items-center gap-2 mb-2">
                         <Award className="w-4 h-4 text-purple-600" />
                         <span className="text-xs font-semibold text-gray-600 uppercase">Close%</span>
@@ -464,8 +452,7 @@ export function ManagerDashboardEnhanced() {
                       <div className="text-2xl font-bold text-gray-900">{Math.round(rep.close_ratio)}%</div>
                       <div className="text-xs text-gray-500">ratio</div>
                     </div>
-
-                    <div className="bg-white rounded-lg p-4 border border-gray-200">
+<div className="bg-white rounded-lg p-4 border border-gray-200">
                       <div className="flex items-center gap-2 mb-2">
                         <DollarSign className="w-4 h-4 text-orange-600" />
                         <span className="text-xs font-semibold text-gray-600 uppercase">Pipeline</span>
@@ -474,8 +461,7 @@ export function ManagerDashboardEnhanced() {
                       <div className="text-xs text-gray-500">value</div>
                     </div>
                   </div>
-
-                  <div className="flex items-center justify-between">
+<div className="flex items-center justify-between">
                     <div className={`${performanceBadge.color} px-4 py-2 rounded-lg font-semibold text-sm flex items-center gap-2`}>
                       <span>{performanceBadge.icon}</span>
                       {performanceBadge.label}
@@ -495,8 +481,7 @@ export function ManagerDashboardEnhanced() {
             })}
           </div>
         </div>
-
-        {/* Rep Follow-Up Requests */}
+{/* Rep Follow-Up Requests */}
         {followUpRequests.length > 0 && (
           <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-lg p-6 text-white">
             <div className="flex items-center justify-between mb-4">
@@ -511,8 +496,7 @@ export function ManagerDashboardEnhanced() {
                 {followUpRequests.length} Pending
               </span>
             </div>
-
-            <div className="space-y-3 mt-6">
+<div className="space-y-3 mt-6">
               {followUpRequests.slice(0, 5).map((request) => (
                 <div key={request.id} className="bg-white rounded-xl p-4 text-gray-900">
                   <div className="flex items-start justify-between">
@@ -523,7 +507,7 @@ export function ManagerDashboardEnhanced() {
                           <span className="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs font-semibold">
                             Ghosted
                           </span>
-                        )}
+)}
                       </div>
                       <div className="grid grid-cols-2 gap-2 text-sm">
                         <div>
@@ -542,13 +526,12 @@ export function ManagerDashboardEnhanced() {
                     </a>
                   </div>
                 </div>
-              ))}
+)}
             </div>
           </div>
-        )}
+)}
       </div>
-
-      {/* Detailed Rep Report Modal */}
+{/* Detailed Rep Report Modal */}
       {showRepDetails && detailedReport && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-auto">
@@ -567,8 +550,7 @@ export function ManagerDashboardEnhanced() {
                 </button>
               </div>
             </div>
-
-            {/* Modal Content */}
+{/* Modal Content */}
             <div className="p-6">
               {/* Weekly Performance */}
               <div className="mb-6">
@@ -595,8 +577,7 @@ export function ManagerDashboardEnhanced() {
                   </div>
                 </div>
               </div>
-
-              {/* Goals vs Actual */}
+{/* Goals vs Actual */}
               <div className="mb-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                   <Target className="w-6 h-6 text-green-600" />
@@ -613,12 +594,10 @@ export function ManagerDashboardEnhanced() {
                     <div className="bg-gray-200 rounded-full h-3">
                       <div
                         className={`bg-gradient-to-r ${getPerformanceColor(detailedReport.rep.osv_count, detailedReport.goals.awv_goal)} h-3 rounded-full transition-all`}
-                        style={{ width: `${Math.min((detailedReport.rep.osv_count / detailedReport.goals.awv_goal) * 100, 100)}%` }}
-                      />
+                        style={{ width: `${Math.min((detailedReport.rep.osv_count / detailedReport.goals.awv_goal) * 100, 100)}}%` }}></div>
                     </div>
                   </div>
-
-                  <div>
+<div>
                     <div className="flex justify-between mb-2">
                       <span className="text-sm font-semibold text-gray-700">Close Rate Target</span>
                       <span className="text-sm font-semibold text-gray-900">
@@ -628,14 +607,12 @@ export function ManagerDashboardEnhanced() {
                     <div className="bg-gray-200 rounded-full h-3">
                       <div
                         className={`bg-gradient-to-r ${getPerformanceColor(detailedReport.rep.close_ratio, detailedReport.goals.close_rate)} h-3 rounded-full transition-all`}
-                        style={{ width: `${Math.min((detailedReport.rep.close_ratio / detailedReport.goals.close_rate) * 100, 100)}%` }}
-                      />
+                        style={{ width: `${Math.min((detailedReport.rep.close_ratio / detailedReport.goals.close_rate) * 100, 100)}}%` }}></div>
                     </div>
                   </div>
                 </div>
               </div>
-
-              {/* Recent Activity */}
+{/* Recent Activity */}
               <div>
                 <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                   <Activity className="w-6 h-6 text-purple-600" />
@@ -650,22 +627,21 @@ export function ManagerDashboardEnhanced() {
                           lead.status === 'presentation' ? 'bg-blue-500' :
                           lead.status === 'qualified' ? 'bg-yellow-500' :
                           'bg-gray-400'
-                        }`} />
+                        }`}></div>
                         <span className="font-semibold text-gray-900">{lead.business_name}</span>
                         <span className="text-xs text-gray-500 capitalize">{lead.status?.replace('_', ' ')}</span>
                       </div>
                       <div className="flex items-center gap-4">
                         {lead.deal_value && (
                           <span className="text-sm font-semibold text-gray-700">${Math.round(lead.deal_value)}</span>
-                        )}
+)}
                         <span className="text-xs text-gray-500">{new Date(lead.updated_at).toLocaleDateString()}</span>
                       </div>
                     </div>
-                  ))}
+)}
                 </div>
               </div>
-
-              {/* Actions */}
+{/* Actions */}
               <div className="mt-6 flex gap-3">
                 <button className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all font-semibold flex items-center justify-center gap-2">
                   <Mail className="w-5 h-5" />
@@ -679,7 +655,7 @@ export function ManagerDashboardEnhanced() {
             </div>
           </div>
         </div>
-      )}
+)}
     </div>
   );
 }

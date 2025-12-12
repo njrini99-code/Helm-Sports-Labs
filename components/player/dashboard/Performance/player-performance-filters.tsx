@@ -10,8 +10,7 @@ export function PlayerPerformanceFilters({
 }: {
   value: PerformanceFilters;
   onChange: (val: PerformanceFilters) => void;
-})
-          )} {
+}}) {
   return (
     <Card className="bg-slate-900/70 border-white/5 p-4 text-white">
       <div className="flex flex-wrap gap-3 items-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
@@ -19,7 +18,7 @@ export function PlayerPerformanceFilters({
           label="Source"
           value={value.source}
           onChange={(source) => onChange({ ...value, source: source as 'high_school' | 'showcase' | 'all' })
-          )}}
+          })
           options={[
             { value: 'all', label: 'All' },
             { value: 'high_school', label: 'High School' },
@@ -30,7 +29,7 @@ export function PlayerPerformanceFilters({
           label="Date"
           value={value.dateRange.preset || '30d'}
           onChange={(preset) => onChange({ ...value, dateRange: { ...value.dateRange, preset: preset as '7d' | '30d' | 'season' } })
-          )}}
+          })
           options={[
             { value: '7d', label: 'Last 7d' },
             { value: '30d', label: 'Last 30d' },
@@ -41,7 +40,7 @@ export function PlayerPerformanceFilters({
           label="Level"
           value={value.level || 'all'}
           onChange={(level) => onChange({ ...value, level: level === 'all' ? undefined : level })
-          )}}
+          })
           options={[
             { value: 'all', label: 'All levels' },
             { value: 'Varsity', label: 'Varsity' },
@@ -53,7 +52,7 @@ export function PlayerPerformanceFilters({
           label="Game Type"
           value={value.gameType || 'all'}
           onChange={(gameType) => onChange({ ...value, gameType: gameType === 'all' ? undefined : gameType })
-          )}}
+          })
           options={[
             { value: 'all', label: 'All types' },
             { value: 'game', label: 'Game' },
@@ -76,8 +75,7 @@ function FilterSelect({
   value: string;
   onChange: (val: string) => void;
   options: { value: string; label: string }[];
-})
-          )} {
+}}) {
   return (
     <div className="space-y-1">
       <p className="text-[11px] uppercase tracking-wide text-slate-400">{label}</p>
@@ -97,7 +95,7 @@ function FilterSelect({
             <SelectItem key={opt.value} value={opt.value}>
               {opt.label}
             </SelectItem>
-          ))}
+)}
         </SelectContent>
       </Select>
     </div>

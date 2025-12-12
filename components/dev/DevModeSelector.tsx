@@ -73,8 +73,7 @@ export function DevModeSelector() {
           <Settings className="w-4 h-4" />
           <span>Dev: {currentRole || 'Select'}</span>
         </button>
-
-        {isOpen && (
+      {isOpen && (
           <>
             <div
               className="fixed inset-0 z-40"
@@ -85,35 +84,34 @@ export function DevModeSelector() {
                 <div className="px-3 py-2 text-xs font-semibold text-white/50 uppercase tracking-wider border-b border-white/10 mb-1">
                   Switch Dashboard
                 </div>
-                {{DASHBOARD_OPTIONS.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">📭</div>
-              <p className="text-white/60 mb-4">No items yet</p>
-              <p className="text-white/40 text-sm">Check back later</p>
-            </div>
-          ) : (
-            DASHBOARD_OPTIONS.map((option) => {
-                  const Icon = option.icon;
-                  const isActive = currentRole === option.value;
-                  return (
-                    <button
-                      key={option.value}
-                      onClick={() => handleSelect(option.value, option.path)}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
-                        isActive
-                          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                          : 'text-white/70 hover:bg-white/5 hover:text-white'
-                      }`}
-                    >
-                      <Icon className="w-4 h-4" />
-                      <span>{option.label}</span>
-                      {isActive && (
-                        <div className="ml-auto w-2 h-2 rounded-full bg-emerald-400" />
-                      )}
-                    </button>
-                  );
-                })
-          )}}
+                {DASHBOARD_OPTIONS.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="text-6xl mb-4">📭</div>
+                    <p className="text-white/60 mb-4">No items yet</p>
+                    <p className="text-white/40 text-sm">Check back later</p>
+                  </div>
+                ) : (
+                  DASHBOARD_OPTIONS.map((option) => {
+                    const Icon = option.icon;
+                    const isActive = currentRole === option.value;
+                    return (
+                      <button
+                        key={option.value}
+                        onClick={() => handleSelect(option.value, option.path)}
+                        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
+                          isActive
+                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                            : 'text-white/70 hover:bg-white/5 hover:text-white'
+                        }`}
+                      >
+                        <Icon className="w-4 h-4" />
+                        <span>{option.label}</span>
+                        {isActive && (
+                          <div className="ml-auto w-2 h-2 rounded-full bg-emerald-400"></div>
+)}
+                      </button>
+                    );
+                  }})
               </div>
             </div>
           </>

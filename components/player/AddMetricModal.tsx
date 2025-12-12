@@ -104,7 +104,7 @@ export function AddMetricModal({ playerId, onSuccess, trigger }: AddMetricModalP
             <Plus className="w-4 h-4 mr-2" />
             Add Measurable
           </Button>
-        )}
+)}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -132,11 +132,10 @@ export function AddMetricModal({ playerId, onSuccess, trigger }: AddMetricModalP
                 >
                   {metric.label}
                 </button>
-              ))}
+)}
             </div>
           </div>
-
-          <div className="space-y-2">
+      <div className="space-y-2">
             <Label>Metric Name *</Label>
             <Input
               value={formData.metric_label}
@@ -144,8 +143,7 @@ export function AddMetricModal({ playerId, onSuccess, trigger }: AddMetricModalP
               placeholder="e.g., Fastball Velocity"
             />
           </div>
-          
-          <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>Value *</Label>
               <Input
@@ -169,8 +167,7 @@ export function AddMetricModal({ playerId, onSuccess, trigger }: AddMetricModalP
               </Select>
             </div>
           </div>
-          
-          <div className="space-y-2">
+      <div className="space-y-2">
             <Label>Where Measured (Optional)</Label>
             <Input
               value={formData.context}
@@ -178,8 +175,7 @@ export function AddMetricModal({ playerId, onSuccess, trigger }: AddMetricModalP
               placeholder="e.g., Perfect Game Showcase, East Cobb"
             />
           </div>
-          
-          <div className="space-y-2">
+      <div className="space-y-2">
             <Label>Date Verified (Optional)</Label>
             <Input
               type="date"
@@ -188,8 +184,7 @@ export function AddMetricModal({ playerId, onSuccess, trigger }: AddMetricModalP
             />
             <p className="text-xs text-slate-500">Add date if officially verified at an event</p>
           </div>
-          
-          <div className="flex justify-end gap-2 pt-4">
+      <div className="flex justify-end gap-2 pt-4">
             <Button type="button" variant="outline" onClick={() => setOpen(false)}>
               Cancel
             </Button>

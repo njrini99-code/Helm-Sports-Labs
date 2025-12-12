@@ -258,8 +258,7 @@ export function RecruitmentTimeline({
               Track your college recruitment progress and interactions
             </p>
           </div>
-
-          {/* Stats Pills */}
+      {/* Stats Pills */}
           <div className="flex items-center gap-3 flex-wrap">
             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 border border-white/20">
               <Target className="w-4 h-4 text-slate-500" />
@@ -274,7 +273,7 @@ export function RecruitmentTimeline({
                 <Heart className="w-4 h-4 text-pink-500" />
                 <span className="text-sm font-medium text-pink-700">{stats.dreamSchools} Dream Schools</span>
               </div>
-            )}
+)}
             {isEditable && (
               <Button
                 onClick={() => setIsAddCollegeOpen(true)}
@@ -284,17 +283,15 @@ export function RecruitmentTimeline({
                 <Plus className="w-4 h-4 mr-1.5" />
                 Add School
               </Button>
-            )}
+)}
           </div>
         </div>
       </div>
-
       {/* Stage Timeline */}
       <div className="relative">
         {/* Timeline Connection Line */}
-        <div className="absolute top-8 left-0 right-0 h-1 bg-gradient-to-r from-slate-200 via-blue-200 via-purple-200 via-amber-200 to-emerald-200 rounded-full hidden lg:block" />
-        
-        {/* Stage Icons Row */}
+        <div className="absolute top-8 left-0 right-0 h-1 bg-gradient-to-r from-slate-200 via-blue-200 via-purple-200 via-amber-200 to-emerald-200 rounded-full hidden lg:block"></div>
+{/* Stage Icons Row */}
         <div className="hidden lg:flex justify-between relative z-10 mb-6 px-8">
           {STAGES.map((stage, index) => {
             const count = interestsByStage[stage.id].length;
@@ -324,8 +321,7 @@ export function RecruitmentTimeline({
             );
           })}
         </div>
-
-        {/* Stage Columns */}
+      {/* Stage Columns */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
           {STAGES.map((stage) => (
             <StageColumn
@@ -342,10 +338,9 @@ export function RecruitmentTimeline({
               }}
               onUpdateStage={onUpdateStage}
             />
-          ))}
+          })
         </div>
       </div>
-
       {/* Detail Modal */}
       <CollegeDetailModal
         interest={selectedInterest}
@@ -446,7 +441,6 @@ function StageColumn({
         <span className="font-semibold text-slate-700">{stage.label}</span>
         <Badge variant="outline" className="ml-auto">{interests.length}</Badge>
       </div>
-
       {/* Cards */}
       <div className="space-y-2">
         <AnimatePresence>
@@ -461,10 +455,9 @@ function StageColumn({
               onMoveStage={onUpdateStage}
               currentStage={stage.id}
             />
-          ))}
+          })
         </AnimatePresence>
-
-        {interests.length === 0 && (
+      {interests.length === 0 && (
           <div className="flex flex-col items-center justify-center py-8 text-center">
             <div className={cn(
               'w-12 h-12 rounded-xl flex items-center justify-center mb-3 opacity-30',
@@ -476,7 +469,7 @@ function StageColumn({
               {isOver ? 'Drop here' : 'No schools yet'}
             </p>
           </div>
-        )}
+)}
       </div>
     </div>
   );
@@ -513,10 +506,10 @@ function CollegeCard({
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.2 }}
+      initial={ opacity: 0, y: 10 }
+      animate={ opacity: 1, y: 0 }
+      exit={ opacity: 0, scale: 0.9 }
+      transition={{duration: 0.2 }}
       draggable={isEditable}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
@@ -537,8 +530,7 @@ function CollegeCard({
             {initials}
           </AvatarFallback>
         </Avatar>
-
-        {/* Info */}
+      {/* Info */}
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-1">
             <div>
@@ -549,17 +541,15 @@ function CollegeCard({
                 <p className="text-[10px] text-slate-500 mt-0.5">
                   {college.division} • {college.conference}
                 </p>
-              )}
+)}
             </div>
-            
-            {/* Priority Badge */}
+      {/* Priority Badge */}
             <Badge className={cn('text-[9px] px-1.5 py-0 h-4 flex-shrink-0', PRIORITY_COLORS[priority])}>
               {priority === 'dream' && <Heart className="w-2.5 h-2.5 mr-0.5" />}
               {priority.charAt(0).toUpperCase() + priority.slice(1)}
             </Badge>
           </div>
-
-          {/* Recent Activity */}
+      {/* Recent Activity */}
           {recentEvent && (
             <div className="flex items-center gap-1 mt-2 text-[10px] text-slate-400">
               <Clock className="w-3 h-3" />
@@ -567,8 +557,7 @@ function CollegeCard({
               <span>•</span>
               <span>{new Date(recentEvent.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
             </div>
-          )}
-
+)}
           {/* Upcoming indicator */}
           {upcomingEvents > 0 && (
             <div className="flex items-center gap-1 mt-1">
@@ -577,10 +566,9 @@ function CollegeCard({
                 {upcomingEvents} upcoming
               </Badge>
             </div>
-          )}
+)}
         </div>
-
-        {/* Quick Actions */}
+      {/* Quick Actions */}
         {isEditable && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -606,10 +594,10 @@ function CollegeCard({
                   <stage.icon className={cn('w-3.5 h-3.5 mr-2', stage.color)} />
                   Move to {stage.label}
                 </DropdownMenuItem>
-              ))}
+)}
             </DropdownMenuContent>
           </DropdownMenu>
-        )}
+)}
       </div>
     </motion.div>
   );
@@ -674,8 +662,7 @@ function CollegeDetailModal({
             </div>
           </div>
         </DialogHeader>
-
-        <div className="flex-1 overflow-y-auto space-y-6 py-4">
+      <div className="flex-1 overflow-y-auto space-y-6 py-4">
           {/* Contact Info */}
           {(contactName || contactEmail) && (
             <div className={cn('rounded-xl p-4', glassCard)}>
@@ -686,7 +673,7 @@ function CollegeDetailModal({
               <div className="space-y-2 text-sm">
                 {contactName && (
                   <p className="text-slate-800 font-medium">{contactName}</p>
-                )}
+)}
                 {contactEmail && (
                   <a 
                     href={`mailto:${contactEmail}`}
@@ -695,11 +682,10 @@ function CollegeDetailModal({
                     {contactEmail}
                     <ExternalLink className="w-3 h-3" />
                   </a>
-                )}
+)}
               </div>
             </div>
-          )}
-
+)}
           {/* Timeline */}
           <div>
             <div className="flex items-center justify-between mb-3">
@@ -712,10 +698,9 @@ function CollegeDetailModal({
                   <Plus className="w-3 h-3 mr-1" />
                   Add Event
                 </Button>
-              )}
+)}
             </div>
-
-            {sortedEvents.length === 0 ? (
+      {sortedEvents.length === 0 ? (
               <div className="text-center py-8 text-slate-400 text-sm">
                 <Calendar className="w-8 h-8 mx-auto mb-2 opacity-50" />
                 No events recorded yet
@@ -739,8 +724,7 @@ function CollegeDetailModal({
                           <CheckCircle2 className="w-3 h-3 text-emerald-500" />
                         )}
                       </div>
-
-                      <div className={cn(
+      <div className={cn(
                         'ml-4 rounded-lg p-3 transition-colors',
                         isFirst ? 'bg-blue-50/50' : 'hover:bg-slate-50/50'
                       )}>
@@ -762,16 +746,15 @@ function CollegeDetailModal({
                         </div>
                         {event.description && (
                           <p className="text-xs text-slate-500 mt-1 ml-6">{event.description}</p>
-                        )}
+)}
                       </div>
                     </div>
                   );
                 })}
               </div>
-            )}
+)}
           </div>
-
-          {/* Notes */}
+      {/* Notes */}
           {notes && (
             <div className={cn('rounded-xl p-4', glassCard)}>
               <h4 className="text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
@@ -780,10 +763,9 @@ function CollegeDetailModal({
               </h4>
               <p className="text-sm text-slate-600">{notes}</p>
             </div>
-          )}
+)}
         </div>
-
-        <DialogFooter className="flex-shrink-0 border-t pt-4">
+      <DialogFooter className="flex-shrink-0 border-t pt-4">
           {isEditable && (
             <Button
               variant="outline"
@@ -801,7 +783,7 @@ function CollegeDetailModal({
               <Trash2 className="w-4 h-4 mr-2" />
               Remove
             </Button>
-          )}
+)}
           <Button onClick={onClose}>Close</Button>
         </DialogFooter>
       </DialogContent>
@@ -858,13 +840,12 @@ function AddEventModal({ isOpen, onClose, onAdd }: AddEventModalProps) {
             Record an interaction or upcoming event with this school.
           </DialogDescription>
         </DialogHeader>
-
-        <div className="space-y-4 py-4">
+      <div className="space-y-4 py-4">
           <div className="space-y-2">
             <Label>Event Type</Label>
             <Select
               value={form.type}
-              onValueChange={(value) => setForm(prev => ({ ...prev, type: value as any }))}
+              onValueChange={(value) => setForm(prev => ({ ...prev, type: value as any }})
             >
               <SelectTrigger>
                 <SelectValue />
@@ -877,45 +858,41 @@ function AddEventModal({ isOpen, onClose, onAdd }: AddEventModalProps) {
                       {type.label}
                     </div>
                   </SelectItem>
-                ))}
+)}
               </SelectContent>
             </Select>
           </div>
-
-          <div className="space-y-2">
+      <div className="space-y-2">
             <Label>Title *</Label>
             <Input
               placeholder="e.g., Initial recruiting email"
               value={form.title}
-              onChange={(e) => setForm(prev => ({ ...prev, title: e.target.value }))}
+              onChange={(e) => setForm(prev => ({ ...prev, title: e.target.value }})
             />
           </div>
-
-          <div className="space-y-2">
+      <div className="space-y-2">
             <Label>Date</Label>
             <Input
               type="date"
               value={form.date}
-              onChange={(e) => setForm(prev => ({ ...prev, date: e.target.value }))}
+              onChange={(e) => setForm(prev => ({ ...prev, date: e.target.value }})
             />
           </div>
-
-          <div className="space-y-2">
+      <div className="space-y-2">
             <Label>Description (optional)</Label>
             <Textarea
               rows={3}
               placeholder="Add any notes about this event..."
               value={form.description}
-              onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }))}
+              onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }})
             />
           </div>
-
-          <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2">
             <input
               type="checkbox"
               id="isCompleted"
               checked={form.isCompleted}
-              onChange={(e) => setForm(prev => ({ ...prev, isCompleted: e.target.checked }))}
+              onChange={(e) => setForm(prev => ({ ...prev, isCompleted: e.target.checked }})
               className="rounded"
             />
             <Label htmlFor="isCompleted" className="text-sm font-normal">
@@ -923,8 +900,7 @@ function AddEventModal({ isOpen, onClose, onAdd }: AddEventModalProps) {
             </Label>
           </div>
         </div>
-
-        <DialogFooter>
+      <DialogFooter>
           <Button variant="outline" onClick={onClose}>Cancel</Button>
           <Button onClick={handleSubmit} disabled={loading}>
             {loading ? 'Adding...' : 'Add Event'}
@@ -1010,23 +986,21 @@ function AddCollegeModal({ isOpen, onClose, onAdd }: AddCollegeModalProps) {
             Add a college to track in your recruitment journey.
           </DialogDescription>
         </DialogHeader>
-
-        <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
+      <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2 space-y-2">
               <Label>College Name *</Label>
               <Input
                 placeholder="e.g., University of Texas"
                 value={form.collegeName}
-                onChange={(e) => setForm(prev => ({ ...prev, collegeName: e.target.value }))}
+                onChange={(e) => setForm(prev => ({ ...prev, collegeName: e.target.value }})
               />
             </div>
-
-            <div className="space-y-2">
+      <div className="space-y-2">
               <Label>Division</Label>
               <Select
                 value={form.division}
-                onValueChange={(value) => setForm(prev => ({ ...prev, division: value }))}
+                onValueChange={(value) => setForm(prev => ({ ...prev, division: value }})
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select division" />
@@ -1040,30 +1014,27 @@ function AddCollegeModal({ isOpen, onClose, onAdd }: AddCollegeModalProps) {
                 </SelectContent>
               </Select>
             </div>
-
-            <div className="space-y-2">
+      <div className="space-y-2">
               <Label>Conference</Label>
               <Input
                 placeholder="e.g., Big 12"
                 value={form.conference}
-                onChange={(e) => setForm(prev => ({ ...prev, conference: e.target.value }))}
+                onChange={(e) => setForm(prev => ({ ...prev, conference: e.target.value }})
               />
             </div>
-
-            <div className="space-y-2">
+      <div className="space-y-2">
               <Label>Location</Label>
               <Input
                 placeholder="e.g., Austin, TX"
                 value={form.location}
-                onChange={(e) => setForm(prev => ({ ...prev, location: e.target.value }))}
+                onChange={(e) => setForm(prev => ({ ...prev, location: e.target.value }})
               />
             </div>
-
-            <div className="space-y-2">
+      <div className="space-y-2">
               <Label>Priority</Label>
               <Select
                 value={form.priority}
-                onValueChange={(value) => setForm(prev => ({ ...prev, priority: value as any }))}
+                onValueChange={(value) => setForm(prev => ({ ...prev, priority: value as any }})
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -1081,12 +1052,11 @@ function AddCollegeModal({ isOpen, onClose, onAdd }: AddCollegeModalProps) {
                 </SelectContent>
               </Select>
             </div>
-
-            <div className="col-span-2 space-y-2">
+      <div className="col-span-2 space-y-2">
               <Label>Starting Stage</Label>
               <Select
                 value={form.stage}
-                onValueChange={(value) => setForm(prev => ({ ...prev, stage: value as any }))}
+                onValueChange={(value) => setForm(prev => ({ ...prev, stage: value as any }})
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -1099,43 +1069,39 @@ function AddCollegeModal({ isOpen, onClose, onAdd }: AddCollegeModalProps) {
                         {stage.label}
                       </div>
                     </SelectItem>
-                  ))}
+)}
                 </SelectContent>
               </Select>
             </div>
-
-            <div className="space-y-2">
+      <div className="space-y-2">
               <Label>Contact Name</Label>
               <Input
                 placeholder="Coach name"
                 value={form.contactName}
-                onChange={(e) => setForm(prev => ({ ...prev, contactName: e.target.value }))}
+                onChange={(e) => setForm(prev => ({ ...prev, contactName: e.target.value }})
               />
             </div>
-
-            <div className="space-y-2">
+      <div className="space-y-2">
               <Label>Contact Email</Label>
               <Input
                 type="email"
                 placeholder="coach@university.edu"
                 value={form.contactEmail}
-                onChange={(e) => setForm(prev => ({ ...prev, contactEmail: e.target.value }))}
+                onChange={(e) => setForm(prev => ({ ...prev, contactEmail: e.target.value }})
               />
             </div>
-
-            <div className="col-span-2 space-y-2">
+      <div className="col-span-2 space-y-2">
               <Label>Notes</Label>
               <Textarea
                 rows={3}
                 placeholder="Any additional notes..."
                 value={form.notes}
-                onChange={(e) => setForm(prev => ({ ...prev, notes: e.target.value }))}
+                onChange={(e) => setForm(prev => ({ ...prev, notes: e.target.value }})
               />
             </div>
           </div>
         </div>
-
-        <DialogFooter>
+      <DialogFooter>
           <Button variant="outline" onClick={onClose}>Cancel</Button>
           <Button onClick={handleSubmit} disabled={loading} className="bg-emerald-500 hover:bg-emerald-600">
             {loading ? 'Adding...' : 'Add School'}

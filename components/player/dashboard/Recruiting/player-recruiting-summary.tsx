@@ -9,8 +9,7 @@ export function PlayerRecruitingSummary({
 }: {
   summary: PlayerRecruitingSnapshot['summary'] | null | undefined;
   loading?: boolean;
-})
-          )} {
+}}) {
   const tiles = [
     { label: 'Schools', value: summary?.totalSchools ?? 0 },
     { label: 'Offers', value: summary?.offers ?? 0 },
@@ -37,7 +36,7 @@ export function PlayerRecruitingSummary({
             <p className="text-[11px] uppercase tracking-wide text-slate-400">{tile.label}</p>
             <p className="text-lg font-semibold">{tile.value}</p>
           </div>
-        ))}
+)}
       </div>
     </Card>
   );

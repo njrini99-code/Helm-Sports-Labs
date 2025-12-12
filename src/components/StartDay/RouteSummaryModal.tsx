@@ -44,8 +44,7 @@ export function RouteSummaryModal({ summary, beforeSummary, onAccept, onCancel }
             </button>
           </div>
         </div>
-
-        <div className="p-6 space-y-6">
+<div className="p-6 space-y-6">
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
               <div className="flex items-center gap-2 text-blue-700 mb-2">
@@ -57,8 +56,7 @@ export function RouteSummaryModal({ summary, beforeSummary, onAccept, onCancel }
                 {summary.totalNPs} NP + {summary.totalOSVs} OSV
               </p>
             </div>
-
-            <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
+<div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
               <div className="flex items-center gap-2 text-green-700 mb-2">
                 <Clock className="w-5 h-5" />
                 <span className="text-sm font-semibold">Total Time</span>
@@ -70,8 +68,7 @@ export function RouteSummaryModal({ summary, beforeSummary, onAccept, onCancel }
                 {summary.estimatedStartTime} - {summary.estimatedEndTime}
               </p>
             </div>
-
-            <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-lg border border-orange-200">
+<div className="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-lg border border-orange-200">
               <div className="flex items-center gap-2 text-orange-700 mb-2">
                 <TrendingUp className="w-5 h-5" />
                 <span className="text-sm font-semibold">Drive Time</span>
@@ -84,8 +81,7 @@ export function RouteSummaryModal({ summary, beforeSummary, onAccept, onCancel }
               </p>
             </div>
           </div>
-
-          <div className="bg-gray-50 p-5 rounded-lg border border-gray-200">
+<div className="bg-gray-50 p-5 rounded-lg border border-gray-200">
             <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
               <MapPin className="w-5 h-5 text-gray-600" />
               Route Details
@@ -114,12 +110,11 @@ export function RouteSummaryModal({ summary, beforeSummary, onAccept, onCancel }
                   <p className="text-xs text-gray-500 mt-1 text-right">
                     {summary.longestDriveBetween}
                   </p>
-                )}
+)}
               </div>
             </div>
           </div>
-
-          {beforeSummary && timeSaved > 0 && (
+{beforeSummary && timeSaved > 0 && (
             <div className="bg-green-50 border-2 border-green-300 p-5 rounded-lg">
               <div className="flex items-center gap-3 mb-3">
                 <TrendingUp className="w-6 h-6 text-green-600" />
@@ -148,8 +143,7 @@ export function RouteSummaryModal({ summary, beforeSummary, onAccept, onCancel }
                 </div>
               </div>
             </div>
-          )}
-
+)}
           <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
             <div className="flex gap-3">
               <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
@@ -165,8 +159,7 @@ export function RouteSummaryModal({ summary, beforeSummary, onAccept, onCancel }
             </div>
           </div>
         </div>
-
-        <div className="sticky bottom-0 bg-gray-50 p-6 rounded-b-xl border-t flex gap-3">
+<div className="sticky bottom-0 bg-gray-50 p-6 rounded-b-xl border-t flex gap-3">
           <button
             onClick={onCancel}
             className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-100 transition-colors"

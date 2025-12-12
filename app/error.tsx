@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import {
   AlertTriangle,
   RefreshCw,
@@ -194,33 +195,35 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
     <div className="min-h-screen gradient-bg flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background decorative shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="floating-shape absolute top-20 left-10 w-72 h-72 bg-red-500/5 rounded-full blur-3xl" />
-        <div className="floating-shape absolute bottom-20 right-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
-        <div className="floating-shape absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl" />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-  className="error-page-container relative z-10 w-full max-w-lg">
+        <div className="floating-shape absolute top-20 left-10 w-72 h-72 bg-red-500/5 rounded-full blur-3xl"></div>
+        <div className="floating-shape absolute bottom-20 right-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
+        <div className="floating-shape absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl"></div>
+      </div>
+<motion.div
+        initial={ opacity: 0, y: 20 }
+        animate={ opacity: 1, y: 0 }
+        transition={{duration: 0.3 }}
+        className="error-page-container relative z-10 w-full max-w-lg"
+      >
         {/* Main error card */}
         <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
-  className="glass-card rounded-3xl shadow-2xl overflow-hidden">
+          initial={ opacity: 0, y: 20 }
+          animate={ opacity: 1, y: 0 }
+          transition={{duration: 0.3 }}
+          className="glass-card rounded-3xl shadow-2xl overflow-hidden"
+        >
           {/* Header */}
           <div className="p-8 text-center border-b border-white/10">
             <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
-  className="error-icon-container inline-block mb-6">
+              initial={ opacity: 0, y: 20 }
+              animate={ opacity: 1, y: 0 }
+              transition={{duration: 0.3 }}
+              className="error-icon-container inline-block mb-6"
+            >
               <div className="error-icon-pulse p-5 rounded-2xl bg-red-500/20 inline-block">
                 <AlertTriangle className="w-12 h-12 text-red-400" />
-              </motion.div>
+              </div>
             </motion.div>
-
             <h1 className="text-2xl font-bold text-white mb-3">
               Oops! Something went wrong
             </h1>
@@ -228,14 +231,14 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
               We encountered an unexpected error while processing your request.
               Don&apos;t worry, your data is safe.
             </p>
-          </motion.div>
-
-          {/* Error info */}
+          </div>
+{/* Error info */}
           <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
-  className="p-4 mx-4 mt-4 rounded-xl glass-card-darker">
+            initial={ opacity: 0, y: 20 }
+            animate={ opacity: 1, y: 0 }
+            transition={{duration: 0.3 }}
+            className="p-4 mx-4 mt-4 rounded-xl glass-card-darker"
+          >
             <div className="flex items-start gap-3">
               <Bug className="w-5 h-5 text-red-400 mt-0.5 shrink-0" />
               <div className="flex-1 min-w-0">
@@ -249,8 +252,8 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
                   <p className="text-xs text-white/40 mt-2 font-mono">
                     Error ID: {error.digest}
                   </p>
-                )}
-              </motion.div>
+)}
+              </div>
               <button
                 onClick={handleCopyError}
                 className="p-2 rounded-2xl hover:bg-white/10 transition-colors shrink-0"
@@ -262,10 +265,9 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
                   <Copy className="w-4 h-4 text-white/40 hover:text-white/60" />
                 )}
               </button>
-            </motion.div>
+            </div>
           </motion.div>
-
-          {/* Development details */}
+{/* Development details */}
           {isDev && error.stack && (
             <div className="mx-4 mt-3">
               <button
@@ -282,23 +284,22 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
                   <ChevronDown className="w-4 h-4 text-white/40" />
                 )}
               </button>
-
               {showDetails && (
                 <div className="details-expanded">
                   <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
-  className="p-4 rounded-xl glass-card-darker mb-4">
+                    initial={ opacity: 0, y: 20 }
+                    animate={ opacity: 1, y: 0 }
+                    transition={{duration: 0.3 }}
+                    className="p-4 rounded-xl glass-card-darker mb-4"
+                  >
                     <pre className="text-xs text-white/50 overflow-x-auto whitespace-pre-wrap font-mono max-h-64 overflow-y-auto">
                       {error.stack}
                     </pre>
                   </motion.div>
-                </motion.div>
-              )}
-            </motion.div>
-          )}
-
+                </div>
+)}
+            </div>
+)}
           {/* Actions */}
           <div className="p-6 space-y-3">
             {/* Primary action - Retry */}
@@ -312,10 +313,9 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
                 <span className="ml-1 px-2 py-0.5 text-xs rounded-full bg-white/20">
                   {retryCount}
                 </span>
-              )}
+)}
             </button>
-
-            {/* Secondary actions */}
+{/* Secondary actions */}
             <div className="grid grid-cols-2 gap-3">
               <button
                 onClick={handleGoBack}
@@ -331,10 +331,9 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
                 <Home className="w-4 h-4" />
                 Home
               </Link>
-            </motion.div>
-          </motion.div>
-
-          {/* Footer */}
+            </div>
+          </div>
+{/* Footer */}
           <div className="px-6 py-4 border-t border-white/10 bg-white/5">
             <div className="flex items-center justify-between text-xs text-white/40">
               <span>
@@ -348,11 +347,10 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
                 Get Help
                 <ExternalLink className="w-3 h-3" />
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </motion.div>
-
-        {/* Helpful tips */}
+{/* Helpful tips */}
         <div className="mt-6 text-center">
           <p className="text-sm text-white/40 mb-3">Things you can try:</p>
           <div className="flex flex-wrap justify-center gap-2">
@@ -365,19 +363,18 @@ User Agent: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A'}
             <span className="px-3 py-1.5 rounded-full glass-card text-xs text-white/60">
               Check your connection
             </span>
-          </motion.div>
-        </motion.div>
-
-        {/* Dev mode indicator */}
+          </div>
+        </div>
+{/* Dev mode indicator */}
         {isDev && (
           <div className="mt-6 text-center">
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/20 text-amber-400 text-xs font-medium">
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
               Development Mode
             </span>
-          </motion.div>
-        )}
+          </div>
+)}
       </motion.div>
-    </motion.div>
+    </div>
   );
 }

@@ -81,8 +81,7 @@ export function LeadsView() {
           Import CSV
         </button>
       </div>
-
-      <div className="mb-4 md:mb-6">
+<div className="mb-4 md:mb-6">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-gray-400" />
           <input
@@ -94,8 +93,7 @@ export function LeadsView() {
           />
         </div>
       </div>
-
-      {filteredLeads.length === 0 ? (
+{filteredLeads.length === 0 ? (
         <div className="bg-white border border-gray-200 rounded-xl p-8 md:p-12 text-center">
           <Filter className="w-12 h-12 md:w-16 md:h-16 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-2">No leads found</h3>
@@ -110,7 +108,7 @@ export function LeadsView() {
               <Upload className="w-4 h-4 md:w-5 md:h-5" />
               Import CSV
             </button>
-          )}
+)}
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-3 md:gap-4">
@@ -127,10 +125,9 @@ export function LeadsView() {
                       {lead.owner_name}
                       {lead.decision_maker_title && ` - ${lead.decision_maker_title}`}
                     </p>
-                  )}
+)}
                 </div>
-
-                <div className="flex flex-wrap gap-2">
+<div className="flex flex-wrap gap-2">
                   {lead.status && (
                     <span
                       className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -143,23 +140,21 @@ export function LeadsView() {
                     >
                       {lead.status.replace('_', ' ')}
                     </span>
-                  )}
+)}
                   {lead.deal_value && (
                     <span className="px-3 py-1 bg-green-50 text-green-700 rounded-full text-sm font-medium">
                       ${lead.deal_value.toLocaleString()}
                     </span>
-                  )}
+)}
                 </div>
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-3 md:mb-4">
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-3 md:mb-4">
                 {lead.industry && (
                   <div>
                     <p className="text-sm text-gray-500">Industry</p>
                     <p className="font-medium text-gray-900">{lead.industry}</p>
                   </div>
-                )}
-
+)}
                 {lead.address && (
                   <div className="flex items-start gap-2">
                     <MapPin className="w-4 h-4 mt-1 text-gray-400 flex-shrink-0" />
@@ -171,8 +166,7 @@ export function LeadsView() {
                       </p>
                     </div>
                   </div>
-                )}
-
+)}
                 {lead.phone && (
                   <div className="flex items-center gap-2">
                     <Phone className="w-4 h-4 text-gray-400" />
@@ -183,8 +177,7 @@ export function LeadsView() {
                       {lead.phone}
                     </a>
                   </div>
-                )}
-
+)}
                 {lead.email && (
                   <div className="flex items-center gap-2">
                     <Mail className="w-4 h-4 text-gray-400" />
@@ -195,8 +188,7 @@ export function LeadsView() {
                       {lead.email}
                     </a>
                   </div>
-                )}
-
+)}
                 {lead.google_rating && (
                   <div className="flex items-center gap-2">
                     <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
@@ -205,30 +197,28 @@ export function LeadsView() {
                     </span>
                     {lead.user_ratings_total && (
                       <span className="text-sm text-gray-500">({lead.user_ratings_total} reviews)</span>
-                    )}
+)}
                   </div>
-                )}
+)}
               </div>
-
-              {(lead.notes || lead.pain_points) && (
+{(lead.notes || lead.pain_points) && (
                 <div className="bg-gray-50 rounded-lg p-3 text-xs md:text-sm text-gray-700">
                   {lead.pain_points && (
                     <p className="mb-2">
                       <span className="font-medium">Pain Points:</span> {lead.pain_points}
                     </p>
-                  )}
+)}
                   {lead.notes && (
                     <p>
                       <span className="font-medium">Notes:</span> {lead.notes}
                     </p>
-                  )}
+)}
                 </div>
-              )}
+)}
             </div>
-          ))}
+)}
         </div>
-      )}
-
+)}
       {showImport && (
         <CSVImport
           onClose={() => setShowImport(false)}

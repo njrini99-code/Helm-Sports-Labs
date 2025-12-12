@@ -530,7 +530,7 @@ export default function CollegeCoachDiscoverPage() {
         </div>
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500 mx-auto mb-4" />
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500 mx-auto mb-4"></div>
             <p className="text-muted-foreground">Loading recruits...</p>
           </div>
         </div>
@@ -550,7 +550,6 @@ export default function CollegeCoachDiscoverPage() {
     >
       {/* Skip Link */}
       <SkipLink href="#discover-content">Skip to discover content</SkipLink>
-
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 pt-4">
         <Breadcrumbs
@@ -560,38 +559,32 @@ export default function CollegeCoachDiscoverPage() {
           ]}
         />
       </div>
-
       {/* ═══════════════════════════════════════════════════════════════════
           ULTIMATE GLASSMORPHISM DISCOVER ZONE
       ═══════════════════════════════════════════════════════════════════ */}
       <div id="discover-content" className={cn(glassDarkZoneEnhanced, "pb-12 relative overflow-hidden")}>
         {/* Animated gradient orbs */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '0s' }} />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
-        
-        {/* Subtle grid pattern */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '0s' }}></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/15 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '1s' }}></div>
+{/* Subtle grid pattern */}
         <div 
           className="absolute inset-0 opacity-[0.02] pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
-
-        <div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 space-y-6 relative z-10">
+          style={{backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+<div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 space-y-6 relative z-10">
           
         {/* ═══════════════════════════════════════════════════════════════════
             PREMIUM GLASS HEADER
         ═══════════════════════════════════════════════════════════════════ */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          initial={ opacity: 0, y: 20 }
+          animate={ opacity: 1, y: 0 }
+          transition={{duration: 0.6, ease: 'easeOut' }}
         >
           <div className={cn(glassHeroEnhanced, "p-6 relative overflow-hidden")}>
             {/* Animated gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-blue-500/5 opacity-50 animate-pulse" />
-            
-            <div className="relative z-10 flex items-start justify-between gap-4">
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-blue-500/5 opacity-50 animate-pulse"></div>
+<div className="relative z-10 flex items-start justify-between gap-4">
               <div>
                 <div className="flex items-center gap-3 mb-3">
                   <div className={cn(
@@ -627,14 +620,13 @@ export default function CollegeCoachDiscoverPage() {
             </div>
           </div>
         </motion.div>
-
-        {/* ═══════════════════════════════════════════════════════════════════
+      {/* ═══════════════════════════════════════════════════════════════════
             PREMIUM GLASS MAP CARD
         ═══════════════════════════════════════════════════════════════════ */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          initial={ opacity: 0, y: 20 }
+          animate={ opacity: 1, y: 0 }
+          transition={{duration: 0.6, delay: 0.1 }}
         >
           <div className={cn(glassPanelEnhanced, "overflow-hidden")}>
             {/* Map Header */}
@@ -651,17 +643,16 @@ export default function CollegeCoachDiscoverPage() {
               </div>
               <div className="flex items-center gap-4 text-xs text-white/70">
                 <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-200 shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-200 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
                   Low activity
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
                   High activity
                 </span>
               </div>
             </div>
-            
-            {/* Map */}
+      {/* Map */}
             <div className="p-5">
               <DiscoverMap
                 selectedState={selectedState}
@@ -672,11 +663,10 @@ export default function CollegeCoachDiscoverPage() {
                 name: STATE_NAMES[code] || code,
                 recruitCount: stats.total,
                 byYear: stats.byYear,
-              }))}
+              }})
             />
           </div>
-
-          {/* Selected State Badge */}
+      {/* Selected State Badge */}
           {selectedState && (
             <div className="px-5 py-3 bg-emerald-50/50 border-t border-emerald-100 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -698,7 +688,7 @@ export default function CollegeCoachDiscoverPage() {
                 Clear
               </Button>
             </div>
-          )}
+)}
         </Card>
         <Card className="rounded-3xl border border-slate-200/80 bg-white/10 backdrop-blur-md border border-white/20 shadow-sm overflow-hidden">
           {/* Filters Header */}
@@ -768,8 +758,7 @@ export default function CollegeCoachDiscoverPage() {
               )}
             </div>
           </div>
-
-          {showFilters && (
+      {showFilters && (
             <div className="px-5 pb-5 border-t border-slate-100 space-y-4">
               {/* Enhanced Search */}
               <div className="pt-4">
@@ -782,12 +771,11 @@ export default function CollegeCoachDiscoverPage() {
                     id: p.id,
                     label: p.name,
                     category: `${p.primaryPosition} • ${p.state}`,
-                  }))}
+                  }})
                   className="w-full"
                 />
               </div>
-
-              {/* Position chips */}
+      {/* Position chips */}
               <div>
                 <p className="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Position</p>
                 <div className="flex flex-wrap gap-1.5">
@@ -803,11 +791,10 @@ export default function CollegeCoachDiscoverPage() {
                     >
                       {pos}
                     </button>
-                  ))}
+)}
                 </div>
               </div>
-
-              {/* Grad Year chips */}
+      {/* Grad Year chips */}
               <div>
                 <p className="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Grad Year</p>
                 <div className="flex flex-wrap gap-1.5">
@@ -823,11 +810,10 @@ export default function CollegeCoachDiscoverPage() {
                     >
                       {year}
                     </button>
-                  ))}
+)}
                 </div>
               </div>
-
-              {/* Bats/Throws/Options */}
+      {/* Bats/Throws/Options */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
                   <p className="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Bats</p>
@@ -835,7 +821,7 @@ export default function CollegeCoachDiscoverPage() {
                     {['R', 'L', 'S'].map((hand) => (
                       <button
                         key={hand}
-                        onClick={() => setFilters(prev => ({ ...prev, bats: prev.bats === hand ? null : hand }))}
+                        onClick={() => setFilters(prev => ({ ...prev, bats: prev.bats === hand ? null : hand }})
                         className={`flex-1 px-2 py-1.5 rounded-lg text-xs font-medium transition-all ${
                           filters.bats === hand
                             ? 'bg-emerald-50 text-emerald-700 border border-emerald-300'
@@ -844,7 +830,7 @@ export default function CollegeCoachDiscoverPage() {
                       >
                         {hand}
                       </button>
-                    ))}
+)}
                   </div>
                 </div>
                 <div>
@@ -853,7 +839,7 @@ export default function CollegeCoachDiscoverPage() {
                     {['R', 'L'].map((hand) => (
                       <button
                         key={hand}
-                        onClick={() => setFilters(prev => ({ ...prev, throws: prev.throws === hand ? null : hand }))}
+                        onClick={() => setFilters(prev => ({ ...prev, throws: prev.throws === hand ? null : hand }})
                         className={`flex-1 px-2 py-1.5 rounded-lg text-xs font-medium transition-all ${
                           filters.throws === hand
                             ? 'bg-emerald-50 text-emerald-700 border border-emerald-300'
@@ -862,14 +848,14 @@ export default function CollegeCoachDiscoverPage() {
                       >
                         {hand}
                       </button>
-                    ))}
+)}
                   </div>
                 </div>
                 <div className="col-span-2 md:col-span-2">
                   <p className="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">Options</p>
                   <div className="flex gap-1.5">
                     <button
-                      onClick={() => setFilters(prev => ({ ...prev, hasVideo: !prev.hasVideo }))}
+                      onClick={() => setFilters(prev => ({ ...prev, hasVideo: !prev.hasVideo }})
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                         filters.hasVideo
                           ? 'bg-emerald-50 text-emerald-700 border border-emerald-300'
@@ -880,7 +866,7 @@ export default function CollegeCoachDiscoverPage() {
                       Has Video
                     </button>
                     <button
-                      onClick={() => setFilters(prev => ({ ...prev, verifiedOnly: !prev.verifiedOnly }))}
+                      onClick={() => setFilters(prev => ({ ...prev, verifiedOnly: !prev.verifiedOnly }})
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                         filters.verifiedOnly
                           ? 'bg-emerald-50 text-emerald-700 border border-emerald-300'
@@ -893,20 +879,18 @@ export default function CollegeCoachDiscoverPage() {
                   </div>
                 </div>
               </div>
-
-              {/* Active filters summary */}
+      {/* Active filters summary */}
               {activeFilterSummary && (
                 <div className="pt-3 border-t border-slate-100">
                   <p className="text-xs text-slate-500">
                     <span className="font-medium text-slate-700">Showing:</span> {activeFilterSummary}
                   </p>
                 </div>
-              )}
+)}
             </div>
-          )}
+)}
         </Card>
-
-        {/* ═══════════════════════════════════════════════════════════════════
+      {/* ═══════════════════════════════════════════════════════════════════
             RESULTS SECTION
         ═══════════════════════════════════════════════════════════════════ */}
         <Card className="rounded-3xl border border-slate-200/80 bg-white/10 backdrop-blur-md border border-white/20 shadow-sm overflow-hidden">
@@ -918,33 +902,31 @@ export default function CollegeCoachDiscoverPage() {
                 <p className="text-xs text-slate-500 mt-0.5">
                   {getResultCount()} {getResultLabel()} in {STATE_NAMES[selectedState]}
                 </p>
-              )}
+)}
             </div>
-            
-            {/* Entity Type Tabs */}
+      {/* Entity Type Tabs */}
             <Tabs value={activeEntityType} onValueChange={(v) => setActiveEntityType(v as EntityType)}>
               <TabsList className="h-8 bg-slate-100 border-0 p-0.5">
                 <TabsTrigger value="players" className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-white/10 backdrop-blur-md border border-white/20 data-[state=active]:shadow-sm">
                   <User className="w-3.5 h-3.5" strokeWidth={2} />
                   Players
                 </TabsTrigger>
-                <TabsTrigger value="teams" className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-white/10 backdrop-blur-md border border-white/20 data-[state=active]:shadow-sm">
+        <TabsTrigger value="teams" className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-white/10 backdrop-blur-md border border-white/20 data-[state=active]:shadow-sm">
                   <Building className="w-3.5 h-3.5" strokeWidth={2} />
                   Teams
                 </TabsTrigger>
-                <TabsTrigger value="juco" className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-white/10 backdrop-blur-md border border-white/20 data-[state=active]:shadow-sm">
+        <TabsTrigger value="juco" className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-white/10 backdrop-blur-md border border-white/20 data-[state=active]:shadow-sm">
                   <GraduationCap className="w-3.5 h-3.5" strokeWidth={2} />
                   JUCO
                 </TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
-
-          {/* Results Content */}
+      {/* Results Content */}
           <div className="p-5">
             {loading ? (
               <div className="flex items-center justify-center py-16">
-                <div className="w-5 h-5 bg-emerald-500/20 rounded animate-pulse" />
+                <div className="w-5 h-5 bg-emerald-500/20 rounded animate-pulse"></div>
               </div>
             ) : !selectedState ? (
               <div className="text-center py-16">
@@ -969,9 +951,8 @@ export default function CollegeCoachDiscoverPage() {
                         onAddToWatchlist={() => handleAddToWatchlist(player.id, player.name)}
                         onView={() => handleOpenPlayerCard(player)}
                       />
-                    ))
-                  )
-                )}
+                    )}
+                  })
 
                 {activeEntityType === 'teams' && (
                   filteredTeams.length === 0 ? (
@@ -983,9 +964,8 @@ export default function CollegeCoachDiscoverPage() {
                         team={team}
                         onView={() => router.push(`/coach/college/teams/${team.id}`)}
                       />
-                    ))
-                  )
-                )}
+                    )}
+                  })
 
                 {activeEntityType === 'juco' && (
                   filteredJucos.length === 0 ? (
@@ -997,15 +977,13 @@ export default function CollegeCoachDiscoverPage() {
                         juco={juco}
                         onView={() => router.push(`/coach/college/teams/${juco.id}`)}
                       />
-                    ))
-                  )
-                )}
+                    )}
+                  })
               </div>
-            )}
+)}
           </div>
         </Card>
       </div>
-
       {/* Player Scout Card */}
       <PlayerScoutCard
         isOpen={isScoutCardOpen}
@@ -1053,8 +1031,7 @@ function PlayerResultCard({
             {player.name.slice(0, 2).toUpperCase()}
           </AvatarFallback>
         </Avatar>
-
-        {/* Info */}
+      {/* Info */}
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-slate-800 text-sm">{player.name}</p>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -1063,28 +1040,26 @@ function PlayerResultCard({
             {player.weight && ` • ${player.weight} lbs`}
             {player.state && ` • ${player.state}`}
           </p>
-          
-          {/* Tags */}
+      {/* Tags */}
           <div className="flex items-center gap-1.5 mt-2 flex-wrap">
             {player.verified && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-medium">
                 <Sparkles className="w-3 h-3" strokeWidth={2} /> Verified
               </span>
-            )}
+)}
             {player.trending && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 border border-blue-200 text-[10px] font-medium">
                 <TrendingUp className="w-3 h-3" strokeWidth={2} /> Trending
               </span>
-            )}
+)}
             {player.topSchool && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-medium">
                 <Star className="w-3 h-3" strokeWidth={2} /> Top 5
               </span>
-            )}
+)}
           </div>
         </div>
-
-        {/* Actions */}
+      {/* Actions */}
         <div className="flex items-center gap-2 shrink-0" onClick={(e) => e.stopPropagation()}>
           <Button
             size="sm"
@@ -1096,7 +1071,7 @@ function PlayerResultCard({
             View profile
             <ArrowUpRight className="w-3.5 h-3.5 ml-1" strokeWidth={2} />
           </Button>
-          <Button
+        <Button
             size="sm"
             variant="outline"
             className="h-8 px-3 text-xs border-slate-200 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300"
@@ -1129,22 +1104,19 @@ function TeamResultCard({
         <div className="h-11 w-11 rounded-xl bg-blue-100 border border-blue-200 flex items-center justify-center shadow-sm">
           <Building className="w-5 h-5 text-blue-600" strokeWidth={1.5} />
         </div>
-
-        <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0">
           <p className="font-semibold text-slate-800 text-sm">{team.name}</p>
           <p className="text-xs text-slate-500 mt-0.5">
             {typeLabel}
             {team.city && team.state && ` • ${team.city}, ${team.state}`}
           </p>
-          
-          {team.playersCount !== undefined && team.playersCount > 0 && (
+      {team.playersCount !== undefined && team.playersCount > 0 && (
             <span className="inline-flex items-center gap-1 mt-2 px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-medium">
               <Users className="w-3 h-3" /> {team.playersCount} on ScoutPulse
             </span>
-          )}
+)}
         </div>
-
-        <Button
+      <Button
           size="sm"
           variant="ghost"
           className="h-8 px-3 text-xs text-slate-600 hover:text-slate-800 shrink-0"
@@ -1174,8 +1146,7 @@ function JucoResultCard({
         <div className="h-11 w-11 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center shadow-sm">
           <GraduationCap className="w-5 h-5 text-purple-600" strokeWidth={1.5} />
         </div>
-
-        <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             <p className="font-semibold text-slate-800 text-sm">{juco.name}</p>
             <span className="px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 border border-purple-200 text-[10px] font-medium">
@@ -1186,15 +1157,13 @@ function JucoResultCard({
             {juco.conference && `${juco.conference} • `}
             {juco.city && juco.state && `${juco.city}, ${juco.state}`}
           </p>
-          
-          {juco.playersCount !== undefined && juco.playersCount > 0 && (
+      {juco.playersCount !== undefined && juco.playersCount > 0 && (
             <span className="inline-flex items-center gap-1 mt-2 px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-medium">
               <Users className="w-3 h-3" /> {juco.playersCount} players
             </span>
-          )}
+)}
         </div>
-
-        <Button
+      <Button
           size="sm"
           variant="ghost"
           className="h-8 px-3 text-xs text-slate-600 hover:text-slate-800 shrink-0"

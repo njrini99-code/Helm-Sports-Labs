@@ -186,7 +186,7 @@ export default function JoinTeamPage() {
               <Building2 className="w-4 h-4" />
               {team.school_name}
             </p>
-          )}
+)}
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-3">
@@ -197,21 +197,20 @@ export default function JoinTeamPage() {
                   <span className="font-medium">Coach:</span> {coach.full_name}
                 </span>
               </div>
-            )}
+)}
             {location && (
               <div className="flex items-center gap-2 text-slate-700 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <MapPin className="w-4 h-4 text-slate-400" />
                 <span className="text-sm">{location}</span>
               </div>
-            )}
+)}
             <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <Badge variant="outline" className="capitalize">
                 {team.team_type.replace('_', ' ')}
               </Badge>
             </div>
           </div>
-
-          <div className="pt-4 border-t">
+      <div className="pt-4 border-t">
             <p className="text-sm text-slate-600 text-center mb-4">
               You've been invited to join this team. Click below to accept the invitation.
             </p>
@@ -231,13 +230,12 @@ export default function JoinTeamPage() {
               )}
             </Button>
           </div>
-
-          {invitation.expires_at && (
+      {invitation.expires_at && (
             <p className="text-xs text-slate-500 text-center">
               This invitation expires on{' '}
               {new Date(invitation.expires_at).toLocaleDateString()}
             </p>
-          )}
+)}
         </CardContent>
       </Card>
     </div>

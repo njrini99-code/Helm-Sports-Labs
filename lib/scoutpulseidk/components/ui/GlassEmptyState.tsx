@@ -297,17 +297,12 @@ function EmptyStateIllustration({
       <div
         className={cn(
           'absolute -inset-4 rounded-full opacity-20 blur-xl',
-          color.replace('text-', 'bg-')
-        )}
-      />
+          color.replace('text-', 'bg-'})></div>
       <div
         className={cn(
           'absolute -inset-2 rounded-full opacity-10 blur-md',
-          color.replace('text-', 'bg-')
-        )}
-      />
-
-      {/* Icon container */}
+          color.replace('text-', 'bg-'})></div>
+{/* Icon container */}
       <div
         className={cn(
           'relative rounded-full flex items-center justify-center',
@@ -319,26 +314,20 @@ function EmptyStateIllustration({
         <div
           className={cn(
             'absolute inset-0 rounded-full animate-ping opacity-20',
-            color.replace('text-', 'bg-')
-          )}
-          style={{ animationDuration: '3s' }}
-        />
-        
-        {/* Inner glow ring */}
+            color.replace('text-', 'bg-'})
+          style={{animationDuration: '3s' }}></div>
+{/* Inner glow ring */}
         <div
           className={cn(
             'absolute inset-2 rounded-full',
             isGlass ? 'bg-white/5' : 'bg-white',
             'border',
             isGlass ? 'border-white/10' : 'border-slate-100'
-          )}
-        />
-
-        {/* Icon */}
+          )}></div>
+{/* Icon */}
         <Icon className={cn(sizes.iconSize, color, 'relative z-10')} strokeWidth={1.5} />
       </div>
-
-      {/* Decorative dots */}
+{/* Decorative dots */}
       {size !== 'sm' && (
         <>
           <div
@@ -347,16 +336,14 @@ function EmptyStateIllustration({
               color.replace('text-', 'bg-'),
               'opacity-60 animate-bounce'
             )}
-            style={{ animationDuration: '2s', animationDelay: '0.2s' }}
-          />
+            style={{animationDuration: '2s', animationDelay: '0.2s' }}></div>
           <div
             className={cn(
               'absolute -bottom-1 -left-3 h-2 w-2 rounded-full',
               color.replace('text-', 'bg-'),
               'opacity-40 animate-bounce'
             )}
-            style={{ animationDuration: '2.5s', animationDelay: '0.5s' }}
-          />
+            style={{animationDuration: '2.5s', animationDelay: '0.5s' }}></div>
         </>
       )}
     </div>
@@ -390,7 +377,7 @@ function ActionButton({
         styles.button[action.variant || 'primary']
       )}
     >
-      {ButtonIcon && <ButtonIcon className="h-4 w-4" />}
+      {ButtonIcon && <ButtonIcon className="h-4 w-4"></Button>}
       {action.label}
     </button>
   );
@@ -438,24 +425,21 @@ export function GlassEmptyState({
           color={config.color}
         />
       )}
-
       <div className={cn('space-y-2 max-w-md', !showIllustration && 'mt-0')}>
         <h3 className={cn(sizes.title, styles.title)}>{displayTitle}</h3>
         <p className={cn(sizes.description, styles.text)}>{displayDescription}</p>
       </div>
-
-      {actions && actions.length > 0 && (
+{actions && actions.length > 0 && (
         <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
           {actions.map((action, index) => (
             <ActionButton
               key={index}
               action={action}
               glassVariant={glassVariant}
-              size={size}
-            />
-          ))}
+              size={size} />
+          })
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -552,7 +536,7 @@ export function InlineEmptyState({
         >
           {action.label}
         </button>
-      )}
+)}
     </div>
   );
 }
@@ -599,19 +583,17 @@ export function CustomEmptyState({
         <h3 className={cn(sizes.title, styles.title)}>{title}</h3>
         <p className={cn(sizes.description, styles.text)}>{description}</p>
       </div>
-
-      {actions && actions.length > 0 && (
+{actions && actions.length > 0 && (
         <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
           {actions.map((action, index) => (
             <ActionButton
               key={index}
               action={action}
               glassVariant={glassVariant}
-              size={size}
-            />
-          ))}
+              size={size} />
+          })
         </div>
-      )}
+)}
     </div>
   );
 }

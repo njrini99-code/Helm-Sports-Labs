@@ -12,7 +12,6 @@ import {
   glassCardPremium,
   glassPanel as glassPanelEnhanced,
   glassButton as glassButtonEnhanced,
-  cn,
 } from '@/lib/glassmorphism-enhanced';
 import { createClient } from '@/lib/supabase/client';
 import { isDevMode, getDevRole } from '@/lib/dev-mode';
@@ -183,8 +182,7 @@ export default function HomePage() {
     return (
       <main className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center">
         <PageLoading 
-          text={isAuthenticated ? 'Redirecting to your dashboard...' : 'Loading...'} 
-        />
+          text={isAuthenticated ? 'Redirecting to your dashboard...' : 'Loading...'} />
       </main>
     );
   }
@@ -196,7 +194,6 @@ export default function HomePage() {
     <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950/30 text-slate-900 dark:text-slate-100 scroll-smooth">
       {/* Skip Link for Accessibility */}
       <SkipLink href="#main-content">Skip to main content</SkipLink>
-      
       {/* Scroll Progress Indicator */}
       <ScrollProgress />
       
@@ -219,8 +216,7 @@ export default function HomePage() {
               </div>
               <span>Scout<span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-transparent bg-clip-text">Pulse</span></span>
             </Link>
-            
-            {/* Desktop Navigation */}
+      {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-6 lg:gap-8">
               <a 
                 href="#features" 
@@ -236,8 +232,7 @@ export default function HomePage() {
               </a>
               <ThemeToggle />
             </div>
-            
-            {/* Desktop CTA Buttons */}
+      {/* Desktop CTA Buttons */}
             <div className="hidden md:flex items-center gap-3">
               <Link 
                 href="/auth/login" 
@@ -245,7 +240,7 @@ export default function HomePage() {
               >
                 Log In
               </Link>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={ scale: 1.05 } whileTap={ scale: 0.95 }>
                 <Button 
                   asChild 
                   className={cn(
@@ -258,8 +253,7 @@ export default function HomePage() {
                 </Button>
               </motion.div>
             </div>
-
-            {/* Mobile Menu Button */}
+      {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center gap-2">
               <ThemeToggle />
               <Button
@@ -275,7 +269,6 @@ export default function HomePage() {
           </div>
         </nav>
       </header>
-
       {/* Mobile Menu Bottom Sheet */}
       <BottomSheet
         open={mobileMenuOpen}
@@ -291,7 +284,7 @@ export default function HomePage() {
           >
             Features
           </Link>
-          <Link
+        <Link
             href="#testimonials"
             onClick={() => setMobileMenuOpen(false)}
             className="block px-4 py-3 text-lg font-medium text-slate-900 dark:text-slate-100 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-colors"
@@ -306,7 +299,7 @@ export default function HomePage() {
             >
               Log In
             </Link>
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <motion.div whileHover={ scale: 1.02 } whileTap={ scale: 0.98 }>
               <Button
                 asChild
                 className={cn(glassButtonEnhanced.primary, "w-full")}
@@ -320,35 +313,28 @@ export default function HomePage() {
           </div>
         </nav>
       </BottomSheet>
-
       {/* Main Content */}
       <div id="main-content">
         {/* HERO SECTION */}
         <HeroSectionLight />
 
         {/* Section Divider */}
-        <SectionDivider />
-
-        {/* FEATURES - Bento Grid */}
+        <SectionDivider></SectionDivider>
+{/* FEATURES - Bento Grid */}
         <section id="features" aria-labelledby="features-heading">
           <BentoGrid />
         </section>
-
-        {/* Section Divider */}
-        <SectionDivider />
-
-        {/* TESTIMONIALS */}
+      {/* Section Divider */}
+        <SectionDivider></SectionDivider>
+{/* TESTIMONIALS */}
         <section id="testimonials" aria-labelledby="testimonials-heading">
           <TestimonialsCarousel />
         </section>
-
-        {/* Section Divider */}
-        <SectionDivider />
-
-        {/* FINAL CTA */}
+      {/* Section Divider */}
+        <SectionDivider></SectionDivider>
+{/* FINAL CTA */}
         <FinalCTASection />
       </div>
-
       {/* Dev Mode Selector */}
       <DevModeSelector />
 
@@ -380,8 +366,7 @@ export default function HomePage() {
                 Connecting serious athletes with serious programs. Your future in baseball recruiting starts here.
               </p>
             </div>
-
-            {/* Quick Links */}
+      {/* Quick Links */}
             <div>
               <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-4">Quick Links</h3>
               <ul className="space-y-2">
@@ -419,8 +404,7 @@ export default function HomePage() {
                 </li>
               </ul>
             </div>
-
-            {/* Legal */}
+      {/* Legal */}
             <div>
               <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-4">Legal</h3>
               <ul className="space-y-2">
@@ -459,8 +443,7 @@ export default function HomePage() {
               </ul>
             </div>
           </div>
-
-          {/* Bottom Bar */}
+      {/* Bottom Bar */}
           <div className="pt-8 mt-8 border-t border-emerald-100/50 dark:border-emerald-900/50">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
               <p className="text-sm text-slate-500 dark:text-slate-400 text-center sm:text-left">

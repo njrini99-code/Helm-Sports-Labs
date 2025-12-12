@@ -177,8 +177,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
             Generate an invite link to share with your players. They can join your team instantly.
           </DialogDescription>
         </DialogHeader>
-
-        <div className="space-y-6">
+      <div className="space-y-6">
           {/* Generate New Invite */}
           {!newInvite && (
             <div className="space-y-4 p-4 border rounded-2xl bg-slate-50">
@@ -190,7 +189,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                     type="number"
                     min="1"
                     value={expiresInDays}
-                    onChange={(e) => setExpiresInDays(Number(e.target.value))}
+                    onChange={(e) => setExpiresInDays(Number(e.target.value})
                   />
                 </div>
                 <div>
@@ -201,8 +200,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                     min="1"
                     value={maxUses}
                     onChange={(e) =>
-                      setMaxUses(e.target.value ? Number(e.target.value) : '')
-                    }
+                      setMaxUses(e.target.value ? Number(e.target.value) : '')}
                     placeholder="Unlimited"
                   />
                 </div>
@@ -225,8 +223,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                 )}
               </Button>
             </div>
-          )}
-
+)}
           {/* New Invite Display */}
           {newInvite && (
             <div className="space-y-4 p-4 border-2 border-blue-200 rounded-2xl bg-blue-50">
@@ -240,8 +237,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                   <X className="w-4 h-4" />
                 </Button>
               </div>
-
-              <div className="space-y-3">
+      <div className="space-y-3">
                 <div className="flex gap-2">
                   <Input
                     value={newInvite.invite_link}
@@ -260,8 +256,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                     )}
                   </Button>
                 </div>
-
-                <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2">
                   <Button
                     variant="outline"
                     size="sm"
@@ -287,16 +282,14 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                     Text Link
                   </Button>
                 </div>
-
-                {qrCodeUrl && (
+      {qrCodeUrl && (
                   <div className="flex justify-center p-4 bg-white/10 backdrop-blur-md border border-white/20 rounded border">
                     <img src={qrCodeUrl} alt="QR Code" className="w-48 h-48" />
                   </div>
-                )}
+)}
               </div>
             </div>
-          )}
-
+)}
           {/* Existing Invitations */}
           <div className="space-y-2">
             <h3 className="font-semibold">Active Invitations</h3>
@@ -325,7 +318,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                             <Badge variant="destructive" className="text-xs">
                               Expired
                             </Badge>
-                          )}
+)}
                       </div>
                       <div className="flex items-center gap-4 text-xs text-slate-500 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                         <span>
@@ -337,7 +330,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                             Expires:{' '}
                             {new Date(inv.expires_at).toLocaleDateString()}
                           </span>
-                        )}
+)}
                       </div>
                     </div>
                     <Button
@@ -348,9 +341,9 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                       <Copy className="w-4 h-4" />
                     </Button>
                   </div>
-                ))}
+)}
               </div>
-            )}
+)}
           </div>
         </div>
       </DialogContent>

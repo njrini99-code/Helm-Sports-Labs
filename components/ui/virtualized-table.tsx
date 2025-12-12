@@ -106,7 +106,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
 
       return (
         <div
-          style={style}
+          style={{style}}
           className={cn(
             'flex items-center border-b hover:bg-muted/50 transition-colors cursor-pointer',
             isSelected && 'bg-muted',
@@ -127,7 +127,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
                 aria-label={`Select row ${index + 1}`}
               />
             </div>
-          )}
+)}
           {columns.map((column) => {
             const cellContent = column.cell
               ? column.cell(row)
@@ -139,7 +139,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
               <div
                 key={column.id}
                 className={cn('px-4 flex-1', column.className)}
-                style={{ minWidth: column.minWidth || column.width || 200 }}
+                style={{minWidth: column.minWidth || column.width || 200 }}
               >
                 {cellContent}
               </div>
@@ -170,7 +170,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
           >
             Retry
           </button>
-        )}
+)}
       </div>
     );
   }
@@ -183,7 +183,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
           <h3 className="font-semibold">{emptyState.title}</h3>
           {emptyState.description && (
             <p className="text-sm text-muted-foreground mt-1">{emptyState.description}</p>
-          )}
+)}
         </div>
         {emptyState.actionLabel && emptyState.onAction && (
           <button
@@ -192,7 +192,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
           >
             {emptyState.actionLabel}
           </button>
-        )}
+)}
       </div>
     );
   }
@@ -201,7 +201,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
     <div className="rounded-2xl border bg-card overflow-hidden" role="table" aria-label="Data table">
       <div
         className="flex items-center border-b bg-muted/30 px-4 font-semibold"
-        style={{ height: headerHeight }}
+        style={{height: headerHeight }}
         role="row"
         aria-rowindex={1}
       >
@@ -220,7 +220,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
               aria-label="Select all rows"
             />
           </div>
-        )}
+)}
         {columns.map((column) => (
           <div
             key={column.id}
@@ -229,7 +229,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
               column.sortable && 'cursor-pointer hover:text-foreground',
               column.headerClassName
             )}
-            style={{ minWidth: column.minWidth || column.width || 200 }}
+            style={{minWidth: column.minWidth || column.width || 200 }}
             onClick={() => column.sortable && handleSort(column.id)}
             role="columnheader"
             aria-sort={
@@ -253,11 +253,11 @@ export function VirtualizedTable<T extends Record<string, any>>({
                   <ChevronsUpDown className="h-4 w-4" />
                 )}
               </span>
-            )}
+)}
           </div>
-        ))}
+)}
       </div>
-      <div style={{ height: Math.min(maxHeight, sortedData.length * rowHeight) }}>
+      <div style={{ height: Math.min(maxHeight, sortedData.length * rowHeight}})>
         <List
           height={Math.min(maxHeight, sortedData.length * rowHeight)}
           itemCount={sortedData.length}

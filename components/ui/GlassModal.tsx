@@ -623,7 +623,7 @@ export function GlassModal({
           styles.backdrop,
           backdropClassName
         )}
-        style={getAnimationStyle(true)}
+        style={{getAnimationStyle(true)}
         onClick={handleBackdropClick}
         aria-hidden="true"
       >
@@ -632,18 +632,15 @@ export function GlassModal({
           <span
             key={ripple.id}
             className="glass-modal-backdrop-ripple"
-            style={{
-              left: ripple.x,
+            style={{left: ripple.x,
               top: ripple.y,
               width: 10,
               height: 10,
               marginLeft: -5,
               marginTop: -5,
-            }}
-          />
-        ))}
+            }}></span>
+)}
       </div>
-
       {/* Modal Container */}
       <div
         className={cn(
@@ -662,7 +659,7 @@ export function GlassModal({
             styles.modal,
             className
           )}
-          style={getAnimationStyle(false)}
+          style={{getAnimationStyle(false)}
           onKeyDown={handleFocusTrapKeyDown as any}
           onClick={(e) => e.stopPropagation()}
         >
@@ -677,7 +674,7 @@ export function GlassModal({
                   >
                     {title}
                   </h2>
-                )}
+)}
                 {description && (
                   <p
                     id="glass-modal-description"
@@ -685,7 +682,7 @@ export function GlassModal({
                   >
                     {description}
                   </p>
-                )}
+)}
               </div>
               {!hideCloseButton && (
                 <button
@@ -699,10 +696,9 @@ export function GlassModal({
                 >
                   <X className="w-5 h-5" />
                 </button>
-              )}
+)}
             </div>
-          )}
-
+)}
           {/* Content */}
           <div
             className={cn(
@@ -713,8 +709,7 @@ export function GlassModal({
           >
             {children}
           </div>
-
-          {/* Footer */}
+      {/* Footer */}
           {footer && (
             <div
               className={cn(
@@ -724,7 +719,7 @@ export function GlassModal({
             >
               {footer}
             </div>
-          )}
+)}
         </div>
       </div>
     </div>
@@ -808,11 +803,11 @@ export function GlassConfirmModal({
           >
             <Icon className="w-6 h-6" />
           </div>
-        )}
+)}
         <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
         {description && (
           <p className="text-sm text-white/60 mb-6">{description}</p>
-        )}
+)}
         <div className="flex gap-3 justify-center">
           <button
             type="button"
@@ -849,8 +844,7 @@ export function GlassConfirmModal({
                   <path
                     className="opacity-75"
                     fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  />
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                 </svg>
                 Loading...
               </span>
@@ -929,7 +923,7 @@ export function GlassAlertModal({
         <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
         {description && (
           <p className="text-sm text-white/60 mb-6">{description}</p>
-        )}
+)}
         <button
           type="button"
           onClick={onClose}
@@ -1106,16 +1100,13 @@ export function GlassDrawer({
       {/* Backdrop */}
       <div
         className={cn('fixed inset-0', styles.backdrop)}
-        style={{
-          animation: isClosing
+        style={{animation: isClosing
             ? 'glass-modal-backdrop-out 200ms ease-out forwards'
             : 'glass-modal-backdrop-in 200ms ease-out forwards',
         }}
         onClick={handleClose}
-        aria-hidden="true"
-      />
-
-      {/* Drawer */}
+        aria-hidden="true"></div>
+{/* Drawer */}
       <div
         ref={drawerRef}
         className={cn(
@@ -1125,7 +1116,7 @@ export function GlassDrawer({
           drawerSizeClasses[side][size],
           className
         )}
-        style={getDrawerAnimation()}
+        style={{getDrawerAnimation()}
         onKeyDown={handleFocusTrapKeyDown as any}
       >
         {/* Header */}
@@ -1136,12 +1127,12 @@ export function GlassDrawer({
                 <h2 className={cn('text-lg font-semibold', styles.title)}>
                   {title}
                 </h2>
-              )}
+)}
               {description && (
                 <p className={cn('mt-1 text-sm', styles.description)}>
                   {description}
                 </p>
-              )}
+)}
             </div>
             <button
               type="button"
@@ -1155,17 +1146,15 @@ export function GlassDrawer({
               <X className="w-5 h-5" />
             </button>
           </div>
-        )}
-
+)}
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-5">{children}</div>
-
-        {/* Footer */}
+      {/* Footer */}
         {footer && (
           <div className={cn('flex items-center justify-end gap-3 p-5', styles.footer)}>
             {footer}
           </div>
-        )}
+)}
       </div>
     </div>
   );

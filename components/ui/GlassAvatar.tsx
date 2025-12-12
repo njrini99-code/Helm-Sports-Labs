@@ -283,8 +283,7 @@ export function GlassAvatar({
           isClickable && 'hover:scale-105 hover:shadow-lg active:scale-95',
           // Container style based on content
           showImage && variantConfig.container,
-          (showInitials || showIcon) && (autoColor || variantConfig.fallback)
-        )}
+          (showInitials || showIcon) && (autoColor || variantConfig.fallback})
       >
         {/* Image */}
         {src && !imageError && (
@@ -299,7 +298,6 @@ export function GlassAvatar({
             onError={() => setImageError(true)}
           />
         )}
-
         {/* Loading placeholder while image loads */}
         {src && !imageError && !imageLoaded && (
           <div
@@ -308,10 +306,8 @@ export function GlassAvatar({
               variant === 'glass'
                 ? 'bg-white/10'
                 : 'bg-slate-300'
-            )}
-          />
-        )}
-
+            )}></div>
+)}
         {/* Initials Fallback */}
         {showInitials && (
           <span
@@ -323,8 +319,7 @@ export function GlassAvatar({
           >
             {displayInitials}
           </span>
-        )}
-
+)}
         {/* Icon Fallback */}
         {showIcon && (
           <Icon
@@ -334,13 +329,11 @@ export function GlassAvatar({
             )}
           />
         )}
-
         {/* Glass overlay for variant */}
         {variant === 'glass' && showImage && (
-          <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/20" />
-        )}
+          <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/20"></div>
+)}
       </div>
-
       {/* Status Indicator */}
       {status !== 'none' && (
         <span
@@ -350,9 +343,8 @@ export function GlassAvatar({
             sizeConfig.statusPosition,
             statusColors[status]
           )}
-          aria-label={`Status: ${status}`}
-        />
-      )}
+          aria-label={`Status: ${status}`}></span>
+)}
     </div>
   );
 }
@@ -418,7 +410,7 @@ export function AvatarGroup({
           showRing
           className="relative hover:z-10"
         />
-      ))}
+      })
 
       {showCount && hiddenCount > 0 && (
         <button
@@ -438,7 +430,7 @@ export function AvatarGroup({
         >
           +{hiddenCount}
         </button>
-      )}
+)}
     </div>
   );
 }
@@ -590,7 +582,7 @@ export function AvatarWithLabel({
           <p className={cn('text-white/60 truncate', sizes.sublabel)}>
             {sublabel}
           </p>
-        )}
+)}
       </div>
     </div>
   );

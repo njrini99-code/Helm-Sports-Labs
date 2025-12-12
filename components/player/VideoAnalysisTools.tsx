@@ -102,10 +102,9 @@ export function VideoAnalysisTools({ videoUrl, videoId }: VideoAnalysisToolsProp
                 >
                   {ann.note || `Note at ${formatTime(ann.timestamp)}`}
                 </div>
-              ))}
+)}
           </div>
-        )}
-
+)}
         {/* Controls overlay */}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
           <div className="space-y-2">
@@ -141,7 +140,6 @@ export function VideoAnalysisTools({ videoUrl, videoId }: VideoAnalysisToolsProp
           </div>
         </div>
       </div>
-
       {/* Control buttons */}
       <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
@@ -175,8 +173,7 @@ export function VideoAnalysisTools({ videoUrl, videoId }: VideoAnalysisToolsProp
             <SkipForward className="w-4 h-4" />
           </Button>
         </div>
-
-        <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+      <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <Button
             variant="outline"
             size="sm"
@@ -206,7 +203,6 @@ export function VideoAnalysisTools({ videoUrl, videoId }: VideoAnalysisToolsProp
           </Button>
         </div>
       </div>
-
       {/* Annotations list */}
       {annotations.length > 0 && (
         <div className="border rounded-2xl p-4">
@@ -240,10 +236,10 @@ export function VideoAnalysisTools({ videoUrl, videoId }: VideoAnalysisToolsProp
                   Jump to
                 </Button>
               </div>
-            ))}
+)}
           </div>
         </div>
-      )}
+)}
     </div>
   );
 }

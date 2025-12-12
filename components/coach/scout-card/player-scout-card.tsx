@@ -191,7 +191,6 @@ export function PlayerScoutCard({
           {initials}
         </AvatarFallback>
       </Avatar>
-
       {/* Info */}
       <div className="flex-1 min-w-0">
         <div className="flex items-start justify-between gap-2">
@@ -202,8 +201,7 @@ export function PlayerScoutCard({
             <ScoutCardStatusPill status={player.pipelineStatus} />
           )}
         </div>
-        
-        {/* Meta line 1: Position • Grad Year • Height • Weight */}
+      {/* Meta line 1: Position • Grad Year • Height • Weight */}
         <p className="text-sm text-slate-600 dark:text-slate-400 mt-0.5">
           {player.primaryPosition}
           {player.secondaryPosition && `/${player.secondaryPosition}`}
@@ -211,22 +209,20 @@ export function PlayerScoutCard({
           {player.height && ` • ${player.height}`}
           {player.weight && ` • ${player.weight} lbs`}
         </p>
-
-        {/* Meta line 2: High School – City, State */}
+      {/* Meta line 2: High School – City, State */}
         {player.highSchool && (
           <p className="text-sm text-slate-500 dark:text-slate-500 mt-0.5">
             {player.highSchool}
             {location && ` – ${location}`}
           </p>
-        )}
-
+)}
         {/* Meta line 3: Showcase/Travel Team */}
         {(player.showcaseTeam || player.travelTeam) && (
           <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5 flex items-center gap-1">
             <Bus className="w-3 h-3" />
             {player.showcaseTeam || player.travelTeam}
           </p>
-        )}
+)}
       </div>
     </div>
   );
@@ -254,8 +250,7 @@ export function PlayerScoutCard({
           <User className="w-3.5 h-3.5" />
           View Full Profile
         </Button>
-        
-        <Button 
+      <Button 
           size="sm" 
           variant="outline" 
           className="gap-1.5"
@@ -273,8 +268,7 @@ export function PlayerScoutCard({
             </>
           )}
         </Button>
-
-        <DropdownMenu>
+      <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button size="sm" variant="outline" className="gap-1.5">
               <ArrowRightLeft className="w-3.5 h-3.5" />
@@ -301,10 +295,10 @@ export function PlayerScoutCard({
                   opt.value === 'high_priority' ? 'bg-amber-500' :
                   opt.value === 'offer_extended' ? 'bg-purple-500' :
                   opt.value === 'committed' ? 'bg-emerald-500' : 'bg-slate-400'
-                }`} />
+                }`}></span>
                 {opt.label}
               </DropdownMenuItem>
-            ))}
+)}
             {player.pipelineStatus && (
               <>
                 <DropdownMenuSeparator />
@@ -315,13 +309,11 @@ export function PlayerScoutCard({
             )}
           </DropdownMenuContent>
         </DropdownMenu>
-
-        <Button size="sm" variant="ghost" className="gap-1.5" onClick={handleMessage}>
+      <Button size="sm" variant="ghost" className="gap-1.5" onClick={handleMessage}>
           <MessageSquare className="w-3.5 h-3.5" />
           Message
         </Button>
       </ScoutCardActions>
-
       {/* Content area with padding */}
       <div className="py-3">
         {/* ═══════════════════════════════════════════════════════════════════
@@ -339,11 +331,10 @@ export function PlayerScoutCard({
                   <p className="text-2xl font-bold text-slate-900 dark:text-white">{player.primaryPosition}</p>
                   {player.secondaryPosition && (
                     <p className="text-xs text-slate-500">Also plays {player.secondaryPosition}</p>
-                  )}
+)}
                 </div>
               </div>
-              
-              <div className="flex gap-4">
+      <div className="flex gap-4">
                 <div>
                   <p className="text-[10px] uppercase text-slate-400 tracking-wide">Throws</p>
                   <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">{player.throws || '—'}</p>
@@ -354,8 +345,7 @@ export function PlayerScoutCard({
                 </div>
               </div>
             </div>
-
-            {/* Right column */}
+      {/* Right column */}
             <div className="space-y-2">
               <ScoutCardInfoRow 
                 label="Class" 
@@ -396,16 +386,14 @@ export function PlayerScoutCard({
                       >
                         {player.showcaseTeam || player.travelTeam}
                       </button>
-                    ) : (player.showcaseTeam || player.travelTeam)
-                  }
+                    ) : (player.showcaseTeam || player.travelTeam)}
                   icon={<Bus className="w-3.5 h-3.5" />}
                 />
               )}
             </div>
           </div>
         </ScoutCardSection>
-
-        {/* ═══════════════════════════════════════════════════════════════════
+      {/* ═══════════════════════════════════════════════════════════════════
             SECTION 2: PERFORMANCE METRICS
         ═══════════════════════════════════════════════════════════════════ */}
         <ScoutCardSection 
@@ -415,8 +403,7 @@ export function PlayerScoutCard({
               <span className="text-[10px] text-slate-400">
                 Updated {player.metricsUpdatedAt}
               </span>
-            )
-          }
+)}
         >
           <div className="grid grid-cols-3 gap-2">
             {isPitcher ? (
@@ -502,17 +489,15 @@ export function PlayerScoutCard({
               </>
             )}
           </div>
-          
-          {/* No metrics placeholder */}
+      {/* No metrics placeholder */}
           {!isPitcher && !player.sixtyYard && !player.exitVelo && !player.popTime && (
             <p className="text-sm text-slate-400 text-center py-4">No metrics recorded yet</p>
-          )}
+)}
           {isPitcher && !player.fbVelo && !player.slVelo && (
             <p className="text-sm text-slate-400 text-center py-4">No metrics recorded yet</p>
-          )}
+)}
         </ScoutCardSection>
-
-        {/* ═══════════════════════════════════════════════════════════════════
+      {/* ═══════════════════════════════════════════════════════════════════
             SECTION 3: RECRUITING SNAPSHOT
         ═══════════════════════════════════════════════════════════════════ */}
         <ScoutCardSection title="Recruiting Snapshot">
@@ -523,10 +508,9 @@ export function PlayerScoutCard({
               <ScoutCardStatusPill status={player.pipelineStatus} />
             ) : (
               <span className="text-sm text-slate-400">Not in pipeline</span>
-            )}
+)}
           </div>
-
-          {/* Internal Labels */}
+      {/* Internal Labels */}
           {player.internalLabels && player.internalLabels.length > 0 && (
             <div className="mb-3">
               <p className="text-[10px] uppercase text-slate-400 tracking-wide mb-1.5">Labels</p>
@@ -535,11 +519,10 @@ export function PlayerScoutCard({
                   <Badge key={i} variant="secondary" className="text-xs">
                     {label}
                   </Badge>
-                ))}
+)}
               </div>
             </div>
-          )}
-
+)}
           {/* Region */}
           {player.state && (
             <div className="flex items-center gap-2 mb-3">
@@ -548,8 +531,7 @@ export function PlayerScoutCard({
                 {location || player.state}
               </span>
             </div>
-          )}
-
+)}
           {/* Interested Schools */}
           {player.interestedSchools && player.interestedSchools.length > 0 && (
             <div className="mb-3">
@@ -563,16 +545,15 @@ export function PlayerScoutCard({
                   >
                     {school.name.slice(0, 2).toUpperCase()}
                   </div>
-                ))}
+)}
                 {player.interestedSchools.length > 3 && (
                   <span className="text-xs text-slate-500 ml-1">
                     +{player.interestedSchools.length - 3} more
                   </span>
-                )}
+)}
               </div>
             </div>
-          )}
-
+)}
           {/* Quick Actions */}
           <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-100 dark:border-slate-700">
             <Button 
@@ -594,8 +575,7 @@ export function PlayerScoutCard({
               View in Planner
             </Button>
           </div>
-
-          {/* Note Input */}
+      {/* Note Input */}
           {showNoteInput && (
             <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700">
               <Textarea
@@ -614,10 +594,9 @@ export function PlayerScoutCard({
                 </Button>
               </div>
             </div>
-          )}
+)}
         </ScoutCardSection>
-
-        {/* ═══════════════════════════════════════════════════════════════════
+      {/* ═══════════════════════════════════════════════════════════════════
             SECTION 4: YOUR ACTIVITY
         ═══════════════════════════════════════════════════════════════════ */}
         <ScoutCardSection title="Your Activity">
@@ -631,8 +610,7 @@ export function PlayerScoutCard({
                 {player.profileViews || 0} times
               </span>
             </div>
-            
-            {player.lastViewedAt && (
+      {player.lastViewedAt && (
               <div className="flex items-center gap-3 text-sm">
                 <Clock className="w-4 h-4 text-slate-400" />
                 <span className="text-slate-600 dark:text-slate-400">
@@ -642,8 +620,7 @@ export function PlayerScoutCard({
                   {player.lastViewedAt}
                 </span>
               </div>
-            )}
-
+)}
             {player.lastNoteDate && (
               <div className="flex items-center gap-3 text-sm">
                 <ClipboardList className="w-4 h-4 text-slate-400" />
@@ -654,8 +631,7 @@ export function PlayerScoutCard({
                   {player.lastNoteDate}
                 </span>
               </div>
-            )}
-
+)}
             {player.addedToWatchlistAt && (
               <div className="flex items-center gap-3 text-sm">
                 <Bookmark className="w-4 h-4 text-slate-400" />
@@ -666,10 +642,9 @@ export function PlayerScoutCard({
                   {player.addedToWatchlistAt}
                 </span>
               </div>
-            )}
+)}
           </div>
-
-          {/* Recent Notes */}
+      {/* Recent Notes */}
           {player.notes && player.notes.length > 0 && (
             <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700">
               <p className="text-[10px] uppercase text-slate-400 tracking-wide mb-2">Recent Notes</p>
@@ -684,13 +659,12 @@ export function PlayerScoutCard({
                       {note.authorName || note.authorInitials} • {note.createdAt}
                     </p>
                   </div>
-                ))}
+)}
               </div>
             </div>
-          )}
+)}
         </ScoutCardSection>
-
-        {/* ═══════════════════════════════════════════════════════════════════
+      {/* ═══════════════════════════════════════════════════════════════════
             SECTION 5: LINKED CONTEXT
         ═══════════════════════════════════════════════════════════════════ */}
         <div className="px-4 pb-4 space-y-2">
@@ -705,8 +679,7 @@ export function PlayerScoutCard({
             </span>
             <ExternalLink className="w-4 h-4 text-slate-400" />
           </Button>
-
-          {player.highSchool && player.highSchoolId && (
+      {player.highSchool && player.highSchoolId && (
             <Button 
               variant="ghost" 
               className="w-full justify-between h-10 text-slate-600"
@@ -718,8 +691,7 @@ export function PlayerScoutCard({
               </span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
             </Button>
-          )}
-
+)}
           {(player.showcaseTeam || player.travelTeam) && player.showcaseTeamId && (
             <Button 
               variant="ghost" 
@@ -732,7 +704,7 @@ export function PlayerScoutCard({
               </span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
             </Button>
-          )}
+)}
         </div>
       </div>
     </ScoutCardShell>

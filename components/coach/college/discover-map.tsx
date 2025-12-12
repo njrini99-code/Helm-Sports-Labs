@@ -38,8 +38,7 @@ const STATE_NAME_TO_CODE: Record<string, string> = {
 export function DiscoverMap({ states, selectedState, onSelect }: DiscoverMapProps) {
   const [loading, setLoading] = useState(true);
   const [hovered, setHovered] = useState<string | null>(null);
-  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 })
-          )};
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 }});
 
   const stateData = useMemo(() => {
     const map = new Map<string, StateRecruitData>();
@@ -67,8 +66,7 @@ export function DiscoverMap({ states, selectedState, onSelect }: DiscoverMapProp
     const r = Math.round(209 - intensity * 130);
     const g = Math.round(250 - intensity * 100);
     const b = Math.round(229 - intensity * 124);
-    return `rgb(${r}, ${g}, ${b})
-          )}`;
+    return `rgb(${r}, ${g}, ${b}})`;
   };
 
   const hoveredData = hovered ? stateData.get(hovered) : null;
@@ -81,13 +79,12 @@ export function DiscoverMap({ states, selectedState, onSelect }: DiscoverMapProp
           projection="geoAlbersUsa" 
           className="w-full"
           height={340}
-          projectionConfig={{
+          projectionConfig={
             scale: 1050,
-          }}
+          }
         >
           <Geographies geography={GEO_URL}>
-            {({ geographies }: { geographies: any[] })
-          )} =>
+            {({ geographies }: { geographies: any[] }}) =>
               geographies.map((geo: any) => {
                 const code = STATE_NAME_TO_CODE[geo.properties.name as string];
                 const isSelected = code === selectedState;
@@ -102,13 +99,11 @@ export function DiscoverMap({ states, selectedState, onSelect }: DiscoverMapProp
                     onMouseEnter={(e: any) => {
                       if (code && hasData) {
                         setHovered(code);
-                        setTooltipPos({ x: e.clientX, y: e.clientY })
-          )};
+                        setTooltipPos({ x: e.clientX, y: e.clientY }});
                       }
                     }}
                     onMouseMove={(e: any) => {
-                      setTooltipPos({ x: e.clientX, y: e.clientY })
-          )};
+                      setTooltipPos({ x: e.clientX, y: e.clientY }});
                     }}
                     onMouseLeave={() => setHovered(null)}
                     onClick={() => code && hasData && onSelect(code)}
@@ -119,7 +114,7 @@ export function DiscoverMap({ states, selectedState, onSelect }: DiscoverMapProp
                         strokeWidth: isSelected ? 2 : 0.5,
                         outline: 'none',
                         transition: 'all 0.2s ease',
-                      },
+                      }},
                       hover: {
                         fill: hasData ? '#6ee7b7' : '#f1f5f9',
                         stroke: hasData ? '#059669' : '#e2e8f0',
@@ -137,18 +132,15 @@ export function DiscoverMap({ states, selectedState, onSelect }: DiscoverMapProp
                   />
                 );
               })
-          )}
-            }
+          })
           </Geographies>
         </ComposableMap>
       </div>
-
       {/* Tooltip */}
       {hovered && hoveredData && hoveredData.recruitCount > 0 && (
         <div 
           className="fixed z-50 pointer-events-none"
-          style={{ 
-            left: tooltipPos.x + 12, 
+          style={{left: tooltipPos.x + 12, 
             top: tooltipPos.y - 12,
           }}
         >
@@ -157,7 +149,7 @@ export function DiscoverMap({ states, selectedState, onSelect }: DiscoverMapProp
             {hoveredData.name} — {hoveredData.recruitCount} recruits
           </div>
         </div>
-      )}
+)}
     </div>
   );
 }

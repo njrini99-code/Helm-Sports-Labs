@@ -46,11 +46,9 @@ export function ButtonExample() {
       <AnimatedButton variant="primary" size="lg" loading={loading} onClick={handleClick}>
         Submit Form
       </AnimatedButton>
-      
       <AnimatedButton variant="secondary" size="md" ripple>
         Secondary Action
       </AnimatedButton>
-      
       <AnimatedButton variant="ghost" size="sm">
         Cancel
       </AnimatedButton>

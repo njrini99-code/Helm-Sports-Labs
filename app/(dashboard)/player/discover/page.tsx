@@ -54,7 +54,6 @@ import {
   glassButton as glassButtonEnhanced,
   glassDarkZone as glassDarkZoneEnhanced,
   glassListItem as glassListItemEnhanced,
-  cn,
 } from '@/lib/glassmorphism-enhanced';
 import { motion } from 'framer-motion';
 import { pageTransition, staggerContainer, staggerItem } from '@/lib/animations';
@@ -441,7 +440,7 @@ export default function PlayerDiscoverPage() {
 
     const csvContent = [
       headers.join(','),
-      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(',')}
     ].join('\n');
 
     // Download CSV
@@ -499,7 +498,6 @@ export default function PlayerDiscoverPage() {
     >
       {/* Skip Link */}
       <SkipLink href="#discover-content">Skip to discover content</SkipLink>
-
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 pt-4">
         <Breadcrumbs
@@ -509,37 +507,31 @@ export default function PlayerDiscoverPage() {
           ]}
         />
       </div>
-
       {/* ═══════════════════════════════════════════════════════════════════
           ULTIMATE GLASSMORPHISM DISCOVER HERO ZONE
       ═══════════════════════════════════════════════════════════════════ */}
       <div id="discover-content" className={cn(glassDarkZoneEnhanced, "pb-12 relative overflow-hidden")}>
         {/* Animated gradient orbs */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '0s' }} />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
-        
-        {/* Subtle grid pattern */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '0s' }}></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-500/15 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '1s' }}></div>
+{/* Subtle grid pattern */}
         <div 
           className="absolute inset-0 opacity-[0.02] pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
-
-        <div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 space-y-6 relative z-10">
+          style={{backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+<div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 space-y-6 relative z-10">
           
           {/* Premium Glass Hero Header */}
           <motion.section 
             className="relative"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+            initial={ opacity: 0, y: 20 }
+            animate={ opacity: 1, y: 0 }
+            transition={{duration: 0.6, ease: 'easeOut' }}
           >
             <div className={cn(glassHeroEnhanced, "p-6 md:p-8 relative overflow-hidden")}>
               {/* Animated gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-emerald-500/5 opacity-50 animate-pulse" />
-              
-              <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-emerald-500/5 opacity-50 animate-pulse"></div>
+<div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                   <div className="flex items-center gap-3 mb-3">
                     <div className={cn(
@@ -562,16 +554,15 @@ export default function PlayerDiscoverPage() {
                   </h1>
                   <p className="text-sm text-white/70">Explore college baseball programs that match your goals</p>
                 </div>
-                
-                <motion.div 
+      <motion.div 
                   className={cn(
                     "px-5 py-3 rounded-xl backdrop-blur-lg",
                     "bg-white/[0.08] border border-white/[0.15]",
                     "shadow-lg shadow-purple-500/10"
                   )}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
+                  initial={ opacity: 0, scale: 0.9 }
+                  animate={ opacity: 1, scale: 1 }
+                  transition={{duration: 0.5, delay: 0.2 }}
                 >
                   <p className="text-3xl font-bold text-white mb-1">
                     <AnimatedNumber value={interestedSchools.size} duration={800} />
@@ -581,8 +572,7 @@ export default function PlayerDiscoverPage() {
               </div>
             </div>
           </motion.section>
-
-          {/* Enhanced Search Bar */}
+      {/* Enhanced Search Bar */}
           <EnhancedSearch
             placeholder="Search schools, cities, states, or conferences..."
             value={search}
@@ -592,7 +582,7 @@ export default function PlayerDiscoverPage() {
               id: c.id,
               label: c.name,
               category: `${c.division} • ${c.state || 'N/A'}`,
-            }))}
+            }})
             className="w-full"
           />
 
@@ -611,11 +601,10 @@ export default function PlayerDiscoverPage() {
               <SlidersHorizontal className="w-4 h-4" strokeWidth={2} />
               <span className="font-medium">Filters</span>
               {hasActiveFilters && (
-                <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
-              )}
+                <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
+)}
             </button>
-
-            {/* Premium Division Pills */}
+      {/* Premium Division Pills */}
             <div className={cn(
               "flex gap-1.5 p-1.5 rounded-full backdrop-blur-xl",
               "bg-white/[0.08] border border-white/[0.15]"
@@ -630,15 +619,14 @@ export default function PlayerDiscoverPage() {
                       ? 'bg-white text-emerald-700 shadow-lg shadow-emerald-500/20' 
                       : 'text-white/70 hover:text-white hover:bg-white/[0.05]'
                   )}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={ scale: 1.05 }
+                  whileTap={ scale: 0.95 }
                 >
                   {div}
                 </motion.button>
-              ))}
+)}
             </div>
-
-            {hasActiveFilters && (
+      {hasActiveFilters && (
               <button
                 onClick={clearFilters}
                 className="text-xs text-white/60 hover:text-white/90 flex items-center gap-1.5 transition-colors px-3 py-1.5 rounded-lg hover:bg-white/[0.08]"
@@ -646,17 +634,16 @@ export default function PlayerDiscoverPage() {
                 <X className="w-3.5 h-3.5" strokeWidth={2} />
                 Clear all
               </button>
-            )}
+)}
           </div>
-
-          {/* Premium Glass Filters Panel */}
+      {/* Premium Glass Filters Panel */}
           {showFilters && (
             <motion.div 
               className={cn(glassPanelEnhanced, 'p-6 space-y-5')}
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
+              initial={ opacity: 0, height: 0 }
+              animate={ opacity: 1, height: 'auto' }
+              exit={ opacity: 0, height: 0 }
+              transition={{duration: 0.3 }}
             >
               {/* Region Filters */}
               <div className="flex flex-wrap gap-4">
@@ -673,41 +660,37 @@ export default function PlayerDiscoverPage() {
                             ? 'bg-emerald-500/25 border border-emerald-500/40 text-emerald-200 shadow-lg shadow-emerald-500/20'
                             : 'bg-white/[0.08] border border-white/[0.15] text-white/70 hover:bg-white/[0.12] hover:border-white/20'
                         )}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={ scale: 1.05 }
+                        whileTap={ scale: 0.95 }
                       >
                         {region}
                       </motion.button>
-                    ))}
+)}
                   </div>
                 </div>
               </div>
-
-              {/* Filter Presets */}
+      {/* Filter Presets */}
               <div className="pt-5 border-t border-white/[0.1]">
                 <FilterPresets
                   currentFilters={advancedFilters}
                   onLoadPreset={setAdvancedFilters}
                 />
               </div>
-
-              {/* Advanced Filters */}
+      {/* Advanced Filters */}
               <div className="pt-5 border-t border-white/[0.1]">
                 <AdvancedFilters
                   filters={advancedFilters}
                   onFiltersChange={setAdvancedFilters}
                   availableConferences={availableConferences}
                   availableStates={availableStates}
-                  className="bg-transparent"
-                />
+                  className="bg-transparent" />
               </div>
-              
-              {hasActiveFilters && (
+      {hasActiveFilters && (
                 <motion.div 
                   className="mt-5 pt-4 border-t border-white/[0.1]"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
+                  initial={ opacity: 0 }
+                  animate={ opacity: 1 }
+                  transition={{duration: 0.3 }}
                 >
                   <p className="text-xs text-white/60 font-medium">
                     Showing: {divisionFilter !== 'All' ? divisionFilter : 'All divisions'} 
@@ -718,10 +701,9 @@ export default function PlayerDiscoverPage() {
                     {search ? ` • "${search}"` : ''}
                   </p>
                 </motion.div>
-              )}
+)}
             </motion.div>
-          )}
-
+)}
           {/* Premium Glass Stats Row */}
           <motion.div 
             className="grid grid-cols-3 gap-4"
@@ -754,22 +736,20 @@ export default function PlayerDiscoverPage() {
           </motion.div>
         </div>
       </div>
-
       {/* ═══════════════════════════════════════════════════════════════════
           ULTIMATE GLASSMORPHISM LIGHT CONTENT ZONE
       ═══════════════════════════════════════════════════════════════════ */}
       <div className={cn(glassTransitionZone, "py-12 relative overflow-hidden")}>
         {/* Animated gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/5 to-transparent opacity-50" />
-        
-        <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/5 to-transparent opacity-50"></div>
+<div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
           
           {/* Premium Results Header */}
           <motion.div 
             className="flex items-center justify-between mb-6"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            initial={ opacity: 0, y: 10 }
+            animate={ opacity: 1, y: 0 }
+            transition={{duration: 0.5, delay: 0.2 }}
           >
             <div>
               <h2 className="text-xl font-bold text-slate-800 mb-1">Programs</h2>
@@ -794,8 +774,7 @@ export default function PlayerDiscoverPage() {
               </select>
             </div>
           </motion.div>
-
-          {/* Bulk Actions Toolbar */}
+      {/* Bulk Actions Toolbar */}
           <BulkActionsToolbar
             items={filteredColleges}
             selectedIds={selectedCollegeIds}
@@ -835,7 +814,7 @@ export default function PlayerDiscoverPage() {
                     />
                   </SelectableItem>
                 </motion.div>
-              ))}
+)}
             </motion.div>
           ) : (
             <motion.div 
@@ -843,9 +822,9 @@ export default function PlayerDiscoverPage() {
                 glassPanelEnhanced,
                 "p-12 text-center"
               )}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              initial={ opacity: 0, y: 20 }
+              animate={ opacity: 1, y: 0 }
+              transition={{duration: 0.5 }}
             >
               <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-purple-500/20 to-emerald-500/20 border border-purple-400/30 flex items-center justify-center mb-4 backdrop-blur-lg">
                 <GraduationCap className="w-8 h-8 text-purple-300" strokeWidth={2} />
@@ -862,7 +841,7 @@ export default function PlayerDiscoverPage() {
                 Clear Filters
               </button>
             </motion.div>
-          )}
+)}
         </div>
       </div>
     </motion.div>
@@ -893,8 +872,8 @@ function GlassStatTile({
           ? 'bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 border-emerald-400/30 shadow-lg shadow-emerald-500/20' 
           : 'bg-gradient-to-br from-white/[0.08] to-white/[0.05] border-white/[0.15]'
       )}
-      whileHover={{ scale: 1.05, y: -2 }}
-      transition={{ duration: 0.3 }}
+      whileHover={ scale: 1.05, y: -2 }
+      transition={{duration: 0.3 }}
     >
       <div className={cn(
         'w-9 h-9 mx-auto rounded-xl flex items-center justify-center mb-3 backdrop-blur-lg',
@@ -942,8 +921,8 @@ function CollegeCard({
         glassCardInteractiveEnhanced,
         "p-5 group cursor-pointer"
       )}
-      whileHover={{ scale: 1.02, y: -4 }}
-      transition={{ duration: 0.3 }}
+      whileHover={ scale: 1.02, y: -4 }
+      transition={{duration: 0.3 }}
     >
       <div className="flex items-start gap-3">
         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 border border-emerald-400/30 flex items-center justify-center flex-shrink-0 backdrop-blur-lg shadow-lg shadow-emerald-500/10 group-hover:shadow-emerald-500/20 transition-shadow">
@@ -959,26 +938,25 @@ function CollegeCard({
           </h3>
           {college.nickname && (
             <p className="text-sm text-slate-500">{college.nickname}</p>
-          )}
+)}
           <div className="flex items-center gap-2 mt-1.5 flex-wrap">
             {college.division && (
-              <Badge variant="outline" className={cn('text-[10px] font-medium', getDivisionColor(college.division))}>
+              <Badge variant="outline" className={cn('text-[10px] font-medium', getDivisionColor(college.division})>
                 {college.division}
               </Badge>
-            )}
+)}
             {college.city && college.state && (
               <span className="text-xs flex items-center gap-1 text-slate-500">
                 <MapPin className="w-3 h-3" />
                 {college.city}, {college.state}
               </span>
-            )}
+)}
           </div>
           {college.conference && (
             <p className="text-xs text-slate-400 mt-1.5 truncate">{college.conference}</p>
-          )}
+)}
         </div>
       </div>
-
       <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
         <button
           onClick={onViewProgram}
@@ -999,6 +977,6 @@ function CollegeCard({
           {isInterested ? 'Interested' : 'Add'}
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }

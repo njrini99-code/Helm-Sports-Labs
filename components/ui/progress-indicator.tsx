@@ -68,7 +68,7 @@ export function ProgressIndicator({
                     <CheckCircle2 className="h-5 w-5" />
                   ) : (
                     <span className="text-sm font-semibold">{index + 1}</span>
-                  )}
+)}
                 </div>
                 <div
                   className={cn(
@@ -89,7 +89,7 @@ export function ProgressIndicator({
                     <p className="text-xs text-muted-foreground mt-1">
                       {step.description}
                     </p>
-                  )}
+)}
                 </div>
               </div>
             </div>
@@ -102,9 +102,8 @@ export function ProgressIndicator({
                     : 'w-0.5 my-4',
                   isCompleted ? 'bg-emerald-500' : 'bg-muted'
                 )}
-                aria-hidden="true"
-              />
-            )}
+                aria-hidden="true"></div>
+)}
           </React.Fragment>
         );
       })}

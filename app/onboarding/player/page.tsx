@@ -174,7 +174,7 @@ export default function PlayerOnboarding() {
         router.push('/player');
       }, 2000);
     } catch (error) {
-      logError(error, { component: 'PlayerOnboarding', action: 'handleSubmit', metadata: { unexpected: true } });
+      logError(error, { component: 'PlayerOnboarding', action: 'handleSubmit', metadata: { unexpected: true  } });
       toast.error('An error occurred');
     } finally {
       setSaving(false);
@@ -184,7 +184,7 @@ export default function PlayerOnboarding() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
-        <div className="w-8 h-8 bg-blue-500/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-blue-500/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -217,13 +217,11 @@ export default function PlayerOnboarding() {
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Back to login
         </Link>
-
-        <div className="mb-8">
+      <div className="mb-8">
           <h1 className="text-3xl font-bold text-white mb-2">Complete Your Profile</h1>
           <p className="text-slate-400">Let&apos;s get to know you better</p>
         </div>
-
-        {/* Progress */}
+      {/* Progress */}
         <div className="mb-8 space-y-4">
           <div className="flex items-center justify-between text-sm text-slate-400 mb-2">
             <span>Step {currentStep} of 3</span>
@@ -260,86 +258,73 @@ export default function PlayerOnboarding() {
                   </p>
                 </div>
               );
-            })
-          )}}
+            }})
           </div>
         </div>
-
-        {/* Step 1: Player Basics */}
+      {/* Step 1: Player Basics */}
         {currentStep === 1 && (
           <div className="bg-slate-900/90 rounded-2xl p-8 border border-white/5 shadow-2xl space-y-6">
             <h2 className="text-xl font-semibold text-white flex items-center gap-2">
               <MapPin className="w-5 h-5 text-blue-400" />
               Home Base
             </h2>
-
-            <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Grad Year *</Label>
-                <Select value={formData.grad_year} onValueChange={(v) => setFormData({ ...formData, grad_year: v })
-          )}}>
+                <Select value={formData.grad_year} onValueChange={(v) => setFormData({ ...formData, grad_year: v })}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Select year" />
                   </SelectTrigger>
-                  <SelectContent>
+        <SelectContent>
                     {GRAD_YEARS.map((year) => (
                       <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
-                    ))}
+)}
                   </SelectContent>
                 </Select>
               </div>
-
-              <div className="space-y-2">
+      <div className="space-y-2">
                 <Label>High School *</Label>
                 <Input
                   value={formData.high_school_name}
-                  onChange={(e) => setFormData({ ...formData, high_school_name: e.target.value })
-          )}}
+                  onChange={(e) => setFormData({ ...formData, high_school_name: e.target.value })}
                   placeholder="Your high school"
                   className="bg-[#111315] border-white/10"
                 />
               </div>
-
-              <div className="space-y-2">
+      <div className="space-y-2">
                 <Label>City</Label>
                 <Input
                   value={formData.high_school_city}
-                  onChange={(e) => setFormData({ ...formData, high_school_city: e.target.value })
-          )}}
+                  onChange={(e) => setFormData({ ...formData, high_school_city: e.target.value })}
                   placeholder="City"
                   className="bg-[#111315] border-white/10"
                 />
               </div>
-
-              <div className="space-y-2">
+      <div className="space-y-2">
                 <Label>State</Label>
-                <Select value={formData.high_school_state} onValueChange={(v) => setFormData({ ...formData, high_school_state: v })
-          )}}>
+                <Select value={formData.high_school_state} onValueChange={(v) => setFormData({ ...formData, high_school_state: v })}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Select state" />
                   </SelectTrigger>
-                  <SelectContent>
+        <SelectContent>
                     {US_STATES.map((state) => (
                       <SelectItem key={state} value={state}>{state}</SelectItem>
-                    ))}
+)}
                   </SelectContent>
                 </Select>
               </div>
-
-              <div className="space-y-2 md:col-span-2">
+      <div className="space-y-2 md:col-span-2">
                 <Label>Showcase / Travel Team (Optional)</Label>
                 <Input
                   value={formData.showcase_team_name}
-                  onChange={(e) => setFormData({ ...formData, showcase_team_name: e.target.value })
-          )}}
+                  onChange={(e) => setFormData({ ...formData, showcase_team_name: e.target.value })}
                   placeholder="Team name"
                   className="bg-[#111315] border-white/10"
                 />
               </div>
             </div>
           </div>
-        )}
-
+)}
         {/* Step 2: Physical & Position */}
         {currentStep === 2 && (
           <div className="bg-slate-900/90 rounded-2xl p-8 border border-white/5 shadow-2xl space-y-6">
@@ -347,103 +332,94 @@ export default function PlayerOnboarding() {
               <Ruler className="w-5 h-5 text-blue-400" />
               Physical & Position
             </h2>
-
-            <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Height (Feet) *</Label>
-                <Select value={formData.height_feet} onValueChange={(v) => setFormData({ ...formData, height_feet: v })
-          )}}>
+                <Select value={formData.height_feet} onValueChange={(v) => setFormData({ ...formData, height_feet: v })}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Feet" />
                   </SelectTrigger>
-                  <SelectContent>
+        <SelectContent>
                     {[4, 5, 6, 7].map((ft) => (
                       <SelectItem key={ft} value={ft.toString()}>{ft}'</SelectItem>
-                    ))}
+)}
                   </SelectContent>
                 </Select>
               </div>
-
-              <div className="space-y-2">
+      <div className="space-y-2">
                 <Label>Height (Inches) *</Label>
-                <Select value={formData.height_inches} onValueChange={(v) => setFormData({ ...formData, height_inches: v })
-          )}}>
+                <Select value={formData.height_inches} onValueChange={(v) => setFormData({ ...formData, height_inches: v })}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Inches" />
                   </SelectTrigger>
-                  <SelectContent>
+        <SelectContent>
                     {Array.from({ length: 12 }, (_, i) => (
                       <SelectItem key={i} value={i.toString()}>{i}"</SelectItem>
-                    ))}
+)}
                   </SelectContent>
                 </Select>
               </div>
-
-              <div className="space-y-2">
+      <div className="space-y-2">
                 <Label>Weight (lbs) *</Label>
                 <Input
                   type="number"
                   value={formData.weight_lbs}
                   onChange={(e) => setFormData({ ...formData, weight_lbs: e.target.value })
-          )}}
+          })
                   placeholder="Weight"
                   className="bg-[#111315] border-white/10"
                 />
               </div>
-
-              <div className="space-y-2">
+      <div className="space-y-2">
                 <Label>Primary Position *</Label>
                 <Select value={formData.primary_position} onValueChange={(v) => setFormData({ ...formData, primary_position: v })
-          )}}>
+          })>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Select position" />
                   </SelectTrigger>
-                  <SelectContent>
+        <SelectContent>
                     {POSITIONS.map((pos) => (
                       <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-                    ))}
+)}
                   </SelectContent>
                 </Select>
               </div>
-
-              <div className="space-y-2">
+      <div className="space-y-2">
                 <Label>Secondary Position</Label>
                 <Select value={formData.secondary_position} onValueChange={(v) => setFormData({ ...formData, secondary_position: v })
-          )}}>
+          })>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Optional" />
                   </SelectTrigger>
-                  <SelectContent>
+        <SelectContent>
                     <SelectItem value="">None</SelectItem>
                     {POSITIONS.map((pos) => (
                       <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-                    ))}
+)}
                   </SelectContent>
                 </Select>
               </div>
-
-              <div className="space-y-2">
+      <div className="space-y-2">
                 <Label>Throws *</Label>
                 <Select value={formData.throws} onValueChange={(v) => setFormData({ ...formData, throws: v })
-          )}}>
+          })>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
-                  <SelectContent>
+        <SelectContent>
                     <SelectItem value="R">Right</SelectItem>
                     <SelectItem value="L">Left</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-
-              <div className="space-y-2">
+      <div className="space-y-2">
                 <Label>Bats *</Label>
                 <Select value={formData.bats} onValueChange={(v) => setFormData({ ...formData, bats: v })
-          )}}>
+          })>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
-                  <SelectContent>
+        <SelectContent>
                     <SelectItem value="R">Right</SelectItem>
                     <SelectItem value="L">Left</SelectItem>
                     <SelectItem value="S">Switch</SelectItem>
@@ -452,8 +428,7 @@ export default function PlayerOnboarding() {
               </div>
             </div>
           </div>
-        )}
-
+)}
         {/* Step 3: Goals & Links */}
         {currentStep === 3 && (
           <div className="bg-slate-900/90 rounded-2xl p-8 border border-white/5 shadow-2xl space-y-6">
@@ -461,8 +436,7 @@ export default function PlayerOnboarding() {
               <Target className="w-5 h-5 text-blue-400" />
               Goals & Links
             </h2>
-
-            <div className="space-y-6">
+      <div className="space-y-6">
               <div className="space-y-2">
                 <Label>What is your goal? *</Label>
                 <div className="grid gap-3">
@@ -471,7 +445,7 @@ export default function PlayerOnboarding() {
                       key={goal}
                       type="button"
                       onClick={() => setFormData({ ...formData, primary_goal: goal })
-          )}}
+          })
                       aria-label={`Select goal: ${goal}`}
                       aria-pressed={formData.primary_goal === goal}
                       className={`p-4 rounded-xl border-2 text-left transition-all ${
@@ -484,30 +458,28 @@ export default function PlayerOnboarding() {
                         {goal}
                       </p>
                     </button>
-                  ))}
+)}
                 </div>
               </div>
-
-              <div className="space-y-4 pt-4 border-t border-white/10">
+      <div className="space-y-4 pt-4 border-t border-white/10">
                 <div className="space-y-2">
                   <Label>Perfect Game URL (Optional)</Label>
                   <Input
                     type="url"
                     value={formData.perfect_game_url}
                     onChange={(e) => setFormData({ ...formData, perfect_game_url: e.target.value })
-          )}}
+          })
                     placeholder="https://perfectgame.org/..."
                     className="bg-[#111315] border-white/10"
                   />
                 </div>
-
-                <div className="space-y-2">
+      <div className="space-y-2">
                   <Label>Twitter URL (Optional)</Label>
                   <Input
                     type="url"
                     value={formData.twitter_url}
                     onChange={(e) => setFormData({ ...formData, twitter_url: e.target.value })
-          )}}
+          })
                     placeholder="https://twitter.com/..."
                     className="bg-[#111315] border-white/10"
                   />
@@ -515,8 +487,7 @@ export default function PlayerOnboarding() {
               </div>
             </div>
           </div>
-        )}
-
+)}
         {/* Navigation */}
         <div className="flex items-center justify-between mt-8">
           <Button
@@ -528,12 +499,11 @@ export default function PlayerOnboarding() {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
-
-          {currentStep < 3 ? (
+      {currentStep < 3 ? (
             <Button
               onClick={handleNext}
               variant="gradient"
-              disabled={!formData.grad_year || !formData.high_school_name || (currentStep === 2 && (!formData.height_feet || !formData.weight_lbs || !formData.primary_position || !formData.throws || !formData.bats))}
+              disabled={!formData.grad_year || !formData.high_school_name || (currentStep === 2 && (!formData.height_feet || !formData.weight_lbs || !formData.primary_position || !formData.throws || !formData.bats})
             >
               Next
               <ArrowRight className="w-4 h-4 ml-2" />
@@ -546,7 +516,7 @@ export default function PlayerOnboarding() {
             >
               {saving ? (
                 <>
-                  <div className="w-4 h-4 bg-white/20 rounded animate-pulse mr-2" />
+                  <div className="w-4 h-4 bg-white/20 rounded animate-pulse mr-2"></div>
                   Saving...
                 </>
               ) : (
@@ -556,7 +526,7 @@ export default function PlayerOnboarding() {
                 </>
               )}
             </Button>
-          )}
+)}
         </div>
       </div>
     </div>

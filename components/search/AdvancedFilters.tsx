@@ -48,8 +48,7 @@ export function AdvancedFilters({
     key: K,
     value: FilterState[K]
   ) => {
-    onFiltersChange({ ...filters, [key]: value })
-          )};
+    onFiltersChange({ ...filters, [key]: value }});
   };
 
   const toggleArrayFilter = <K extends 'divisions' | 'conferences' | 'states' | 'regions'>(
@@ -73,8 +72,7 @@ export function AdvancedFilters({
       hasWebsite: null,
       minCommitCount: null,
       maxCommitCount: null,
-    })
-          )};
+    }});
   };
 
   const activeFilterCount = 
@@ -95,8 +93,7 @@ export function AdvancedFilters({
     title: string; 
     sectionKey: string;
     children: React.ReactNode;
-  })
-          )} => {
+  }}) => {
     const isOpen = expandedSection === sectionKey;
     return (
       <div className="border border-slate-200 rounded-2xl overflow-hidden">
@@ -115,7 +112,7 @@ export function AdvancedFilters({
           <div className="p-4 bg-white/10 backdrop-blur-md border border-white/20 border-t border-slate-200">
             {children}
           </div>
-        )}
+)}
       </div>
     );
   };
@@ -131,7 +128,7 @@ export function AdvancedFilters({
             <Badge variant="secondary" className="ml-2">
               {activeFilterCount}
             </Badge>
-          )}
+)}
         </div>
         <div className="flex items-center gap-2">
           {activeFilterCount > 0 && (
@@ -144,7 +141,7 @@ export function AdvancedFilters({
               <X className="w-3 h-3 mr-1" />
               Clear
             </Button>
-          )}
+)}
           <Button
             variant="ghost"
             size="sm"
@@ -158,7 +155,6 @@ export function AdvancedFilters({
           </Button>
         </div>
       </div>
-
       {/* Quick Filter Chips */}
       {!isExpanded && activeFilterCount > 0 && (
         <div className="flex flex-wrap gap-2">
@@ -178,7 +174,7 @@ export function AdvancedFilters({
             >
               {div} <X className="w-3 h-3 ml-1" />
             </Badge>
-          ))}
+)}
           {filters.conferences.map(conf => (
             <Badge
               key={conf}
@@ -188,7 +184,7 @@ export function AdvancedFilters({
             >
               {conf} <X className="w-3 h-3 ml-1" />
             </Badge>
-          ))}
+)}
           {filters.states.map(state => (
             <Badge
               key={state}
@@ -198,10 +194,9 @@ export function AdvancedFilters({
             >
               {state} <X className="w-3 h-3 ml-1" />
             </Badge>
-          ))}
+)}
         </div>
-      )}
-
+)}
       {/* Expanded Filters */}
       {isExpanded && (
         <div className={cn(glassCard, 'p-4 space-y-4')}>
@@ -221,11 +216,10 @@ export function AdvancedFilters({
                 >
                   {div}
                 </button>
-              ))}
+)}
             </div>
           </FilterSection>
-
-          {/* Regions */}
+      {/* Regions */}
           <FilterSection title="Region" sectionKey="region">
             <div className="flex flex-wrap gap-2">
               {REGIONS.map(region => (
@@ -241,11 +235,10 @@ export function AdvancedFilters({
                 >
                   {region}
                 </button>
-              ))}
+)}
             </div>
           </FilterSection>
-
-          {/* States */}
+      {/* States */}
           {availableStates.length > 0 && (
             <FilterSection title="State" sectionKey="state">
               <div className="max-h-48 overflow-y-auto">
@@ -263,12 +256,11 @@ export function AdvancedFilters({
                     >
                       {state}
                     </button>
-                  ))}
+)}
                 </div>
               </div>
             </FilterSection>
-          )}
-
+)}
           {/* Conferences */}
           {availableConferences.length > 0 && (
             <FilterSection title="Conference" sectionKey="conference">
@@ -285,12 +277,11 @@ export function AdvancedFilters({
                       />
                       <span className="text-sm text-slate-700">{conf}</span>
                     </label>
-                  ))}
+)}
                 </div>
               </div>
             </FilterSection>
-          )}
-
+)}
           {/* Additional Options */}
           <FilterSection title="Additional Options" sectionKey="options">
             <div className="space-y-4">
@@ -300,8 +291,7 @@ export function AdvancedFilters({
                 <Select
                   value={filters.hasLogo === null ? 'any' : filters.hasLogo ? 'yes' : 'no'}
                   onValueChange={(value) => 
-                    updateFilter('hasLogo', value === 'any' ? null : value === 'yes')
-                  }
+                    updateFilter('hasLogo', value === 'any' ? null : value === 'yes')}
                 >
                   <SelectTrigger id="has-logo" className="w-32">
                     <SelectValue />
@@ -313,15 +303,13 @@ export function AdvancedFilters({
                   </SelectContent>
                 </Select>
               </div>
-
-              {/* Has Website */}
+      {/* Has Website */}
               <div className="flex items-center justify-between">
                 <Label htmlFor="has-website" className="text-sm">Has Website</Label>
                 <Select
                   value={filters.hasWebsite === null ? 'any' : filters.hasWebsite ? 'yes' : 'no'}
                   onValueChange={(value) => 
-                    updateFilter('hasWebsite', value === 'any' ? null : value === 'yes')
-                  }
+                    updateFilter('hasWebsite', value === 'any' ? null : value === 'yes')}
                 >
                   <SelectTrigger id="has-website" className="w-32">
                     <SelectValue />
@@ -333,8 +321,7 @@ export function AdvancedFilters({
                   </SelectContent>
                 </Select>
               </div>
-
-              {/* Commit Count Range */}
+      {/* Commit Count Range */}
               <div className="space-y-2">
                 <Label className="text-sm">Commit Count Range</Label>
                 <div className="flex items-center gap-2">
@@ -343,8 +330,7 @@ export function AdvancedFilters({
                     placeholder="Min"
                     value={filters.minCommitCount ?? ''}
                     onChange={(e) => 
-                      updateFilter('minCommitCount', e.target.value ? parseInt(e.target.value) : null)
-                    }
+                      updateFilter('minCommitCount', e.target.value ? parseInt(e.target.value) : null)}
                     className="w-24"
                   />
                   <span className="text-slate-500">to</span>
@@ -353,8 +339,7 @@ export function AdvancedFilters({
                     placeholder="Max"
                     value={filters.maxCommitCount ?? ''}
                     onChange={(e) => 
-                      updateFilter('maxCommitCount', e.target.value ? parseInt(e.target.value) : null)
-                    }
+                      updateFilter('maxCommitCount', e.target.value ? parseInt(e.target.value) : null)}
                     className="w-24"
                   />
                 </div>
@@ -362,7 +347,7 @@ export function AdvancedFilters({
             </div>
           </FilterSection>
         </div>
-      )}
+)}
     </div>
   );
 }

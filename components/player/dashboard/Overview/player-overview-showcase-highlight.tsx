@@ -143,8 +143,7 @@ export function PlayerOverviewShowcaseHighlight({ playerId }: { playerId: string
               <Badge key={tag} className="bg-white/10 border-white/20 text-white">
                 {tag}
               </Badge>
-            ))
-          )}
+            )})
         </div>
       </div>
     </Card>

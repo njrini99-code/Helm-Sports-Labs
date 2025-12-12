@@ -361,7 +361,7 @@ export default function CollegeCoachWatchlistPage() {
     // Tags filter
     if (filters.hasTags.length > 0) {
       result = result.filter(r => 
-        filters.hasTags.some(t => r.tags?.includes(t))
+        filters.hasTags.some(t => r.tags?.includes(t)}
       );
     }
 
@@ -533,9 +533,9 @@ export default function CollegeCoachWatchlistPage() {
       toast.error('Failed to save notes');
     } else {
       toast.success('Notes saved');
-      setRecruits(recruits.map(r => 
+      setRecruits(recruits.map(r =>
         r.id === notesModal.recruit!.id 
-          ? { ...r, notes: noteText, updated_at: new Date().toISOString() } 
+          ? {  ...r, notes: noteText, updated_at: new Date().toISOString() }}
           : r
       ));
       setNotesModal({ open: false, recruit: null });
@@ -653,7 +653,7 @@ export default function CollegeCoachWatchlistPage() {
         r.priority || '',
         r.rating || '',
         `"${(r.notes || '').replace(/"/g, '""')}"`,
-      ].join(','))
+      ].join(',')}
     ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
@@ -692,8 +692,7 @@ export default function CollegeCoachWatchlistPage() {
                 {stats.total} prospects tracked • Avg rating: {stats.avgRating}
               </p>
             </div>
-            
-            {/* View Mode Toggle */}
+{/* View Mode Toggle */}
             <div className="flex items-center gap-2">
               <div className="flex items-center bg-white border border-slate-200 rounded-lg p-1">
                 <button
@@ -719,8 +718,7 @@ export default function CollegeCoachWatchlistPage() {
               </div>
             </div>
           </div>
-
-          {/* Pipeline Progress Bar */}
+{/* Pipeline Progress Bar */}
           <div className="bg-white rounded-xl border border-slate-200 p-4">
             <div className="flex items-center gap-2 mb-3">
               <Target className="w-4 h-4 text-emerald-600" />
@@ -747,8 +745,7 @@ export default function CollegeCoachWatchlistPage() {
             </div>
           </div>
         </div>
-
-        {/* ═══════════════════════════════════════════════════════════════════
+{/* ═══════════════════════════════════════════════════════════════════
             CONTROLS ROW
         ═══════════════════════════════════════════════════════════════════ */}
         <div className="flex flex-col gap-3">
@@ -763,8 +760,7 @@ export default function CollegeCoachWatchlistPage() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-
-            {/* Advanced Filters Button */}
+{/* Advanced Filters Button */}
             <Button
               variant="outline"
               size="sm"
@@ -777,11 +773,10 @@ export default function CollegeCoachWatchlistPage() {
                 <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-emerald-500 text-white text-[10px]">
                   {activeFilterCount}
                 </span>
-              )}
+)}
               {showFilters ? <ChevronUp className="w-3.5 h-3.5 ml-1.5" /> : <ChevronDown className="w-3.5 h-3.5 ml-1.5" />}
             </Button>
-
-            {/* Sort Dropdown */}
+{/* Sort Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="h-9 px-3 text-xs">
@@ -806,14 +801,13 @@ export default function CollegeCoachWatchlistPage() {
                     {sortBy === option.id && (
                       sortDirection === 'asc' ? <SortAsc className="w-3.5 h-3.5 mr-2" /> : <SortDesc className="w-3.5 h-3.5 mr-2" />
                     )}
-                    {sortBy !== option.id && <div className="w-3.5 h-3.5 mr-2" />}
+                    {sortBy !== option.id && <div className="w-3.5 h-3.5 mr-2"></div>}
                     {option.label}
                   </DropdownMenuItem>
-                ))}
+)}
               </DropdownMenuContent>
             </DropdownMenu>
-
-            {/* Action Buttons */}
+{/* Action Buttons */}
             <div className="flex items-center gap-2 lg:ml-auto">
               <Button 
                 variant="ghost" 
@@ -842,8 +836,7 @@ export default function CollegeCoachWatchlistPage() {
               </Link>
             </div>
           </div>
-
-          {/* ═══════════════════════════════════════════════════════════════════
+{/* ═══════════════════════════════════════════════════════════════════
               ADVANCED FILTERS PANEL
           ═══════════════════════════════════════════════════════════════════ */}
           {showFilters && (
@@ -854,8 +847,7 @@ export default function CollegeCoachWatchlistPage() {
                   Clear All
                 </Button>
               </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Position Multi-Select */}
                 <div className="space-y-2">
                   <label className="text-xs font-medium text-slate-600">Positions</label>
@@ -887,19 +879,18 @@ export default function CollegeCoachWatchlistPage() {
                             />
                             <span className="text-xs">{pos.label}</span>
                           </label>
-                        ))}
+)}
                       </div>
                     </PopoverContent>
                   </Popover>
                 </div>
-
-                {/* Graduation Year Range */}
+{/* Graduation Year Range */}
                 <div className="space-y-2">
                   <label className="text-xs font-medium text-slate-600">Graduation Year</label>
                   <div className="flex items-center gap-2">
                     <Select 
                       value={filters.gradYearMin?.toString() || ''} 
-                      onValueChange={(v) => setFilters(f => ({ ...f, gradYearMin: v ? parseInt(v) : null }))}
+                      onValueChange={(v) => setFilters(f => ({ ...f, gradYearMin: v ? parseInt(v) : null }})
                     >
                       <SelectTrigger className="h-9 text-xs flex-1">
                         <SelectValue placeholder="From" />
@@ -908,13 +899,13 @@ export default function CollegeCoachWatchlistPage() {
                         <SelectItem value="">Any</SelectItem>
                         {GRAD_YEARS.map(y => (
                           <SelectItem key={y} value={y.toString()}>{y}</SelectItem>
-                        ))}
+)}
                       </SelectContent>
                     </Select>
                     <span className="text-slate-400">—</span>
                     <Select 
                       value={filters.gradYearMax?.toString() || ''} 
-                      onValueChange={(v) => setFilters(f => ({ ...f, gradYearMax: v ? parseInt(v) : null }))}
+                      onValueChange={(v) => setFilters(f => ({ ...f, gradYearMax: v ? parseInt(v) : null }})
                     >
                       <SelectTrigger className="h-9 text-xs flex-1">
                         <SelectValue placeholder="To" />
@@ -923,13 +914,12 @@ export default function CollegeCoachWatchlistPage() {
                         <SelectItem value="">Any</SelectItem>
                         {GRAD_YEARS.map(y => (
                           <SelectItem key={y} value={y.toString()}>{y}</SelectItem>
-                        ))}
+)}
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
-
-                {/* Rating Range */}
+{/* Rating Range */}
                 <div className="space-y-2">
                   <label className="text-xs font-medium text-slate-600">
                     Rating Range: {filters.ratingMin} - {filters.ratingMax}
@@ -940,13 +930,12 @@ export default function CollegeCoachWatchlistPage() {
                       max={100}
                       step={5}
                       value={[filters.ratingMin, filters.ratingMax]}
-                      onValueChange={([min, max]) => setFilters(f => ({ ...f, ratingMin: min, ratingMax: max }))}
+                      onValueChange={([min, max]) => setFilters(f => ({ ...f, ratingMin: min, ratingMax: max }})
                       className="w-full"
                     />
                   </div>
                 </div>
-
-                {/* Stage Filter */}
+{/* Stage Filter */}
                 <div className="space-y-2">
                   <label className="text-xs font-medium text-slate-600">Stage</label>
                   <Popover>
@@ -975,16 +964,15 @@ export default function CollegeCoachWatchlistPage() {
                               }}
                               className="w-3.5 h-3.5 rounded border-slate-300"
                             />
-                            <div className={`w-2 h-2 rounded-full ${stage.headerBg}`} />
+                            <div className={`w-2 h-2 rounded-full ${stage.headerBg}`}></div>
                             <span className="text-xs">{stage.label}</span>
                           </label>
-                        ))}
+)}
                       </div>
                     </PopoverContent>
                   </Popover>
                 </div>
-
-                {/* State Filter */}
+{/* State Filter */}
                 {availableStates.length > 0 && (
                   <div className="space-y-2">
                     <label className="text-xs font-medium text-slate-600">State</label>
@@ -1016,13 +1004,12 @@ export default function CollegeCoachWatchlistPage() {
                               />
                               <span className="text-xs">{state}</span>
                             </label>
-                          ))}
+)}
                         </div>
                       </PopoverContent>
                     </Popover>
                   </div>
-                )}
-
+)}
                 {/* Priority Filter */}
                 <div className="space-y-2">
                   <label className="text-xs font-medium text-slate-600">Priority</label>
@@ -1054,60 +1041,58 @@ export default function CollegeCoachWatchlistPage() {
                             />
                             <span className="text-xs">{priority.label}</span>
                           </label>
-                        ))}
+)}
                       </div>
                     </PopoverContent>
                   </Popover>
                 </div>
               </div>
-
-              {/* Active Filter Tags */}
+{/* Active Filter Tags */}
               {activeFilterCount > 0 && (
                 <div className="flex items-center gap-2 flex-wrap pt-2 border-t border-slate-100">
                   <span className="text-xs text-slate-500">Active:</span>
                   {filters.positions.length > 0 && (
                     <Badge variant="secondary" className="text-[10px] px-2 py-0.5">
                       {filters.positions.length} positions
-                      <button onClick={() => setFilters(f => ({ ...f, positions: [] }))} className="ml-1 hover:text-red-500">×</button>
+                      <button onClick={() => setFilters(f => ({ ...f, positions: [] }}) className="ml-1 hover:text-red-500">×</button>
                     </Badge>
-                  )}
+)}
                   {(filters.gradYearMin || filters.gradYearMax) && (
                     <Badge variant="secondary" className="text-[10px] px-2 py-0.5">
                       {filters.gradYearMin || 'Any'} - {filters.gradYearMax || 'Any'}
-                      <button onClick={() => setFilters(f => ({ ...f, gradYearMin: null, gradYearMax: null }))} className="ml-1 hover:text-red-500">×</button>
+                      <button onClick={() => setFilters(f => ({ ...f, gradYearMin: null, gradYearMax: null }}) className="ml-1 hover:text-red-500">×</button>
                     </Badge>
-                  )}
+)}
                   {(filters.ratingMin > 0 || filters.ratingMax < 100) && (
                     <Badge variant="secondary" className="text-[10px] px-2 py-0.5">
                       Rating {filters.ratingMin}-{filters.ratingMax}
-                      <button onClick={() => setFilters(f => ({ ...f, ratingMin: 0, ratingMax: 100 }))} className="ml-1 hover:text-red-500">×</button>
+                      <button onClick={() => setFilters(f => ({ ...f, ratingMin: 0, ratingMax: 100 }}) className="ml-1 hover:text-red-500">×</button>
                     </Badge>
-                  )}
+)}
                   {filters.stages.length > 0 && (
                     <Badge variant="secondary" className="text-[10px] px-2 py-0.5">
                       {filters.stages.length} stages
-                      <button onClick={() => setFilters(f => ({ ...f, stages: [] }))} className="ml-1 hover:text-red-500">×</button>
+                      <button onClick={() => setFilters(f => ({ ...f, stages: [] }}) className="ml-1 hover:text-red-500">×</button>
                     </Badge>
-                  )}
+)}
                   {filters.states.length > 0 && (
                     <Badge variant="secondary" className="text-[10px] px-2 py-0.5">
                       {filters.states.length} states
-                      <button onClick={() => setFilters(f => ({ ...f, states: [] }))} className="ml-1 hover:text-red-500">×</button>
+                      <button onClick={() => setFilters(f => ({ ...f, states: [] }}) className="ml-1 hover:text-red-500">×</button>
                     </Badge>
-                  )}
+)}
                   {filters.priorities.length > 0 && (
                     <Badge variant="secondary" className="text-[10px] px-2 py-0.5">
                       {filters.priorities.length} priorities
-                      <button onClick={() => setFilters(f => ({ ...f, priorities: [] }))} className="ml-1 hover:text-red-500">×</button>
+                      <button onClick={() => setFilters(f => ({ ...f, priorities: [] }}) className="ml-1 hover:text-red-500">×</button>
                     </Badge>
-                  )}
+)}
                 </div>
-              )}
+)}
             </div>
-          )}
+)}
         </div>
-
-        {/* ═══════════════════════════════════════════════════════════════════
+{/* ═══════════════════════════════════════════════════════════════════
             BULK ACTIONS TOOLBAR
         ═══════════════════════════════════════════════════════════════════ */}
         {selectedIds.size > 0 && (
@@ -1118,7 +1103,7 @@ export default function CollegeCoachWatchlistPage() {
                 {selectedIds.size} selected
               </span>
             </div>
-            <div className="h-4 w-px bg-emerald-200" />
+            <div className="h-4 w-px bg-emerald-200"></div>
             <div className="flex items-center gap-2 flex-1 flex-wrap">
               {/* Move to Stage */}
               <Select onValueChange={handleBulkMoveStage} disabled={bulkActionLoading}>
@@ -1129,15 +1114,14 @@ export default function CollegeCoachWatchlistPage() {
                   {STAGES.map(stage => (
                     <SelectItem key={stage.id} value={stage.id}>
                       <div className="flex items-center gap-2">
-                        <div className={`w-2 h-2 rounded-full ${stage.headerBg}`} />
+                        <div className={`w-2 h-2 rounded-full ${stage.headerBg}`}></div>
                         {stage.label}
                       </div>
                     </SelectItem>
-                  ))}
+)}
                 </SelectContent>
               </Select>
-
-              {/* Set Priority */}
+{/* Set Priority */}
               <Select onValueChange={handleBulkSetPriority} disabled={bulkActionLoading}>
                 <SelectTrigger className="h-8 w-36 text-xs bg-white border-emerald-200">
                   <SelectValue placeholder="Set priority..." />
@@ -1147,11 +1131,10 @@ export default function CollegeCoachWatchlistPage() {
                     <SelectItem key={priority.id} value={priority.id}>
                       {priority.label}
                     </SelectItem>
-                  ))}
+)}
                 </SelectContent>
               </Select>
-
-              {/* Export */}
+{/* Export */}
               <Button 
                 variant="outline" 
                 size="sm" 
@@ -1162,8 +1145,7 @@ export default function CollegeCoachWatchlistPage() {
                 <Download className="w-3.5 h-3.5 mr-1.5" />
                 Export CSV
               </Button>
-
-              {/* Remove */}
+{/* Remove */}
               <Button 
                 variant="outline" 
                 size="sm" 
@@ -1188,15 +1170,13 @@ export default function CollegeCoachWatchlistPage() {
               <X className="w-4 h-4" />
             </Button>
           </div>
-        )}
-
+)}
         {/* Results Count */}
         {(searchQuery || activeFilterCount > 0) && (
           <div className="text-sm text-slate-500">
             Showing {filteredAndSortedRecruits.length} of {stats.total} prospects
           </div>
-        )}
-
+)}
         {/* ═══════════════════════════════════════════════════════════════════
             KANBAN BOARD VIEW
         ═══════════════════════════════════════════════════════════════════ */}
@@ -1222,8 +1202,7 @@ export default function CollegeCoachWatchlistPage() {
               );
             })}
           </div>
-        )}
-
+)}
         {/* ═══════════════════════════════════════════════════════════════════
             LIST VIEW
         ═══════════════════════════════════════════════════════════════════ */}
@@ -1241,7 +1220,7 @@ export default function CollegeCoachWatchlistPage() {
                         <svg className="w-3 h-3 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
-                      )}
+)}
                     </button>
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Player</th>
@@ -1268,7 +1247,7 @@ export default function CollegeCoachWatchlistPage() {
                     onUpdatePriority={(priority) => handleUpdatePriority(recruit.id, priority)}
                     onOpenNotes={() => handleOpenNotes(recruit)}
                   />
-                ))}
+                })
               </tbody>
             </table>
             {filteredAndSortedRecruits.length === 0 && (
@@ -1276,10 +1255,9 @@ export default function CollegeCoachWatchlistPage() {
                 <Users className="w-12 h-12 mx-auto text-slate-300 mb-3" />
                 <p className="text-sm text-slate-500">No prospects match your filters</p>
               </div>
-            )}
+)}
           </div>
-        )}
-
+)}
         {/* ═══════════════════════════════════════════════════════════════════
             NOTES MODAL
         ═══════════════════════════════════════════════════════════════════ */}
@@ -1359,7 +1337,7 @@ function RecruitBoardColumn({
       <div className={`rounded-t-2xl ${stage.bgLight} border ${stage.borderLight} border-b-0 px-4 py-3`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className={`w-2 h-2 rounded-full ${stage.headerBg}`} />
+            <div className={`w-2 h-2 rounded-full ${stage.headerBg}`}></div>
             <h3 className={`text-sm font-semibold ${stage.textColor}`}>{stage.label}</h3>
           </div>
           <Badge className={`${stage.bgLight} ${stage.textColor} border ${stage.borderLight} text-[10px] font-semibold px-2 py-0.5`}>
@@ -1367,8 +1345,7 @@ function RecruitBoardColumn({
           </Badge>
         </div>
       </div>
-
-      {/* Column Content */}
+{/* Column Content */}
       <div className={`min-h-[480px] max-h-[600px] overflow-y-auto rounded-b-2xl border ${stage.borderLight} border-t-0 bg-white p-3 space-y-2`}>
         {recruits.length === 0 ? (
           <RecruitBoardEmptyState stage={stage} />
@@ -1388,8 +1365,7 @@ function RecruitBoardColumn({
               isSelected={selectedIds.has(recruit.id)}
               onToggleSelect={() => onToggleSelect(recruit.id)}
             />
-          ))
-        )}
+          )})
       </div>
     </div>
   );
@@ -1475,31 +1451,28 @@ function RecruitBoardCard({ recruit, stage, onView, onMessage, onRemove, onUpdat
             <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
-          )}
+)}
         </button>
-
-        {/* Avatar */}
+{/* Avatar */}
         <Avatar className="h-9 w-9 rounded-lg shadow-sm flex-shrink-0">
           <AvatarImage src={recruit.player?.avatar_url || undefined} />
           <AvatarFallback className="rounded-lg bg-emerald-100 text-emerald-700 text-xs font-semibold">
             {initials}
           </AvatarFallback>
         </Avatar>
-
-        {/* Info */}
+{/* Info */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5">
             <p className="text-sm font-semibold text-slate-800 truncate">{recruit.name}</p>
             {position && (
               <span className="text-[10px] text-slate-500 font-medium">— {position}</span>
-            )}
+)}
           </div>
           <p className="text-[10px] text-slate-400 mt-0.5">
             {[gradYear, height, weight, state].filter(Boolean).join(' · ')}
           </p>
         </div>
-
-        {/* Actions */}
+{/* Actions */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
             <Button variant="ghost" size="sm" className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -1530,7 +1503,7 @@ function RecruitBoardCard({ recruit, stage, onView, onMessage, onRemove, onUpdat
                   <DropdownMenuItem key={p.id} onClick={() => onUpdatePriority(p.id)} className="text-xs">
                     {p.label}
                   </DropdownMenuItem>
-                ))}
+)}
               </DropdownMenuSubContent>
             </DropdownMenuSub>
             <DropdownMenuSeparator />
@@ -1548,23 +1521,20 @@ function RecruitBoardCard({ recruit, stage, onView, onMessage, onRemove, onUpdat
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-
-      {/* Tags Row */}
+{/* Tags Row */}
       <div className="flex items-center gap-1.5 mt-2 flex-wrap">
         {/* Rating Badge */}
         {recruit.rating && (
           <span className="px-1.5 py-0.5 rounded bg-amber-100 text-amber-700 text-[10px] font-semibold">
             {recruit.rating}
           </span>
-        )}
-        
+)}
         {/* Priority Badge */}
         {priorityConfig && (
           <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium border ${priorityConfig.color}`}>
             {priorityConfig.label}
           </span>
-        )}
-
+)}
         {/* Notes Indicator */}
         {recruit.notes && (
           <button 
@@ -1574,8 +1544,7 @@ function RecruitBoardCard({ recruit, stage, onView, onMessage, onRemove, onUpdat
             <StickyNote className="w-3 h-3" />
             Notes
           </button>
-        )}
-
+)}
         {/* Stage selector (compact) */}
         <div className="ml-auto">
           <Select
@@ -1594,11 +1563,11 @@ function RecruitBoardCard({ recruit, stage, onView, onMessage, onRemove, onUpdat
               {STAGES.map(s => (
                 <SelectItem key={s.id} value={s.id} className="text-xs">
                   <div className="flex items-center gap-2">
-                    <div className={`w-2 h-2 rounded-full ${s.headerBg}`} />
+                    <div className={`w-2 h-2 rounded-full ${s.headerBg}`}></div>
                     {s.label}
                   </div>
                 </SelectItem>
-              ))}
+)}
             </SelectContent>
           </Select>
         </div>
@@ -1645,7 +1614,7 @@ function RecruitListRow({ recruit, isSelected, onToggleSelect, onView, onMessage
             <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
-          )}
+)}
         </button>
       </td>
       <td className="px-4 py-3">
@@ -1673,7 +1642,7 @@ function RecruitListRow({ recruit, isSelected, onToggleSelect, onView, onMessage
         <Select value={recruit.stage} onValueChange={onUpdateStage}>
           <SelectTrigger className="h-7 text-xs w-32">
             <div className="flex items-center gap-2">
-              <div className={`w-2 h-2 rounded-full ${stageConfig?.headerBg}`} />
+              <div className={`w-2 h-2 rounded-full ${stageConfig?.headerBg}`}></div>
               <SelectValue />
             </div>
           </SelectTrigger>
@@ -1681,11 +1650,11 @@ function RecruitListRow({ recruit, isSelected, onToggleSelect, onView, onMessage
             {STAGES.map(s => (
               <SelectItem key={s.id} value={s.id} className="text-xs">
                 <div className="flex items-center gap-2">
-                  <div className={`w-2 h-2 rounded-full ${s.headerBg}`} />
+                  <div className={`w-2 h-2 rounded-full ${s.headerBg}`}></div>
                   {s.label}
                 </div>
               </SelectItem>
-            ))}
+)}
           </SelectContent>
         </Select>
       </td>
@@ -1697,7 +1666,7 @@ function RecruitListRow({ recruit, isSelected, onToggleSelect, onView, onMessage
           <SelectContent>
             {PRIORITIES.map(p => (
               <SelectItem key={p.id} value={p.id} className="text-xs">{p.label}</SelectItem>
-            ))}
+)}
           </SelectContent>
         </Select>
       </td>

@@ -33,8 +33,7 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
   const [formData, setFormData] = useState({
     about: team.about || '',
     program_values: team.program_values || '',
-  })
-          )};
+  }});
 
   const isOwner = mode === 'owner';
 
@@ -42,8 +41,7 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
     const success = await updateTeamInfo(team.id, {
       about: formData.about,
       program_values: formData.program_values,
-    })
-          )};
+    }});
 
     if (success) {
       toast.success('Team info updated');
@@ -83,7 +81,7 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
                     <Textarea
                       value={formData.about}
                       onChange={(e) => setFormData({ ...formData, about: e.target.value })
-          )}}
+          })
                       className="bg-[#0B0D0F] border-white/10 text-white"
                       rows={4}
                       placeholder="Describe your program..."
@@ -96,7 +94,7 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
                     <Textarea
                       value={formData.program_values}
                       onChange={(e) => setFormData({ ...formData, program_values: e.target.value })
-          )}}
+          })
                       className="bg-[#0B0D0F] border-white/10 text-white"
                       rows={3}
                       placeholder="What values drive your program?"
@@ -111,24 +109,22 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
                 </div>
               </DialogContent>
             </Dialog>
-          )}
+)}
         </CardHeader>
         <CardContent className="space-y-4">
           {team.about ? (
             <p className="text-slate-300 leading-relaxed">{team.about}</p>
           ) : (
             <p className="text-slate-500 italic">No description yet.</p>
-          )}
-
+)}
           {team.program_values && (
             <div>
               <h3 className="text-sm font-semibold text-slate-400 mb-2">Program Values</h3>
               <p className="text-slate-300">{team.program_values}</p>
             </div>
-          )}
+)}
         </CardContent>
       </Card>
-
       {/* Placement Highlights */}
       {team.placement_highlights && team.placement_highlights.length > 0 && (
         <Card className="bg-[#111315] border-white/5">
@@ -155,12 +151,11 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
                 >
                   {highlight}
                 </Badge>
-              ))}
+)}
             </div>
           </CardContent>
         </Card>
-      )}
-
+)}
       {/* Owner Actions */}
       {isOwner && (
         <Card className="bg-[#111315] border-white/5">
@@ -178,8 +173,7 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
             </Button>
           </CardContent>
         </Card>
-      )}
-
+)}
       {/* Viewer Actions */}
       {mode === 'viewer' && (
         <Card className="bg-[#111315] border-white/5">
@@ -189,7 +183,7 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
             </Button>
           </CardContent>
         </Card>
-      )}
+)}
     </div>
   );
 }

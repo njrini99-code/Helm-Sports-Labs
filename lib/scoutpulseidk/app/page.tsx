@@ -183,8 +183,7 @@ export default function HomePage() {
             <Link href="/" className="text-2xl font-bold text-white tracking-tight">
               Scout<span className="text-blue-500">Pulse</span>
             </Link>
-            
-            <div className="hidden md:flex items-center gap-8">
+<div className="hidden md:flex items-center gap-8">
               <a href="#features" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
                 Features
               </a>
@@ -195,8 +194,7 @@ export default function HomePage() {
                 For Coaches
               </a>
             </div>
-            
-            <div className="flex items-center gap-4">
+<div className="flex items-center gap-4">
               <Link 
                 href="/auth/login" 
                 className="text-sm font-medium text-slate-300 hover:text-white transition-colors px-4 py-2"
@@ -210,38 +208,32 @@ export default function HomePage() {
           </div>
         </nav>
       </header>
-
-      {/* HERO SECTION */}
+{/* HERO SECTION */}
       <section className="mx-auto max-w-5xl px-6 pt-28 pb-24 text-center">
         <Badge className="mb-6 bg-white/10 text-white px-4 py-1 border-white/20">
           For high school, showcase, JUCO & college baseball
         </Badge>
-
-        <h1 className="text-5xl sm:text-6xl font-bold mb-6">
+<h1 className="text-5xl sm:text-6xl font-bold mb-6">
           Recruiting. Reimagined.
         </h1>
-
-        <p className="text-lg text-gray-300 max-w-xl mx-auto mb-10">
+<p className="text-lg text-gray-300 max-w-xl mx-auto mb-10">
           ScoutPulse helps players showcase their talent and coaches discover,
           evaluate, and recruit — all in one modern, AI-powered platform.
         </p>
-
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
+<div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link href="/auth/signup?role=player">
             <Button size="lg" className="bg-[#FF8A00] hover:bg-[#ff9e2f] text-white">
               I&apos;m a Player →
             </Button>
           </Link>
-
-          <Link href="/auth/signup?role=coach">
+<Link href="/auth/signup?role=coach">
             <Button size="lg" className="bg-[#00C27A] hover:bg-[#1ad692] text-white">
               I&apos;m a Coach →
             </Button>
           </Link>
         </div>
       </section>
-
-      {/* FEATURES */}
+{/* FEATURES */}
       <section id="features" className="mx-auto max-w-6xl px-6 py-20">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
           <Feature icon={<Shield className="w-6 h-6 text-emerald-400" />} title="Verified Profiles" />
@@ -250,8 +242,7 @@ export default function HomePage() {
           <Feature icon={<Users className="w-6 h-6 text-purple-400" />} title="All Levels Supported" />
         </div>
       </section>
-
-      {/* Footer */}
+{/* Footer */}
       <footer className="max-w-7xl mx-auto px-6 py-12 border-t border-white/5 mt-20">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-center md:text-left">

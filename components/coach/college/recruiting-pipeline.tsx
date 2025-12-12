@@ -143,7 +143,6 @@ export function RecruitingPipeline({ entries, onStatusChange, filters }: Recruit
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold text-white">Recruiting Pipeline</h2>
       </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
         {STATUSES.map(status => {
           const entriesForStatus = groupedByStatus[status] || [];
@@ -190,7 +189,7 @@ export function RecruitingPipeline({ entries, onStatusChange, filters }: Recruit
                                 >
                                   Move to {STATUS_LABELS[statusOption]}
                                 </DropdownMenuItem>
-                              ))}
+)}
                               <DropdownMenuItem onClick={() => handleViewPlayer(entry.player.id)}>
                                 View Profile
                               </DropdownMenuItem>
@@ -202,15 +201,14 @@ export function RecruitingPipeline({ entries, onStatusChange, filters }: Recruit
                         <p className="text-xs text-slate-400 mt-1 ml-14">
                           {entry.position_role}
                         </p>
-                      )}
+)}
                       {entry.notes && (
                         <p className="text-xs text-slate-400 mt-1 ml-14 line-clamp-2">
                           {entry.notes}
                         </p>
-                      )}
+)}
                     </div>
-                  ))
-                )}
+                  )})
               </CardContent>
             </Card>
           );

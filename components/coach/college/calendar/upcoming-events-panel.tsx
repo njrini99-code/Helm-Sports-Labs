@@ -70,7 +70,6 @@ export function UpcomingEventsPanel({ events, onEventClick, onViewAll }: Upcomin
           {events.length} events
         </Badge>
       </div>
-
       <div className="divide-y divide-slate-100">
         {events.length === 0 ? (
           <div className="px-4 py-8 text-center">
@@ -93,8 +92,7 @@ export function UpcomingEventsPanel({ events, onEventClick, onViewAll }: Upcomin
                       {EVENT_TYPE_LABELS[event.type]}
                     </Badge>
                   </div>
-
-                  {/* Meta info */}
+      {/* Meta info */}
                   <div className="flex items-center gap-3 text-xs text-slate-400">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
@@ -105,16 +103,14 @@ export function UpcomingEventsPanel({ events, onEventClick, onViewAll }: Upcomin
                         <Clock className="w-3 h-3" />
                         {formatTime(event.startTime)}
                       </span>
-                    )}
+)}
                   </div>
-
-                  {event.location && (
+      {event.location && (
                     <p className="text-xs text-slate-400 mt-1 flex items-center gap-1 truncate">
                       <MapPin className="w-3 h-3 flex-shrink-0" />
                       {event.location}
                     </p>
-                  )}
-
+)}
                   {/* Players */}
                   {event.players && event.players.length > 0 && (
                     <div className="flex items-center gap-1 mt-2">
@@ -126,28 +122,25 @@ export function UpcomingEventsPanel({ events, onEventClick, onViewAll }: Upcomin
                               {player.firstName?.[0]}{player.lastName?.[0]}
                             </AvatarFallback>
                           </Avatar>
-                        ))}
+)}
                       </div>
                       {event.players.length > 3 && (
                         <span className="text-[10px] text-slate-400 ml-1">
                           +{event.players.length - 3}
                         </span>
-                      )}
+)}
                       <span className="text-[10px] text-slate-400 ml-1 flex items-center gap-0.5">
                         <Users className="w-2.5 h-2.5" />
                         {event.players.length} player{event.players.length !== 1 ? 's' : ''}
                       </span>
                     </div>
-                  )}
+)}
                 </div>
-
-                <ChevronRight className="w-4 h-4 text-slate-300 flex-shrink-0" />
+      <ChevronRight className="w-4 h-4 text-slate-300 flex-shrink-0" />
               </div>
             </button>
-          ))
-        )}
+          )})
       </div>
-
       {events.length > 0 && (
         <div className="px-4 py-3 bg-slate-50/50 border-t border-slate-100">
           <Button
@@ -160,7 +153,7 @@ export function UpcomingEventsPanel({ events, onEventClick, onViewAll }: Upcomin
             <ChevronRight className="w-3.5 h-3.5 ml-1" />
           </Button>
         </div>
-      )}
+)}
     </Card>
   );
 }

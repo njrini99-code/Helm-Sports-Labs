@@ -369,7 +369,7 @@ export default function PlayerJourneyPage() {
                   <Bell className="w-3 h-3 mr-1" />
                   {stats.urgentDeadlines} Urgent
                 </Badge>
-              )}
+)}
               <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600">
                 <Plus className="w-4 h-4 mr-1" />
                 Add Activity
@@ -378,8 +378,7 @@ export default function PlayerJourneyPage() {
           </div>
         </div>
       </div>
-
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 space-y-6">
+<div className="max-w-7xl mx-auto px-4 md:px-6 py-6 space-y-6">
         {/* Stats Row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
@@ -439,8 +438,7 @@ export default function PlayerJourneyPage() {
             </CardContent>
           </Card>
         </div>
-
-        {/* Deadline Reminders */}
+{/* Deadline Reminders */}
         {MOCK_DEADLINES.filter(d => d.daysUntil > 0).length > 0 && (
           <Card className={`overflow-hidden ${
             isDark 
@@ -481,12 +479,11 @@ export default function PlayerJourneyPage() {
                       {deadline.daysUntil}d
                     </Badge>
                   </div>
-                ))}
+)}
               </div>
             </CardContent>
           </Card>
-        )}
-
+)}
         {/* Tabs */}
         <div className={`flex gap-1 p-1 rounded-xl overflow-x-auto ${isDark ? 'bg-slate-800/60' : 'bg-slate-100'}`}>
           {(['timeline', 'milestones', 'interactions', 'offers', 'decisions'] as const).map(tab => (
@@ -511,10 +508,9 @@ export default function PlayerJourneyPage() {
               {tab === 'decisions' && <Flag className="w-4 h-4 mr-2" />}
               {tab}
             </Button>
-          ))}
+)}
         </div>
-
-        {/* Tab Content */}
+{/* Tab Content */}
         {activeTab === 'timeline' && (
           <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
             <CardHeader className="pb-3">
@@ -525,9 +521,8 @@ export default function PlayerJourneyPage() {
             <CardContent>
               <div className="relative">
                 {/* Timeline line */}
-                <div className={`absolute left-4 top-0 bottom-0 w-0.5 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`} />
-                
-                <div className="space-y-6">
+                <div className={`absolute left-4 top-0 bottom-0 w-0.5 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`}></div>
+<div className="space-y-6">
                   {timeline.slice(0, 10).map((event, index) => {
                     const colors = getColorClasses(event.color);
                     const Icon = event.icon;
@@ -540,9 +535,8 @@ export default function PlayerJourneyPage() {
                           event.color === 'purple' ? 'ring-purple-500' :
                           event.color === 'cyan' ? 'ring-cyan-500' :
                           'ring-slate-500'
-                        }`} />
-                        
-                        <div className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/30' : 'bg-slate-50'}`}>
+                        }`}></div>
+<div className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/30' : 'bg-slate-50'}`}>
                           <div className="flex items-start justify-between gap-3">
                             <div className="flex items-start gap-3">
                               <div className={`p-2 rounded-lg ${colors.bg}`}>
@@ -560,7 +554,7 @@ export default function PlayerJourneyPage() {
                                     <GraduationCap className="w-3 h-3 mr-1" />
                                     {event.collegeName}
                                   </Badge>
-                                )}
+)}
                               </div>
                             </div>
                             <div className="text-right shrink-0">
@@ -578,8 +572,7 @@ export default function PlayerJourneyPage() {
               </div>
             </CardContent>
           </Card>
-        )}
-
+)}
         {activeTab === 'milestones' && (
           <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
             <CardHeader className="pb-3">
@@ -660,7 +653,7 @@ export default function PlayerJourneyPage() {
                               </div>
                             </div>
                           </div>
-                        ))}
+)}
                       </div>
                     </div>
                   );
@@ -668,8 +661,7 @@ export default function PlayerJourneyPage() {
               </div>
             </CardContent>
           </Card>
-        )}
-
+)}
         {activeTab === 'interactions' && (
           <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
             <CardHeader className="pb-3">
@@ -690,7 +682,7 @@ export default function PlayerJourneyPage() {
                     <option value="">All Colleges</option>
                     {colleges.map(college => (
                       <option key={college} value={college}>{college}</option>
-                    ))}
+)}
                   </select>
                   <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600">
                     <Plus className="w-4 h-4 mr-1" />
@@ -729,12 +721,12 @@ export default function PlayerJourneyPage() {
                             <p className={`text-xs mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                               Contact: {interaction.contactName} {interaction.contactRole && `(${interaction.contactRole})`}
                             </p>
-                          )}
+)}
                           {interaction.notes && (
                             <p className={`text-xs mt-2 italic ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                               &ldquo;{interaction.notes}&rdquo;
                             </p>
-                          )}
+)}
                         </div>
                       </div>
                       <div className="text-right shrink-0">
@@ -746,16 +738,15 @@ export default function PlayerJourneyPage() {
                             <Bell className="w-3 h-3 mr-1" />
                             Follow up {new Date(interaction.followUpDate).toLocaleDateString()}
                           </Badge>
-                        )}
+)}
                       </div>
                     </div>
                   </div>
-                ))}
+)}
               </div>
             </CardContent>
           </Card>
-        )}
-
+)}
         {activeTab === 'offers' && (
           <div className="space-y-4">
             {MOCK_OFFERS.map(offer => (
@@ -824,15 +815,14 @@ export default function PlayerJourneyPage() {
                             <Timer className="w-3 h-3 mr-1" />
                             {offer.daysUntilDeadline}d left
                           </Badge>
-                        )}
+)}
                         <ChevronDown className={`w-5 h-5 ${isDark ? 'text-slate-400' : 'text-slate-500'} transition-transform ${
                           expandedOffer === offer.id ? 'rotate-180' : ''
                         }`} />
                       </div>
                     </div>
                   </div>
-
-                  {/* Expanded Content */}
+{/* Expanded Content */}
                   {expandedOffer === offer.id && (
                     <div className={`px-4 pb-4 border-t ${isDark ? 'border-slate-700/50' : 'border-slate-200'}`}>
                       <div className="pt-4 grid md:grid-cols-2 gap-4">
@@ -847,7 +837,7 @@ export default function PlayerJourneyPage() {
                                 <Check className="w-4 h-4 text-emerald-500" />
                                 <span className={`text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{pro}</span>
                               </div>
-                            ))}
+)}
                           </div>
                         </div>
                         <div>
@@ -860,12 +850,11 @@ export default function PlayerJourneyPage() {
                                 <X className="w-4 h-4 text-red-400" />
                                 <span className={`text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{con}</span>
                               </div>
-                            ))}
+)}
                           </div>
                         </div>
                       </div>
-
-                      {/* Notes */}
+{/* Notes */}
                       {offer.notes && (
                         <div className={`mt-4 p-3 rounded-lg ${isDark ? 'bg-slate-700/30' : 'bg-slate-100'}`}>
                           <p className={`text-xs font-medium mb-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -873,8 +862,7 @@ export default function PlayerJourneyPage() {
                           </p>
                           <p className={`text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{offer.notes}</p>
                         </div>
-                      )}
-
+)}
                       {/* Actions */}
                       <div className="flex items-center justify-between mt-4 pt-4 border-t border-dashed ${isDark ? 'border-slate-700/50' : 'border-slate-200'}">
                         <div className="flex items-center gap-2">
@@ -883,7 +871,7 @@ export default function PlayerJourneyPage() {
                               <Mail className="w-4 h-4 mr-1" />
                               Contact Coach
                             </Button>
-                          )}
+)}
                           <Button variant="outline" size="sm" className={isDark ? 'border-slate-600' : ''}>
                             <Edit2 className="w-4 h-4 mr-1" />
                             Edit
@@ -900,16 +888,15 @@ export default function PlayerJourneyPage() {
                               Accept Offer
                             </Button>
                           </div>
-                        )}
+)}
                       </div>
                     </div>
-                  )}
+)}
                 </CardContent>
               </Card>
-            ))}
+)}
           </div>
-        )}
-
+)}
         {activeTab === 'decisions' && (
           <div className="space-y-6">
             {/* Decision Matrix */}
@@ -934,7 +921,7 @@ export default function PlayerJourneyPage() {
                           <th key={offer.id} className={`text-center py-3 px-4 text-xs font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>
                             {offer.collegeName}
                           </th>
-                        ))}
+)}
                       </tr>
                     </thead>
                     <tbody>
@@ -959,7 +946,7 @@ export default function PlayerJourneyPage() {
                                 }`}>
                                   {offer.scholarshipPercentage}%
                                 </Badge>
-                              )}
+)}
                               {factor.key === 'division' && offer.division}
                               {factor.key === 'conference' && offer.conference}
                               {factor.key === 'location' && offer.location}
@@ -971,18 +958,17 @@ export default function PlayerJourneyPage() {
                                 }`}>
                                   {offer.daysUntilDeadline}d
                                 </Badge>
-                              )}
+)}
                             </td>
-                          ))}
+)}
                         </tr>
-                      ))}
+)}
                     </tbody>
                   </table>
                 </div>
               </CardContent>
             </Card>
-
-            {/* Decision Checklist */}
+{/* Decision Checklist */}
             <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
               <CardHeader className="pb-3">
                 <CardTitle className={`text-base ${isDark ? 'text-white' : 'text-slate-800'}`}>
@@ -1023,12 +1009,11 @@ export default function PlayerJourneyPage() {
                         {item.label}
                       </span>
                     </div>
-                  ))}
+)}
                 </div>
               </CardContent>
             </Card>
-
-            {/* Next Steps */}
+{/* Next Steps */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border-emerald-500/30' 
@@ -1045,7 +1030,7 @@ export default function PlayerJourneyPage() {
                     </h3>
                     <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                       You have {MOCK_OFFERS.filter(o => ['pending', 'considering'].includes(o.status)).length} active offers to consider. 
-                      Your next deadline is in {Math.min(...MOCK_OFFERS.filter(o => o.daysUntilDeadline).map(o => o.daysUntilDeadline!))} days.
+                      Your next deadline is in {Math.min(...MOCK_OFFERS.filter(o => o.daysUntilDeadline).map(o => o.daysUntilDeadline!}) days.
                     </p>
                     <div className="flex items-center gap-3 mt-4">
                       <Button className="bg-emerald-500 hover:bg-emerald-600">
@@ -1062,7 +1047,7 @@ export default function PlayerJourneyPage() {
               </CardContent>
             </Card>
           </div>
-        )}
+)}
       </div>
     </div>
   );

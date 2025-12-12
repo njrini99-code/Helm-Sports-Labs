@@ -252,7 +252,7 @@ function ProfileEditContent() {
   if (loading) {
     return (
       <div className={`min-h-screen ${theme.bg} flex items-center justify-center`}>
-        <div className="w-8 h-8 bg-emerald-400/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-400/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -267,16 +267,15 @@ function ProfileEditContent() {
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       {/* Animated gradient orbs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '0s' }} />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
-      
-      <div className="max-w-4xl mx-auto px-6 py-8 space-y-6 relative z-10">
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '0s' }}></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/15 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '1s' }}></div>
+<div className="max-w-4xl mx-auto px-6 py-8 space-y-6 relative z-10">
         {/* Premium Glass Header */}
         <motion.div 
           className="flex items-center justify-between"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={ opacity: 0, y: 20 }
+          animate={ opacity: 1, y: 0 }
+          transition={{duration: 0.5 }}
         >
           <div className="flex items-center gap-4">
             <Link href="/player" className={cnEnhanced(
@@ -294,7 +293,7 @@ function ProfileEditContent() {
               <p className="text-white/70 text-sm">Update your information</p>
             </div>
           </div>
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+          <motion.div whileHover={ scale: 1.02 } whileTap={ scale: 0.98 }>
             <Button 
               onClick={handleSave} 
               disabled={saving}
@@ -302,7 +301,7 @@ function ProfileEditContent() {
             >
               {saving ? (
                 <>
-                  <div className="w-4 h-4 bg-white/20 rounded animate-pulse mr-2" />
+                  <div className="w-4 h-4 bg-white/20 rounded animate-pulse mr-2"></div>
                   Saving...
                 </>
               ) : (
@@ -314,12 +313,11 @@ function ProfileEditContent() {
             </Button>
           </motion.div>
         </motion.div>
-
-        {/* Premium Glass Avatar Section */}
+      {/* Premium Glass Avatar Section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          initial={ opacity: 0, y: 20 }
+          animate={ opacity: 1, y: 0 }
+          transition={{duration: 0.5, delay: 0.1 }}
         >
           <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
             <div className="flex items-center gap-6">
@@ -349,8 +347,7 @@ function ProfileEditContent() {
             </div>
           </div>
         </motion.div>
-
-        {/* Tabs */}
+      {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className={theme.tabsBg}>
             <TabsTrigger value="basic">Basic Info</TabsTrigger>
@@ -359,13 +356,12 @@ function ProfileEditContent() {
             <TabsTrigger value="recruiting">Recruiting</TabsTrigger>
             <TabsTrigger value="links">Links</TabsTrigger>
           </TabsList>
-
-          {/* Basic Info */}
+      {/* Basic Info */}
           <TabsContent value="basic">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              initial={ opacity: 0, y: 20 }
+              animate={ opacity: 1, y: 0 }
+              transition={{duration: 0.5, delay: 0.2 }}
             >
               <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
                 <div className="mb-6">
@@ -397,10 +393,10 @@ function ProfileEditContent() {
                         <SelectTrigger>
                           <SelectValue placeholder="Select year" />
                         </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         {GRAD_YEARS.map((year) => (
                           <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
-                        ))}
+)}
                         </SelectContent>
                       </Select>
                     </div>
@@ -424,10 +420,10 @@ function ProfileEditContent() {
                         <SelectTrigger>
                           <SelectValue placeholder="Select state" />
                         </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         {US_STATES.map((state) => (
                           <SelectItem key={state} value={state}>{state}</SelectItem>
-                        ))}
+)}
                         </SelectContent>
                       </Select>
                     </div>
@@ -443,11 +439,11 @@ function ProfileEditContent() {
               </div>
             </motion.div>
           </TabsContent>
-          <TabsContent value="physical">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+        <TabsContent value="physical">
+          <motion.div
+            initial={ opacity: 0, y: 20 }
+              animate={ opacity: 1, y: 0 }
+              transition={{duration: 0.5, delay: 0.3 }}
             >
               <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
                 <div className="mb-6">
@@ -464,10 +460,10 @@ function ProfileEditContent() {
                       <SelectTrigger className={theme.inputBg}>
                         <SelectValue placeholder="Feet" />
                       </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         {[4, 5, 6, 7].map((ft) => (
                           <SelectItem key={ft} value={ft.toString()}>{ft}'</SelectItem>
-                        ))}
+)}
                       </SelectContent>
                     </Select>
                   </div>
@@ -477,10 +473,10 @@ function ProfileEditContent() {
                       <SelectTrigger className={theme.inputBg}>
                         <SelectValue placeholder="Inches" />
                       </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         {Array.from({ length: 12 }, (_, i) => (
                           <SelectItem key={i} value={i.toString()}>{i}"</SelectItem>
-                        ))}
+)}
                       </SelectContent>
                     </Select>
                   </div>
@@ -498,10 +494,10 @@ function ProfileEditContent() {
                       <SelectTrigger className={theme.inputBg}>
                         <SelectValue placeholder="Select position" />
                       </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         {POSITIONS.map((pos) => (
                           <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-                        ))}
+)}
                       </SelectContent>
                     </Select>
                   </div>
@@ -511,11 +507,11 @@ function ProfileEditContent() {
                       <SelectTrigger className={theme.inputBg}>
                         <SelectValue placeholder="Optional" />
                       </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         <SelectItem value="">None</SelectItem>
                         {POSITIONS.map((pos) => (
                           <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-                        ))}
+)}
                       </SelectContent>
                     </Select>
                   </div>
@@ -525,7 +521,7 @@ function ProfileEditContent() {
                       <SelectTrigger className={theme.inputBg}>
                         <SelectValue placeholder="Select" />
                       </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         <SelectItem value="R">Right</SelectItem>
                         <SelectItem value="L">Left</SelectItem>
                       </SelectContent>
@@ -537,7 +533,7 @@ function ProfileEditContent() {
                       <SelectTrigger className={theme.inputBg}>
                         <SelectValue placeholder="Select" />
                       </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         <SelectItem value="R">Right</SelectItem>
                         <SelectItem value="L">Left</SelectItem>
                         <SelectItem value="S">Switch</SelectItem>
@@ -548,13 +544,12 @@ function ProfileEditContent() {
               </div>
             </motion.div>
           </TabsContent>
-
-          {/* About */}
+      {/* About */}
           <TabsContent value="about">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              initial={ opacity: 0, y: 20 }
+              animate={ opacity: 1, y: 0 }
+              transition={{duration: 0.5, delay: 0.4 }}
             >
               <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
                 <div className="mb-6">
@@ -591,19 +586,18 @@ function ProfileEditContent() {
                           {goal}
                         </p>
                       </button>
-                    ))}
+)}
                   </div>
                 </div>
               </div>
             </motion.div>
           </TabsContent>
-
-          {/* Recruiting */}
+      {/* Recruiting */}
           <TabsContent value="recruiting">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              initial={ opacity: 0, y: 20 }
+              animate={ opacity: 1, y: 0 }
+              transition={{duration: 0.5, delay: 0.5 }}
             >
               <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
                 <div className="mb-6">
@@ -620,8 +614,7 @@ function ProfileEditContent() {
                     placeholder="Search for colleges..."
                   />
                 </div>
-
-                {recruitingInterests.length > 0 && (
+      {recruitingInterests.length > 0 && (
                   <div className="space-y-3">
                     <Label className="text-white/80">Your Interested Schools ({recruitingInterests.length})</Label>
                     <div className="space-y-2">
@@ -646,7 +639,7 @@ function ProfileEditContent() {
                               <p className="font-medium text-white">{interest.school_name}</p>
                               {interest.conference && (
                                 <p className="text-xs text-white/60">{interest.conference}</p>
-                              )}
+)}
                             </div>
                           </div>
                           <Button
@@ -658,26 +651,24 @@ function ProfileEditContent() {
                             <Trash2 className="w-4 h-4" strokeWidth={2} />
                           </Button>
                         </div>
-                      ))}
+)}
                     </div>
                   </div>
-                )}
-
+)}
                 {recruitingInterests.length === 0 && (
                   <p className="text-sm text-white/60">
                     No schools added yet. Search and add schools you're interested in!
                   </p>
-                )}
+)}
               </div>
             </motion.div>
           </TabsContent>
-
-          {/* Links */}
+      {/* Links */}
           <TabsContent value="links">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
+              initial={ opacity: 0, y: 20 }
+              animate={ opacity: 1, y: 0 }
+              transition={{duration: 0.5, delay: 0.6 }}
             >
               <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
                 <div className="mb-6">
@@ -719,7 +710,7 @@ export default function PlayerProfilePage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-[#0B0D0F] flex items-center justify-center">
-        <div className="w-8 h-8 bg-emerald-400/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-400/20 rounded animate-pulse"></div>
       </div>
     }>
       <ProfileEditContent />

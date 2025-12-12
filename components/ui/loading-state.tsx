@@ -27,9 +27,9 @@ export function LoadingState({
   if (variant === 'dots') {
     return (
       <div className={cn('flex items-center justify-center gap-1', className)}>
-        <div className="h-2 w-2 rounded-full bg-primary animate-bounce [animation-delay:-0.3s]" />
-        <div className="h-2 w-2 rounded-full bg-primary animate-bounce [animation-delay:-0.15s]" />
-        <div className="h-2 w-2 rounded-full bg-primary animate-bounce" />
+        <div className="h-2 w-2 rounded-full bg-primary animate-bounce [animation-delay:-0.3s]"></div>
+        <div className="h-2 w-2 rounded-full bg-primary animate-bounce [animation-delay:-0.15s]"></div>
+        <div className="h-2 w-2 rounded-full bg-primary animate-bounce"></div>
       </div>
     );
   }
@@ -39,7 +39,7 @@ export function LoadingState({
       <Loader2 className={cn('animate-spin text-primary', sizes[size].spinner)} />
       {text && (
         <p className={cn('text-muted-foreground', sizes[size].text)}>{text}</p>
-      )}
+)}
     </div>
   );
 }
@@ -86,7 +86,7 @@ export function TableSkeleton({ rows = 5, columns = 4, className }: TableSkeleto
         <div className="flex gap-4">
           {Array.from({ length: columns }).map((_, i) => (
             <Skeleton key={i} className="h-4 flex-1" />
-          ))}
+          })
         </div>
       </motion.div>
       {/* Rows */}
@@ -96,10 +96,10 @@ export function TableSkeleton({ rows = 5, columns = 4, className }: TableSkeleto
             <div className="flex gap-4">
               {Array.from({ length: columns }).map((_, colIndex) => (
                 <Skeleton key={colIndex} className="h-4 flex-1" />
-              ))}
+              })
             </motion.div>
           </motion.div>
-        ))}
+)}
       </motion.div>
     </motion.div>
   );
@@ -123,7 +123,7 @@ export function ListSkeleton({ items = 5, className }: ListSkeletonProps) {
           </div>
           <Skeleton className="h-8 w-20 rounded-2xl" />
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -157,12 +157,11 @@ export function MessagesSkeleton() {
                       </div>
                     </div>
                   </div>
-                ))}
+)}
               </div>
             </div>
           </div>
-
-          {/* Messages Thread Skeleton */}
+      {/* Messages Thread Skeleton */}
           <div className="flex-1 min-w-0">
             <div className="rounded-2xl border bg-white/95 backdrop-blur-sm overflow-hidden h-full flex flex-col">
               {/* Thread Header */}
@@ -174,21 +173,19 @@ export function MessagesSkeleton() {
                 </div>
                 <Skeleton className="h-9 w-9 rounded-2xl" />
               </div>
-
-              {/* Messages Area */}
+      {/* Messages Area */}
               <div className="flex-1 p-5 space-y-4">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <div key={i} className={`flex gap-3 ${i % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
                     <Skeleton className="h-8 w-8 rounded-full flex-shrink-0" />
                     <div className="space-y-2 max-w-md">
-                      <Skeleton className={`h-16 rounded-2xl ${i % 2 === 0 ? 'rounded-tl-sm' : 'rounded-tr-sm'}`} style={{ width: `${200 + Math.random() * 100}px` }} />
+                      <Skeleton className={`h-16 rounded-2xl ${i % 2 === 0 ? 'rounded-tl-sm' : 'rounded-tr-sm'}`} style={{ width: `${200 + Math.random() * 100}}px` }} />
                       <Skeleton className="h-3 w-16" />
                     </div>
                   </div>
-                ))}
+)}
               </div>
-
-              {/* Input Area */}
+      {/* Input Area */}
               <div className="px-5 py-4 border-t">
                 <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                   <Skeleton className="h-10 flex-1 rounded-2xl" />
@@ -224,8 +221,7 @@ export function PlayerDiscoverSkeleton() {
               <Skeleton className="h-20 w-28 rounded-xl bg-white/10" />
             </div>
           </div>
-
-          {/* Search Bar Skeleton */}
+      {/* Search Bar Skeleton */}
           <Skeleton className="h-14 w-full rounded-2xl bg-white/10" />
 
           {/* Filter Chips Row Skeleton */}
@@ -237,7 +233,6 @@ export function PlayerDiscoverSkeleton() {
           </div>
         </motion.div>
       </motion.div>
-
       {/* Light Content Zone Skeleton */}
       <div className="bg-[#f4f7fb] min-h-[50vh]">
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-6">
@@ -258,7 +253,7 @@ export function PlayerDiscoverSkeleton() {
                 <Skeleton className="h-3 w-20" />
                 <Skeleton className="h-9 w-full rounded-2xl" />
               </motion.div>
-            ))}
+)}
           </motion.div>
         </motion.div>
       </motion.div>
@@ -284,22 +279,20 @@ export function WatchlistSkeleton() {
             <Skeleton className="h-4 w-20" />
           </div>
         </div>
-
-        {/* Controls Row Skeleton */}
+      {/* Controls Row Skeleton */}
         <div className="flex flex-col lg:flex-row lg:items-center gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <Skeleton className="h-9 w-full lg:w-64" />
           <div className="flex items-center gap-1.5 flex-wrap hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <Skeleton key={i} className="h-8 w-24 rounded-full" />
-            ))}
+            })
           </div>
           <div className="flex items-center gap-2 lg:ml-auto hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <Skeleton className="h-9 w-32 rounded-2xl" />
             <Skeleton className="h-9 w-32 rounded-2xl" />
           </div>
         </div>
-
-        {/* Table Skeleton */}
+      {/* Table Skeleton */}
         <div className="rounded-2xl border bg-white/10 backdrop-blur-md border border-white/20 overflow-hidden shadow-sm">
           {/* Table Header */}
           <div className="border-b bg-slate-50 px-4 py-3">
@@ -331,7 +324,7 @@ export function WatchlistSkeleton() {
                   <Skeleton className="h-8 w-8 rounded-2xl" />
                 </div>
               </div>
-            ))}
+)}
           </div>
         </div>
       </motion.div>
@@ -362,8 +355,7 @@ export function CoachDashboardSkeleton() {
                 </div>
               </div>
             </div>
-
-            {/* Action Buttons Skeleton */}
+      {/* Action Buttons Skeleton */}
             <div className="flex gap-2 w-full md:w-auto">
               <Skeleton className="h-10 w-32 rounded-2xl" />
               <Skeleton className="h-10 w-32 rounded-2xl" />
@@ -371,7 +363,6 @@ export function CoachDashboardSkeleton() {
           </div>
         </div>
       </section>
-
       {/* Metric Cards Skeleton */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 -mt-5 relative z-10">
         <div className="grid grid-cols-3 gap-3 md:gap-4">
@@ -387,10 +378,9 @@ export function CoachDashboardSkeleton() {
               <Skeleton className="h-8 w-16" />
               <Skeleton className="h-4 w-24" />
             </div>
-          ))}
+)}
         </div>
       </section>
-
       {/* Main Content Grid Skeleton */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 py-6">
         <div className="grid lg:grid-cols-[1fr_380px] gap-5">
@@ -415,11 +405,10 @@ export function CoachDashboardSkeleton() {
                     </div>
                     <Skeleton className="h-8 w-8 rounded-2xl" />
                   </div>
-                ))}
+)}
               </div>
             </div>
-
-            {/* Camps Skeleton */}
+      {/* Camps Skeleton */}
             <div className="rounded-2xl border border-border/50 shadow-lg bg-card/80 backdrop-blur-sm p-5 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <div className="flex items-center justify-between mb-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <div className="space-y-2">
@@ -433,13 +422,12 @@ export function CoachDashboardSkeleton() {
                   <div key={i} className="flex-shrink-0 w-64">
                     <Skeleton className="h-32 w-full rounded-xl" />
                   </div>
-                ))}
+)}
               </div>
               <Skeleton className="h-9 w-full rounded-2xl mt-4" />
             </div>
           </div>
-
-          {/* Right Column - Pipeline Skeleton */}
+      {/* Right Column - Pipeline Skeleton */}
           <div className="space-y-5">
             <div className="rounded-2xl border border-border/50 shadow-lg bg-card/80 backdrop-blur-sm p-5 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <div className="space-y-2 mb-4">
@@ -455,7 +443,7 @@ export function CoachDashboardSkeleton() {
                     </div>
                     <Skeleton className="h-8 w-8 rounded-2xl" />
                   </div>
-                ))}
+)}
               </div>
             </div>
           </div>

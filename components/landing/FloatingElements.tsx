@@ -23,24 +23,22 @@ export function FloatingElements() {
         <motion.div
           key={i}
           className="absolute w-2 h-2 rounded-full bg-emerald-400/20 blur-sm"
-          style={{
-            left: element.x,
+          style={{left: element.x,
             top: element.y,
           }}
-          animate={{
+          animate={
             y: [0, -30, 0],
             x: [0, 15, 0],
             scale: [1, 1.2, 1],
             opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{
-            duration: element.duration,
+          }
+          transition={{duration: element.duration,
             delay: element.delay,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
         />
-      ))}
+      })
     </div>
   );
 }

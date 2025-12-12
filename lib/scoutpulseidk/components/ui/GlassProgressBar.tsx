@@ -358,8 +358,7 @@ export function GlassProgressBar({
             {label}
           </span>
         </div>
-      )}
-
+)}
       <div
         className={cn(
           'flex items-center gap-3',
@@ -389,31 +388,27 @@ export function GlassProgressBar({
               animatedStripes && 'animate-[glass-progress-stripes_1s_linear_infinite]'
             )}
             style={{
-              width: `${animatedPercentage}%`,
+              width: `${animatedPercentage}}%`,
               transformOrigin: 'left',
               animation: animate && isVisible
                 ? `glass-progress-spring ${animationDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards`
                 : undefined,
               ...stripeStyle,
-            }}
-          />
-
-          {/* Shimmer effect */}
+            }}></div>
+{/* Shimmer effect */}
           {animate && isVisible && percentage > 0 && (
             <div
               className="absolute inset-0 overflow-hidden rounded-full"
-              style={{ width: `${animatedPercentage}%` }}
+              style={{ width: `${animatedPercentage}}%` }}
             >
               <div
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                 style={{
                   animation: 'glass-progress-shimmer 1.5s ease-in-out',
-                  animationDelay: `${animationDuration}ms`,
-                }}
-              />
+                  animationDelay: `${animationDuration}}ms`,
+                }}></div>
             </div>
-          )}
-
+)}
           {/* Inside label */}
           {showLabel && labelPosition === 'inside' && size !== 'xs' && size !== 'sm' && (
             <div className="absolute inset-0 flex items-center justify-center">
@@ -426,10 +421,9 @@ export function GlassProgressBar({
                 {label}
               </span>
             </div>
-          )}
+)}
         </div>
-
-        {/* Right label */}
+{/* Right label */}
         {showLabel && labelPosition === 'right' && (
           <span
             className={cn(
@@ -440,7 +434,7 @@ export function GlassProgressBar({
           >
             {label}
           </span>
-        )}
+)}
       </div>
     </div>
   );
@@ -510,7 +504,7 @@ export function SkillRatingBar({
               {trend > 0 ? '+' : ''}
               {trend}
             </span>
-          )}
+)}
           <span className={cn('font-bold tabular-nums', sizes.label, ratingStyle.text)}>
             {rating}
           </span>
@@ -570,7 +564,7 @@ export function SkillRatingGroup({
         <h3 className={cn('text-lg font-semibold mb-4', styles.label)}>
           {title}
         </h3>
-      )}
+)}
       <div className="space-y-4">
         {skills.map((skill) => (
           <SkillRatingBar
@@ -583,7 +577,7 @@ export function SkillRatingGroup({
             size={size}
             variant={variant}
           />
-        ))}
+        })
       </div>
     </div>
   );
@@ -680,7 +674,7 @@ export function CircularProgress({
   return (
     <div
       className={cn('relative inline-flex items-center justify-center', className)}
-      style={{ width: size, height: size }}
+      style={{width: size, height: size }}
     >
       <svg
         width={size}
@@ -693,8 +687,7 @@ export function CircularProgress({
             <stop offset="100%" stopColor={gradientColors[ratingLevel].end} />
           </linearGradient>
         </defs>
-
-        {/* Background track */}
+{/* Background track */}
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -716,20 +709,18 @@ export function CircularProgress({
           strokeDasharray={circumference}
           strokeDashoffset={strokeDashoffset}
           className="transition-all duration-300 ease-out"
-          style={{
-            filter: 'drop-shadow(0 0 6px rgba(16, 185, 129, 0.4))',
+          style={{filter: 'drop-shadow(0 0 6px rgba(16, 185, 129, 0.4))',
           }}
         />
       </svg>
-
-      {/* Center label */}
+{/* Center label */}
       {showLabel && (
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <span className={cn('font-bold', styles.label, size >= 80 ? 'text-xl' : 'text-base')}>
             {label || `${Math.round(animatedValue)}%`}
           </span>
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -770,8 +761,7 @@ export function ProgressSteps({
           showGlow
         />
       </div>
-
-      {/* Steps */}
+{/* Steps */}
       <div className="flex justify-between">
         {steps.map((step, index) => (
           <div
@@ -792,8 +782,7 @@ export function ProgressSteps({
                   : variant === 'glass'
                   ? 'bg-white/20'
                   : 'bg-slate-300'
-              )}
-            />
+              )}></div>
             <span
               className={cn(
                 'text-xs',
@@ -803,7 +792,7 @@ export function ProgressSteps({
               {step.label}
             </span>
           </div>
-        ))}
+)}
       </div>
     </div>
   );
@@ -857,18 +846,16 @@ export function MultiProgressBar({
             <div
               key={index}
               className={cn('h-full transition-all duration-500', segment.color)}
-              style={{ width: `${width}%` }}
-            />
+              style={{ width: `${width}}%` }}></div>
           );
         })}
       </div>
-
-      {/* Legend */}
+{/* Legend */}
       {showLegend && (
         <div className="flex flex-wrap gap-4">
           {segments.map((segment, index) => (
             <div key={index} className="flex items-center gap-2">
-              <div className={cn('h-3 w-3 rounded-full', segment.color)} />
+              <div className={cn('h-3 w-3 rounded-full', segment.color)}></div>
               <span className={cn('text-sm', styles.label)}>
                 {segment.label || `Segment ${index + 1}`}
               </span>
@@ -876,9 +863,9 @@ export function MultiProgressBar({
                 {segment.value}%
               </span>
             </div>
-          ))}
+)}
         </div>
-      )}
+)}
     </div>
   );
 }

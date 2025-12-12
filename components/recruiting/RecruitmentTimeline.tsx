@@ -107,12 +107,11 @@ export function RecruitmentTimeline({
           Add Event
         </Button>
       </motion.div>
-
-      {showAddForm && (
+              {showAddForm && (
         <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="p-4 border rounded-2xl bg-card hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <h4 className="font-medium mb-3">Quick Add Event</h4>
           <div className="grid grid-cols-2 gap-2">
@@ -139,13 +138,11 @@ export function RecruitmentTimeline({
             })}
           </motion.div>
         </motion.div>
-      )}
-
+)}
       <div className="relative">
         {/* Timeline line */}
-        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
-
-        <div className="space-y-6">
+        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border"></div>
+<div className="space-y-6">
           {events.map((event, index) => {
             const Icon = EVENT_TEMPLATES.find(t => t.type === event.type)?.icon || Calendar;
             return (
@@ -157,8 +154,7 @@ export function RecruitmentTimeline({
                 )}>
                   <Icon className="w-4 h-4" />
                 </motion.div>
-
-                {/* Event content */}
+      {/* Event content */}
                 <div className="flex-1 pb-6">
                   <div className="flex items-center justify-between mb-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                     <h4 className="font-medium">{event.title}</h4>
@@ -168,7 +164,7 @@ export function RecruitmentTimeline({
                   </motion.div>
                   {event.description && (
                     <p className="text-sm text-muted-foreground mb-2">{event.description}</p>
-                  )}
+)}
                   <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                     <span className={cn(
                       "text-xs px-2 py-0.5 rounded-full",
@@ -182,21 +178,20 @@ export function RecruitmentTimeline({
                       <span className="text-xs text-muted-foreground">
                         {event.attachments.length} attachment(s)
                       </span>
-                    )}
+)}
                   </motion.div>
                 </motion.div>
               </motion.div>
             );
           })}
         </motion.div>
-
-        {events.length === 0 && (
+              {events.length === 0 && (
           <div className="p-8 text-center text-muted-foreground">
             <Calendar className="w-12 h-12 mx-auto mb-2 opacity-50" />
             <p className="text-sm">No timeline events yet.</p>
             <p className="text-xs mt-1">Add events to track your recruiting progress.</p>
           </motion.div>
-        )}
+)}
       </motion.div>
     </motion.div>
   );

@@ -297,13 +297,12 @@ function ToastItem({ toast, onRemove, position }: ToastItemProps) {
         <div className={cn('shrink-0 mt-0.5', style.iconColor)}>
           <Icon className={cn('w-5 h-5', toast.type === 'loading' && 'animate-spin')} />
         </div>
-
-        {/* Content */}
+{/* Content */}
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-white text-sm">{toast.title}</p>
           {toast.description && (
             <p className="text-slate-400 text-sm mt-1">{toast.description}</p>
-          )}
+)}
           {toast.action && (
             <button
               onClick={toast.action.onClick}
@@ -315,10 +314,9 @@ function ToastItem({ toast, onRemove, position }: ToastItemProps) {
             >
               {toast.action.label}
             </button>
-          )}
+)}
         </div>
-
-        {/* Close Button */}
+{/* Close Button */}
         {toast.dismissible !== false && (
           <button
             onClick={() => onRemove(toast.id)}
@@ -331,20 +329,18 @@ function ToastItem({ toast, onRemove, position }: ToastItemProps) {
           >
             <X className="w-4 h-4" />
           </button>
-        )}
+)}
       </div>
-
-      {/* Progress Bar */}
+{/* Progress Bar */}
       {toast.duration && toast.duration > 0 && !isHovered && toast.type !== 'loading' && (
         <div className="absolute bottom-0 left-0 right-0 h-1 rounded-b-xl overflow-hidden bg-white/5">
           <div
             className={cn('h-full', style.progress)}
             style={{
-              animation: `toast-progress ${toast.duration}ms linear forwards`,
-            }}
-          />
+              animation: `toast-progress ${toast.duration}}ms linear forwards`,
+            }}></div>
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -390,7 +386,7 @@ function ToastContainer({ toasts, onRemove, position }: ToastContainerProps) {
         <div key={toast.id} className="pointer-events-auto">
           <ToastItem toast={toast} onRemove={onRemove} position={position} />
         </div>
-      ))}
+)}
     </div>,
     document.body
   );
@@ -564,7 +560,7 @@ export function ToastProvider({
 
   return (
     <ToastContext.Provider
-      value={{
+      value={
         toasts,
         addToast,
         removeToast,
@@ -575,7 +571,7 @@ export function ToastProvider({
         info,
         loading,
         promise: promiseFn,
-      }}
+      }
     >
       {children}
       <ToastContainer toasts={toasts} onRemove={removeToast} position={position} />

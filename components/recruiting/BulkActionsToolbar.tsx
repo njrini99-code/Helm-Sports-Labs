@@ -89,7 +89,6 @@ export function BulkActionsToolbar({
           {selectedCount === totalCount ? 'Deselect All' : 'Select All'}
         </Button>
       </div>
-
       <div className="flex items-center gap-2">
         <Button
           variant="outline"
@@ -101,8 +100,7 @@ export function BulkActionsToolbar({
           <Bookmark className="w-4 h-4" />
           Add to Watchlist
         </Button>
-
-        <Button
+      <Button
           variant="outline"
           size="sm"
           onClick={() => handleBulkAction('send_message')}
@@ -112,8 +110,7 @@ export function BulkActionsToolbar({
           <Mail className="w-4 h-4" />
           Message
         </Button>
-
-        <Button
+      <Button
           variant="outline"
           size="sm"
           onClick={() => handleBulkAction('export')}
@@ -123,8 +120,7 @@ export function BulkActionsToolbar({
           <Download className="w-4 h-4" />
           Export
         </Button>
-
-        <DropdownMenu>
+      <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm" disabled={isProcessing}>
               <MoreVertical className="w-4 h-4" />

@@ -157,8 +157,7 @@ export function Skeleton({ className, variant = 'dark' }: SkeletonProps) {
         'rounded',
         variant === 'dark' ? 'skeleton-shimmer' : 'skeleton-shimmer-light',
         className
-      )}
-    />
+      )}></div>
   );
 }
 
@@ -175,7 +174,7 @@ export function SkeletonText({ lines = 3, className, variant = 'dark' }: Skeleto
             i === lines - 1 ? 'w-3/4' : 'w-full'
           )}
         />
-      ))}
+      })
     </div>
   );
 }
@@ -215,7 +214,7 @@ export function SkeletonCard({ variant = 'dark', showImage = false, showAvatar =
             <Skeleton variant={variant} className="h-3 w-1/3" />
           </div>
         </div>
-      )}
+)}
       <SkeletonText variant={variant} lines={3} />
       <div className="flex gap-2 mt-4">
         <Skeleton variant={variant} className="h-8 w-20 rounded-lg" />
@@ -233,7 +232,7 @@ export function SkeletonTable({ rows = 5, columns = 4, variant = 'dark' }: Skele
       <div className="flex gap-4 pb-2 border-b border-white/10">
         {Array.from({ length: columns }).map((_, i) => (
           <Skeleton key={i} variant={variant} className="h-4 flex-1" />
-        ))}
+        })
       </div>
       {/* Rows */}
       {Array.from({ length: rows }).map((_, rowIndex) => (
@@ -247,9 +246,9 @@ export function SkeletonTable({ rows = 5, columns = 4, variant = 'dark' }: Skele
                 colIndex === 0 && 'w-1/4'
               )}
             />
-          ))}
+          })
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -267,7 +266,7 @@ export function SkeletonList({ items = 5, variant = 'dark', showIcon = true }: S
           </div>
           <Skeleton variant={variant} className="w-16 h-6 rounded-full shrink-0" />
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -288,7 +287,7 @@ export function SkeletonStats({ count = 4, variant = 'dark' }: SkeletonProps & {
           <Skeleton variant={variant} className="h-8 w-3/4 mb-1" />
           <Skeleton variant={variant} className="h-3 w-1/3" />
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -309,15 +308,14 @@ export function PageSkeleton({ variant = 'dark' }: SkeletonProps) {
         </div>
         <Skeleton variant={variant} className="h-10 w-32 rounded-xl" />
       </div>
-      
-      {/* Stats */}
+{/* Stats */}
       <SkeletonStats variant={variant} />
       
       {/* Content grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {Array.from({ length: 6 }).map((_, i) => (
           <SkeletonCard key={i} variant={variant} />
-        ))}
+        })
       </div>
     </div>
   );
@@ -329,7 +327,7 @@ export function CardGridSkeleton({ count = 6, variant = 'dark' }: SkeletonProps 
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
       {Array.from({ length: count }).map((_, i) => (
         <SkeletonCard key={i} variant={variant} showAvatar />
-      ))}
+      })
     </div>
   );
 }
@@ -395,20 +393,20 @@ export function InfiniteScrollLoader({
               <Loader2 className="w-5 h-5 animate-spin" />
               <span className="text-sm">Loading more...</span>
             </div>
-          )}
+)}
           {variant === 'dots' && (
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot" />
-              <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot" />
-              <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot" />
+              <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot"></div>
+              <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot"></div>
+              <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot"></div>
             </div>
-          )}
+)}
           {variant === 'skeleton' && (
             <div className="w-full space-y-4">
               <SkeletonCard />
               <SkeletonCard />
             </div>
-          )}
+)}
         </>
       )}
     </div>
@@ -496,7 +494,7 @@ export function FilterLoading({ loading, children, className }: FilterLoadingPro
             <span className="text-sm text-white">Applying filters...</span>
           </div>
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -511,7 +509,7 @@ export function FilterSkeleton({ count = 5 }: { count?: number }) {
           <Skeleton className="h-4 flex-1" />
           <Skeleton className="w-8 h-4 rounded-full" />
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -601,13 +599,10 @@ export function EmptyState({
           isError ? 'text-red-400' : 'text-white/40'
         )} />
       </div>
-      
-      <h3 className="text-xl font-semibold text-white mb-2">{displayTitle}</h3>
-      
-      {displayDescription && (
+<h3 className="text-xl font-semibold text-white mb-2">{displayTitle}</h3>
+{displayDescription && (
         <p className="text-slate-400 max-w-md mb-6">{displayDescription}</p>
-      )}
-      
+)}
       <div className="flex items-center gap-3">
         {action && (
           <button
@@ -620,12 +615,11 @@ export function EmptyState({
                 : 'bg-emerald-500 hover:bg-emerald-600 shadow-lg shadow-emerald-500/25'
             )}
           >
-            {action.icon ? <action.icon className="w-4 h-4" /> : null}
+            {action.icon ? <action.icon className="w-4 h-4"></a> : null}
             {action.label}
             {!action.icon && <ArrowRight className="w-4 h-4" />}
           </button>
-        )}
-        
+)}
         {secondaryAction && (
           <button
             onClick={secondaryAction.onClick}
@@ -633,7 +627,7 @@ export function EmptyState({
           >
             {secondaryAction.label}
           </button>
-        )}
+)}
       </div>
     </div>
   );
@@ -712,11 +706,9 @@ export function ErrorState({
       <div className="p-4 rounded-2xl bg-red-500/20 mb-6">
         <AlertCircle className="w-10 h-10 text-red-400" />
       </div>
-      
-      <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
+<h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
       <p className="text-slate-400 max-w-md mb-6">{errorMessage}</p>
-      
-      <div className="flex items-center gap-3">
+<div className="flex items-center gap-3">
         {onRetry && (
           <button
             onClick={onRetry}
@@ -725,8 +717,7 @@ export function ErrorState({
             <RefreshCw className="w-4 h-4" />
             {retryLabel}
           </button>
-        )}
-        
+)}
         {showDetails && error && (
           <button
             onClick={() => setShowError(!showError)}
@@ -734,17 +725,16 @@ export function ErrorState({
           >
             {showError ? 'Hide details' : 'Show details'}
           </button>
-        )}
+)}
       </div>
-      
-      {showDetails && showError && error && (
+{showDetails && showError && error && (
         <div className="mt-6 p-4 rounded-xl bg-white/5 border border-white/10 text-left max-w-lg w-full">
           <p className="text-xs text-slate-500 mb-2 font-mono">Error Details:</p>
           <pre className="text-xs text-red-400 overflow-x-auto whitespace-pre-wrap font-mono">
             {error.stack || error.message}
           </pre>
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -835,9 +825,9 @@ export function LoadingDots({ className }: { className?: string }) {
 
   return (
     <div className={cn('flex items-center gap-1', className)}>
-      <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot" />
-      <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot" />
-      <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot" />
+      <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot"></div>
+      <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot"></div>
+      <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot"></div>
     </div>
   );
 }

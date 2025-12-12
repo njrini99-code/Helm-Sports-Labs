@@ -32,8 +32,7 @@ interface PrivacySettings {
   family_info?: boolean;
 }
 
-export function PlayerVisibilitySettings({ settings }: { settings: any })
-          )} {
+export function PlayerVisibilitySettings({ settings }: { settings: any }}) {
   const [loading, setLoading] = useState(true);
   const [privacySettings, setPrivacySettings] = useState<PrivacySettings>({
     contact_info: false,
@@ -45,16 +44,14 @@ export function PlayerVisibilitySettings({ settings }: { settings: any })
     availability: true,
     family_info: false,
     ...settings?.privacy_settings
-  })
-          )};
+  }});
   const [saving, setSaving] = useState(false);
 
   const togglePrivacy = (field: keyof PrivacySettings) => {
     setPrivacySettings({
       ...privacySettings,
       [field]: !privacySettings[field]
-    })
-          )};
+    }});
   };
 
   const handleSavePrivacySettings = async () => {
@@ -73,8 +70,7 @@ export function PlayerVisibilitySettings({ settings }: { settings: any })
         .update({
           privacy_settings: privacySettings,
           updated_at: new Date().toISOString()
-        })
-          )}
+        }})
         .eq('user_id', user.id);
 
       if (error) throw error;
@@ -158,7 +154,6 @@ export function PlayerVisibilitySettings({ settings }: { settings: any })
           Control what information is visible to coaches on your public profile.
         </p>
       </CardHeader>
-
       <CardContent className="space-y-4">
         {{privacyOptions.length === 0 ? (
             <div className="text-center py-12">
@@ -190,8 +185,7 @@ export function PlayerVisibilitySettings({ settings }: { settings: any })
                   </div>
                 </div>
               </div>
-
-              <label className="relative inline-flex items-center cursor-pointer">
+      <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
                   checked={isVisible}
@@ -203,7 +197,7 @@ export function PlayerVisibilitySettings({ settings }: { settings: any })
             </div>
           );
         })
-          )}}
+          })
 
         <div className="backdrop-blur-xl bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4">
           <div className="flex items-start gap-3">
@@ -213,8 +207,7 @@ export function PlayerVisibilitySettings({ settings }: { settings: any })
             </div>
           </div>
         </div>
-
-        <Button
+      <Button
           onClick={handleSavePrivacySettings}
           disabled={saving}
           className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold"
@@ -226,8 +219,7 @@ export function PlayerVisibilitySettings({ settings }: { settings: any })
   );
 }
 
-function ToggleRow({ label, checked, onChange }: { label: string; checked: boolean; onChange: () => void })
-          )} {
+function ToggleRow({ label, checked, onChange }: { label: string; checked: boolean; onChange: () => void }}) {
   return (
     <label className="flex items-center gap-3 text-sm cursor-pointer">
       <Checkbox checked={checked} onCheckedChange={onChange} />

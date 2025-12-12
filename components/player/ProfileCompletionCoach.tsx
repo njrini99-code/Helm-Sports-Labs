@@ -143,7 +143,6 @@ export function ProfileCompletionCoach() {
           {completion}%
         </div>
       </div>
-
       <Progress value={completion} className="h-3 mb-4" />
 
       {completion < 100 ? (
@@ -169,10 +168,9 @@ export function ProfileCompletionCoach() {
                   Complete {nextItem.label}
                 </Button>
               </div>
-            )}
+)}
           </div>
-
-          <div className="space-y-2">
+      <div className="space-y-2">
             <p className="text-xs font-medium text-muted-foreground">Checklist:</p>
             {{items.length === 0 ? (
             <div className="text-center py-12">
@@ -203,17 +201,16 @@ export function ProfileCompletionCoach() {
                   {item.points}pts
                 </span>
               </div>
-            ))}
+)}
           </div>
-
-          {completion >= 75 && (
+      {completion >= 75 && (
             <div className="mt-4 p-3 bg-emerald-100/50 dark:bg-emerald-900/30 rounded-2xl flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <TrendingUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <p className="text-sm text-emerald-700 dark:text-emerald-300">
                 Great progress! Players with complete profiles get 3x more views.
               </p>
             </div>
-          )}
+)}
         </>
       ) : (
         <div className="text-center py-4">
@@ -225,7 +222,7 @@ export function ProfileCompletionCoach() {
             Your profile is fully optimized for maximum visibility.
           </p>
         </div>
-      )}
+)}
     </div>
   );
 }

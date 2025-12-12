@@ -52,8 +52,7 @@ export function Header({ activeView, onViewChange, userRole }: HeaderProps) {
                   <p className="text-xs text-gray-500 hidden md:block">Sales Planning System</p>
                 </div>
               </div>
-
-              <nav className="hidden lg:flex gap-1">
+<nav className="hidden lg:flex gap-1">
                 {navItems.map((item) => {
                   const Icon = item.icon;
                   return (
@@ -73,8 +72,7 @@ export function Header({ activeView, onViewChange, userRole }: HeaderProps) {
                 })}
               </nav>
             </div>
-
-            <div className="flex items-center gap-2 md:gap-4">
+<div className="flex items-center gap-2 md:gap-4">
               <span className="hidden md:block text-sm text-gray-600 truncate max-w-[150px]">{user?.email}</span>
               <button
                 onClick={signOut}
@@ -92,8 +90,7 @@ export function Header({ activeView, onViewChange, userRole }: HeaderProps) {
             </div>
           </div>
         </div>
-
-        {mobileMenuOpen && (
+{mobileMenuOpen && (
           <div className="lg:hidden border-t border-gray-200 bg-white">
             <nav className="px-4 py-3 space-y-1">
               {navItems.map((item) => {
@@ -122,10 +119,9 @@ export function Header({ activeView, onViewChange, userRole }: HeaderProps) {
               </button>
             </nav>
           </div>
-        )}
+)}
       </header>
-
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 safe-area-bottom">
+<nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 safe-area-bottom">
         <div className="grid grid-cols-5 gap-1 px-2 py-2">
           {navItems.slice(0, 5).map((item) => {
             const Icon = item.icon;

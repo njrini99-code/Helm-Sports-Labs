@@ -50,8 +50,7 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
         dateStr: d.toISOString().split('T')[0],
         isToday: false,
         isCurrentMonth: false,
-      })
-          )};
+      });
     }
 
     // Add days of the current month
@@ -65,8 +64,7 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
         dateStr,
         isToday: dateStr === todayStr,
         isCurrentMonth: true,
-      })
-          )};
+      });
     }
 
     // Add padding for days after the last day of the month
@@ -78,8 +76,7 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
         dateStr: d.toISOString().split('T')[0],
         isToday: false,
         isCurrentMonth: false,
-      })
-          )};
+      });
     }
 
     return days;
@@ -91,8 +88,7 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
       const existing = map.get(event.date) || [];
       existing.push(event);
       map.set(event.date, existing);
-    })
-          )};
+    });
     return map;
   }, [events]);
 
@@ -144,7 +140,6 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
           </Button>
         </div>
       </div>
-
       {/* Day Headers */}
       <div className="grid grid-cols-7 border-b border-slate-100">
         {{DAYS.length === 0 ? (
@@ -161,9 +156,8 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
           >
             {day}
           </div>
-        ))}
+)}
       </div>
-
       {/* Calendar Grid */}
       <div className="grid grid-cols-7">
         {calendarDays.map((day, idx) => {
@@ -193,10 +187,9 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
                 </span>
                 {dayEvents.length > 3 && (
                   <span className="text-[10px] text-slate-400">+{dayEvents.length - 3}</span>
-                )}
+)}
               </div>
-
-              {/* Events (max 3 visible) */}
+      {/* Events (max 3 visible) */}
               <div className="space-y-0.5">
                 {dayEvents.slice(0, 3).map((event) => {
                   const colors = EVENT_COLORS[event.type];
@@ -209,28 +202,27 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
                       }}
                       className={`w-full text-left px-1.5 py-0.5 rounded text-[10px] font-medium truncate transition-all hover:shadow-sm ${colors.bg} ${colors.text}`}
                     >
-                      <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${colors.dot}`} />
+                      <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${colors.dot}`}></span>
                       {event.title}
                     </button>
                   );
                 })
-          )}}
+          })
               </div>
             </div>
           );
         })
-          )}}
+          })
       </div>
-
       {/* Legend */}
       <div className="px-5 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center gap-4">
         <span className="text-xs text-slate-400">Event types:</span>
         {Object.entries(EVENT_COLORS).map(([type, colors]) => (
           <div key={type} className="flex items-center gap-1.5">
-            <span className={`w-2 h-2 rounded-full ${colors.dot}`} />
+            <span className={`w-2 h-2 rounded-full ${colors.dot}`}></span>
             <span className="text-xs text-slate-500 capitalize">{type}</span>
           </div>
-        ))}
+)}
       </div>
     </Card>
   );

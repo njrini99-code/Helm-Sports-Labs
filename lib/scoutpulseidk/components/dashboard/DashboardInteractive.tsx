@@ -429,22 +429,21 @@ export function MetricCard({
             <div className={cn('p-2 rounded-xl', iconColorClasses[color])}>
               <Icon className="w-5 h-5" />
             </div>
-          )}
+)}
           <div>
             <p className="text-sm text-white/60">{metric.label}</p>
             {metric.description && (
               <p className="text-xs text-white/40 mt-0.5">{metric.description}</p>
-            )}
+)}
           </div>
         </div>
         {showDetails && metric.details && (
           <button className="p-1.5 rounded-lg hover:bg-white/10 transition-colors">
             <Info className="w-4 h-4 text-white/40" />
           </button>
-        )}
+)}
       </div>
-
-      <div className="flex items-end justify-between">
+<div className="flex items-end justify-between">
         <div>
           <p className={cn(
             'text-3xl font-bold text-white',
@@ -457,8 +456,7 @@ export function MetricCard({
             {metric.unit && <span className="text-lg ml-1 text-white/60">{metric.unit}</span>}
           </p>
         </div>
-
-        {showTrend && metric.change !== undefined && (
+{showTrend && metric.change !== undefined && (
           <div className={cn(
             'flex items-center gap-1 px-2 py-1 rounded-lg text-sm font-medium',
             isPositive && 'text-emerald-400 bg-emerald-500/20',
@@ -470,10 +468,9 @@ export function MetricCard({
             {!isPositive && !isNegative && <Minus className="w-3.5 h-3.5" />}
             <span>{isPositive ? '+' : ''}{change}%</span>
           </div>
-        )}
+)}
       </div>
-
-      {/* Hover Details Tooltip */}
+{/* Hover Details Tooltip */}
       {showDetails && isHovered && metric.details && metric.details.length > 0 && (
         <div className="absolute left-0 right-0 top-full mt-2 z-50">
           <div className="mx-4 p-4 rounded-xl bg-slate-800/95 backdrop-blur-xl border border-white/10 shadow-2xl tooltip-animated">
@@ -484,11 +481,11 @@ export function MetricCard({
                   <span className="text-sm text-white/70">{detail.label}</span>
                   <span className="text-sm font-medium text-white">{detail.value}</span>
                 </div>
-              ))}
+)}
             </div>
           </div>
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -510,8 +507,7 @@ export function ChartTooltip({ data, position, visible, formatter }: ChartToolti
   return (
     <div
       className="fixed z-50 pointer-events-none chart-tooltip"
-      style={{
-        left: position.x + 10,
+      style={{left: position.x + 10,
         top: position.y - 10,
         transform: 'translateY(-100%)',
       }}
@@ -558,7 +554,7 @@ export function InteractiveChart({
     visible: boolean;
     data: ChartDataPoint | null;
     position: { x: number; y: number };
-  }>({ visible: false, data: null, position: { x: 0, y: 0 } });
+  }>({ visible: false, data: null, position: { x: 0, y: 0 });
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const maxValue = Math.max(...data.map((d) => d.y));
@@ -590,7 +586,7 @@ export function InteractiveChart({
   };
 
   const handleMouseLeave = () => {
-    setTooltip({ visible: false, data: null, position: { x: 0, y: 0 } });
+    setTooltip({ visible: false, data: null, position: { x: 0, y: 0 });
     setActiveIndex(null);
   };
 
@@ -619,21 +615,17 @@ export function InteractiveChart({
                 x2={chartWidth}
                 y2={padding + chartHeight * ratio}
                 stroke="currentColor"
-                strokeDasharray="2 2"
-              />
-            ))}
+                strokeDasharray="2 2"></li>
+)}
           </g>
-        )}
-
+)}
         {/* Area fill */}
         {type === 'area' && (
           <path
             d={areaPath}
             fill={`url(#gradient-${color.replace('#', '')})`}
-            opacity={0.3}
-          />
+            opacity={0.3} />
         )}
-
         {/* Line */}
         {(type === 'line' || type === 'area') && (
           <path
@@ -642,10 +634,8 @@ export function InteractiveChart({
             stroke={color}
             strokeWidth={2}
             strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+            strokeLinejoin="round" />
         )}
-
         {/* Bars */}
         {type === 'bar' && data.map((point, i) => {
           const barWidth = (chartWidth - 10) / data.length - 2;
@@ -668,7 +658,6 @@ export function InteractiveChart({
             />
           );
         })}
-
         {/* Data points (for line/area) */}
         {(type === 'line' || type === 'area') && data.map((point, i) => (
           <circle
@@ -684,7 +673,7 @@ export function InteractiveChart({
             onMouseLeave={handleMouseLeave}
             onClick={() => onPointClick?.(point)}
           />
-        ))}
+        })
 
         {/* Gradient definition */}
         <defs>
@@ -694,18 +683,16 @@ export function InteractiveChart({
           </linearGradient>
         </defs>
       </svg>
-
-      {/* X-axis labels */}
+{/* X-axis labels */}
       {showLabels && (
         <div className="flex justify-between px-1 mt-2">
           {data.filter((_, i) => i === 0 || i === data.length - 1 || i === Math.floor(data.length / 2)).map((point, i) => (
             <span key={i} className="text-xs text-white/40">
               {point.label || point.x}
             </span>
-          ))}
+)}
         </div>
-      )}
-
+)}
       {/* Tooltip */}
       {tooltip.data && (
         <ChartTooltip
@@ -755,7 +742,7 @@ export function RefreshButton({ onRefresh, showLastUpdated = true, className }: 
         <span className="text-sm text-white/50">
           Updated {formatTime(lastUpdated)}
         </span>
-      )}
+)}
       <button
         onClick={handleRefresh}
         disabled={isRefreshing}
@@ -862,8 +849,7 @@ export function WidgetCustomizer({ widgets, onToggleWidget, className }: WidgetC
         <span className="text-sm font-medium">Customize</span>
         <ChevronDown className={cn('w-4 h-4 transition-transform', isOpen && 'rotate-180')} />
       </button>
-
-      {isOpen && (
+{isOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
           <div className="absolute right-0 top-full mt-2 w-64 z-50 dropdown-animated">
@@ -891,7 +877,7 @@ export function WidgetCustomizer({ widgets, onToggleWidget, className }: WidgetC
                       <EyeOff className="w-4 h-4 text-white/40" />
                     )}
                   </button>
-                ))}
+)}
               </div>
             </div>
           </div>
@@ -937,7 +923,7 @@ export function DraggableWidget({
               <div className="drag-handle p-1 rounded hover:bg-white/10 opacity-40 transition-opacity">
                 <GripVertical className="w-4 h-4 text-white/60" />
               </div>
-            )}
+)}
             {title && <h3 className="font-medium text-white">{title}</h3>}
           </div>
           <div className="flex items-center gap-1">
@@ -952,7 +938,7 @@ export function DraggableWidget({
                   <Maximize2 className="w-4 h-4 text-white/60" />
                 )}
               </button>
-            )}
+)}
             {onClose && (
               <button
                 onClick={onClose}
@@ -960,10 +946,10 @@ export function DraggableWidget({
               >
                 <X className="w-4 h-4 text-white/60" />
               </button>
-            )}
+)}
           </div>
         </div>
-      )}
+)}
       <div className="p-4">{children}</div>
     </div>
   );
@@ -1002,8 +988,7 @@ export function DashboardHeader({
         <h1 className="text-2xl font-bold text-white">{title}</h1>
         {subtitle && <p className="text-white/60 mt-1">{subtitle}</p>}
       </div>
-      
-      <div className="flex items-center gap-3 flex-wrap">
+<div className="flex items-center gap-3 flex-wrap">
         {showConnection && <ConnectionStatus />}
         {showLayout && <LayoutSelector />}
         {widgets && onToggleWidget && (
@@ -1040,7 +1025,7 @@ export function MetricGrid({ metrics, columns = 4, className }: MetricGridProps)
       <div className={cn('space-y-3', className)}>
         {metrics.map((metric) => (
           <MetricCard key={metric.id} metric={metric} />
-        ))}
+        })
       </div>
     );
   }
@@ -1049,7 +1034,7 @@ export function MetricGrid({ metrics, columns = 4, className }: MetricGridProps)
     <div className={cn('grid gap-4', gridClasses[columns], className)}>
       {metrics.map((metric) => (
         <MetricCard key={metric.id} metric={metric} />
-      ))}
+      })
     </div>
   );
 }

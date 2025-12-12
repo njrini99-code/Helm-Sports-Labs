@@ -39,8 +39,7 @@ export function CSVImport({ onClose, onComplete }: CSVImportProps) {
         const value = values[index]?.trim();
         if (value) {
           record[header] = value;
-        }
-      });
+        });
 
       if (record.business_name || record.name) {
         records.push(record);
@@ -150,8 +149,7 @@ export function CSVImport({ onClose, onComplete }: CSVImportProps) {
             <X className="w-5 h-5" />
           </button>
         </div>
-
-        {!results ? (
+{!results ? (
           <div className="space-y-4">
             <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center">
               <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
@@ -172,8 +170,7 @@ export function CSVImport({ onClose, onComplete }: CSVImportProps) {
                 Select File
               </label>
             </div>
-
-            {importing && (
+{importing && (
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-gray-600">Importing...</span>
@@ -182,15 +179,13 @@ export function CSVImport({ onClose, onComplete }: CSVImportProps) {
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
                     className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                    style={{ width: `${progress}%` }}
-                  />
+                    style={{ width: `${progress}}%` }}></div>
                 </div>
                 <p className="text-xs text-gray-500 mt-2">
                   Geocoding addresses and enriching business data...
                 </p>
               </div>
-            )}
-
+)}
             <button
               onClick={handleImport}
               disabled={!file || importing}
@@ -207,16 +202,14 @@ export function CSVImport({ onClose, onComplete }: CSVImportProps) {
                 <p className="font-semibold text-green-900">{results.success} records imported</p>
               </div>
             </div>
-
-            {results.errors > 0 && (
+{results.errors > 0 && (
               <div className="flex items-center gap-3 p-4 bg-red-50 rounded-lg">
                 <AlertCircle className="w-6 h-6 text-red-600" />
                 <div>
                   <p className="font-semibold text-red-900">{results.errors} records failed</p>
                 </div>
               </div>
-            )}
-
+)}
             <button
               onClick={onClose}
               className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
@@ -224,7 +217,7 @@ export function CSVImport({ onClose, onComplete }: CSVImportProps) {
               Done
             </button>
           </div>
-        )}
+)}
       </div>
     </div>
   );

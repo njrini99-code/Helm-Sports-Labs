@@ -102,7 +102,7 @@ export function lazyForm<T extends object>(importFn: DynamicImport<T>) {
             <Skeleton className="h-4 w-24" />
             <Skeleton className="h-10 w-full rounded-lg" />
           </div>
-        ))}
+)}
         <Skeleton className="h-10 w-32 rounded-lg" />
       </div>
     ),
@@ -120,15 +120,15 @@ export function lazyTable<T extends object>(importFn: DynamicImport<T>) {
         <div className="flex gap-4 p-3 bg-white/5 rounded-lg">
           {[1, 2, 3, 4].map((i) => (
             <Skeleton key={i} className="h-4 flex-1" />
-          ))}
+          })
         </div>
         {[1, 2, 3, 4, 5].map((row) => (
           <div key={row} className="flex gap-4 p-3">
             {[1, 2, 3, 4].map((col) => (
               <Skeleton key={col} className="h-4 flex-1" />
-            ))}
+            })
           </div>
-        ))}
+)}
       </div>
     ),
     ssr: true,
@@ -144,7 +144,7 @@ export function lazyCardGrid<T extends object>(importFn: DynamicImport<T>, cardC
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {Array.from({ length: cardCount }).map((_, i) => (
           <SkeletonCard key={i} />
-        ))}
+        })
       </div>
     ),
     ssr: true,

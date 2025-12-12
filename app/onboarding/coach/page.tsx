@@ -191,7 +191,7 @@ export default function CoachOnboarding() {
         router.push(dashboardPath);
       }, 2000);
     } catch (error) {
-      logError(error, { component: 'CoachOnboarding', action: 'handleSubmit', metadata: { unexpected: true } });
+      logError(error, { component: 'CoachOnboarding', action: 'handleSubmit', metadata: { unexpected: true  } });
       toast.error('An error occurred');
     } finally {
       setSaving(false);
@@ -201,7 +201,7 @@ export default function CoachOnboarding() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
-        <div className="w-8 h-8 bg-blue-500/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-blue-500/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -236,13 +236,11 @@ export default function CoachOnboarding() {
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Back to login
         </Link>
-
-        <div className="mb-8">
+      <div className="mb-8">
           <h1 className="text-3xl font-bold text-white mb-2">Complete Your Program Profile</h1>
           <p className="text-slate-400">Let&apos;s set up your recruiting presence</p>
         </div>
-
-        {/* Progress */}
+      {/* Progress */}
         <div className="mb-8 space-y-4">
           <div className="flex items-center justify-between text-sm text-slate-400 mb-2">
             <span>Step {currentStep} of 2</span>
@@ -250,7 +248,7 @@ export default function CoachOnboarding() {
           </div>
           <Progress value={(currentStep / 2) * 100} className="h-2" />
           <div className="flex items-center justify-between">
-            {{STEPS.length === 0 ? (
+            {STEPS.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -279,118 +277,100 @@ export default function CoachOnboarding() {
                   </p>
                 </div>
               );
-            })
-          )}}
+            }})
           </div>
         </div>
-
-        {/* Step 1: Coach Identity */}
+      {/* Step 1: Coach Identity */}
         {currentStep === 1 && (
           <div className="bg-slate-900/90 rounded-2xl p-8 border border-white/5 shadow-2xl space-y-6">
             <h2 className="text-xl font-semibold text-white flex items-center gap-2">
               <User className="w-5 h-5 text-blue-400" />
               Coach Identity
             </h2>
-
-            <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2 md:col-span-2">
                 <Label>Full Name *</Label>
                 <Input
                   value={formData.full_name}
-                  onChange={(e) => setFormData({ ...formData, full_name: e.target.value })
-          )}}
+                  onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
                   placeholder="Your full name"
                   className="bg-[#111315] border-white/10"
                 />
               </div>
-
-              {(coachType === 'college' || coachType === 'high_school') && (
+      {(coachType === 'college' || coachType === 'high_school') && (
                 <>
                   <div className="space-y-2 md:col-span-2">
                     <Label>School Name *</Label>
                     <Input
                       value={formData.school_name}
-                      onChange={(e) => setFormData({ ...formData, school_name: e.target.value })
-          )}}
+                      onChange={(e) => setFormData({ ...formData, school_name: e.target.value })}
                       placeholder="University or High School name"
                       className="bg-[#111315] border-white/10"
                     />
                   </div>
-
-                  <div className="space-y-2">
+      <div className="space-y-2">
                     <Label>City</Label>
                     <Input
                       value={formData.city}
-                      onChange={(e) => setFormData({ ...formData, city: e.target.value })
-          )}}
+                      onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                       placeholder="City"
                       className="bg-[#111315] border-white/10"
                     />
                   </div>
-
-                  <div className="space-y-2">
+      <div className="space-y-2">
                     <Label>State</Label>
-                    <Select value={formData.state} onValueChange={(v) => setFormData({ ...formData, state: v })
-          )}}>
+                    <Select value={formData.state} onValueChange={(v) => setFormData({ ...formData, state: v })}>
                       <SelectTrigger className="bg-[#111315] border-white/10">
                         <SelectValue placeholder="Select state" />
                       </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         {US_STATES.map((state) => (
                           <SelectItem key={state} value={state}>{state}</SelectItem>
-                        ))}
+)}
                       </SelectContent>
                     </Select>
                   </div>
-
-                  <div className="space-y-2 md:col-span-2">
+      <div className="space-y-2 md:col-span-2">
                     <Label>Staff Role</Label>
                     <Input
                       value={formData.staff_role}
-                      onChange={(e) => setFormData({ ...formData, staff_role: e.target.value })
-          )}}
+                      onChange={(e) => setFormData({ ...formData, staff_role: e.target.value })}
                       placeholder="e.g., Head Coach, Assistant Coach, Recruiting Coordinator"
                       className="bg-[#111315] border-white/10"
                     />
                   </div>
                 </>
               )}
-
               {(coachType === 'juco' || coachType === 'showcase') && (
                 <>
                   <div className="space-y-2 md:col-span-2">
                     <Label>Organization Name *</Label>
                     <Input
                       value={formData.organization_name}
-                      onChange={(e) => setFormData({ ...formData, organization_name: e.target.value })
-          )}}
+                      onChange={(e) => setFormData({ ...formData, organization_name: e.target.value })}
                       placeholder="Organization or program name"
                       className="bg-[#111315] border-white/10"
                     />
                   </div>
-
-                  <div className="space-y-2">
+      <div className="space-y-2">
                     <Label>City</Label>
                     <Input
                       value={formData.city}
-                      onChange={(e) => setFormData({ ...formData, city: e.target.value })
-          )}}
+                      onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                       placeholder="City"
                       className="bg-[#111315] border-white/10"
                     />
                   </div>
-
-                  <div className="space-y-2">
+      <div className="space-y-2">
                     <Label>State</Label>
-                    <Select value={formData.state} onValueChange={(v) => setFormData({ ...formData, state: v })
-          )}}>
+                    <Select value={formData.state} onValueChange={(v) => setFormData({ ...formData, state: v })}>
                       <SelectTrigger className="bg-[#111315] border-white/10">
                         <SelectValue placeholder="Select state" />
                       </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         {US_STATES.map((state) => (
                           <SelectItem key={state} value={state}>{state}</SelectItem>
-                        ))}
+)}
                       </SelectContent>
                     </Select>
                   </div>
@@ -398,8 +378,7 @@ export default function CoachOnboarding() {
               )}
             </div>
           </div>
-        )}
-
+)}
         {/* Step 2: Program Basics */}
         {currentStep === 2 && (
           <div className="bg-slate-900/90 rounded-2xl p-8 border border-white/5 shadow-2xl space-y-6">
@@ -407,50 +386,45 @@ export default function CoachOnboarding() {
               <Building className="w-5 h-5 text-blue-400" />
               Program Basics
             </h2>
-
-            <div className="space-y-6">
+      <div className="space-y-6">
               {programLevels.length > 0 && (
                 <div className="space-y-2">
                   <Label>Program Level</Label>
-                  <Select value={formData.program_level} onValueChange={(v) => setFormData({ ...formData, program_level: v })
-          )}}>
+                  <Select value={formData.program_level} onValueChange={(v) => setFormData({ ...formData, program_level: v })}>
                     <SelectTrigger className="bg-[#111315] border-white/10">
                       <SelectValue placeholder="Select level" />
                     </SelectTrigger>
-                    <SelectContent>
+        <SelectContent>
                       {programLevels.map((level) => (
                         <SelectItem key={level} value={level}>{level}</SelectItem>
-                      ))}
+)}
                     </SelectContent>
                   </Select>
                 </div>
-              )}
-
+)}
               <div className="space-y-2">
                 <Label>Program Values</Label>
                 <Textarea
                   value={formData.program_values}
                   onChange={(e) => setFormData({ ...formData, program_values: e.target.value })
-          )}}
+          })
                   placeholder="What does your program stand for? What values guide your team?"
                   className="bg-[#111315] border-white/10 min-h-[100px]"
                 />
               </div>
-
-              <div className="space-y-2">
+      <div className="space-y-2">
                 <Label>About the Program</Label>
                 <Textarea
                   value={formData.about}
                   onChange={(e) => setFormData({ ...formData, about: e.target.value })
-          )}}
+          })
                   placeholder="Tell recruits about your program, facilities, and what makes it special..."
                   className="bg-[#111315] border-white/10 min-h-[120px]"
                 />
               </div>
             </div>
           </div>
-        )}
-
+)}
         {/* Navigation */}
         <div className="flex items-center justify-between mt-8">
           <Button
@@ -462,8 +436,7 @@ export default function CoachOnboarding() {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
-
-          {currentStep < 2 ? (
+      {currentStep < 2 ? (
             <Button
               onClick={handleNext}
               variant="gradient"
@@ -480,7 +453,7 @@ export default function CoachOnboarding() {
             >
               {saving ? (
                 <>
-                  <div className="w-4 h-4 bg-white/20 rounded animate-pulse mr-2" />
+                  <div className="w-4 h-4 bg-white/20 rounded animate-pulse mr-2"></div>
                   Saving...
                 </>
               ) : (
@@ -490,7 +463,7 @@ export default function CoachOnboarding() {
                 </>
               )}
             </Button>
-          )}
+)}
         </div>
       </div>
     </div>

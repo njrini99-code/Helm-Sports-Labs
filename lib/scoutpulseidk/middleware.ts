@@ -312,8 +312,7 @@ function checkRateLimit(
     rateLimitStore.forEach((v, k) => {
       if (v.resetTime < now) {
         keysToDelete.push(k);
-      }
-    });
+      });
     keysToDelete.forEach(k => rateLimitStore.delete(k));
   }
   

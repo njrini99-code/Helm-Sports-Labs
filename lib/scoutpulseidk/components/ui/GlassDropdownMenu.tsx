@@ -346,7 +346,7 @@ function MenuItemComponent({ item, isActive, onSelect }: MenuItemComponentProps)
         <span className={cn(sizes.shortcut, styles.shortcut, 'ml-auto pl-4')}>
           {item.shortcut}
         </span>
-      )}
+)}
     </button>
   );
 }
@@ -397,7 +397,7 @@ function CheckboxItemComponent({ item, isActive, onSelect }: CheckboxItemCompone
         <span className={cn(sizes.shortcut, styles.shortcut, 'ml-auto pl-4')}>
           {item.shortcut}
         </span>
-      )}
+)}
     </button>
   );
 }
@@ -530,8 +530,7 @@ function SubMenuComponent({ item, isActive }: SubMenuComponentProps) {
         <span className="flex-1 text-left truncate">{item.label}</span>
         <ChevronRight className={cn(sizes.icon, styles.icon, 'shrink-0')} />
       </button>
-
-      {isOpen &&
+{isOpen &&
         createPortal(
           <div
             ref={subMenuRef}
@@ -540,8 +539,7 @@ function SubMenuComponent({ item, isActive }: SubMenuComponentProps) {
               sizes.menu,
               styles.menu
             )}
-            style={{
-              top: subMenuPosition.top,
+            style={{top: subMenuPosition.top,
               left: subMenuPosition.left,
               animation: 'glass-menu-slide-right 150ms ease-out',
             }}
@@ -586,8 +584,7 @@ function MenuContent({ items }: MenuContentProps) {
           return (
             <div
               key={item.id || `sep-${index}`}
-              className={cn('h-px my-1 mx-2', styles.separator)}
-            />
+              className={cn('h-px my-1 mx-2', styles.separator)}></div>
           );
         }
 
@@ -911,8 +908,7 @@ export function GlassDropdownMenu({
       >
         {trigger}
       </div>
-
-      {/* Menu */}
+{/* Menu */}
       {isOpen &&
         mounted &&
         createPortal(
@@ -929,7 +925,7 @@ export function GlassDropdownMenu({
               top: menuPosition.top,
               left: menuPosition.left,
               minWidth,
-              animation: `${getAnimation()} 150ms ease-out`,
+              animation: `${getAnimation()}} 150ms ease-out`,
             }}
           >
             <MenuContent items={items} />

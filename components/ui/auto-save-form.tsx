@@ -73,8 +73,7 @@ export function AutoSaveForm({
             const input = form.querySelector(`[name="${key}"]`) as HTMLInputElement;
             if (input) {
               input.value = value as string;
-            }
-          });
+            });
         } catch (error) {
           console.error('Failed to load saved form data:', error);
         }

@@ -34,7 +34,7 @@ export function TeamTabs({ activeTab, onTabChange }: TeamTabsProps) {
           >
             {tab.label}
           </TabsTrigger>
-        ))}
+)}
       </TabsList>
     </Tabs>
   );

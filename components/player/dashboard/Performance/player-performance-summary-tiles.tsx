@@ -9,8 +9,7 @@ export function PlayerPerformanceSummaryTiles({
 }: {
   summary: PlayerStatsSummary | null | undefined;
   loading?: boolean;
-})
-          )} {
+}}) {
   const tiles = [
     { label: 'Games', value: summary?.gamesPlayed ?? 0 },
     { label: 'PPG', value: (summary?.pointsPerGame ?? 0).toFixed(1) },
@@ -40,7 +39,7 @@ export function PlayerPerformanceSummaryTiles({
             <p className="text-[11px] uppercase tracking-wide text-slate-400">{tile.label}</p>
             <p className="text-lg font-semibold">{tile.value}</p>
           </div>
-        ))}
+)}
       </div>
     </Card>
   );

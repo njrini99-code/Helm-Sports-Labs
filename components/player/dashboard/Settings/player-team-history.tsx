@@ -293,8 +293,7 @@ export function PlayerTeamHistory({ playerId }: PlayerTeamHistoryProps) {
             </DialogContent>
           </Dialog>
         </CardHeader>
-
-        <CardContent>
+      <CardContent>
           {teamHistory.length === 0 ? (
             <div className="text-center py-12">
               <Trophy className="w-12 h-12 text-slate-500 mx-auto mb-4" />
@@ -317,16 +316,14 @@ export function PlayerTeamHistory({ playerId }: PlayerTeamHistoryProps) {
                   {/* Timeline line */}
                   {index < teamHistory.length - 1 && (
                     <div className="absolute left-6 top-16 bottom-0 w-0.5 bg-slate-600"></div>
-                  )}
-
+)}
                   {/* Team card */}
                   <div className="flex gap-4 relative">
                     {/* Year badge */}
                     <div className="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center font-bold text-emerald-400 z-10">
                       {team.year}
                     </div>
-
-                    {/* Team details */}
+      {/* Team details */}
                     <div className="flex-1 bg-slate-800/50 border border-slate-700 rounded-xl p-4 hover:border-slate-600 transition-colors">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
@@ -337,7 +334,7 @@ export function PlayerTeamHistory({ playerId }: PlayerTeamHistoryProps) {
                                 <CheckCircle className="w-3 h-3 mr-1" />
                                 Verified
                               </Badge>
-                            )}
+)}
                           </div>
                           <div className="text-sm text-slate-400 flex items-center gap-2">
                             {team.team_type === 'high_school' ? (
@@ -348,8 +345,7 @@ export function PlayerTeamHistory({ playerId }: PlayerTeamHistoryProps) {
                             {team.team_type === 'high_school' ? 'High School' : 'Showcase/Travel'}
                           </div>
                         </div>
-
-                        <div className="flex gap-2">
+      <div className="flex gap-2">
                           <Button
                             variant="ghost"
                             size="sm"
@@ -368,8 +364,7 @@ export function PlayerTeamHistory({ playerId }: PlayerTeamHistoryProps) {
                           </Button>
                         </div>
                       </div>
-
-                      {/* Stats grid */}
+      {/* Stats grid */}
                       {team.stats && Object.keys(team.stats).length > 0 && (
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
                           {team.stats.games && (
@@ -377,36 +372,35 @@ export function PlayerTeamHistory({ playerId }: PlayerTeamHistoryProps) {
                               <div className="text-slate-400">Games</div>
                               <div className="font-semibold text-white">{team.stats.games}</div>
                             </div>
-                          )}
+)}
                           {team.stats.batting_avg && (
                             <div>
                               <div className="text-slate-400">AVG</div>
                               <div className="font-semibold text-white">{team.stats.batting_avg.toFixed(3)}</div>
                             </div>
-                          )}
+)}
                           {team.stats.home_runs && (
                             <div>
                               <div className="text-slate-400">HR</div>
                               <div className="font-semibold text-white">{team.stats.home_runs}</div>
                             </div>
-                          )}
+)}
                           {team.stats.rbis && (
                             <div>
                               <div className="text-slate-400">RBI</div>
                               <div className="font-semibold text-white">{team.stats.rbis}</div>
                             </div>
-                          )}
+)}
                         </div>
-                      )}
+)}
                     </div>
                   </div>
                 </div>
-              ))}
+)}
             </div>
-          )}
+)}
         </CardContent>
       </Card>
-
       {/* Edit Team Dialog */}
       {editingTeam && (
         <Dialog open={!!editingTeam} onOpenChange={() => setEditingTeam(null)}>
@@ -427,7 +421,7 @@ export function PlayerTeamHistory({ playerId }: PlayerTeamHistoryProps) {
             />
           </DialogContent>
         </Dialog>
-      )}
+)}
     </>
   );
 }
@@ -458,8 +452,7 @@ function TeamForm({ formData, setFormData, onSubmit, onCancel, saving, submitLab
             required
           />
         </div>
-
-        <div>
+      <div>
           <Label htmlFor="team_type">Team Type</Label>
           <select
             id="team_type"
@@ -473,7 +466,6 @@ function TeamForm({ formData, setFormData, onSubmit, onCancel, saving, submitLab
           </select>
         </div>
       </div>
-
       <div>
         <Label htmlFor="team_name">Team Name</Label>
         <Input
@@ -484,14 +476,12 @@ function TeamForm({ formData, setFormData, onSubmit, onCancel, saving, submitLab
           required
         />
       </div>
-
       <div className="border-t border-slate-700 pt-4">
         <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
           <Ruler className="w-4 h-4" />
           Season Stats
         </h4>
-
-        <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3">
           <div>
             <Label htmlFor="games" className="text-xs text-slate-400">Games</Label>
             <Input
@@ -577,7 +567,6 @@ function TeamForm({ formData, setFormData, onSubmit, onCancel, saving, submitLab
           </div>
         </div>
       </div>
-
       <div className="flex items-center gap-2">
         <input
           type="checkbox"
@@ -590,7 +579,6 @@ function TeamForm({ formData, setFormData, onSubmit, onCancel, saving, submitLab
           These stats are verified by my coach
         </Label>
       </div>
-
       <div className="flex gap-3 pt-4">
         <Button onClick={onSubmit} disabled={saving} className="flex-1">
           {saving ? 'Saving...' : submitLabel}

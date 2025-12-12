@@ -281,8 +281,7 @@ function PageSizeSelector({
         />
       </button>
       <span className={cn(sizes.text, styles.textMuted)}>per page</span>
-
-      {isOpen && (
+{isOpen && (
         <div
           className={cn(
             'absolute bottom-full mb-1 left-1/2 -translate-x-1/2 rounded-lg overflow-hidden z-50 min-w-[70px]',
@@ -307,9 +306,9 @@ function PageSizeSelector({
             >
               {option}
             </button>
-          ))}
+)}
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -548,13 +547,11 @@ export function GlassPagination({
             {' '}of{' '}
             <span className={cn('font-medium', styles.text)}>{totalItems}</span>
           </p>
-        )}
-
+)}
         {/* Separator */}
         {showItemsInfo && totalItems !== undefined && showPageSizeSelector && onPageSizeChange && (
           <span className={cn('mx-2 hidden sm:inline', styles.textMuted)}>•</span>
-        )}
-
+)}
         {/* Page size selector */}
         {showPageSizeSelector && onPageSizeChange && (
           <PageSizeSelector
@@ -563,12 +560,10 @@ export function GlassPagination({
             onChange={onPageSizeChange}
             variant={variant}
             size={size}
-            disabled={disabled}
-          />
+            disabled={disabled} />
         )}
       </div>
-
-      {/* Right side: Pagination controls */}
+{/* Right side: Pagination controls */}
       <div className={cn('flex items-center', sizes.gap)}>
         {/* Quick jump */}
         {showQuickJump && totalPages > 10 && (
@@ -584,7 +579,6 @@ export function GlassPagination({
             <span className={cn('mx-1 hidden sm:inline', styles.textMuted)}>•</span>
           </>
         )}
-
         {/* First page */}
         {showFirstLast && (
           <PaginationButton
@@ -596,8 +590,7 @@ export function GlassPagination({
           >
             <ChevronsLeft className={sizes.icon} />
           </PaginationButton>
-        )}
-
+)}
         {/* Previous page */}
         <PaginationButton
           onClick={() => onPageChange(currentPage - 1)}
@@ -608,8 +601,7 @@ export function GlassPagination({
         >
           <ChevronLeft className={sizes.icon} />
         </PaginationButton>
-
-        {/* Page numbers */}
+{/* Page numbers */}
         <div className={cn('flex items-center', sizes.gap)}>
           {pageNumbers.map((pageNumber, index) => {
             // Ellipsis
@@ -621,8 +613,7 @@ export function GlassPagination({
                   onClick={() =>
                     handleEllipsisClick(
                       pageNumber === 'left-ellipsis' ? 'left' : 'right'
-                    )
-                  }
+                    )}
                   disabled={disabled}
                   className={cn(
                     'inline-flex items-center justify-center rounded-lg transition-all duration-200',
@@ -658,8 +649,7 @@ export function GlassPagination({
             );
           })}
         </div>
-
-        {/* Next page */}
+{/* Next page */}
         <PaginationButton
           onClick={() => onPageChange(currentPage + 1)}
           disabled={disabled || !canGoNext}
@@ -669,8 +659,7 @@ export function GlassPagination({
         >
           <ChevronRight className={sizes.icon} />
         </PaginationButton>
-
-        {/* Last page */}
+{/* Last page */}
         {showFirstLast && (
           <PaginationButton
             onClick={() => onPageChange(totalPages)}
@@ -681,7 +670,7 @@ export function GlassPagination({
           >
             <ChevronsRight className={sizes.icon} />
           </PaginationButton>
-        )}
+)}
       </div>
     </div>
   );
@@ -727,12 +716,10 @@ export function CompactPagination({
       >
         <ChevronLeft className={sizes.icon} />
       </PaginationButton>
-
-      <span className={cn('px-2 tabular-nums', sizes.text, styles.text)}>
+<span className={cn('px-2 tabular-nums', sizes.text, styles.text)}>
         {currentPage} / {totalPages}
       </span>
-
-      <PaginationButton
+<PaginationButton
         onClick={() => onPageChange(currentPage + 1)}
         disabled={disabled || !canGoNext}
         variant={variant}
@@ -804,8 +791,7 @@ export function LoadMoreButton({
             <path
               className="opacity-75"
               fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            />
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
           </svg>
           {loadingText}
         </>
@@ -858,7 +844,7 @@ export function InfiniteScrollTrigger({
     return () => observer.disconnect();
   }, [hasMore, isLoading, onLoadMore, threshold]);
 
-  return <div ref={triggerRef} className={cn('h-1', className)} />;
+  return <div ref={triggerRef} className={cn('h-1', className)}></div>;
 }
 
 export default GlassPagination;

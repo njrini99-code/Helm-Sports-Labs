@@ -100,7 +100,6 @@ export function PlayerSchedulePanel({ coachId, onEventClick, onViewProfile }: Pl
           View upcoming events for a specific recruit
         </p>
       </div>
-
       <div className="p-4">
         {/* Search / Selected Player */}
         {selectedPlayer ? (
@@ -166,18 +165,17 @@ export function PlayerSchedulePanel({ coachId, onEventClick, onViewProfile }: Pl
                       </p>
                     </div>
                   </button>
-                ))}
+)}
               </div>
-            )}
+)}
           </div>
-        )}
-
+)}
         {/* Player Events */}
         {selectedPlayer && (
           <div>
             {loading ? (
               <div className="py-6 text-center">
-                <div className="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto" />
+                <div className="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
               </div>
             ) : playerEvents.length === 0 ? (
               <div className="py-6 text-center">
@@ -203,10 +201,9 @@ export function PlayerSchedulePanel({ coachId, onEventClick, onViewProfile }: Pl
                     </div>
                     <p className="text-sm font-medium text-slate-700">{event.title}</p>
                   </button>
-                ))}
+)}
               </div>
-            )}
-
+)}
             {/* View Profile Link */}
             <Button
               variant="ghost"
@@ -218,15 +215,14 @@ export function PlayerSchedulePanel({ coachId, onEventClick, onViewProfile }: Pl
               <ChevronRight className="w-3.5 h-3.5 ml-1" />
             </Button>
           </div>
-        )}
-
+)}
         {/* Empty State */}
         {!selectedPlayer && (
           <div className="py-4 text-center">
             <User className="w-8 h-8 mx-auto mb-2 text-slate-300" strokeWidth={1.5} />
             <p className="text-xs text-slate-400">Search for a recruit to view their schedule</p>
           </div>
-        )}
+)}
       </div>
     </Card>
   );

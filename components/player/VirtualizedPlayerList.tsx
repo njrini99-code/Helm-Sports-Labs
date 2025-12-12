@@ -203,7 +203,7 @@ const PlayerRow = memo(function PlayerRow({
   };
 
   return (
-    <div style={rowStyle}>
+    <div style={{rowStyle}}>
       <div
         className={cn(
           'virtual-row flex items-center gap-3 h-full px-4 rounded-xl bg-[#111315] border border-white/5 hover:border-blue-500/30 transition-all duration-200 cursor-pointer',
@@ -221,8 +221,7 @@ const PlayerRow = memo(function PlayerRow({
               className="checkbox-animated w-4 h-4 rounded border-white/20 bg-white/5 text-emerald-500 focus:ring-emerald-500/20 focus:ring-offset-0"
             />
           </div>
-        )}
-
+)}
         {/* Avatar */}
         <Avatar className="h-12 w-12 shrink-0 border-2 border-blue-500/30">
           <AvatarImage src={player.avatar_url || undefined} alt={player.full_name} />
@@ -230,8 +229,7 @@ const PlayerRow = memo(function PlayerRow({
             {initials}
           </AvatarFallback>
         </Avatar>
-
-        {/* Player Info */}
+      {/* Player Info */}
         <div className="flex-1 min-w-0 py-2">
           <div className="flex items-center gap-2 flex-wrap">
             <p className="font-semibold text-white truncate">{player.full_name}</p>
@@ -240,12 +238,12 @@ const PlayerRow = memo(function PlayerRow({
             </Badge>
             {player.high_school_state && (
               <span className="text-xs text-slate-400 shrink-0">{player.high_school_state}</span>
-            )}
+)}
             {player.commitment_status === 'committed' && player.college_name && (
               <Badge className="text-xs bg-emerald-500/20 text-emerald-300 border-emerald-500/30 shrink-0">
                 {player.college_name}
               </Badge>
-            )}
+)}
           </div>
           <div className="flex items-center gap-2 mt-1 flex-wrap">
             <Badge variant="secondary" className="text-xs">
@@ -255,7 +253,7 @@ const PlayerRow = memo(function PlayerRow({
               <Badge variant="outline" className="text-xs">
                 {player.secondary_position}
               </Badge>
-            )}
+)}
             {metrics.length > 0 && (
               <div className="flex gap-3 text-xs text-slate-400">
                 {metrics.map((metric, i) => (
@@ -263,18 +261,17 @@ const PlayerRow = memo(function PlayerRow({
                     <span className="text-slate-500">{metric.label}:</span>{' '}
                     <span className="text-white/80">{metric.value}</span>
                   </span>
-                ))}
+)}
               </div>
-            )}
+)}
           </div>
         </div>
-
-        {/* Actions */}
+      {/* Actions */}
         {renderActions && (
           <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
             {renderActions(player)}
           </div>
-        )}
+)}
       </div>
     </div>
   );
@@ -373,11 +370,10 @@ function FilterBar({
             <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/30 text-xs">
               {selectedPositions.size}
             </span>
-          )}
+)}
           <ChevronDown className={cn('w-3 h-3 transition-transform', showPositions && 'rotate-180')} />
         </button>
-
-        {showPositions && (
+      {showPositions && (
           <div className="filter-dropdown absolute top-full left-0 mt-2 p-2 rounded-xl bg-slate-900 border border-white/10 shadow-xl z-50 min-w-[160px]">
             {positions.map((pos) => (
               <label
@@ -392,11 +388,10 @@ function FilterBar({
                 />
                 <span className="text-sm text-slate-300">{pos}</span>
               </label>
-            ))}
+)}
           </div>
-        )}
+)}
       </div>
-
       {/* Grad Year Filter */}
       <div className="relative">
         <button
@@ -417,11 +412,10 @@ function FilterBar({
             <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/30 text-xs">
               {selectedGradYears.size}
             </span>
-          )}
+)}
           <ChevronDown className={cn('w-3 h-3 transition-transform', showYears && 'rotate-180')} />
         </button>
-
-        {showYears && (
+      {showYears && (
           <div className="filter-dropdown absolute top-full left-0 mt-2 p-2 rounded-xl bg-slate-900 border border-white/10 shadow-xl z-50 min-w-[120px]">
             {gradYears.map((year) => (
               <label
@@ -436,11 +430,10 @@ function FilterBar({
                 />
                 <span className="text-sm text-slate-300">{year}</span>
               </label>
-            ))}
+)}
           </div>
-        )}
+)}
       </div>
-
       {/* Sort */}
       <div className="relative">
         <button
@@ -458,8 +451,7 @@ function FilterBar({
           )}
           Sort: {sortOptions.find((o) => o.field === sortField)?.label}
         </button>
-
-        {showSort && (
+      {showSort && (
           <div className="filter-dropdown absolute top-full left-0 mt-2 p-2 rounded-xl bg-slate-900 border border-white/10 shadow-xl z-50 min-w-[140px]">
             {sortOptions.map((option) => (
               <button
@@ -481,14 +473,12 @@ function FilterBar({
                     <ChevronUp className="w-3 h-3 ml-auto" />
                   ) : (
                     <ChevronDown className="w-3 h-3 ml-auto" />
-                  )
-                )}
+                  })
               </button>
-            ))}
+)}
           </div>
-        )}
+)}
       </div>
-
       {/* Clear Filters */}
       {hasActiveFilters && (
         <button
@@ -497,7 +487,7 @@ function FilterBar({
         >
           Clear filters
         </button>
-      )}
+)}
     </div>
   );
 }
@@ -577,7 +567,7 @@ export function VirtualizedPlayerList({
       result = result.filter(
         (p) =>
           selectedPositions.has(p.primary_position) ||
-          (p.secondary_position && selectedPositions.has(p.secondary_position))
+          (p.secondary_position && selectedPositions.has(p.secondary_position)}
       );
     }
 
@@ -716,8 +706,7 @@ export function VirtualizedPlayerList({
           <div className="flex-1 min-w-[200px] max-w-md">
             <SearchBar value={searchQuery} onChange={setSearchQuery} />
           </div>
-        )}
-
+)}
         <div className="flex items-center gap-2 text-sm text-slate-400">
           <Users className="w-4 h-4" />
           <span>
@@ -727,10 +716,9 @@ export function VirtualizedPlayerList({
             <span className="text-emerald-400">
               • {selectedPlayerIds.size} selected
             </span>
-          )}
+)}
         </div>
       </div>
-
       {/* Filters */}
       {(enableFilters || enableSort) && (
         <FilterBar
@@ -747,7 +735,6 @@ export function VirtualizedPlayerList({
           hasActiveFilters={hasActiveFilters}
         />
       )}
-
       {/* Virtualized List */}
       <div className="relative rounded-xl overflow-hidden bg-white/[0.02] border border-white/5">
         {filteredPlayers.length === 0 ? (
@@ -761,7 +748,7 @@ export function VirtualizedPlayerList({
               >
                 Clear all filters
               </button>
-            )}
+)}
           </div>
         ) : (
           <FixedSizeList
@@ -777,8 +764,7 @@ export function VirtualizedPlayerList({
           >
             {PlayerRow}
           </FixedSizeList>
-        )}
-
+)}
         {/* Scroll to top button */}
         {showScrollTop && (
           <button
@@ -787,16 +773,15 @@ export function VirtualizedPlayerList({
           >
             <ArrowUp className="w-5 h-5" />
           </button>
-        )}
+)}
       </div>
-
       {/* Performance stats (dev only) */}
       {process.env.NODE_ENV === 'development' && (
         <p className="text-xs text-slate-600 text-center">
           Rendering {Math.min(Math.ceil(height / itemSize) + overscanCount * 2, filteredPlayers.length)} of{' '}
           {filteredPlayers.length} items (virtualized)
         </p>
-      )}
+)}
     </div>
   );
 }

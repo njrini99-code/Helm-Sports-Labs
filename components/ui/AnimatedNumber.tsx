@@ -116,8 +116,7 @@ export function AnimatedNumber({
         entries.forEach((entry) => {
           if (entry.isIntersecting && !hasAnimated) {
             startAnimation();
-          }
-        });
+          });
       },
       { threshold: 0.1 }
     );

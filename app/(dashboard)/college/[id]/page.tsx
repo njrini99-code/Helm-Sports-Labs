@@ -36,9 +36,9 @@ export default async function CollegeDetailPage({
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50/20">
       <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+  initial={ opacity: 0, y: 20 }
+  animate={ opacity: 1, y: 0 }
+  transition={{duration: 0.3 }}
   className="container mx-auto px-4 md:px-6 py-8">
         {/* Header */}
         <div className="glassmorphism rounded-xl p-8 mb-6">
@@ -49,8 +49,7 @@ export default async function CollegeDetailPage({
                 {college.name.substring(0, 2).toUpperCase()}
               </AvatarFallback>
             </Avatar>
-            
-            <div className="flex-1">
+      <div className="flex-1">
               <h1 className="text-3xl md:text-4xl font-bold text-slate-800 mb-2">
                 {college.name}
               </h1>
@@ -72,17 +71,16 @@ export default async function CollegeDetailPage({
                     <MapPin className="w-4 h-4" />
                     {college.city}, {college.state}
                   </span>
-                )}
+)}
               </motion.div>
               {college.stadium_name && (
                 <div className="mt-3 text-sm text-muted-foreground">
                   <Building2 className="w-4 h-4 inline mr-1" />
                   {college.stadium_name}
                 </motion.div>
-              )}
+)}
             </motion.div>
-            
-            <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2">
               <Button size="lg" className="bg-emerald-500 hover:bg-emerald-600">
                 <Heart className="mr-2 h-4 w-4" />
                 Express Interest
@@ -94,12 +92,11 @@ export default async function CollegeDetailPage({
                     Visit Website
                   </a>
                 </Button>
-              )}
+)}
             </motion.div>
           </motion.div>
         </motion.div>
-
-        {/* Stats */}
+      {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <Card>
             <CardContent className="p-4 text-center">
@@ -130,26 +127,24 @@ export default async function CollegeDetailPage({
             </CardContent>
           </Card>
         </motion.div>
-
-        {/* Additional sections can be added here */}
+      {/* Additional sections can be added here */}
         <div className="grid md:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
               <CardTitle>About</CardTitle>
             </CardHeader>
-            <CardContent>
+        <CardContent>
               <p className="text-sm text-muted-foreground">
                 {college.name} is a {college.division || 'college'} program located in {college.city && college.state ? `${college.city}, ${college.state}` : 'the United States'}.
                 {college.conference && ` They compete in the ${college.conference}.`}
               </p>
             </CardContent>
           </Card>
-
-          <Card>
+      <Card>
             <CardHeader>
               <CardTitle>Quick Links</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2">
+        <CardContent className="space-y-2">
               {college.website_url && (
                 <Button variant="outline" className="w-full justify-start" asChild>
                   <a href={college.website_url} target="_blank" rel="noopener noreferrer">
@@ -157,7 +152,7 @@ export default async function CollegeDetailPage({
                     Official Website
                   </a>
                 </Button>
-              )}
+)}
               <Button variant="outline" className="w-full justify-start">
                 <Mail className="mr-2 h-4 w-4" />
                 Contact Coach

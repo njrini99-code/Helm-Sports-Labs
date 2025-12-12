@@ -25,17 +25,16 @@ export function ChartTooltip({ label, value, payload, children }: ChartTooltipPr
                   <div key={index} className="flex items-center gap-2">
                     <div
                       className="h-3 w-3 rounded-full"
-                      style={{ backgroundColor: item.color }}
-                    />
+                      style={{backgroundColor: item.color }}></div>
                     <span className="text-sm">
                       {item.name}: {item.value}
                     </span>
                   </div>
-                ))}
+)}
               </div>
             ) : (
               <p className="text-sm">{value}</p>
-            )}
+)}
           </div>
         </TooltipContent>
       </Tooltip>
@@ -73,8 +72,7 @@ export function ChartLegend({
           >
             <div
               className="h-3 w-3 rounded-full"
-              style={{ backgroundColor: item.color }}
-            />
+              style={{backgroundColor: item.color }}></div>
             <span>{item.name}</span>
           </button>
         );
@@ -112,7 +110,7 @@ export function TrendIndicator({
     >
       {showArrow && (
         <span>{isPositive ? '↑' : '↓'}</span>
-      )}
+)}
       <span>{Math.abs(percentChange).toFixed(1)}%</span>
     </div>
   );

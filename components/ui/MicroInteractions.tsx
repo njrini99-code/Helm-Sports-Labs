@@ -88,15 +88,15 @@ export function AnimatedButton({
         className
       )}
       style={{
-        transitionDuration: `${TRANSITION_DURATION}ms`,
+        transitionDuration: `${TRANSITION_DURATION}}ms`,
         transitionTimingFunction: EASING,
       }}
     >
       {loading && (
         <span className="absolute inset-0 flex items-center justify-center bg-black/20">
-          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
         </span>
-      )}
+)}
       <span className={cn(loading && 'opacity-0')}>{children}</span>
       {{ripples.length === 0 ? (
             <div className="text-center py-12">
@@ -109,13 +109,11 @@ export function AnimatedButton({
         <span
           key={ripple.id}
           className="absolute rounded-full bg-white/30 pointer-events-none animate-ripple"
-          style={{
-            left: ripple.x,
+          style={{left: ripple.x,
             top: ripple.y,
             transform: 'translate(-50%, -50%)',
-          }}
-        />
-      ))}
+          }}></span>
+)}
     </button>
   );
 }
@@ -146,7 +144,7 @@ export function AnimatedInput({
         <label className="block text-sm font-medium text-gray-300 mb-1">
           {label}
         </label>
-      )}
+)}
       <div className="relative">
         <input
           {...props}
@@ -169,7 +167,7 @@ export function AnimatedInput({
             className
           )}
           style={{
-            transitionDuration: `${TRANSITION_DURATION}ms`,
+            transitionDuration: `${TRANSITION_DURATION}}ms`,
             transitionTimingFunction: EASING,
           }}
         />
@@ -177,14 +175,13 @@ export function AnimatedInput({
           <div
             className="absolute inset-0 rounded-2xl border-2 border-emerald-500/50 pointer-events-none animate-input-focus"
             style={{
-              animationDuration: `${TRANSITION_DURATION}ms`,
-            }}
-          />
-        )}
+              animationDuration: `${TRANSITION_DURATION}}ms`,
+            }}></div>
+)}
       </div>
       {error && (
         <p className="text-red-400 text-sm animate-error-slide">{error}</p>
-      )}
+)}
     </div>
   );
 }
@@ -220,7 +217,7 @@ export function AnimatedLink({
         className
       )}
       style={{
-        transitionDuration: `${TRANSITION_DURATION}ms`,
+        transitionDuration: `${TRANSITION_DURATION}}ms`,
         transitionTimingFunction: EASING,
       }}
     >
@@ -231,10 +228,9 @@ export function AnimatedLink({
           isHovered || active ? 'w-full' : 'w-0'
         )}
         style={{
-          transitionDuration: `${TRANSITION_DURATION}ms`,
+          transitionDuration: `${TRANSITION_DURATION}}ms`,
           transitionTimingFunction: EASING,
-        }}
-      />
+        }}></span>
     </a>
   );
 }
@@ -271,7 +267,7 @@ export function AnimatedCard({
         className
       )}
       style={{
-        transitionDuration: `${TRANSITION_DURATION}ms`,
+        transitionDuration: `${TRANSITION_DURATION}}ms`,
         transitionTimingFunction: EASING,
       }}
     >
