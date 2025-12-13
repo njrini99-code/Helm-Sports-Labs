@@ -33,7 +33,8 @@ export function PlayerRecruitingTimeline({
                 <Badge className="capitalize bg-white/10 border-white/20 text-white">{item.status}</Badge>
               </div>
             </div>
-          ))}
+          ))
+        )}
       </div>
     </Card>
   );

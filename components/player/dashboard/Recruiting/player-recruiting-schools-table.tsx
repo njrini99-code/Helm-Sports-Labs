@@ -31,7 +31,8 @@ export function PlayerRecruitingSchoolsTable({
               </div>
               <span className="text-xs capitalize px-2 py-1 rounded bg-white/10 border border-white/15">{school.status}</span>
             </div>
-          ))}
+          ))
+        )}
       </div>
     </Card>
   );

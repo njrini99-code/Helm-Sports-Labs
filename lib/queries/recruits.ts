@@ -317,8 +317,17 @@ export async function getRecommendedRecruitsForProgram(coachId: string): Promise
     .select('player_id, metric_label, metric_value')
     .in('player_id', playerIds);
 
+  // Fetch coach data once (used for top schools check)
+  const { data: coachData } = await supabase
+    .from('coaches')
+    .select('program_name, school_name')
+    .eq('id', coachId)
+    .single();
+  
+  const coachSchoolName = coachData?.program_name || coachData?.school_name;
+
   // Calculate match scores
-  const matches: RecruitMatch[] = players.map(player => {
+  const matches: RecruitMatch[] = players.map((player) => {
     const playerMetrics = metrics?.filter(m => m.player_id === player.id) || [];
     
     const pitchVelo = parseFloat(
@@ -374,15 +383,6 @@ export async function getRecommendedRecruitsForProgram(coachId: string): Promise
 
     // Top schools bonus (if coach's school is in player's top schools)
     if (player.top_schools && player.top_schools.length > 0) {
-      // Get coach's school/program name
-      const { data: coachData } = await supabase
-        .from('coaches')
-        .select('program_name, school_name')
-        .eq('id', coachId)
-        .single();
-
-      const coachSchoolName = coachData?.program_name || coachData?.school_name;
-      
       if (coachSchoolName) {
         // Check if coach's school is in player's top schools
         const isInterested = player.top_schools.some((school: string) => 

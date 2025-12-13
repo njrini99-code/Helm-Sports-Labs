@@ -19,7 +19,7 @@ export function FeaturedPrograms({ programs, onFollow }: FeaturedProgramsProps) 
         <p className="text-xs text-slate-400">Hand-picked for visibility</p>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {{programs.length === 0 ? (
+        {programs.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -65,7 +65,8 @@ export function FeaturedPrograms({ programs, onFollow }: FeaturedProgramsProps) 
               </div>
             </CardContent>
           </Card>
-)}
+        ))
+        )}
       </div>
     </div>
   );

@@ -39,7 +39,8 @@ export function PlayerEventsTimeline({
                 <Badge className="bg-white/10 border-white/20 text-white capitalize">{prettyType(item.type)}</Badge>
               </div>
             </div>
-          ))}
+          ))
+        )}
       </div>
     </Card>
   );

@@ -301,14 +301,7 @@ export function QuickActionToolbar({
                 </div>
               ) : searchResults.length > 0 ? (
                 <div className="divide-y">
-                  {searchResults.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">📭</div>
-              <p className="text-white/60 mb-4">No items yet</p>
-              <p className="text-white/40 text-sm">Check back later</p>
-            </div>
-          ) : (
-            searchResults.map((result) => (
+                  {searchResults.map((result) => (
                     <div
                       key={result.id}
                       className="p-3 hover:bg-accent cursor-pointer transition-colors"
@@ -339,13 +332,13 @@ export function QuickActionToolbar({
                         </Button>
                       )}
                     </div>
-                  )}
+                  ))}
                 </div>
               ) : (
                 <div className="p-4 text-center text-sm text-muted-foreground">
                   No results found
                 </div>
-)}
+              )}
             </div>
 )}
           {/* Quick Actions */}

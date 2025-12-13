@@ -29,7 +29,7 @@ export function DiscoverCamps({ camps, onInterested, onAttending }: DiscoverCamp
         <CardTitle className="text-lg text-white">Camps & Events</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
-        {{camps.length === 0 ? (
+        {camps.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -68,7 +68,8 @@ export function DiscoverCamps({ camps, onInterested, onAttending }: DiscoverCamp
               </Button>
             </div>
           </div>
-)}
+        ))
+        )}
       </CardContent>
     </Card>
   );

@@ -366,7 +366,7 @@ export function DashboardLoading() {
             <Skeleton className="h-8 w-20" />
             <Skeleton className="h-3 w-16" />
           </div>
-)}
+        ))}
       </div>
       {/* Main content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -387,7 +387,7 @@ export function DashboardLoading() {
                   <Skeleton className="h-3 w-2/3" />
                 </div>
               </div>
-)}
+            ))}
           </div>
           <div className="p-5 rounded-xl bg-white/5 border border-white/5 space-y-3">
             <Skeleton className="h-5 w-28" />
@@ -423,7 +423,7 @@ export function ListLoading({ count = 5 }: { count?: number }) {
           </div>
           <Skeleton className="w-24 h-8 rounded-2xl shrink-0" />
         </div>
-)}
+      ))}
     </div>
   );
 }
@@ -447,7 +447,7 @@ export function CardGridLoading({ count = 6, cols = 3 }: { count?: number; cols?
     <div className={cn('grid gap-4 page-fade-in', gridCols[cols as keyof typeof gridCols] || gridCols[3])}>
       {Array.from({ length: count }).map((_, i) => (
         <SkeletonCard key={i} />
-      })
+      ))}
     </div>
   );
 }

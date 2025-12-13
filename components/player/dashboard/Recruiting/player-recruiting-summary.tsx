@@ -24,7 +24,7 @@ export function PlayerRecruitingSummary({
         {loading && <p className="text-xs text-slate-500">Loading…</p>}
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {{tiles.length === 0 ? (
+        {tiles.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -36,7 +36,8 @@ export function PlayerRecruitingSummary({
             <p className="text-[11px] uppercase tracking-wide text-slate-400">{tile.label}</p>
             <p className="text-lg font-semibold">{tile.value}</p>
           </div>
-)}
+        ))
+        )}
       </div>
     </Card>
   );

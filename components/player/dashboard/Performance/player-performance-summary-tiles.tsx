@@ -39,7 +39,8 @@ export function PlayerPerformanceSummaryTiles({
             <p className="text-[11px] uppercase tracking-wide text-slate-400">{tile.label}</p>
             <p className="text-lg font-semibold">{tile.value}</p>
           </div>
-        ))}
+        ))
+        )}
       </div>
     </Card>
   );

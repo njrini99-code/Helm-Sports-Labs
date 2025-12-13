@@ -38,7 +38,8 @@ export function PlayerShowcaseProgramsList({
                 </Badge>
               </div>
             </div>
-          ))}
+          ))
+        )}
       </div>
     </Card>
   );
