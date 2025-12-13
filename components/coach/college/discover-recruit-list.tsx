@@ -35,7 +35,7 @@ export function DiscoverRecruitList({ recruits, onAddToWatchlist }: DiscoverRecr
 
   return (
     <div className="space-y-3">
-      {{visibleRecruits.length === 0 ? (
+      {visibleRecruits.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -118,7 +118,8 @@ export function DiscoverRecruitList({ recruits, onAddToWatchlist }: DiscoverRecr
             </div>
           </CardContent>
         </Card>
-)}
+        ))
+      }
       {visible < recruits.length && (
         <div className="flex justify-center pt-2">
           <Button variant="outline" onClick={() => setVisible((v) => v + 8)}>

@@ -277,7 +277,7 @@ export function PlayerScoutCard({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-44">
-            {{STATUS_OPTIONS.length === 0 ? (
+            {STATUS_OPTIONS.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -298,7 +298,8 @@ export function PlayerScoutCard({
                 }`}></span>
                 {opt.label}
               </DropdownMenuItem>
-)}
+            ))
+            }
             {player.pipelineStatus && (
               <>
                 <DropdownMenuSeparator />

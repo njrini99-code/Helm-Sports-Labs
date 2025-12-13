@@ -34,7 +34,7 @@ export function DiscoverTeamList({ teams }: DiscoverTeamListProps) {
 
   return (
     <div className="space-y-3">
-      {{teams.length === 0 ? (
+      {teams.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -96,7 +96,8 @@ export function DiscoverTeamList({ teams }: DiscoverTeamListProps) {
             </div>
           </CardContent>
         </Card>
-)}
+        ))
+      }
     </div>
   );
 }

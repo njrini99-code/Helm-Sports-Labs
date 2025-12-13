@@ -122,7 +122,7 @@ export function ProgramNeedsForm({ onSuccess }: ProgramNeedsFormProps) {
       <div>
         <Label className="text-base font-semibold mb-3 block">Grad Years Needed</Label>
         <div className="flex flex-wrap gap-2">
-          {{GRAD_YEARS.length === 0 ? (
+          {GRAD_YEARS.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -145,7 +145,8 @@ export function ProgramNeedsForm({ onSuccess }: ProgramNeedsFormProps) {
                 {year}
               </Label>
             </div>
-)}
+            ))
+          }
         </div>
       </div>
       <div>

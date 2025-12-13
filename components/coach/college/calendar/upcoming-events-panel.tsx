@@ -139,7 +139,8 @@ export function UpcomingEventsPanel({ events, onEventClick, onViewAll }: Upcomin
       <ChevronRight className="w-4 h-4 text-slate-300 flex-shrink-0" />
               </div>
             </button>
-          )})
+          ))
+        )}
       </div>
       {events.length > 0 && (
         <div className="px-4 py-3 bg-slate-50/50 border-t border-slate-100">

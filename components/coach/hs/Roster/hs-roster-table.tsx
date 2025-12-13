@@ -88,7 +88,8 @@ export function HsRosterTable({
                     </Badge>
                   </td>
                 </tr>
-              ))}
+              ))
+            )}
           </tbody>
         </table>
       </div>

@@ -83,7 +83,8 @@ export function HsConversationView({
                 <p className="text-xs text-slate-300">{new Date(m.createdAt).toLocaleString()}</p>
                 <p className="text-sm">{m.content}</p>
               </div>
-            ))}
+            ))
+          )}
           </div>
           <div className="mt-3 flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <Input

@@ -33,7 +33,8 @@ export function HsScheduleList({ events, loading }: { events: HsScheduleEvent[];
                 )}
               </div>
             </div>
-          ))}
+          ))
+        )}
       </div>
     </Card>
   );
