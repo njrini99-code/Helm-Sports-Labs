@@ -70,7 +70,7 @@ export function AIRecruitingAssistant() {
         ...player,
         score: calculateMatchScore(player, preferences),
         reasoning: generateReasoning(player, preferences)
-      })}
+        }))
       .sort((a, b) => b.score - a.score)
       .slice(0, 5)
       .map(p => ({
@@ -107,6 +107,7 @@ export function AIRecruitingAssistant() {
       }
       if (player?.graduation_year) {
         gradYears[player.graduation_year] = (gradYears[player.graduation_year] || 0) + 1;
+      }
       });
 
     return {
@@ -179,8 +180,8 @@ export function AIRecruitingAssistant() {
         <div className="flex items-center gap-2 mb-2">
           <Sparkles className="w-4 h-4 text-emerald-500" />
           <span className="text-sm font-medium">AI Assistant</span>
-        </motion.div>
-        <div className="text-sm text-muted-foreground">Analyzing your preferences...</motion.div>
+        </div>
+        <div className="text-sm text-muted-foreground">Analyzing your preferences...</div>
       </motion.div>
     );
   }
@@ -195,10 +196,10 @@ export function AIRecruitingAssistant() {
         <div className="flex items-center gap-2 mb-2">
           <Sparkles className="w-4 h-4 text-emerald-500" />
           <span className="text-sm font-medium">AI Assistant</span>
-        </motion.div>
+        </div>
         <div className="text-sm text-muted-foreground">
           Add players to your watchlist to get personalized recommendations.
-        </motion.div>
+        </div>
       </motion.div>
     );
   }
@@ -220,12 +221,12 @@ export function AIRecruitingAssistant() {
             <p className="text-xs text-muted-foreground">
               {recommendations.length} personalized recommendations
             </p>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
         <Button variant="ghost" size="icon" className="h-8 w-8">
           {isExpanded ? <X className="w-4 h-4" /> : <TrendingUp className="w-4 h-4" />}
         </Button>
-      </motion.div>
+      </div>
               {isExpanded && (
         <div className="px-4 pb-4 space-y-3">
           {recommendations.map((player) => (
@@ -241,7 +242,7 @@ export function AIRecruitingAssistant() {
                     <span className="text-xs text-muted-foreground">
                       {player.position} • {player.location} • {player.graduationYear}
                     </span>
-                  </motion.div>
+                  </div>
                   <p className="text-xs text-muted-foreground italic mb-2">
                     {player.reasoning}
                   </p>
@@ -249,8 +250,8 @@ export function AIRecruitingAssistant() {
                     <span className="text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 rounded">
                       {Math.round(player.matchScore)}% match
                     </span>
-                  </motion.div>
-                </motion.div>
+                  </div>
+                </div>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -262,7 +263,7 @@ export function AIRecruitingAssistant() {
                 >
                   <ThumbsDown className="w-3 h-3" />
                 </Button>
-              </motion.div>
+              </div>
               <div className="flex gap-2 mt-2">
                 <Button
                   size="sm"
@@ -295,10 +296,10 @@ export function AIRecruitingAssistant() {
                 >
                   Add to Watchlist
                 </Button>
-              </motion.div>
-            </motion.div>
-)}
-        </motion.div>
+              </div>
+            </div>
+          ))}
+        </div>
 )}
     </motion.div>
   );

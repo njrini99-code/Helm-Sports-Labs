@@ -201,7 +201,7 @@ export default function TestDBPage() {
                     </span>
 )}
                 </div>
-              )})
+              )))}
           </div>
           </CardContent>
         </Card>
@@ -215,7 +215,7 @@ export default function TestDBPage() {
               <ul className="space-y-1">
                 {results.errors.map((err, i) => (
                   <li key={i} className="text-sm text-red-300">• {err}</li>
-)}
+                ))}
               </ul>
             </CardContent>
           </Card>

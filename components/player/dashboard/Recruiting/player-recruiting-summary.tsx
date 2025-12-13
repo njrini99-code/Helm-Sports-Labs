@@ -9,7 +9,7 @@ export function PlayerRecruitingSummary({
 }: {
   summary: PlayerRecruitingSnapshot['summary'] | null | undefined;
   loading?: boolean;
-}}) {
+}) {
   const tiles = [
     { label: 'Schools', value: summary?.totalSchools ?? 0 },
     { label: 'Offers', value: summary?.offers ?? 0 },

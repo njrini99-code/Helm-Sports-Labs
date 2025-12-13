@@ -304,7 +304,7 @@ export default function HSCoachDashboard() {
   // Computed values
   const upcomingEvents = useMemo(() => 
     schedule
-      .filter(e => new Date(e.start_time) >= new Date()}
+      .filter(e => new Date(e.start_time) >= new Date())
       .slice(0, 5),
     [schedule]
   );
@@ -439,7 +439,7 @@ export default function HSCoachDashboard() {
                   <div className="h-2 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
                     <motion.div 
                       className="h-full rounded-full bg-gradient-to-r from-amber-500 to-orange-400 shadow-lg shadow-amber-500/30"
-                      initial={{ width: 0 }
+                      initial={{ width: 0 }}
                       animate={{ width: `${profileCompletion}%` }}
                       transition={{duration: 1.5, ease: 'easeOut', delay: 0.3 }}
                     />
@@ -603,9 +603,9 @@ export default function HSCoachDashboard() {
                         </div>
                         <ChevronRight className={`w-4 h-4 ${isDark ? 'text-slate-500' : 'text-slate-400'}`} />
                       </div>
-)}
+                    ))}
                   </div>
-)}
+                )}
               </CardContent>
             </Card>
       {/* Upcoming Schedule */}
@@ -681,9 +681,9 @@ export default function HSCoachDashboard() {
                           </Badge>
                         </div>
                       </div>
-)}
+                    ))}
                   </div>
-)}
+                )}
               </CardContent>
             </Card>
           </div>
@@ -712,7 +712,7 @@ export default function HSCoachDashboard() {
                   </div>
                 </div>
               </CardHeader>
-        <CardContent>
+              <CardContent>
                 <div className="space-y-3">
                   {collegeInterest && collegeInterest.length > 0 ? (
                     collegeInterest.map((interest) => (
@@ -768,16 +768,16 @@ export default function HSCoachDashboard() {
                           </div>
                         </div>
                       </div>
-)}
+                    ))
                   ) : (
                     <p className={`text-sm text-center py-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                       No college interest yet. Keep updating player profiles!
                     </p>
-)}
+                  )}
                 </div>
               </CardContent>
             </Card>
-      {/* Recent Activity */}
+            {/* Recent Activity */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-slate-800/60 border-slate-700/50' 

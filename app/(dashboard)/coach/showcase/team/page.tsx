@@ -128,7 +128,7 @@ export default function ShowcaseTeamPage() {
             media.map(m => ({
               ...m,
               team_id: team.id,
-            })}
+            }))
           );
 
   return (

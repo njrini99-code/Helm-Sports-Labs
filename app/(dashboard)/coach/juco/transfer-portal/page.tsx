@@ -437,7 +437,7 @@ export default function JUCOTransferPortalPage() {
                     >
                       {filter}
                     </Button>
-)}
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -603,7 +603,7 @@ export default function JUCOTransferPortalPage() {
                       {tab === 'applications' && <Send className="w-4 h-4 mr-2" />}
                       {tab}
                     </Button>
-)}
+                  ))}
                 </div>
       {/* Tab Content */}
                 {activeTab === 'requirements' && (
@@ -676,9 +676,9 @@ export default function JUCOTransferPortalPage() {
                                         <Calendar className="w-3 h-3 mr-1" />
                                         {new Date(req.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                                       </Badge>
-)}
+                                    )}
                                   </div>
-)}
+                                ))}
                               </div>
                             </div>
                           );
@@ -821,11 +821,11 @@ export default function JUCOTransferPortalPage() {
                               </div>
                             </div>
                           </div>
-)}
+                        ))}
                       </div>
                     </CardContent>
                   </Card>
-)}
+                )}
                 {activeTab === 'applications' && (
                   <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
                     <CardHeader className="pb-3">
@@ -971,12 +971,12 @@ export default function JUCOTransferPortalPage() {
                                 </div>
                               </div>
                             </div>
-)}
+                          ))}
                         </div>
-)}
+                      )}
                     </CardContent>
                   </Card>
-)}
+                )}
               </div>
             ) : (
               <Card className={`h-96 flex items-center justify-center ${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>

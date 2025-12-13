@@ -299,7 +299,7 @@ export function TeamScoutCard({
               <p className="text-white/40 text-sm">Check back later</p>
             </div>
           ) : (
-            gradYearBreakdown.map(({ year, count }}) => (
+            gradYearBreakdown.map(({ year, count }) => (
                   <Badge key={year} variant="outline" className="text-xs">
                     '{year.toString().slice(-2)}: {count}
                   </Badge>

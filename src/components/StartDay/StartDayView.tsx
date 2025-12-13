@@ -768,7 +768,7 @@ export function StartDayView() {
               <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-500 rounded-full"
-                  style={{ width: `${progressPercentage}}%` }}></div>
+                  style={{ width: `${progressPercentage}%` }}></div>
               </div>
             </div>
           </div>
@@ -939,7 +939,7 @@ export function StartDayView() {
                           <div className="h-2 flex-1 bg-gray-200 rounded-full overflow-hidden">
                             <div
                               className="h-full bg-green-500 rounded-full"
-                              style={{ width: `${currentAppointment.decision_maker_confidence}}%` }}></div>
+                              style={{ width: `${currentAppointment.decision_maker_confidence}%` }}></div>
                           </div>
                           <span className="text-xs text-gray-500">{currentAppointment.decision_maker_confidence}% confident</span>
                         </div>
@@ -1286,7 +1286,7 @@ export function StartDayView() {
                             </button>
                           </div>
                         );
-                      }})
+                      })
                   </div>
                 </div>
               );

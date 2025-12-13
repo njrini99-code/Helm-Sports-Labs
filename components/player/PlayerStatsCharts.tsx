@@ -151,7 +151,7 @@ export function PlayerStatsCharts({
       if (index < 2) return { ...point, rollingAvg: point.avg };
       const window = chartData.slice(index - 2, index + 1);
       const rollingAvg = window.reduce((sum, p) => sum + p.avg, 0) / 3;
-      return { ...point, rollingAvg: Number(rollingAvg.toFixed(3});
+      return { ...point, rollingAvg: Number(rollingAvg.toFixed(3)));
     });
   }, [chartData]);
 
@@ -191,7 +191,7 @@ export function PlayerStatsCharts({
       {/* Batting Average Trend Chart */}
       <GlassChartCard title="Batting Average Over Time" icon={<TrendingUp className="w-4 h-4" />}>
         <ResponsiveContainer width="100%" height={280}>
-          <AreaChart data={trendData} margin={ top: 10, right: 10, left: -20, bottom: 0 }>
+          <AreaChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
             <defs>
               <linearGradient id="avgGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
@@ -201,14 +201,14 @@ export function PlayerStatsCharts({
             <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
             <XAxis 
               dataKey="name" 
-              tick={ fontSize: 11, fill: '#64748b' }
+              tick={{ fontSize: 11, fill: '#64748b' }}
               tickLine={false}
-              axisLine={ stroke: '#e2e8f0' }
+              axisLine={{ stroke: '#e2e8f0' }}
             />
             <YAxis 
               domain={[0, 0.5]}
               tickFormatter={(v) => v.toFixed(3)}
-              tick={ fontSize: 11, fill: '#64748b' }
+              tick={{ fontSize: 11, fill: '#64748b' }}
               tickLine={false}
               axisLine={false}
               width={50}
@@ -241,16 +241,16 @@ export function PlayerStatsCharts({
       {/* Hits Per Game Bar Chart */}
       <GlassChartCard title="Hits Per Game" icon={<BarChart3 className="w-4 h-4" />}>
         <ResponsiveContainer width="100%" height={220}>
-          <BarChart data={chartData} margin={ top: 10, right: 10, left: -20, bottom: 0 }>
+          <BarChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
             <XAxis 
               dataKey="name" 
-              tick={ fontSize: 11, fill: '#64748b' }
+              tick={{ fontSize: 11, fill: '#64748b' }}
               tickLine={false}
-              axisLine={ stroke: '#e2e8f0' }
+              axisLine={{ stroke: '#e2e8f0' }}
             />
             <YAxis 
-              tick={ fontSize: 11, fill: '#64748b' }
+              tick={{ fontSize: 11, fill: '#64748b' }}
               tickLine={false}
               axisLine={false}
               width={30}
@@ -424,11 +424,11 @@ function PositionComparison({
               <PolarGrid stroke="#e2e8f0" />
               <PolarAngleAxis 
                 dataKey="subject" 
-                tick={ fontSize: 11, fill: '#64748b' } />
+                tick={{ fontSize: 11, fill: '#64748b' }} />
               <PolarRadiusAxis 
                 angle={30} 
                 domain={[0, 150]} 
-                tick={ fontSize: 9, fill: '#94a3b8' } />
+                tick={{ fontSize: 9, fill: '#94a3b8' } />
               <Radar
                 name="D1 Average"
                 dataKey="benchmark"
@@ -445,7 +445,7 @@ function PositionComparison({
                 fillOpacity={0.3}
               />
               <Legend 
-                wrapperStyle={ fontSize: 11 }
+                wrapperStyle={{ fontSize: 11 }}
               />
             </RadarChart>
           </ResponsiveContainer>
@@ -528,7 +528,7 @@ function StatComparisonBar({
               ? 'bg-gradient-to-r from-emerald-400 to-emerald-500' 
               : 'bg-gradient-to-r from-amber-400 to-amber-500'
           }`}
-          style={{ width: `${Math.min(percentage * 0.6666, 100)}}%` }}></div>
+          style={{ width: `${Math.min(percentage * 0.6666, 100)}%` }}></div>
       </div>
     </div>
   );

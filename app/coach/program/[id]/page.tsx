@@ -172,7 +172,7 @@ export default function ProgramPage() {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => router.back()}}
+              onClick={() => router.back()}
               className="mb-2"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -363,7 +363,7 @@ export default function ProgramPage() {
                           </div>
                         </div>
                       </div>
-                    )})
+                    ))}
                 </CardContent>
               </Card>
 )}

@@ -88,7 +88,7 @@ export function AnimatedButton({
         className
       )}
       style={{
-        transitionDuration: `${TRANSITION_DURATION}}ms`,
+        transitionDuration: `${TRANSITION_DURATION}ms`,
         transitionTimingFunction: EASING,
       }}
     >
@@ -98,7 +98,7 @@ export function AnimatedButton({
         </span>
 )}
       <span className={cn(loading && 'opacity-0')}>{children}</span>
-      {{ripples.length === 0 ? (
+      {ripples.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -113,7 +113,7 @@ export function AnimatedButton({
             top: ripple.y,
             transform: 'translate(-50%, -50%)',
           }}></span>
-)}
+        ))}
     </button>
   );
 }
@@ -167,7 +167,7 @@ export function AnimatedInput({
             className
           )}
           style={{
-            transitionDuration: `${TRANSITION_DURATION}}ms`,
+            transitionDuration: `${TRANSITION_DURATION}ms`,
             transitionTimingFunction: EASING,
           }}
         />
@@ -175,7 +175,7 @@ export function AnimatedInput({
           <div
             className="absolute inset-0 rounded-2xl border-2 border-emerald-500/50 pointer-events-none animate-input-focus"
             style={{
-              animationDuration: `${TRANSITION_DURATION}}ms`,
+              animationDuration: `${TRANSITION_DURATION}ms`,
             }}></div>
 )}
       </div>
@@ -217,7 +217,7 @@ export function AnimatedLink({
         className
       )}
       style={{
-        transitionDuration: `${TRANSITION_DURATION}}ms`,
+        transitionDuration: `${TRANSITION_DURATION}ms`,
         transitionTimingFunction: EASING,
       }}
     >
@@ -228,7 +228,7 @@ export function AnimatedLink({
           isHovered || active ? 'w-full' : 'w-0'
         )}
         style={{
-          transitionDuration: `${TRANSITION_DURATION}}ms`,
+          transitionDuration: `${TRANSITION_DURATION}ms`,
           transitionTimingFunction: EASING,
         }}></span>
     </a>
@@ -267,7 +267,7 @@ export function AnimatedCard({
         className
       )}
       style={{
-        transitionDuration: `${TRANSITION_DURATION}}ms`,
+        transitionDuration: `${TRANSITION_DURATION}ms`,
         transitionTimingFunction: EASING,
       }}
     >

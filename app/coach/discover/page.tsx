@@ -250,10 +250,10 @@ export default function CoachDiscoverPage() {
                 <p key={year} className="text-xs text-slate-400">
                   Class of {year}: {Math.floor(getStateCount(hoveredState) / 5)} (estimated)
                 </p>
-)}
+              ))}
             </div>
           </div>
-)}
+        )}
       </div>
     );
   };
@@ -357,9 +357,9 @@ export default function CoachDiscoverPage() {
                                 </div>
                               </div>
                             </div>
-)}
+                          ))}
                         </div>
-)}
+                      )}
                     </CardContent>
                   </Card>
       {/* Right: Teams */}
@@ -406,7 +406,7 @@ export default function CoachDiscoverPage() {
                             >
                               {pos}
                             </Badge>
-)}
+                          ))}
                         </div>
                       </div>
       {/* Grad Year Pills */}
@@ -418,11 +418,11 @@ export default function CoachDiscoverPage() {
                               key={year}
                               variant={filters.gradYear.includes(year.toString()) ? 'default' : 'outline'}
                               className="cursor-pointer hover:scale-110 active:scale-95 transition-transform duration-200"
-                              onClick={() => toggleFilter('gradYear', year.toString(})
+                              onClick={() => toggleFilter('gradYear', year.toString())}
                             >
                               {year}
                             </Badge>
-)}
+                          ))}
                         </div>
                       </div>
       {/* Measurables */}
@@ -432,7 +432,7 @@ export default function CoachDiscoverPage() {
                           <Input
                             placeholder="90"
                             value={filters.exitVeloMin}
-                            onChange={(e) => setFilters(prev => ({ ...prev, exitVeloMin: e.target.value }})
+                            onChange={(e) => setFilters(prev => ({ ...prev, exitVeloMin: e.target.value }))}
                             className="bg-[#161a1f] border-white/5"
                           />
                         </div>
@@ -441,7 +441,7 @@ export default function CoachDiscoverPage() {
                           <Input
                             placeholder="85"
                             value={filters.pitchVeloMin}
-                            onChange={(e) => setFilters(prev => ({ ...prev, pitchVeloMin: e.target.value }})
+                            onChange={(e) => setFilters(prev => ({ ...prev, pitchVeloMin: e.target.value }))}
                             className="bg-[#161a1f] border-white/5"
                           />
                         </div>
@@ -450,7 +450,7 @@ export default function CoachDiscoverPage() {
                           <Input
                             placeholder="6.8"
                             value={filters.sixtyTimeMax}
-                            onChange={(e) => setFilters(prev => ({ ...prev, sixtyTimeMax: e.target.value }})
+                            onChange={(e) => setFilters(prev => ({ ...prev, sixtyTimeMax: e.target.value }))}
                             className="bg-[#161a1f] border-white/5"
                           />
                         </div>
@@ -461,7 +461,7 @@ export default function CoachDiscoverPage() {
                           <input
                             type="checkbox"
                             checked={filters.videoRequired}
-                            onChange={(e) => setFilters(prev => ({ ...prev, videoRequired: e.target.checked }})
+                            onChange={(e) => setFilters(prev => ({ ...prev, videoRequired: e.target.checked }))}
                             className="rounded"
                           />
                           <span className="text-sm text-slate-300">Video Required</span>
@@ -470,7 +470,7 @@ export default function CoachDiscoverPage() {
                           <input
                             type="checkbox"
                             checked={filters.verifiedOnly}
-                            onChange={(e) => setFilters(prev => ({ ...prev, verifiedOnly: e.target.checked }})
+                            onChange={(e) => setFilters(prev => ({ ...prev, verifiedOnly: e.target.checked }))}
                             className="rounded"
                           />
                           <span className="text-sm text-slate-300">Verified Only</span>
@@ -550,9 +550,9 @@ export default function CoachDiscoverPage() {
                       </div>
                     </CardContent>
                   </Card>
-)}
+                ))}
               </div>
-)}
+            )}
           </TabsContent>
       {/* AI Matches Tab */}
           <TabsContent value="ai" className="space-y-6">
@@ -590,7 +590,7 @@ export default function CoachDiscoverPage() {
                             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                             {reason}
                           </div>
-)}
+                        ))}
                       </div>
                       <div className="flex items-center gap-2 pt-4 border-t border-white/5">
                         <Button variant="outline" size="sm" className="flex-1" onClick={() => handleAddToWatchlist(match.player.id)}>
@@ -605,9 +605,9 @@ export default function CoachDiscoverPage() {
                       </div>
                     </CardContent>
                   </Card>
-)}
+                ))}
               </div>
-)}
+            )}
           </TabsContent>
         </Tabs>
       </div>

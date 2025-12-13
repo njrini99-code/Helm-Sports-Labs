@@ -150,7 +150,7 @@ export function RippleButton({ children, onClick, className, ...props }: RippleB
         <motion.span
           key={ripple.id}
           className="absolute rounded-full bg-white/30"
-          initial={{ width: 0, height: 0, x: ripple.x, y: ripple.y }
+          initial={{ width: 0, height: 0, x: ripple.x, y: ripple.y }}
           animate={{ width: 200, height: 200, x: ripple.x - 100, y: ripple.y - 100, opacity: 0 }}
           transition={{duration: 0.6 }}
         />

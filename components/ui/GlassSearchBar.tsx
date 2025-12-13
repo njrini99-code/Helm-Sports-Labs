@@ -531,7 +531,7 @@ function SuggestionItem({
         enableAnimations && 'result-item-animated'
       )}
       style={{
-        animationDelay: enableAnimations ? `${index * 50}}ms` : '0ms',
+        animationDelay: enableAnimations ? `${index * 50}ms` : '0ms',
         transitionTimingFunction: SPRING_EASING,
       }}
     >
@@ -619,7 +619,7 @@ function HistoryItem({
         enableAnimations && 'result-item-animated'
       )}
       style={{
-        animationDelay: enableAnimations ? `${index * 50}}ms` : '0ms',
+        animationDelay: enableAnimations ? `${index * 50}ms` : '0ms',
         transitionTimingFunction: SPRING_EASING,
       }}
       onMouseEnter={() => setShowRemove(true)}
@@ -671,7 +671,7 @@ function LoadingSkeleton({ count = 3 }: { count?: number }) {
         <div
           key={i}
           className="flex items-center gap-3 px-3 py-2 rounded-xl shimmer-loading"
-          style={{ animationDelay: `${i * 100}}ms` }}
+          style={{ animationDelay: `${i * 100}ms` }}
         >
           <div className="w-8 h-8 rounded-2xl bg-white/10"></div>
           <div className="flex-1 space-y-1.5">

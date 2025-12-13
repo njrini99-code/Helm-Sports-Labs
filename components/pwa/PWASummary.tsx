@@ -34,7 +34,7 @@ export function PWASummary() {
       },
       isPWA: window.matchMedia('(display-mode: standalone)').matches,
       isOnline: navigator.onLine,
-    }});
+    });
   }, []);
 
   return (
@@ -83,14 +83,14 @@ export function PWASummary() {
           <div className="flex gap-2">
             <TouchOptimizedButton
               variant="primary"
-              onClick={() => pushNotifications.subscribe()}}
+              onClick={() => pushNotifications.subscribe()}
               disabled={pushNotifications.isLoading || pushNotifications.isSubscribed}
             >
               Subscribe
             </TouchOptimizedButton>
             <TouchOptimizedButton
               variant="secondary"
-              onClick={() => pushNotifications.unsubscribe()}}
+              onClick={() => pushNotifications.unsubscribe()}
               disabled={pushNotifications.isLoading || !pushNotifications.isSubscribed}
             >
               Unsubscribe
@@ -143,7 +143,7 @@ export function PWASummary() {
       <div className="p-4 bg-white/5 rounded-xl border border-white/10">
         <h2 className="text-xl font-semibold text-white mb-4">Supported Device Sizes</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-sm">
-          {{DEVICE_SIZES.length === 0 ? (
+          {DEVICE_SIZES.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -151,14 +151,15 @@ export function PWASummary() {
             </div>
           ) : (
             DEVICE_SIZES.map((device) => (
-            <div key={device.name} className="p-2 bg-white/5 rounded">
-              <div className="font-medium text-white">{device.name}</div>
-              <div className="text-gray-400">
-                {device.width}x{device.height}px
+              <div key={device.name} className="p-2 bg-white/5 rounded">
+                <div className="font-medium text-white">{device.name}</div>
+                <div className="text-gray-400">
+                  {device.width}x{device.height}px
+                </div>
+                <div className="text-gray-500 text-xs capitalize">{device.type}</div>
               </div>
-              <div className="text-gray-500 text-xs capitalize">{device.type}</div>
-            </div>
-)}
+            ))
+          )}
         </div>
       </div>
     </div>

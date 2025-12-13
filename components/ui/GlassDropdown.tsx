@@ -44,7 +44,7 @@ export function GlassDropdown({
 }: GlassDropdownProps) {
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState({ top: 0, left: 0 }});
+  const [position, setPosition] = useState({ top: 0, left: 0 });
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -54,7 +54,7 @@ export function GlassDropdown({
       setPosition({
         top: rect.bottom + 8,
         left: align === 'right' ? rect.right : rect.left,
-      }});
+      });
     }
   }, [align]);
 
@@ -239,7 +239,7 @@ export function GlassSelectDropdown({
   className,
 }: GlassSelectDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState({ top: 0, left: 0, width: 0 }});
+  const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -252,7 +252,7 @@ export function GlassSelectDropdown({
         top: rect.bottom + 4,
         left: rect.left,
         width: rect.width,
-      }});
+      });
     }
   }, []);
 

@@ -144,7 +144,7 @@ export default function HsCoachOverviewPage() {
   // Computed values
   const upcomingEvents = useMemo(() => 
     schedule
-      .filter(e => new Date(e.start_time) >= new Date()}
+      .filter(e => new Date(e.start_time) >= new Date())
       .slice(0, 5),
     [schedule]
   );
@@ -203,7 +203,7 @@ export default function HsCoachOverviewPage() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background: `
-              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}}18, ${programColor}08 40%, transparent 70%),
+              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}18, ${programColor}08 40%, transparent 70%),
               radial-gradient(ellipse 60% 40% at 75% 60%, ${programColor}10, transparent 50%)
             `,
           }}></div>
@@ -281,7 +281,7 @@ export default function HsCoachOverviewPage() {
                     <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
                       <div 
                         className="h-full rounded-full transition-all duration-1000 ease-out"
-                        style={{ width: `${profileCompletion}}%`, background: programColor }}></div>
+                        style={{ width: `${profileCompletion}%`, background: programColor }}></div>
                     </div>
                   </div>
                   {profileCompletion < 100 && (
@@ -400,7 +400,7 @@ export default function HsCoachOverviewPage() {
                   </div>
                 ) : (
                   Object.entries(playersByGradYear)
-                    .sort(([a], [b]) => Number(a) - Number(b)}
+                    .sort(([a], [b]) => Number(a) - Number(b))
                     .map(([year, members]) => (
                       <div key={year} className="px-5 py-4">
                         <div className="flex items-center justify-between mb-3">
@@ -430,7 +430,7 @@ export default function HsCoachOverviewPage() {
                               </div>
                               <ChevronRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                             </div>
-)}
+                          ))}
                         </div>
                         {members.length > 6 && (
                           <Link href={`/coach/high-school/team?gradYear=${year}`}>
@@ -439,9 +439,9 @@ export default function HsCoachOverviewPage() {
                               <ChevronRight className="w-3 h-3 ml-1" />
                             </Button>
                           </Link>
-)}
+                        )}
                       </div>
-                    )})
+                    ))}
               </div>
             </Card>
       {/* Upcoming Games */}
@@ -603,7 +603,7 @@ function MetricCard({ icon, value, label, accentColor }: MetricCardProps) {
       {/* Accent glow on hover */}
       <div 
         className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity rounded-2xl"
-        style={{ background: `radial-gradient(circle at 30% 30%, ${accentColor}}, transparent 70%)` }}></div>
+        style={{ background: `radial-gradient(circle at 30% 30%, ${accentColor}, transparent 70%)` }}></div>
 <div className="relative flex items-start justify-between mb-4">
         <div 
           className="p-2.5 rounded-xl bg-white/60 dark:bg-white/10 shadow-sm backdrop-blur-sm flex items-center justify-center transition-transform group-hover:scale-105"

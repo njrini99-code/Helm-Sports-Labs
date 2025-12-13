@@ -355,7 +355,7 @@ Provide a helpful, actionable response.`;
                       <div className="w-full bg-gray-200 rounded-full h-3">
                         <div
                           className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-300"
-                          style={{ width: `${csvProgress}}%` }}></div>
+                          style={{ width: `${csvProgress}%` }}></div>
                       </div>
                     </div>
                     <p className="text-sm text-gray-600">

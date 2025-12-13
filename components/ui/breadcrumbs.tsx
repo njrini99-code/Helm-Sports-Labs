@@ -38,9 +38,9 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
             >
               {item.label}
             </Link>
-)}
+          ))}
         </div>
-)}
+      )}
     </nav>
   );
 }

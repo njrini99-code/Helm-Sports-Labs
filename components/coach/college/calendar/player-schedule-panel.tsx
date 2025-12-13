@@ -165,11 +165,11 @@ export function PlayerSchedulePanel({ coachId, onEventClick, onViewProfile }: Pl
                       </p>
                     </div>
                   </button>
-)}
+                ))}
               </div>
-)}
+            )}
           </div>
-)}
+        )}
         {/* Player Events */}
         {selectedPlayer && (
           <div>
@@ -201,9 +201,9 @@ export function PlayerSchedulePanel({ coachId, onEventClick, onViewProfile }: Pl
                     </div>
                     <p className="text-sm font-medium text-slate-700">{event.title}</p>
                   </button>
-)}
+                ))}
               </div>
-)}
+            )}
             {/* View Profile Link */}
             <Button
               variant="ghost"

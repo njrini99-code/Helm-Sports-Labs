@@ -431,14 +431,14 @@ export default function CollegeCoachProgramPage() {
       <section 
         className="relative overflow-hidden"
         style={{
-          background: `linear-gradient(160deg, ${editForm.secondary_color || '#0A3B2E'}} 0%, ${darkenColor(editForm.secondary_color || '#0A3B2E', 20)} 40%, ${darkenColor(editForm.secondary_color || '#0A3B2E', 40)} 100%)`,
+          background: `linear-gradient(160deg, ${editForm.secondary_color || '#0A3B2E'} 0%, ${darkenColor(editForm.secondary_color || '#0A3B2E', 20)} 40%, ${darkenColor(editForm.secondary_color || '#0A3B2E', 40)} 100%)`,
         }}
       >
         {/* Subtle radial glow using program color */}
         <div 
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: `radial-gradient(ellipse 80% 60% at 20% 30%, ${programColor}}20, transparent 60%)`,
+            background: `radial-gradient(ellipse 80% 60% at 20% 30%, ${programColor}20, transparent 60%)`,
           }}></div>
 {/* Subtle grid pattern */}
         <div 
@@ -593,12 +593,12 @@ export default function CollegeCoachProgramPage() {
                     : `${isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100'}`
                   }
                 `}
-                style={{activeTab === tab.id ? { backgroundColor: theme.accent }} : undefined}
+                style={activeTab === tab.id ? { backgroundColor: theme.accent } : undefined}
               >
                 {tab.icon}
                 {tab.label}
               </button>
-)}
+            ))}
           </div>
         </div>
       </div>
@@ -1065,10 +1065,10 @@ function FacilitiesSection({ coach, editForm, setEditForm, editingSection, setEd
               <p className={`text-sm mt-1 ${theme.textMuted}`}>{facility.description}</p>
               {facility.stats && (
                 <p className="text-xs mt-2" style={{color: theme.accent }}>{facility.stats}</p>
-)}
+              )}
             </CardContent>
           </Card>
-)}
+        ))}
       </div>
       {/* Video Section */}
       <Card className={theme.cardBg}>
@@ -1188,13 +1188,13 @@ function CampsSection({ camps, isPreviewMode, theme, isDark }: SectionProps) {
                         </Button>
                       </Link>
                     </div>
-)}
+                  )}
                 </div>
               </CardContent>
             </Card>
-)}
+          ))}
         </div>
-)}
+      )}
     </div>
   );
 }
@@ -1257,7 +1257,7 @@ function CommitmentsSection({ isPreviewMode, theme, isDark }: SectionProps) {
               </div>
             </CardContent>
           </Card>
-)}
+        ))}
       </div>
     </div>
   );
@@ -1306,7 +1306,7 @@ function ValuesSection({ coach, editForm, setEditForm, editingSection, setEditin
                 </div>
               </CardContent>
             </Card>
-)}
+          ))}
         </div>
       </div>
       {/* Program Culture */}
@@ -1381,7 +1381,7 @@ function ValuesSection({ coach, editForm, setEditForm, editingSection, setEditin
                 </div>
               </CardContent>
             </Card>
-)}
+          ))}
         </div>
       </div>
     </div>
@@ -1447,7 +1447,7 @@ function StaffSection({ isPreviewMode, theme, isDark, programColor }: {
                   {/* Avatar */}
                   <div 
                     className="rounded-full p-0.5"
-                    style={{ background: `linear-gradient(135deg, ${programColor}}40, ${programColor}10)` }}
+                    style={{ background: `linear-gradient(135deg, ${programColor}40, ${programColor}10)` }}
                   >
                     <Avatar className="w-14 h-14">
                       <AvatarImage src={member.avatarUrl} />
@@ -1476,14 +1476,14 @@ function StaffSection({ isPreviewMode, theme, isDark, programColor }: {
                         >
                           <Edit className="w-4 h-4 text-slate-400" />
                         </button>
-)}
+                      )}
                     </div>
-      {/* Bio */}
+                    {/* Bio */}
                     {member.shortBio && (
                       <p className={`text-sm mt-2 line-clamp-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                         {member.shortBio}
                       </p>
-)}
+                    )}
                     {/* Recruiting Regions */}
                     {member.recruitingRegions && member.recruitingRegions.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-3">
@@ -1495,9 +1495,9 @@ function StaffSection({ isPreviewMode, theme, isDark, programColor }: {
                           >
                             {region}
                           </Badge>
-)}
+                        ))}
                       </div>
-)}
+                    )}
                     {/* Contact Row */}
                     <div className="flex items-center gap-2 mt-3">
                       {member.email && (
@@ -1550,15 +1550,15 @@ function StaffSection({ isPreviewMode, theme, isDark, programColor }: {
                         >
                           <Globe className="w-4 h-4" style={{color: programColor }} />
                         </a>
-)}
+                      )}
                     </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
-)}
+          ))}
         </div>
-)}
+      )}
     </div>
   );
 }

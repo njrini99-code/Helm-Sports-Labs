@@ -26,12 +26,12 @@ export function FloatingElements() {
           style={{left: element.x,
             top: element.y,
           }}
-          animate={
+          animate={{
             y: [0, -30, 0],
             x: [0, 15, 0],
             scale: [1, 1.2, 1],
             opacity: [0.2, 0.4, 0.2],
-          }
+          }}
           transition={{duration: element.duration,
             delay: element.delay,
             repeat: Infinity,

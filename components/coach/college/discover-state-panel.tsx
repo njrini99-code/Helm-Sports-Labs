@@ -139,7 +139,7 @@ export function DiscoverStatePanel({
               {getCount()} {getLabel()}
             </Badge>
 )}
-        </motion.div>
+        </div>
       </CardHeader>
       <CardContent className="flex-1 pt-4 overflow-hidden flex flex-col">
         <Tabs 
@@ -164,7 +164,7 @@ export function DiscoverStatePanel({
       {loading ? (
             <div className="flex-1 flex items-center justify-center">
               <div className="h-6 w-6 bg-primary/20 rounded animate-pulse"></div>
-            </motion.div>
+            </div>
           ) : !selectedState ? (
             <div className="flex-1 flex items-center justify-center text-center px-4">
               <div>
@@ -172,8 +172,8 @@ export function DiscoverStatePanel({
                 <p className="text-sm text-muted-foreground">
                   Click on a state in the map to see recruits, teams, and JUCO programs.
                 </p>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           ) : (
             <>
               {/* Players Tab */}
@@ -194,7 +194,7 @@ export function DiscoverStatePanel({
                       verified: p.verified,
                       trending: p.trending,
                       topSchool: p.topSchool,
-                    }})
+                    }))}
                     size="sm"
                     onAddToWatchlist={onAddToWatchlist}
                     onView={(id) => router.push(`/coach/college/player/${id}`)}
@@ -209,18 +209,18 @@ export function DiscoverStatePanel({
                     <div className="text-center py-8">
                       <Building className="w-10 h-10 text-muted-foreground/50 mx-auto mb-2" />
                       <p className="text-sm text-muted-foreground">No teams found in {stateName}</p>
-                    </motion.div>
+                    </div>
                   ) : (
                     <div className="space-y-3">
                       {teams.map((team) => (
-                        <TeamCard 
-                          key={team.id} 
+                        <TeamCard
+                          key={team.id}
                           team={team}
                           onView={() => router.push(`/coach/college/teams/${team.id}`)}
                         />
-                      })
-                    </motion.div>
-)}
+                      ))}
+                    </div>
+                  )}
                 </ScrollArea>
               </TabsContent>
       {/* JUCO Tab */}
@@ -230,18 +230,18 @@ export function DiscoverStatePanel({
                     <div className="text-center py-8">
                       <GraduationCap className="w-10 h-10 text-muted-foreground/50 mx-auto mb-2" />
                       <p className="text-sm text-muted-foreground">No JUCO programs found in {stateName}</p>
-                    </motion.div>
+                    </div>
                   ) : (
                     <div className="space-y-3">
                       {jucos.map((juco) => (
-                        <JucoCard 
-                          key={juco.id} 
+                        <JucoCard
+                          key={juco.id}
                           juco={juco}
                           onView={() => router.push(`/coach/college/teams/${juco.id}`)}
                         />
-                      })
-                    </motion.div>
-)}
+                      ))}
+                    </div>
+                  )}
                 </ScrollArea>
               </TabsContent>
             </>
@@ -309,7 +309,7 @@ function TeamCard({
         >
           View <ArrowRight className="w-3 h-3 ml-1" />
         </Button>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }
@@ -367,7 +367,7 @@ function JucoCard({
         >
           View <ArrowRight className="w-3 h-3 ml-1" />
         </Button>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }

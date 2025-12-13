@@ -414,7 +414,7 @@ export default function PlayerMessagesPage() {
                     .filter(conv => 
                       !searchQuery || 
                       conv.program_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                      conv.coach_name?.toLowerCase().includes(searchQuery.toLowerCase()}
+                      conv.coach_name?.toLowerCase().includes(searchQuery.toLowerCase())
                     )
                     .map((conv) => (
                       <button
@@ -464,9 +464,9 @@ export default function PlayerMessagesPage() {
                           </div>
                         </div>
                       </button>
-)}
+                    ))}
                 </div>
-)}
+              )}
             </div>
           </div>
       {/* Chat View (Right) */}

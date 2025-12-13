@@ -486,7 +486,7 @@ export function PhoneBlockList() {
 )}
                       </div>
                     );
-                  }})
+                  })
                 </div>
               </div>
 <div>

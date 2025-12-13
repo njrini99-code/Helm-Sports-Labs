@@ -155,7 +155,7 @@ export default function HighSchoolTeamPage() {
             media.map(m => ({
               ...m,
               team_id: team.id,
-            })}
+            }))
           );
 
   return (

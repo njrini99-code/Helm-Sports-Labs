@@ -53,7 +53,7 @@ export function HsConversationList({
             </div>
             <p className="text-xs text-slate-400 truncate">{c.lastMessageSnippet || 'No messages yet'}</p>
           </button>
-)}
+        ))}
         {!loading && convos.length === 0 && <p className="text-sm text-slate-400">No conversations yet.</p>}
       </div>
       <HsNewConversationModal

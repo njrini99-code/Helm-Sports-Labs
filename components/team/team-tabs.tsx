@@ -19,7 +19,7 @@ export function TeamTabs({ activeTab, onTabChange }: TeamTabsProps) {
   return (
     <Tabs value={activeTab} onValueChange={onTabChange} className="w-full">
       <TabsList className="bg-[#111315] border border-white/5 w-full justify-start">
-        {{TABS.length === 0 ? (
+        {TABS.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -34,7 +34,7 @@ export function TeamTabs({ activeTab, onTabChange }: TeamTabsProps) {
           >
             {tab.label}
           </TabsTrigger>
-)}
+        ))}
       </TabsList>
     </Tabs>
   );

@@ -50,7 +50,7 @@ export function PageTransition({
         className
       )}
       style={{
-        transitionDuration: `${TRANSITION_DURATION}}ms`,
+        transitionDuration: `${TRANSITION_DURATION}ms`,
         transitionTimingFunction: EASING,
       }}
     >

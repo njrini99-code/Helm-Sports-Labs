@@ -158,9 +158,9 @@ export function LoadingDots({ size = 'md', color = 'primary', className }: Loadi
           key={i}
           className={cn('rounded-full', sizeClasses[size], colorClasses[color])}
           style={{
-            animation: `page-bounce 1.4s ease-in-out ${i * 0.16}}s infinite both`,
+            animation: `page-bounce 1.4s ease-in-out ${i * 0.16}s infinite both`,
           }}></div>
-)}
+        ))}
     </div>
   );
 }
@@ -187,7 +187,7 @@ export function SkeletonText({ lines = 3, className }: { lines?: number; classNa
           key={i}
           className={cn('h-4', i === lines - 1 ? 'w-2/3' : 'w-full')}
         />
-      })
+      ))}
     </div>
   );
 }
@@ -214,16 +214,16 @@ export function SkeletonTable({ rows = 5, cols = 4, className }: { rows?: number
       <div className="flex gap-4 p-3 bg-white/5 rounded-2xl">
         {Array.from({ length: cols }).map((_, i) => (
           <Skeleton key={i} className="h-4 flex-1" />
-        })
+        ))}
       </div>
       {/* Rows */}
       {Array.from({ length: rows }).map((_, rowIndex) => (
         <div key={rowIndex} className="flex gap-4 p-3">
           {Array.from({ length: cols }).map((_, colIndex) => (
             <Skeleton key={colIndex} className="h-4 flex-1" />
-          })
+          ))}
         </div>
-)}
+      ))}
     </div>
   );
 }
@@ -304,7 +304,7 @@ export function PageLoading({
               <Skeleton className="h-4 w-20 mb-2" />
               <Skeleton className="h-8 w-16" />
             </div>
-)}
+          ))}
         </div>
       {/* Content skeleton */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -357,7 +357,7 @@ export function DashboardLoading() {
           <div
             key={i}
             className="p-5 rounded-xl bg-white/5 border border-white/5 space-y-3"
-            style={{ animationDelay: `${i * 100}}ms` }}
+            style={{ animationDelay: `${i * 100}ms` }}
           >
             <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <Skeleton className="h-4 w-24" />
@@ -414,7 +414,7 @@ export function ListLoading({ count = 5 }: { count?: number }) {
         <div
           key={i}
           className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:-translate-y-1 hover:shadow-xl transition-all duration-200"
-          style={{ animationDelay: `${i * 50}}ms` }}
+          style={{ animationDelay: `${i * 50}ms` }}
         >
           <Skeleton className="w-12 h-12 rounded-full shrink-0" />
           <div className="flex-1 min-w-0 space-y-2">

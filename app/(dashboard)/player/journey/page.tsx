@@ -481,7 +481,7 @@ export default function PlayerJourneyPage() {
               {tab === 'decisions' && <Flag className="w-4 h-4 mr-2" />}
               {tab}
             </Button>
-)}
+          ))}
         </div>
       {/* Tab Content */}
         {activeTab === 'timeline' && (
@@ -630,13 +630,13 @@ export default function PlayerJourneyPage() {
                            event.status === 'scheduled' ? 'Scheduled' : 'Upcoming'}
                         </Badge>
                       </div>
-)}
+                    ))}
                   </div>
-)}
+                )}
               </div>
             </CardContent>
           </Card>
-)}
+        )}
         {activeTab === 'interactions' && (
           <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
             <CardHeader className="pb-3">
@@ -657,7 +657,7 @@ export default function PlayerJourneyPage() {
                     <option value="">All Colleges</option>
                     {colleges.map(college => (
                       <option key={college} value={college}>{college}</option>
-)}
+                    ))}
                   </select>
                   <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600">
                     <Plus className="w-4 h-4 mr-1" />
@@ -743,7 +743,7 @@ export default function PlayerJourneyPage() {
                         </div>
                       </div>
                     );
-                  }})
+                  }))}
               </div>
             </CardContent>
           </Card>
@@ -897,9 +897,9 @@ export default function PlayerJourneyPage() {
                     </CardContent>
                   </Card>
                 );
-              }})
+              }))}
           </div>
-)}
+            )}
         {activeTab === 'decisions' && (
           <div className="space-y-6">
             {/* Decision Matrix */}
@@ -924,7 +924,7 @@ export default function PlayerJourneyPage() {
                           <th key={offer.id} className={`text-center py-3 px-4 text-xs font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>
                             {offer.college?.name || offer.title}
                           </th>
-)}
+                        ))}
                       </tr>
                     </thead>
                     <tbody>
@@ -971,7 +971,7 @@ export default function PlayerJourneyPage() {
                             );
                           })}
                         </tr>
-)}
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -1018,7 +1018,7 @@ export default function PlayerJourneyPage() {
                         {item.label}
                       </span>
                     </div>
-)}
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -1057,7 +1057,7 @@ export default function PlayerJourneyPage() {
                                 const deadline = metadata.deadline ? new Date(metadata.deadline) : null;
                                 return deadline ? Math.ceil((deadline.getTime() - Date.now()) / (1000 * 60 * 60 * 24)) : Infinity;
                               })
-                              .filter(d => d !== Infinity}) days.</>
+                              .filter(d => d !== Infinity))} days.</>
                           )}
                         </>
                       ) : (

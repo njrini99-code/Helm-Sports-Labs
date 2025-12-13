@@ -164,7 +164,7 @@ export default function CoachCampsPage() {
                   <Input
                     placeholder="Summer Prospect Camp"
                     value={formData.name}
-                    onChange={(e) => setFormData(f => ({ ...f, name: e.target.value }})
+                    onChange={(e) => setFormData(f => ({ ...f, name: e.target.value }))}
                     required
                   />
                 </div>
@@ -172,7 +172,7 @@ export default function CoachCampsPage() {
                   <Label>Event Type</Label>
                   <Select
                     value={formData.event_type}
-                    onValueChange={(v) => setFormData(f => ({ ...f, event_type: v }})
+                    onValueChange={(v) => setFormData(f => ({ ...f, event_type: v }))}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -192,7 +192,7 @@ export default function CoachCampsPage() {
                     <Input
                       type="date"
                       value={formData.event_date}
-                      onChange={(e) => setFormData(f => ({ ...f, event_date: e.target.value }})
+                      onChange={(e) => setFormData(f => ({ ...f, event_date: e.target.value }))}
                       required
                     />
                   </div>
@@ -201,7 +201,7 @@ export default function CoachCampsPage() {
                     <Input
                       type="time"
                       value={formData.start_time}
-                      onChange={(e) => setFormData(f => ({ ...f, start_time: e.target.value }})
+                      onChange={(e) => setFormData(f => ({ ...f, start_time: e.target.value }))}
                     />
                   </div>
                   <div className="space-y-2">
@@ -209,7 +209,7 @@ export default function CoachCampsPage() {
                     <Input
                       type="time"
                       value={formData.end_time}
-                      onChange={(e) => setFormData(f => ({ ...f, end_time: e.target.value }})
+                      onChange={(e) => setFormData(f => ({ ...f, end_time: e.target.value }))}
                     />
                   </div>
                 </div>
@@ -218,7 +218,7 @@ export default function CoachCampsPage() {
                   <Input
                     placeholder="Stadium name and address"
                     value={formData.location}
-                    onChange={(e) => setFormData(f => ({ ...f, location: e.target.value }})
+                    onChange={(e) => setFormData(f => ({ ...f, location: e.target.value }))}
                   />
                 </div>
       <div className="space-y-2">
@@ -226,7 +226,7 @@ export default function CoachCampsPage() {
                   <Textarea
                     placeholder="Describe the event..."
                     value={formData.description}
-                    onChange={(e) => setFormData(f => ({ ...f, description: e.target.value }})
+                    onChange={(e) => setFormData(f => ({ ...f, description: e.target.value }))}
                     rows={3}
                   />
                 </div>
@@ -235,7 +235,7 @@ export default function CoachCampsPage() {
                   <Input
                     placeholder="https://..."
                     value={formData.registration_link}
-                    onChange={(e) => setFormData(f => ({ ...f, registration_link: e.target.value }})
+                    onChange={(e) => setFormData(f => ({ ...f, registration_link: e.target.value }))}
                   />
                 </div>
       <div className="flex gap-3 pt-4">
@@ -299,13 +299,13 @@ export default function CoachCampsPage() {
                           <MapPin className="w-4 h-4" />
                           {event.location}
                         </div>
-)}
+                      )}
                     </div>
                   </CardContent>
                 </Card>
-)}
+              ))}
             </div>
-)}
+          )}
         </div>
       {/* Past Events */}
         {pastEvents.length > 0 && (
@@ -325,7 +325,7 @@ export default function CoachCampsPage() {
                     </div>
                   </CardContent>
                 </Card>
-)}
+              ))}
             </div>
           </div>
 )}

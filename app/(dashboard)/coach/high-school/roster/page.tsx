@@ -266,7 +266,7 @@ function PlayerModal({ isOpen, onClose, player, onSave, loading }: PlayerModalPr
         <SelectContent>
                     {POSITIONS.map((pos) => (
                       <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-                    )}
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -283,7 +283,7 @@ function PlayerModal({ isOpen, onClose, player, onSave, loading }: PlayerModalPr
                     <SelectItem value="none">None</SelectItem>
                     {POSITIONS.map((pos) => (
                       <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-)}
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -309,7 +309,7 @@ function PlayerModal({ isOpen, onClose, player, onSave, loading }: PlayerModalPr
         <SelectContent>
                     {GRAD_YEARS.map((year) => (
                       <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
-)}
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -488,9 +488,9 @@ function CollegeInterestModal({ isOpen, onClose, player }: CollegeInterestModalP
                     </Badge>
                   </div>
                 </div>
-)}
+              ))}
             </div>
-)}
+          )}
           <Button variant="outline" className="w-full gap-2">
             <Plus className="w-4 h-4" />
             Add College Interest
@@ -742,7 +742,7 @@ export default function HSCoachRosterPage() {
 
     const csvContent = [
       headers.join(','),
-      ...rows.map(row => row.map(cell => `"${cell}"`).join(',')}
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
     ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
@@ -768,7 +768,7 @@ export default function HSCoachRosterPage() {
 
     const csvContent = [
       headers.join(','),
-      ...rows.map(row => row.map(cell => `"${cell}"`).join(',')}
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
     ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
@@ -889,22 +889,22 @@ export default function HSCoachRosterPage() {
                   <SelectItem value="all">All Positions</SelectItem>
                   {positions.map((pos) => (
                     <SelectItem key={pos} value={pos || ''}>{pos}</SelectItem>
-)}
+                  ))}
                 </SelectContent>
               </Select>
               <Select value={gradYearFilter} onValueChange={setGradYearFilter}>
                 <SelectTrigger className={`w-full md:w-[160px] ${isDark ? 'bg-slate-700 border-slate-600' : ''}`}>
                   <SelectValue placeholder="Grad Year" />
                 </SelectTrigger>
-        <SelectContent>
+                <SelectContent>
                   <SelectItem value="all">All Years</SelectItem>
                   {gradYears.map((year) => (
                     <SelectItem key={year} value={year?.toString() || ''}>{year}</SelectItem>
-)}
+                  ))}
                 </SelectContent>
               </Select>
             </div>
-      {/* Bulk Actions */}
+            {/* Bulk Actions */}
             {selectedIds.size > 0 && (
               <div className={`flex items-center gap-3 mt-4 p-3 rounded-lg ${isDark ? 'bg-slate-700' : 'bg-slate-100'}`}>
                 <span className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>
@@ -919,7 +919,7 @@ export default function HSCoachRosterPage() {
                   <Trash2 className="w-4 h-4 mr-2" />
                   Remove
                 </Button>
-        <Button variant="ghost" size="sm" onClick={() => setSelectedIds(new Set(})>
+        <Button variant="ghost" size="sm" onClick={() => setSelectedIds(new Set())}>
                   <X className="w-4 h-4" />
                 </Button>
               </div>
@@ -1074,7 +1074,7 @@ export default function HSCoachRosterPage() {
                               <Plus className="w-4 h-4" />
                               Add
                             </Button>
-)}
+                          )}
                         </td>
                         <td className="py-3 px-4">
                           <div className="flex items-center justify-end gap-1">
@@ -1085,7 +1085,7 @@ export default function HSCoachRosterPage() {
                             >
                               <Eye className="w-4 h-4" />
                             </Button>
-        <DropdownMenu>
+                            <DropdownMenu>
                               <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" size="sm">
                                   <MoreVertical className="w-4 h-4" />
@@ -1096,15 +1096,15 @@ export default function HSCoachRosterPage() {
                                   <Eye className="w-4 h-4 mr-2" />
                                   View Profile
                                 </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleEditPlayer(member)}>
+                                <DropdownMenuItem onClick={() => handleEditPlayer(member)}>
                                   <Edit className="w-4 h-4 mr-2" />
                                   Edit Player
                                 </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleViewCollegeInterest(member)}>
+                                <DropdownMenuItem onClick={() => handleViewCollegeInterest(member)}>
                                   <Building2 className="w-4 h-4 mr-2" />
                                   College Interest
                                 </DropdownMenuItem>
-        <DropdownMenuSeparator />
+                                <DropdownMenuSeparator />
                                 <DropdownMenuItem 
                                   onClick={() => handleDeletePlayer(member)}
                                   className="text-red-500 focus:text-red-500"
@@ -1117,18 +1117,18 @@ export default function HSCoachRosterPage() {
                           </div>
                         </td>
                       </tr>
-                    )})
+                    )))}
                 </tbody>
               </table>
             </div>
-      {/* Pagination placeholder */}
+            {/* Pagination placeholder */}
             {filteredRoster.length > 0 && (
               <div className={`flex items-center justify-between mt-4 pt-4 border-t ${isDark ? 'border-slate-700' : 'border-slate-200'}`}>
                 <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                   Showing {filteredRoster.length} of {roster.length} players
                 </p>
               </div>
-)}
+            )}
           </CardContent>
         </Card>
       </div>

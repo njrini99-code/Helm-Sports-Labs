@@ -77,7 +77,7 @@ export function MessageTemplateSystem({
         .from('message_templates')
         .select('*')
         .eq('user_id', user.id)
-        .order('created_at', { ascending: false }});
+        .order('created_at', { ascending: false });
 
       if (data) {
         setCustomTemplates({data.length === 0 ? (
@@ -93,7 +93,7 @@ export function MessageTemplateSystem({
           category: t.category || 'Custom',
           content: t.content,
           variables: extractVariables(t.content)
-        }})));
+        }))));
       }
     } catch (error) {
       console.error('Error loading templates:', error);
@@ -112,7 +112,7 @@ export function MessageTemplateSystem({
     variables.forEach(variable => {
       const value = data[variable] || `{${variable}}`;
       result = result.replace(new RegExp(`\\{\\{${variable}\\}\\}`, 'g'), value);
-    }});
+    });
     
     return result;
   };
@@ -124,7 +124,7 @@ export function MessageTemplateSystem({
     const matchesSearch = template.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          template.content.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
-  }});
+  });
 
   const handleTemplateSelect = (template: MessageTemplate) => {
     setSelectedTemplate(template);

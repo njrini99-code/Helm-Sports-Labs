@@ -7,7 +7,7 @@ import { Sparkles, Target } from 'lucide-react';
 import type { Coach } from '@/lib/types';
 
 interface RecommendedProgramsProps {
-  programs: (Coach & { matchScore?: number; reason?: string }})[];
+  programs: (Coach & { matchScore?: number; reason?: string })[];
   onFollow?: (programId: string) => void;
 }
 

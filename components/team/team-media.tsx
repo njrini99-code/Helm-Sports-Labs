@@ -186,12 +186,12 @@ export function TeamMedia({ teamId, media, mode, onUpdate }: TeamMediaProps) {
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
-)}
+                      )}
                     </div>
-)}
+                  ))}
                 </div>
               </div>
-)}
+            ))}
             {/* Videos */}
             {videos.length > 0 && (
               <div>

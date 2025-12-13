@@ -94,11 +94,11 @@ export function TeamRoster({ teamId, members, mode, onUpdate }: TeamRosterProps)
   });
 
   const positions = Array.from(
-    new Set(members.map(m => m.player.primary_position).filter(Boolean)}
+    new Set(members.map(m => m.player.primary_position).filter(Boolean))
   ).sort();
 
   const gradYears = Array.from(
-    new Set(members.map(m => m.player.grad_year).filter(Boolean)}
+    new Set(members.map(m => m.player.grad_year).filter(Boolean))
   ).sort();
 
   return (
@@ -136,7 +136,7 @@ export function TeamRoster({ teamId, members, mode, onUpdate }: TeamRosterProps)
                 <SelectItem key={pos} value={pos || ''}>
                   {pos}
                 </SelectItem>
-)}
+              ))}
             </SelectContent>
           </Select>
           <Select value={gradYearFilter} onValueChange={setGradYearFilter}>
@@ -149,7 +149,7 @@ export function TeamRoster({ teamId, members, mode, onUpdate }: TeamRosterProps)
                 <SelectItem key={year} value={year?.toString() || ''}>
                   {year}
                 </SelectItem>
-)}
+              ))}
             </SelectContent>
           </Select>
         </div>

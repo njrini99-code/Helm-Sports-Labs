@@ -257,7 +257,7 @@ export function VirtualizedTable<T extends Record<string, any>>({
           </div>
 )}
       </div>
-      <div style={{ height: Math.min(maxHeight, sortedData.length * rowHeight}})>
+      <div style={{ height: Math.min(maxHeight, sortedData.length * rowHeight) }}>
         <List
           height={Math.min(maxHeight, sortedData.length * rowHeight)}
           itemCount={sortedData.length}

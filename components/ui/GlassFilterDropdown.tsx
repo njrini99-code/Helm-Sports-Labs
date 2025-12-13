@@ -458,7 +458,7 @@ function OptionItem({
         enableAnimations && 'option-item-animated'
       )}
       style={{ 
-        animationDelay: enableAnimations ? `${index * 30}}ms` : '0ms',
+        animationDelay: enableAnimations ? `${index * 30}ms` : '0ms',
         transitionTimingFunction: SPRING_EASING 
       }}
     >
@@ -505,7 +505,7 @@ function LoadingSkeleton({ count = 5 }: { count?: number }) {
         <div
           key={i}
           className="flex items-center gap-3 px-3 py-2 rounded-xl filter-shimmer"
-          style={{ animationDelay: `${i * 100}}ms` }}
+          style={{ animationDelay: `${i * 100}ms` }}
         >
           <div className="w-4 h-4 rounded bg-white/10"></div>
           <div className="flex-1 space-y-1">
@@ -595,7 +595,7 @@ export function GlassFilterDropdown({
               opt.label.toLowerCase().includes(query) ||
               opt.description?.toLowerCase().includes(query)
           ),
-        })}
+        }))
         .filter((group) => group.options.length > 0);
     }
 
@@ -1364,7 +1364,7 @@ export function SingleSelectFilter({
                   enableAnimations && 'option-item-animated'
                 )}
                 style={{ 
-                  animationDelay: enableAnimations ? `${index * 30}}ms` : '0ms',
+                  animationDelay: enableAnimations ? `${index * 30}ms` : '0ms',
                   transitionTimingFunction: SPRING_EASING 
                 }}
               >

@@ -214,9 +214,9 @@ export default function NotificationsPage() {
                   </div>
                 </div>
               </GlassCard>
-))})}
+            ))}
           </div>
-)}
+        )}
       </div>
     </div>
   );

@@ -38,7 +38,7 @@ export function SmartNotificationDigest() {
         .select('*')
         .eq('user_id', user.id)
         .eq('read', false)
-        .order('created_at', { ascending: false }})
+        .order('created_at', { ascending: false })
         .limit(50);
 
       if (!notifications) return;
@@ -64,7 +64,7 @@ export function SmartNotificationDigest() {
           items: [],
           icon: getNotificationIcon(type),
           label: getNotificationLabel(type)
-        }});
+        });
       }
 
       const group = groupsMap.get(type)!;
@@ -73,7 +73,7 @@ export function SmartNotificationDigest() {
       if (new Date(notif.created_at) > group.latest) {
         group.latest = new Date(notif.created_at);
       }
-    }});
+    });
 
     return Array.from(groupsMap.values()).sort((a, b) => 
       b.latest.getTime() - a.latest.getTime()

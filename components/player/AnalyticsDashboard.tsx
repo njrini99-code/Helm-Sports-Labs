@@ -207,7 +207,7 @@ export function AnalyticsDashboard({ playerId, timeRange = 30 }: AnalyticsDashbo
             name: new Date(day.view_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
             value: day.view_count,
             coaches: day.unique_coaches,
-          }})
+          }))
           dataKey="value"
           title="Profile Views Over Time"
           showArea={true}
@@ -224,7 +224,7 @@ export function AnalyticsDashboard({ playerId, timeRange = 30 }: AnalyticsDashbo
             data={topCoaches.map(coach => ({
               name: coach.program_name || 'Unknown',
               value: coach.view_count,
-            }})
+            }))
             title="Views by Program"
           />
 
@@ -335,7 +335,7 @@ function ViewTrendChart({ trend }: { trend: ViewTrend[] }) {
                 <div className="flex-1 h-8 bg-slate-100 rounded-2xl overflow-hidden relative">
                   <div
                     className="h-full bg-gradient-to-r from-[#00C27A] to-emerald-400 rounded-2xl transition-all duration-500"
-                    style={{ width: `${percentage}}%` }}></div>
+                    style={{ width: `${percentage}%` }}></div>
                   <div className="absolute inset-0 flex items-center px-3 text-xs font-medium text-slate-700">
                     {day.view_count} {day.view_count === 1 ? 'view' : 'views'}
                   </div>

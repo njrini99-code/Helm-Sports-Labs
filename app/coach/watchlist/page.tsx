@@ -410,7 +410,7 @@ export default function CoachWatchlistPage() {
                                 <SelectItem key={s.id} value={s.id} className="text-xs">
                                   {s.label}
                                 </SelectItem>
-)}
+                              ))}
                             </SelectContent>
                           </Select>
       {/* Actions */}
@@ -443,7 +443,7 @@ export default function CoachWatchlistPage() {
                           </div>
                         </CardContent>
                       </Card>
-                    )})
+                    ))}
                 </div>
               </div>
             );

@@ -346,7 +346,7 @@ export function DashboardProvider({
       setLayout,
       refresh,
       subscribe,
-    }}),
+    }),
     [isRefreshing, lastUpdated, connectionStatus, layout, refresh, subscribe]
   );
 
@@ -479,19 +479,20 @@ export function MetricCard({
           <div className="mx-4 p-4 rounded-xl bg-slate-800/95 backdrop-blur-xl border border-white/10 shadow-2xl tooltip-animated">
             <p className="text-xs text-white/50 uppercase tracking-wider mb-3">Details</p>
             <div className="space-y-2">
-              {metric.{details.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">📭</div>
-              <p className="text-white/60 mb-4">No items yet</p>
-              <p className="text-white/40 text-sm">Check back later</p>
-            </div>
-          ) : (
-            details.map((detail, idx) => (
-                <div key={idx} className="flex items-center justify-between">
-                  <span className="text-sm text-white/70">{detail.label}</span>
-                  <span className="text-sm font-medium text-white">{detail.value}</span>
+              {metric.details.length === 0 ? (
+                <div className="text-center py-12">
+                  <div className="text-6xl mb-4">📭</div>
+                  <p className="text-white/60 mb-4">No items yet</p>
+                  <p className="text-white/40 text-sm">Check back later</p>
                 </div>
-)}
+              ) : (
+                metric.details.map((detail, idx) => (
+                  <div key={idx} className="flex items-center justify-between">
+                    <span className="text-sm text-white/70">{detail.label}</span>
+                    <span className="text-sm font-medium text-white">{detail.value}</span>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>
@@ -564,7 +565,7 @@ export function InteractiveChart({
     visible: boolean;
     data: ChartDataPoint | null;
     position: { x: number; y: number };
-  }>({ visible: false, data: null, position: { x: 0, y: 0 } }});
+  }>({ visible: false, data: null, position: { x: 0, y: 0 } });
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const maxValue = Math.max(...data.map((d) => d.y));
@@ -590,13 +591,13 @@ export function InteractiveChart({
         visible: true,
         data: point,
         position: { x: e.clientX, y: e.clientY },
-      }});
+      });
       setActiveIndex(index);
     }
   };
 
   const handleMouseLeave = () => {
-    setTooltip({ visible: false, data: null, position: { x: 0, y: 0 } }});
+    setTooltip({ visible: false, data: null, position: { x: 0, y: 0 } });
     setActiveIndex(null);
   };
 
@@ -606,7 +607,7 @@ export function InteractiveChart({
       const x = getX(i);
       const y = getY(point.y);
       return `${i === 0 ? 'M' : 'L'} ${x} ${y}`;
-    }})
+    })
     .join(' ');
 
   const areaPath = `${linePath} L ${getX(data.length - 1)} ${height - padding} L ${getX(0)} ${height - padding} Z`;
@@ -625,15 +626,16 @@ export function InteractiveChart({
                 x2={chartWidth}
                 y2={padding + chartHeight * ratio}
                 stroke="currentColor"
-                strokeDasharray="2 2"></li>
-)}
+                strokeDasharray="2 2"
+              />
+            ))}
           </g>
 )}
         {/* Area fill */}
         {type === 'area' && (
           <path
             d={areaPath}
-            fill={`url(#gradient-${color.replace('#', '')}})`}
+            fill={`url(#gradient-${color.replace('#', '')})`}
             opacity={0.3} />
         )}
         {/* Line */}
@@ -685,7 +687,7 @@ export function InteractiveChart({
             onMouseLeave={handleMouseLeave}
             onClick={() => onPointClick?.(point)}
           />
-        })
+        ))}
 
         {/* Gradient definition */}
         <defs>
@@ -702,7 +704,7 @@ export function InteractiveChart({
             <span key={i} className="text-xs text-white/40">
               {point.label || point.x}
             </span>
-)}
+          ))}
         </div>
 )}
       {/* Tooltip */}
@@ -745,7 +747,7 @@ export function RefreshButton({ onRefresh, showLastUpdated = true, className }: 
     
     if (diff < 60000) return 'Just now';
     if (diff < 3600000) return `${Math.floor(diff / 60000)}m ago`;
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }});
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
   return (
@@ -775,7 +777,7 @@ export function RefreshButton({ onRefresh, showLastUpdated = true, className }: 
 // REALTIME CONNECTION STATUS
 // ═══════════════════════════════════════════════════════════════════════════
 
-export function ConnectionStatus({ className }: { className?: string }}) {
+export function ConnectionStatus({ className }: { className?: string }) {
   const { connectionStatus, isConnected } = useDashboard();
 
   const statusConfig = {
@@ -889,7 +891,7 @@ export function WidgetCustomizer({ widgets, onToggleWidget, className }: WidgetC
                       <EyeOff className="w-4 h-4 text-white/40" />
                     )}
                   </button>
-)}
+                ))}
               </div>
             </div>
           </div>
@@ -1037,7 +1039,7 @@ export function MetricGrid({ metrics, columns = 4, className }: MetricGridProps)
       <div className={cn('space-y-3', className)}>
         {metrics.map((metric) => (
           <MetricCard key={metric.id} metric={metric} />
-        })
+        ))}
       </div>
     );
   }
@@ -1046,7 +1048,7 @@ export function MetricGrid({ metrics, columns = 4, className }: MetricGridProps)
     <div className={cn('grid gap-4', gridClasses[columns], className)}>
       {metrics.map((metric) => (
         <MetricCard key={metric.id} metric={metric} />
-      })
+      ))}
     </div>
   );
 }
@@ -1062,7 +1064,7 @@ export function useRealtimeData<T>(event: string, initialData: T): T {
   useEffect(() => {
     const unsubscribe = subscribe(event, (newData) => {
       setData(newData as T);
-    }});
+    });
 
     return unsubscribe;
   }, [event, subscribe]);

@@ -47,7 +47,7 @@ export function MagneticButton({
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      animate={ x: position.x, y: position.y }
+      animate={{ x: position.x, y: position.y }}
       transition={{type: 'spring', stiffness: 300, damping: 20 }}
       className={`${baseClasses} ${className} cursor-pointer inline-block`}
     >

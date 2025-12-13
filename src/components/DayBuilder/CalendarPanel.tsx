@@ -347,7 +347,7 @@ export function CalendarPanel({
                                   ? 'bg-gradient-to-r from-green-500 to-green-600'
                                   : 'bg-gradient-to-r from-blue-500 to-blue-600'
                               }`}
-                              style={{ height: `${height}}px`, zIndex: 10 }}
+                              style={{ height: `${height}px`, zIndex: 10 }}
                             >
                               <div className="flex items-start gap-2 h-full">
                                 <GripVertical className="w-4 h-4 flex-shrink-0 mt-0.5 opacity-60" />

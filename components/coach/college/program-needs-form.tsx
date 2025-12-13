@@ -34,7 +34,7 @@ export function ProgramNeedsForm({ onSuccess }: ProgramNeedsFormProps) {
     min_pitch_velo: null,
     min_exit_velo: null,
     max_sixty_time: null,
-  }});
+  });
 
   useEffect(() => {
     loadNeeds();
@@ -138,7 +138,7 @@ export function ProgramNeedsForm({ onSuccess }: ProgramNeedsFormProps) {
                   setNeeds({
                     ...needs,
                     grad_years_needed: toggleArrayItem(needs.grad_years_needed || [], year),
-                  }});
+                  });
                 }}
               />
               <Label htmlFor={`grad-${year}`} className="text-sm font-normal cursor-pointer">
@@ -160,7 +160,7 @@ export function ProgramNeedsForm({ onSuccess }: ProgramNeedsFormProps) {
                   setNeeds({
                     ...needs,
                     positions_needed: toggleArrayItem(needs.positions_needed || [], position),
-                  }});
+                  });
                 }}
               />
               <Label htmlFor={`pos-${position}`} className="text-sm font-normal cursor-pointer">
@@ -218,7 +218,7 @@ export function ProgramNeedsForm({ onSuccess }: ProgramNeedsFormProps) {
                   setNeeds({
                     ...needs,
                     preferred_states: toggleArrayItem(needs.preferred_states || [], state),
-                  }});
+                  });
                 }}
               />
               <Label htmlFor={`state-${state}`} className="text-sm font-normal cursor-pointer">

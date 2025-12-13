@@ -492,7 +492,7 @@ export function VideoUpload({
           onDragLeave={handleDragLeave}
           onDragOver={handleDragOver}
           onDrop={handleDrop}
-          onClick={() => fileInputRef.current?.click()}}
+          onClick={() => fileInputRef.current?.click()}
           className={cn(
             'relative border-2 border-dashed rounded-2xl p-8 transition-all cursor-pointer',
             'flex flex-col items-center justify-center gap-4 min-h-[240px]',
@@ -673,7 +673,7 @@ export function VideoUpload({
                 id="title"
                 placeholder="e.g., Summer Showcase Pitching Highlights"
                 value={metadata.title}
-                onChange={(e) => setMetadata(prev => ({ ...prev, title: e.target.value }})
+                onChange={(e) => setMetadata(prev => ({ ...prev, title: e.target.value }))}
               />
             </div>
       {/* Video Type */}
@@ -682,7 +682,7 @@ export function VideoUpload({
               <Select
                 value={metadata.videoType}
                 onValueChange={(value: VideoType) => 
-                  setMetadata(prev => ({ ...prev, videoType: value }})
+                  setMetadata(prev => ({ ...prev, videoType: value }))}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select type" />
@@ -692,7 +692,7 @@ export function VideoUpload({
                     <SelectItem key={option.value} value={option.value}>
                       {option.label}
                     </SelectItem>
-)}
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -703,7 +703,7 @@ export function VideoUpload({
                 id="recordedDate"
                 type="date"
                 value={metadata.recordedDate}
-                onChange={(e) => setMetadata(prev => ({ ...prev, recordedDate: e.target.value }})
+                onChange={(e) => setMetadata(prev => ({ ...prev, recordedDate: e.target.value }))}
               />
             </div>
       {/* Description */}
@@ -714,7 +714,7 @@ export function VideoUpload({
                 placeholder="Add details about this video..."
                 rows={3}
                 value={metadata.description}
-                onChange={(e) => setMetadata(prev => ({ ...prev, description: e.target.value }})
+                onChange={(e) => setMetadata(prev => ({ ...prev, description: e.target.value }))}
               />
             </div>
       {/* File Info */}
@@ -809,7 +809,7 @@ export function VideoGallery({ videos, onDelete, onPlay, isEditable = false }: V
               </div>
 )}
           </div>
-      {/* Info */}
+          {/* Info */}
           <div className="p-3">
             <h4 className="font-medium text-slate-800 truncate">{video.metadata.title}</h4>
             <div className="flex items-center justify-between mt-1">
@@ -828,11 +828,11 @@ export function VideoGallery({ videos, onDelete, onPlay, isEditable = false }: V
                 >
                   <Trash2 className="w-4 h-4" />
                 </Button>
-)}
+              )}
             </div>
           </div>
         </div>
-)}
+      ))}
     </div>
   );
 }

@@ -273,9 +273,9 @@ export default function CoachCalendarPage() {
                           </Link>
                         </div>
                       </div>
-)}
+                    ))}
                   </div>
-)}
+                )}
               </CardContent>
             </Card>
       {/* Quick Actions */}

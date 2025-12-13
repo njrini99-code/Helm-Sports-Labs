@@ -1,3 +1,5 @@
+'use client';
+
 import { createClient } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -6,40 +8,62 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Heart, MapPin, Building2, GraduationCap, Users, Trophy, ExternalLink, Mail, Phone } from 'lucide-react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
-export default async function CollegeDetailPage({ 
+export default function CollegeDetailPage({ 
   params 
 }: { 
   params: Promise<{ id: string }> 
 }) {
-  const { id } = await params;
-  const supabase = await createClient();
+  const [college, setCollege] = useState<any>(null);
+  const [commitCount, setCommitCount] = useState<number | null>(null);
+  const [id, setId] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadData() {
+      const resolvedParams = await params;
+      setId(resolvedParams.id);
+      const supabase = await createClient();
   
-  // Fetch college data
-  const { data: college, error } = await supabase
-    .from('colleges')
-    .select('*')
-    .eq('id', id)
-    .single();
+      // Fetch college data
+      const { data: collegeData, error } = await supabase
+        .from('colleges')
+        .select('*')
+        .eq('id', resolvedParams.id)
+        .single();
 
-  if (error || !college) {
-    notFound();
+      if (error || !collegeData) {
+        notFound();
+        return;
+      }
+
+      setCollege(collegeData);
+
+      // Get commit count separately
+      const { count } = await supabase
+        .from('college_interest')
+        .select('*', { count: 'exact', head: true })
+        .eq('college_id', resolvedParams.id)
+        .eq('interest_level', 'committed');
+      
+      setCommitCount(count);
+    }
+    loadData();
+  }, [params]);
+
+  if (!college || !id) {
+    return <div>Loading...</div>;
   }
-
-  // Get commit count separately
-  const { count: commitCount } = await supabase
-    .from('college_interest')
-    .select('*', { count: 'exact', head: true })
-    .eq('college_id', id)
-    .eq('interest_level', 'committed');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50/20">
       <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{duration: 0.3 }}
-  className="container mx-auto px-4 md:px-6 py-8">
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{duration: 0.3 }}
+        className="container mx-auto px-4 md:px-6 py-8"
+      >
         {/* Header */}
         <div className="glassmorphism rounded-xl p-8 mb-6">
           <div className="flex items-start gap-6 flex-col md:flex-row">
@@ -71,16 +95,16 @@ export default async function CollegeDetailPage({
                     <MapPin className="w-4 h-4" />
                     {college.city}, {college.state}
                   </span>
-)}
-              </motion.div>
+                )}
+              </div>
               {college.stadium_name && (
                 <div className="mt-3 text-sm text-muted-foreground">
                   <Building2 className="w-4 h-4 inline mr-1" />
                   {college.stadium_name}
-                </motion.div>
-)}
-            </motion.div>
-      <div className="flex flex-col gap-2">
+                </div>
+              )}
+            </div>
+            <div className="flex flex-col gap-2">
               <Button size="lg" className="bg-emerald-500 hover:bg-emerald-600">
                 <Heart className="mr-2 h-4 w-4" />
                 Express Interest
@@ -92,10 +116,10 @@ export default async function CollegeDetailPage({
                     Visit Website
                   </a>
                 </Button>
-)}
-            </motion.div>
-          </motion.div>
-        </motion.div>
+              )}
+            </div>
+          </div>
+        </div>
       {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <Card>
@@ -126,7 +150,7 @@ export default async function CollegeDetailPage({
               <p className="text-xs text-muted-foreground">Location</p>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
       {/* Additional sections can be added here */}
         <div className="grid md:grid-cols-2 gap-6">
           <Card>
@@ -159,9 +183,9 @@ export default async function CollegeDetailPage({
               </Button>
             </CardContent>
           </Card>
-        </motion.div>
-      </motion.div>
+        </div>
     </motion.div>
+    </div>
   );
 }
 

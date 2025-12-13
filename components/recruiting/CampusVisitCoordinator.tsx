@@ -113,7 +113,7 @@ export function CampusVisitCoordinator({
   };
 
   if (loading) {
-    return <div className="p-4">Loading visits...</motion.div>;
+    return <div className="p-4">Loading visits...</div>;
   }
 
   return (
@@ -122,7 +122,7 @@ export function CampusVisitCoordinator({
         <div>
           <h3 className="text-lg font-semibold">Campus Visits</h3>
           <p className="text-sm text-muted-foreground">Manage your campus visit schedule</p>
-        </motion.div>
+        </div>
         {playerId && (
           <Button
             size="sm"
@@ -132,7 +132,7 @@ export function CampusVisitCoordinator({
             Request Visit
           </Button>
 )}
-      </motion.div>
+      </div>
               {showRequestForm && (
         <motion.div
   initial={{ opacity: 0, y: 20 }}
@@ -148,7 +148,7 @@ export function CampusVisitCoordinator({
                 value={requestDate}
                 onChange={(e) => setRequestDate(e.target.value)}
               />
-            </motion.div>
+            </div>
             <div>
               <label className="text-sm font-medium mb-1 block">Notes</label>
               <Textarea
@@ -156,11 +156,11 @@ export function CampusVisitCoordinator({
                 onChange={(e) => setRequestNotes(e.target.value)}
                 placeholder="Any specific requests or questions..."
               />
-            </motion.div>
+            </div>
             <Button onClick={requestVisit} className="w-full">
               Submit Request
             </Button>
-          </motion.div>
+          </div>
         </motion.div>
 )}
       <div className="space-y-3">
@@ -185,7 +185,7 @@ export function CampusVisitCoordinator({
                     (Confirmed: {format(visit.confirmedDate, 'MMM d')})
                   </span>
 )}
-              </motion.div>
+              </div>
               <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 {visit.status === 'confirmed' && (
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
@@ -201,13 +201,13 @@ export function CampusVisitCoordinator({
                 )}>
                   {visit.status.toUpperCase()}
                 </span>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
               {visit.location && (
               <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <MapPin className="w-3 h-3" />
                 <span>{visit.location}</span>
-              </motion.div>
+              </div>
 )}
             {visit.itinerary && (
               <div className="mb-2">
@@ -215,7 +215,7 @@ export function CampusVisitCoordinator({
                 <p className="text-sm text-muted-foreground whitespace-pre-line">
                   {visit.itinerary}
                 </p>
-              </motion.div>
+              </div>
 )}
             {visit.travelInfo && (
               <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
@@ -223,15 +223,15 @@ export function CampusVisitCoordinator({
                   <div className="flex items-center gap-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                     <Plane className="w-3 h-3" />
                     <span>Flight: {visit.travelInfo.flight}</span>
-                  </motion.div>
+                  </div>
 )}
                 {visit.travelInfo.hotel && (
                   <div className="flex items-center gap-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                     <Hotel className="w-3 h-3" />
                     <span>Hotel: {visit.travelInfo.hotel}</span>
-                  </motion.div>
+                  </div>
 )}
-              </motion.div>
+              </div>
 )}
             {visit.status === 'pending' && coachId && (
               <div className="flex gap-2 mt-3">
@@ -254,18 +254,18 @@ export function CampusVisitCoordinator({
                 >
                   Cancel
                 </Button>
-              </motion.div>
+              </div>
 )}
-          </motion.div>
-)}
-      </motion.div>
+          </div>
+        ))}
+      </div>
               {visits.length === 0 && (
         <div className="p-8 text-center text-muted-foreground">
           <Calendar className="w-12 h-12 mx-auto mb-2 opacity-50" />
           <p className="text-sm">No campus visits scheduled.</p>
           <p className="text-xs mt-1">Request a visit to get started.</p>
-        </motion.div>
+        </div>
 )}
-    </motion.div>
+    </div>
   );
 }

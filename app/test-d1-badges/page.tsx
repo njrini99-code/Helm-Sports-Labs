@@ -73,7 +73,7 @@ export default function TestD1BadgesPage() {
                 </div>
                 <p className="text-lg font-bold text-slate-900 ml-3">{metric.value}</p>
               </div>
-            )})
+            )))}
         </CardContent>
         </Card>
       {/* Metrics Display (Dark Theme - Public Profile Style) */}
@@ -97,7 +97,7 @@ export default function TestD1BadgesPage() {
                 </div>
                 <span className="text-white font-semibold text-lg">{metric.value}</span>
               </div>
-)}
+            ))}
           </CardContent>
         </Card>
       {/* Acceptance Criteria */}

@@ -187,12 +187,12 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
                       >
                         View Profile
                       </Button>
-)}
+                    )}
                   </div>
-)}
+                ))}
               </div>
             </div>
-)}
+          )}
         </CardContent>
       </Card>
       {/* Verified Stats */}
@@ -267,9 +267,9 @@ export function TeamReports({ teamId, commitments, verifiedStats, mode }: TeamRe
                           <div className="text-white font-semibold">{stat.value}</div>
                           {stat.event_name && (
                             <div className="text-xs text-slate-500 mt-1">{stat.event_name}</div>
-)}
+                          )}
                         </div>
-)}
+                      ))}
                     </div>
                   </div>
                 );

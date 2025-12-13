@@ -347,7 +347,7 @@ function Arrow({ placement, variant, style }: ArrowProps) {
     return 'bg-slate-900';
   };
 
-  return <div className={cn(getArrowClasses(), getBgClass(}) style={{style}}></div>;
+  return <div className={cn(getArrowClasses(), getBgClass())} style={{style}}></div>;
 }
 
 // ============================================
@@ -547,7 +547,7 @@ export function GlassTooltip({
         left: position?.left ?? -9999,
         maxWidth,
         opacity: isVisible ? 1 : 0,
-        animation: isVisible ? `${getAnimation()}} 150ms ease-out` : undefined,
+        animation: isVisible ? `${getAnimation()} 150ms ease-out` : undefined,
       }}
     >
       {content}
@@ -556,8 +556,8 @@ export function GlassTooltip({
           placement={position.actualPlacement}
           variant={variant}
           style={{
-            ...(position.arrowLeft !== undefined && { left: position.arrowLeft }}),
-            ...(position.arrowTop !== undefined && { top: position.arrowTop }}),
+            ...(position.arrowLeft !== undefined && { left: position.arrowLeft }),
+            ...(position.arrowTop !== undefined && { top: position.arrowTop }),
           }} />
       )}
     </div>

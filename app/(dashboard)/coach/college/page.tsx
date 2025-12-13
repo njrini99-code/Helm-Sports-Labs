@@ -539,7 +539,7 @@ export default function CollegeCoachDashboard() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background: `
-              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}}18, ${programColor}08 40%, transparent 70%),
+              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}18, ${programColor}08 40%, transparent 70%),
               radial-gradient(ellipse 60% 40% at 75% 60%, ${programColor}10, transparent 50%)
             `,
           }}></div>
@@ -565,7 +565,7 @@ export default function CollegeCoachDashboard() {
         <div 
           className="absolute -bottom-32 -left-20 w-64 h-64 rounded-full blur-[80px] opacity-[0.08] pointer-events-none"
           style={{background: programColor }}></div>
-<div id="main-dashboard-content" className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
+        <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             {/* Floating Logo Badge with Glow */}
             <div className="relative group">
@@ -609,7 +609,7 @@ export default function CollegeCoachDashboard() {
                     <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
                       <div 
                         className="h-full rounded-full transition-all duration-1000 ease-out"
-                        style={{ width: `${profileCompletion}}%`, background: programColor }}></div>
+                        style={{ width: `${profileCompletion}%`, background: programColor }}></div>
                     </div>
                   </div>
                   <Link href="/coach/college/program">
@@ -642,8 +642,10 @@ export default function CollegeCoachDashboard() {
               </Button>
             </div>
           </div>
-        </motion.div>
-      </section>
+        </div>
+        </motion.section>
+      </div>
+      </div>
       <section className="max-w-7xl mx-auto px-4 md:px-6 -mt-5 relative z-10">
         <motion.div
           className="grid grid-cols-3 gap-3 md:gap-4"
@@ -708,7 +710,7 @@ export default function CollegeCoachDashboard() {
                   <SelectTrigger className="w-[130px] h-8 text-xs bg-muted/50 border-border/50">
                     <SelectValue />
                   </SelectTrigger>
-        <SelectContent>
+                  <SelectContent>
                     <SelectItem value="all">All activity</SelectItem>
                     <SelectItem value="followers">Follows</SelectItem>
                     <SelectItem value="top5">Top 5 mentions</SelectItem>
@@ -716,8 +718,8 @@ export default function CollegeCoachDashboard() {
                     <SelectItem value="camps">Camp interest</SelectItem>
                   </SelectContent>
                 </Select>
-              </motion.div>
-      <div className="divide-y divide-border/30">
+              </div>
+              <div className="divide-y divide-border/30">
                 {filteredActivities.map((activity) => (
                   <ActivityRow
                     key={activity.id}
@@ -726,36 +728,36 @@ export default function CollegeCoachDashboard() {
                     onView={() => handleViewPlayer(activity.playerId)}
                     onToggleWatchlist={() => toggleWatchlist(activity.playerId, activity.user.name)}
                   />
-                })
+                ))}
               </div>
-      <div className="px-5 py-3 bg-muted/30 border-t border-border/30">
+              <div className="px-5 py-3 bg-muted/30 border-t border-border/30">
                 <Link href="/coach/college/messages">
                   <button className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center justify-center gap-1 group">
                     View all messages & interactions
                     <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </button>
                 </Link>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-      {/* RIGHT COLUMN - Pipeline + Camps */}
+              </div>
+            </div>
+          </div>
+          {/* RIGHT COLUMN - Pipeline + Camps */}
           <div className="space-y-5">
-            {/* Recruiting Pipeline */}
-            <div className={`${glassPanel} p-5`}>
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h2 className="text-lg font-semibold text-foreground">Recruiting Pipeline</h2>
-                  <p className="text-xs text-muted-foreground">Your class at a glance</p>
-                </div>
-                <Link href="/coach/college/recruiting-planner">
-                  <Button variant="ghost" size="sm" className="h-7 text-xs text-primary hover:text-primary/80 gap-1">
-                    Planner
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </Button>
-                </Link>
-              </motion.div>
-      <div className="grid grid-cols-2 gap-3">
-                <PipelineCard
+        {/* Recruiting Pipeline */}
+        <div className={`${glassPanel} p-5`}>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-lg font-semibold text-foreground">Recruiting Pipeline</h2>
+              <p className="text-xs text-muted-foreground">Your class at a glance</p>
+            </div>
+            <Link href="/coach/college/recruiting-planner">
+              <Button variant="ghost" size="sm" className="h-7 text-xs text-primary hover:text-primary/80 gap-1">
+                Planner
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Button>
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <PipelineCard
                   icon={<Bookmark className="w-[18px] h-[18px]" strokeWidth={1.75} />}
                   label="Watchlist"
                   count={pipeline.watchlist}
@@ -787,8 +789,8 @@ export default function CollegeCoachDashboard() {
                   accentColor="#22C55E"
                   onClick={() => handlePipelineClick('committed')}
                 />
-              </motion.div>
-      <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-border/30">
+              </div>
+          <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-border/30">
                 <Link href="/coach/college/discover">
                   <Button variant="outline" size="sm" className="w-full h-9 text-xs gap-1.5 border-border/50 hover:bg-muted/50">
                     <Users className="w-4 h-4" />
@@ -801,22 +803,22 @@ export default function CollegeCoachDashboard() {
                     Watchlist
                   </Button>
                 </Link>
-              </motion.div>
-            </motion.div>
-      {/* Upcoming Camps - Horizontal Scroll */}
+              </div>
+            </div>
+          {/* Upcoming Camps - Horizontal Scroll */}
             <Card glass className="rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h2 className="text-lg font-semibold text-foreground">Upcoming Camps</h2>
                   <p className="text-xs text-muted-foreground">Events you're hosting</p>
-                </motion.div>
+                </div>
                 <Link href="/coach/college/camps">
                   <Button variant="ghost" size="sm" className="h-7 text-xs text-primary hover:text-primary/80 gap-1">
                     All camps
                     <ChevronRight className="w-3.5 h-3.5" />
                   </Button>
                 </Link>
-              </motion.div>
+              </div>
       {/* Horizontal Scrollable Camps */}
               <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x snap-mandatory scrollbar-hide">
                 {camps.map((camp) => (
@@ -826,8 +828,8 @@ export default function CollegeCoachDashboard() {
                     programColor={programColor}
                     onClick={() => handleCampClick(camp.id)}
                   />
-                })
-              </motion.div>
+                ))}
+              </div>
       <Link href="/coach/college/camps?action=create" className="block mt-4">
                 <Button 
                   className="w-full h-9 gap-2 text-white text-xs font-medium shadow-lg hover:shadow-xl transition-all"
@@ -838,8 +840,8 @@ export default function CollegeCoachDashboard() {
                 </Button>
               </Link>
             </Card>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </section>
       {/* Custom CSS for scrollbar hiding */}
       <style jsx global>{`
@@ -876,19 +878,19 @@ function MetricCard({ icon, value, label, trend, trendDirection, accentColor, on
       {/* Accent glow on hover */}
       <div 
         className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity rounded-2xl"
-        style={{ background: `radial-gradient(circle at 30% 30%, ${accentColor}}, transparent 70%)` }}></div>
+        style={{ background: `radial-gradient(circle at 30% 30%, ${accentColor}, transparent 70%)` }}></div>
 <div className="relative flex items-start justify-between mb-4">
         <div 
           className="p-2.5 rounded-xl bg-white/60 dark:bg-white/10 shadow-sm backdrop-blur-sm flex items-center justify-center transition-transform group-hover:scale-105"
           style={{color: accentColor }}
         >
           {icon}
-        </motion.div>
+        </div>
         <div className={`flex items-center gap-0.5 text-xs font-medium ${isPositive ? 'text-emerald-500' : 'text-red-500'}`}>
           {isPositive ? <TrendingUp className="w-3.5 h-3.5" strokeWidth={2} /> : <TrendingDown className="w-3.5 h-3.5" strokeWidth={2} />}
           {trend}%
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
       <p className="text-3xl font-bold text-foreground tabular-nums tracking-tight">{animatedValue.toLocaleString()}</p>
       <p className="text-[11px] text-muted-foreground mt-1.5 uppercase tracking-wider font-medium">{label}</p>
     </button>
@@ -930,7 +932,7 @@ function ActivityRow({ activity, isWatchlisted, onView, onToggleWatchlist }: Act
           <span className="w-1 h-1 rounded-full bg-muted-foreground/50"></span>
           <span>{activity.time}</span>
         </p>
-      </motion.div>
+      </div>
       {/* Actions */}
       <div className="flex items-center gap-1 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" onClick={(e) => e.stopPropagation()}>
         <Button
@@ -952,8 +954,8 @@ function ActivityRow({ activity, isWatchlisted, onView, onToggleWatchlist }: Act
             <Star className={`w-4 h-4 ${isWatchlisted ? 'fill-current' : ''}`} />
           </Button>
 )}
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }
 
@@ -980,8 +982,8 @@ function PipelineCard({ icon, label, count, avatars, accentColor, onClick }: Pip
           style={{color: accentColor }}
         >
           {icon}
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
       {/* Count */}
       <p className="text-2xl font-bold text-foreground tracking-tight">{count}</p>
       {/* Avatar Stack */}
@@ -994,7 +996,7 @@ function PipelineCard({ icon, label, count, avatars, accentColor, onClick }: Pip
                 {String.fromCharCode(65 + i)}
               </AvatarFallback>
             </Avatar>
-)}
+          ))}
           {avatars.length > 4 && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -1003,9 +1005,9 @@ function PipelineCard({ icon, label, count, avatars, accentColor, onClick }: Pip
               className="h-6 w-6 rounded-full bg-muted ring-2 ring-card flex items-center justify-center text-[10px] text-muted-foreground font-medium">
               +{avatars.length - 4}
             </motion.div>
-)}
-        </motion.div>
-)}
+          )}
+        </div>
+      )}
     </button>
   );
 }
@@ -1033,14 +1035,14 @@ function CampCard({ camp, programColor, onClick }: CampCardProps) {
       {/* Mini Banner */}
       <div 
         className="h-16 relative overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${programColor}}40, ${programColor}10)` }}
+        style={{ background: `linear-gradient(135deg, ${programColor}40, ${programColor}10)` }}
       >
         <Calendar className="absolute right-3 top-3 w-8 h-8 text-white/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
         <Badge className={`absolute top-2 left-2 text-[10px] px-2 py-0.5 ${status.bg} ${status.text} border-0`}>
           {status.label}
         </Badge>
-      </motion.div>
+      </div>
       {/* Content */}
       <div className="p-3">
         <h3 className="font-semibold text-sm text-foreground truncate group-hover:text-primary transition-colors">
@@ -1055,33 +1057,33 @@ function CampCard({ camp, programColor, onClick }: CampCardProps) {
             <MapPin className="w-3 h-3" />
             {camp.location.split(',')[0]}
           </span>
-        </motion.div>
+        </div>
       {/* Capacity Bar */}
         <div className="mt-3">
           <div className="flex items-center justify-between text-[10px] mb-1">
             <span className="text-muted-foreground">Capacity</span>
             <span className="font-medium text-foreground">{camp.attending}/{camp.capacity}</span>
-          </motion.div>
+          </div>
           <div className="h-1.5 bg-muted rounded-full overflow-hidden">
             <div 
               className="h-full rounded-full transition-all"
               style={{ 
-                width: `${fillPercent}}%`, 
+                width: `${fillPercent}%`, 
                 background: fillPercent > 90 ? '#F59E0B' : programColor 
               }}
             />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       {/* Stats Row */}
         <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/30">
           <div className="text-center">
             <p className="text-sm font-semibold" style={{color: programColor }}>{camp.attending}</p>
             <p className="text-[9px] text-muted-foreground uppercase">Attending</p>
-          </motion.div>
+          </div>
           <div className="text-center">
             <p className="text-sm font-semibold text-muted-foreground">{camp.interested}</p>
             <p className="text-[9px] text-muted-foreground uppercase">Interested</p>
-          </motion.div>
+          </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground">
@@ -1103,8 +1105,8 @@ function CampCard({ camp, programColor, onClick }: CampCardProps) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </motion.div>
-      </motion.div>
-    </motion.div>
+        </div>
+      </div>
+    </div>
   );
 }

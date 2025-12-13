@@ -71,10 +71,13 @@ export function CoachInterestHeatmap() {
         activity.viewCount++;
         if (new Date(view.created_at) > activity.lastViewed) {
           activity.lastViewed = new Date(view.created_at);
+        }
         });
 
-      setActivities(Array.from(activityMap.values()}
-        .sort((a, b) => b.viewCount - a.viewCount));
+      setActivities(
+        Array.from(activityMap.values())
+          .sort((a, b) => b.viewCount - a.viewCount)
+      );
       setLoading(false);
     } catch (error) {
       console.error('Error loading coach activity:', error);
@@ -83,7 +86,7 @@ export function CoachInterestHeatmap() {
   };
 
   if (loading) {
-    return <div className="p-4">Loading heatmap...</motion.div>;
+    return <div className="p-4">Loading heatmap...</div>;
   }
 
   if (activities.length === 0) {
@@ -92,7 +95,7 @@ export function CoachInterestHeatmap() {
         <MapPin className="w-12 h-12 mx-auto mb-2 opacity-50" />
         <p className="text-sm">No coach activity yet.</p>
         <p className="text-xs mt-1">Activity will appear here as coaches view your profile.</p>
-      </motion.div>
+      </div>
     );
   }
 
@@ -106,7 +109,7 @@ export function CoachInterestHeatmap() {
         <div>
           <h3 className="text-lg font-semibold">Coach Interest Heatmap</h3>
           <p className="text-sm text-muted-foreground">See who's viewing your profile</p>
-        </motion.div>
+        </div>
         <div className="flex gap-2">
           <button
             onClick={() => setViewMode('list')}
@@ -126,8 +129,8 @@ export function CoachInterestHeatmap() {
           >
             Timeline
           </button>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
       <div className="grid grid-cols-3 gap-4">
         <motion.div
   initial={{ opacity: 0, y: 20 }}

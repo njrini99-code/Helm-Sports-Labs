@@ -342,7 +342,7 @@ export default function ShowcaseCoachDashboard() {
   // Computed values
   const upcomingEvents = useMemo(() => 
     schedule
-      .filter(e => new Date(e.start_time) >= new Date()}
+      .filter(e => new Date(e.start_time) >= new Date())
       .slice(0, 5),
     [schedule]
   );
@@ -490,7 +490,7 @@ export default function ShowcaseCoachDashboard() {
                   <div className="h-2 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
                     <motion.div 
                       className="h-full rounded-full bg-gradient-to-r from-violet-500 to-pink-400 shadow-lg shadow-violet-500/30"
-                      initial={{ width: 0 }
+                      initial={{ width: 0 }}
                       animate={{ width: `${profileCompletion}%` }}
                       transition={{duration: 1.5, ease: 'easeOut', delay: 0.3 }}
                     />
@@ -708,7 +708,7 @@ export default function ShowcaseCoachDashboard() {
                 ) : (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     {Object.entries(gradYearCounts)
-                      .sort((a, b) => Number(a[0]) - Number(b[0])}
+                      .sort((a, b) => Number(a[0]) - Number(b[0]))
                       .map(([year, count]) => (
                         <div
                           key={year}
@@ -723,9 +723,9 @@ export default function ShowcaseCoachDashboard() {
                             Class of {year}
                           </p>
                         </div>
-)}
+                      ))}
                   </div>
-)}
+                )}
               </CardContent>
             </Card>
           </div>
@@ -880,12 +880,12 @@ export default function ShowcaseCoachDashboard() {
                           {connection.count} {connection.count === 1 ? 'player' : 'players'}
                         </Badge>
                       </div>
-)}
+                    ))
                   ) : (
                     <p className={`text-sm text-center py-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                       No college connections yet. Keep promoting your players!
                     </p>
-)}
+                  )}
                 </div>
               </CardContent>
             </Card>

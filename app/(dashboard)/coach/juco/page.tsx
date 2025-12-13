@@ -325,7 +325,7 @@ export default function JUCOCoachDashboard() {
             position,
             priority: count < 1 ? 'high' : count < 2 ? 'medium' : 'low',
             count: Math.max(0, 3 - count)
-          })}
+          }))
           .slice(0, 4);
         setPriorityNeeds(needs);
 
@@ -388,7 +388,7 @@ export default function JUCOCoachDashboard() {
   // Computed values
   const upcomingEvents = useMemo(() => 
     schedule
-      .filter(e => new Date(e.start_time) >= new Date()}
+      .filter(e => new Date(e.start_time) >= new Date())
       .slice(0, 5),
     [schedule]
   );
@@ -525,7 +525,7 @@ export default function JUCOCoachDashboard() {
                   <div className="h-2 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
                     <motion.div 
                       className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-400 shadow-lg shadow-cyan-500/30"
-                      initial={{ width: 0 }
+                      initial={{ width: 0 }}
                       animate={{ width: `${profileCompletion}%` }}
                       transition={{duration: 1.5, ease: 'easeOut', delay: 0.3 }}
                     />
@@ -686,7 +686,7 @@ export default function JUCOCoachDashboard() {
                         {player.status}
                       </Badge>
                     </div>
-                    )})
+                  )))}
                 </div>
                 <Link href="/coach/juco/transfer-portal">
                   <Button variant="outline" className="w-full mt-4 gap-2">
@@ -696,7 +696,7 @@ export default function JUCOCoachDashboard() {
                 </Link>
               </CardContent>
             </Card>
-      {/* Current Roster */}
+            {/* Current Roster */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-slate-800/60 border-slate-700/50' 
@@ -771,9 +771,9 @@ export default function JUCOCoachDashboard() {
                         </div>
                         <ChevronRight className={`w-4 h-4 ${isDark ? 'text-slate-500' : 'text-slate-400'}`} />
                       </div>
-)}
+                    ))}
                   </div>
-)}
+                )}
               </CardContent>
             </Card>
           </div>

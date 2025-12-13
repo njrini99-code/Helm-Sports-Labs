@@ -322,8 +322,8 @@ export default function PlayerDashboardPage() {
           };
           const events = await getPlayerEventsTimeline(playerData.id, eventFilter);
           const upcoming = events
-            .filter(e => new Date(e.date) >= new Date()}
-            .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()}
+            .filter(e => new Date(e.date) >= new Date())
+            .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
             .slice(0, 5);
           setUpcomingEvents(upcoming);
         } catch (error) {
@@ -370,7 +370,7 @@ export default function PlayerDashboardPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[1,2,3,4].map(i => (
               <div key={i} className="h-28 rounded-2xl backdrop-blur-xl bg-white/8 border border-white/12 skeleton-shimmer"></div>
-)}
+            ))}
           </div>
           {/* Content skeleton */}
           <div className="grid md:grid-cols-2 gap-6">
@@ -538,6 +538,7 @@ export default function PlayerDashboardPage() {
 )}
                   </div>
                 </motion.div>
+                </div>
       {/* Right: Premium Action Buttons */}
                 <motion.div 
                   className="flex flex-col items-start md:items-end gap-3"
@@ -740,7 +741,7 @@ export default function PlayerDashboardPage() {
 )}
                             </div>
                           </button>
-)}
+                        ))}
                         <button 
                           onClick={() => router.push('/player/messages')}
                           className="w-full mt-2 py-2.5 text-xs text-emerald-400 hover:text-emerald-300 flex items-center justify-center gap-1 rounded-xl hover:bg-white/[0.03] transition-all"
@@ -776,12 +777,12 @@ export default function PlayerDashboardPage() {
                             <div className="flex-1 min-w-0">
                               <p className="font-medium text-white/90 text-sm truncate">{event.label}</p>
                               <p className="text-xs text-white/50">
-                                {event.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase(})
+                                {event.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                                 {event.location && ` • ${event.location}`}
                               </p>
                             </div>
                           </div>
-)}
+                        ))}
                         <button 
                           onClick={() => router.push('/player/team')}
                           className="w-full mt-2 py-2.5 text-xs text-emerald-400 hover:text-emerald-300 flex items-center justify-center gap-1 rounded-xl hover:bg-white/[0.03] transition-all"
@@ -789,10 +790,11 @@ export default function PlayerDashboardPage() {
                           View Full Calendar <ChevronRight className="w-4 h-4" />
                         </button>
                       </div>
-)}
+                    )
+                  )}
                 </div>
               </div>
-            </div>
+            </motion.div>
       {/* COLLEGE JOURNEY - Premium Glass Panel */}
             <motion.div 
               className={cn(glassPanelEnhanced, "overflow-hidden")}
@@ -868,7 +870,7 @@ export default function PlayerDashboardPage() {
                                 <p className="text-[10px] text-white/50">{school.conference || 'College'}</p>
                               </div>
                             </button>
-)}
+                          ))}
                         </div>
                         <ScrollBar orientation="horizontal" className="opacity-50" />
                       </ScrollArea>
@@ -914,7 +916,7 @@ export default function PlayerDashboardPage() {
 )}
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -988,7 +990,7 @@ export default function PlayerDashboardPage() {
                             >
                               {range === 'season' ? 'Season' : range === '30d' ? '30 Days' : '7 Days'}
                             </button>
-)}
+                          ))}
                         </div>
                       </div>
                     }
@@ -1107,9 +1109,9 @@ export default function PlayerDashboardPage() {
                       <div className="space-y-4">
                         {evaluations.map((evaluation) => (
                           <EvaluationCard key={evaluation.id} evaluation={evaluation} />
-                        })
+                        ))}
                       </div>
-)}
+                    )}
                   </div>
                 </LightCard>
               </TabsContent>
@@ -1155,7 +1157,7 @@ export default function PlayerDashboardPage() {
                                 {school.status}
                               </Badge>
                             </button>
-)}
+                          ))}
                         </div>
                       </div>
                     ) : (
@@ -1198,9 +1200,9 @@ export default function PlayerDashboardPage() {
                           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {gameVideos.map((video) => (
                               <VideoCard key={video.id} video={video} onDelete={refreshData} />
-                            })
+                            ))}
                           </div>
-)}
+                        )}
                       </TabsContent>
         <TabsContent value="training">
                         {trainingVideos.length === 0 ? (
@@ -1212,9 +1214,9 @@ export default function PlayerDashboardPage() {
                           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {trainingVideos.map((video) => (
                               <VideoCard key={video.id} video={video} onDelete={refreshData} />
-                            })
+                            ))}
                           </div>
-)}
+                        )}
                       </TabsContent>
                     </Tabs>
                   </div>
@@ -1255,12 +1257,12 @@ export default function PlayerDashboardPage() {
                                 <p className="text-xs text-slate-500 mt-1">
                                   {new Date(achievement.achievement_date).toLocaleDateString()}
                                 </p>
-)}
+                              )}
                             </div>
                           </div>
-)}
+                        ))}
                       </div>
-)}
+                    )}
                   </div>
                 </LightCard>
               </TabsContent>
@@ -1294,7 +1296,7 @@ export default function PlayerDashboardPage() {
                               <School className="w-3 h-3 mr-1" />
                               {school}
                             </Badge>
-)}
+                          ))}
                         </div>
                       </div>
 )}
@@ -1626,9 +1628,9 @@ function EvaluationCard({ evaluation }: { evaluation: Evaluation }) {
               <p className="text-xs text-slate-500">{grade.label}</p>
               <p className="font-semibold text-slate-800">{grade.value?.toFixed(1)}</p>
             </div>
-)}
+          ))}
         </div>
-)}
+      )}
       {evaluation.strengths && (
         <div className="mb-2">
           <p className="text-[10px] font-semibold text-slate-500 uppercase">Strengths</p>

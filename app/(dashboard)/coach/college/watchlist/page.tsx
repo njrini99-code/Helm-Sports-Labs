@@ -360,7 +360,7 @@ export default function CollegeCoachWatchlistPage() {
     // Tags filter
     if (filters.hasTags.length > 0) {
       result = result.filter(r => 
-        filters.hasTags.some(t => r.tags?.includes(t)}
+        filters.hasTags.some(t => r.tags?.includes(t))
       );
     }
 
@@ -743,7 +743,7 @@ export default function CollegeCoachWatchlistPage() {
           `"${(r.priority || '').replace(/"/g, '""')}"`,
           r.rating?.toString() || '',
           `"${(r.notes || '').replace(/"/g, '""')}"`,
-        ].join(',')}
+        ].join(','))
       ].join('\n');
       
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -899,7 +899,7 @@ export default function CollegeCoachWatchlistPage() {
                     {sortBy !== option.id && <div className="w-3.5 h-3.5 mr-2"></div>}
                     {option.label}
                   </DropdownMenuItem>
-                )}
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
       {/* Action Buttons */}
@@ -974,7 +974,7 @@ export default function CollegeCoachWatchlistPage() {
                             />
                             <span className="text-xs">{pos.label}</span>
                           </label>
-))})}
+                        ))}
                       </div>
                     </PopoverContent>
                   </Popover>
@@ -985,7 +985,7 @@ export default function CollegeCoachWatchlistPage() {
                   <div className="flex items-center gap-2">
                     <Select 
                       value={filters.gradYearMin?.toString() || ''} 
-                      onValueChange={(v) => setFilters(f => ({ ...f, gradYearMin: v ? parseInt(v) : null }})
+                      onValueChange={(v) => setFilters(f => ({ ...f, gradYearMin: v ? parseInt(v) : null }))}
                     >
                       <SelectTrigger className="h-9 text-xs flex-1">
                         <SelectValue placeholder="From" />
@@ -994,13 +994,13 @@ export default function CollegeCoachWatchlistPage() {
                         <SelectItem value="">Any</SelectItem>
                         {GRAD_YEARS.map(y => (
                           <SelectItem key={y} value={y.toString()}>{y}</SelectItem>
-))})}
+                        ))}
                       </SelectContent>
                     </Select>
                     <span className="text-slate-400">—</span>
                     <Select 
                       value={filters.gradYearMax?.toString() || ''} 
-                      onValueChange={(v) => setFilters(f => ({ ...f, gradYearMax: v ? parseInt(v) : null }})
+                      onValueChange={(v) => setFilters(f => ({ ...f, gradYearMax: v ? parseInt(v) : null }))}
                     >
                       <SelectTrigger className="h-9 text-xs flex-1">
                         <SelectValue placeholder="To" />
@@ -1009,7 +1009,7 @@ export default function CollegeCoachWatchlistPage() {
                         <SelectItem value="">Any</SelectItem>
                         {GRAD_YEARS.map(y => (
                           <SelectItem key={y} value={y.toString()}>{y}</SelectItem>
-))})}
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -1025,7 +1025,7 @@ export default function CollegeCoachWatchlistPage() {
                       max={100}
                       step={5}
                       value={[filters.ratingMin, filters.ratingMax]}
-                      onValueChange={([min, max]) => setFilters(f => ({ ...f, ratingMin: min, ratingMax: max }})
+                      onValueChange={([min, max]) => setFilters(f => ({ ...f, ratingMin: min, ratingMax: max }))}
                       className="w-full"
                     />
                   </div>
@@ -1062,7 +1062,7 @@ export default function CollegeCoachWatchlistPage() {
                             <div className={`w-2 h-2 rounded-full ${stage.headerBg}`}></div>
                             <span className="text-xs">{stage.label}</span>
                           </label>
-))})}
+                        ))}
                       </div>
                     </PopoverContent>
                   </Popover>
@@ -1099,12 +1099,12 @@ export default function CollegeCoachWatchlistPage() {
                               />
                               <span className="text-xs">{state}</span>
                             </label>
-))})}
+                          ))}
                         </div>
                       </PopoverContent>
                     </Popover>
                   </div>
-)}
+                )}
                 {/* Priority Filter */}
                 <div className="space-y-2">
                   <label className="text-xs font-medium text-slate-600">Priority</label>
@@ -1136,7 +1136,7 @@ export default function CollegeCoachWatchlistPage() {
                             />
                             <span className="text-xs">{priority.label}</span>
                           </label>
-))})}
+                        ))}
                       </div>
                     </PopoverContent>
                   </Popover>
@@ -1149,37 +1149,37 @@ export default function CollegeCoachWatchlistPage() {
                   {filters.positions.length > 0 && (
                     <Badge variant="secondary" className="text-[10px] px-2 py-0.5">
                       {filters.positions.length} positions
-                      <button onClick={() => setFilters(f => ({ ...f, positions: [] }}) className="ml-1 hover:text-red-500">×</button>
+                      <button onClick={() => setFilters(f => ({ ...f, positions: [] }))} className="ml-1 hover:text-red-500">×</button>
                     </Badge>
 )}
                   {(filters.gradYearMin || filters.gradYearMax) && (
                     <Badge variant="secondary" className="text-[10px] px-2 py-0.5">
                       {filters.gradYearMin || 'Any'} - {filters.gradYearMax || 'Any'}
-                      <button onClick={() => setFilters(f => ({ ...f, gradYearMin: null, gradYearMax: null }}) className="ml-1 hover:text-red-500">×</button>
+                      <button onClick={() => setFilters(f => ({ ...f, gradYearMin: null, gradYearMax: null }))} className="ml-1 hover:text-red-500">×</button>
                     </Badge>
 )}
                   {(filters.ratingMin > 0 || filters.ratingMax < 100) && (
                     <Badge variant="secondary" className="text-[10px] px-2 py-0.5">
                       Rating {filters.ratingMin}-{filters.ratingMax}
-                      <button onClick={() => setFilters(f => ({ ...f, ratingMin: 0, ratingMax: 100 }}) className="ml-1 hover:text-red-500">×</button>
+                      <button onClick={() => setFilters(f => ({ ...f, ratingMin: 0, ratingMax: 100 }))} className="ml-1 hover:text-red-500">×</button>
                     </Badge>
 )}
                   {filters.stages.length > 0 && (
                     <Badge variant="secondary" className="text-[10px] px-2 py-0.5">
                       {filters.stages.length} stages
-                      <button onClick={() => setFilters(f => ({ ...f, stages: [] }}) className="ml-1 hover:text-red-500">×</button>
+                      <button onClick={() => setFilters(f => ({ ...f, stages: [] }))} className="ml-1 hover:text-red-500">×</button>
                     </Badge>
 )}
                   {filters.states.length > 0 && (
                     <Badge variant="secondary" className="text-[10px] px-2 py-0.5">
                       {filters.states.length} states
-                      <button onClick={() => setFilters(f => ({ ...f, states: [] }}) className="ml-1 hover:text-red-500">×</button>
+                      <button onClick={() => setFilters(f => ({ ...f, states: [] }))} className="ml-1 hover:text-red-500">×</button>
                     </Badge>
 )}
                   {filters.priorities.length > 0 && (
                     <Badge variant="secondary" className="text-[10px] px-2 py-0.5">
                       {filters.priorities.length} priorities
-                      <button onClick={() => setFilters(f => ({ ...f, priorities: [] }}) className="ml-1 hover:text-red-500">×</button>
+                      <button onClick={() => setFilters(f => ({ ...f, priorities: [] }))} className="ml-1 hover:text-red-500">×</button>
                     </Badge>
 )}
                 </div>
@@ -1213,7 +1213,7 @@ export default function CollegeCoachWatchlistPage() {
                         {stage.label}
                       </div>
                     </SelectItem>
-))})}
+                  ))}
                 </SelectContent>
               </Select>
       {/* Set Priority */}
@@ -1226,7 +1226,7 @@ export default function CollegeCoachWatchlistPage() {
                     <SelectItem key={priority.id} value={priority.id}>
                       {priority.label}
                     </SelectItem>
-))})}
+                  ))}
                 </SelectContent>
               </Select>
       {/* Export */}
@@ -1342,7 +1342,7 @@ export default function CollegeCoachWatchlistPage() {
                     onUpdatePriority={(priority) => handleUpdatePriority(recruit.id, priority)}
                     onOpenNotes={() => handleOpenNotes(recruit)}
                   />
-                })
+                ))}
               </tbody>
             </table>
             {filteredAndSortedRecruits.length === 0 && (
@@ -1460,7 +1460,8 @@ function RecruitBoardColumn({
               isSelected={selectedIds.has(recruit.id)}
               onToggleSelect={() => onToggleSelect(recruit.id)}
             />
-          )})
+          ))
+        )}
       </div>
     </div>
   );
@@ -1598,7 +1599,7 @@ function RecruitBoardCard({ recruit, stage, onView, onMessage, onRemove, onUpdat
                   <DropdownMenuItem key={p.id} onClick={() => onUpdatePriority(p.id)} className="text-xs">
                     {p.label}
                   </DropdownMenuItem>
-))})}
+                ))}
               </DropdownMenuSubContent>
             </DropdownMenuSub>
             <DropdownMenuSeparator />
@@ -1663,7 +1664,7 @@ function RecruitBoardCard({ recruit, stage, onView, onMessage, onRemove, onUpdat
                     {s.label}
                   </div>
                 </SelectItem>
-))})}
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -1750,7 +1751,7 @@ function RecruitListRow({ recruit, isSelected, onToggleSelect, onView, onMessage
                   {s.label}
                 </div>
               </SelectItem>
-))})}
+            ))}
           </SelectContent>
         </Select>
       </td>
@@ -1762,7 +1763,7 @@ function RecruitListRow({ recruit, isSelected, onToggleSelect, onView, onMessage
         <SelectContent>
             {PRIORITIES.map(p => (
               <SelectItem key={p.id} value={p.id} className="text-xs">{p.label}</SelectItem>
-))})}
+            ))}
           </SelectContent>
         </Select>
       </td>

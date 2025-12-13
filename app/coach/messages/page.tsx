@@ -463,13 +463,13 @@ export default function CoachMessagesPage() {
                               <p className={`text-xs mt-1 ${theme.textMuted}`}>
                                 {new Date(conv.last_message_at).toLocaleDateString()}
                               </p>
-)}
+                            )}
                           </div>
                         </div>
                       </button>
-)}
+                    ))}
                   </div>
-)}
+                )}
               </div>
             </CardContent>
           </Card>
@@ -549,7 +549,7 @@ export default function CoachMessagesPage() {
                           </p>
                         </div>
                       </div>
-                    )})
+                    ))}
                 </CardContent>
       {/* Message Input */}
                 <CardContent className={`p-4 border-t ${theme.divider}`}>

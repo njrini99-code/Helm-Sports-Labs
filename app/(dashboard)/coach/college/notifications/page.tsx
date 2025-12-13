@@ -217,9 +217,9 @@ export default function CoachNotificationsPage() {
                   </div>
                 </div>
               </Card>
-))})}
+            ))}
           </div>
-)}
+        )}
       </div>
     </div>
   );

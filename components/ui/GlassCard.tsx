@@ -247,12 +247,12 @@ function LoadingSkeleton({ rows = 3, showAvatar = false, showImage = false }: Lo
       {showImage && (
         <div className="h-40 skeleton-shimmer rounded-2xl"></div>
 )}
-      {Array.from({ length: rows }}).map((_, i) => (
+      {Array.from({ length: rows }).map((_, i) => (
         <div 
           key={i} 
           className="h-4 skeleton-shimmer rounded"
-          style={{ width: `${Math.max(40, 100 - i * 20)}}%` }}></div>
-)}
+          style={{ width: `${Math.max(40, 100 - i * 20)}%` }}></div>
+        ))}
     </div>
   );
 }
@@ -470,30 +470,32 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
         {...props}
       >
         {/* Ripple Effects */}
-        {{ripples.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">📭</div>
-              <p className="text-white/60 mb-4">No items yet</p>
-              <p className="text-white/40 text-sm">Check back later</p>
-            </div>
-          ) : (
-            ripples.map((ripple) => (
-          <span
-            key={ripple.id}
-            className="ripple"
-            style={{left: ripple.x,
-              top: ripple.y,
-              width: ripple.size,
-              height: ripple.size,
-            }}></span>
-)}
+        {ripples.length === 0 ? (
+          <div className="text-center py-12">
+            <div className="text-6xl mb-4">📭</div>
+            <p className="text-white/60 mb-4">No items yet</p>
+            <p className="text-white/40 text-sm">Check back later</p>
+          </div>
+        ) : (
+          ripples.map((ripple) => (
+            <span
+              key={ripple.id}
+              className="ripple"
+              style={{
+                left: ripple.x,
+                top: ripple.y,
+                width: ripple.size,
+                height: ripple.size,
+              }}></span>
+          ))
+        )}
         {/* Glow Effect Overlay */}
         {variant === 'glow' && (
           <div
             className="absolute inset-0 opacity-30 pointer-events-none transition-opacity duration-300 group-hover:opacity-50"
             style={{
               background: glowColor
-                ? `radial-gradient(ellipse at center, ${glowColor}}40 0%, transparent 70%)`
+                ? `radial-gradient(ellipse at center, ${glowColor}40 0%, transparent 70%)`
                 : 'radial-gradient(ellipse at center, rgba(99, 102, 241, 0.4) 0%, transparent 70%)',
             }}></div>
 )}

@@ -55,7 +55,7 @@ export function PlayerPerformanceGamesTable({
                     {fmt(g.ft_made)}/{fmt(g.ft_attempts)}
                   </td>
                 </tr>
-              )})
+              ))}
           </tbody>
         </table>
       </div>

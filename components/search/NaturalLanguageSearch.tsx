@@ -100,7 +100,7 @@ export function NaturalLanguageSearch({
       }
 
       // Graduation year
-      const yearMatch = searchQuery.match(/\b(20\d{2}})\b/);
+      const yearMatch = searchQuery.match(/\b(20\d{2})\b/);
       if (yearMatch) {
         filters.graduationYear = parseInt(yearMatch[1]);
       }

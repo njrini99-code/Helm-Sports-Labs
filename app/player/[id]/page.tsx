@@ -541,10 +541,10 @@ export default function PublicPlayerProfilePage() {
                           <span className="text-slate-400">{metric.metric_label}</span>
                           <span className="text-white font-semibold">{metric.metric_value}</span>
                         </div>
-)}
+                      ))}
                     </CardContent>
                   </Card>
-)}
+                )}
                 {/* Speed Metrics */}
                 {speedMetrics.length > 0 && (
                   <Card className="bg-white/5 backdrop-blur-sm border-white/10">
@@ -560,10 +560,10 @@ export default function PublicPlayerProfilePage() {
                           <span className="text-slate-400">{metric.metric_label}</span>
                           <span className="text-white font-semibold">{metric.metric_value}</span>
                         </div>
-)}
+                      ))}
                     </CardContent>
                   </Card>
-)}
+                )}
                 {/* Power Metrics */}
                 {powerMetrics.length > 0 && (
                   <Card className="bg-white/5 backdrop-blur-sm border-white/10">
@@ -579,10 +579,10 @@ export default function PublicPlayerProfilePage() {
                           <span className="text-slate-400">{metric.metric_label}</span>
                           <span className="text-white font-semibold">{metric.metric_value}</span>
                         </div>
-)}
+                      ))}
                     </CardContent>
                   </Card>
-)}
+                )}
                 {/* Other Metrics */}
                 {metrics.filter(m => !['velocity', 'speed', 'power'].includes(m.metric_type)).length > 0 && (
                   <Card className="bg-white/5 backdrop-blur-sm border-white/10">
@@ -594,13 +594,13 @@ export default function PublicPlayerProfilePage() {
                     </CardHeader>
                     <CardContent className="space-y-3">
                       {metrics
-                        .filter(m => !['velocity', 'speed', 'power'].includes(m.metric_type)}
+                        .filter(m => !['velocity', 'speed', 'power'].includes(m.metric_type))
                         .map((metric) => (
                           <div key={metric.id} className="flex justify-between items-center">
                             <span className="text-slate-400">{metric.metric_label}</span>
                             <span className="text-white font-semibold">{metric.metric_value}</span>
                           </div>
-)}
+                        ))}
                     </CardContent>
                   </Card>
 )}
@@ -653,13 +653,13 @@ export default function PublicPlayerProfilePage() {
                         </Badge>
                         {video.recorded_date && (
                           <span>{new Date(video.recorded_date).toLocaleDateString()}</span>
-)}
+                        )}
                       </div>
                     </CardHeader>
                   </Card>
-)}
+                ))}
               </div>
-)}
+            )}
           </TabsContent>
       {/* Achievements Tab */}
           <TabsContent value="achievements">
@@ -688,14 +688,14 @@ export default function PublicPlayerProfilePage() {
                             <p className="text-sm text-slate-400 mt-1">
                               {new Date(achievement.achievement_date).toLocaleDateString()}
                             </p>
-)}
+                          )}
                         </div>
                       </div>
-)}
+                    ))}
                   </div>
                 </CardContent>
               </Card>
-)}
+            )}
           </TabsContent>
       {/* Evaluations Tab */}
           <TabsContent value="evaluations">

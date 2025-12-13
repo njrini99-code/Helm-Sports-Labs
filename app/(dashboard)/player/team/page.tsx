@@ -137,8 +137,8 @@ export default function PlayerTeamPage() {
   };
 
   const upcomingEvents = events
-    .filter(e => new Date(e.start_time) >= new Date()}
-    .sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime()}
+    .filter(e => new Date(e.start_time) >= new Date())
+    .sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime())
     .slice(0, 5);
 
   const teamTypeLabels: Record<string, string> = {
@@ -321,7 +321,7 @@ export default function PlayerTeamPage() {
                 {tab === 'media' && <ImageIcon className="w-3.5 h-3.5 mr-1.5" />}
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
-)}
+            ))}
           </div>
         </div>
       </div>
@@ -374,14 +374,14 @@ export default function PlayerTeamPage() {
                           <div className="flex-1 min-w-0">
                             <p className="font-medium text-slate-800 text-sm truncate">{event.event_name || 'Untitled Event'}</p>
                             <p className="text-xs text-slate-500">
-                              {event.event_type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase(})
+                              {event.event_type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                               {event.location_name && ` • ${event.location_name}`}
                             </p>
                           </div>
                         </div>
-)}
+                      ))}
                     </div>
-)}
+                  )}
                 </div>
               </div>
       {/* Team Roster Preview */}
@@ -426,7 +426,7 @@ export default function PlayerTeamPage() {
                             </p>
                           </div>
                         </div>
-)}
+                      ))}
                       {members.length > 5 && (
                         <p className="text-xs text-slate-400 text-center pt-2">
                           +{members.length - 5} more players
@@ -475,13 +475,13 @@ export default function PlayerTeamPage() {
 )}
                             {member.jersey_number && (
                               <span className="text-xs text-slate-400">#{member.jersey_number}</span>
-)}
+                            )}
                           </div>
                         </div>
                       </div>
-)}
+                    ))}
                   </div>
-)}
+                )}
               </div>
             </div>
 )}
@@ -536,7 +536,7 @@ export default function PlayerTeamPage() {
                             <p className="font-semibold text-slate-800">{event.event_name || 'Untitled Event'}</p>
                             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1">
                               <Badge variant="outline" className="text-[10px]">
-                                {event.event_type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase(})
+                                {event.event_type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()})
                               </Badge>
                               {event.start_time && (
                                 <span className="text-xs text-slate-500 flex items-center gap-1">

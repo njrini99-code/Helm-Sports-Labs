@@ -78,18 +78,18 @@ export function AdvancedLineChart({
             <XAxis 
               dataKey="name" 
               className="text-xs"
-              tick={ fill: '#64748b' }
+              tick={{ fill: '#64748b' }}
             />
             <YAxis 
               className="text-xs"
-              tick={ fill: '#64748b' }
+              tick={{ fill: '#64748b' }}
             />
             <Tooltip
-              contentStyle={
+              contentStyle={{
                 backgroundColor: 'white',
                 border: '1px solid #e2e8f0',
                 borderRadius: '8px',
-              }
+              }}
             />
             {showArea ? (
               <Area
@@ -105,8 +105,8 @@ export function AdvancedLineChart({
                 dataKey={dataKey}
                 stroke={color}
                 strokeWidth={2}
-                dot={ fill: color, r: 4 }
-                activeDot={ r: 6 } />
+                dot={{ fill: color, r: 4 }}
+                activeDot={{ r: 6 }} />
             )}
           </ChartComponent>
         </ResponsiveContainer>
@@ -144,21 +144,21 @@ export function MultiLineChart({
             <XAxis 
               dataKey="name" 
               className="text-xs"
-              tick={ fill: '#64748b' }
+              tick={{ fill: '#64748b' }}
             />
             <YAxis 
               className="text-xs"
-              tick={ fill: '#64748b' }
+              tick={{ fill: '#64748b' }}
             />
             <Tooltip
-              contentStyle={
+              contentStyle={{
                 backgroundColor: 'white',
                 border: '1px solid #e2e8f0',
                 borderRadius: '8px',
-              }
+              }}
             />
             <Legend />
-            {{dataKeys.length === 0 ? (
+            {dataKeys.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -172,9 +172,10 @@ export function MultiLineChart({
                 dataKey={key}
                 stroke={colors[index % colors.length]}
                 strokeWidth={2}
-                dot={ fill: colors[index % colors.length], r: 3 }
-                activeDot={ r: 5 } />
-            })
+                dot={{ fill: colors[index % colors.length], r: 3 }}
+                activeDot={{ r: 5 }} />
+            ))
+          )}
           </LineChart>
         </ResponsiveContainer>
       </CardContent>
@@ -212,21 +213,21 @@ export function AdvancedBarChart({
             <CartesianGrid strokeDasharray="3 3" className="stroke-slate-200" />
             {horizontal ? (
               <>
-                <XAxis type="number" className="text-xs" tick={ fill: '#64748b' } />
-                <YAxis dataKey="name" type="category" className="text-xs" tick={ fill: '#64748b' } width={100} />
+                <XAxis type="number" className="text-xs" tick={{ fill: '#64748b' }} />
+                <YAxis dataKey="name" type="category" className="text-xs" tick={{ fill: '#64748b' }} width={100} />
               </>
             ) : (
               <>
-                <XAxis dataKey="name" className="text-xs" tick={ fill: '#64748b' } />
-                <YAxis className="text-xs" tick={ fill: '#64748b' } />
+                <XAxis dataKey="name" className="text-xs" tick={{ fill: '#64748b' }} />
+                <YAxis className="text-xs" tick={{ fill: '#64748b' }} />
               </>
             )}
             <Tooltip
-              contentStyle={
+              contentStyle={{
                 backgroundColor: 'white',
                 border: '1px solid #e2e8f0',
                 borderRadius: '8px',
-              }
+              }}
             />
             <Bar dataKey={dataKey} fill={color} radius={[4, 4, 0, 0]} />
           </BarChart>
@@ -264,21 +265,21 @@ export function AdvancedPieChart({
               cx="50%"
               cy="50%"
               labelLine={false}
-              label={({ name, percent }}) => `${name} ${percent ? (percent * 100).toFixed(0) : 0}%`}
+              label={({ name, percent }) => `${name} ${percent ? (percent * 100).toFixed(0) : 0}%`}
               outerRadius={100}
               fill="#8884d8"
               dataKey="value"
             >
               {data.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-              })
+              ))}
             </Pie>
             <Tooltip
-              contentStyle={
+              contentStyle={{
                 backgroundColor: 'white',
                 border: '1px solid #e2e8f0',
                 borderRadius: '8px',
-              }
+              }}
             />
           </PieChart>
         </ResponsiveContainer>
@@ -316,18 +317,18 @@ export function ComparisonChart({
             <XAxis 
               dataKey="name" 
               className="text-xs"
-              tick={ fill: '#64748b' }
+              tick={{ fill: '#64748b' }}
             />
             <YAxis 
               className="text-xs"
-              tick={ fill: '#64748b' }
+              tick={{ fill: '#64748b' }}
             />
             <Tooltip
-              contentStyle={
+              contentStyle={{
                 backgroundColor: 'white',
                 border: '1px solid #e2e8f0',
                 borderRadius: '8px',
-              }
+              }}
             />
             <Legend />
             <Bar dataKey={currentKey} fill={COLORS.primary} radius={[4, 4, 0, 0]} name="Current Period" />

@@ -277,7 +277,7 @@ export default function CoachOnboarding() {
                   </p>
                 </div>
               );
-            }})
+            }))}
           </div>
         </div>
       {/* Step 1: Coach Identity */}
@@ -326,7 +326,7 @@ export default function CoachOnboarding() {
         <SelectContent>
                         {US_STATES.map((state) => (
                           <SelectItem key={state} value={state}>{state}</SelectItem>
-)}
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -370,7 +370,7 @@ export default function CoachOnboarding() {
         <SelectContent>
                         {US_STATES.map((state) => (
                           <SelectItem key={state} value={state}>{state}</SelectItem>
-)}
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -397,7 +397,7 @@ export default function CoachOnboarding() {
         <SelectContent>
                       {programLevels.map((level) => (
                         <SelectItem key={level} value={level}>{level}</SelectItem>
-)}
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
@@ -406,8 +406,7 @@ export default function CoachOnboarding() {
                 <Label>Program Values</Label>
                 <Textarea
                   value={formData.program_values}
-                  onChange={(e) => setFormData({ ...formData, program_values: e.target.value })
-          })
+                  onChange={(e) => setFormData({ ...formData, program_values: e.target.value })}
                   placeholder="What does your program stand for? What values guide your team?"
                   className="bg-[#111315] border-white/10 min-h-[100px]"
                 />
@@ -416,8 +415,7 @@ export default function CoachOnboarding() {
                 <Label>About the Program</Label>
                 <Textarea
                   value={formData.about}
-                  onChange={(e) => setFormData({ ...formData, about: e.target.value })
-          })
+                  onChange={(e) => setFormData({ ...formData, about: e.target.value })}
                   placeholder="Tell recruits about your program, facilities, and what makes it special..."
                   className="bg-[#111315] border-white/10 min-h-[120px]"
                 />

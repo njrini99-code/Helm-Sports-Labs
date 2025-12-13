@@ -249,7 +249,7 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
             <div className="h-4 bg-blue-900 rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-green-400 to-green-500 transition-all duration-500"
-                style={{ width: `${Math.min(progressPercent, 100)}}%` }}></div>
+                style={{ width: `${Math.min(progressPercent, 100)}%` }}></div>
             </div>
           </div>
         </div>

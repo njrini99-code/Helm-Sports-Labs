@@ -389,7 +389,7 @@ export function GlassProgressBar({
               animatedStripes && 'animate-[glass-progress-stripes_1s_linear_infinite]'
             )}
             style={{
-              width: `${animatedPercentage}}%`,
+              width: `${animatedPercentage}%`,
               transformOrigin: 'left',
               animation: animate && isVisible
                 ? `glass-progress-spring ${animationDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards`
@@ -400,13 +400,13 @@ export function GlassProgressBar({
           {animate && isVisible && percentage > 0 && (
             <div
               className="absolute inset-0 overflow-hidden rounded-full"
-              style={{ width: `${animatedPercentage}}%` }}
+              style={{ width: `${animatedPercentage}%` }}
             >
               <div
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                 style={{
                   animation: 'glass-progress-shimmer 1.5s ease-in-out',
-                  animationDelay: `${animationDuration}}ms`,
+                  animationDelay: `${animationDuration}ms`,
                 }}></div>
             </div>
 )}
@@ -567,7 +567,7 @@ export function SkillRatingGroup({
         </h3>
 )}
       <div className="space-y-4">
-        {{skills.length === 0 ? (
+        {skills.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -585,7 +585,7 @@ export function SkillRatingGroup({
             size={size}
             variant={variant}
           />
-        })
+        ))}
       </div>
     </div>
   );
@@ -854,7 +854,7 @@ export function MultiProgressBar({
             <div
               key={index}
               className={cn('h-full transition-all duration-500', segment.color)}
-              style={{ width: `${width}}%` }}></div>
+              style={{ width: `${width}%` }}></div>
           );
         })
           })

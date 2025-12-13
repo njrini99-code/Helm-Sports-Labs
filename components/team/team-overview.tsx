@@ -33,7 +33,7 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
   const [formData, setFormData] = useState({
     about: team.about || '',
     program_values: team.program_values || '',
-  }});
+  });
 
   const isOwner = mode === 'owner';
 
@@ -41,7 +41,7 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
     const success = await updateTeamInfo(team.id, {
       about: formData.about,
       program_values: formData.program_values,
-    }});
+    });
 
     if (success) {
       toast.success('Team info updated');
@@ -80,8 +80,7 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
                     </label>
                     <Textarea
                       value={formData.about}
-                      onChange={(e) => setFormData({ ...formData, about: e.target.value })
-          })
+                      onChange={(e) => setFormData({ ...formData, about: e.target.value })}
                       className="bg-[#0B0D0F] border-white/10 text-white"
                       rows={4}
                       placeholder="Describe your program..."
@@ -93,8 +92,7 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
                     </label>
                     <Textarea
                       value={formData.program_values}
-                      onChange={(e) => setFormData({ ...formData, program_values: e.target.value })
-          })
+                      onChange={(e) => setFormData({ ...formData, program_values: e.target.value })}
                       className="bg-[#0B0D0F] border-white/10 text-white"
                       rows={3}
                       placeholder="What values drive your program?"
@@ -136,7 +134,7 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-2">
-              {team.{placement_highlights.length === 0 ? (
+              {team.placement_highlights.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -151,11 +149,11 @@ export function TeamOverview({ team, coachName, mode, onUpdate }: TeamOverviewPr
                 >
                   {highlight}
                 </Badge>
-)}
+              ))}
             </div>
           </CardContent>
         </Card>
-)}
+      )}
       {/* Owner Actions */}
       {isOwner && (
         <Card className="bg-[#111315] border-white/5">

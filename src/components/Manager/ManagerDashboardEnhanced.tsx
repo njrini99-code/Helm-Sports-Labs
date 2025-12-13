@@ -594,7 +594,7 @@ export function ManagerDashboardEnhanced() {
                     <div className="bg-gray-200 rounded-full h-3">
                       <div
                         className={`bg-gradient-to-r ${getPerformanceColor(detailedReport.rep.osv_count, detailedReport.goals.awv_goal)} h-3 rounded-full transition-all`}
-                        style={{ width: `${Math.min((detailedReport.rep.osv_count / detailedReport.goals.awv_goal) * 100, 100)}}%` }}></div>
+                        style={{ width: `${Math.min((detailedReport.rep.osv_count / detailedReport.goals.awv_goal) * 100, 100)}%` }}></div>
                     </div>
                   </div>
 <div>
@@ -607,7 +607,7 @@ export function ManagerDashboardEnhanced() {
                     <div className="bg-gray-200 rounded-full h-3">
                       <div
                         className={`bg-gradient-to-r ${getPerformanceColor(detailedReport.rep.close_ratio, detailedReport.goals.close_rate)} h-3 rounded-full transition-all`}
-                        style={{ width: `${Math.min((detailedReport.rep.close_ratio / detailedReport.goals.close_rate) * 100, 100)}}%` }}></div>
+                        style={{ width: `${Math.min((detailedReport.rep.close_ratio / detailedReport.goals.close_rate) * 100, 100)}%` }}></div>
                     </div>
                   </div>
                 </div>

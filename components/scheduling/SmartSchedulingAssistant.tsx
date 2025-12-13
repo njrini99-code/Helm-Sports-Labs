@@ -86,7 +86,7 @@ export function SmartSchedulingAssistant({
       const busySlots = (existingEvents || []).map(e => ({
         start: new Date(e.start_time),
         end: new Date(e.end_time)
-      }}));
+      }));
 
       // Generate suggested time slots (business hours: 9 AM - 5 PM)
       const suggestions: TimeSlot[] = [];
@@ -101,7 +101,7 @@ export function SmartSchedulingAssistant({
         // Check for conflicts
         const hasConflict = busySlots.some(busy => 
           (isAfter(slotStart, busy.start) && isBefore(slotStart, busy.end)) ||
-          (isAfter(busy.start, slotStart) && isBefore(busy.start, slotEnd)}
+          (isAfter(busy.start, slotStart) && isBefore(busy.start, slotEnd))
         );
 
         suggestions.push({
@@ -110,7 +110,7 @@ export function SmartSchedulingAssistant({
           timezone: coachTimezone,
           available: !hasConflict,
           reason: hasConflict ? 'Conflict with existing event' : undefined
-        })});;
+        });
       }
 
       setSuggestedSlots(suggestions);
@@ -127,7 +127,7 @@ export function SmartSchedulingAssistant({
       hour: 'numeric',
       minute: '2-digit',
       hour12: true
-    }}).format(date);
+    }).format(date);
   };
 
   const calculateTravelTime = async (location1: string, location2: string): Promise<number> => {

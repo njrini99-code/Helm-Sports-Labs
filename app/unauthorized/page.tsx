@@ -166,7 +166,7 @@ export default function UnauthorizedPage() {
                 </Link>
               ) : (
                 <Button
-                  onClick={() => router.back()}}
+                  onClick={() => router.back()}
                   variant="outline"
                   className="w-full bg-white/5 border-white/10 text-white hover:bg-white/10 gap-2"
                 >

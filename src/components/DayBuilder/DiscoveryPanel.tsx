@@ -87,9 +87,9 @@ export function DiscoveryPanel({
   const zipCodes = Array.from(
     new Set(
       leads
-        .map((l) => String(l.zip)}
-        .filter((z) => z && z !== 'null' && isValidZipCode(z)}
-        .map(z => z.trim()}
+        .map((l) => String(l.zip))
+        .filter((z) => z && z !== 'null' && isValidZipCode(z))
+        .map(z => z.trim())
     )
   ).sort();
 

@@ -258,7 +258,7 @@ export default function PlayerOnboarding() {
                   </p>
                 </div>
               );
-            }})
+            }))}
           </div>
         </div>
       {/* Step 1: Player Basics */}
@@ -278,7 +278,7 @@ export default function PlayerOnboarding() {
         <SelectContent>
                     {GRAD_YEARS.map((year) => (
                       <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
-)}
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -309,7 +309,7 @@ export default function PlayerOnboarding() {
         <SelectContent>
                     {US_STATES.map((state) => (
                       <SelectItem key={state} value={state}>{state}</SelectItem>
-)}
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -342,7 +342,7 @@ export default function PlayerOnboarding() {
         <SelectContent>
                     {[4, 5, 6, 7].map((ft) => (
                       <SelectItem key={ft} value={ft.toString()}>{ft}'</SelectItem>
-)}
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -355,7 +355,7 @@ export default function PlayerOnboarding() {
         <SelectContent>
                     {Array.from({ length: 12 }, (_, i) => (
                       <SelectItem key={i} value={i.toString()}>{i}"</SelectItem>
-)}
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -364,30 +364,27 @@ export default function PlayerOnboarding() {
                 <Input
                   type="number"
                   value={formData.weight_lbs}
-                  onChange={(e) => setFormData({ ...formData, weight_lbs: e.target.value })
-          })
+                  onChange={(e) => setFormData({ ...formData, weight_lbs: e.target.value })}
                   placeholder="Weight"
                   className="bg-[#111315] border-white/10"
                 />
               </div>
       <div className="space-y-2">
                 <Label>Primary Position *</Label>
-                <Select value={formData.primary_position} onValueChange={(v) => setFormData({ ...formData, primary_position: v })
-          })>
+                <Select value={formData.primary_position} onValueChange={(v) => setFormData({ ...formData, primary_position: v })}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Select position" />
                   </SelectTrigger>
         <SelectContent>
                     {POSITIONS.map((pos) => (
                       <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-)}
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
       <div className="space-y-2">
                 <Label>Secondary Position</Label>
-                <Select value={formData.secondary_position} onValueChange={(v) => setFormData({ ...formData, secondary_position: v })
-          })>
+                <Select value={formData.secondary_position} onValueChange={(v) => setFormData({ ...formData, secondary_position: v })}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Optional" />
                   </SelectTrigger>
@@ -395,14 +392,13 @@ export default function PlayerOnboarding() {
                     <SelectItem value="">None</SelectItem>
                     {POSITIONS.map((pos) => (
                       <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-)}
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
       <div className="space-y-2">
                 <Label>Throws *</Label>
-                <Select value={formData.throws} onValueChange={(v) => setFormData({ ...formData, throws: v })
-          })>
+                <Select value={formData.throws} onValueChange={(v) => setFormData({ ...formData, throws: v })}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
@@ -414,8 +410,7 @@ export default function PlayerOnboarding() {
               </div>
       <div className="space-y-2">
                 <Label>Bats *</Label>
-                <Select value={formData.bats} onValueChange={(v) => setFormData({ ...formData, bats: v })
-          })>
+                <Select value={formData.bats} onValueChange={(v) => setFormData({ ...formData, bats: v })}>
                   <SelectTrigger className="bg-[#111315] border-white/10">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
@@ -444,8 +439,7 @@ export default function PlayerOnboarding() {
                     <button
                       key={goal}
                       type="button"
-                      onClick={() => setFormData({ ...formData, primary_goal: goal })
-          })
+                      onClick={() => setFormData({ ...formData, primary_goal: goal })}
                       aria-label={`Select goal: ${goal}`}
                       aria-pressed={formData.primary_goal === goal}
                       className={`p-4 rounded-xl border-2 text-left transition-all ${
@@ -458,7 +452,7 @@ export default function PlayerOnboarding() {
                         {goal}
                       </p>
                     </button>
-)}
+                  ))}
                 </div>
               </div>
       <div className="space-y-4 pt-4 border-t border-white/10">
@@ -467,8 +461,7 @@ export default function PlayerOnboarding() {
                   <Input
                     type="url"
                     value={formData.perfect_game_url}
-                    onChange={(e) => setFormData({ ...formData, perfect_game_url: e.target.value })
-          })
+                    onChange={(e) => setFormData({ ...formData, perfect_game_url: e.target.value })}
                     placeholder="https://perfectgame.org/..."
                     className="bg-[#111315] border-white/10"
                   />
@@ -478,8 +471,7 @@ export default function PlayerOnboarding() {
                   <Input
                     type="url"
                     value={formData.twitter_url}
-                    onChange={(e) => setFormData({ ...formData, twitter_url: e.target.value })
-          })
+                    onChange={(e) => setFormData({ ...formData, twitter_url: e.target.value })}
                     placeholder="https://twitter.com/..."
                     className="bg-[#111315] border-white/10"
                   />
@@ -503,7 +495,7 @@ export default function PlayerOnboarding() {
             <Button
               onClick={handleNext}
               variant="gradient"
-              disabled={!formData.grad_year || !formData.high_school_name || (currentStep === 2 && (!formData.height_feet || !formData.weight_lbs || !formData.primary_position || !formData.throws || !formData.bats})
+              disabled={!formData.grad_year || !formData.high_school_name || (currentStep === 2 && (!formData.height_feet || !formData.weight_lbs || !formData.primary_position || !formData.throws || !formData.bats))}
             >
               Next
               <ArrowRight className="w-4 h-4 ml-2" />

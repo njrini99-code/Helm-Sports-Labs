@@ -34,12 +34,12 @@ export function PlayerEventsTimeline({
                     <p className="text-xs text-slate-300">
                       {item.statsSnippet.points} pts • {item.statsSnippet.rebounds} reb • {item.statsSnippet.assists} ast
                     </p>
-)}
+                  )}
                 </div>
                 <Badge className="bg-white/10 border-white/20 text-white capitalize">{prettyType(item.type)}</Badge>
               </div>
             </div>
-          )})
+          ))}
       </div>
     </Card>
   );

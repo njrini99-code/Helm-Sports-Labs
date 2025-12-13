@@ -93,7 +93,7 @@ export function FilterPresets({ currentFilters, onLoadPreset }: FilterPresetsPro
       }
     }
     return DEFAULT_PRESETS;
-  }});
+  });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [presetName, setPresetName] = useState('');
 
@@ -176,7 +176,7 @@ export function FilterPresets({ currentFilters, onLoadPreset }: FilterPresetsPro
         </Dialog>
       </div>
       <div className="flex flex-wrap gap-2">
-        {{presets.length === 0 ? (
+        {presets.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -202,7 +202,7 @@ export function FilterPresets({ currentFilters, onLoadPreset }: FilterPresetsPro
               <X className="w-3 h-3 text-slate-500 hover:text-slate-700" />
             </button>
           </Badge>
-)}
+        ))}
       </div>
     </div>
   );

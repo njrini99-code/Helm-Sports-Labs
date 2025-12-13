@@ -439,7 +439,7 @@ export function ChartSkeleton({
               key={i}
               variant={variant}
               className="w-8 rounded-t-md"
-              style={{ height: `${Math.random() * 60 + 40}}%` }}
+              style={{ height: `${Math.random() * 60 + 40}%` }}
             />
           })
         </div>

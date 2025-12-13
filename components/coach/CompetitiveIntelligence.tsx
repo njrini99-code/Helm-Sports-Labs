@@ -95,7 +95,7 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
   };
 
   if (loading) {
-    return <div className="p-4">Loading competitive intelligence...</motion.div>;
+    return <div className="p-4">Loading competitive intelligence...</div>;
   }
 
   if (data.length === 0) {
@@ -103,7 +103,7 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
       <div className="p-4 text-center text-muted-foreground">
         <Users className="w-8 h-8 mx-auto mb-2 opacity-50" />
         <p className="text-sm">No competitive data available yet.</p>
-      </motion.div>
+      </div>
     );
   }
 
@@ -131,8 +131,8 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
             <p className="text-sm text-muted-foreground">Avg. Competition</p>
             <p className="text-2xl font-bold">{avgCompetition.toFixed(1)}</p>
           </motion.div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
       <div className="space-y-2 max-h-96 overflow-y-auto">
         {data.map((item) => (
           <div
@@ -161,21 +161,21 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
                 )}>
                   {item.competitionLevel.toUpperCase()}
                 </span>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
             <div className="flex items-center gap-4 text-sm text-muted-foreground hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <div className="flex items-center gap-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <Users className="w-3 h-3" />
                 <span>{item.otherCoaches} other coaches</span>
-              </motion.div>
+              </div>
               <div className="flex items-center gap-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <Eye className="w-3 h-3" />
                 <span>{item.recentActivity} views (7d)</span>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-)}
-      </motion.div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
               {highCompetition > 0 && (
         <div className="p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 flex items-start gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5" />
@@ -186,9 +186,9 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
             <p className="text-xs text-amber-700 dark:text-amber-300 mt-1">
               {highCompetition} players in your watchlist have high competition. Consider prioritizing outreach.
             </p>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 )}
-    </motion.div>
+    </div>
   );
 }

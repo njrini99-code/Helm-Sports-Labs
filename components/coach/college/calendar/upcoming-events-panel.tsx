@@ -122,7 +122,7 @@ export function UpcomingEventsPanel({ events, onEventClick, onViewAll }: Upcomin
                               {player.firstName?.[0]}{player.lastName?.[0]}
                             </AvatarFallback>
                           </Avatar>
-)}
+                        )}
                       </div>
                       {event.players.length > 3 && (
                         <span className="text-[10px] text-slate-400 ml-1">

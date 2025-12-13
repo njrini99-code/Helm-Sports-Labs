@@ -235,6 +235,7 @@ export function QuickActionToolbar({
         position === 'bottom' && 'bottom-4 left-1/2 -translate-x-1/2',
         isCollapsed && 'translate-x-0',
         !isOpen && !isCollapsed && (position === 'right' ? 'translate-x-full' : position === 'left' ? '-translate-x-full' : 'translate-y-full')
+      )}
     >
       {isCollapsed ? (
         // Collapsed state - floating button
@@ -300,7 +301,7 @@ export function QuickActionToolbar({
                 </div>
               ) : searchResults.length > 0 ? (
                 <div className="divide-y">
-                  {{searchResults.length === 0 ? (
+                  {searchResults.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -336,9 +337,9 @@ export function QuickActionToolbar({
                           <BookmarkPlus className="w-3 h-3 mr-1" />
                           Add to Watchlist
                         </Button>
-)}
+                      )}
                     </div>
-)}
+                  )}
                 </div>
               ) : (
                 <div className="p-4 text-center text-sm text-muted-foreground">

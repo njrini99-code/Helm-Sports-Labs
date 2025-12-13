@@ -694,9 +694,9 @@ export default function CoachSettingsPage() {
                           </Button>
                         </div>
                       </div>
-))})}
+                    ))}
                   </div>
-)}
+                )}
               </CardContent>
             </Card>
           </TabsContent>

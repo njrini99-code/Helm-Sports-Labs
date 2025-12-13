@@ -214,7 +214,7 @@ export function GlassPageLoader({
                 <div
                   key={i}
                   className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce"
-                  style={{ animationDelay: `${i * 0.15}}s`, animationDuration: '0.6s' }}></div>
+                  style={{ animationDelay: `${i * 0.15}s`, animationDuration: '0.6s' }}></div>
 )}
             </div>
           </div>

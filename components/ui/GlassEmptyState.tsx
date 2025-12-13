@@ -287,7 +287,7 @@ function EmptyStateIllustration({
   size: Size;
   Icon: LucideIcon;
   color: string;
-}}) {
+}) {
   const sizes = sizeConfig[size];
   const isGlass = glassVariant === 'glass' || glassVariant === 'gradient';
 
@@ -297,11 +297,13 @@ function EmptyStateIllustration({
       <div
         className={cn(
           'absolute -inset-4 rounded-full opacity-20 blur-xl',
-          color.replace('text-', 'bg-'})></div>
+          color.replace('text-', 'bg-'))}
+      ></div>
       <div
         className={cn(
           'absolute -inset-2 rounded-full opacity-10 blur-md',
-          color.replace('text-', 'bg-'})></div>
+          color.replace('text-', 'bg-'))}
+      ></div>
 {/* Icon container */}
       <div
         className={cn(
@@ -314,8 +316,10 @@ function EmptyStateIllustration({
         <div
           className={cn(
             'absolute inset-0 rounded-full animate-ping opacity-20',
-            color.replace('text-', 'bg-'})
-          style={{animationDuration: '3s' }}></div>
+            color.replace('text-', 'bg-')
+          )}
+          style={{ animationDuration: '3s' }}
+        ></div>
 {/* Inner glow ring */}
         <div
           className={cn(
@@ -323,7 +327,8 @@ function EmptyStateIllustration({
             isGlass ? 'bg-white/5' : 'bg-white',
             'border',
             isGlass ? 'border-white/10' : 'border-slate-100'
-          )}></div>
+          )}
+        ></div>
 {/* Icon */}
         <Icon className={cn(sizes.iconSize, color, 'relative z-10')} strokeWidth={1.5} />
       </div>
@@ -336,14 +341,16 @@ function EmptyStateIllustration({
               color.replace('text-', 'bg-'),
               'opacity-60 animate-bounce'
             )}
-            style={{animationDuration: '2s', animationDelay: '0.2s' }}></div>
+            style={{ animationDuration: '2s', animationDelay: '0.2s' }}
+          ></div>
           <div
             className={cn(
               'absolute -bottom-1 -left-3 h-2 w-2 rounded-full',
               color.replace('text-', 'bg-'),
               'opacity-40 animate-bounce'
             )}
-            style={{animationDuration: '2.5s', animationDelay: '0.5s' }}></div>
+            style={{ animationDuration: '2.5s', animationDelay: '0.5s' }}
+          ></div>
         </>
       )}
     </div>
@@ -362,7 +369,7 @@ function ActionButton({
   action: EmptyStateAction;
   glassVariant: GlassVariant;
   size: Size;
-}}) {
+}) {
   const styles = glassVariantStyles[glassVariant];
   const sizes = sizeConfig[size];
   const ButtonIcon = action.icon;
@@ -377,7 +384,7 @@ function ActionButton({
         styles.button[action.variant || 'primary']
       )}
     >
-      {ButtonIcon && <ButtonIcon className="h-4 w-4"></Button>}
+      {ButtonIcon && <ButtonIcon className="h-4 w-4" />}
       {action.label}
     </button>
   );
@@ -431,20 +438,13 @@ export function GlassEmptyState({
       </div>
       {actions && actions.length > 0 && (
         <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
-          {{actions.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">📭</div>
-              <p className="text-white/60 mb-4">No items yet</p>
-              <p className="text-white/40 text-sm">Check back later</p>
-            </div>
-          ) : (
-            actions.map((action, index) => (
+          {actions.map((action, index) => (
             <ActionButton
               key={index}
               action={action}
               glassVariant={glassVariant}
               size={size} />
-          })
+            )}
         </div>
 )}
     </div>
@@ -598,7 +598,7 @@ export function CustomEmptyState({
               action={action}
               glassVariant={glassVariant}
               size={size} />
-          })
+            )}
         </div>
 )}
     </div>

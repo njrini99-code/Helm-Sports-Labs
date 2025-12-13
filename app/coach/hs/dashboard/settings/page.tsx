@@ -338,7 +338,7 @@ export default function HsCoachSettingsPage() {
                     variant="ghost"
                     size="sm"
                     className="ml-2 gap-2 text-destructive hover:text-destructive"
-                    onClick={() => setFormData(prev => ({ ...prev, logo_url: '' }})
+                    onClick={() => setFormData(prev => ({ ...prev, logo_url: '' }))}
                   >
                     <X className="w-4 h-4" />
                     Remove
@@ -360,7 +360,7 @@ export default function HsCoachSettingsPage() {
                   <Input
                     id="full_name"
                     value={formData.full_name}
-                    onChange={(e) => setFormData(prev => ({ ...prev, full_name: e.target.value }})
+                    onChange={(e) => setFormData(prev => ({ ...prev, full_name: e.target.value }))}
                     placeholder="John Smith"
                   />
                 </div>
@@ -369,7 +369,7 @@ export default function HsCoachSettingsPage() {
                   <Input
                     id="school_name"
                     value={formData.school_name}
-                    onChange={(e) => setFormData(prev => ({ ...prev, school_name: e.target.value }})
+                    onChange={(e) => setFormData(prev => ({ ...prev, school_name: e.target.value }))}
                     placeholder="Lincoln High School"
                   />
                 </div>
@@ -380,7 +380,7 @@ export default function HsCoachSettingsPage() {
                   <Input
                     id="school_city"
                     value={formData.school_city}
-                    onChange={(e) => setFormData(prev => ({ ...prev, school_city: e.target.value }})
+                    onChange={(e) => setFormData(prev => ({ ...prev, school_city: e.target.value }))}
                     placeholder="Raleigh"
                   />
                 </div>
@@ -389,7 +389,7 @@ export default function HsCoachSettingsPage() {
                   <Input
                     id="school_state"
                     value={formData.school_state}
-                    onChange={(e) => setFormData(prev => ({ ...prev, school_state: e.target.value }})
+                    onChange={(e) => setFormData(prev => ({ ...prev, school_state: e.target.value }))}
                     placeholder="NC"
                     maxLength={2}
                   />
@@ -400,7 +400,7 @@ export default function HsCoachSettingsPage() {
                 <Textarea
                   id="about"
                   value={formData.about}
-                  onChange={(e) => setFormData(prev => ({ ...prev, about: e.target.value }})
+                  onChange={(e) => setFormData(prev => ({ ...prev, about: e.target.value }))}
                   placeholder="Tell us about your program, values, and what makes it special..."
                   rows={4}
                 />
@@ -420,7 +420,7 @@ export default function HsCoachSettingsPage() {
                   id="email_contact"
                   type="email"
                   value={formData.email_contact}
-                  onChange={(e) => setFormData(prev => ({ ...prev, email_contact: e.target.value }})
+                  onChange={(e) => setFormData(prev => ({ ...prev, email_contact: e.target.value }))}
                   placeholder="coach@school.edu"
                 />
               </div>
@@ -430,7 +430,7 @@ export default function HsCoachSettingsPage() {
                   id="phone_contact"
                   type="tel"
                   value={formData.phone_contact}
-                  onChange={(e) => setFormData(prev => ({ ...prev, phone_contact: e.target.value }})
+                  onChange={(e) => setFormData(prev => ({ ...prev, phone_contact: e.target.value }))}
                   placeholder="(555) 123-4567"
                 />
               </div>
@@ -440,7 +440,7 @@ export default function HsCoachSettingsPage() {
                   id="website_url"
                   type="url"
                   value={formData.website_url}
-                  onChange={(e) => setFormData(prev => ({ ...prev, website_url: e.target.value }})
+                  onChange={(e) => setFormData(prev => ({ ...prev, website_url: e.target.value }))}
                   placeholder="https://school.edu/athletics"
                 />
               </div>

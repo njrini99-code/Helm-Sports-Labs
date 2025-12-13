@@ -338,7 +338,7 @@ export function RecruitmentTimeline({
               }}
               onUpdateStage={onUpdateStage}
             />
-          })
+          ))}
         </div>
       </div>
       {/* Detail Modal */}
@@ -455,7 +455,7 @@ function StageColumn({
               onMoveStage={onUpdateStage}
               currentStage={stage.id}
             />
-          })
+          ))}
         </AnimatePresence>
       {interests.length === 0 && (
           <div className="flex flex-col items-center justify-center py-8 text-center">
@@ -508,7 +508,7 @@ function CollegeCard({
       layout
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={ opacity: 0, scale: 0.9 }}
+      exit={{ opacity: 0, scale: 0.9 }}
       transition={{duration: 0.2 }}
       draggable={isEditable}
       onDragStart={onDragStart}
@@ -594,7 +594,7 @@ function CollegeCard({
                   <stage.icon className={cn('w-3.5 h-3.5 mr-2', stage.color)} />
                   Move to {stage.label}
                 </DropdownMenuItem>
-)}
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
 )}
@@ -845,7 +845,7 @@ function AddEventModal({ isOpen, onClose, onAdd }: AddEventModalProps) {
             <Label>Event Type</Label>
             <Select
               value={form.type}
-              onValueChange={(value) => setForm(prev => ({ ...prev, type: value as any }})
+              onValueChange={(value) => setForm(prev => ({ ...prev, type: value as any }))}
             >
               <SelectTrigger>
                 <SelectValue />
@@ -858,7 +858,7 @@ function AddEventModal({ isOpen, onClose, onAdd }: AddEventModalProps) {
                       {type.label}
                     </div>
                   </SelectItem>
-)}
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -867,7 +867,7 @@ function AddEventModal({ isOpen, onClose, onAdd }: AddEventModalProps) {
             <Input
               placeholder="e.g., Initial recruiting email"
               value={form.title}
-              onChange={(e) => setForm(prev => ({ ...prev, title: e.target.value }})
+              onChange={(e) => setForm(prev => ({ ...prev, title: e.target.value }))}
             />
           </div>
       <div className="space-y-2">
@@ -875,7 +875,7 @@ function AddEventModal({ isOpen, onClose, onAdd }: AddEventModalProps) {
             <Input
               type="date"
               value={form.date}
-              onChange={(e) => setForm(prev => ({ ...prev, date: e.target.value }})
+              onChange={(e) => setForm(prev => ({ ...prev, date: e.target.value }))}
             />
           </div>
       <div className="space-y-2">
@@ -884,7 +884,7 @@ function AddEventModal({ isOpen, onClose, onAdd }: AddEventModalProps) {
               rows={3}
               placeholder="Add any notes about this event..."
               value={form.description}
-              onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }})
+              onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }))}
             />
           </div>
       <div className="flex items-center gap-2">
@@ -892,7 +892,7 @@ function AddEventModal({ isOpen, onClose, onAdd }: AddEventModalProps) {
               type="checkbox"
               id="isCompleted"
               checked={form.isCompleted}
-              onChange={(e) => setForm(prev => ({ ...prev, isCompleted: e.target.checked }})
+              onChange={(e) => setForm(prev => ({ ...prev, isCompleted: e.target.checked }))}
               className="rounded"
             />
             <Label htmlFor="isCompleted" className="text-sm font-normal">
@@ -993,14 +993,14 @@ function AddCollegeModal({ isOpen, onClose, onAdd }: AddCollegeModalProps) {
               <Input
                 placeholder="e.g., University of Texas"
                 value={form.collegeName}
-                onChange={(e) => setForm(prev => ({ ...prev, collegeName: e.target.value }})
+                onChange={(e) => setForm(prev => ({ ...prev, collegeName: e.target.value }))}
               />
             </div>
       <div className="space-y-2">
               <Label>Division</Label>
               <Select
                 value={form.division}
-                onValueChange={(value) => setForm(prev => ({ ...prev, division: value }})
+                onValueChange={(value) => setForm(prev => ({ ...prev, division: value }))}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select division" />
@@ -1019,7 +1019,7 @@ function AddCollegeModal({ isOpen, onClose, onAdd }: AddCollegeModalProps) {
               <Input
                 placeholder="e.g., Big 12"
                 value={form.conference}
-                onChange={(e) => setForm(prev => ({ ...prev, conference: e.target.value }})
+                onChange={(e) => setForm(prev => ({ ...prev, conference: e.target.value }))}
               />
             </div>
       <div className="space-y-2">
@@ -1027,14 +1027,14 @@ function AddCollegeModal({ isOpen, onClose, onAdd }: AddCollegeModalProps) {
               <Input
                 placeholder="e.g., Austin, TX"
                 value={form.location}
-                onChange={(e) => setForm(prev => ({ ...prev, location: e.target.value }})
+                onChange={(e) => setForm(prev => ({ ...prev, location: e.target.value }))}
               />
             </div>
       <div className="space-y-2">
               <Label>Priority</Label>
               <Select
                 value={form.priority}
-                onValueChange={(value) => setForm(prev => ({ ...prev, priority: value as any }})
+                onValueChange={(value) => setForm(prev => ({ ...prev, priority: value as any }))}
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -1056,7 +1056,7 @@ function AddCollegeModal({ isOpen, onClose, onAdd }: AddCollegeModalProps) {
               <Label>Starting Stage</Label>
               <Select
                 value={form.stage}
-                onValueChange={(value) => setForm(prev => ({ ...prev, stage: value as any }})
+                onValueChange={(value) => setForm(prev => ({ ...prev, stage: value as any }))}
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -1069,7 +1069,7 @@ function AddCollegeModal({ isOpen, onClose, onAdd }: AddCollegeModalProps) {
                         {stage.label}
                       </div>
                     </SelectItem>
-)}
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -1078,7 +1078,7 @@ function AddCollegeModal({ isOpen, onClose, onAdd }: AddCollegeModalProps) {
               <Input
                 placeholder="Coach name"
                 value={form.contactName}
-                onChange={(e) => setForm(prev => ({ ...prev, contactName: e.target.value }})
+                onChange={(e) => setForm(prev => ({ ...prev, contactName: e.target.value }))}
               />
             </div>
       <div className="space-y-2">
@@ -1087,7 +1087,7 @@ function AddCollegeModal({ isOpen, onClose, onAdd }: AddCollegeModalProps) {
                 type="email"
                 placeholder="coach@university.edu"
                 value={form.contactEmail}
-                onChange={(e) => setForm(prev => ({ ...prev, contactEmail: e.target.value }})
+                onChange={(e) => setForm(prev => ({ ...prev, contactEmail: e.target.value }))}
               />
             </div>
       <div className="col-span-2 space-y-2">
@@ -1096,7 +1096,7 @@ function AddCollegeModal({ isOpen, onClose, onAdd }: AddCollegeModalProps) {
                 rows={3}
                 placeholder="Any additional notes..."
                 value={form.notes}
-                onChange={(e) => setForm(prev => ({ ...prev, notes: e.target.value }})
+                onChange={(e) => setForm(prev => ({ ...prev, notes: e.target.value }))}
               />
             </div>
           </div>

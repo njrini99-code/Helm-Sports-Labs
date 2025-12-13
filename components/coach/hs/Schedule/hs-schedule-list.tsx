@@ -30,10 +30,10 @@ export function HsScheduleList({ events, loading }: { events: HsScheduleEvent[];
                   <span className="text-xs rounded-full bg-white/10 px-2 py-1 border border-white/15">
                     vs {ev.opponentName}
                   </span>
-)}
+                )}
               </div>
             </div>
-          )})
+          ))}
       </div>
     </Card>
   );

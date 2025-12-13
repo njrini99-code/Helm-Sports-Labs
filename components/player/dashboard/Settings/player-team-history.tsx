@@ -392,13 +392,13 @@ export function PlayerTeamHistory({ playerId }: PlayerTeamHistoryProps) {
                             </div>
 )}
                         </div>
-)}
+                      )}
                     </div>
                   </div>
                 </div>
-)}
+              ))}
             </div>
-)}
+          )}
         </CardContent>
       </Card>
       {/* Edit Team Dialog */}

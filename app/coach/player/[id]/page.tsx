@@ -515,7 +515,7 @@ export default function CoachPlayerProfilePage() {
           <div className="flex items-center justify-between">
             <Button 
               variant="ghost" 
-              onClick={() => router.back()}}
+              onClick={() => router.back()}
               className={isDark ? 'text-slate-400 hover:text-white' : ''}
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -726,15 +726,15 @@ export default function CoachPlayerProfilePage() {
                               <CheckCircle2 className="w-3 h-3 text-emerald-400" />
                               <span className="text-[10px] text-emerald-400">Verified</span>
                             </div>
-)}
+                          )}
                         </div>
-)}
+                      ))
                     ) : (
                       <div className={`col-span-2 text-center py-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                         <Ruler className="w-12 h-12 mx-auto mb-2 opacity-50" />
                         <p>No measurables recorded</p>
                       </div>
-)}
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -760,7 +760,7 @@ export default function CoachPlayerProfilePage() {
                           </p>
                         </div>
                       </div>
-)}
+                    ))}
                   </div>
                   <Button 
                     variant="ghost" 
@@ -794,7 +794,7 @@ export default function CoachPlayerProfilePage() {
                             {note.coachName} • {new Date(note.createdAt).toLocaleDateString()}
                           </p>
                         </div>
-)}
+                      ))
                     ) : (
                       <div className={`col-span-2 text-center py-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                         <Pin className="w-12 h-12 mx-auto mb-2 opacity-50" />
@@ -808,7 +808,7 @@ export default function CoachPlayerProfilePage() {
                           Add Note
                         </Button>
                       </div>
-)}
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -898,7 +898,7 @@ export default function CoachPlayerProfilePage() {
                       >
                         {filter}
                       </Badge>
-)}
+                    ))}
                   </div>
                 </div>
               </CardHeader>
@@ -941,7 +941,7 @@ export default function CoachPlayerProfilePage() {
                         </div>
                       </div>
                     </div>
-)}
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -1015,7 +1015,7 @@ export default function CoachPlayerProfilePage() {
                           </div>
                         </div>
                       </div>
-)}
+                    ))}
                   </div>
                 </div>
               </CardContent>
@@ -1121,7 +1121,7 @@ export default function CoachPlayerProfilePage() {
                         </div>
                       </div>
                     </div>
-)}
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -1191,10 +1191,10 @@ export default function CoachPlayerProfilePage() {
                           <GraduationCap className="w-3 h-3 mr-1" />
                           {school}
                         </Badge>
-)}
+                      ))}
                     </div>
                   </div>
-)}
+                )}
               </CardContent>
             </Card>
           </TabsContent>

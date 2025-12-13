@@ -202,7 +202,7 @@ export function CalendarEventModal({
                       {et.label}
                     </span>
                   </SelectItem>
-)}
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -311,9 +311,9 @@ export function CalendarEventModal({
                       <X className="w-3 h-3" />
                     </button>
                   </Badge>
-)}
+                ))}
               </div>
-)}
+            )}
             {/* Player Search */}
             <div className="relative">
               <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
@@ -350,9 +350,9 @@ export function CalendarEventModal({
                         {player.primaryPosition} • {player.gradYear}
                       </span>
                     </button>
-)}
+                  ))}
                 </div>
-)}
+              )}
             </div>
           </div>
       {/* Notes */}

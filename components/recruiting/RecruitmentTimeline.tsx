@@ -89,7 +89,7 @@ export function RecruitmentTimeline({
   };
 
   if (loading) {
-    return <div className="p-4">Loading timeline...</motion.div>;
+    return <div className="p-4">Loading timeline...</div>;
   }
 
   return (
@@ -98,7 +98,7 @@ export function RecruitmentTimeline({
         <div>
           <h3 className="text-lg font-semibold">Recruitment Timeline</h3>
           <p className="text-sm text-muted-foreground">Track your recruiting journey</p>
-        </motion.div>
+        </div>
         <Button
           size="sm"
           onClick={() => setShowAddForm(!showAddForm)}
@@ -106,7 +106,7 @@ export function RecruitmentTimeline({
           <Plus className="w-4 h-4 mr-2" />
           Add Event
         </Button>
-      </motion.div>
+      </div>
               {showAddForm && (
         <motion.div
   initial={{ opacity: 0, y: 20 }}
@@ -136,7 +136,7 @@ export function RecruitmentTimeline({
                 </Button>
               );
             })}
-          </motion.div>
+          </div>
         </motion.div>
 )}
       <div className="relative">
@@ -153,7 +153,7 @@ export function RecruitmentTimeline({
                   event.createdBy === 'coach' ? "border-blue-500" : "border-emerald-500"
                 )}>
                   <Icon className="w-4 h-4" />
-                </motion.div>
+                </div>
       {/* Event content */}
                 <div className="flex-1 pb-6">
                   <div className="flex items-center justify-between mb-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
@@ -161,7 +161,7 @@ export function RecruitmentTimeline({
                     <span className="text-xs text-muted-foreground">
                       {format(event.date, 'MMM d, yyyy')}
                     </span>
-                  </motion.div>
+                  </div>
                   {event.description && (
                     <p className="text-sm text-muted-foreground mb-2">{event.description}</p>
 )}
@@ -179,20 +179,20 @@ export function RecruitmentTimeline({
                         {event.attachments.length} attachment(s)
                       </span>
 )}
-                  </motion.div>
-                </motion.div>
-              </motion.div>
+                  </div>
+                </div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
               {events.length === 0 && (
           <div className="p-8 text-center text-muted-foreground">
             <Calendar className="w-12 h-12 mx-auto mb-2 opacity-50" />
             <p className="text-sm">No timeline events yet.</p>
             <p className="text-xs mt-1">Add events to track your recruiting progress.</p>
-          </motion.div>
+          </div>
 )}
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }

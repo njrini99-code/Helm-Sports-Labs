@@ -29,7 +29,7 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
     return (
       <div className="p-8 text-center text-muted-foreground">
         <p>Select players to compare</p>
-      </motion.div>
+      </div>
     );
   }
 
@@ -79,6 +79,7 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
       if (y > 280) {
         doc.addPage();
         y = 20;
+      }
       });
 
     doc.save('player-comparison.pdf');
@@ -103,11 +104,11 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
             <Download className="w-4 h-4 mr-2" />
             Export PDF
           </Button>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
       {/* Player Headers */}
-      <div className="grid gap-4" style={{ gridTemplateColumns: `200px repeat(${players.length}}, 1fr)` }}>
-        <div></motion.div>
+      <div className="grid gap-4" style={{ gridTemplateColumns: `200px repeat(${players.length}, 1fr)` }}>
+        <div></div>
         {players.map((player) => (
           <div key={player.id} className="relative">
             <motion.div
@@ -119,7 +120,7 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
                 <div>
                   <h3 className="font-semibold">{player.name}</h3>
                   <p className="text-sm text-muted-foreground">{player.position}</p>
-                </motion.div>
+                </div>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -128,14 +129,14 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
                 >
                   <X className="w-3 h-3" />
                 </Button>
-              </motion.div>
+              </div>
             </motion.div>
-          </motion.div>
-)}
-      </motion.div>
+          </div>
+        ))}
+      </div>
       {/* Stats Comparison */}
       <div className="border rounded-2xl overflow-hidden">
-        <div className="bg-muted p-2 font-medium text-sm">Statistics</motion.div>
+        <div className="bg-muted p-2 font-medium text-sm">Statistics</div>
         <div className="divide-y">
           {displayStats.map((stat) => {
             const statName = stat.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
@@ -143,8 +144,8 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
             const bestValue = getBestValue(stat, higherIsBetter);
             
             return (
-              <div key={stat} className="grid gap-4 p-3" style={{ gridTemplateColumns: `200px repeat(${players.length}}, 1fr)` }}>
-                <div className="font-medium text-sm">{statName}</motion.div>
+              <div key={stat} className="grid gap-4 p-3" style={{ gridTemplateColumns: `200px repeat(${players.length}, 1fr)` }}>
+                <div className="font-medium text-sm">{statName}</div>
                 {players.map((player) => {
                   const value = player.stats?.[stat] || 'N/A';
                   const isBest = value !== 'N/A' && value.toString() === bestValue;
@@ -158,14 +159,14 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
                       )}
                     >
                       {value}
-                    </motion.div>
+                    </div>
                   );
                 })}
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
       {/* Video Comparison */}
       {players.some(p => p.videoUrl) && (
         <div className="space-y-2">
@@ -178,7 +179,7 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
             >
               {syncedPlayback ? 'Unsync' : 'Sync Playback'}
             </Button>
-          </motion.div>
+          </div>
           <div className="grid grid-cols-2 gap-4">
             {players.map((player) => (
               player.videoUrl && (
@@ -188,17 +189,17 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
                       src={player.videoUrl}
                       className="w-full h-full"
                       controls
-                      onPlay={() => setPlayingVideos(prev => ({ ...prev, [player.id]: true }})
-                      onPause={() => setPlayingVideos(prev => ({ ...prev, [player.id]: false }})
+                      onPlay={() => setPlayingVideos(prev => ({ ...prev, [player.id]: true }))}
+                      onPause={() => setPlayingVideos(prev => ({ ...prev, [player.id]: false }))}
                     />
-                  </motion.div>
+                  </div>
                   <p className="text-sm text-muted-foreground text-center">{player.name}</p>
-                </motion.div>
+                </div>
               )
-            })
-          </motion.div>
-        </motion.div>
+            ))}
+          </div>
+        </div>
 )}
-    </motion.div>
+    </div>
   );
 }

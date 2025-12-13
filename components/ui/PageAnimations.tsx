@@ -631,7 +631,7 @@ export function LoadingTransition({
       {showContent && (
         <div
           style={{
-            animation: `content-fade-in ${duration}}ms ${SPRING_EASINGS.gentle} forwards`,
+            animation: `content-fade-in ${duration}ms ${SPRING_EASINGS.gentle} forwards`,
           }}
         >
           {children}

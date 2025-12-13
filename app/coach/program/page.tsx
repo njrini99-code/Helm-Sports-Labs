@@ -530,7 +530,7 @@ export default function CoachProgramPage() {
                             <p className={`text-sm ${theme.textMuted}`}>Upload {facility}</p>
                           </div>
                         </button>
-)}
+                      ))}
                     </div>
                   </div>
                 ) : coach.facility_summary ? (
@@ -544,7 +544,7 @@ export default function CoachProgramPage() {
                             <p className={`text-sm ${theme.textMuted}`}>{facility}</p>
                           </div>
                         </div>
-)}
+                      ))}
                     </div>
                   </div>
                 ) : (
@@ -688,9 +688,9 @@ export default function CoachProgramPage() {
                       </div>
                     </CardContent>
                   </Card>
-)}
+                ))}
               </div>
-)}
+            )}
           </TabsContent>
       {/* Commitments Tab */}
           <TabsContent value="commitments" className="space-y-6">

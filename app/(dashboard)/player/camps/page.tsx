@@ -210,9 +210,9 @@ export default function PlayerCampsPage() {
                     onCancel={() => handleCancel(camp.id)}
                     loading={actionLoading === camp.id}
                   />
-                })
+                ))}
               </div>
-)}
+            )}
           </TabsContent>
       {/* Registered Tab */}
           <TabsContent value="registered" className="mt-6">
@@ -235,9 +235,9 @@ export default function PlayerCampsPage() {
                       onCancel={() => handleCancel(registration.camp_event_id)}
                       loading={actionLoading === registration.camp_event_id}
                     />
-                  })
+                  ))}
               </div>
-)}
+            )}
           </TabsContent>
         </Tabs>
       </div>

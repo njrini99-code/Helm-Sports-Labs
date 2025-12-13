@@ -217,7 +217,7 @@ export function BulkActionsToolbar<T extends { id: string }>({
                     >
                       {status}
                     </DropdownMenuItem>
-)}
+                  ))}
                 </>
               )}
             </DropdownMenuContent>

@@ -396,7 +396,7 @@ function ProfileEditContent() {
         <SelectContent>
                         {GRAD_YEARS.map((year) => (
                           <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
-)}
+                        ))}
                         </SelectContent>
                       </Select>
                     </div>
@@ -423,7 +423,7 @@ function ProfileEditContent() {
         <SelectContent>
                         {US_STATES.map((state) => (
                           <SelectItem key={state} value={state}>{state}</SelectItem>
-)}
+                        ))}
                         </SelectContent>
                       </Select>
                     </div>
@@ -435,11 +435,13 @@ function ProfileEditContent() {
                         placeholder="Team name (optional)"
                       />
                     </div>
+                  </div>
+                </div>
                 </div>
               </div>
             </motion.div>
           </TabsContent>
-        <TabsContent value="physical">
+          <TabsContent value="physical">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -463,7 +465,7 @@ function ProfileEditContent() {
         <SelectContent>
                         {[4, 5, 6, 7].map((ft) => (
                           <SelectItem key={ft} value={ft.toString()}>{ft}'</SelectItem>
-)}
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -476,7 +478,7 @@ function ProfileEditContent() {
         <SelectContent>
                         {Array.from({ length: 12 }, (_, i) => (
                           <SelectItem key={i} value={i.toString()}>{i}"</SelectItem>
-)}
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -497,7 +499,7 @@ function ProfileEditContent() {
         <SelectContent>
                         {POSITIONS.map((pos) => (
                           <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-)}
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -511,7 +513,7 @@ function ProfileEditContent() {
                         <SelectItem value="">None</SelectItem>
                         {POSITIONS.map((pos) => (
                           <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-)}
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -540,6 +542,7 @@ function ProfileEditContent() {
                       </SelectContent>
                     </Select>
                   </div>
+                </div>
                 </div>
               </div>
             </motion.div>
@@ -586,8 +589,9 @@ function ProfileEditContent() {
                           {goal}
                         </p>
                       </button>
-)}
+                    ))}
                   </div>
+                </div>
                 </div>
               </div>
             </motion.div>
@@ -651,15 +655,16 @@ function ProfileEditContent() {
                             <Trash2 className="w-4 h-4" strokeWidth={2} />
                           </Button>
                         </div>
-)}
+                      ))}
                     </div>
                   </div>
-)}
+                )}
                 {recruitingInterests.length === 0 && (
                   <p className="text-sm text-white/60">
                     No schools added yet. Search and add schools you're interested in!
                   </p>
-)}
+                )}
+                </div>
               </div>
             </motion.div>
           </TabsContent>
@@ -695,7 +700,8 @@ function ProfileEditContent() {
                     value={formData.twitter_url}
                     onChange={(e) => setFormData({ ...formData, twitter_url: e.target.value })}
                     placeholder="https://twitter.com/..."
-                  />
+                    />
+                </div>
                 </div>
               </div>
             </motion.div>

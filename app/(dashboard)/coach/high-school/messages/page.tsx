@@ -301,7 +301,7 @@ export default function HSCoachMessagesPage() {
   };
 
   const filteredPlayers = teamPlayers.filter(p => 
-    p.player_name.toLowerCase().includes(searchQuery.toLowerCase()}
+    p.player_name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const selectedPlayer = teamPlayers.find(p => p.player_id === selectedPlayerId) ||
@@ -398,14 +398,14 @@ export default function HSCoachMessagesPage() {
                             <span className="px-1.5 py-0.5 bg-emerald-500 text-white text-xs rounded-full">
                               {conv.unread_count}
                             </span>
-)}
+                          )}
                         </div>
                         {conv.last_message && (
                           <p className={`text-sm truncate ${theme.textMuted}`}>{conv.last_message}</p>
-)}
+                        )}
                       </div>
                     </button>
-)}
+                  ))
                 )
               ) : (
                 filteredPlayers.length === 0 ? (
@@ -436,32 +436,36 @@ export default function HSCoachMessagesPage() {
                       </div>
                       <ChevronRight className={`w-4 h-4 ${theme.textMuted}`} />
                     </button>
-                  )}
-                )}
+                  ))
+                )
+              )}
+            </div>
+            </div>
             </div>
           </div>
-      {/* Column 2 & 3: Chat View */}
-          <div className={`col-span-9 rounded-xl border ${theme.cardBg} flex flex-col`}>
-            {selectedPlayer ? (
-              <>
-                {/* Chat Header */}
-                <div className="p-4 border-b border-white/5 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-medium">
-                    {selectedPlayer.player_name?.[0] || '?'}
-                  </div>
-                  <div>
-                    <p className={`font-medium ${theme.text}`}>
-                      {selectedPlayer.player_name || 'Unknown'}
-                    </p>
-                    <p className={`text-sm ${theme.textMuted}`}>
-                      {'position' in selectedPlayer && (selectedPlayer as TeamPlayer).position ? `${(selectedPlayer as TeamPlayer).position} • ` : ''}
-                      {'grad_year' in selectedPlayer && (selectedPlayer as TeamPlayer).grad_year ? `Class of ${(selectedPlayer as TeamPlayer).grad_year}` : 'Player'}
-                    </p>
-                  </div>
+        </div>
+        {/* Column 2 & 3: Chat View */}
+        <div className={`col-span-9 rounded-xl border ${theme.cardBg} flex flex-col`}>
+          {selectedPlayer ? (
+            <>
+              {/* Chat Header */}
+              <div className="p-4 border-b border-white/5 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-medium">
+                  {selectedPlayer.player_name?.[0] || '?'}
                 </div>
-      {/* Messages */}
-                <div className="flex-1 overflow-y-auto p-4 space-y-3">
-                  {messages.length === 0 ? (
+                <div>
+                  <p className={`font-medium ${theme.text}`}>
+                    {selectedPlayer.player_name || 'Unknown'}
+                  </p>
+                  <p className={`text-sm ${theme.textMuted}`}>
+                    {'position' in selectedPlayer && (selectedPlayer as TeamPlayer).position ? `${(selectedPlayer as TeamPlayer).position} • ` : ''}
+                    {'grad_year' in selectedPlayer && (selectedPlayer as TeamPlayer).grad_year ? `Class of ${(selectedPlayer as TeamPlayer).grad_year}` : 'Player'}
+                  </p>
+                </div>
+              </div>
+              {/* Messages */}
+              <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                {messages.length === 0 ? (
                     <div className={`flex items-center justify-center h-full ${theme.textMuted}`}>
                       <div className="text-center">
                         <MessageSquare className="w-12 h-12 mx-auto mb-3 opacity-50" />
@@ -496,7 +500,8 @@ export default function HSCoachMessagesPage() {
                           </div>
                         </div>
                       </div>
-                    )})
+                    ))
+                  )}
                 </div>
       {/* Input */}
                 <div className="p-4 border-t border-white/5">
@@ -539,7 +544,7 @@ export default function HSCoachMessagesPage() {
                   <p className="text-sm">Choose a player from the list to start messaging</p>
                 </div>
               </div>
-)}
+            )}
           </div>
         </div>
       </div>

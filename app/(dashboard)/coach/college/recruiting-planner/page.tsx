@@ -406,10 +406,10 @@ export default function RecruitingPlannerPage() {
                       {config.label}
                     </div>
                   </SelectItem>
-                ))
+                ))}
               </SelectContent>
             </Select>
-      <Select value={String(gradYearFilter)} onValueChange={(v) => setGradYearFilter(v === 'all' ? 'all' : Number(v})>
+      <Select value={String(gradYearFilter)} onValueChange={(v) => setGradYearFilter(v === 'all' ? 'all' : Number(v))}>
               <SelectTrigger className="h-9 w-[110px] text-sm bg-white/10 backdrop-blur-md border border-white/20 border-slate-200">
                 <SelectValue placeholder="All years" />
               </SelectTrigger>
@@ -417,7 +417,7 @@ export default function RecruitingPlannerPage() {
                 <SelectItem value="all">All years</SelectItem>
                 {[2025, 2026, 2027, 2028].map((y) => (
                   <SelectItem key={y} value={String(y)}>{y}</SelectItem>
-                )}
+                ))}
               </SelectContent>
             </Select>
       <div className="h-6 w-px bg-slate-200"></div>
@@ -468,7 +468,7 @@ export default function RecruitingPlannerPage() {
               <SelectContent>
                 {Object.entries(STATUS_CONFIG).map(([key, config]) => (
                   <SelectItem key={key} value={key}>{config.label}</SelectItem>
-                ))
+                ))}
               </SelectContent>
             </Select>
             <DialogFooter>
@@ -639,7 +639,7 @@ function PipelinePanel({
               <span className="text-xs font-semibold text-slate-700 uppercase tracking-wide">{config.short}</span>
               <span className="ml-auto text-xs text-slate-400 font-medium">{entries.length}</span>
             </div>
-      <div className="space-y-1.5 max-h-[200px] overflow-y-auto">
+            <div className="space-y-1.5 max-h-[200px] overflow-y-auto">
               {entries.length === 0 ? (
                 <div className="py-6 text-center text-xs text-slate-300">No players</div>
               ) : (
@@ -668,7 +668,7 @@ function PipelinePanel({
                             <MoreHorizontal className="w-4 h-4 text-slate-400" />
                           </button>
                         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-40">
+                        <DropdownMenuContent align="end" className="w-40">
                           <DropdownMenuItem onClick={() => onViewProfile(entry.player.id)}><Eye className="w-4 h-4 mr-2" /> View profile</DropdownMenuItem>
                           <DropdownMenuItem onClick={() => onChangeStatus(entry)}><ArrowRightLeft className="w-4 h-4 mr-2" /> Change status</DropdownMenuItem>
                           <DropdownMenuItem onClick={() => onAddNote(entry)}><NotebookPen className="w-4 h-4 mr-2" /> Add note</DropdownMenuItem>
@@ -676,10 +676,11 @@ function PipelinePanel({
                       </DropdownMenu>
                     </div>
                   );
-                })}
+                })
+              )}
             </div>
           </div>
-        )}
+        ))}
       </div>
     </div>
   );
@@ -720,7 +721,7 @@ function RecruitingDiamond({
               <span className={`w-2 h-2 rounded-full ${config.dotClass}`}></span>
               <span className="text-[10px] text-slate-500 font-medium">{config.short}</span>
             </div>
-))})}
+          ))}
         </div>
       </div>
       {/* Diamond Canvas */}
@@ -733,9 +734,9 @@ function RecruitingDiamond({
       >
         {/* Soft radial glow */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(255,255,255,0.08),transparent_55%)]"></div>
-{/* Very soft vignette */}
+        {/* Very soft vignette */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_55%,rgba(0,0,0,0.15))]"></div>
-{/* Diamond Field Lines (SVG) */}
+        {/* Diamond Field Lines (SVG) */}
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
           {/* Outfield Arc - subtle */}
           <path d="M 45 200 Q 200 25 355 200" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" />
@@ -744,7 +745,7 @@ function RecruitingDiamond({
           {/* Home plate */}
           <path d="M 193 222 L 200 230 L 207 222 L 207 216 L 193 216 Z" fill="rgba(255,255,255,0.12)" />
         </svg>
-      {/* Position Clusters */}
+        {/* Position Clusters */}
         {Object.entries(POSITION_SLOTS).map(([pos, coords]) => (
           <PositionCluster
             key={pos}
@@ -758,7 +759,7 @@ function RecruitingDiamond({
             onChangeStatus={onChangeStatus}
             onShowAll={() => onShowAllAtPosition(pos, playersByPosition[pos] || [])}
           />
-        )}
+        ))}
       </div>
     </div>
   );
@@ -821,7 +822,7 @@ function PositionCluster({
                 onViewProfile={() => onViewProfile(player.id)}
                 onChangeStatus={() => onChangeStatus(player)}
               />
-            })
+            ))}
             {extraCount > 0 && (
               <button
                 onClick={onShowAll}
@@ -829,7 +830,7 @@ function PositionCluster({
               >
                 +{extraCount} more
               </button>
-)}
+            )}
           </>
         )}
       </div>

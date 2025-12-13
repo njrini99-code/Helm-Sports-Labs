@@ -85,7 +85,7 @@ export default function HsCoachRosterPage() {
       {selectedPlayers.length > 0 && (
         <HsRosterBulkActions
           selected={selectedPlayers}
-          onClear={() => setSelected(new Set(})
+          onClear={() => setSelected(new Set())}
           onMessageSelected={openMessageSelected}
         />
       )}
@@ -99,7 +99,7 @@ export default function HsCoachRosterPage() {
             const next = new Set(prev);
             next.has(id) ? next.delete(id) : next.add(id);
             return next;
-          });
+          })
         }
       />
       <HsNewConversationModal

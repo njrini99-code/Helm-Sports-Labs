@@ -440,7 +440,7 @@ export default function PlayerDiscoverPage() {
 
     const csvContent = [
       headers.join(','),
-      ...rows.map(row => row.map(cell => `"${cell}"`).join(',')}
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
     ].join('\n');
 
     // Download CSV
@@ -580,9 +580,10 @@ export default function PlayerDiscoverPage() {
             onSearch={setSearch}
             suggestions={filteredColleges.slice(0, 5).map(c => ({
               id: c.id,
+              id: c.id,
               label: c.name,
               category: `${c.division} • ${c.state || 'N/A'}`,
-            }})
+            }))}
             className="w-full"
           />
 
@@ -624,7 +625,7 @@ export default function PlayerDiscoverPage() {
                 >
                   {div}
                 </motion.button>
-)}
+              ))}
             </div>
       {hasActiveFilters && (
               <button
@@ -642,7 +643,7 @@ export default function PlayerDiscoverPage() {
               className={cn(glassPanelEnhanced, 'p-6 space-y-5')}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
-              exit={ opacity: 0, height: 0 }}
+              exit={{ opacity: 0, height: 0 }}
               transition={{duration: 0.3 }}
             >
               {/* Region Filters */}
@@ -665,7 +666,7 @@ export default function PlayerDiscoverPage() {
                       >
                         {region}
                       </motion.button>
-)}
+                    ))}
                   </div>
                 </div>
               </div>
@@ -814,7 +815,7 @@ export default function PlayerDiscoverPage() {
                     />
                   </SelectableItem>
                 </motion.div>
-)}
+              ))}
             </motion.div>
           ) : (
             <motion.div 
@@ -941,10 +942,10 @@ function CollegeCard({
 )}
           <div className="flex items-center gap-2 mt-1.5 flex-wrap">
             {college.division && (
-              <Badge variant="outline" className={cn('text-[10px] font-medium', getDivisionColor(college.division})>
+              <Badge variant="outline" className={cn('text-[10px] font-medium', getDivisionColor(college.division))}>
                 {college.division}
               </Badge>
-)}
+            )}
             {college.city && college.state && (
               <span className="text-xs flex items-center gap-1 text-slate-500">
                 <MapPin className="w-3 h-3" />

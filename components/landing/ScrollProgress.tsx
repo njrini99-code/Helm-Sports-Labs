@@ -25,7 +25,7 @@ export function ScrollProgress() {
     <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-slate-900/50">
       <motion.div
         className="h-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500"
-        style={{ width: `${scrollProgress}}%` }}
+        style={{ width: `${scrollProgress}%` }}
         transition={{type: 'spring', damping: 30, stiffness: 300 }}
       />
     </div>

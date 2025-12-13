@@ -48,7 +48,7 @@ export function AdvancedFilters({
     key: K,
     value: FilterState[K]
   ) => {
-    onFiltersChange({ ...filters, [key]: value }});
+    onFiltersChange({ ...filters, [key]: value });
   };
 
   const toggleArrayFilter = <K extends 'divisions' | 'conferences' | 'states' | 'regions'>(
@@ -72,7 +72,7 @@ export function AdvancedFilters({
       hasWebsite: null,
       minCommitCount: null,
       maxCommitCount: null,
-    }});
+    });
   };
 
   const activeFilterCount = 
@@ -93,7 +93,7 @@ export function AdvancedFilters({
     title: string; 
     sectionKey: string;
     children: React.ReactNode;
-  }}) => {
+  }) => {
     const isOpen = expandedSection === sectionKey;
     return (
       <div className="border border-slate-200 rounded-2xl overflow-hidden">
@@ -158,7 +158,7 @@ export function AdvancedFilters({
       {/* Quick Filter Chips */}
       {!isExpanded && activeFilterCount > 0 && (
         <div className="flex flex-wrap gap-2">
-          {filters.{divisions.length === 0 ? (
+          {filters.divisions.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -174,7 +174,7 @@ export function AdvancedFilters({
             >
               {div} <X className="w-3 h-3 ml-1" />
             </Badge>
-)}
+          ))}
           {filters.conferences.map(conf => (
             <Badge
               key={conf}

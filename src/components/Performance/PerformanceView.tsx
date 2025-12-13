@@ -402,7 +402,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ label, current, goal, isCurre
       <div className="w-full bg-gray-200 rounded-full h-2">
         <div
           className={`h-2 rounded-full transition-all ${getColor()}`}
-          style={{ width: `${percentage}}%` }}></div>
+          style={{ width: `${percentage}%` }}></div>
       </div>
     </div>
   );

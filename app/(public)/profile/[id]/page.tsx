@@ -75,7 +75,8 @@ export default async function PublicProfilePage({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-  className="container mx-auto px-4 md:px-6 py-8">
+        className="container mx-auto px-4 md:px-6 py-8"
+      >
         {/* Header */}
         <div className="glassmorphism rounded-xl p-8 mb-6">
           <div className="flex items-start gap-6 flex-col md:flex-row">
@@ -110,22 +111,22 @@ export default async function PublicProfilePage({
                     <GraduationCap className="w-4 h-4" />
                     {commitCount || 0} Commits
                   </span>
-)}
-              </motion.div>
+                )}
+              </div>
               {coach?.about && (
                 <p className="mt-4 text-sm text-muted-foreground max-w-2xl">
                   {coach.about}
                 </p>
-)}
-            </motion.div>
-      <div className="flex flex-col gap-2">
+              )}
+            </div>
+            <div className="flex flex-col gap-2">
               <Button size="lg" className="bg-emerald-500 hover:bg-emerald-600">
                 <Mail className="mr-2 h-4 w-4" />
                 Contact Coach
               </Button>
-            </motion.div>
-          </motion.div>
-        </motion.div>
+            </div>
+          </div>
+        </div>
       {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <Card>
@@ -156,13 +157,13 @@ export default async function PublicProfilePage({
               <p className="text-xs text-muted-foreground">Type</p>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
       {/* Additional Info */}
         <Card>
           <CardHeader>
             <CardTitle>About This Program</CardTitle>
           </CardHeader>
-        <CardContent>
+          <CardContent>
             {coach?.about ? (
               <p className="text-sm text-muted-foreground whitespace-pre-line">
                 {coach.about}
@@ -171,11 +172,11 @@ export default async function PublicProfilePage({
               <p className="text-sm text-muted-foreground">
                 No additional information available at this time.
               </p>
-)}
+            )}
           </CardContent>
         </Card>
       </motion.div>
-    </motion.div>
+    </div>
   );
 }
 

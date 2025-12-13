@@ -93,8 +93,8 @@ export function HeroSection() {
                 fill="none"
                 stroke="url(#gradient)"
                 strokeWidth="3"
-                initial={ pathLength: 0 }
-                animate={ pathLength: 1 }
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
                 transition={{duration: 1, delay: 0.8 }}
               />
               <defs>

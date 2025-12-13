@@ -271,13 +271,13 @@ export function FullScreenLogin() {
                   "bg-white/95 border border-white/30 shadow-[0_8px_32px_rgba(22,137,59,0.4),inset_0_1px_0_rgba(255,255,255,0.2)]",
                   "backdrop-blur-xl p-2"
                 )}
-                animate={ 
+                animate={{ 
                   boxShadow: [
                     "0 8px 32px rgba(22,137,59,0.4)",
                     "0 12px 48px rgba(22,137,59,0.6)",
                     "0 8px 32px rgba(22,137,59,0.4)"
                   ]
-                }
+                }}
                 transition={{duration: 2, repeat: Infinity }}
               >
                 <Image 
@@ -402,8 +402,8 @@ export function FullScreenLogin() {
                 "w-full py-4 text-base font-semibold",
                 "disabled:opacity-50 disabled:cursor-not-allowed"
               )}
-              whileHover={{ scale: isLoading ? 1 : 1.02 }
-              whileTap={{ scale: isLoading ? 1 : 0.98 }
+              whileHover={{ scale: isLoading ? 1 : 1.02 }}
+              whileTap={{ scale: isLoading ? 1 : 0.98 }}
             >
               {isLoading ? (
                 <span className="flex items-center justify-center gap-2">
