@@ -78,12 +78,37 @@ import { CoachDashboardSkeleton } from '@/components/ui/loading-state';
 import { getCoachCamps } from '@/lib/queries/camp-registration';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { SkipLink } from '@/components/ui/skip-link';
+import { playerSchema, type Player } from '@/lib/schemas/dashboard';
 
 interface PipelineStats {
   watchlist: number;
   highPriority: number;
   offersExtended: number;
   committed: number;
+}
+
+interface WatchlistItem {
+  status: string;
+  players: {
+    avatar_url: string | null;
+  };
+}
+
+interface EngagementEvent {
+  id: string;
+  player_id: string;
+  engagement_type: string;
+  engagement_date: string;
+  players: {
+    id: string;
+    first_name: string | null;
+    last_name: string | null;
+    full_name: string | null;
+    avatar_url: string | null;
+    primary_position: string | null;
+    grad_year: number | null;
+    high_school_state: string | null;
+  };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -231,34 +256,36 @@ export default function CollegeCoachDashboard() {
             .from('recruit_watchlist')
             .select('status, players!inner(avatar_url)')
             .eq('coach_id', coachId);
-          
+
           if (!watchlistError && watchlistData) {
+            const typedWatchlistData = watchlistData as unknown as WatchlistItem[];
+
             const pipelineCounts: PipelineStats = {
-              watchlist: watchlistData.filter(r => r.status === 'watchlist').length,
-              highPriority: watchlistData.filter(r => r.status === 'high_priority').length,
-              offersExtended: watchlistData.filter(r => r.status === 'offer_extended').length,
-              committed: watchlistData.filter(r => r.status === 'committed').length,
+              watchlist: typedWatchlistData.filter(r => r.status === 'watchlist').length,
+              highPriority: typedWatchlistData.filter(r => r.status === 'high_priority').length,
+              offersExtended: typedWatchlistData.filter(r => r.status === 'offer_extended').length,
+              committed: typedWatchlistData.filter(r => r.status === 'committed').length,
             };
             setPipeline(pipelineCounts);
 
             // Get avatars for each status
             const avatars: Record<string, string[]> = {
-              watchlist: watchlistData
-                .filter(r => r.status === 'watchlist' && (r.players as any)?.avatar_url)
+              watchlist: typedWatchlistData
+                .filter(r => r.status === 'watchlist' && r.players?.avatar_url)
                 .slice(0, 5)
-                .map(r => (r.players as any).avatar_url),
-              highPriority: watchlistData
-                .filter(r => r.status === 'high_priority' && (r.players as any)?.avatar_url)
+                .map(r => r.players.avatar_url!),
+              highPriority: typedWatchlistData
+                .filter(r => r.status === 'high_priority' && r.players?.avatar_url)
                 .slice(0, 5)
-                .map(r => (r.players as any).avatar_url),
-              offersOut: watchlistData
-                .filter(r => r.status === 'offer_extended' && (r.players as any)?.avatar_url)
+                .map(r => r.players.avatar_url!),
+              offersOut: typedWatchlistData
+                .filter(r => r.status === 'offer_extended' && r.players?.avatar_url)
                 .slice(0, 5)
-                .map(r => (r.players as any).avatar_url),
-              committed: watchlistData
-                .filter(r => r.status === 'committed' && (r.players as any)?.avatar_url)
+                .map(r => r.players.avatar_url!),
+              committed: typedWatchlistData
+                .filter(r => r.status === 'committed' && r.players?.avatar_url)
                 .slice(0, 5)
-                .map(r => (r.players as any).avatar_url),
+                .map(r => r.players.avatar_url!),
             };
             setPipelineAvatars(avatars);
           }
@@ -318,10 +345,11 @@ export default function CollegeCoachDashboard() {
             .limit(20);
 
           if (recentEvents) {
-            const formattedActivities: Activity[] = recentEvents
-              .filter(e => (e.players as any))
+            const typedEvents = recentEvents as unknown as EngagementEvent[];
+            const formattedActivities: Activity[] = typedEvents
+              .filter(e => e.players)
               .map((e, idx) => {
-                const player = e.players as any;
+                const player = e.players;
                 const timeAgo = getTimeAgo(new Date(e.engagement_date));
                 let action = '';
                 let type: Activity['type'] = 'view';
@@ -339,7 +367,7 @@ export default function CollegeCoachDashboard() {
                   playerId: e.player_id,
                   type,
                   user: {
-                    name: player.full_name || `${player.first_name} ${player.last_name}`,
+                    name: player.full_name || `${player.first_name ?? ''} ${player.last_name ?? ''}`.trim(),
                     avatar: player.avatar_url,
                     position: player.primary_position || 'UTIL',
                     gradYear: player.grad_year || 2026,
@@ -440,10 +468,9 @@ export default function CollegeCoachDashboard() {
   const handleCampClick = (campId: string) => router.push(`/coach/college/camps?camp=${campId}`);
 
   // Dynamic program colors (fallback to brand green)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const coachData = coach as any;
-  const programColor = coachData?.primary_color || '#00C46F';
-  const programColorDark = coachData?.secondary_color || '#003D2B';
+  const coachWithColors = coach as Coach & { primary_color?: string; secondary_color?: string };
+  const programColor = coachWithColors?.primary_color || '#00C46F';
+  const programColorDark = coachWithColors?.secondary_color || '#003D2B';
 
   if (loading) {
     return <CoachDashboardSkeleton />;

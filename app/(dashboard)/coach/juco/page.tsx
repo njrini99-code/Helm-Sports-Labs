@@ -407,9 +407,8 @@ export default function JUCOCoachDashboard() {
   }, [coach]);
 
   // Program branding - cyan/teal for JUCO
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const coachData = coach as any;
-  const programColor = coachData?.primary_color || '#06B6D4'; // Cyan for JUCO
+  const coachWithColors = coach as Coach & { primary_color?: string };
+  const programColor = coachWithColors?.primary_color || '#06B6D4'; // Cyan for JUCO
   const programName = coach?.school_name || coach?.organization_name || 'Your JUCO Program';
   const programInitials = programName.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
   const location = [coach?.school_city || coach?.organization_city, coach?.school_state || coach?.organization_state].filter(Boolean).join(', ');
