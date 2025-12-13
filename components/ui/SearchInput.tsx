@@ -221,18 +221,18 @@ const ResultItem = memo(function ResultItem({
         <div className="shrink-0 text-slate-400">
           {result.icon}
         </div>
-      )}
+)}
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium text-white truncate">{result.title}</p>
         {result.subtitle && (
           <p className="text-xs text-slate-400 truncate">{result.subtitle}</p>
-        )}
+)}
       </div>
       {result.type && (
         <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-slate-400">
           {result.type}
         </span>
-      )}
+)}
     </button>
   );
 });
@@ -273,7 +273,7 @@ const RecentSearchesSection = memo(function RecentSearchesSection({
           <button
             key={idx}
             type="button"
-            className="w-full flex items-center gap-2 px-2 py-1.5 text-left hover:bg-white/5 rounded-lg transition-colors"
+            className="w-full flex items-center gap-2 px-2 py-1.5 text-left hover:bg-white/5 rounded-2xl transition-colors"
             onClick={() => onSelect(query)}
           >
             <History className="w-3.5 h-3.5 text-slate-500" />
@@ -318,7 +318,7 @@ const TrendingSearchesSection = memo(function TrendingSearchesSection({
           >
             {query}
           </button>
-        ))}
+)}
       </div>
     </div>
   );
@@ -514,7 +514,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
     // Show dropdown
     const showDropdown = isFocused && (
       query.length >= minLength ||
-      (query.length === 0 && (recentSearches.length > 0 || trendingSearches.length > 0))
+      (query.length === 0 && (recentSearches.length > 0 || trendingSearches.length > 0)}
     );
 
     // Has results
@@ -576,10 +576,9 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
             >
               <X className={styles.spinner} />
             </button>
-          )}
+)}
         </div>
-
-        {/* Dropdown */}
+      {/* Dropdown */}
         {showDropdown && (
           <div
             className={cn(
@@ -597,10 +596,9 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
                     <AlertCircle className="w-8 h-8 text-red-400" />
                     <p className="text-sm text-red-400">{error.message}</p>
                   </div>
-                )}
+)}
               </div>
-            )}
-
+)}
             {/* Results */}
             {!error && hasResults && (
               <div className="p-2 search-fade-in">
@@ -612,10 +610,9 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
                     onClick={() => handleResultSelect(result)}
                     onMouseEnter={() => setSelectedIndex(idx)}
                   />
-                ))}
+                })
               </div>
-            )}
-
+)}
             {/* Empty state (after search) */}
             {!error && !hasResults && query.length >= minLength && !isLoading && !isPending && (
               <div className="p-6 text-center">
@@ -626,10 +623,9 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
                       No results found for "{query}"
                     </p>
                   </div>
-                )}
+)}
               </div>
-            )}
-
+)}
             {/* Recent & Trending (when query is empty) */}
             {query.length === 0 && !isLoading && (
               <>
@@ -640,12 +636,11 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
                 />
                 <TrendingSearchesSection
                   searches={trendingSearches}
-                  onSelect={handleTrendingSearchSelect}
-                />
+                  onSelect={handleTrendingSearchSelect} />
               </>
             )}
           </div>
-        )}
+)}
       </div>
     );
   }
@@ -752,7 +747,7 @@ export const SimpleDebouncedInput = memo(forwardRef<HTMLInputElement, SimpleDebo
           >
             <X className={styles.spinner} />
           </button>
-        )}
+)}
       </div>
     );
   }

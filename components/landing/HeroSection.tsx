@@ -18,30 +18,23 @@ export function HeroSection() {
         <div className="absolute inset-0 opacity-30">
           <ParallaxBlob 
             className="absolute top-0 -left-4 w-72 h-72 bg-emerald-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
-            speed={0.3}
-          />
+            speed={0.3} />
           <ParallaxBlob 
             className="absolute top-0 -right-4 w-72 h-72 bg-teal-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"
             speed={0.5}
-            delay={0.2}
-          />
+            delay={0.2} />
           <ParallaxBlob 
             className="absolute -bottom-8 left-20 w-72 h-72 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"
             speed={0.4}
-            delay={0.4}
-          />
-        </div>
-      </div>
-
+            delay={0.4} />
+        </motion.div>
+      </motion.div>
       {/* Noise texture overlay for depth */}
       <div 
         className="absolute inset-0 opacity-[0.015] mix-blend-soft-light pointer-events-none"
-        style={{ 
-          backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' /%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\' /%3E%3C/svg%3E")' 
-        }}
-      />
-
-      {/* Gradient mesh network */}
+        style={{backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' /%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\' /%3E%3C/svg%3E")' 
+        }}></div>
+{/* Gradient mesh network */}
       <GradientMesh />
 
       {/* Particle system */}
@@ -51,23 +44,27 @@ export function HeroSection() {
       <FloatingElements />
 
       {/* Hero Content */}
-      <div className="relative z-10 container mx-auto px-6 pt-32 pb-20 text-center">
+      <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{duration: 0.3 }}
+  className="relative z-10 container mx-auto px-6 pt-32 pb-20 text-center">
         {/* Logo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{duration: 0.5, delay: 0.2 }}
           className="mb-12 flex justify-center"
         >
           <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 flex items-center justify-center shadow-2xl shadow-emerald-500/50 backdrop-blur-xl border border-white/20">
             <span className="text-white font-black text-3xl">SP</span>
-          </div>
+          </motion.div>
         </motion.div>
         {/* Eyebrow text */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{duration: 0.5 }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-xl bg-white/5 border border-white/10 mb-8"
         >
           <span className="relative flex h-2 w-2">
@@ -76,8 +73,7 @@ export function HeroSection() {
           </span>
           <span className="text-sm text-white/80">Trusted by 10,000+ players nationwide</span>
         </motion.div>
-
-        {/* Main headline - MASSIVE and gradient with text reveal */}
+      {/* Main headline - MASSIVE and gradient with text reveal */}
         <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight mb-8 leading-[1.1]">
           <TextReveal delay={0.1}>
             <span className="inline-block bg-gradient-to-r from-white via-emerald-200 to-teal-200 text-transparent bg-clip-text pb-2 drop-shadow-[0_0_30px_rgba(16,185,129,0.3)]">
@@ -97,9 +93,9 @@ export function HeroSection() {
                 fill="none"
                 stroke="url(#gradient)"
                 strokeWidth="3"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1, delay: 0.8 }}
+                initial={ pathLength: 0 }
+                animate={ pathLength: 1 }
+                transition={{duration: 1, delay: 0.8 }}
               />
               <defs>
                 <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -112,8 +108,7 @@ export function HeroSection() {
           </span>
           </TextReveal>
         </h1>
-
-        {/* Subheading with better typography */}
+      {/* Subheading with better typography */}
         <TextReveal delay={0.5}>
           <p className="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto mb-12 leading-relaxed font-light">
             The premium recruiting platform connecting{' '}
@@ -122,12 +117,11 @@ export function HeroSection() {
             Built for speed, designed for success.
           </p>
         </TextReveal>
-
-        {/* Premium CTA buttons with magnetic effect */}
+      {/* Premium CTA buttons with magnetic effect */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{duration: 0.6, delay: 0.3 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <MagneticButton 
@@ -141,10 +135,9 @@ export function HeroSection() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity"></motion.div>
           </MagneticButton>
-
-          <MagneticButton 
+      <MagneticButton 
             variant="secondary"
             className="flex items-center gap-2"
           >
@@ -154,12 +147,11 @@ export function HeroSection() {
             Watch Demo
           </MagneticButton>
         </motion.div>
-
-        {/* Animated stats with counting numbers */}
+      {/* Animated stats with counting numbers */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{duration: 0.6, delay: 0.4 }}
           className="mt-16 flex flex-wrap justify-center gap-8 md:gap-16"
         >
           {[
@@ -170,13 +162,12 @@ export function HeroSection() {
             <div key={i} className="text-center">
               <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 text-transparent bg-clip-text mb-2">
                 <AnimatedCounter value={stat.value} />{stat.suffix}
-              </div>
-              <div className="text-sm text-white/50">{stat.label}</div>
-            </div>
-          ))}
+              </motion.div>
+              <div className="text-sm text-white/50">{stat.label}</motion.div>
+            </motion.div>
+)}
         </motion.div>
-      </div>
-
+      </motion.div>
       <style jsx>{`
         .animation-delay-2000 {
           animation-delay: 2s;
@@ -185,6 +176,6 @@ export function HeroSection() {
           animation-delay: 4s;
         }
       `}</style>
-    </div>
+    </motion.div>
   );
 }

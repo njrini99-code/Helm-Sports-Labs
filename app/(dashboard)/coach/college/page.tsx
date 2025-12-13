@@ -15,6 +15,17 @@ import {
   glassDarkZone,
   glassLightZone,
 } from '@/lib/glassmorphism';
+import {
+  glassCardPremium,
+  glassCardInteractive as glassCardInteractiveEnhanced,
+  glassStatCard as glassStatCardEnhanced,
+  glassPanel as glassPanelEnhanced,
+  glassHero as glassHeroEnhanced,
+  glassButton as glassButtonEnhanced,
+  glassDarkZone as glassDarkZoneEnhanced,
+  glassListItem as glassListItemEnhanced,
+  cn,
+} from '@/lib/glassmorphism-enhanced';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -59,17 +70,45 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
+import { useToast } from '@/components/ui/use-toast';
 import { createClient } from '@/lib/supabase/client';
 import { isDevMode, DEV_ENTITY_IDS } from '@/lib/dev-mode';
 import type { Coach } from '@/lib/types';
 import { CoachDashboardSkeleton } from '@/components/ui/loading-state';
 import { getCoachCamps } from '@/lib/queries/camp-registration';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { SkipLink } from '@/components/ui/skip-link';
+import { playerSchema, type Player } from '@/lib/schemas/dashboard';
 
 interface PipelineStats {
   watchlist: number;
   highPriority: number;
   offersExtended: number;
   committed: number;
+}
+
+interface WatchlistItem {
+  status: string;
+  players: {
+    avatar_url: string | null;
+  };
+}
+
+interface EngagementEvent {
+  id: string;
+  player_id: string;
+  engagement_type: string;
+  engagement_date: string;
+  players: {
+    id: string;
+    first_name: string | null;
+    last_name: string | null;
+    full_name: string | null;
+    avatar_url: string | null;
+    primary_position: string | null;
+    grad_year: number | null;
+    high_school_state: string | null;
+  };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -133,6 +172,7 @@ interface Camp {
 
 export default function CollegeCoachDashboard() {
   const router = useRouter();
+  const { toast: showToast } = useToast();
   const [activityFilter, setActivityFilter] = useState('all');
   const [coach, setCoach] = useState<Coach | null>(null);
   const [pipeline, setPipeline] = useState<PipelineStats>({ watchlist: 0, highPriority: 0, offersExtended: 0, committed: 0 });
@@ -216,34 +256,36 @@ export default function CollegeCoachDashboard() {
             .from('recruit_watchlist')
             .select('status, players!inner(avatar_url)')
             .eq('coach_id', coachId);
-          
+
           if (!watchlistError && watchlistData) {
+            const typedWatchlistData = watchlistData as unknown as WatchlistItem[];
+
             const pipelineCounts: PipelineStats = {
-              watchlist: watchlistData.filter(r => r.status === 'watchlist').length,
-              highPriority: watchlistData.filter(r => r.status === 'high_priority').length,
-              offersExtended: watchlistData.filter(r => r.status === 'offer_extended').length,
-              committed: watchlistData.filter(r => r.status === 'committed').length,
+              watchlist: typedWatchlistData.filter(r => r.status === 'watchlist').length,
+              highPriority: typedWatchlistData.filter(r => r.status === 'high_priority').length,
+              offersExtended: typedWatchlistData.filter(r => r.status === 'offer_extended').length,
+              committed: typedWatchlistData.filter(r => r.status === 'committed').length,
             };
             setPipeline(pipelineCounts);
 
             // Get avatars for each status
             const avatars: Record<string, string[]> = {
-              watchlist: watchlistData
-                .filter(r => r.status === 'watchlist' && (r.players as any)?.avatar_url)
+              watchlist: typedWatchlistData
+                .filter(r => r.status === 'watchlist' && r.players?.avatar_url)
                 .slice(0, 5)
-                .map(r => (r.players as any).avatar_url),
-              highPriority: watchlistData
-                .filter(r => r.status === 'high_priority' && (r.players as any)?.avatar_url)
+                .map(r => r.players.avatar_url!),
+              highPriority: typedWatchlistData
+                .filter(r => r.status === 'high_priority' && r.players?.avatar_url)
                 .slice(0, 5)
-                .map(r => (r.players as any).avatar_url),
-              offersOut: watchlistData
-                .filter(r => r.status === 'offer_extended' && (r.players as any)?.avatar_url)
+                .map(r => r.players.avatar_url!),
+              offersOut: typedWatchlistData
+                .filter(r => r.status === 'offer_extended' && r.players?.avatar_url)
                 .slice(0, 5)
-                .map(r => (r.players as any).avatar_url),
-              committed: watchlistData
-                .filter(r => r.status === 'committed' && (r.players as any)?.avatar_url)
+                .map(r => r.players.avatar_url!),
+              committed: typedWatchlistData
+                .filter(r => r.status === 'committed' && r.players?.avatar_url)
                 .slice(0, 5)
-                .map(r => (r.players as any).avatar_url),
+                .map(r => r.players.avatar_url!),
             };
             setPipelineAvatars(avatars);
           }
@@ -303,10 +345,11 @@ export default function CollegeCoachDashboard() {
             .limit(20);
 
           if (recentEvents) {
-            const formattedActivities: Activity[] = recentEvents
-              .filter(e => (e.players as any))
+            const typedEvents = recentEvents as unknown as EngagementEvent[];
+            const formattedActivities: Activity[] = typedEvents
+              .filter(e => e.players)
               .map((e, idx) => {
-                const player = e.players as any;
+                const player = e.players;
                 const timeAgo = getTimeAgo(new Date(e.engagement_date));
                 let action = '';
                 let type: Activity['type'] = 'view';
@@ -324,7 +367,7 @@ export default function CollegeCoachDashboard() {
                   playerId: e.player_id,
                   type,
                   user: {
-                    name: player.full_name || `${player.first_name} ${player.last_name}`,
+                    name: player.full_name || `${player.first_name ?? ''} ${player.last_name ?? ''}`.trim(),
                     avatar: player.avatar_url,
                     position: player.primary_position || 'UTIL',
                     gradYear: player.grad_year || 2026,
@@ -414,20 +457,36 @@ export default function CollegeCoachDashboard() {
   const toggleWatchlist = (playerId: string, playerName: string) => {
     const isAdding = !watchlistStates[playerId];
     setWatchlistStates(prev => ({ ...prev, [playerId]: isAdding }));
-    toast.success(isAdding ? `${playerName} added to watchlist` : `${playerName} removed from watchlist`);
+    showToast({
+      variant: isAdding ? 'success' : 'default',
+      title: isAdding ? 'Added to watchlist' : 'Removed from watchlist',
+      description: `${playerName} ${isAdding ? 'added to' : 'removed from'} watchlist`,
+    });
   };
 
   const handlePipelineClick = (status: string) => router.push(`/coach/college/recruiting-planner?status=${status}`);
   const handleCampClick = (campId: string) => router.push(`/coach/college/camps?camp=${campId}`);
 
   // Dynamic program colors (fallback to brand green)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const coachData = coach as any;
-  const programColor = coachData?.primary_color || '#00C46F';
-  const programColorDark = coachData?.secondary_color || '#003D2B';
+  const coachWithColors = coach as Coach & { primary_color?: string; secondary_color?: string };
+  const programColor = coachWithColors?.primary_color || '#00C46F';
+  const programColorDark = coachWithColors?.secondary_color || '#003D2B';
 
   if (loading) {
     return <CoachDashboardSkeleton />;
+  }
+
+  if (!coach) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-lg text-muted-foreground">Coach profile not found</p>
+          <Button onClick={() => router.push('/onboarding/coach')} className="mt-4">
+            Complete Onboarding
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   const programName = coach?.school_name || coach?.program_name || 'Maine University';
@@ -441,78 +500,89 @@ export default function CollegeCoachDashboard() {
       animate={pageTransition.animate}
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
+      {/* Skip Link */}
+      <SkipLink href="#main-dashboard-content">Skip to main content</SkipLink>
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-4">
+        <Breadcrumbs
+          items={[
+            { label: 'Dashboard', href: '/coach/college' },
+            { label: 'Overview' },
+          ]}
+        />
+      </div>
       {/* ═══════════════════════════════════════════════════════════════════
-          HERO BANNER - Program-Themed with Refined Ambient Glow
+          ULTIMATE GLASSMORPHISM HERO ZONE
       ═══════════════════════════════════════════════════════════════════ */}
-      <section 
-        className="relative overflow-hidden"
-        style={{
-          background: `linear-gradient(160deg, #0A3B2E 0%, #062A20 40%, #041A14 100%)`,
-        }}
+      <div id="main-dashboard-content" className={cn(glassDarkZoneEnhanced, "pb-12 relative overflow-hidden")}>
+        {/* Animated gradient orbs */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '0s' }}></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/15 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '1s' }}></div>
+{/* Subtle grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.02] pointer-events-none"
+          style={{backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+<div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 space-y-8 relative z-10">
+          
+      {/* ═══════════════════════════════════════════════════════════════════
+          PREMIUM GLASSMORPHISM HERO BANNER
+      ═══════════════════════════════════════════════════════════════════ */}
+      <motion.section 
+        className="relative"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         {/* Subtle multi-stop radial glow - ambient shine */}
         <div 
           className="absolute inset-0 pointer-events-none"
           style={{
             background: `
-              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}18, ${programColor}08 40%, transparent 70%),
+              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}}18, ${programColor}08 40%, transparent 70%),
               radial-gradient(ellipse 60% 40% at 75% 60%, ${programColor}10, transparent 50%)
             `,
-          }}
-        />
-        
-        {/* Micro-noise texture overlay */}
+          }}></div>
+{/* Micro-noise texture overlay */}
         <div 
           className="absolute inset-0 pointer-events-none opacity-[0.04]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          style={{backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'repeat',
-          }}
-        />
-        
-        {/* Vignette effect around edges */}
+          }}></div>
+{/* Vignette effect around edges */}
         <div 
           className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `radial-gradient(ellipse 100% 100% at 50% 50%, transparent 50%, rgba(0,0,0,0.2) 100%)`,
-          }}
-        />
-        
-        {/* Subtle grid pattern */}
+          style={{background: `radial-gradient(ellipse 100% 100% at 50% 50%, transparent 50%, rgba(0,0,0,0.2) 100%)`,
+          }}></div>
+{/* Subtle grid pattern */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:40px_40px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:40px_40px]"></div>
         </div>
-        
-        {/* Soft ambient orbs - very subtle */}
+      {/* Soft ambient orbs - very subtle */}
         <div 
           className="absolute -top-20 -right-20 w-80 h-80 rounded-full blur-[100px] opacity-[0.12] pointer-events-none"
-          style={{ background: programColor }}
-        />
+          style={{background: programColor }}></div>
         <div 
           className="absolute -bottom-32 -left-20 w-64 h-64 rounded-full blur-[80px] opacity-[0.08] pointer-events-none"
-          style={{ background: programColor }}
-        />
-
-        <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
+          style={{background: programColor }}></div>
+<div id="main-dashboard-content" className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             {/* Floating Logo Badge with Glow */}
             <div className="relative group">
               <div 
                 className="absolute inset-0 rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity"
-                style={{ background: programColor }}
-              />
+                style={{background: programColor }}></div>
               <Avatar className="relative h-20 w-20 md:h-24 md:w-24 ring-4 ring-white/20 shadow-2xl rounded-2xl">
                 <AvatarImage src={coach?.logo_url ?? undefined} className="rounded-2xl object-cover" />
                 <AvatarFallback 
                   className="rounded-2xl text-2xl md:text-3xl font-bold text-white"
-                  style={{ background: programColor }}
+                  style={{background: programColor }}
                 >
                   {programInitials}
                 </AvatarFallback>
               </Avatar>
             </div>
-
-            {/* Program Info Card */}
+      {/* Program Info Card */}
             <div className="flex-1 min-w-0">
               <div className={`${glassCard} p-4 md:p-5`}>
                 <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
@@ -525,24 +595,21 @@ export default function CollegeCoachDashboard() {
                   <UserCheck className="w-3 h-3" />
                   {coach?.full_name || 'Nicholas Rini'} — {coach?.coach_title || 'Head Coach'}
                 </p>
-                
-                {/* Philosophy tagline */}
+      {/* Philosophy tagline */}
                 <p className="text-white/40 text-xs italic mt-3 line-clamp-1">
                   "{philosophy}"
                 </p>
-
-                {/* Profile Completion */}
+      {/* Profile Completion */}
                 <div className="mt-4 flex items-center gap-4">
                   <div className="flex-1 max-w-xs">
                     <div className="flex items-center justify-between text-[10px] mb-1">
                       <span className="text-white/50 uppercase tracking-wide">Profile</span>
-                      <span className="font-semibold" style={{ color: programColor }}>{profileCompletion}%</span>
+                      <span className="font-semibold" style={{color: programColor }}>{profileCompletion}%</span>
                     </div>
                     <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
                       <div 
                         className="h-full rounded-full transition-all duration-1000 ease-out"
-                        style={{ width: `${profileCompletion}%`, background: programColor }}
-                      />
+                        style={{ width: `${profileCompletion}}%`, background: programColor }}></div>
                     </div>
                   </div>
                   <Link href="/coach/college/program">
@@ -554,13 +621,12 @@ export default function CollegeCoachDashboard() {
                 </div>
               </div>
             </div>
-
-            {/* Action Buttons */}
+      {/* Action Buttons */}
             <div className="flex gap-2 w-full md:w-auto">
               <Link href="/coach/college/program" className="flex-1 md:flex-none">
                 <Button 
                   className="w-full h-10 gap-2 text-white shadow-lg hover:shadow-xl transition-all text-sm font-medium"
-                  style={{ background: programColor }}
+                  style={{background: programColor }}
                 >
                   <Edit className="w-4 h-4" />
                   Edit Profile
@@ -576,14 +642,10 @@ export default function CollegeCoachDashboard() {
               </Button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
-
-      {/* ═══════════════════════════════════════════════════════════════════
-          METRIC CARDS - Animated Count-Up with Hover Effects
-      ═══════════════════════════════════════════════════════════════════ */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 -mt-5 relative z-10">
-        <motion.div 
+        <motion.div
           className="grid grid-cols-3 gap-3 md:gap-4"
           variants={staggerContainer as any}
           initial="hidden"
@@ -624,7 +686,6 @@ export default function CollegeCoachDashboard() {
           </motion.div>
         </motion.div>
       </section>
-
       {/* ═══════════════════════════════════════════════════════════════════
           MAIN CONTENT GRID
       ═══════════════════════════════════════════════════════════════════ */}
@@ -639,7 +700,7 @@ export default function CollegeCoachDashboard() {
                 <div>
                   <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
                     Activity Feed
-                    <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                    <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
                   </h2>
                   <p className="text-xs text-muted-foreground">Recent interactions with your program</p>
                 </div>
@@ -647,7 +708,7 @@ export default function CollegeCoachDashboard() {
                   <SelectTrigger className="w-[130px] h-8 text-xs bg-muted/50 border-border/50">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+        <SelectContent>
                     <SelectItem value="all">All activity</SelectItem>
                     <SelectItem value="followers">Follows</SelectItem>
                     <SelectItem value="top5">Top 5 mentions</SelectItem>
@@ -655,9 +716,8 @@ export default function CollegeCoachDashboard() {
                     <SelectItem value="camps">Camp interest</SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
-
-              <div className="divide-y divide-border/30">
+              </motion.div>
+      <div className="divide-y divide-border/30">
                 {filteredActivities.map((activity) => (
                   <ActivityRow
                     key={activity.id}
@@ -666,21 +726,19 @@ export default function CollegeCoachDashboard() {
                     onView={() => handleViewPlayer(activity.playerId)}
                     onToggleWatchlist={() => toggleWatchlist(activity.playerId, activity.user.name)}
                   />
-                ))}
+                })
               </div>
-
-              <div className="px-5 py-3 bg-muted/30 border-t border-border/30">
+      <div className="px-5 py-3 bg-muted/30 border-t border-border/30">
                 <Link href="/coach/college/messages">
                   <button className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center justify-center gap-1 group">
                     View all messages & interactions
                     <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </button>
                 </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT COLUMN - Pipeline + Camps */}
+              </motion.div>
+            </motion.div>
+          </motion.div>
+      {/* RIGHT COLUMN - Pipeline + Camps */}
           <div className="space-y-5">
             {/* Recruiting Pipeline */}
             <div className={`${glassPanel} p-5`}>
@@ -695,9 +753,8 @@ export default function CollegeCoachDashboard() {
                     <ChevronRight className="w-3.5 h-3.5" />
                   </Button>
                 </Link>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
+              </motion.div>
+      <div className="grid grid-cols-2 gap-3">
                 <PipelineCard
                   icon={<Bookmark className="w-[18px] h-[18px]" strokeWidth={1.75} />}
                   label="Watchlist"
@@ -730,9 +787,8 @@ export default function CollegeCoachDashboard() {
                   accentColor="#22C55E"
                   onClick={() => handlePipelineClick('committed')}
                 />
-              </div>
-
-              <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-border/30">
+              </motion.div>
+      <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-border/30">
                 <Link href="/coach/college/discover">
                   <Button variant="outline" size="sm" className="w-full h-9 text-xs gap-1.5 border-border/50 hover:bg-muted/50">
                     <Users className="w-4 h-4" />
@@ -745,25 +801,23 @@ export default function CollegeCoachDashboard() {
                     Watchlist
                   </Button>
                 </Link>
-              </div>
-            </div>
-
-            {/* Upcoming Camps - Horizontal Scroll */}
+              </motion.div>
+            </motion.div>
+      {/* Upcoming Camps - Horizontal Scroll */}
             <Card glass className="rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h2 className="text-lg font-semibold text-foreground">Upcoming Camps</h2>
                   <p className="text-xs text-muted-foreground">Events you're hosting</p>
-                </div>
+                </motion.div>
                 <Link href="/coach/college/camps">
                   <Button variant="ghost" size="sm" className="h-7 text-xs text-primary hover:text-primary/80 gap-1">
                     All camps
                     <ChevronRight className="w-3.5 h-3.5" />
                   </Button>
                 </Link>
-              </div>
-
-              {/* Horizontal Scrollable Camps */}
+              </motion.div>
+      {/* Horizontal Scrollable Camps */}
               <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x snap-mandatory scrollbar-hide">
                 {camps.map((camp) => (
                   <CampCard
@@ -772,23 +826,21 @@ export default function CollegeCoachDashboard() {
                     programColor={programColor}
                     onClick={() => handleCampClick(camp.id)}
                   />
-                ))}
-              </div>
-
-              <Link href="/coach/college/camps?action=create" className="block mt-4">
+                })
+              </motion.div>
+      <Link href="/coach/college/camps?action=create" className="block mt-4">
                 <Button 
                   className="w-full h-9 gap-2 text-white text-xs font-medium shadow-lg hover:shadow-xl transition-all"
-                  style={{ background: programColor }}
+                  style={{background: programColor }}
                 >
                   <Plus className="w-4 h-4" />
                   Create New Camp
                 </Button>
               </Link>
             </Card>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
-
       {/* Custom CSS for scrollbar hiding */}
       <style jsx global>{`
         .scrollbar-hide::-webkit-scrollbar { display: none; }
@@ -824,22 +876,19 @@ function MetricCard({ icon, value, label, trend, trendDirection, accentColor, on
       {/* Accent glow on hover */}
       <div 
         className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity rounded-2xl"
-        style={{ background: `radial-gradient(circle at 30% 30%, ${accentColor}, transparent 70%)` }}
-      />
-
-      <div className="relative flex items-start justify-between mb-4">
+        style={{ background: `radial-gradient(circle at 30% 30%, ${accentColor}}, transparent 70%)` }}></div>
+<div className="relative flex items-start justify-between mb-4">
         <div 
           className="p-2.5 rounded-xl bg-white/60 dark:bg-white/10 shadow-sm backdrop-blur-sm flex items-center justify-center transition-transform group-hover:scale-105"
-          style={{ color: accentColor }}
+          style={{color: accentColor }}
         >
           {icon}
-        </div>
+        </motion.div>
         <div className={`flex items-center gap-0.5 text-xs font-medium ${isPositive ? 'text-emerald-500' : 'text-red-500'}`}>
           {isPositive ? <TrendingUp className="w-3.5 h-3.5" strokeWidth={2} /> : <TrendingDown className="w-3.5 h-3.5" strokeWidth={2} />}
           {trend}%
-        </div>
-      </div>
-      
+        </motion.div>
+      </motion.div>
       <p className="text-3xl font-bold text-foreground tabular-nums tracking-tight">{animatedValue.toLocaleString()}</p>
       <p className="text-[11px] text-muted-foreground mt-1.5 uppercase tracking-wider font-medium">{label}</p>
     </button>
@@ -866,7 +915,6 @@ function ActivityRow({ activity, isWatchlisted, onView, onToggleWatchlist }: Act
           {activity.user.name.split(' ').map(n => n[0]).join('')}
         </AvatarFallback>
       </Avatar>
-
       {/* Content */}
       <div className="flex-1 min-w-0">
         <p className="text-sm text-foreground leading-tight">
@@ -875,15 +923,14 @@ function ActivityRow({ activity, isWatchlisted, onView, onToggleWatchlist }: Act
         </p>
         <p className="text-xs text-muted-foreground mt-0.5 flex items-center gap-1.5">
           <span>{activity.user.position}</span>
-          <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
+          <span className="w-1 h-1 rounded-full bg-muted-foreground/50"></span>
           <span>Class of {activity.user.gradYear}</span>
-          <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
+          <span className="w-1 h-1 rounded-full bg-muted-foreground/50"></span>
           <span>{activity.user.state}</span>
-          <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
+          <span className="w-1 h-1 rounded-full bg-muted-foreground/50"></span>
           <span>{activity.time}</span>
         </p>
-      </div>
-
+      </motion.div>
       {/* Actions */}
       <div className="flex items-center gap-1 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" onClick={(e) => e.stopPropagation()}>
         <Button
@@ -904,9 +951,9 @@ function ActivityRow({ activity, isWatchlisted, onView, onToggleWatchlist }: Act
           >
             <Star className={`w-4 h-4 ${isWatchlisted ? 'fill-current' : ''}`} />
           </Button>
-        )}
-      </div>
-    </div>
+)}
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -923,22 +970,20 @@ function PipelineCard({ icon, label, count, avatars, accentColor, onClick }: Pip
   return (
     <button
       onClick={onClick}
-      className="group relative rounded-xl bg-muted/30 hover:bg-muted/50 border border-transparent hover:border-border/50 p-4 text-left transition-all duration-200 hover:shadow-md"
+      className="group relative rounded-xl bg-muted/30 hover:bg-muted/50 border border-transparent hover:border-border/50 p-4 text-left transition-all duration-200 hover:shadow-xl"
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-2">
         <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">{label}</span>
         <div 
-          className="p-1.5 rounded-lg bg-white/60 dark:bg-white/10 shadow-sm flex items-center justify-center transition-transform group-hover:scale-105"
-          style={{ color: accentColor }}
+          className="p-1.5 rounded-2xl bg-white/60 dark:bg-white/10 shadow-sm flex items-center justify-center transition-transform group-hover:scale-105"
+          style={{color: accentColor }}
         >
           {icon}
-        </div>
-      </div>
-
+        </motion.div>
+      </motion.div>
       {/* Count */}
       <p className="text-2xl font-bold text-foreground tracking-tight">{count}</p>
-
       {/* Avatar Stack */}
       {avatars.length > 0 && (
         <div className="flex -space-x-2 mt-3">
@@ -949,14 +994,18 @@ function PipelineCard({ icon, label, count, avatars, accentColor, onClick }: Pip
                 {String.fromCharCode(65 + i)}
               </AvatarFallback>
             </Avatar>
-          ))}
+)}
           {avatars.length > 4 && (
-            <div className="h-6 w-6 rounded-full bg-muted ring-2 ring-card flex items-center justify-center text-[10px] text-muted-foreground font-medium">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="h-6 w-6 rounded-full bg-muted ring-2 ring-card flex items-center justify-center text-[10px] text-muted-foreground font-medium">
               +{avatars.length - 4}
-            </div>
-          )}
-        </div>
-      )}
+            </motion.div>
+)}
+        </motion.div>
+)}
     </button>
   );
 }
@@ -984,15 +1033,14 @@ function CampCard({ camp, programColor, onClick }: CampCardProps) {
       {/* Mini Banner */}
       <div 
         className="h-16 relative overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${programColor}40, ${programColor}10)` }}
+        style={{ background: `linear-gradient(135deg, ${programColor}}40, ${programColor}10)` }}
       >
         <Calendar className="absolute right-3 top-3 w-8 h-8 text-white/20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
         <Badge className={`absolute top-2 left-2 text-[10px] px-2 py-0.5 ${status.bg} ${status.text} border-0`}>
           {status.label}
         </Badge>
-      </div>
-
+      </motion.div>
       {/* Content */}
       <div className="p-3">
         <h3 className="font-semibold text-sm text-foreground truncate group-hover:text-primary transition-colors">
@@ -1007,35 +1055,33 @@ function CampCard({ camp, programColor, onClick }: CampCardProps) {
             <MapPin className="w-3 h-3" />
             {camp.location.split(',')[0]}
           </span>
-        </div>
-
-        {/* Capacity Bar */}
+        </motion.div>
+      {/* Capacity Bar */}
         <div className="mt-3">
           <div className="flex items-center justify-between text-[10px] mb-1">
             <span className="text-muted-foreground">Capacity</span>
             <span className="font-medium text-foreground">{camp.attending}/{camp.capacity}</span>
-          </div>
+          </motion.div>
           <div className="h-1.5 bg-muted rounded-full overflow-hidden">
             <div 
               className="h-full rounded-full transition-all"
               style={{ 
-                width: `${fillPercent}%`, 
+                width: `${fillPercent}}%`, 
                 background: fillPercent > 90 ? '#F59E0B' : programColor 
               }}
             />
-          </div>
-        </div>
-
-        {/* Stats Row */}
+          </motion.div>
+        </motion.div>
+      {/* Stats Row */}
         <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/30">
           <div className="text-center">
-            <p className="text-sm font-semibold" style={{ color: programColor }}>{camp.attending}</p>
+            <p className="text-sm font-semibold" style={{color: programColor }}>{camp.attending}</p>
             <p className="text-[9px] text-muted-foreground uppercase">Attending</p>
-          </div>
+          </motion.div>
           <div className="text-center">
             <p className="text-sm font-semibold text-muted-foreground">{camp.interested}</p>
             <p className="text-[9px] text-muted-foreground uppercase">Interested</p>
-          </div>
+          </motion.div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground">
@@ -1047,18 +1093,18 @@ function CampCard({ camp, programColor, onClick }: CampCardProps) {
                 <Edit className="w-3.5 h-3.5 mr-2" />
                 Edit Camp
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-xs">
+        <DropdownMenuItem className="text-xs">
                 <Users className="w-3.5 h-3.5 mr-2" />
                 Attendees
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-xs">
+        <DropdownMenuItem className="text-xs">
                 <Mail className="w-3.5 h-3.5 mr-2" />
                 Message Group
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }

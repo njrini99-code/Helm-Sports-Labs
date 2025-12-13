@@ -484,9 +484,9 @@ function TypingIndicator({ variant }: TypingIndicatorProps) {
   const styles = variantStyles[variant];
   return (
     <div className="flex items-center gap-1.5 px-3 py-2">
-      <div className={cn('w-1.5 h-1.5 rounded-full typing-dot', styles.typing)} />
-      <div className={cn('w-1.5 h-1.5 rounded-full typing-dot', styles.typing)} />
-      <div className={cn('w-1.5 h-1.5 rounded-full typing-dot', styles.typing)} />
+      <div className={cn('w-1.5 h-1.5 rounded-full typing-dot', styles.typing)}></div>
+      <div className={cn('w-1.5 h-1.5 rounded-full typing-dot', styles.typing)}></div>
+      <div className={cn('w-1.5 h-1.5 rounded-full typing-dot', styles.typing)}></div>
       <span className={cn('text-xs ml-1', styles.dropdownSubtext)}>Searching...</span>
     </div>
   );
@@ -531,7 +531,7 @@ function SuggestionItem({
         enableAnimations && 'result-item-animated'
       )}
       style={{
-        animationDelay: enableAnimations ? `${index * 50}ms` : '0ms',
+        animationDelay: enableAnimations ? `${index * 50}}ms` : '0ms',
         transitionTimingFunction: SPRING_EASING,
       }}
     >
@@ -556,7 +556,7 @@ function SuggestionItem({
           <div className={cn('truncate text-sm', styles.dropdownSubtext)}>
             {suggestion.description}
           </div>
-        )}
+)}
       </div>
       {suggestion.category && (
         <span
@@ -568,14 +568,14 @@ function SuggestionItem({
         >
           {suggestion.category}
         </span>
-      )}
+)}
       <ArrowRight
+        className={cn
         className={cn(
           'h-4 w-4 shrink-0 transition-all duration-200',
           isActive ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2',
           styles.dropdownSubtext
-        )}
-      />
+        )} />
     </button>
   );
 }
@@ -619,7 +619,7 @@ function HistoryItem({
         enableAnimations && 'result-item-animated'
       )}
       style={{
-        animationDelay: enableAnimations ? `${index * 50}ms` : '0ms',
+        animationDelay: enableAnimations ? `${index * 50}}ms` : '0ms',
         transitionTimingFunction: SPRING_EASING,
       }}
       onMouseEnter={() => setShowRemove(true)}
@@ -651,7 +651,7 @@ function HistoryItem({
           showRemove ? 'opacity-100 scale-100' : 'opacity-0 scale-75',
           styles.clearButton
         )}
-        style={{ transitionTimingFunction: SPRING_EASING }}
+        style={{transitionTimingFunction: SPRING_EASING }}
         aria-label="Remove from history"
       >
         <X className="h-3 w-3" />
@@ -671,15 +671,15 @@ function LoadingSkeleton({ count = 3 }: { count?: number }) {
         <div
           key={i}
           className="flex items-center gap-3 px-3 py-2 rounded-xl shimmer-loading"
-          style={{ animationDelay: `${i * 100}ms` }}
+          style={{ animationDelay: `${i * 100}}ms` }}
         >
-          <div className="w-8 h-8 rounded-lg bg-white/10" />
+          <div className="w-8 h-8 rounded-2xl bg-white/10"></div>
           <div className="flex-1 space-y-1.5">
-            <div className="h-4 bg-white/10 rounded w-3/4" />
-            <div className="h-3 bg-white/10 rounded w-1/2" />
+            <div className="h-4 bg-white/10 rounded w-3/4"></div>
+            <div className="h-3 bg-white/10 rounded w-1/2"></div>
           </div>
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -795,7 +795,7 @@ export function GlassSearchBar({
     } else if (showHistory && history.length > 0) {
       const filteredHistory = value.trim()
         ? history.filter((term) =>
-            term.toLowerCase().includes(value.toLowerCase())
+            term.toLowerCase().includes(value.toLowerCase()}
           )
         : history;
 
@@ -948,7 +948,7 @@ export function GlassSearchBar({
           isFocused && [styles.containerFocused, enableAnimations && 'search-input-focused'],
           disabled && 'opacity-50 cursor-not-allowed'
         )}
-        style={{ transitionTimingFunction: SPRING_EASING }}
+        style={{transitionTimingFunction: SPRING_EASING }}
       >
         {/* Search Icon */}
         <div
@@ -958,7 +958,7 @@ export function GlassSearchBar({
             isFocused ? styles.iconFocused : styles.icon,
             isLoading && 'search-icon-searching'
           )}
-          style={{ transitionTimingFunction: SPRING_EASING }}
+          style={{transitionTimingFunction: SPRING_EASING }}
         >
           {isLoading ? (
             <Loader2 className={cn(sizes.icon, 'animate-spin')} />
@@ -966,8 +966,7 @@ export function GlassSearchBar({
             <Search className={sizes.icon} />
           )}
         </div>
-
-        {/* Input */}
+      {/* Input */}
         <input
           ref={inputRef}
           type="text"
@@ -1009,14 +1008,13 @@ export function GlassSearchBar({
               value ? 'clear-button-enter' : 'clear-button-exit',
               'hover:scale-110'
             )}
-            style={{ transitionTimingFunction: SPRING_EASING }}
+            style={{transitionTimingFunction: SPRING_EASING }}
             aria-label="Clear search"
           >
             <X className={sizes.icon} />
           </button>
-        )}
+)}
       </div>
-
       {/* Dropdown */}
       {showDropdown && (
         <div
@@ -1035,7 +1033,6 @@ export function GlassSearchBar({
           {showTypingIndicator && isTyping && !isLoading && (
             <TypingIndicator variant={variant} />
           )}
-
           {/* Loading State */}
           {isLoading && <LoadingSkeleton count={3} />}
 
@@ -1063,14 +1060,12 @@ export function GlassSearchBar({
                       index={index}
                       enableAnimations={enableAnimations}
                       onClick={() =>
-                        handleSelectSuggestion(item.data as SearchSuggestion)
-                      }
+                        handleSelectSuggestion(item.data as SearchSuggestion)}
                     />
                   </div>
-                ))}
+)}
             </div>
-          )}
-
+)}
           {/* History */}
           {!isLoading &&
             !isTyping &&
@@ -1121,8 +1116,7 @@ export function GlassSearchBar({
                     );
                   })}
               </div>
-            )}
-
+)}
           {/* No Results */}
           {!isLoading &&
             !isTyping &&
@@ -1141,8 +1135,7 @@ export function GlassSearchBar({
                 <p className="font-medium">No results found</p>
                 <p className="text-sm opacity-75">Try a different search term</p>
               </div>
-            )}
-
+)}
           {/* Keyboard Hints */}
           {dropdownItems.length > 0 && (
             <div
@@ -1165,9 +1158,9 @@ export function GlassSearchBar({
                 <span className="opacity-75">close</span>
               </span>
             </div>
-          )}
+)}
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -1243,7 +1236,7 @@ export function SimpleSearchInput({
         disabled && 'opacity-50 cursor-not-allowed',
         className
       )}
-      style={{ transitionTimingFunction: SPRING_EASING }}
+      style={{transitionTimingFunction: SPRING_EASING }}
     >
       <Search
         className={cn(
@@ -1252,7 +1245,7 @@ export function SimpleSearchInput({
           sizes.icon,
           isFocused ? styles.iconFocused : styles.icon
         )}
-        style={{ transitionTimingFunction: SPRING_EASING }}
+        style={{transitionTimingFunction: SPRING_EASING }}
       />
       <input
         type="text"
@@ -1282,11 +1275,11 @@ export function SimpleSearchInput({
             value ? 'clear-button-enter' : 'clear-button-exit',
             'hover:scale-110'
           )}
-          style={{ transitionTimingFunction: SPRING_EASING }}
+          style={{transitionTimingFunction: SPRING_EASING }}
         >
           <X className={sizes.icon} />
         </button>
-      )}
+)}
     </div>
   );
 }
@@ -1360,7 +1353,7 @@ export function SearchWithButton({
           isFocused && styles.containerFocused,
           disabled && 'opacity-50 cursor-not-allowed'
         )}
-        style={{ transitionTimingFunction: SPRING_EASING }}
+        style={{transitionTimingFunction: SPRING_EASING }}
       >
         <Search
           className={cn(
@@ -1399,7 +1392,7 @@ export function SearchWithButton({
           'hover:scale-[1.02] active:scale-[0.98]',
           buttonSizes[size]
         )}
-        style={{ transitionTimingFunction: SPRING_EASING }}
+        style={{transitionTimingFunction: SPRING_EASING }}
       >
         {isLoading ? (
           <Loader2 className="h-4 w-4 animate-spin" />

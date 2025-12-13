@@ -12,7 +12,7 @@ export function PlayerRecruitingSchoolsTable({
 }) {
   return (
     <Card className="bg-slate-900/70 border-white/5 p-4 text-white h-full">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <p className="text-sm text-slate-300">Schools</p>
         {loading && <p className="text-xs text-slate-500">Loading…</p>}
       </div>
@@ -21,7 +21,7 @@ export function PlayerRecruitingSchoolsTable({
           <p className="text-sm text-slate-400">No schools yet.</p>
         ) : (
           schools.map((school) => (
-            <div key={school.id} className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 flex items-center justify-between">
+            <div key={school.id} className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <div>
                 <p className="text-sm font-semibold">{school.name}</p>
                 <p className="text-xs text-slate-400">
@@ -31,8 +31,7 @@ export function PlayerRecruitingSchoolsTable({
               </div>
               <span className="text-xs capitalize px-2 py-1 rounded bg-white/10 border border-white/15">{school.status}</span>
             </div>
-          ))
-        )}
+          )})
       </div>
     </Card>
   );

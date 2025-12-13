@@ -26,6 +26,7 @@ interface AddStatsModalProps {
 }
 
 export function AddStatsModal({ playerId, onSuccess, trigger, open: controlledOpen, onClose }: AddStatsModalProps) {
+  const [loading, setLoading] = useState(true);
   const [internalOpen, setInternalOpen] = useState(false);
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
 
@@ -142,7 +143,7 @@ export function AddStatsModal({ playerId, onSuccess, trigger, open: controlledOp
             <BarChart3 className="w-4 h-4 mr-2" />
             Add Stats
           </Button>
-        )}
+)}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
@@ -177,14 +178,12 @@ export function AddStatsModal({ playerId, onSuccess, trigger, open: controlledOp
               </Select>
             </div>
           </div>
-
-          <Tabs value={statType} onValueChange={(v) => setStatType(v as 'hitting' | 'pitching')}>
+      <Tabs value={statType} onValueChange={(v) => setStatType(v as 'hitting' | 'pitching')}>
             <TabsList className="w-full">
               <TabsTrigger value="hitting" className="flex-1">Hitting</TabsTrigger>
               <TabsTrigger value="pitching" className="flex-1">Pitching</TabsTrigger>
             </TabsList>
-            
-            <TabsContent value="hitting" className="space-y-4 pt-4">
+      <TabsContent value="hitting" className="space-y-4 pt-4">
               <div className="grid grid-cols-3 gap-3">
                 <div className="space-y-1">
                   <Label className="text-xs">AB</Label>
@@ -278,8 +277,7 @@ export function AddStatsModal({ playerId, onSuccess, trigger, open: controlledOp
                 </div>
               </div>
             </TabsContent>
-            
-            <TabsContent value="pitching" className="space-y-4 pt-4">
+      <TabsContent value="pitching" className="space-y-4 pt-4">
               <div className="grid grid-cols-3 gap-3">
                 <div className="space-y-1">
                   <Label className="text-xs">IP</Label>
@@ -330,8 +328,7 @@ export function AddStatsModal({ playerId, onSuccess, trigger, open: controlledOp
               </div>
             </TabsContent>
           </Tabs>
-          
-          <div className="flex justify-end gap-2 pt-4">
+      <div className="flex justify-end gap-2 pt-4">
             <Button type="button" variant="outline" onClick={handleClose}>
               Cancel
             </Button>

@@ -224,7 +224,6 @@ export function GlassToggle({
           </>
         )}
       </span>
-
       {/* Hidden input for form submission */}
       {name && (
         <input
@@ -275,7 +274,7 @@ export function GlassToggle({
           >
             {description}
           </span>
-        )}
+)}
       </div>
     </div>
   );
@@ -333,14 +332,21 @@ export function GlassToggleGroup({
         >
           {label}
         </div>
-      )}
+)}
       <div
         className={cn(
           'flex',
           direction === 'vertical' ? 'flex-col gap-4' : 'flex-row flex-wrap gap-6'
         )}
       >
-        {items.map((item) => (
+        {{items.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            items.map((item) => (
           <GlassToggle
             key={item.id}
             checked={item.checked}
@@ -351,7 +357,7 @@ export function GlassToggleGroup({
             size={size}
             variant={variant}
           />
-        ))}
+        })
       </div>
     </div>
   );
@@ -422,7 +428,7 @@ export function SettingsToggle({
           >
             <Icon className="h-5 w-5" />
           </div>
-        )}
+)}
         <div className="min-w-0">
           <label
             htmlFor={id}
@@ -438,7 +444,7 @@ export function SettingsToggle({
             <p className={cn('text-sm mt-0.5', styles.description)}>
               {description}
             </p>
-          )}
+)}
         </div>
       </div>
       <GlassToggle
@@ -485,7 +491,7 @@ export function SettingsSection({
         <h3 className={cn('text-lg font-semibold', styles.label)}>{title}</h3>
         {description && (
           <p className={cn('text-sm mt-1', styles.description)}>{description}</p>
-        )}
+)}
       </div>
       <div className="space-y-3">{children}</div>
     </div>
@@ -591,7 +597,7 @@ export function ToggleCard({
           >
             <Icon className="h-5 w-5" />
           </div>
-        )}
+)}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             <span className={cn('font-medium', styles.label)}>{title}</span>
@@ -604,11 +610,11 @@ export function ToggleCard({
               >
                 {badge}
               </span>
-            )}
+)}
           </div>
           {description && (
             <p className={cn('text-sm mt-1', styles.description)}>{description}</p>
-          )}
+)}
         </div>
         <div
           className={cn(
@@ -697,17 +703,17 @@ export function FeatureToggle({
               <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-medium">
                 Beta
               </span>
-            )}
+)}
             {isNew && (
               <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-medium">
                 New
               </span>
-            )}
+)}
             {isDeprecated && (
               <span className="text-xs px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 font-medium">
                 Deprecated
               </span>
-            )}
+)}
           </div>
           <p className={cn('text-sm mt-1', styles.description)}>{description}</p>
         </div>

@@ -27,6 +27,7 @@ const MONTHS = [
 ];
 
 export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewProps) {
+  const [loading, setLoading] = useState(true);
   const [currentDate, setCurrentDate] = useState(new Date());
   
   const year = currentDate.getFullYear();
@@ -104,7 +105,7 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
   };
 
   return (
-    <Card className="rounded-2xl border border-slate-200/80 bg-white shadow-sm overflow-hidden">
+    <Card className="rounded-2xl border border-slate-200/80 bg-white/10 backdrop-blur-md border border-white/20 shadow-sm overflow-hidden">
       {/* Header */}
       <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -139,19 +140,24 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
           </Button>
         </div>
       </div>
-
       {/* Day Headers */}
       <div className="grid grid-cols-7 border-b border-slate-100">
-        {DAYS.map((day) => (
+        {{DAYS.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            DAYS.map((day) => (
           <div
             key={day}
             className="py-2 text-center text-xs font-medium text-slate-400 uppercase tracking-wide"
           >
             {day}
           </div>
-        ))}
+)}
       </div>
-
       {/* Calendar Grid */}
       <div className="grid grid-cols-7">
         {calendarDays.map((day, idx) => {
@@ -181,10 +187,9 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
                 </span>
                 {dayEvents.length > 3 && (
                   <span className="text-[10px] text-slate-400">+{dayEvents.length - 3}</span>
-                )}
+)}
               </div>
-
-              {/* Events (max 3 visible) */}
+      {/* Events (max 3 visible) */}
               <div className="space-y-0.5">
                 {dayEvents.slice(0, 3).map((event) => {
                   const colors = EVENT_COLORS[event.type];
@@ -197,26 +202,27 @@ export function CalendarView({ events, onDayClick, onEventClick }: CalendarViewP
                       }}
                       className={`w-full text-left px-1.5 py-0.5 rounded text-[10px] font-medium truncate transition-all hover:shadow-sm ${colors.bg} ${colors.text}`}
                     >
-                      <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${colors.dot}`} />
+                      <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${colors.dot}`}></span>
                       {event.title}
                     </button>
                   );
-                })}
+                })
+          })
               </div>
             </div>
           );
-        })}
+        })
+          })
       </div>
-
       {/* Legend */}
       <div className="px-5 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center gap-4">
         <span className="text-xs text-slate-400">Event types:</span>
         {Object.entries(EVENT_COLORS).map(([type, colors]) => (
           <div key={type} className="flex items-center gap-1.5">
-            <span className={`w-2 h-2 rounded-full ${colors.dot}`} />
+            <span className={`w-2 h-2 rounded-full ${colors.dot}`}></span>
             <span className="text-xs text-slate-500 capitalize">{type}</span>
           </div>
-        ))}
+)}
       </div>
     </Card>
   );

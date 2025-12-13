@@ -140,16 +140,14 @@ export function RepOnboarding({ onComplete }: RepOnboardingProps) {
               Get Started
             </button>
           </div>
-        )}
-
+)}
         {step === 'leads' && (
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Import Your Leads</h2>
             <p className="text-gray-600 mb-6">
               Upload a CSV file containing your existing leads and territory data.
             </p>
-
-            <div className="mb-6 border-2 border-dashed border-gray-300 rounded-xl p-8 text-center bg-gray-50">
+<div className="mb-6 border-2 border-dashed border-gray-300 rounded-xl p-8 text-center bg-gray-50">
               <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <input
                 type="file"
@@ -173,16 +171,14 @@ export function RepOnboarding({ onComplete }: RepOnboardingProps) {
                 <p className="mt-2 text-sm text-gray-600">
                   Selected: {leadsFile.name}
                 </p>
-              )}
+)}
             </div>
-
-            {error && (
+{error && (
               <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
                 <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
                 <p className="text-sm text-red-800">{error}</p>
               </div>
-            )}
-
+)}
             <div className="flex gap-3">
               <button
                 onClick={handleLeadsUpload}
@@ -200,16 +196,14 @@ export function RepOnboarding({ onComplete }: RepOnboardingProps) {
               </button>
             </div>
           </div>
-        )}
-
+)}
         {step === 'newbiz' && (
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Import New Businesses</h2>
             <p className="text-gray-600 mb-6">
               Upload a CSV file containing new businesses in your territory.
             </p>
-
-            <div className="mb-6 border-2 border-dashed border-gray-300 rounded-xl p-8 text-center bg-gray-50">
+<div className="mb-6 border-2 border-dashed border-gray-300 rounded-xl p-8 text-center bg-gray-50">
               <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <input
                 type="file"
@@ -233,16 +227,14 @@ export function RepOnboarding({ onComplete }: RepOnboardingProps) {
                 <p className="mt-2 text-sm text-gray-600">
                   Selected: {newBizFile.name}
                 </p>
-              )}
+)}
             </div>
-
-            {error && (
+{error && (
               <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
                 <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
                 <p className="text-sm text-red-800">{error}</p>
               </div>
-            )}
-
+)}
             <div className="flex gap-3">
               <button
                 onClick={handleNewBizUpload}
@@ -260,8 +252,7 @@ export function RepOnboarding({ onComplete }: RepOnboardingProps) {
               </button>
             </div>
           </div>
-        )}
-
+)}
         {step === 'complete' && (
           <div className="text-center">
             <CheckCircle className="h-20 w-20 text-green-600 mx-auto mb-4" />
@@ -276,13 +267,12 @@ export function RepOnboarding({ onComplete }: RepOnboardingProps) {
               Go to Dashboard
             </button>
           </div>
-        )}
-
+)}
         <div className="mt-8 flex justify-center gap-2">
-          <div className={`h-2 w-2 rounded-full ${step === 'welcome' ? 'bg-blue-600' : 'bg-gray-300'}`} />
-          <div className={`h-2 w-2 rounded-full ${step === 'leads' ? 'bg-blue-600' : 'bg-gray-300'}`} />
-          <div className={`h-2 w-2 rounded-full ${step === 'newbiz' ? 'bg-blue-600' : 'bg-gray-300'}`} />
-          <div className={`h-2 w-2 rounded-full ${step === 'complete' ? 'bg-blue-600' : 'bg-gray-300'}`} />
+          <div className={`h-2 w-2 rounded-full ${step === 'welcome' ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
+          <div className={`h-2 w-2 rounded-full ${step === 'leads' ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
+          <div className={`h-2 w-2 rounded-full ${step === 'newbiz' ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
+          <div className={`h-2 w-2 rounded-full ${step === 'complete' ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
         </div>
       </div>
     </div>

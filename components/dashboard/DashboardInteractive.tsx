@@ -231,6 +231,7 @@ export function DashboardProvider({
   refreshInterval,
   enableRealtime = false,
 }: DashboardProviderProps) {
+  const [loading, setLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [connectionStatus, setConnectionStatus] = useState<'connected' | 'connecting' | 'disconnected'>('disconnected');
@@ -345,7 +346,7 @@ export function DashboardProvider({
       setLayout,
       refresh,
       subscribe,
-    }),
+    }}),
     [isRefreshing, lastUpdated, connectionStatus, layout, refresh, subscribe]
   );
 
@@ -431,21 +432,20 @@ export function MetricCard({
             <div className={cn('p-2 rounded-xl', iconColorClasses[color])}>
               <Icon className="w-5 h-5" />
             </div>
-          )}
+)}
           <div>
             <p className="text-sm text-white/60">{metric.label}</p>
             {metric.description && (
               <p className="text-xs text-white/40 mt-0.5">{metric.description}</p>
-            )}
+)}
           </div>
         </div>
         {showDetails && metric.details && (
-          <button className="p-1.5 rounded-lg hover:bg-white/10 transition-colors">
+          <button className="p-1.5 rounded-2xl hover:bg-white/10 transition-colors">
             <Info className="w-4 h-4 text-white/40" />
           </button>
-        )}
+)}
       </div>
-
       <div className="flex items-end justify-between">
         <div>
           <p className={cn(
@@ -459,8 +459,7 @@ export function MetricCard({
             {metric.unit && <span className="text-lg ml-1 text-white/60">{metric.unit}</span>}
           </p>
         </div>
-
-        {showTrend && metric.change !== undefined && (
+      {showTrend && metric.change !== undefined && (
           <div className={cn(
             'flex items-center gap-1 px-2 py-1 rounded-lg text-sm font-medium',
             isPositive && 'text-emerald-400 bg-emerald-500/20',
@@ -472,25 +471,31 @@ export function MetricCard({
             {!isPositive && !isNegative && <Minus className="w-3.5 h-3.5" />}
             <span>{isPositive ? '+' : ''}{change}%</span>
           </div>
-        )}
+)}
       </div>
-
       {/* Hover Details Tooltip */}
       {showDetails && isHovered && metric.details && metric.details.length > 0 && (
         <div className="absolute left-0 right-0 top-full mt-2 z-50">
           <div className="mx-4 p-4 rounded-xl bg-slate-800/95 backdrop-blur-xl border border-white/10 shadow-2xl tooltip-animated">
             <p className="text-xs text-white/50 uppercase tracking-wider mb-3">Details</p>
             <div className="space-y-2">
-              {metric.details.map((detail, idx) => (
+              {metric.{details.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            details.map((detail, idx) => (
                 <div key={idx} className="flex items-center justify-between">
                   <span className="text-sm text-white/70">{detail.label}</span>
                   <span className="text-sm font-medium text-white">{detail.value}</span>
                 </div>
-              ))}
+)}
             </div>
           </div>
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -512,13 +517,12 @@ export function ChartTooltip({ data, position, visible, formatter }: ChartToolti
   return (
     <div
       className="fixed z-50 pointer-events-none chart-tooltip"
-      style={{
-        left: position.x + 10,
+      style={{left: position.x + 10,
         top: position.y - 10,
         transform: 'translateY(-100%)',
       }}
     >
-      <div className="px-3 py-2 rounded-lg bg-slate-800/95 backdrop-blur-xl border border-white/10 shadow-xl">
+      <div className="px-3 py-2 rounded-2xl bg-slate-800/95 backdrop-blur-xl border border-white/10 shadow-xl">
         {formatter ? (
           formatter(data)
         ) : (
@@ -560,7 +564,7 @@ export function InteractiveChart({
     visible: boolean;
     data: ChartDataPoint | null;
     position: { x: number; y: number };
-  }>({ visible: false, data: null, position: { x: 0, y: 0 } });
+  }>({ visible: false, data: null, position: { x: 0, y: 0 } }});
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const maxValue = Math.max(...data.map((d) => d.y));
@@ -586,13 +590,13 @@ export function InteractiveChart({
         visible: true,
         data: point,
         position: { x: e.clientX, y: e.clientY },
-      });
+      }});
       setActiveIndex(index);
     }
   };
 
   const handleMouseLeave = () => {
-    setTooltip({ visible: false, data: null, position: { x: 0, y: 0 } });
+    setTooltip({ visible: false, data: null, position: { x: 0, y: 0 } }});
     setActiveIndex(null);
   };
 
@@ -602,7 +606,7 @@ export function InteractiveChart({
       const x = getX(i);
       const y = getY(point.y);
       return `${i === 0 ? 'M' : 'L'} ${x} ${y}`;
-    })
+    }})
     .join(' ');
 
   const areaPath = `${linePath} L ${getX(data.length - 1)} ${height - padding} L ${getX(0)} ${height - padding} Z`;
@@ -621,21 +625,17 @@ export function InteractiveChart({
                 x2={chartWidth}
                 y2={padding + chartHeight * ratio}
                 stroke="currentColor"
-                strokeDasharray="2 2"
-              />
-            ))}
+                strokeDasharray="2 2"></li>
+)}
           </g>
-        )}
-
+)}
         {/* Area fill */}
         {type === 'area' && (
           <path
             d={areaPath}
-            fill={`url(#gradient-${color.replace('#', '')})`}
-            opacity={0.3}
-          />
+            fill={`url(#gradient-${color.replace('#', '')}})`}
+            opacity={0.3} />
         )}
-
         {/* Line */}
         {(type === 'line' || type === 'area') && (
           <path
@@ -644,10 +644,8 @@ export function InteractiveChart({
             stroke={color}
             strokeWidth={2}
             strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+            strokeLinejoin="round" />
         )}
-
         {/* Bars */}
         {type === 'bar' && data.map((point, i) => {
           const barWidth = (chartWidth - 10) / data.length - 2;
@@ -669,7 +667,8 @@ export function InteractiveChart({
               onClick={() => onPointClick?.(point)}
             />
           );
-        })}
+        })
+          })
 
         {/* Data points (for line/area) */}
         {(type === 'line' || type === 'area') && data.map((point, i) => (
@@ -686,7 +685,7 @@ export function InteractiveChart({
             onMouseLeave={handleMouseLeave}
             onClick={() => onPointClick?.(point)}
           />
-        ))}
+        })
 
         {/* Gradient definition */}
         <defs>
@@ -696,7 +695,6 @@ export function InteractiveChart({
           </linearGradient>
         </defs>
       </svg>
-
       {/* X-axis labels */}
       {showLabels && (
         <div className="flex justify-between px-1 mt-2">
@@ -704,10 +702,9 @@ export function InteractiveChart({
             <span key={i} className="text-xs text-white/40">
               {point.label || point.x}
             </span>
-          ))}
+)}
         </div>
-      )}
-
+)}
       {/* Tooltip */}
       {tooltip.data && (
         <ChartTooltip
@@ -748,7 +745,7 @@ export function RefreshButton({ onRefresh, showLastUpdated = true, className }: 
     
     if (diff < 60000) return 'Just now';
     if (diff < 3600000) return `${Math.floor(diff / 60000)}m ago`;
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }});
   };
 
   return (
@@ -757,7 +754,7 @@ export function RefreshButton({ onRefresh, showLastUpdated = true, className }: 
         <span className="text-sm text-white/50">
           Updated {formatTime(lastUpdated)}
         </span>
-      )}
+)}
       <button
         onClick={handleRefresh}
         disabled={isRefreshing}
@@ -778,7 +775,7 @@ export function RefreshButton({ onRefresh, showLastUpdated = true, className }: 
 // REALTIME CONNECTION STATUS
 // ═══════════════════════════════════════════════════════════════════════════
 
-export function ConnectionStatus({ className }: { className?: string }) {
+export function ConnectionStatus({ className }: { className?: string }}) {
   const { connectionStatus, isConnected } = useDashboard();
 
   const statusConfig = {
@@ -864,7 +861,6 @@ export function WidgetCustomizer({ widgets, onToggleWidget, className }: WidgetC
         <span className="text-sm font-medium">Customize</span>
         <ChevronDown className={cn('w-4 h-4 transition-transform', isOpen && 'rotate-180')} />
       </button>
-
       {isOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
@@ -876,7 +872,7 @@ export function WidgetCustomizer({ widgets, onToggleWidget, className }: WidgetC
                   <button
                     key={widget.id}
                     onClick={() => onToggleWidget(widget.id)}
-                    className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/5 transition-colors"
+                    className="w-full flex items-center gap-3 px-3 py-2 rounded-2xl hover:bg-white/5 transition-colors"
                   >
                     <div className={cn(
                       'w-5 h-5 rounded flex items-center justify-center border transition-colors',
@@ -893,7 +889,7 @@ export function WidgetCustomizer({ widgets, onToggleWidget, className }: WidgetC
                       <EyeOff className="w-4 h-4 text-white/40" />
                     )}
                   </button>
-                ))}
+)}
               </div>
             </div>
           </div>
@@ -939,14 +935,14 @@ export function DraggableWidget({
               <div className="drag-handle p-1 rounded hover:bg-white/10 opacity-40 transition-opacity">
                 <GripVertical className="w-4 h-4 text-white/60" />
               </div>
-            )}
+)}
             {title && <h3 className="font-medium text-white">{title}</h3>}
           </div>
           <div className="flex items-center gap-1">
             {onMaximize && (
               <button
                 onClick={onMaximize}
-                className="p-1.5 rounded-lg hover:bg-white/10 transition-colors"
+                className="p-1.5 rounded-2xl hover:bg-white/10 transition-colors"
               >
                 {isMaximized ? (
                   <Minimize2 className="w-4 h-4 text-white/60" />
@@ -954,18 +950,18 @@ export function DraggableWidget({
                   <Maximize2 className="w-4 h-4 text-white/60" />
                 )}
               </button>
-            )}
+)}
             {onClose && (
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-lg hover:bg-white/10 hover:text-red-400 transition-colors"
+                className="p-1.5 rounded-2xl hover:bg-white/10 hover:text-red-400 transition-colors"
               >
                 <X className="w-4 h-4 text-white/60" />
               </button>
-            )}
+)}
           </div>
         </div>
-      )}
+)}
       <div className="p-4">{children}</div>
     </div>
   );
@@ -1004,7 +1000,6 @@ export function DashboardHeader({
         <h1 className="text-2xl font-bold text-white">{title}</h1>
         {subtitle && <p className="text-white/60 mt-1">{subtitle}</p>}
       </div>
-      
       <div className="flex items-center gap-3 flex-wrap">
         {showConnection && <ConnectionStatus />}
         {showLayout && <LayoutSelector />}
@@ -1042,7 +1037,7 @@ export function MetricGrid({ metrics, columns = 4, className }: MetricGridProps)
       <div className={cn('space-y-3', className)}>
         {metrics.map((metric) => (
           <MetricCard key={metric.id} metric={metric} />
-        ))}
+        })
       </div>
     );
   }
@@ -1051,7 +1046,7 @@ export function MetricGrid({ metrics, columns = 4, className }: MetricGridProps)
     <div className={cn('grid gap-4', gridClasses[columns], className)}>
       {metrics.map((metric) => (
         <MetricCard key={metric.id} metric={metric} />
-      ))}
+      })
     </div>
   );
 }
@@ -1067,7 +1062,7 @@ export function useRealtimeData<T>(event: string, initialData: T): T {
   useEffect(() => {
     const unsubscribe = subscribe(event, (newData) => {
       setData(newData as T);
-    });
+    }});
 
     return unsubscribe;
   }, [event, subscribe]);

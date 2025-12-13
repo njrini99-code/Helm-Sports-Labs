@@ -1,0 +1,62 @@
+{
+  "generated": "2025-12-10T18:40:24.993512",
+  "analysis": {
+    "routes": 0,
+    "components": 196,
+    "api_routes": 0,
+    "migrations": 21,
+    "issues": []
+  },
+  "plan": {
+    "total_features": 7,
+    "estimated_hours": 74,
+    "recommended_order": [
+      {
+        "id": "quick-wins-1",
+        "name": "Enhanced Search & Filters",
+        "priority": "high",
+        "hours": 4
+      },
+      {
+        "id": "quick-wins-2",
+        "name": "Bulk Actions",
+        "priority": "high",
+        "hours": 6
+      },
+      {
+        "id": "medium-4",
+        "name": "PWA Enhancements",
+        "priority": "medium",
+        "hours": 8
+      },
+      {
+        "id": "medium-2",
+        "name": "Video Upload & Management",
+        "priority": "medium",
+        "hours": 10
+      },
+      {
+        "id": "medium-1",
+        "name": "Real-time Messaging",
+        "priority": "medium",
+        "hours": 12
+      },
+      {
+        "id": "medium-3",
+        "name": "Advanced Analytics Dashboard",
+        "priority": "medium",
+        "hours": 14
+      },
+      {
+        "id": "complex-1",
+        "name": "AI Player Matching",
+        "priority": "low",
+        "hours": 20
+      }
+    ]
+  },
+  "status": {
+    "build_ok": true,
+    "lint_ok": false
+  }
+}

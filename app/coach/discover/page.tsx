@@ -234,14 +234,13 @@ export default function CoachDiscoverPage() {
                   <span className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full text-[10px] flex items-center justify-center">
                     {count > 99 ? '99+' : count}
                   </span>
-                )}
+)}
               </button>
             );
           })}
         </div>
-        
-        {hoveredState && (
-          <div className="absolute top-4 right-4 bg-[#161a1f] border border-white/10 rounded-lg p-4 shadow-xl z-10">
+      {hoveredState && (
+          <div className="absolute top-4 right-4 bg-[#161a1f] border border-white/10 rounded-2xl p-4 shadow-xl z-10">
             <h3 className="font-semibold text-white mb-2">{hoveredState}</h3>
             <p className="text-sm text-slate-300">
               {getStateCount(hoveredState)} Recruits
@@ -251,10 +250,10 @@ export default function CoachDiscoverPage() {
                 <p key={year} className="text-xs text-slate-400">
                   Class of {year}: {Math.floor(getStateCount(hoveredState) / 5)} (estimated)
                 </p>
-              ))}
+)}
             </div>
           </div>
-        )}
+)}
       </div>
     );
   };
@@ -268,15 +267,13 @@ export default function CoachDiscoverPage() {
             Your command center for national recruiting
           </p>
         </div>
-
-        <Tabs value={activeView} onValueChange={(v) => setActiveView(v as any)} className="space-y-6">
+      <Tabs value={activeView} onValueChange={(v) => setActiveView(v as any)} className="space-y-6">
           <TabsList className="bg-[#111315] border border-white/5 p-1">
             <TabsTrigger value="map">USA Map</TabsTrigger>
             <TabsTrigger value="trending">Trending</TabsTrigger>
             <TabsTrigger value="ai">AI Matches</TabsTrigger>
           </TabsList>
-
-          {/* USA Map Tab */}
+      {/* USA Map Tab */}
           <TabsContent value="map" className="space-y-6">
             {selectedState ? (
               <>
@@ -288,17 +285,16 @@ export default function CoachDiscoverPage() {
                   </Button>
                   <h2 className="text-2xl font-bold text-white">{selectedState} Recruits</h2>
                 </div>
-
-                <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid lg:grid-cols-2 gap-6">
                   {/* Left: Top Recruits */}
                   <Card className="bg-[#111315] border-white/5">
                     <CardHeader>
                       <CardTitle className="text-lg">Top Recruits in {selectedState}</CardTitle>
                     </CardHeader>
-                    <CardContent>
+        <CardContent>
                       {loading ? (
                         <div className="flex items-center justify-center py-20">
-                          <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse" />
+                          <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse"></div>
                         </div>
                       ) : players.length === 0 ? (
                         <div className="text-center py-12 text-slate-400">
@@ -327,12 +323,12 @@ export default function CoachDiscoverPage() {
                                           <Badge variant="outline" className="text-xs">
                                             Class of {player.grad_year}
                                           </Badge>
-                                        )}
+)}
                                         {player.primary_position && (
                                           <Badge variant="outline" className="text-xs">
                                             {player.primary_position}
                                           </Badge>
-                                        )}
+)}
                                       </div>
                                     </div>
                                     <div className="flex items-center gap-2">
@@ -343,37 +339,35 @@ export default function CoachDiscoverPage() {
                                       >
                                         <Star className="w-4 h-4" />
                                       </Button>
-                                      <Link href={`/coach/player/${player.id}`}>
+        <Link href={`/coach/player/${player.id}`}>
                                         <Button variant="ghost" size="sm">
                                           <ChevronRight className="w-4 h-4" />
                                         </Button>
                                       </Link>
                                     </div>
                                   </div>
-                                  
-                                  {/* Measurables */}
+      {/* Measurables */}
                                   <div className="flex flex-wrap gap-2 mt-2">
                                     {player.height_feet && (
                                       <span className="text-xs text-slate-400">
                                         {player.height_feet}'{player.height_inches}" • {player.weight_lbs} lbs
                                       </span>
-                                    )}
+)}
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          ))}
+)}
                         </div>
-                      )}
+)}
                     </CardContent>
                   </Card>
-
-                  {/* Right: Teams */}
+      {/* Right: Teams */}
                   <Card className="bg-[#111315] border-white/5">
                     <CardHeader>
                       <CardTitle className="text-lg">Teams in {selectedState}</CardTitle>
                     </CardHeader>
-                    <CardContent>
+        <CardContent>
                       <div className="text-center py-12 text-slate-400">
                         <Building className="w-12 h-12 mx-auto mb-4 opacity-50" />
                         <p>Team directory coming soon</p>
@@ -392,12 +386,12 @@ export default function CoachDiscoverPage() {
                         <Filter className="w-5 h-5 text-blue-400" />
                         Advanced Filters
                       </CardTitle>
-                      <Button variant="ghost" size="sm" onClick={clearFilters}>
+        <Button variant="ghost" size="sm" onClick={clearFilters}>
                         Clear All
                       </Button>
                     </div>
                   </CardHeader>
-                  <CardContent>
+        <CardContent>
                     <div className="space-y-4">
                       {/* Position Pills */}
                       <div>
@@ -412,11 +406,10 @@ export default function CoachDiscoverPage() {
                             >
                               {pos}
                             </Badge>
-                          ))}
+)}
                         </div>
                       </div>
-
-                      {/* Grad Year Pills */}
+      {/* Grad Year Pills */}
                       <div>
                         <label className="text-sm text-slate-400 mb-2 block">Grad Year</label>
                         <div className="flex flex-wrap gap-2">
@@ -425,22 +418,21 @@ export default function CoachDiscoverPage() {
                               key={year}
                               variant={filters.gradYear.includes(year.toString()) ? 'default' : 'outline'}
                               className="cursor-pointer hover:scale-110 active:scale-95 transition-transform duration-200"
-                              onClick={() => toggleFilter('gradYear', year.toString())}
+                              onClick={() => toggleFilter('gradYear', year.toString(})
                             >
                               {year}
                             </Badge>
-                          ))}
+)}
                         </div>
                       </div>
-
-                      {/* Measurables */}
+      {/* Measurables */}
                       <div className="grid grid-cols-3 gap-4">
                         <div>
                           <label className="text-sm text-slate-400 mb-2 block">Exit Velo Min</label>
                           <Input
                             placeholder="90"
                             value={filters.exitVeloMin}
-                            onChange={(e) => setFilters(prev => ({ ...prev, exitVeloMin: e.target.value }))}
+                            onChange={(e) => setFilters(prev => ({ ...prev, exitVeloMin: e.target.value }})
                             className="bg-[#161a1f] border-white/5"
                           />
                         </div>
@@ -449,7 +441,7 @@ export default function CoachDiscoverPage() {
                           <Input
                             placeholder="85"
                             value={filters.pitchVeloMin}
-                            onChange={(e) => setFilters(prev => ({ ...prev, pitchVeloMin: e.target.value }))}
+                            onChange={(e) => setFilters(prev => ({ ...prev, pitchVeloMin: e.target.value }})
                             className="bg-[#161a1f] border-white/5"
                           />
                         </div>
@@ -458,19 +450,18 @@ export default function CoachDiscoverPage() {
                           <Input
                             placeholder="6.8"
                             value={filters.sixtyTimeMax}
-                            onChange={(e) => setFilters(prev => ({ ...prev, sixtyTimeMax: e.target.value }))}
+                            onChange={(e) => setFilters(prev => ({ ...prev, sixtyTimeMax: e.target.value }})
                             className="bg-[#161a1f] border-white/5"
                           />
                         </div>
                       </div>
-
-                      {/* Toggles */}
+      {/* Toggles */}
                       <div className="flex items-center gap-4">
                         <label className="flex items-center gap-2 cursor-pointer">
                           <input
                             type="checkbox"
                             checked={filters.videoRequired}
-                            onChange={(e) => setFilters(prev => ({ ...prev, videoRequired: e.target.checked }))}
+                            onChange={(e) => setFilters(prev => ({ ...prev, videoRequired: e.target.checked }})
                             className="rounded"
                           />
                           <span className="text-sm text-slate-300">Video Required</span>
@@ -479,7 +470,7 @@ export default function CoachDiscoverPage() {
                           <input
                             type="checkbox"
                             checked={filters.verifiedOnly}
-                            onChange={(e) => setFilters(prev => ({ ...prev, verifiedOnly: e.target.checked }))}
+                            onChange={(e) => setFilters(prev => ({ ...prev, verifiedOnly: e.target.checked }})
                             className="rounded"
                           />
                           <span className="text-sm text-slate-300">Verified Only</span>
@@ -488,30 +479,27 @@ export default function CoachDiscoverPage() {
                     </div>
                   </CardContent>
                 </Card>
-
-                {/* USA Map */}
+      {/* USA Map */}
                 <Card className="bg-[#111315] border-white/5">
                   <CardHeader>
                     <CardTitle className="text-lg">USA Map Recruit Explorer</CardTitle>
                   </CardHeader>
-                  <CardContent>
+        <CardContent>
                     <USAMap />
                   </CardContent>
                 </Card>
               </>
             )}
           </TabsContent>
-
-          {/* Trending Tab */}
+      {/* Trending Tab */}
           <TabsContent value="trending" className="space-y-6">
             <div className="flex items-center gap-2 mb-4">
               <TrendingUp className="w-5 h-5 text-blue-400" />
               <h2 className="text-xl font-semibold text-white">Trending Players (National)</h2>
             </div>
-
-            {loading ? (
+      {loading ? (
               <div className="flex items-center justify-center py-20">
-                          <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse" />
+                          <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse"></div>
               </div>
             ) : (
               <div className="space-y-4">
@@ -531,17 +519,17 @@ export default function CoachDiscoverPage() {
                               <div className="flex items-center gap-2 mt-1">
                                 {player.primary_position && (
                                   <Badge variant="outline">{player.primary_position}</Badge>
-                                )}
+)}
                                 {player.grad_year && (
                                   <Badge variant="outline">Class of {player.grad_year}</Badge>
-                                )}
+)}
                               </div>
                             </div>
                             <div className="flex items-center gap-2">
                               <Button variant="ghost" size="sm" onClick={() => handleAddToWatchlist(player.id)}>
                                 <Star className="w-4 h-4" />
                               </Button>
-                              <Link href={`/coach/player/${player.id}`}>
+        <Link href={`/coach/player/${player.id}`}>
                                 <Button variant="ghost" size="sm">
                                   <ChevronRight className="w-4 h-4" />
                                 </Button>
@@ -562,12 +550,11 @@ export default function CoachDiscoverPage() {
                       </div>
                     </CardContent>
                   </Card>
-                ))}
+)}
               </div>
-            )}
+)}
           </TabsContent>
-
-          {/* AI Matches Tab */}
+      {/* AI Matches Tab */}
           <TabsContent value="ai" className="space-y-6">
             <div className="flex items-center gap-2 mb-4">
               <Sparkles className="w-5 h-5 text-blue-400" />
@@ -576,10 +563,9 @@ export default function CoachDiscoverPage() {
             <p className="text-slate-400 mb-6">
               Players who fit your recruiting needs based on your historical roster patterns
             </p>
-
-            {loading ? (
+      {loading ? (
               <div className="flex items-center justify-center py-20">
-                          <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse" />
+                          <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse"></div>
               </div>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -604,14 +590,14 @@ export default function CoachDiscoverPage() {
                             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                             {reason}
                           </div>
-                        ))}
+)}
                       </div>
                       <div className="flex items-center gap-2 pt-4 border-t border-white/5">
                         <Button variant="outline" size="sm" className="flex-1" onClick={() => handleAddToWatchlist(match.player.id)}>
                           <Star className="w-4 h-4 mr-2" />
                           Watchlist
                         </Button>
-                        <Link href={`/coach/player/${match.player.id}`}>
+        <Link href={`/coach/player/${match.player.id}`}>
                           <Button variant="outline" size="sm" className="flex-1">
                             View Profile
                           </Button>
@@ -619,9 +605,9 @@ export default function CoachDiscoverPage() {
                       </div>
                     </CardContent>
                   </Card>
-                ))}
+)}
               </div>
-            )}
+)}
           </TabsContent>
         </Tabs>
       </div>

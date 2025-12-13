@@ -25,6 +25,7 @@ export function HsNewConversationModal({
   orgId: string;
   coachProfileId: string;
 }) {
+  const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState(defaultTitle || '');
   const [participantIds, setParticipantIds] = useState<string[]>(defaultParticipantProfileIds || []);
   const [conversationType, setConversationType] = useState<ConversationType>(type);
@@ -94,7 +95,7 @@ export function HsNewConversationModal({
             <p className="text-xs text-muted-foreground">Participant profile IDs</p>
             <Input
               value={participantIds.join(',')}
-              onChange={(e) => setParticipantIds(e.target.value.split(',').map((s) => s.trim()).filter(Boolean))}
+              onChange={(e) => setParticipantIds(e.target.value.split(',').map((s) => s.trim()).filter(Boolean})
               placeholder="Comma separated profile IDs"
             />
             <p className="text-[11px] text-muted-foreground">Pre-populated from selection; replace with a selector when roster search is available.</p>

@@ -135,7 +135,7 @@ export default function HsCoachOverviewPage() {
       }
       setLoading(false);
     } catch (error) {
-      logError(error, { component: 'HsCoachOverviewPage', action: 'loadData', metadata: { unexpected: true } });
+      logError(error, { component: 'HsCoachOverviewPage', action: 'loadData', metadata: { unexpected: true  } });
       toast.error('An unexpected error occurred. Please try again.');
       setLoading(false);
     }
@@ -144,7 +144,7 @@ export default function HsCoachOverviewPage() {
   // Computed values
   const upcomingEvents = useMemo(() => 
     schedule
-      .filter(e => new Date(e.start_time) >= new Date())
+      .filter(e => new Date(e.start_time) >= new Date()}
       .slice(0, 5),
     [schedule]
   );
@@ -188,15 +188,14 @@ export default function HsCoachOverviewPage() {
       className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30"
       initial={pageTransition.initial}
       animate={pageTransition.animate}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
+      transition={{duration: 0.3, ease: 'easeOut' }}
     >
       {/* ═══════════════════════════════════════════════════════════════════
           HERO BANNER
       ═══════════════════════════════════════════════════════════════════ */}
       <section 
         className="relative overflow-hidden"
-        style={{
-          background: `linear-gradient(160deg, #1a1a2e 0%, #16213e 40%, #0f0f1a 100%)`,
+        style={{background: `linear-gradient(160deg, #1a1a2e 0%, #16213e 40%, #0f0f1a 100%)`,
         }}
       >
         {/* Subtle radial glows */}
@@ -204,56 +203,45 @@ export default function HsCoachOverviewPage() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background: `
-              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}18, ${programColor}08 40%, transparent 70%),
+              radial-gradient(ellipse 80% 50% at 25% 30%, ${programColor}}18, ${programColor}08 40%, transparent 70%),
               radial-gradient(ellipse 60% 40% at 75% 60%, ${programColor}10, transparent 50%)
             `,
-          }}
-        />
-        
-        {/* Noise texture */}
+          }}></div>
+{/* Noise texture */}
         <div 
           className="absolute inset-0 pointer-events-none opacity-[0.04]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          style={{backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'repeat',
-          }}
-        />
-        
-        {/* Grid pattern */}
+          }}></div>
+{/* Grid pattern */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:40px_40px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:40px_40px]"></div>
         </div>
-        
-        {/* Ambient orbs */}
+      {/* Ambient orbs */}
         <div 
           className="absolute -top-20 -right-20 w-80 h-80 rounded-full blur-[100px] opacity-[0.15] pointer-events-none"
-          style={{ background: programColor }}
-        />
+          style={{background: programColor }}></div>
         <div 
           className="absolute -bottom-32 -left-20 w-64 h-64 rounded-full blur-[80px] opacity-[0.1] pointer-events-none"
-          style={{ background: programColor }}
-        />
-
-        <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
+          style={{background: programColor }}></div>
+<div className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             {/* School Logo */}
             <div className="relative group">
               <div 
                 className="absolute inset-0 rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity"
-                style={{ background: programColor }}
-              />
+                style={{background: programColor }}></div>
               <Avatar className="relative h-20 w-20 md:h-24 md:w-24 ring-4 ring-white/20 shadow-2xl rounded-2xl">
                 <AvatarImage src={coach?.logo_url ?? undefined} alt={`${schoolName} logo`} className="rounded-2xl object-cover" />
                 <AvatarFallback 
                   className="rounded-2xl text-2xl md:text-3xl font-bold text-white"
-                  style={{ background: programColor }}
+                  style={{background: programColor }}
                 >
                   {schoolInitials}
                 </AvatarFallback>
               </Avatar>
             </div>
-
-            {/* School Info */}
+      {/* School Info */}
             <div className="flex-1 min-w-0">
               <div className="backdrop-blur-sm bg-white/5 rounded-2xl p-4 md:p-5 border border-white/10">
                 <div className="flex items-center gap-3 mb-2 flex-wrap">
@@ -265,39 +253,35 @@ export default function HsCoachOverviewPage() {
                     High School
                   </Badge>
                 </div>
-
-                <div className="flex flex-wrap gap-x-4 gap-y-1 text-white/70 text-sm mb-2">
+      <div className="flex flex-wrap gap-x-4 gap-y-1 text-white/70 text-sm mb-2">
                   {location && (
                     <span className="flex items-center gap-1">
-                      <MapPin className="w-4 h-4" style={{ color: programColor }} />
+                      <MapPin className="w-4 h-4" style={{color: programColor }} />
                       {location}
                     </span>
-                  )}
+)}
                   <span className="flex items-center gap-1">
                     <Users className="w-4 h-4" />
                     {roster.length} Players
                   </span>
                 </div>
-
-                {coach?.full_name && (
+      {coach?.full_name && (
                   <div className="text-white/60 text-sm mb-2">
                     <span className="font-medium text-white/80">{coach.full_name}</span>
                     {' — Head Coach'}
                   </div>
-                )}
-
+)}
                 {/* Profile Completion */}
                 <div className="flex items-center gap-4 mt-4">
                   <div className="flex-1 max-w-xs">
                     <div className="flex items-center justify-between text-[10px] mb-1">
                       <span className="text-white/50 uppercase tracking-wide">Profile</span>
-                      <span className="font-semibold" style={{ color: programColor }}>{profileCompletion}%</span>
+                      <span className="font-semibold" style={{color: programColor }}>{profileCompletion}%</span>
                     </div>
                     <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
                       <div 
                         className="h-full rounded-full transition-all duration-1000 ease-out"
-                        style={{ width: `${profileCompletion}%`, background: programColor }}
-                      />
+                        style={{ width: `${profileCompletion}}%`, background: programColor }}></div>
                     </div>
                   </div>
                   {profileCompletion < 100 && (
@@ -307,17 +291,16 @@ export default function HsCoachOverviewPage() {
                         <ChevronRight className="w-3 h-3" />
                       </span>
                     </Link>
-                  )}
+)}
                 </div>
               </div>
             </div>
-
-            {/* Actions */}
+      {/* Actions */}
             <div className="flex gap-2 w-full md:w-auto">
               <Link href="/coach/hs/dashboard/settings" className="flex-1 md:flex-none">
                 <Button 
                   className="w-full h-10 gap-2 text-white shadow-lg hover:shadow-xl transition-all text-sm font-medium"
-                  style={{ background: programColor }}
+                  style={{background: programColor }}
                 >
                   <Edit className="w-4 h-4" />
                   Edit Profile
@@ -335,7 +318,6 @@ export default function HsCoachOverviewPage() {
           </div>
         </div>
       </section>
-
       {/* ═══════════════════════════════════════════════════════════════════
           METRIC CARDS
       ═══════════════════════════════════════════════════════════════════ */}
@@ -380,7 +362,6 @@ export default function HsCoachOverviewPage() {
           </motion.div>
         </motion.div>
       </section>
-
       {/* ═══════════════════════════════════════════════════════════════════
           MAIN CONTENT GRID
       ═══════════════════════════════════════════════════════════════════ */}
@@ -405,8 +386,7 @@ export default function HsCoachOverviewPage() {
                   </Button>
                 </Link>
               </div>
-
-              <div className="divide-y divide-border/30">
+      <div className="divide-y divide-border/30">
                 {Object.keys(playersByGradYear).length === 0 ? (
                   <div className="px-5 py-8 text-center">
                     <Users className="w-12 h-12 mx-auto mb-3 text-muted-foreground/50" />
@@ -420,7 +400,7 @@ export default function HsCoachOverviewPage() {
                   </div>
                 ) : (
                   Object.entries(playersByGradYear)
-                    .sort(([a], [b]) => Number(a) - Number(b))
+                    .sort(([a], [b]) => Number(a) - Number(b)}
                     .map(([year, members]) => (
                       <div key={year} className="px-5 py-4">
                         <div className="flex items-center justify-between mb-3">
@@ -431,7 +411,7 @@ export default function HsCoachOverviewPage() {
                           {members.slice(0, 6).map((member) => (
                             <div
                               key={member.id}
-                              className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer group"
+                              className="flex items-center gap-3 p-2 rounded-2xl hover:bg-muted/50 transition-colors cursor-pointer group"
                               onClick={() => router.push(`/coach/player/${member.player.id}`)}
                             >
                               <Avatar className="h-8 w-8 ring-1 ring-white/10">
@@ -450,7 +430,7 @@ export default function HsCoachOverviewPage() {
                               </div>
                               <ChevronRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                             </div>
-                          ))}
+)}
                         </div>
                         {members.length > 6 && (
                           <Link href={`/coach/high-school/team?gradYear=${year}`}>
@@ -459,14 +439,12 @@ export default function HsCoachOverviewPage() {
                               <ChevronRight className="w-3 h-3 ml-1" />
                             </Button>
                           </Link>
-                        )}
+)}
                       </div>
-                    ))
-                )}
+                    )})
               </div>
             </Card>
-
-            {/* Upcoming Games */}
+      {/* Upcoming Games */}
             <Card glass className="rounded-2xl overflow-hidden">
               <div className="px-5 py-4 border-b border-border/50 flex items-center justify-between">
                 <div>
@@ -482,8 +460,7 @@ export default function HsCoachOverviewPage() {
                   </Button>
                 </Link>
               </div>
-
-              <div className="divide-y divide-border/30">
+      <div className="divide-y divide-border/30">
                 {upcomingEvents.length === 0 ? (
                   <div className="px-5 py-8 text-center">
                     <Calendar className="w-12 h-12 mx-auto mb-3 text-muted-foreground/50" />
@@ -514,7 +491,7 @@ export default function HsCoachOverviewPage() {
                               <MapPin className="w-3 h-3" />
                               {event.location_name}
                             </span>
-                          )}
+)}
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
@@ -528,16 +505,14 @@ export default function HsCoachOverviewPage() {
                         >
                           {event.event_type}
                         </Badge>
-                        <ArrowUpRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+        <ArrowUpRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
                     </div>
-                  ))
-                )}
+                  )})
               </div>
             </Card>
           </div>
-
-          {/* RIGHT COLUMN - Recent Messages */}
+      {/* RIGHT COLUMN - Recent Messages */}
           <div className="space-y-5">
             <Card glass className="rounded-2xl overflow-hidden">
               <div className="px-5 py-4 border-b border-border/50 flex items-center justify-between">
@@ -554,8 +529,7 @@ export default function HsCoachOverviewPage() {
                   </Button>
                 </Link>
               </div>
-
-              <div className="divide-y divide-border/30">
+      <div className="divide-y divide-border/30">
                 {conversations.length === 0 ? (
                   <div className="px-5 py-8 text-center">
                     <MessageSquare className="w-12 h-12 mx-auto mb-3 text-muted-foreground/50" />
@@ -586,14 +560,12 @@ export default function HsCoachOverviewPage() {
                         <Badge className="h-5 w-5 p-0 flex items-center justify-center bg-primary text-primary-foreground text-[10px]">
                           {conv.unreadCount}
                         </Badge>
-                      )}
+)}
                       <ArrowUpRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
-                  ))
-                )}
+                  )})
               </div>
-
-              <div className="px-5 py-3 bg-muted/30 border-t border-border/30">
+      <div className="px-5 py-3 bg-muted/30 border-t border-border/30">
                 <Link href="/coach/high-school/messages">
                   <button className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center justify-center gap-1 group">
                     View all messages
@@ -631,18 +603,15 @@ function MetricCard({ icon, value, label, accentColor }: MetricCardProps) {
       {/* Accent glow on hover */}
       <div 
         className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity rounded-2xl"
-        style={{ background: `radial-gradient(circle at 30% 30%, ${accentColor}, transparent 70%)` }}
-      />
-
-      <div className="relative flex items-start justify-between mb-4">
+        style={{ background: `radial-gradient(circle at 30% 30%, ${accentColor}}, transparent 70%)` }}></div>
+<div className="relative flex items-start justify-between mb-4">
         <div 
           className="p-2.5 rounded-xl bg-white/60 dark:bg-white/10 shadow-sm backdrop-blur-sm flex items-center justify-center transition-transform group-hover:scale-105"
-          style={{ color: accentColor }}
+          style={{color: accentColor }}
         >
           {icon}
         </div>
       </div>
-      
       <p className="text-3xl font-bold text-foreground tabular-nums tracking-tight">{animatedValue.toLocaleString()}</p>
       <p className="text-[11px] text-muted-foreground mt-1.5 uppercase tracking-wider font-medium">{label}</p>
     </motion.button>

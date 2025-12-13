@@ -88,6 +88,7 @@ export function TeamScoutCard({
   onPlayerClick,
 }: TeamScoutCardProps) {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [showNoteInput, setShowNoteInput] = useState(false);
   const [noteText, setNoteText] = useState('');
 
@@ -160,30 +161,27 @@ export function TeamScoutCard({
           {initials}
         </AvatarFallback>
       </Avatar>
-
       {/* Info */}
       <div className="flex-1 min-w-0">
         <h2 className="text-lg font-bold text-slate-900 dark:text-white truncate">
           {team.name}
         </h2>
-        
-        {/* Type + Location */}
+      {/* Type + Location */}
         <div className="flex items-center gap-2 mt-0.5">
           <Badge variant="secondary" className={`text-[10px] ${typeColors[team.type]}`}>
             {typeLabels[team.type]}
           </Badge>
           {team.classification && (
             <span className="text-xs text-slate-500">{team.classification}</span>
-          )}
+)}
         </div>
-
-        {/* Location */}
+      {/* Location */}
         {location && (
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5 flex items-center gap-1">
             <MapPin className="w-3 h-3" />
             {location}
           </p>
-        )}
+)}
       </div>
     </div>
   );
@@ -215,8 +213,7 @@ export function TeamScoutCard({
           {team.type === 'high_school' ? <School className="w-3.5 h-3.5" /> : <Building2 className="w-3.5 h-3.5" />}
           View Team Page
         </Button>
-        
-        <Button 
+      <Button 
           size="sm" 
           variant="outline" 
           className="gap-1.5"
@@ -234,20 +231,17 @@ export function TeamScoutCard({
             </>
           )}
         </Button>
-
-        <Button size="sm" variant="ghost" className="gap-1.5" onClick={handleViewRoster}>
+      <Button size="sm" variant="ghost" className="gap-1.5" onClick={handleViewRoster}>
           <Users className="w-3.5 h-3.5" />
           View Roster
         </Button>
-
-        {team.staff && team.staff.length > 0 && (
+      {team.staff && team.staff.length > 0 && (
           <Button size="sm" variant="ghost" className="gap-1.5" onClick={handleMessageStaff}>
             <MessageSquare className="w-3.5 h-3.5" />
             Message Staff
           </Button>
-        )}
+)}
       </ScoutCardActions>
-
       {/* Content area */}
       <div className="py-3">
         {/* ═══════════════════════════════════════════════════════════════════
@@ -273,44 +267,48 @@ export function TeamScoutCard({
                       </AvatarFallback>
                     </Avatar>
                   </button>
-                ))}
+)}
                 {team.topRecruits.length > 5 && (
                   <div className="h-10 w-10 rounded-full bg-slate-100 dark:bg-slate-700 ring-2 ring-white dark:ring-slate-800 flex items-center justify-center">
                     <span className="text-xs font-medium text-slate-500">+{team.topRecruits.length - 5}</span>
                   </div>
-                )}
+)}
               </div>
             </div>
-          )}
-
+)}
           {/* Stats Grid */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+            <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
               <p className="text-2xl font-bold text-slate-800 dark:text-white">{team.totalPlayers || 0}</p>
               <p className="text-xs text-slate-500">Total Players</p>
             </div>
-            <div className="p-3 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800/30">
+            <div className="p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800/30">
               <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">{team.playersOnWatchlist || 0}</p>
               <p className="text-xs text-slate-500">On Your Watchlist</p>
             </div>
           </div>
-
-          {/* Grad Year Breakdown */}
+      {/* Grad Year Breakdown */}
           {team.gradYearBreakdown && team.gradYearBreakdown.length > 0 && (
             <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700">
               <p className="text-[10px] uppercase text-slate-400 tracking-wide mb-2">By Class</p>
               <div className="flex flex-wrap gap-1.5">
-                {team.gradYearBreakdown.map(({ year, count }) => (
+                {team.{gradYearBreakdown.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            gradYearBreakdown.map(({ year, count }}) => (
                   <Badge key={year} variant="outline" className="text-xs">
                     '{year.toString().slice(-2)}: {count}
                   </Badge>
-                ))}
+)}
               </div>
             </div>
-          )}
+)}
         </ScoutCardSection>
-
-        {/* ═══════════════════════════════════════════════════════════════════
+      {/* ═══════════════════════════════════════════════════════════════════
             RECENT COMMITS
         ═══════════════════════════════════════════════════════════════════ */}
         {team.recentCommits && team.recentCommits.length > 0 && (
@@ -319,7 +317,7 @@ export function TeamScoutCard({
               {team.recentCommits.slice(0, 3).map((commit) => (
                 <div 
                   key={commit.id}
-                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
+                  className="flex items-center gap-3 p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
                   onClick={() => onPlayerClick?.(commit.id)}
                 >
                   <Trophy className="w-4 h-4 text-amber-500" />
@@ -333,11 +331,10 @@ export function TeamScoutCard({
                   </div>
                   <ChevronRight className="w-4 h-4 text-slate-400" />
                 </div>
-              ))}
+)}
             </div>
           </ScoutCardSection>
-        )}
-
+)}
         {/* ═══════════════════════════════════════════════════════════════════
             STAFF SNAPSHOT
         ═══════════════════════════════════════════════════════════════════ */}
@@ -355,7 +352,7 @@ export function TeamScoutCard({
               {team.staff.slice(0, 3).map((member) => (
                 <div 
                   key={member.id}
-                  className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50"
+                  className="flex items-center justify-between p-2 rounded-2xl bg-slate-50 dark:bg-slate-800/50"
                 >
                   <div>
                     <p className="text-sm font-medium text-slate-800 dark:text-white">{member.name}</p>
@@ -370,7 +367,7 @@ export function TeamScoutCard({
                       >
                         <Mail className="w-4 h-4 text-emerald-500" />
                       </a>
-                    )}
+)}
                     {member.phone && (
                       <a 
                         href={`tel:${member.phone}`} 
@@ -379,14 +376,13 @@ export function TeamScoutCard({
                       >
                         <Phone className="w-4 h-4 text-emerald-500" />
                       </a>
-                    )}
+)}
                   </div>
                 </div>
-              ))}
+)}
             </div>
           </ScoutCardSection>
-        )}
-
+)}
         {/* ═══════════════════════════════════════════════════════════════════
             NOTES
         ═══════════════════════════════════════════════════════════════════ */}
@@ -397,19 +393,18 @@ export function TeamScoutCard({
               {team.notes.slice(0, 2).map(note => (
                 <div 
                   key={note.id} 
-                  className="text-sm p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700"
+                  className="text-sm p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700"
                 >
                   <p className="text-slate-600 dark:text-slate-300 line-clamp-2">{note.content}</p>
                   <p className="text-[10px] text-slate-400 mt-1.5">
                     {note.authorInitials} • {note.createdAt}
                   </p>
                 </div>
-              ))}
+)}
             </div>
           ) : (
             <p className="text-sm text-slate-400 mb-3">No notes yet</p>
-          )}
-
+)}
           {/* Add Note */}
           {showNoteInput ? (
             <div>
@@ -439,10 +434,9 @@ export function TeamScoutCard({
               <ClipboardList className="w-3.5 h-3.5" />
               Add Note
             </Button>
-          )}
+)}
         </ScoutCardSection>
-
-        {/* ═══════════════════════════════════════════════════════════════════
+      {/* ═══════════════════════════════════════════════════════════════════
             LINKED CONTEXT
         ═══════════════════════════════════════════════════════════════════ */}
         <div className="px-4 pb-4 space-y-2">
@@ -457,8 +451,7 @@ export function TeamScoutCard({
             </span>
             <ExternalLink className="w-4 h-4 text-slate-400" />
           </Button>
-
-          <Button 
+      <Button 
             variant="ghost" 
             className="w-full justify-between h-10 text-slate-600"
             onClick={handleViewRoster}

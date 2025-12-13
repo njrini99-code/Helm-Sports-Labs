@@ -144,8 +144,7 @@ export function FollowUpRequestModal({ isOpen, onClose, businessData }: FollowUp
             <X className="h-6 w-6" />
           </button>
         </div>
-
-        {success ? (
+{success ? (
           <div className="p-6 text-center">
             <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Request Submitted!</h3>
@@ -158,8 +157,7 @@ export function FollowUpRequestModal({ isOpen, onClose, businessData }: FollowUp
                 <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
                 <p className="text-sm text-red-800">{error}</p>
               </div>
-            )}
-
+)}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Business Name *
@@ -172,8 +170,7 @@ export function FollowUpRequestModal({ isOpen, onClose, businessData }: FollowUp
                 required
               />
             </div>
-
-            <div>
+<div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Address
               </label>
@@ -184,8 +181,7 @@ export function FollowUpRequestModal({ isOpen, onClose, businessData }: FollowUp
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Contact Name
@@ -197,8 +193,7 @@ export function FollowUpRequestModal({ isOpen, onClose, businessData }: FollowUp
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
-
-              <div>
+<div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Phone *
                 </label>
@@ -211,8 +206,7 @@ export function FollowUpRequestModal({ isOpen, onClose, businessData }: FollowUp
                   placeholder="(555) 123-4567"
                 />
               </div>
-
-              <div>
+<div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Email
                 </label>
@@ -224,8 +218,7 @@ export function FollowUpRequestModal({ isOpen, onClose, businessData }: FollowUp
                 />
               </div>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Category *
@@ -242,8 +235,7 @@ export function FollowUpRequestModal({ isOpen, onClose, businessData }: FollowUp
                   <option value="Other">Other</option>
                 </select>
               </div>
-
-              <div>
+<div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Priority *
                 </label>
@@ -259,8 +251,7 @@ export function FollowUpRequestModal({ isOpen, onClose, businessData }: FollowUp
                 </select>
               </div>
             </div>
-
-            <div>
+<div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Description *
               </label>
@@ -273,8 +264,7 @@ export function FollowUpRequestModal({ isOpen, onClose, businessData }: FollowUp
                 required
               />
             </div>
-
-            <div className="flex gap-3 pt-4">
+<div className="flex gap-3 pt-4">
               <button
                 type="button"
                 onClick={onClose}
@@ -291,7 +281,7 @@ export function FollowUpRequestModal({ isOpen, onClose, businessData }: FollowUp
               </button>
             </div>
           </form>
-        )}
+)}
       </div>
     </div>
   );

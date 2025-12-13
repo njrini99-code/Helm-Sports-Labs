@@ -131,7 +131,7 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="w-8 h-8 border-2 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -153,7 +153,6 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
           <p className="text-2xl font-bold text-purple-400">{summaryStats.visits}</p>
         </div>
       </div>
-
       {/* Add School Button */}
       {!showAddForm ? (
         <button
@@ -172,8 +171,7 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
               <X className="w-4 h-4 text-white/50" />
             </button>
           </div>
-
-          <CollegeSearchSelect
+      <CollegeSearchSelect
             value={selectedCollege}
             onChange={setSelectedCollege}
             placeholder="Search for a college..."
@@ -186,47 +184,43 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
                 <select
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value as RecruitingInterestStatus)}
-                  className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                  className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
                 >
                   {STATUS_OPTIONS.map(opt => (
                     <option key={opt.value} value={opt.value}>{opt.label}</option>
-                  ))}
+)}
                 </select>
               </div>
-
-              <div>
+      <div>
                 <label className="block text-sm text-white/50 mb-1">Coach Contact (optional)</label>
                 <input
                   type="text"
                   value={newCoachName}
                   onChange={(e) => setNewCoachName(e.target.value)}
                   placeholder="Coach name"
-                  className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-lg text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                  className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-2xl text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
                 />
               </div>
-
-              <div>
+      <div>
                 <label className="block text-sm text-white/50 mb-1">Notes (optional)</label>
                 <textarea
                   value={newNotes}
                   onChange={(e) => setNewNotes(e.target.value)}
                   placeholder="Any notes about this school..."
                   rows={2}
-                  className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-lg text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 resize-none"
+                  className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-2xl text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 resize-none"
                 />
               </div>
-
-              <button
+      <button
                 onClick={handleAddInterest}
-                className="w-full py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-medium transition-colors"
+                className="w-full py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl font-medium transition-colors"
               >
                 Add to List
               </button>
             </>
           )}
         </div>
-      )}
-
+)}
       {/* Interest List */}
       {groupedInterests.active.length > 0 && (
         <div className="space-y-2">
@@ -253,24 +247,24 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
                   <select
                     value={editStatus}
                     onChange={(e) => setEditStatus(e.target.value as RecruitingInterestStatus)}
-                    className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                    className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-2xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
                   >
                     {STATUS_OPTIONS.map(opt => (
                       <option key={opt.value} value={opt.value}>{opt.label}</option>
-                    ))}
+)}
                   </select>
                   <textarea
                     value={editNotes}
                     onChange={(e) => setEditNotes(e.target.value)}
                     placeholder="Notes..."
                     rows={2}
-                    className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-lg text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 resize-none"
+                    className="w-full px-3 py-2 bg-[#050711] border border-white/10 rounded-2xl text-white text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 resize-none"
                   />
                 </div>
               ) : (
                 /* View Mode */
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center flex-shrink-0">
                     {interest.college?.logo_url ? (
                       <img src={interest.college.logo_url} alt="" className="w-10 h-10 object-contain" loading="lazy" />
                     ) : (
@@ -296,7 +290,7 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
                     </div>
                     {interest.notes && (
                       <p className="text-sm text-white/40 mt-1 truncate">{interest.notes}</p>
-                    )}
+)}
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
                     <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusStyle(interest.status)}`}>
@@ -310,12 +304,11 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
                     </button>
                   </div>
                 </div>
-              )}
+)}
             </div>
-          ))}
+)}
         </div>
-      )}
-
+)}
       {/* Committed */}
       {groupedInterests.committed.length > 0 && (
         <div className="space-y-2">
@@ -326,7 +319,7 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
               className="bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/20"
             >
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
                   <School className="w-6 h-6 text-emerald-400" />
                 </div>
                 <div className="flex-1">
@@ -338,10 +331,9 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
                 </span>
               </div>
             </div>
-          ))}
+)}
         </div>
-      )}
-
+)}
       {/* Empty State */}
       {interests.length === 0 && (
         <div className="text-center py-12">
@@ -349,7 +341,7 @@ export function RecruitingTab({ playerId }: RecruitingTabProps) {
           <p className="text-white/50">No schools added yet</p>
           <p className="text-sm text-white/30 mt-1">Start building your recruiting list</p>
         </div>
-      )}
+)}
     </div>
   );
 }

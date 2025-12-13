@@ -51,7 +51,7 @@ export default function TestDBPage() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
         <div className="text-center space-y-4">
-          <div className="w-8 h-8 bg-blue-500/20 rounded animate-pulse mx-auto" />
+          <div className="w-8 h-8 bg-blue-500/20 rounded animate-pulse mx-auto"></div>
           <p className="text-slate-400">Testing database connection...</p>
         </div>
       </div>
@@ -70,7 +70,7 @@ export default function TestDBPage() {
             <p className="text-slate-400 mb-4">{error}</p>
             <button
               onClick={testConnection}
-              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-2xl transition-colors"
             >
               Retry
             </button>
@@ -97,8 +97,7 @@ export default function TestDBPage() {
             Testing connection to your Supabase database
           </p>
         </div>
-
-        {/* Overall Status */}
+      {/* Overall Status */}
         <Card className={`bg-slate-900/50 border-2 ${
           results.success 
             ? 'border-emerald-500/50' 
@@ -123,21 +122,20 @@ export default function TestDBPage() {
               </div>
               <button
                 onClick={testConnection}
-                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm"
+                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-2xl transition-colors text-sm"
               >
                 Run Again
               </button>
             </div>
           </CardContent>
         </Card>
-
-        {/* Environment Check */}
+      {/* Environment Check */}
         {results.environment && (
           <Card className="bg-slate-900/50 border-white/5">
             <CardHeader>
               <CardTitle className="text-lg">Environment Variables</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2">
+        <CardContent className="space-y-2">
               <div className="flex items-center gap-2">
                 {results.environment.hasUrl ? (
                   <CheckCircle2 className="w-4 h-4 text-emerald-500" />
@@ -160,19 +158,25 @@ export default function TestDBPage() {
               </div>
             </CardContent>
           </Card>
-        )}
-
+)}
         {/* Test Results */}
         <Card className="bg-slate-900/50 border-white/5">
           <CardHeader>
             <CardTitle className="text-lg">Table & Function Tests</CardTitle>
           </CardHeader>
-          <CardContent>
+        <CardContent>
             <div className="space-y-3">
-              {testEntries.map(([name, result]) => (
+            {testEntries.length === 0 ? (
+              <div className="text-center py-12">
+                <div className="text-6xl mb-4">📭</div>
+                <p className="text-white/60 mb-4">No items yet</p>
+                <p className="text-white/40 text-sm">Check back later</p>
+              </div>
+            ) : (
+              testEntries.map(([name, result]) => (
                 <div
                   key={name}
-                  className="flex items-center justify-between p-3 rounded-lg bg-slate-800/50"
+                  className="flex items-center justify-between p-3 rounded-2xl bg-slate-800/50"
                 >
                   <div className="flex items-center gap-3">
                     {result.accessible ? (
@@ -188,36 +192,34 @@ export default function TestDBPage() {
                         <span className="text-sm text-slate-400 ml-2">
                           ({result.resultCount} results)
                         </span>
-                      )}
+)}
                     </div>
                   </div>
                   {result.error && (
                     <span className="text-xs text-red-400 max-w-md truncate">
                       {result.error}
                     </span>
-                  )}
+)}
                 </div>
-              ))}
-            </div>
+              )})
+          </div>
           </CardContent>
         </Card>
-
-        {/* Errors */}
+      {/* Errors */}
         {results.errors.length > 0 && (
           <Card className="bg-red-950/20 border-red-500/50">
             <CardHeader>
               <CardTitle className="text-lg text-red-400">Errors</CardTitle>
             </CardHeader>
-            <CardContent>
+        <CardContent>
               <ul className="space-y-1">
                 {results.errors.map((err, i) => (
                   <li key={i} className="text-sm text-red-300">• {err}</li>
-                ))}
+)}
               </ul>
             </CardContent>
           </Card>
-        )}
-
+)}
         {/* Success Message */}
         {results.success && (
           <Card className="bg-emerald-950/20 border-emerald-500/50">
@@ -231,13 +233,13 @@ export default function TestDBPage() {
                 <div className="pt-4 space-y-2">
                   <a
                     href="/"
-                    className="inline-block px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+                    className="inline-block px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-2xl transition-colors"
                   >
                     Go to Home
                   </a>
                   <a
                     href="/auth/signup"
-                    className="inline-block px-6 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition-colors ml-3"
+                    className="inline-block px-6 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl transition-colors ml-3"
                   >
                     Try Signup
                   </a>
@@ -245,7 +247,7 @@ export default function TestDBPage() {
               </div>
             </CardContent>
           </Card>
-        )}
+)}
       </div>
     </div>
   );

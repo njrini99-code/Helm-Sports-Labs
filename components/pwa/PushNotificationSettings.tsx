@@ -25,7 +25,7 @@ export function PushNotificationSettings() {
 
   if (permission === 'denied') {
     return (
-      <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg">
+      <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl">
         <p className="text-sm text-amber-400">
           Notifications are blocked. Please enable them in your browser settings.
         </p>
@@ -35,7 +35,7 @@ export function PushNotificationSettings() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div>
           <h3 className="text-white font-semibold mb-1">Push Notifications</h3>
           <p className="text-sm text-gray-400">
@@ -49,37 +49,35 @@ export function PushNotificationSettings() {
           className="min-w-[120px]"
         >
           {isLoading ? (
-            <span className="flex items-center gap-2">
-              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            <span className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
               {isSubscribed ? 'Unsubscribing...' : 'Subscribing...'}
             </span>
           ) : isSubscribed ? (
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <BellOff className="w-4 h-4" />
               Disable
             </span>
           ) : (
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <Bell className="w-4 h-4" />
               Enable
             </span>
-          )}
+)}
         </TouchOptimizedButton>
       </div>
-
       {error && (
-        <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
+        <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-2xl">
           <p className="text-sm text-red-400">{error}</p>
         </div>
-      )}
-
+)}
       {isSubscribed && (
-        <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
+        <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl">
           <p className="text-sm text-emerald-400">
             ✓ Push notifications are enabled
           </p>
         </div>
-      )}
+)}
     </div>
   );
 }

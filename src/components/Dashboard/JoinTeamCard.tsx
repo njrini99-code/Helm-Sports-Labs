@@ -57,7 +57,7 @@ export function JoinTeamCard({ onTeamJoined }: JoinTeamCardProps) {
       const { data: teamData, error: teamError } = await supabase
         .from('teams')
         .select('team_code, team_name')
-        .eq('team_code', teamCode.toUpperCase())
+        .eq('team_code', teamCode.toUpperCase()}
         .maybeSingle();
 
       if (teamError) {
@@ -152,19 +152,16 @@ export function JoinTeamCard({ onTeamJoined }: JoinTeamCardProps) {
           </div>
           <CheckCircle className="w-6 h-6" />
         </div>
-
-        <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-4">
+<div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-4">
           <div className="text-sm text-green-100 mb-1">Team Name</div>
           <div className="text-xl font-bold">{teamName || 'Loading...'}</div>
           <div className="text-sm text-green-100 mt-2">Team Code</div>
           <div className="text-lg font-mono font-semibold">{currentTeam}</div>
         </div>
-
-        <div className="bg-green-400 text-green-900 rounded-lg p-3 mb-4 text-sm">
+<div className="bg-green-400 text-green-900 rounded-lg p-3 mb-4 text-sm">
           <strong>✓ Data Sync Active:</strong> Your KPIs, leads, and performance are now visible to your manager.
         </div>
-
-        <button
+<button
           onClick={handleLeaveTeam}
           disabled={loading}
           className="w-full py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-sm font-semibold disabled:opacity-50"
@@ -188,8 +185,7 @@ export function JoinTeamCard({ onTeamJoined }: JoinTeamCardProps) {
           </div>
         </div>
       </div>
-
-      {!showJoinForm ? (
+{!showJoinForm ? (
         <div>
           <p className="text-blue-50 mb-4 leading-relaxed">
             Join your team to sync your performance data with your manager's dashboard. Ask your manager for the team code.
@@ -210,15 +206,14 @@ export function JoinTeamCard({ onTeamJoined }: JoinTeamCardProps) {
             <input
               type="text"
               value={teamCode}
-              onChange={(e) => setTeamCode(e.target.value.toUpperCase())}
+              onChange={(e) => setTeamCode(e.target.value.toUpperCase(})
               placeholder="Enter 6-character code"
               maxLength={6}
               className="w-full px-4 py-3 rounded-lg text-gray-900 font-mono uppercase text-lg tracking-wider focus:ring-2 focus:ring-white outline-none"
               disabled={loading}
             />
           </div>
-
-          {message && (
+{message && (
             <div className={`mb-4 p-3 rounded-lg text-sm ${
               message.includes('Successfully') || message.includes('Left')
                 ? 'bg-green-400 text-green-900'
@@ -226,8 +221,7 @@ export function JoinTeamCard({ onTeamJoined }: JoinTeamCardProps) {
             }`}>
               {message}
             </div>
-          )}
-
+)}
           <div className="flex gap-3">
             <button
               onClick={() => {
@@ -249,7 +243,7 @@ export function JoinTeamCard({ onTeamJoined }: JoinTeamCardProps) {
             </button>
           </div>
         </div>
-      )}
+)}
     </div>
   );
 }

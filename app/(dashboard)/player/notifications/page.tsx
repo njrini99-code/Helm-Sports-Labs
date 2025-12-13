@@ -12,7 +12,7 @@ interface Notification {
   type: string;
   title: string;
   message: string;
-  is_read: boolean;
+  read: boolean;
   created_at: string;
   action_url?: string;
 }
@@ -45,7 +45,7 @@ export default function NotificationsPage() {
 
       setNotifications(data || []);
     } catch (error) {
-      logError(error, { component: 'NotificationsPage', action: 'fetchNotifications', metadata: { unexpected: true } });
+      logError(error, { component: 'NotificationsPage', action: 'fetchNotifications', metadata: { unexpected: true  } });
     } finally {
       setLoading(false);
     }
@@ -55,7 +55,7 @@ export default function NotificationsPage() {
     try {
       const { error } = await supabase
         .from('notifications')
-        .update({ is_read: true })
+        .update({ read: true })
         .eq('id', notificationId);
 
       if (error) {
@@ -64,7 +64,7 @@ export default function NotificationsPage() {
       }
 
       setNotifications(prev =>
-        prev.map(n => n.id === notificationId ? { ...n, is_read: true } : n)
+        prev.map(n => n.id === notificationId ? { ...n, read: true } : n)
       );
     } catch (error) {
       logError(error, { component: 'NotificationsPage', action: 'markAsRead' });
@@ -78,7 +78,7 @@ export default function NotificationsPage() {
 
       const { error } = await supabase
         .from('notifications')
-        .update({ is_read: true })
+        .update({ read: true })
         .eq('user_id', user.id)
         .eq('is_read', false);
 
@@ -87,7 +87,7 @@ export default function NotificationsPage() {
         return;
       }
 
-      setNotifications(prev => prev.map(n => ({ ...n, is_read: true })));
+      setNotifications(prev => prev.map(n => ({ ...n, read: true })));
       toast.success('All notifications marked as read');
     } catch (error) {
       logError(error, { component: 'NotificationsPage', action: 'markAllAsRead' });
@@ -125,7 +125,7 @@ export default function NotificationsPage() {
     return date.toLocaleDateString();
   };
 
-  const unreadCount = notifications.filter(n => !n.is_read).length;
+  const unreadCount = notifications.filter(n => !n.read).length;
 
   return (
     <div className="min-h-screen bg-[#0b1720] py-8">
@@ -137,24 +137,22 @@ export default function NotificationsPage() {
             {unreadCount > 0 ? `${unreadCount} unread notification${unreadCount > 1 ? 's' : ''}` : 'All caught up!'}
           </p>
         </div>
-
-        {/* Actions */}
+      {/* Actions */}
         {unreadCount > 0 && (
           <div className="mb-4">
             <button
               onClick={markAllAsRead}
-              className="flex items-center gap-2 px-4 py-2 bg-[#00C27A] hover:bg-[#00A565] text-white rounded-lg text-sm font-medium transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-[#00C27A] hover:bg-[#00A565] text-white rounded-2xl text-sm font-medium transition-colors"
             >
               <Check className="w-4 h-4" />
               Mark all as read
             </button>
           </div>
-        )}
-
+)}
         {/* Notifications List */}
         {loading ? (
           <div className="text-center py-12">
-            <div className="inline-block w-8 h-8 border-4 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+            <div className="inline-block w-8 h-8 border-4 border-emerald-400 border-t-transparent rounded-full animate-spin"></div>
           </div>
         ) : notifications.length === 0 ? (
           <GlassCard className="p-12 text-center">
@@ -168,15 +166,14 @@ export default function NotificationsPage() {
               <GlassCard
                 key={notification.id}
                 className={`p-4 hover:bg-white/[0.08] transition-colors ${
-                  !notification.is_read ? 'border-[#00C27A]/30' : ''
+                  !notification.read ? 'border-[#00C27A]/30' : ''
                 }`}
               >
                 <div className="flex items-start gap-4">
                   {/* Unread indicator */}
-                  {!notification.is_read && (
-                    <div className="w-2 h-2 mt-2 bg-[#00C27A] rounded-full flex-shrink-0" />
-                  )}
-
+                  {!notification.read && (
+                    <div className="w-2 h-2 mt-2 bg-[#00C27A] rounded-full flex-shrink-0"></div>
+)}
                   {/* Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-4 mb-1">
@@ -186,19 +183,18 @@ export default function NotificationsPage() {
                       </span>
                     </div>
                     <p className="text-white/70 text-sm mb-3">{notification.message}</p>
-
-                    {/* Actions */}
+      {/* Actions */}
                     <div className="flex items-center gap-3">
                       {notification.action_url && (
                         <a
                           href={notification.action_url}
                           className="text-[#00C27A] hover:text-[#00A565] text-sm font-medium"
-                          onClick={() => !notification.is_read && markAsRead(notification.id)}
+                          onClick={() => !notification.read && markAsRead(notification.id)}
                         >
                           View →
                         </a>
-                      )}
-                      {!notification.is_read && (
+)}
+                      {!notification.read && (
                         <button
                           onClick={() => markAsRead(notification.id)}
                           className="text-white/60 hover:text-white text-sm flex items-center gap-1"
@@ -206,7 +202,7 @@ export default function NotificationsPage() {
                           <Check className="w-4 h-4" />
                           Mark read
                         </button>
-                      )}
+)}
                       <button
                         onClick={() => deleteNotification(notification.id)}
                         className="text-white/40 hover:text-red-400 text-sm flex items-center gap-1 ml-auto"
@@ -218,9 +214,9 @@ export default function NotificationsPage() {
                   </div>
                 </div>
               </GlassCard>
-            ))}
+))})}
           </div>
-        )}
+)}
       </div>
     </div>
   );

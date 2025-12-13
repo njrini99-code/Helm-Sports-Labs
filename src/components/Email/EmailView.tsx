@@ -36,8 +36,7 @@ export function EmailView() {
         <h1 className="text-3xl font-bold text-gray-900 mb-2">AI Email Composer</h1>
         <p className="text-gray-600">Generate personalized cold outreach emails powered by AI</p>
       </div>
-
-      <div className="bg-white border border-gray-200 rounded-xl p-6">
+<div className="bg-white border border-gray-200 rounded-xl p-6">
         <h3 className="font-bold text-gray-900 mb-4 text-lg">Select Lead to Email</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[70vh] overflow-y-auto">
           {leads.map((lead) => (
@@ -52,7 +51,7 @@ export function EmailView() {
               <p className="font-semibold text-gray-900 mb-1">{lead.business_name}</p>
               {lead.owner_name && lead.owner_name !== 'None found' && (
                 <p className="text-sm text-gray-700 mb-1">{lead.owner_name}</p>
-              )}
+)}
               <div className="flex items-center gap-2 mb-2">
                 {lead.decision_maker_email || lead.email ? (
                   <p className="text-xs text-blue-600 truncate">
@@ -60,31 +59,30 @@ export function EmailView() {
                   </p>
                 ) : (
                   <p className="text-xs text-gray-400 italic">No email</p>
-                )}
+)}
               </div>
               <div className="flex items-center gap-2 mt-2 flex-wrap">
                 {lead.industry && (
                   <span className="inline-block px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded">
                     {lead.industry}
                   </span>
-                )}
+)}
                 {lead.city && (
                   <span className="inline-block px-2 py-0.5 bg-gray-200 text-gray-700 text-xs rounded">
                     {lead.city}
                   </span>
-                )}
+)}
                 {lead.google_rating && (
                   <div className="flex items-center gap-1 text-xs">
                     <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
                     <span className="font-bold text-gray-900">{lead.google_rating}</span>
                   </div>
-                )}
+)}
               </div>
             </button>
-          ))}
+)}
         </div>
-
-        {leads.length === 0 && (
+{leads.length === 0 && (
           <div className="text-center py-12">
             <Mail className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
@@ -94,10 +92,9 @@ export function EmailView() {
               Import or create leads to start sending personalized emails
             </p>
           </div>
-        )}
+)}
       </div>
-
-      <EmailComposerModal
+<EmailComposerModal
         open={emailComposerOpen}
         onClose={() => {
           setEmailComposerOpen(false);

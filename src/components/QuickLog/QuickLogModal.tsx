@@ -170,15 +170,13 @@ export function QuickLogModal({ isOpen, onClose }: QuickLogModalProps) {
               <X className="w-6 h-6" />
             </button>
           </div>
-
-          <div className="p-6">
+<div className="p-6">
             {location && (
               <div className="mb-6 flex items-center gap-2 text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
                 <MapPin className="w-4 h-4 text-green-600" />
                 <span>Location captured: {location.latitude.toFixed(4)}, {location.longitude.toFixed(4)}</span>
               </div>
-            )}
-
+)}
             <div className="grid grid-cols-2 gap-4">
               {actionTypes.map((action) => {
                 const Icon = action.icon;
@@ -221,15 +219,13 @@ export function QuickLogModal({ isOpen, onClose }: QuickLogModalProps) {
             <X className="w-6 h-6" />
           </button>
         </div>
-
-        <div className="p-6 space-y-4">
+<div className="p-6 space-y-4">
           {location && (
             <div className="flex items-center gap-2 text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
               <MapPin className="w-4 h-4 text-green-600" />
               <span>Location: {location.latitude.toFixed(4)}, {location.longitude.toFixed(4)}</span>
             </div>
-          )}
-
+)}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Business Name
@@ -242,8 +238,7 @@ export function QuickLogModal({ isOpen, onClose }: QuickLogModalProps) {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-
-          {(selectedType === 'close_won' || selectedType === 'closed') && (
+{(selectedType === 'close_won' || selectedType === 'closed') && (
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Revenue ($)
@@ -257,8 +252,7 @@ export function QuickLogModal({ isOpen, onClose }: QuickLogModalProps) {
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-          )}
-
+)}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Notes
@@ -271,8 +265,7 @@ export function QuickLogModal({ isOpen, onClose }: QuickLogModalProps) {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
             />
           </div>
-
-          <div className="flex gap-3">
+<div className="flex gap-3">
             <button
               onClick={() => setSelectedType(null)}
               className="flex-1 px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors"

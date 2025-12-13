@@ -122,8 +122,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 162 20% 15%;
 
-    /* Primary action (Pulse Green) */
-    --primary: 157 100% 38%;          /* #00C27A */
+    /* Primary action (Helm Sports Labs Green) */
+    --primary: 142 72% 31%;          /* #16893B - Logo green */
     --primary-foreground: 0 0% 100%;
 
     /* Secondary (soft green tint) */
@@ -175,8 +175,8 @@
     --popover: 230 45% 7%;
     --popover-foreground: 144 20% 95%;
 
-    /* Primary action (Pulse Green - slightly brighter for dark mode) */
-    --primary: 157 100% 42%;          /* Brighter green */
+    /* Primary action (Helm Sports Labs Green - slightly brighter for dark mode) */
+    --primary: 142 72% 38%;          /* #16893B - Logo green (brighter for dark mode) */
     --primary-foreground: 230 50% 4%;
 
     /* Secondary (dark muted) */
@@ -668,4 +668,129 @@ html {
 .snap-section {
   scroll-snap-align: start;
   scroll-snap-stop: always;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Accessibility Features
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Font Size Controls */
+.font-size-normal {
+  font-size: 100%;
+}
+
+.font-size-large {
+  font-size: 120%;
+}
+
+.font-size-large * {
+  font-size: inherit;
+}
+
+.font-size-xlarge {
+  font-size: 150%;
+}
+
+.font-size-xlarge * {
+  font-size: inherit;
+}
+
+/* High Contrast Mode */
+.high-contrast {
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --secondary: #f0f0f0;
+  --secondary-foreground: #000000;
+  --muted: #f0f0f0;
+  --muted-foreground: #666666;
+  --accent: #f0f0f0;
+  --accent-foreground: #000000;
+  --destructive: #ff0000;
+  --destructive-foreground: #ffffff;
+  --border: #000000;
+  --input: #000000;
+  --ring: #000000;
+}
+
+.high-contrast * {
+  border-color: currentColor !important;
+}
+
+/* Reduced Motion */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Focus Indicators */
+*:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.high-contrast *:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Skip Link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Touch Target Sizes (Mobile) */
+@media (max-width: 768px) {
+  button,
+  a,
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus,
+.sr-only:focus-visible {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
 }

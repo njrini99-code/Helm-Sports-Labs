@@ -47,7 +47,11 @@ const duplicatedTestimonials = [...testimonials, ...testimonials];
 export function TestimonialsCarousel() {
   return (
     <section className="relative py-32 overflow-hidden bg-gradient-to-b from-slate-50/50 to-white">
-      <div className="relative container mx-auto px-6">
+      <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{duration: 0.3 }}
+  className="relative container mx-auto px-6">
         <div className="text-center mb-20">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -67,15 +71,20 @@ export function TestimonialsCarousel() {
             See what players and coaches are saying
           </motion.p>
         </div>
-
-        {/* Infinite scroll testimonials */}
+      {/* Infinite scroll testimonials */}
         <div className="relative">
           {/* Fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
           <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
-          
-          <div className="flex gap-6 animate-scroll">
-            {duplicatedTestimonials.map((testimonial, i) => (
+      <div className="flex gap-6 animate-scroll">
+            {duplicatedTestimonials.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            duplicatedTestimonials.map((testimonial, i) => (
               <div 
                 key={i} 
                 className="flex-shrink-0 w-96 backdrop-blur-2xl bg-white/70 border border-emerald-200/50 rounded-2xl p-8 hover:border-emerald-400/60 transition-all duration-300 shadow-lg shadow-emerald-500/5 hover:shadow-xl hover:shadow-emerald-500/10"
@@ -96,10 +105,11 @@ export function TestimonialsCarousel() {
                   </div>
                 </div>
               </div>
-            ))}
+            ))
+          )}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -24,6 +24,7 @@ interface AddVideoModalProps {
 }
 
 export function AddVideoModal({ playerId, onSuccess, trigger }: AddVideoModalProps) {
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
@@ -108,7 +109,7 @@ export function AddVideoModal({ playerId, onSuccess, trigger }: AddVideoModalPro
             <Plus className="w-4 h-4 mr-2" />
             Add Video
           </Button>
-        )}
+)}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -126,8 +127,7 @@ export function AddVideoModal({ playerId, onSuccess, trigger }: AddVideoModalPro
               placeholder="e.g., Summer Showcase Highlights"
             />
           </div>
-          
-          <div className="space-y-2">
+      <div className="space-y-2">
             <Label>Video Type *</Label>
             <Select value={formData.video_type} onValueChange={(v) => setFormData({ ...formData, video_type: v })}>
               <SelectTrigger>
@@ -139,8 +139,7 @@ export function AddVideoModal({ playerId, onSuccess, trigger }: AddVideoModalPro
               </SelectContent>
             </Select>
           </div>
-          
-          <div className="space-y-2">
+      <div className="space-y-2">
             <Label>Video URL *</Label>
             <Input
               type="url"
@@ -150,8 +149,7 @@ export function AddVideoModal({ playerId, onSuccess, trigger }: AddVideoModalPro
             />
             <p className="text-xs text-slate-500">Supported: YouTube, Vimeo, Hudl, FieldLevel, or direct video links (.mp4, .mov)</p>
           </div>
-          
-          <div className="space-y-2">
+      <div className="space-y-2">
             <Label>Date Recorded</Label>
             <Input
               type="date"
@@ -159,8 +157,7 @@ export function AddVideoModal({ playerId, onSuccess, trigger }: AddVideoModalPro
               onChange={(e) => setFormData({ ...formData, recorded_date: e.target.value })}
             />
           </div>
-          
-          <div className="space-y-2">
+      <div className="space-y-2">
             <Label>Notes</Label>
             <Textarea
               value={formData.notes}
@@ -169,8 +166,7 @@ export function AddVideoModal({ playerId, onSuccess, trigger }: AddVideoModalPro
               rows={2}
             />
           </div>
-          
-          <div className="flex justify-end gap-2 pt-4">
+      <div className="flex justify-end gap-2 pt-4">
             <Button type="button" variant="outline" onClick={() => setOpen(false)}>
               Cancel
             </Button>

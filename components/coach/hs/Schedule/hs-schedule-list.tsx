@@ -6,7 +6,7 @@ import type { HsScheduleEvent } from '@/lib/api/hs/getHighSchoolSchedule';
 export function HsScheduleList({ events, loading }: { events: HsScheduleEvent[]; loading?: boolean }) {
   return (
     <Card className="bg-slate-900/70 border-white/5 p-4 text-white">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <p className="text-sm text-slate-300">Schedule</p>
         {loading && <p className="text-xs text-slate-500">Loading…</p>}
       </div>
@@ -16,7 +16,7 @@ export function HsScheduleList({ events, loading }: { events: HsScheduleEvent[];
         ) : (
           events.map((ev) => (
             <div key={ev.eventId} className="rounded-xl border border-white/10 bg-white/5 p-3">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <div>
                   <p className="text-sm font-semibold">{ev.name}</p>
                   <p className="text-xs text-slate-400">
@@ -30,11 +30,10 @@ export function HsScheduleList({ events, loading }: { events: HsScheduleEvent[];
                   <span className="text-xs rounded-full bg-white/10 px-2 py-1 border border-white/15">
                     vs {ev.opponentName}
                   </span>
-                )}
+)}
               </div>
             </div>
-          ))
-        )}
+          )})
       </div>
     </Card>
   );

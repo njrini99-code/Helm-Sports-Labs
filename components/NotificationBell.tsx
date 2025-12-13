@@ -12,7 +12,7 @@ interface Notification {
   type: string;
   title: string;
   message: string;
-  is_read: boolean;
+  read: boolean;
   created_at: string;
   action_url?: string;
   related_id?: string;
@@ -55,7 +55,7 @@ export function NotificationBell() {
         }
 
         setNotifications(data || []);
-        setUnreadCount(data?.filter(n => !n.is_read).length || 0);
+        setUnreadCount(data?.filter(n => !n.read).length || 0);
       } catch (error) {
         console.error('Error in fetchNotifications:', error);
       } finally {
@@ -114,7 +114,7 @@ export function NotificationBell() {
             );
 
             // Update unread count
-            if (updatedNotification.is_read) {
+            if (updatedNotification.read) {
               setUnreadCount(prev => Math.max(0, prev - 1));
             }
           }
@@ -151,7 +151,7 @@ export function NotificationBell() {
     try {
       const { error } = await supabase
         .from('notifications')
-        .update({ is_read: true })
+        .update({ read: true })
         .eq('id', notificationId);
 
       if (error) {
@@ -161,7 +161,7 @@ export function NotificationBell() {
 
       // Optimistically update local state
       setNotifications(prev =>
-        prev.map(n => n.id === notificationId ? { ...n, is_read: true } : n)
+        prev.map(n => n.id === notificationId ? { ...n, read: true } : n)
       );
       setUnreadCount(prev => Math.max(0, prev - 1));
     } catch (error) {
@@ -177,9 +177,9 @@ export function NotificationBell() {
 
       const { error } = await supabase
         .from('notifications')
-        .update({ is_read: true })
+        .update({ read: true })
         .eq('user_id', user.id)
-        .eq('is_read', false);
+        .eq('read', false);
 
       if (error) {
         console.error('Error marking all as read:', error);
@@ -188,7 +188,7 @@ export function NotificationBell() {
       }
 
       // Update local state
-      setNotifications(prev => prev.map(n => ({ ...n, is_read: true })));
+      setNotifications(prev => prev.map(n => ({ ...n, read: true })));
       setUnreadCount(0);
       toast.success('All notifications marked as read');
     } catch (error) {
@@ -199,7 +199,7 @@ export function NotificationBell() {
   // Handle notification click
   const handleNotificationClick = (notification: Notification) => {
     // Mark as read
-    if (!notification.is_read) {
+    if (!notification.read) {
       markAsRead(notification.id);
     }
 
@@ -239,12 +239,11 @@ export function NotificationBell() {
           <span className="absolute top-0 right-0 flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-[#00C27A] rounded-full">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
-        )}
+)}
       </button>
-
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-96 max-w-[calc(100vw-2rem)] bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50">
+        <div className="absolute right-0 mt-2 w-96 max-w-[calc(100vw-2rem)] bg-white/10 backdrop-blur-md border border-white/20 dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-700">
             <h3 className="font-semibold text-slate-900 dark:text-white">
@@ -257,10 +256,9 @@ export function NotificationBell() {
               >
                 Mark all read
               </button>
-            )}
+)}
           </div>
-
-          {/* Notifications List */}
+      {/* Notifications List */}
           <div className="max-h-[400px] overflow-y-auto">
             {loading ? (
               <div className="px-4 py-8 text-center text-slate-500 dark:text-slate-400">
@@ -278,15 +276,14 @@ export function NotificationBell() {
                   onClick={() => handleNotificationClick(notification)}
                   className={cn(
                     "w-full px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors border-b border-slate-100 dark:border-slate-700/50 last:border-b-0",
-                    !notification.is_read && "bg-[#00C27A]/5"
+                    !notification.read && "bg-[#00C27A]/5"
                   )}
                 >
                   <div className="flex items-start gap-3">
                     {/* Unread Indicator */}
-                    {!notification.is_read && (
-                      <div className="w-2 h-2 mt-2 bg-[#00C27A] rounded-full flex-shrink-0" />
+                    {!notification.read && (
+                      <div className="w-2 h-2 mt-2 bg-[#00C27A] rounded-full flex-shrink-0"></div>
                     )}
-
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
                         <p className="text-sm font-medium text-slate-900 dark:text-white truncate">
@@ -305,8 +302,7 @@ export function NotificationBell() {
               ))
             )}
           </div>
-
-          {/* Footer */}
+      {/* Footer */}
           {notifications.length > 0 && (
             <div className="px-4 py-2 border-t border-slate-200 dark:border-slate-700">
               <button
@@ -319,9 +315,9 @@ export function NotificationBell() {
                 View all notifications
               </button>
             </div>
-          )}
+)}
         </div>
-      )}
+)}
     </div>
   );
 }

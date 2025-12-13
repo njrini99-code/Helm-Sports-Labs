@@ -166,21 +166,20 @@ export default function ProgramPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white/10 backdrop-blur-md border border-white/20 border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-6">
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => router.back()}
+              onClick={() => router.back()}}
               className="mb-2"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back
             </Button>
           </div>
-
-          <div className="flex items-center gap-6">
+      <div className="flex items-center gap-6">
             {/* Program Logo */}
             <div className="w-20 h-20 rounded-xl overflow-hidden bg-slate-100 flex-shrink-0">
               {program.logo_url ? (
@@ -193,16 +192,14 @@ export default function ProgramPage() {
                 <div className="w-full h-full flex items-center justify-center bg-emerald-100">
                   <Building className="w-10 h-10 text-emerald-600" />
                 </div>
-              )}
+)}
             </div>
-
-            {/* Program Info */}
+      {/* Program Info */}
             <div className="flex-1">
               <h1 className="text-3xl font-bold text-slate-800 mb-2">{program.name}</h1>
               {program.tagline && (
                 <p className="text-lg text-slate-600 mb-4">{program.tagline}</p>
-              )}
-
+)}
               {/* Social Links */}
               <div className="flex gap-3">
                 {program.program_website && (
@@ -213,7 +210,7 @@ export default function ProgramPage() {
                       <ExternalLink className="w-3 h-3 ml-2" />
                     </a>
                   </Button>
-                )}
+)}
                 {program.twitter_url && (
                   <Button variant="outline" size="sm" asChild>
                     <a href={program.twitter_url} target="_blank" rel="noopener noreferrer">
@@ -221,7 +218,7 @@ export default function ProgramPage() {
                       Twitter
                     </a>
                   </Button>
-                )}
+)}
                 {program.instagram_url && (
                   <Button variant="outline" size="sm" asChild>
                     <a href={program.instagram_url} target="_blank" rel="noopener noreferrer">
@@ -229,7 +226,7 @@ export default function ProgramPage() {
                       Instagram
                     </a>
                   </Button>
-                )}
+)}
                 {program.youtube_url && (
                   <Button variant="outline" size="sm" asChild>
                     <a href={program.youtube_url} target="_blank" rel="noopener noreferrer">
@@ -237,13 +234,12 @@ export default function ProgramPage() {
                       YouTube
                     </a>
                   </Button>
-                )}
+)}
               </div>
             </div>
           </div>
         </div>
       </div>
-
       {/* Content */}
       <div className="max-w-6xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -264,8 +260,7 @@ export default function ProgramPage() {
                   <p className="text-slate-700 leading-relaxed">{program.about}</p>
                 </CardContent>
               </Card>
-            )}
-
+)}
             {/* What We Look For */}
             {program.what_we_look_for && (
               <Card>
@@ -279,8 +274,7 @@ export default function ProgramPage() {
                   <p className="text-slate-700 leading-relaxed">{program.what_we_look_for}</p>
                 </CardContent>
               </Card>
-            )}
-
+)}
             {/* Academic Profile */}
             {program.academic_profile && (
               <Card>
@@ -294,8 +288,7 @@ export default function ProgramPage() {
                   <p className="text-slate-700 leading-relaxed">{program.academic_profile}</p>
                 </CardContent>
               </Card>
-            )}
-
+)}
             {/* Facilities */}
             {program.facility_summary && (
               <Card>
@@ -309,8 +302,7 @@ export default function ProgramPage() {
                   <p className="text-slate-700 leading-relaxed">{program.facility_summary}</p>
                 </CardContent>
               </Card>
-            )}
-
+)}
             {/* Program Values */}
             {program.program_values && (
               <Card>
@@ -324,10 +316,9 @@ export default function ProgramPage() {
                   <p className="text-slate-700 leading-relaxed">{program.program_values}</p>
                 </CardContent>
               </Card>
-            )}
+)}
           </div>
-
-          {/* Sidebar */}
+      {/* Sidebar */}
           <div className="space-y-6">
 
             {/* Contact Coach */}
@@ -340,42 +331,48 @@ export default function ProgramPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {program.coaches.map((coach, index) => (
-                    <div key={index} className="flex items-center gap-3">
-                      <Avatar className="w-10 h-10">
-                        <AvatarFallback>
-                          {coach.full_name?.split(' ').map(n => n[0]).join('') || 'C'}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1">
-                        <p className="font-medium text-slate-800">{coach.full_name}</p>
-                        <div className="flex gap-2 text-sm text-slate-600">
-                          {coach.email && (
-                            <a href={`mailto:${coach.email}`} className="hover:text-emerald-600">
-                              <Mail className="w-4 h-4 inline mr-1" />
-                              Email
-                            </a>
-                          )}
-                          {coach.phone && (
-                            <a href={`tel:${coach.phone}`} className="hover:text-emerald-600">
-                              <Phone className="w-4 h-4 inline mr-1" />
-                              Call
-                            </a>
-                          )}
+                  {program.coaches.length === 0 ? (
+                    <div className="text-center py-12">
+                      <div className="text-6xl mb-4">📭</div>
+                      <p className="text-white/60 mb-4">No items yet</p>
+                      <p className="text-white/40 text-sm">Check back later</p>
+                    </div>
+                  ) : (
+                    coaches.map((coach, index) => (
+                      <div key={index} className="flex items-center gap-3">
+                        <Avatar className="w-10 h-10">
+                          <AvatarFallback>
+                            {coach.full_name?.split(' ').map(n => n[0]).join('') || 'C'}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1">
+                          <p className="font-medium text-slate-800">{coach.full_name}</p>
+                          <div className="flex gap-2 text-sm text-slate-600">
+                            {coach.email && (
+                              <a href={`mailto:${coach.email}`} className="hover:text-emerald-600">
+                                <Mail className="w-4 h-4 inline mr-1" />
+                                Email
+                              </a>
+)}
+                            {coach.phone && (
+                              <a href={`tel:${coach.phone}`} className="hover:text-emerald-600">
+                                <Phone className="w-4 h-4 inline mr-1" />
+                                Call
+                              </a>
+)}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    )})
                 </CardContent>
               </Card>
-            )}
-
+)}
             {/* Quick Actions */}
             <Card>
               <CardHeader>
                 <CardTitle>Interested in Joining?</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
+        <CardContent className="space-y-3">
                 <Button className="w-full" asChild>
                   <Link href="/auth/login">
                     <Mail className="w-4 h-4 mr-2" />

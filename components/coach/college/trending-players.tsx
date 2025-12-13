@@ -121,7 +121,7 @@ export function TrendingPlayers() {
           {players.map((player) => (
             <PlayerListItem
               key={player.id}
-              player={{
+              player={
                 id: player.id,
                 full_name: player.full_name,
                 grad_year: player.grad_year,
@@ -132,7 +132,7 @@ export function TrendingPlayers() {
                 pitch_velo: player.pitch_velo,
                 exit_velo: player.exit_velo,
                 sixty_time: player.sixty_time,
-              }}
+              }
               onClick={() => handleViewProfile(player.id)}
               showMetrics={true}
               actionButtons={
@@ -158,7 +158,7 @@ export function TrendingPlayers() {
                 </>
               }
             />
-          ))}
+          })
         </div>
       </CardContent>
     </Card>

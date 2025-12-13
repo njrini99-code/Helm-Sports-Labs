@@ -157,8 +157,7 @@ export function FindOSVsModal({
             <X className="w-6 h-6" />
           </button>
         </div>
-
-        <div className="p-6">
+<div className="p-6">
           <div className="mb-6 grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -183,15 +182,14 @@ export function FindOSVsModal({
               <input
                 type="number"
                 value={maxDistance}
-                onChange={(e) => setMaxDistance(parseInt(e.target.value))}
+                onChange={(e) => setMaxDistance(parseInt(e.target.value})
                 min="1"
                 max="10"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
-
-          <button
+<button
             onClick={findOSVsOnRoute}
             disabled={loading}
             className="w-full mb-6 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all font-semibold disabled:opacity-50 flex items-center justify-center gap-2"
@@ -203,28 +201,25 @@ export function FindOSVsModal({
               </>
             ) : (
               <>
-                <Navigation className="w-5 h-5" />
+                <Navigation className="w-5 h-5"></Nav>
                 Search Route
               </>
             )}
           </button>
-
-          <div className="space-y-3 max-h-96 overflow-y-auto">
+<div className="space-y-3 max-h-96 overflow-y-auto">
             {loading && (
               <div className="text-center py-12">
                 <Loader className="w-12 h-12 text-blue-600 animate-spin mx-auto mb-4" />
                 <p className="text-gray-600">Finding businesses along your route...</p>
               </div>
-            )}
-
+)}
             {!loading && suggestions.length === 0 && (
               <div className="text-center py-12">
                 <Building2 className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                 <p className="text-gray-600">No businesses found on your route</p>
                 <p className="text-sm text-gray-500 mt-2">Try adjusting the distance or industry filter</p>
               </div>
-            )}
-
+)}
             {!loading && suggestions.map((osv) => (
               <div
                 key={osv.id}
@@ -242,7 +237,7 @@ export function FindOSVsModal({
                           <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                           <span className="text-sm font-semibold text-gray-700">{osv.google_rating}</span>
                         </div>
-                      )}
+)}
                     </div>
                   </div>
                   <button
@@ -253,15 +248,14 @@ export function FindOSVsModal({
                     Add
                   </button>
                 </div>
-
-                <div className="space-y-2 text-sm text-gray-600">
+<div className="space-y-2 text-sm text-gray-600">
                   <div className="flex items-start gap-2">
                     <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
                     <span>{osv.address}</span>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2 text-blue-600 font-semibold">
-                      <Navigation className="w-4 h-4" />
+                      <Navigation className="w-4 h-4"></Nav>
                       {osv.distance_km.toFixed(1)} km away
                     </div>
                     <div className="text-orange-600 font-semibold">
@@ -270,7 +264,7 @@ export function FindOSVsModal({
                   </div>
                 </div>
               </div>
-            ))}
+)}
           </div>
         </div>
       </div>

@@ -135,14 +135,13 @@ export function BusinessSummarySection({ lead }: Props) {
             {getFocusLabel(insight.focus)}
           </div>
         </div>
-
-        <div className="grid grid-cols-2 gap-4 mb-4">
+<div className="grid grid-cols-2 gap-4 mb-4">
           {insight.years_open && (
             <div>
               <p className="text-xs text-gray-600 mb-1">Years Open</p>
               <p className="text-lg font-bold text-gray-900">{insight.years_open} years</p>
             </div>
-          )}
+)}
           {insight.google_rating && (
             <div>
               <p className="text-xs text-gray-600 mb-1">Google Rating</p>
@@ -151,28 +150,25 @@ export function BusinessSummarySection({ lead }: Props) {
                 <p className="text-lg font-bold text-gray-900">{insight.google_rating}</p>
                 {insight.review_count && (
                   <span className="text-xs text-gray-500">({insight.review_count})</span>
-                )}
+)}
               </div>
             </div>
-          )}
+)}
         </div>
-
-        <div className="bg-white/80 rounded-lg p-4 mb-3">
+<div className="bg-white/80 rounded-lg p-4 mb-3">
           <p className="text-sm font-semibold text-gray-700 mb-1">Key Insight</p>
           <p className="text-gray-900">{insight.insight}</p>
         </div>
-
-        <div className="bg-white/80 rounded-lg p-4">
+<div className="bg-white/80 rounded-lg p-4">
           <p className="text-sm font-semibold text-gray-700 mb-1">Strategic Approach</p>
           <p className="text-gray-900">{insight.ai_summary}</p>
         </div>
-
-        {insight.nearby_clients && (
+{insight.nearby_clients && (
           <div className="bg-green-50 rounded-lg p-4 mt-3 border border-green-200">
             <p className="text-sm font-semibold text-green-900 mb-1">Nearby Clients</p>
             <p className="text-sm text-green-800">{insight.nearby_clients}</p>
           </div>
-        )}
+)}
       </div>
     </div>
   );

@@ -37,10 +37,10 @@ export function FilterPills({
           <span>{filter.label}</span>
           {filter.value && (
             <span className="text-primary/70">: {filter.value}</span>
-          )}
+)}
           <X className="h-3 w-3 opacity-60 group-hover:opacity-100 transition-opacity" />
         </button>
-      ))}
+)}
       {filters.length > 1 && onClearAll && (
         <Button
           variant="ghost"
@@ -50,7 +50,7 @@ export function FilterPills({
         >
           Clear all
         </Button>
-      )}
+)}
     </div>
   );
 }

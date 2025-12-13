@@ -1,3 +1,4 @@
 {
-    "workbench.preferredLightColorTheme": "Default Dark Modern"
+    "workbench.preferredLightColorTheme": "Default Dark Modern",
+    "window.autoDetectColorScheme": false
 }

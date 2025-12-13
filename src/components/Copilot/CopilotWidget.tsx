@@ -60,8 +60,7 @@ export function CopilotWidget() {
 
     try {
       const { data, error } = await supabase.functions.invoke('tempo-copilot', {
-        body: { prompt }
-      });
+        body: { prompt });
 
       if (error) throw error;
 
@@ -130,8 +129,7 @@ export function CopilotWidget() {
           <X className="w-5 h-5" />
         </button>
       </div>
-
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+<div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-center">
             <div className="bg-gradient-to-br from-blue-100 to-blue-50 rounded-full p-6 mb-4">
@@ -181,32 +179,30 @@ export function CopilotWidget() {
                               <span className="font-medium text-gray-600">{key}:</span>
                               <span className="text-gray-900">{String(value)}</span>
                             </div>
-                          ))}
+)}
                         </div>
-                      ))}
+)}
                       {message.data.length > 5 && (
                         <p className="text-xs text-gray-500 italic">
                           +{message.data.length - 5} more rows
                         </p>
-                      )}
+)}
                     </div>
                   </div>
-                )}
+)}
               </div>
             </div>
-          ))
-        )}
+          )})
         {isLoading && (
           <div className="flex justify-start">
             <div className="bg-gray-100 rounded-2xl px-4 py-3">
               <Loader2 className="w-5 h-5 text-blue-600 animate-spin" />
             </div>
           </div>
-        )}
-        <div ref={messagesEndRef} />
+)}
+        <div ref={messagesEndRef}></div>
       </div>
-
-      <form onSubmit={handleSubmit} className="p-4 border-t border-gray-200">
+<form onSubmit={handleSubmit} className="p-4 border-t border-gray-200">
         <div className="flex gap-2">
           <input
             type="text"

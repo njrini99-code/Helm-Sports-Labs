@@ -144,7 +144,7 @@ export function DayBuilderView() {
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
-              onClick={() => setSelectedDate(new Date())}
+              onClick={() => setSelectedDate(new Date(})
               className="px-2 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700"
             >
               Today
@@ -162,8 +162,7 @@ export function DayBuilderView() {
           </div>
         </div>
       </div>
-
-      <div className="flex-1 overflow-hidden">
+<div className="flex-1 overflow-hidden">
         <DiscoveryPanel
           leads={leads}
           osvBank={osvBank}
@@ -173,8 +172,7 @@ export function DayBuilderView() {
           loading={loading}
         />
       </div>
-
-      {showScheduleModal && selectedLead && (
+{showScheduleModal && selectedLead && (
         <AppointmentScheduleModal
           lead={selectedLead}
           onClose={() => setShowScheduleModal(false)}

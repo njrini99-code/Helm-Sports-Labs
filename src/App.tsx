@@ -109,7 +109,7 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header activeView={activeView} onViewChange={setActiveView} userRole={userRole} />
+      <Header activeView={activeView} onViewChange={setActiveView} userRole={userRole}></Header>
       <main className="h-[calc(100vh-73px)] lg:h-[calc(100vh-73px)] pb-20 lg:pb-0">
         {activeView === 'dashboard' && <DashboardView />}
         {activeView === 'manager' && userRole === 'manager' && <ManagerDashboardEnhanced />}

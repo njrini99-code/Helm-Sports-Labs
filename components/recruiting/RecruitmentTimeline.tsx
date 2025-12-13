@@ -89,16 +89,16 @@ export function RecruitmentTimeline({
   };
 
   if (loading) {
-    return <div className="p-4">Loading timeline...</div>;
+    return <div className="p-4">Loading timeline...</motion.div>;
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div>
           <h3 className="text-lg font-semibold">Recruitment Timeline</h3>
           <p className="text-sm text-muted-foreground">Track your recruiting journey</p>
-        </div>
+        </motion.div>
         <Button
           size="sm"
           onClick={() => setShowAddForm(!showAddForm)}
@@ -106,10 +106,13 @@ export function RecruitmentTimeline({
           <Plus className="w-4 h-4 mr-2" />
           Add Event
         </Button>
-      </div>
-
-      {showAddForm && (
-        <div className="p-4 border rounded-lg bg-card">
+      </motion.div>
+              {showAddForm && (
+        <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{duration: 0.3 }}
+  className="p-4 border rounded-2xl bg-card hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <h4 className="font-medium mb-3">Quick Add Event</h4>
           <div className="grid grid-cols-2 gap-2">
             {EVENT_TEMPLATES.map(template => {
@@ -133,15 +136,13 @@ export function RecruitmentTimeline({
                 </Button>
               );
             })}
-          </div>
-        </div>
-      )}
-
+          </motion.div>
+        </motion.div>
+)}
       <div className="relative">
         {/* Timeline line */}
-        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
-
-        <div className="space-y-6">
+        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border"></div>
+<div className="space-y-6">
           {events.map((event, index) => {
             const Icon = EVENT_TEMPLATES.find(t => t.type === event.type)?.icon || Calendar;
             return (
@@ -152,20 +153,19 @@ export function RecruitmentTimeline({
                   event.createdBy === 'coach' ? "border-blue-500" : "border-emerald-500"
                 )}>
                   <Icon className="w-4 h-4" />
-                </div>
-
-                {/* Event content */}
+                </motion.div>
+      {/* Event content */}
                 <div className="flex-1 pb-6">
-                  <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center justify-between mb-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                     <h4 className="font-medium">{event.title}</h4>
                     <span className="text-xs text-muted-foreground">
                       {format(event.date, 'MMM d, yyyy')}
                     </span>
-                  </div>
+                  </motion.div>
                   {event.description && (
                     <p className="text-sm text-muted-foreground mb-2">{event.description}</p>
-                  )}
-                  <div className="flex items-center gap-2">
+)}
+                  <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                     <span className={cn(
                       "text-xs px-2 py-0.5 rounded-full",
                       event.createdBy === 'coach' 
@@ -178,22 +178,21 @@ export function RecruitmentTimeline({
                       <span className="text-xs text-muted-foreground">
                         {event.attachments.length} attachment(s)
                       </span>
-                    )}
-                  </div>
-                </div>
-              </div>
+)}
+                  </motion.div>
+                </motion.div>
+              </motion.div>
             );
           })}
-        </div>
-
-        {events.length === 0 && (
+        </motion.div>
+              {events.length === 0 && (
           <div className="p-8 text-center text-muted-foreground">
             <Calendar className="w-12 h-12 mx-auto mb-2 opacity-50" />
             <p className="text-sm">No timeline events yet.</p>
             <p className="text-xs mt-1">Add events to track your recruiting progress.</p>
-          </div>
-        )}
-      </div>
-    </div>
+          </motion.div>
+)}
+      </motion.div>
+    </motion.div>
   );
 }

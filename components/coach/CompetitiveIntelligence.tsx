@@ -95,7 +95,7 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
   };
 
   if (loading) {
-    return <div className="p-4">Loading competitive intelligence...</div>;
+    return <div className="p-4">Loading competitive intelligence...</motion.div>;
   }
 
   if (data.length === 0) {
@@ -103,7 +103,7 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
       <div className="p-4 text-center text-muted-foreground">
         <Users className="w-8 h-8 mx-auto mb-2 opacity-50" />
         <p className="text-sm">No competitive data available yet.</p>
-      </div>
+      </motion.div>
     );
   }
 
@@ -115,17 +115,24 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
       <div>
         <h3 className="text-lg font-semibold mb-2">Competitive Intelligence</h3>
         <div className="grid grid-cols-2 gap-4 mb-4">
-          <div className="p-3 rounded-lg bg-card border">
+          <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{duration: 0.3 }}
+  className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <p className="text-sm text-muted-foreground">High Competition</p>
             <p className="text-2xl font-bold">{highCompetition}</p>
-          </div>
-          <div className="p-3 rounded-lg bg-card border">
+          </motion.div>
+          <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{duration: 0.3 }}
+  className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <p className="text-sm text-muted-foreground">Avg. Competition</p>
             <p className="text-2xl font-bold">{avgCompetition.toFixed(1)}</p>
-          </div>
-        </div>
-      </div>
-
+          </motion.div>
+        </motion.div>
+      </motion.div>
       <div className="space-y-2 max-h-96 overflow-y-auto">
         {data.map((item) => (
           <div
@@ -137,9 +144,9 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
               item.competitionLevel === 'low' && "border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-950/20"
             )}
           >
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <p className="font-medium">{item.playerName}</p>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 {item.interestTrend === 'increasing' && (
                   <TrendingUp className="w-4 h-4 text-red-600 dark:text-red-400" />
                 )}
@@ -154,24 +161,23 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
                 )}>
                   {item.competitionLevel.toUpperCase()}
                 </span>
-              </div>
-            </div>
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <div className="flex items-center gap-1">
+              </motion.div>
+            </motion.div>
+            <div className="flex items-center gap-4 text-sm text-muted-foreground hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+              <div className="flex items-center gap-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <Users className="w-3 h-3" />
                 <span>{item.otherCoaches} other coaches</span>
-              </div>
-              <div className="flex items-center gap-1">
+              </motion.div>
+              <div className="flex items-center gap-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <Eye className="w-3 h-3" />
                 <span>{item.recentActivity} views (7d)</span>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {highCompetition > 0 && (
-        <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 flex items-start gap-2">
+              </motion.div>
+            </motion.div>
+          </motion.div>
+)}
+      </motion.div>
+              {highCompetition > 0 && (
+        <div className="p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 flex items-start gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5" />
           <div className="flex-1">
             <p className="text-sm font-medium text-amber-900 dark:text-amber-100">
@@ -180,9 +186,9 @@ export function CompetitiveIntelligence({ playerId }: { playerId?: string }) {
             <p className="text-xs text-amber-700 dark:text-amber-300 mt-1">
               {highCompetition} players in your watchlist have high competition. Consider prioritizing outreach.
             </p>
-          </div>
-        </div>
-      )}
-    </div>
+          </motion.div>
+        </motion.div>
+)}
+    </motion.div>
   );
 }

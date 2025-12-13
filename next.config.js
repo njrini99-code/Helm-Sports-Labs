@@ -58,6 +58,7 @@ const nextConfig = {
       'recharts',
       '@tanstack/react-table',
     ],
+    turbopackUseSystemTlsCerts: true,
   },
   
   // Webpack configuration for bundle optimization

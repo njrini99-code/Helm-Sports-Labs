@@ -1,115 +1,266 @@
 /**
- * ScoutPulse Glassmorphism Design System
- * 
- * A collection of Tailwind class strings for consistent glass-style UI components.
- * Use these constants throughout the app for a cohesive neo-glassmorphism aesthetic.
+ * Unified Glassmorphism Styles - Production Ready
+ * Combines best features from both glassmorphism.ts and glassmorphism-enhanced.ts
+ * Single source of truth for all glass effects
  */
 
-// ═══════════════════════════════════════════════════════════════════════════
-// Glass Cards
-// ═══════════════════════════════════════════════════════════════════════════
-
-/** Base glass card with blur, semi-transparent background, and subtle border */
-export const glassCard = "backdrop-blur-2xl bg-white/5 border border-white/15 shadow-lg shadow-black/20 rounded-xl";
-
-/** Hover effects for glass cards - lift, glow, and shadow enhancement */
-export const glassCardHover = "hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-1 transition-all duration-300 ease-out";
-
-/** Combined glass card with hover effects */
-export const glassCardInteractive = `${glassCard} ${glassCardHover}`;
+import { cn } from '@/lib/utils';
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Glass Buttons
+// Base Glass Effects
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Standard glass card with blur effect
+ * Use this as the default for most cards
+ */
+export const glassCard =
+  "backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10 " +
+  "rounded-2xl shadow-xl transition-all duration-200";
+
+/**
+ * Interactive glass card with hover effects
+ * Use for clickable cards and interactive elements
+ */
+export const glassCardInteractive =
+  "backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10 " +
+  "rounded-2xl shadow-xl transition-all duration-200 cursor-pointer " +
+  "hover:bg-white/15 hover:border-white/30 hover:shadow-2xl hover:-translate-y-1 active:scale-[0.99]";
+
+/**
+ * Premium glass card with enhanced depth
+ * Use for hero sections and highlighted content
+ */
+export const glassCardPremium =
+  "backdrop-blur-xl bg-gradient-to-br from-white/15 to-white/5 " +
+  "border border-white/30 dark:border-white/20 rounded-3xl shadow-2xl " +
+  "transition-all duration-300 hover:shadow-3xl";
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Specialized Components
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Glass hero section
+ * Use for page headers and hero banners
+ */
+export const glassHero =
+  "backdrop-blur-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 " +
+  "border border-white/30 rounded-3xl shadow-2xl p-8 md:p-12 " +
+  "relative overflow-hidden";
+
+/**
+ * Glass stat card for metrics
+ * Use for dashboard statistics and KPIs
+ */
+export const glassStatCard =
+  "backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/20 " +
+  "rounded-2xl p-6 shadow-lg transition-all duration-200 group " +
+  "hover:bg-white/15 hover:shadow-xl hover:scale-105";
+
+/**
+ * Glass panel for content sections
+ * Use for content containers and sections
+ */
+export const glassPanel =
+  "backdrop-blur-lg bg-white/5 dark:bg-white/[0.02] " +
+  "border border-white/10 rounded-2xl shadow-lg";
+
+/**
+ * Glass list item
+ * Use for list items and rows
+ */
+export const glassListItem =
+  "backdrop-blur-sm bg-white/5 dark:bg-white/[0.02] " +
+  "border border-white/10 rounded-xl p-4 " +
+  "transition-all duration-200 hover:bg-white/10 hover:border-white/20";
+
+/**
+ * Glass badge
+ * Use for tags and status indicators
+ */
+export const glassBadge =
+  "backdrop-blur-md bg-white/20 dark:bg-white/10 " +
+  "border border-white/30 rounded-full px-3 py-1 " +
+  "text-xs font-medium";
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Button Variants
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const glassButton = {
-  /** Primary action button - emerald gradient with glow */
-  primary: "backdrop-blur-xl bg-gradient-to-br from-emerald-500/90 to-emerald-600/90 border border-white/20 shadow-lg shadow-emerald-500/30 text-white rounded-lg px-6 py-3 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-emerald-500/40 transition-all duration-300",
-  
-  /** Secondary button - subtle glass background */
-  secondary: "backdrop-blur-xl bg-white/10 border border-white/20 text-white rounded-lg px-6 py-3 hover:bg-white/15 hover:-translate-y-0.5 transition-all duration-300",
-  
-  /** Ghost button - minimal, transparent */
-  ghost: "backdrop-blur-xl bg-transparent border border-white/10 text-white/90 rounded-lg px-6 py-3 hover:bg-white/5 hover:border-white/20 transition-all duration-300",
-} as const;
+  primary:
+    "backdrop-blur-md bg-gradient-to-br from-blue-500/90 to-blue-600/90 " +
+    "border border-white/20 text-white font-medium px-4 py-2 rounded-xl " +
+    "shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 " +
+    "transition-all duration-200",
+
+  secondary:
+    "backdrop-blur-md bg-white/10 dark:bg-white/5 " +
+    "border border-white/20 text-white font-medium px-4 py-2 rounded-xl " +
+    "shadow-md hover:bg-white/20 hover:shadow-lg hover:scale-105 active:scale-95 " +
+    "transition-all duration-200",
+
+  ghost:
+    "backdrop-blur-sm bg-transparent border border-white/20 " +
+    "text-white font-medium px-4 py-2 rounded-xl " +
+    "hover:bg-white/10 hover:border-white/30 " +
+    "transition-all duration-200",
+
+  danger:
+    "backdrop-blur-md bg-gradient-to-br from-red-500/90 to-red-600/90 " +
+    "border border-white/20 text-white font-medium px-4 py-2 rounded-xl " +
+    "shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 " +
+    "transition-all duration-200",
+};
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Glass Inputs
+// Form Elements
 // ═══════════════════════════════════════════════════════════════════════════
 
-/** Glass-style input field */
-export const glassInput = "backdrop-blur-xl bg-white/5 border border-white/15 rounded-lg px-4 py-2 text-white placeholder-white/50 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300";
+/**
+ * Glass input field
+ * Use for text inputs and form fields
+ */
+export const glassInput =
+  "backdrop-blur-md bg-white/10 dark:bg-white/5 " +
+  "border border-white/20 rounded-lg px-4 py-2 " +
+  "text-white placeholder:text-white/50 " +
+  "focus:bg-white/15 focus:border-white/40 focus:ring-2 focus:ring-white/20 " +
+  "outline-none transition-all duration-200";
 
-/** Glass-style textarea */
-export const glassTextarea = "backdrop-blur-xl bg-white/5 border border-white/15 rounded-lg px-4 py-3 text-white placeholder-white/50 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 resize-none";
+/**
+ * Glass textarea
+ */
+export const glassTextarea =
+  "backdrop-blur-md bg-white/10 dark:bg-white/5 " +
+  "border border-white/20 rounded-lg px-4 py-2 " +
+  "text-white placeholder:text-white/50 resize-none " +
+  "focus:bg-white/15 focus:border-white/40 focus:ring-2 focus:ring-white/20 " +
+  "outline-none transition-all duration-200";
 
-/** Glass-style select dropdown */
-export const glassSelect = "backdrop-blur-xl bg-white/5 border border-white/15 rounded-lg px-4 py-2 text-white focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300";
-
-// ═══════════════════════════════════════════════════════════════════════════
-// Glass Panels & Containers
-// ═══════════════════════════════════════════════════════════════════════════
-
-/** Hero banner glass panel - extra blur and depth */
-export const glassHero = "backdrop-blur-3xl bg-white/[0.08] border border-white/[0.12] shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-2xl";
-
-/** Stat card - compact glass tile */
-export const glassStatCard = "backdrop-blur-lg bg-white/[0.08] border border-white/[0.12] rounded-2xl p-4 hover:-translate-y-0.5 hover:border-emerald-400/30 transition-all duration-150";
-
-/** Large content panel - for Team Hub, College Journey, etc. */
-export const glassPanel = "backdrop-blur-xl bg-white/[0.07] border border-white/[0.12] rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] hover:border-white/20 transition-all duration-300";
-
-/** Dropdown/popover panel */
-export const glassDropdown = "backdrop-blur-2xl bg-slate-900/95 border border-white/10 rounded-xl shadow-2xl shadow-black/40";
-
-// ═══════════════════════════════════════════════════════════════════════════
-// Glass Pills & Badges
-// ═══════════════════════════════════════════════════════════════════════════
-
-/** Segmented control container */
-export const glassSegmentedControl = "flex gap-1 p-1 bg-white/[0.06] rounded-full";
-
-/** Active pill in segmented control */
-export const glassSegmentedPillActive = "px-4 py-1.5 text-xs font-medium rounded-full bg-white text-emerald-700 transition-all duration-150";
-
-/** Inactive pill in segmented control */
-export const glassSegmentedPillInactive = "px-4 py-1.5 text-xs font-medium rounded-full text-white/60 hover:text-white hover:bg-white/[0.05] transition-all duration-150";
-
-/** Position/status badge */
-export const glassBadge = "px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-medium border border-emerald-500/30";
-
-/** Trend pill (for stats) */
-export const glassTrendPill = "flex items-center gap-0.5 text-[11px] font-medium px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300";
+/**
+ * Glass select dropdown
+ */
+export const glassSelect =
+  "backdrop-blur-md bg-white/10 dark:bg-white/5 " +
+  "border border-white/20 rounded-lg px-4 py-2 " +
+  "text-white cursor-pointer " +
+  "focus:bg-white/15 focus:border-white/40 focus:ring-2 focus:ring-white/20 " +
+  "outline-none transition-all duration-200";
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Glass Backgrounds
+// Zone Effects (Background Sections)
 // ═══════════════════════════════════════════════════════════════════════════
 
-/** Dark hero zone gradient */
-export const glassDarkZone = "bg-gradient-to-b from-[#0b1720] via-[#0d1f2d] to-[#0f172a]";
+/**
+ * Dark zone for dramatic backgrounds
+ * Use for hero sections and featured areas
+ */
+export const glassDarkZone =
+  "relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 " +
+  "before:absolute before:inset-0 before:bg-gradient-to-br before:from-blue-500/10 before:via-purple-500/10 before:to-transparent " +
+  "before:pointer-events-none";
 
-/** Transition gradient (dark to light) */
-export const glassTransitionZone = "bg-gradient-to-b from-[#0f172a] via-[#1e293b] to-[#f4f7fb]";
+/**
+ * Light zone for subtle backgrounds
+ * Use for content areas and lighter sections
+ */
+export const glassLightZone =
+  "relative bg-gradient-to-br from-slate-50 via-white to-slate-50 " +
+  "before:absolute before:inset-0 before:bg-gradient-to-br before:from-blue-500/5 before:via-purple-500/5 before:to-transparent " +
+  "before:pointer-events-none";
 
-/** Light content zone */
-export const glassLightZone = "bg-[#f4f7fb]";
-
-/** Subtle grid pattern overlay */
-export const glassGridPattern = `bg-[url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")] opacity-[0.03]`;
+/**
+ * Transition zone for smooth gradients
+ * Use between dark and light sections
+ */
+export const glassTransitionZone =
+  "relative bg-gradient-to-b from-transparent via-slate-500/5 to-transparent " +
+  "h-20 pointer-events-none";
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Glass List Items
+// Utility Classes
 // ═══════════════════════════════════════════════════════════════════════════
 
-/** Interactive list row (messages, events, etc.) */
-export const glassListItem = "w-full flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-transparent hover:border-white/10 transition-all duration-150";
+/**
+ * Frosted glass overlay
+ * Use for modals and overlays
+ */
+export const glassFrostedOverlay =
+  "fixed inset-0 backdrop-blur-md bg-black/20 " +
+  "transition-opacity duration-200";
 
-/** Compact list row for tight spaces */
-export const glassListItemCompact = "flex items-center gap-2 p-2 rounded-lg bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-150";
+/**
+ * Glass divider
+ * Use for visual separation
+ */
+export const glassDivider =
+  "h-px bg-gradient-to-r from-transparent via-white/20 to-transparent";
+
+/**
+ * Glass glow effect (add to parent)
+ * Creates a subtle glow around elements
+ */
+export const glassGlow =
+  "relative after:absolute after:inset-0 after:rounded-[inherit] " +
+  "after:shadow-[0_0_40px_rgba(255,255,255,0.1)] after:pointer-events-none";
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Utility Types
+// Helper Functions
 // ═══════════════════════════════════════════════════════════════════════════
 
-export type GlassButtonVariant = keyof typeof glassButton;
+/**
+ * Get glass variant by name
+ * @param variant - The glass variant name
+ * @param options - Additional options
+ */
+export function getGlassVariant(
+  variant: 'card' | 'hero' | 'panel' | 'stat' | 'list',
+  options?: {
+    interactive?: boolean;
+    premium?: boolean;
+  }
+): string {
+  const { interactive = false, premium = false } = options || {};
 
+  switch (variant) {
+    case 'card':
+      if (premium) return glassCardPremium;
+      if (interactive) return glassCardInteractive;
+      return glassCard;
+    case 'hero':
+      return glassHero;
+    case 'panel':
+      return glassPanel;
+    case 'stat':
+      return glassStatCard;
+    case 'list':
+      return glassListItem;
+    default:
+      return glassCard;
+  }
+}
+
+/**
+ * Combine glass styles with custom classes
+ */
+export function glassStyle(...classes: (string | boolean | undefined | null)[]): string {
+  return cn(...classes);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Performance Optimization Utilities
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Add will-change for blur performance
+ * Use sparingly - only on animated glass elements
+ */
+export const glassOptimized = "will-change-[backdrop-filter]";
+
+/**
+ * Reduced motion variant (accessibility)
+ * Use for users who prefer reduced motion
+ */
+export const glassReducedMotion = "motion-reduce:backdrop-blur-none motion-reduce:bg-white/20";

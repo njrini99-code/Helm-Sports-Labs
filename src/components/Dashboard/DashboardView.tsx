@@ -134,8 +134,7 @@ export function DashboardView() {
       const prompt = `Based on today's schedule and metrics, provide a brief motivational insight (2 sentences) for a sales rep starting their day. Focus on opportunities and encouragement.`;
 
       const { data, error } = await supabase.functions.invoke('tempo-copilot', {
-        body: { prompt }
-      });
+        body: { prompt });
 
       if (error) throw error;
       setAiInsight(data.response);
@@ -160,8 +159,7 @@ User question: ${aiQuery}
 Provide a helpful, actionable response.`;
 
       const { data, error } = await supabase.functions.invoke('tempo-copilot', {
-        body: { prompt: contextPrompt }
-      });
+        body: { prompt: contextPrompt });
 
       if (error) throw error;
       setAiResponse(data.response);
@@ -189,8 +187,7 @@ Provide a helpful, actionable response.`;
         const value = values[index]?.trim();
         if (value) {
           record[header] = value;
-        }
-      });
+        });
 
       if (record.business_name || record.name) {
         records.push(record);
@@ -318,8 +315,7 @@ Provide a helpful, actionable response.`;
           </h1>
           <p className="text-lg text-gray-600">Here's your daily outlook</p>
         </div>
-
-        {aiInsight && (
+{aiInsight && (
           <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-6 text-white shadow-2xl mb-8">
             <div className="flex items-start gap-4">
               <div className="bg-white/20 rounded-full p-3">
@@ -331,14 +327,12 @@ Provide a helpful, actionable response.`;
               </div>
             </div>
           </div>
-        )}
-
+)}
         {hasTeam === false && (
           <div className="mb-8">
             <JoinTeamCard onTeamJoined={() => setHasTeam(true)} />
           </div>
-        )}
-
+)}
         {(csvImporting || csvResults) && (
           <div className="bg-white rounded-2xl shadow-xl p-6 mb-8 border-2 border-blue-200">
             <div className="flex items-start gap-4">
@@ -361,8 +355,7 @@ Provide a helpful, actionable response.`;
                       <div className="w-full bg-gray-200 rounded-full h-3">
                         <div
                           className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-300"
-                          style={{ width: `${csvProgress}%` }}
-                        />
+                          style={{ width: `${csvProgress}}%` }}></div>
                       </div>
                     </div>
                     <p className="text-sm text-gray-600">
@@ -387,7 +380,7 @@ Provide a helpful, actionable response.`;
                             {csvResults.errors} errors
                           </span>
                         </div>
-                      )}
+)}
                     </div>
                     <p className="text-sm text-gray-600 mt-2">This message will disappear shortly...</p>
                   </>
@@ -395,8 +388,7 @@ Provide a helpful, actionable response.`;
               </div>
             </div>
           </div>
-        )}
-
+)}
         {!csvImporting && !csvResults && (
           <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-6 mb-8 shadow-xl">
             <div className="flex items-center justify-between">
@@ -427,8 +419,7 @@ Provide a helpful, actionable response.`;
               </div>
             </div>
           </div>
-        )}
-
+)}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white shadow-xl">
             <div className="flex items-center justify-between mb-4">
@@ -438,8 +429,7 @@ Provide a helpful, actionable response.`;
             <div className="text-4xl font-bold mb-1">{metrics.todayNP}</div>
             <div className="text-blue-100 text-sm">New Prospects Set</div>
           </div>
-
-          <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white shadow-xl">
+<div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white shadow-xl">
             <div className="flex items-center justify-between mb-4">
               <CheckCircle2 className="w-8 h-8 opacity-80" />
               <span className="text-sm font-medium opacity-90">Today</span>
@@ -447,8 +437,7 @@ Provide a helpful, actionable response.`;
             <div className="text-4xl font-bold mb-1">{metrics.todayOSV}</div>
             <div className="text-green-100 text-sm">On-Site Visits</div>
           </div>
-
-          <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white shadow-xl">
+<div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white shadow-xl">
             <div className="flex items-center justify-between mb-4">
               <TrendingUp className="w-8 h-8 opacity-80" />
               <span className="text-sm font-medium opacity-90">This Week</span>
@@ -456,8 +445,7 @@ Provide a helpful, actionable response.`;
             <div className="text-4xl font-bold mb-1">{metrics.weekNP + metrics.weekOSV}</div>
             <div className="text-purple-100 text-sm">Total Activities</div>
           </div>
-
-          <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-6 text-white shadow-xl">
+<div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-6 text-white shadow-xl">
             <div className="flex items-center justify-between mb-4">
               <Zap className="w-8 h-8 opacity-80" />
               <span className="text-sm font-medium opacity-90">Pipeline</span>
@@ -466,8 +454,7 @@ Provide a helpful, actionable response.`;
             <div className="text-orange-100 text-sm">Total Value</div>
           </div>
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <div className="bg-white rounded-2xl shadow-lg p-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
@@ -478,8 +465,7 @@ Provide a helpful, actionable response.`;
                 {todayAppointments.length}
               </span>
             </div>
-
-            {todayAppointments.length === 0 ? (
+{todayAppointments.length === 0 ? (
               <div className="text-center py-12 text-gray-400">
                 <Calendar className="w-16 h-16 mx-auto mb-3 opacity-50" />
                 <p>No appointments today</p>
@@ -496,7 +482,7 @@ Provide a helpful, actionable response.`;
                         <h3 className="font-semibold text-gray-900">{apt.business_name}</h3>
                         {apt.owner_name && (
                           <p className="text-sm text-gray-600">{apt.owner_name}</p>
-                        )}
+)}
                       </div>
                       <div className="flex items-center gap-2 text-blue-600 font-semibold">
                         <Clock className="w-4 h-4" />
@@ -509,26 +495,25 @@ Provide a helpful, actionable response.`;
                           <MapPin className="w-4 h-4 flex-shrink-0" />
                           <span>{apt.address}</span>
                         </div>
-                      )}
+)}
                       {apt.phone && (
                         <a href={`tel:${apt.phone}`} className="text-blue-600 hover:underline font-medium">
                           {apt.phone}
                         </a>
-                      )}
+)}
                       {apt.google_rating && (
                         <div className="flex items-center gap-1">
                           <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                           <span className="font-semibold">{apt.google_rating}</span>
                         </div>
-                      )}
+)}
                     </div>
                   </div>
-                ))}
+)}
               </div>
-            )}
+)}
           </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-6">
+<div className="bg-white rounded-2xl shadow-lg p-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
                 <Phone className="w-6 h-6 text-green-600" />
@@ -538,8 +523,7 @@ Provide a helpful, actionable response.`;
                 {upcomingFollowUps.length}
               </span>
             </div>
-
-            {upcomingFollowUps.length === 0 ? (
+{upcomingFollowUps.length === 0 ? (
               <div className="text-center py-12 text-gray-400">
                 <Phone className="w-16 h-16 mx-auto mb-3 opacity-50" />
                 <p>No upcoming follow-ups</p>
@@ -556,7 +540,7 @@ Provide a helpful, actionable response.`;
                         <h3 className="font-semibold text-gray-900">{lead.business_name}</h3>
                         {lead.owner_name && (
                           <p className="text-sm text-gray-600">{lead.owner_name}</p>
-                        )}
+)}
                       </div>
                       <span className="text-sm font-medium text-green-600">
                         {lead.follow_up_date}
@@ -566,15 +550,14 @@ Provide a helpful, actionable response.`;
                       <p className="text-sm text-gray-600 bg-gray-50 p-2 rounded">
                         {lead.follow_up_notes}
                       </p>
-                    )}
+)}
                   </div>
-                ))}
+)}
               </div>
-            )}
+)}
           </div>
         </div>
-
-        <div className="bg-white rounded-2xl shadow-lg p-6">
+<div className="bg-white rounded-2xl shadow-lg p-6">
           <div className="flex items-center gap-3 mb-6">
             <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-full p-3">
               <Sparkles className="w-6 h-6 text-white" />
@@ -584,8 +567,7 @@ Provide a helpful, actionable response.`;
               <p className="text-sm text-gray-600">Ask me anything about your metrics, strategy, or goals</p>
             </div>
           </div>
-
-          <div className="space-y-4">
+<div className="space-y-4">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -608,16 +590,14 @@ Provide a helpful, actionable response.`;
                 )}
               </button>
             </div>
-
-            {aiResponse && (
+{aiResponse && (
               <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-4 border border-blue-200">
                 <div className="flex items-start gap-3">
                   <Sparkles className="w-5 h-5 text-blue-600 flex-shrink-0 mt-1" />
                   <p className="text-gray-700 leading-relaxed">{aiResponse}</p>
                 </div>
               </div>
-            )}
-
+)}
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => setAiQuery('How am I tracking this week?')}
@@ -646,8 +626,7 @@ Provide a helpful, actionable response.`;
             </div>
           </div>
         </div>
-
-      </div>
+</div>
     </div>
   );
 }

@@ -145,7 +145,7 @@ export default function PlayerCampsPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-50/50 flex items-center justify-center">
-        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -167,33 +167,31 @@ export default function PlayerCampsPage() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input
                 placeholder="Search camps..."
-                className="pl-9 h-9 bg-white border-slate-200"
+                className="pl-9 h-9 bg-white/10 backdrop-blur-md border border-white/20 border-slate-200"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
           </div>
         </div>
-
-        {/* Tabs */}
+      {/* Tabs */}
         <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)}>
-          <TabsList className="h-10 p-1 bg-white border border-slate-200">
+          <TabsList className="h-10 p-1 bg-white/10 backdrop-blur-md border border-white/20 border border-slate-200">
             <TabsTrigger value="discover" className="h-8 px-4 data-[state=active]:bg-emerald-500 data-[state=active]:text-white">
               <Calendar className="w-4 h-4 mr-2" />
               Discover Camps
             </TabsTrigger>
-            <TabsTrigger value="registered" className="h-8 px-4 data-[state=active]:bg-emerald-500 data-[state=active]:text-white">
+        <TabsTrigger value="registered" className="h-8 px-4 data-[state=active]:bg-emerald-500 data-[state=active]:text-white">
               <CheckCircle2 className="w-4 h-4 mr-2" />
               My Registrations
               {myRegistrations.filter(r => r.status !== 'cancelled').length > 0 && (
                 <Badge className="ml-2 bg-emerald-100 text-emerald-700 px-1.5 py-0.5 text-[10px]">
                   {myRegistrations.filter(r => r.status !== 'cancelled').length}
                 </Badge>
-              )}
+)}
             </TabsTrigger>
           </TabsList>
-
-          {/* Discover Tab */}
+      {/* Discover Tab */}
           <TabsContent value="discover" className="mt-6">
             {filteredCamps.length === 0 ? (
               <EmptyState
@@ -212,12 +210,11 @@ export default function PlayerCampsPage() {
                     onCancel={() => handleCancel(camp.id)}
                     loading={actionLoading === camp.id}
                   />
-                ))}
+                })
               </div>
-            )}
+)}
           </TabsContent>
-
-          {/* Registered Tab */}
+      {/* Registered Tab */}
           <TabsContent value="registered" className="mt-6">
             {myRegistrations.filter(r => r.status !== 'cancelled').length === 0 ? (
               <EmptyState
@@ -238,9 +235,9 @@ export default function PlayerCampsPage() {
                       onCancel={() => handleCancel(registration.camp_event_id)}
                       loading={actionLoading === registration.camp_event_id}
                     />
-                  ))}
+                  })
               </div>
-            )}
+)}
           </TabsContent>
         </Tabs>
       </div>
@@ -276,7 +273,7 @@ function CampCard({ camp, isRegistered, onRegister, onCancel, loading }: CampCar
     .slice(0, 2) || 'CP';
 
   return (
-    <Card className="bg-white border-slate-200 hover:border-emerald-300 hover:shadow-lg transition-all">
+    <Card className="bg-white/10 backdrop-blur-md border border-white/20 border-slate-200 hover:border-emerald-300 hover:shadow-lg transition-all">
       <CardContent className="p-5">
         <div className="flex items-start gap-4">
           {/* Program Logo */}
@@ -286,8 +283,7 @@ function CampCard({ camp, isRegistered, onRegister, onCancel, loading }: CampCar
               {initials}
             </AvatarFallback>
           </Avatar>
-
-          {/* Content */}
+      {/* Content */}
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -304,8 +300,7 @@ function CampCard({ camp, isRegistered, onRegister, onCancel, loading }: CampCar
                 {camp.status === 'open' ? 'Open' : 'Limited'}
               </Badge>
             </div>
-
-            {/* Meta */}
+      {/* Meta */}
             <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-slate-500">
               <div className="flex items-center gap-1.5">
                 <Calendar className="w-4 h-4 text-emerald-500" />
@@ -316,18 +311,16 @@ function CampCard({ camp, isRegistered, onRegister, onCancel, loading }: CampCar
                   <MapPin className="w-4 h-4 text-emerald-500" />
                   {camp.location}
                 </div>
-              )}
+)}
               <div className="flex items-center gap-1.5">
                 <Users className="w-4 h-4 text-emerald-500" />
                 {(camp.registration_count || 0) + (camp.interested_count || 0)} interested
               </div>
             </div>
-
-            {/* Description */}
+      {/* Description */}
             {camp.description && (
               <p className="mt-3 text-sm text-slate-600 line-clamp-2">{camp.description}</p>
-            )}
-
+)}
             {/* Actions */}
             <div className="flex items-center gap-3 mt-4">
               {isRegistered ? (
@@ -336,14 +329,14 @@ function CampCard({ camp, isRegistered, onRegister, onCancel, loading }: CampCar
                     <CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />
                     Registered
                   </Badge>
-                  <Button 
+        <Button 
                     variant="ghost" 
                     size="sm" 
                     className="text-slate-500 hover:text-red-600"
                     onClick={onCancel}
                     disabled={loading}
                   >
-                    {loading ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse" /> : 'Cancel'}
+                    {loading ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse"></div> : 'Cancel'}
                   </Button>
                 </>
               ) : (
@@ -354,13 +347,13 @@ function CampCard({ camp, isRegistered, onRegister, onCancel, loading }: CampCar
                   disabled={loading}
                 >
                   {loading ? (
-                    <div className="w-4 h-4 bg-white/20 rounded animate-pulse mr-2" />
+                    <div className="w-4 h-4 bg-white/20 rounded animate-pulse mr-2"></div>
                   ) : (
                     <Heart className="w-4 h-4 mr-2" />
                   )}
                   Register Interest
                 </Button>
-              )}
+)}
               <Button variant="ghost" size="sm" className="text-slate-500 ml-auto">
                 Learn More
                 <ChevronRight className="w-4 h-4 ml-1" />
@@ -412,7 +405,7 @@ function RegistrationCard({ registration, onCancel, loading }: RegistrationCardP
   };
 
   return (
-    <Card className="bg-white border-slate-200">
+    <Card className="bg-white/10 backdrop-blur-md border border-white/20 border-slate-200">
       <CardContent className="p-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -440,9 +433,9 @@ function RegistrationCard({ registration, onCancel, loading }: RegistrationCardP
                 onClick={onCancel}
                 disabled={loading}
               >
-                {loading ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse" /> : 'Cancel'}
+                {loading ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse"></div> : 'Cancel'}
               </Button>
-            )}
+)}
           </div>
         </div>
       </CardContent>

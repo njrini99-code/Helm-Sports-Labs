@@ -300,8 +300,7 @@ export function ManagerDashboardNew() {
           <div>
             <h1 className="text-2xl font-bold">Tempo Manager Dashboard</h1>
           </div>
-
-          <div className="flex items-center gap-4">
+<div className="flex items-center gap-4">
             {/* Team Selector */}
             <select
               value={selectedTeam?.id || ''}
@@ -316,10 +315,9 @@ export function ManagerDashboardNew() {
                 <option key={team.id} value={team.id}>
                   {team.team_name}
                 </option>
-              ))}
+)}
             </select>
-
-            {/* Period Selector */}
+{/* Period Selector */}
             <select
               value={viewMode}
               onChange={(e) => setViewMode(e.target.value as any)}
@@ -329,8 +327,7 @@ export function ManagerDashboardNew() {
               <option value="quarterly">Quarterly</option>
               <option value="yearly">Yearly</option>
             </select>
-
-            {/* Action Buttons */}
+{/* Action Buttons */}
             <button
               onClick={() => setActiveTab('requests')}
               className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition-colors flex items-center gap-2 relative"
@@ -341,23 +338,20 @@ export function ManagerDashboardNew() {
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {followUpRequests.filter(r => r.status === 'submitted').length}
                 </span>
-              )}
+)}
             </button>
-
-            <button className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2">
+<button className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2">
               <Zap className="w-5 h-5" />
               AI Insights
             </button>
-
-            <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+<button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
               <FileText className="w-5 h-5" />
               Reports
             </button>
           </div>
         </div>
       </div>
-
-      {/* Main Content */}
+{/* Main Content */}
       <div className="p-6">
         {activeTab === 'requests' ? (
           /* Follow-Up Requests View */
@@ -374,8 +368,7 @@ export function ManagerDashboardNew() {
                 {followUpRequests.filter(r => r.status === 'submitted').length} Pending
               </span>
             </div>
-
-            <div className="flex gap-4 border-b border-orange-500 mb-6">
+<div className="flex gap-4 border-b border-orange-500 mb-6">
               <button className="px-4 py-2 text-white font-semibold border-b-2 border-white">
                 Pending ({followUpRequests.filter(r => r.status === 'submitted').length})
               </button>
@@ -386,8 +379,7 @@ export function ManagerDashboardNew() {
                 Needs More Info ({followUpRequests.filter(r => r.status === 'needs_more_info').length})
               </button>
             </div>
-
-            <div className="space-y-4">
+<div className="space-y-4">
               {followUpRequests.filter(r => r.status === 'submitted').map((request) => (
                 <div key={request.id} className="bg-white rounded-xl p-6 text-slate-900">
                   <div className="flex items-start justify-between mb-4">
@@ -407,26 +399,26 @@ export function ManagerDashboardNew() {
                       </div>
                       {request.address && (
                         <p className="text-sm text-gray-600 mb-2">{request.address}</p>
-                      )}
+)}
                       <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
                         {request.contact_name && (
                           <div>
                             <span className="text-gray-600">Contact:</span>
                             <span className="ml-2 font-semibold">{request.contact_name}</span>
                           </div>
-                        )}
+)}
                         {request.contact_phone && (
                           <div>
                             <span className="text-gray-600">Phone:</span>
                             <a href={`tel:${request.contact_phone}`} className="ml-2 text-blue-600 hover:underline">{request.contact_phone}</a>
                           </div>
-                        )}
+)}
                         {request.contact_email && (
                           <div>
                             <span className="text-gray-600">Email:</span>
                             <a href={`mailto:${request.contact_email}`} className="ml-2 text-blue-600 hover:underline">{request.contact_email}</a>
                           </div>
-                        )}
+)}
                         <div>
                           <span className="text-gray-600">Rep:</span>
                           <span className="ml-2 font-semibold">{request.rep_name}</span>
@@ -434,24 +426,20 @@ export function ManagerDashboardNew() {
                       </div>
                     </div>
                   </div>
-
-                  <div className="bg-gray-50 rounded-lg p-4 mb-4">
+<div className="bg-gray-50 rounded-lg p-4 mb-4">
                     <p className="text-sm font-semibold text-gray-700 mb-1">Rep Description:</p>
                     <p className="text-sm text-gray-700">{request.rep_description}</p>
                   </div>
-
-                  {request.manager_notes && (
+{request.manager_notes && (
                     <div className="bg-blue-50 rounded-lg p-4 mb-4">
                       <p className="text-sm font-semibold text-blue-900 mb-1">Your Notes:</p>
                       <p className="text-sm text-blue-800">{request.manager_notes}</p>
                     </div>
-                  )}
-
+)}
                   <div className="text-xs text-gray-500 mb-4">
                     Submitted {new Date(request.created_at).toLocaleString()}
                   </div>
-
-                  <div className="flex gap-3">
+<div className="flex gap-3">
                     <button
                       onClick={() => handleCompleteRequest(request.id)}
                       className="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-semibold flex items-center justify-center gap-2"
@@ -475,10 +463,9 @@ export function ManagerDashboardNew() {
                     </button>
                   </div>
                 </div>
-              ))}
+)}
             </div>
-
-            <div className="mt-6 bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+<div className="mt-6 bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
               <CheckCircle className="w-5 h-5" />
               <span className="text-sm">Synced with Rep App • 2 min ago</span>
             </div>
@@ -492,8 +479,7 @@ export function ManagerDashboardNew() {
                 <BarChart3 className="w-6 h-6 text-blue-400" />
                 <h2 className="text-xl font-bold">Team Averages</h2>
               </div>
-
-              <div className="grid grid-cols-4 gap-6">
+<div className="grid grid-cols-4 gap-6">
                 <div>
                   <p className="text-slate-400 text-sm mb-2">Avg OSV per Rep</p>
                   <div className="flex items-baseline gap-2">
@@ -501,23 +487,20 @@ export function ManagerDashboardNew() {
                     <span className="text-green-400 text-sm font-semibold">↑12%</span>
                   </div>
                 </div>
-
-                <div>
+<div>
                   <p className="text-slate-400 text-sm mb-2">Avg NP per Rep</p>
                   <div className="flex items-baseline gap-2">
                     <span className="text-4xl font-bold">{avgNPPerRep}</span>
                     <span className="text-green-400 text-sm font-semibold">↑8%</span>
                   </div>
                 </div>
-
-                <div>
+<div>
                   <p className="text-slate-400 text-sm mb-2">Close Ratio</p>
                   <div className="flex items-baseline gap-2">
                     <span className="text-4xl font-bold">{Math.round(teamMetrics.avg_close_ratio)}%</span>
                   </div>
                 </div>
-
-                <div>
+<div>
                   <p className="text-slate-400 text-sm mb-2">Total Revenue</p>
                   <div className="flex items-baseline gap-2">
                     <span className="text-4xl font-bold">${Math.round(teamMetrics.total_pipeline / 1000)}K</span>
@@ -526,8 +509,7 @@ export function ManagerDashboardNew() {
                 </div>
               </div>
             </div>
-
-            <div className="grid grid-cols-3 gap-6">
+<div className="grid grid-cols-3 gap-6">
               {/* Team Leaderboard */}
               <div className="col-span-2">
                 <div className="bg-slate-800 rounded-2xl p-6">
@@ -538,8 +520,7 @@ export function ManagerDashboardNew() {
                       <span className="text-slate-400 text-sm ml-2">{teamMetrics.active_reps} Active Reps</span>
                     </div>
                   </div>
-
-                  <div className="space-y-4">
+<div className="space-y-4">
                     {repMetrics.slice(0, 3).map((rep, index) => {
                       const goalRatio = (rep.osv_count / 150) * 100; // Assuming 150 OSV goal
                       const performanceColor = getPerformanceColor(goalRatio);
@@ -560,8 +541,7 @@ export function ManagerDashboardNew() {
                               <div className="text-sm opacity-90">Goal</div>
                             </div>
                           </div>
-
-                          <div className="grid grid-cols-3 gap-4 mb-4">
+<div className="grid grid-cols-3 gap-4 mb-4">
                             <div className="bg-white/20 rounded-lg p-3">
                               <p className="text-xs opacity-90 mb-1">OSV</p>
                               <p className="text-2xl font-bold">{rep.osv_count} / 150</p>
@@ -575,8 +555,7 @@ export function ManagerDashboardNew() {
                               <p className="text-2xl font-bold">${Math.round(rep.pipeline_value / 1000)}K</p>
                             </div>
                           </div>
-
-                          <div className="flex items-center justify-between">
+<div className="flex items-center justify-between">
                             <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg flex items-center gap-2">
                               {goalRatio >= 110 ? (
                                 <span className="text-sm font-semibold">🔥 {performanceLabel}</span>
@@ -584,7 +563,7 @@ export function ManagerDashboardNew() {
                                 <span className="text-sm font-semibold">✨ {performanceLabel}</span>
                               ) : (
                                 <span className="text-sm font-semibold">⚠️ {performanceLabel}</span>
-                              )}
+)}
                             </div>
                             <button className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
                               View Details
@@ -595,8 +574,7 @@ export function ManagerDashboardNew() {
                     })}
                   </div>
                 </div>
-
-                {/* Team Health */}
+{/* Team Health */}
                 <div className="bg-purple-600 rounded-2xl p-6 mt-6">
                   <div className="flex items-center gap-2 mb-4">
                     <Target className="w-6 h-6" />
@@ -606,16 +584,14 @@ export function ManagerDashboardNew() {
                   <p className="text-purple-100">Above target pace</p>
                 </div>
               </div>
-
-              {/* AI Coaching */}
+{/* AI Coaching */}
               <div className="space-y-6">
                 <div className="bg-slate-800 rounded-2xl p-6">
                   <div className="flex items-center gap-2 mb-6">
                     <Zap className="w-6 h-6 text-yellow-400" />
                     <h2 className="text-xl font-bold">AI Coaching</h2>
                   </div>
-
-                  <div className="space-y-4">
+<div className="space-y-4">
                     {repMetrics.slice(0, 3).map((rep) => {
                       const coaching = getAICoachingPriority(rep);
                       return (
@@ -631,7 +607,7 @@ export function ManagerDashboardNew() {
                             <button className="mt-3 text-sm font-semibold underline">
                               Schedule 1-on-1
                             </button>
-                          )}
+)}
                         </div>
                       );
                     })}

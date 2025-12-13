@@ -157,8 +157,7 @@ export function Skeleton({ className, variant = 'dark' }: SkeletonProps) {
         'rounded',
         variant === 'dark' ? 'skeleton-shimmer' : 'skeleton-shimmer-light',
         className
-      )}
-    />
+      )}></div>
   );
 }
 
@@ -175,7 +174,7 @@ export function SkeletonText({ lines = 3, className, variant = 'dark' }: Skeleto
             i === lines - 1 ? 'w-3/4' : 'w-full'
           )}
         />
-      ))}
+      })
     </div>
   );
 }
@@ -205,7 +204,7 @@ export function SkeletonCard({ variant = 'dark', showImage = false, showAvatar =
       variant === 'dark' ? 'bg-white/5 border-white/10' : 'bg-slate-100 border-slate-200'
     )}>
       {showImage && (
-        <Skeleton variant={variant} className="h-40 w-full rounded-lg mb-4" />
+        <Skeleton variant={variant} className="h-40 w-full rounded-2xl mb-4" />
       )}
       {showAvatar && (
         <div className="flex items-center gap-3 mb-4">
@@ -215,11 +214,11 @@ export function SkeletonCard({ variant = 'dark', showImage = false, showAvatar =
             <Skeleton variant={variant} className="h-3 w-1/3" />
           </div>
         </div>
-      )}
+)}
       <SkeletonText variant={variant} lines={3} />
       <div className="flex gap-2 mt-4">
-        <Skeleton variant={variant} className="h-8 w-20 rounded-lg" />
-        <Skeleton variant={variant} className="h-8 w-20 rounded-lg" />
+        <Skeleton variant={variant} className="h-8 w-20 rounded-2xl" />
+        <Skeleton variant={variant} className="h-8 w-20 rounded-2xl" />
       </div>
     </div>
   );
@@ -233,7 +232,7 @@ export function SkeletonTable({ rows = 5, columns = 4, variant = 'dark' }: Skele
       <div className="flex gap-4 pb-2 border-b border-white/10">
         {Array.from({ length: columns }).map((_, i) => (
           <Skeleton key={i} variant={variant} className="h-4 flex-1" />
-        ))}
+        })
       </div>
       {/* Rows */}
       {Array.from({ length: rows }).map((_, rowIndex) => (
@@ -247,9 +246,9 @@ export function SkeletonTable({ rows = 5, columns = 4, variant = 'dark' }: Skele
                 colIndex === 0 && 'w-1/4'
               )}
             />
-          ))}
+          })
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -260,14 +259,14 @@ export function SkeletonList({ items = 5, variant = 'dark', showIcon = true }: S
     <div className="space-y-3">
       {Array.from({ length: items }).map((_, i) => (
         <div key={i} className="flex items-center gap-3">
-          {showIcon && <Skeleton variant={variant} className="w-10 h-10 rounded-lg shrink-0" />}
+          {showIcon && <Skeleton variant={variant} className="w-10 h-10 rounded-2xl shrink-0" />}
           <div className="flex-1">
             <Skeleton variant={variant} className="h-4 w-3/4 mb-2" />
             <Skeleton variant={variant} className="h-3 w-1/2" />
           </div>
           <Skeleton variant={variant} className="w-16 h-6 rounded-full shrink-0" />
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -288,7 +287,7 @@ export function SkeletonStats({ count = 4, variant = 'dark' }: SkeletonProps & {
           <Skeleton variant={variant} className="h-8 w-3/4 mb-1" />
           <Skeleton variant={variant} className="h-3 w-1/3" />
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -309,7 +308,6 @@ export function PageSkeleton({ variant = 'dark' }: SkeletonProps) {
         </div>
         <Skeleton variant={variant} className="h-10 w-32 rounded-xl" />
       </div>
-      
       {/* Stats */}
       <SkeletonStats variant={variant} />
       
@@ -317,7 +315,7 @@ export function PageSkeleton({ variant = 'dark' }: SkeletonProps) {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {Array.from({ length: 6 }).map((_, i) => (
           <SkeletonCard key={i} variant={variant} />
-        ))}
+        })
       </div>
     </div>
   );
@@ -329,7 +327,7 @@ export function CardGridSkeleton({ count = 6, variant = 'dark' }: SkeletonProps 
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
       {Array.from({ length: count }).map((_, i) => (
         <SkeletonCard key={i} variant={variant} showAvatar />
-      ))}
+      })
     </div>
   );
 }
@@ -392,23 +390,23 @@ export function InfiniteScrollLoader({
         <>
           {variant === 'spinner' && (
             <div className="flex items-center gap-3 text-white/60">
-              <div className="h-5 w-5 bg-white/20 rounded animate-pulse" />
+              <div className="h-5 w-5 bg-white/20 rounded animate-pulse"></div>
               <span className="text-sm">Loading more...</span>
             </div>
-          )}
+)}
           {variant === 'dots' && (
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot" />
-              <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot" />
-              <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot" />
+              <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot"></div>
+              <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot"></div>
+              <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot"></div>
             </div>
-          )}
+)}
           {variant === 'skeleton' && (
             <div className="w-full space-y-4">
               <SkeletonCard />
               <SkeletonCard />
             </div>
-          )}
+)}
         </>
       )}
     </div>
@@ -491,12 +489,12 @@ export function FilterLoading({ loading, children, className }: FilterLoadingPro
       {children}
       {loading && (
         <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm rounded-xl flex items-center justify-center z-10 fade-in-up">
-          <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-white/10 backdrop-blur-md">
-            <div className="h-4 w-4 bg-emerald-400/20 rounded animate-pulse" />
+          <div className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/10 backdrop-blur-md">
+            <div className="h-4 w-4 bg-emerald-400/20 rounded animate-pulse"></div>
             <span className="text-sm text-white">Applying filters...</span>
           </div>
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -511,7 +509,7 @@ export function FilterSkeleton({ count = 5 }: { count?: number }) {
           <Skeleton className="h-4 flex-1" />
           <Skeleton className="w-8 h-4 rounded-full" />
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -601,13 +599,10 @@ export function EmptyState({
           isError ? 'text-red-400' : 'text-white/40'
         )} />
       </div>
-      
       <h3 className="text-xl font-semibold text-white mb-2">{displayTitle}</h3>
-      
       {displayDescription && (
         <p className="text-slate-400 max-w-md mb-6">{displayDescription}</p>
-      )}
-      
+)}
       <div className="flex items-center gap-3">
         {action && (
           <button
@@ -620,12 +615,11 @@ export function EmptyState({
                 : 'bg-emerald-500 hover:bg-emerald-600 shadow-lg shadow-emerald-500/25'
             )}
           >
-            {action.icon ? <action.icon className="w-4 h-4" /> : null}
+            {action.icon ? <action.icon className="w-4 h-4"></a> : null}
             {action.label}
             {!action.icon && <ArrowRight className="w-4 h-4" />}
           </button>
-        )}
-        
+)}
         {secondaryAction && (
           <button
             onClick={secondaryAction.onClick}
@@ -633,7 +627,7 @@ export function EmptyState({
           >
             {secondaryAction.label}
           </button>
-        )}
+)}
       </div>
     </div>
   );
@@ -712,10 +706,8 @@ export function ErrorState({
       <div className="p-4 rounded-2xl bg-red-500/20 mb-6">
         <AlertCircle className="w-10 h-10 text-red-400" />
       </div>
-      
       <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
       <p className="text-slate-400 max-w-md mb-6">{errorMessage}</p>
-      
       <div className="flex items-center gap-3">
         {onRetry && (
           <button
@@ -725,8 +717,7 @@ export function ErrorState({
             <RefreshCw className="w-4 h-4" />
             {retryLabel}
           </button>
-        )}
-        
+)}
         {showDetails && error && (
           <button
             onClick={() => setShowError(!showError)}
@@ -734,9 +725,8 @@ export function ErrorState({
           >
             {showError ? 'Hide details' : 'Show details'}
           </button>
-        )}
+)}
       </div>
-      
       {showDetails && showError && error && (
         <div className="mt-6 p-4 rounded-xl bg-white/5 border border-white/10 text-left max-w-lg w-full">
           <p className="text-xs text-slate-500 mb-2 font-mono">Error Details:</p>
@@ -744,7 +734,7 @@ export function ErrorState({
             {error.stack || error.message}
           </pre>
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -825,7 +815,7 @@ export function LoadingSpinner({ size = 'md', className }: { size?: 'sm' | 'md' 
   };
 
   return (
-    <div className={cn('bg-emerald-400/20 rounded animate-pulse', sizeClasses[size], className)} />
+    <div className={cn('bg-emerald-400/20 rounded animate-pulse', sizeClasses[size], className)}></div>
   );
 }
 
@@ -835,9 +825,9 @@ export function LoadingDots({ className }: { className?: string }) {
 
   return (
     <div className={cn('flex items-center gap-1', className)}>
-      <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot" />
-      <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot" />
-      <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot" />
+      <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot"></div>
+      <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot"></div>
+      <div className="w-2 h-2 rounded-full bg-emerald-500 loading-dot"></div>
     </div>
   );
 }

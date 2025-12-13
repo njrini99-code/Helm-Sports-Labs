@@ -293,8 +293,7 @@ export default function JUCOTransferPortalPage() {
             ...p, 
             requirements: p.requirements.map(r => 
               r.id === reqId ? { ...r, completed: !r.completed } : r
-            )
-          } 
+            )}
         : p
     ));
     if (selectedPlayer?.id === playerId) {
@@ -331,7 +330,7 @@ export default function JUCOTransferPortalPage() {
                   Dashboard
                 </Button>
               </Link>
-              <div className={`w-px h-6 ${isDark ? 'bg-slate-700' : 'bg-slate-300'}`} />
+              <div className={`w-px h-6 ${isDark ? 'bg-slate-700' : 'bg-slate-300'}`}></div>
               <div>
                 <h1 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
                   Transfer Portal
@@ -345,14 +344,13 @@ export default function JUCOTransferPortalPage() {
               <Badge className={`${isDark ? 'bg-cyan-500/20 text-cyan-400' : 'bg-cyan-100 text-cyan-700'}`}>
                 {stats.available} Available
               </Badge>
-              <Badge className={`${isDark ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-100 text-emerald-700'}`}>
+        <Badge className={`${isDark ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-100 text-emerald-700'}`}>
                 {stats.acceptedApps} Accepted
               </Badge>
             </div>
           </div>
         </div>
       </div>
-
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-6">
         {/* Stats Row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -409,8 +407,7 @@ export default function JUCOTransferPortalPage() {
             </CardContent>
           </Card>
         </div>
-
-        <div className="grid lg:grid-cols-12 gap-6">
+      <div className="grid lg:grid-cols-12 gap-6">
           {/* Player List Sidebar */}
           <div className="lg:col-span-4 space-y-4">
             {/* Search and Filter */}
@@ -440,12 +437,11 @@ export default function JUCOTransferPortalPage() {
                     >
                       {filter}
                     </Button>
-                  ))}
+)}
                 </div>
               </CardContent>
             </Card>
-
-            {/* Player Cards */}
+      {/* Player Cards */}
             <div className="space-y-3">
               {filteredPlayers.map(player => {
                 const completedReqs = player.requirements.filter(r => r.completed).length;
@@ -496,8 +492,7 @@ export default function JUCOTransferPortalPage() {
                           />
                         </div>
                       </div>
-                      
-                      <div className="space-y-2">
+      <div className="space-y-2">
                         <div className="flex items-center justify-between text-xs">
                           <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>
                             Requirements: {completedReqs}/{totalReqs}
@@ -513,21 +508,20 @@ export default function JUCOTransferPortalPage() {
                           ratingLevel={reqPercent === 100 ? 'elite' : reqPercent >= 70 ? 'good' : 'developing'}
                         />
                       </div>
-
-                      <div className="flex items-center justify-between mt-3">
+      <div className="flex items-center justify-between mt-3">
                         <div className="flex items-center gap-1">
                           {player.eligibilityStatus === 'at_risk' && (
                             <Badge className="bg-red-500/20 text-red-400 text-[10px]">
                               <AlertTriangle className="w-3 h-3 mr-1" />
                               At Risk
                             </Badge>
-                          )}
+)}
                           {player.applications.filter(a => a.status === 'accepted').length > 0 && (
                             <Badge className="bg-emerald-500/20 text-emerald-400 text-[10px]">
                               <CheckCircle2 className="w-3 h-3 mr-1" />
                               {player.applications.filter(a => a.status === 'accepted').length} Offer{player.applications.filter(a => a.status === 'accepted').length > 1 ? 's' : ''}
                             </Badge>
-                          )}
+)}
                         </div>
                         <span className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                           {player.collegeMatches.length} matches
@@ -539,8 +533,7 @@ export default function JUCOTransferPortalPage() {
               })}
             </div>
           </div>
-
-          {/* Detail Panel */}
+      {/* Detail Panel */}
           <div className="lg:col-span-8">
             {selectedPlayer ? (
               <div className="space-y-6">
@@ -564,7 +557,7 @@ export default function JUCOTransferPortalPage() {
                               <Badge className="bg-emerald-500/20 text-emerald-400">Available</Badge>
                             ) : (
                               <Badge className="bg-slate-500/20 text-slate-400">Not Available</Badge>
-                            )}
+)}
                           </div>
                           <div className="flex items-center gap-3 mt-1">
                             <Badge variant="outline">{selectedPlayer.position}</Badge>
@@ -588,8 +581,7 @@ export default function JUCOTransferPortalPage() {
                     </div>
                   </CardContent>
                 </Card>
-
-                {/* Tabs */}
+      {/* Tabs */}
                 <div className={`flex gap-1 p-1 rounded-xl ${isDark ? 'bg-slate-800/60' : 'bg-slate-100'}`}>
                   {(['requirements', 'matches', 'applications'] as const).map(tab => (
                     <Button
@@ -611,10 +603,9 @@ export default function JUCOTransferPortalPage() {
                       {tab === 'applications' && <Send className="w-4 h-4 mr-2" />}
                       {tab}
                     </Button>
-                  ))}
+)}
                 </div>
-
-                {/* Tab Content */}
+      {/* Tab Content */}
                 {activeTab === 'requirements' && (
                   <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
                     <CardHeader className="pb-3">
@@ -634,7 +625,7 @@ export default function JUCOTransferPortalPage() {
                         </div>
                       </div>
                     </CardHeader>
-                    <CardContent>
+        <CardContent>
                       <div className="space-y-3">
                         {['academic', 'compliance', 'administrative', 'athletic'].map(category => {
                           const categoryReqs = selectedPlayer.requirements.filter(r => r.category === category);
@@ -685,9 +676,9 @@ export default function JUCOTransferPortalPage() {
                                         <Calendar className="w-3 h-3 mr-1" />
                                         {new Date(req.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                                       </Badge>
-                                    )}
+)}
                                   </div>
-                                ))}
+)}
                               </div>
                             </div>
                           );
@@ -695,8 +686,7 @@ export default function JUCOTransferPortalPage() {
                       </div>
                     </CardContent>
                   </Card>
-                )}
-
+)}
                 {activeTab === 'matches' && (
                   <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
                     <CardHeader className="pb-3">
@@ -715,7 +705,7 @@ export default function JUCOTransferPortalPage() {
                         </Badge>
                       </div>
                     </CardHeader>
-                    <CardContent>
+        <CardContent>
                       <div className="space-y-4">
                         {selectedPlayer.collegeMatches.map((match, idx) => (
                           <div
@@ -749,7 +739,7 @@ export default function JUCOTransferPortalPage() {
                                         <Star className="w-3 h-3 mr-1" />
                                         Top Match
                                       </Badge>
-                                    )}
+)}
                                   </div>
                                   <div className="flex items-center gap-2 mt-0.5">
                                     <Badge variant="outline" className="text-[10px]">{match.division}</Badge>
@@ -771,8 +761,7 @@ export default function JUCOTransferPortalPage() {
                                 {match.interestLevel} interest
                               </Badge>
                             </div>
-
-                            <div className="grid grid-cols-2 gap-4 mb-3">
+      <div className="grid grid-cols-2 gap-4 mb-3">
                               <div>
                                 <div className="flex items-center justify-between mb-1">
                                   <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Athletic Fit</span>
@@ -798,8 +787,7 @@ export default function JUCOTransferPortalPage() {
                                 />
                               </div>
                             </div>
-
-                            <div className="flex items-center justify-between pt-3 border-t border-slate-700/30">
+      <div className="flex items-center justify-between pt-3 border-t border-slate-700/30">
                               {match.coachContact ? (
                                 <div className="flex items-center gap-2">
                                   <Avatar className="h-6 w-6">
@@ -814,31 +802,30 @@ export default function JUCOTransferPortalPage() {
                                     <Button variant="ghost" size="sm" className="h-6 px-2">
                                       <Mail className="w-3 h-3" />
                                     </Button>
-                                  )}
+)}
                                 </div>
                               ) : (
                                 <span className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                                   No contact info
                                 </span>
-                              )}
+)}
                               <div className="flex items-center gap-2">
                                 <Button variant="outline" size="sm" className={`h-7 text-xs ${isDark ? 'border-slate-600' : ''}`}>
                                   <ExternalLink className="w-3 h-3 mr-1" />
                                   View Program
                                 </Button>
-                                <Button size="sm" className="h-7 text-xs bg-cyan-500 hover:bg-cyan-600">
+        <Button size="sm" className="h-7 text-xs bg-cyan-500 hover:bg-cyan-600">
                                   <Plus className="w-3 h-3 mr-1" />
                                   Apply
                                 </Button>
                               </div>
                             </div>
                           </div>
-                        ))}
+)}
                       </div>
                     </CardContent>
                   </Card>
-                )}
-
+)}
                 {activeTab === 'applications' && (
                   <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
                     <CardHeader className="pb-3">
@@ -857,7 +844,7 @@ export default function JUCOTransferPortalPage() {
                         </Button>
                       </div>
                     </CardHeader>
-                    <CardContent>
+        <CardContent>
                       {selectedPlayer.applications.length === 0 ? (
                         <div className="text-center py-12">
                           <Send className={`w-12 h-12 mx-auto mb-3 ${isDark ? 'text-slate-600' : 'text-slate-400'}`} />
@@ -898,15 +885,14 @@ export default function JUCOTransferPortalPage() {
                                       <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                                         Submitted {new Date(app.submittedDate).toLocaleDateString()}
                                       </span>
-                                    )}
+)}
                                   </div>
                                 </div>
                                 <Button variant="ghost" size="sm">
                                   <MoreHorizontal className="w-4 h-4" />
                                 </Button>
                               </div>
-
-                              {(app.nextStep || app.deadline) && (
+      {(app.nextStep || app.deadline) && (
                                 <div className={`flex items-center gap-4 p-3 rounded-lg mb-3 ${
                                   isDark ? 'bg-slate-800/50' : 'bg-white'
                                 }`}>
@@ -922,7 +908,7 @@ export default function JUCOTransferPortalPage() {
                                         </p>
                                       </div>
                                     </div>
-                                  )}
+)}
                                   {app.deadline && (
                                     <div className="flex items-center gap-2">
                                       <Clock className={`w-4 h-4 ${
@@ -941,10 +927,9 @@ export default function JUCOTransferPortalPage() {
                                         </p>
                                       </div>
                                     </div>
-                                  )}
+)}
                                 </div>
-                              )}
-
+)}
                               <div className="flex items-center justify-between">
                                 {app.contactName ? (
                                   <div className="flex items-center gap-2">
@@ -960,38 +945,38 @@ export default function JUCOTransferPortalPage() {
                                       <Button variant="ghost" size="sm" className="h-6 px-2">
                                         <Mail className="w-3 h-3" />
                                       </Button>
-                                    )}
+)}
                                   </div>
                                 ) : (
                                   <span className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                                     Updated {new Date(app.lastUpdated).toLocaleDateString()}
                                   </span>
-                                )}
+)}
                                 <div className="flex items-center gap-2">
                                   {app.status === 'draft' && (
                                     <Button size="sm" className="h-7 text-xs bg-cyan-500 hover:bg-cyan-600">
                                       <Send className="w-3 h-3 mr-1" />
                                       Submit
                                     </Button>
-                                  )}
+)}
                                   {app.status === 'accepted' && (
                                     <Button size="sm" className="h-7 text-xs bg-emerald-500 hover:bg-emerald-600">
                                       <Check className="w-3 h-3 mr-1" />
                                       Accept Offer
                                     </Button>
-                                  )}
+)}
                                   <Button variant="outline" size="sm" className={`h-7 text-xs ${isDark ? 'border-slate-600' : ''}`}>
                                     View Details
                                   </Button>
                                 </div>
                               </div>
                             </div>
-                          ))}
+)}
                         </div>
-                      )}
+)}
                     </CardContent>
                   </Card>
-                )}
+)}
               </div>
             ) : (
               <Card className={`h-96 flex items-center justify-center ${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
@@ -1002,7 +987,7 @@ export default function JUCOTransferPortalPage() {
                   </p>
                 </div>
               </Card>
-            )}
+)}
           </div>
         </div>
       </div>

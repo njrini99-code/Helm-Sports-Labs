@@ -717,7 +717,7 @@ export function StartDayView() {
                   <TrendingUp className="w-5 h-5" />
                   <span className="hidden sm:inline">Find OSVs On The Way</span>
                 </button>
-              )}
+)}
               <button
                 onClick={handleMapAllStops}
                 className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all shadow-md"
@@ -727,8 +727,7 @@ export function StartDayView() {
               </button>
             </div>
           </div>
-
-          <div className="space-y-3">
+<div className="space-y-3">
             <div className="flex items-center gap-2 overflow-x-auto pb-2">
               {todayAppointments.map((apt, idx) => {
                 const isCurrent = idx === currentIndex;
@@ -751,14 +750,13 @@ export function StartDayView() {
                       <span className="text-xs">{aptType}</span>
                     </button>
                     {idx < todayAppointments.length - 1 && (
-                      <div className={`w-4 h-0.5 ${isPast ? 'bg-gray-400' : 'bg-gray-300'}`} />
-                    )}
+                      <div className={`w-4 h-0.5 ${isPast ? 'bg-gray-400' : 'bg-gray-300'}`}></div>
+)}
                   </div>
                 );
               })}
             </div>
-
-            <div className="relative">
+<div className="relative">
               <div className="flex items-center justify-between text-xs text-gray-600 mb-1">
                 <span className="font-medium">Progress: {progressPercentage}%</span>
                 <div className="flex items-center gap-3">
@@ -770,14 +768,12 @@ export function StartDayView() {
               <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-500 rounded-full"
-                  style={{ width: `${progressPercentage}%` }}
-                />
+                  style={{ width: `${progressPercentage}}%` }}></div>
               </div>
             </div>
           </div>
         </div>
-
-        <div className="flex-1 overflow-y-auto p-4 md:p-6">
+<div className="flex-1 overflow-y-auto p-4 md:p-6">
           <div className="max-w-2xl w-full mx-auto">
             <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-gray-100">
               <div className={`px-8 py-6 ${isNP ? 'bg-gradient-to-r from-green-600 to-green-700' : 'bg-gradient-to-r from-blue-600 to-blue-700'} text-white`}>
@@ -798,8 +794,7 @@ export function StartDayView() {
                   </div>
                 </div>
               </div>
-
-              <div className="p-8 space-y-6">
+<div className="p-8 space-y-6">
                 <div className="flex items-start gap-4 p-5 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
                   <MapPin className="w-7 h-7 text-blue-600 flex-shrink-0 mt-1" />
                   <div className="flex-1 min-w-0">
@@ -807,18 +802,17 @@ export function StartDayView() {
                     <p className="text-gray-900 font-semibold text-lg">{currentAppointment.address}</p>
                     {currentAppointment.city && (
                       <p className="text-gray-600 mt-1">{currentAppointment.city}, {currentAppointment.state} {currentAppointment.zip}</p>
-                    )}
+)}
                   </div>
                   <button
                     onClick={() => handleNavigate(currentAppointment)}
                     className="flex items-center gap-2 px-5 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-lg whitespace-nowrap font-semibold"
                   >
-                    <Navigation className="w-5 h-5" />
+                    <Navigation className="w-5 h-5"></Nav>
                     Navigate
                   </button>
                 </div>
-
-                <div className="p-5 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
+<div className="p-5 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="font-bold text-gray-900 text-lg flex items-center gap-2">
                       <Phone className="w-5 h-5 text-green-600" />
@@ -907,7 +901,7 @@ export function StartDayView() {
                           </>
                         )}
                       </button>
-                    )}
+)}
                   </div>
                   {loadingDM ? (
                     <div className="flex items-center gap-3 text-gray-600">
@@ -919,7 +913,7 @@ export function StartDayView() {
                       <p className="font-bold text-gray-900 text-xl">{currentAppointment.owner_name}</p>
                       {currentAppointment.decision_maker_title && (
                         <p className="text-gray-600 mt-1 text-base">{currentAppointment.decision_maker_title}</p>
-                      )}
+)}
                       {currentAppointment.decision_maker_email && (
                         <div className="mt-2 space-y-2">
                           <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -939,27 +933,25 @@ export function StartDayView() {
                             Generate AI Email
                           </button>
                         </div>
-                      )}
+)}
                       {currentAppointment.decision_maker_confidence && (
                         <div className="mt-2 flex items-center gap-2">
                           <div className="h-2 flex-1 bg-gray-200 rounded-full overflow-hidden">
                             <div
                               className="h-full bg-green-500 rounded-full"
-                              style={{ width: `${currentAppointment.decision_maker_confidence}%` }}
-                            />
+                              style={{ width: `${currentAppointment.decision_maker_confidence}}%` }}></div>
                           </div>
                           <span className="text-xs text-gray-500">{currentAppointment.decision_maker_confidence}% confident</span>
                         </div>
-                      )}
+)}
                     </div>
                   ) : currentAppointment.owner_name === 'None found' ? (
                     <p className="text-orange-600 italic font-medium">No decision maker found</p>
                   ) : (
                     <p className="text-gray-500 italic">Click "Find DM" to search</p>
-                  )}
+)}
                 </div>
-
-                {isNP && <BusinessSummarySection lead={currentAppointment} />}
+{isNP && <BusinessSummarySection lead={currentAppointment} />}
 
                 <div className="space-y-4 pt-4">
                   {isOSV && (
@@ -971,7 +963,7 @@ export function StartDayView() {
                       <CheckCircle className="w-7 h-7" />
                       {completingAction ? 'Completing...' : 'Complete OSV'}
                     </button>
-                  )}
+)}
                   {isNP && (
                     <button
                       onClick={() => handleCompleteNP(currentAppointment)}
@@ -981,7 +973,7 @@ export function StartDayView() {
                       <CheckCircle className="w-7 h-7" />
                       {completingAction ? 'Completing...' : 'Complete NP'}
                     </button>
-                  )}
+)}
                   <button
                     onClick={() => handleAddFollowUp(currentAppointment)}
                     className="w-full flex items-center justify-center gap-3 px-8 py-4 bg-white border-2 border-gray-300 text-gray-700 rounded-2xl hover:bg-gray-50 transition-all font-bold text-lg shadow-lg"
@@ -992,10 +984,9 @@ export function StartDayView() {
                 </div>
               </div>
             </div>
-
-            <div className="flex items-center justify-between mt-8 gap-4">
+<div className="flex items-center justify-between mt-8 gap-4">
               <button
-                onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
+                onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1})
                 disabled={currentIndex === 0}
                 className="flex items-center gap-2 px-6 py-3 bg-white rounded-xl border-2 border-gray-300 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed shadow-lg font-semibold transition-all"
               >
@@ -1009,7 +1000,7 @@ export function StartDayView() {
                 <p className="text-xs text-gray-500 mt-1">Appointment</p>
               </div>
               <button
-                onClick={() => setCurrentIndex(Math.min(todayAppointments.length - 1, currentIndex + 1))}
+                onClick={() => setCurrentIndex(Math.min(todayAppointments.length - 1, currentIndex + 1})
                 disabled={currentIndex === todayAppointments.length - 1}
                 className="flex items-center gap-2 px-6 py-3 bg-white rounded-xl border-2 border-gray-300 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed shadow-lg font-semibold transition-all"
               >
@@ -1041,10 +1032,9 @@ export function StartDayView() {
             <p className="text-xs text-blue-100 mt-1">
               {selectedOsvs.size} selected for optimization
             </p>
-          )}
+)}
         </div>
-
-        <div className="px-3 py-2 border-b border-gray-200 bg-gray-50">
+<div className="px-3 py-2 border-b border-gray-200 bg-gray-50">
           <div className="flex items-center justify-between mb-1">
             <label className="text-xs font-semibold text-gray-700">Starting Point (8:00 AM)</label>
             {!editingStartPoint && startingPoint && (
@@ -1054,7 +1044,7 @@ export function StartDayView() {
               >
                 Edit
               </button>
-            )}
+)}
           </div>
           {editingStartPoint ? (
             <div className="space-y-1">
@@ -1092,10 +1082,9 @@ export function StartDayView() {
             >
               + Set Starting Point
             </button>
-          )}
+)}
         </div>
-
-        <div className="flex-1 overflow-y-auto p-2 space-y-2">
+<div className="flex-1 overflow-y-auto p-2 space-y-2">
           {osvBank.length === 0 ? (
             <div className="text-center py-8">
               <Briefcase className="w-10 h-10 text-gray-300 mx-auto mb-2" />
@@ -1131,10 +1120,10 @@ export function StartDayView() {
                     <h4 className="font-semibold text-xs text-gray-900 truncate">{osv.business_name}</h4>
                     {osv.industry && (
                       <p className="text-xs text-gray-600 mt-0.5 truncate">{osv.industry}</p>
-                    )}
+)}
                     {osv.city && (
                       <p className="text-xs text-gray-500 mt-0.5 truncate">{osv.city}, {osv.state}</p>
-                    )}
+)}
                   </div>
                   <button
                     onClick={() => handleDeleteFromOsvBank(osv.id)}
@@ -1145,12 +1134,10 @@ export function StartDayView() {
                   </button>
                 </div>
               </div>
-            ))
-          )}
+            )})
         </div>
       </div>
-
-      {/* Main Calendar Area */}
+{/* Main Calendar Area */}
       <div className="flex-1 flex flex-col">
         {/* Compact Header */}
         <div className="bg-white border-b border-gray-200 px-3 py-2">
@@ -1166,7 +1153,7 @@ export function StartDayView() {
                 <Loader className="w-3 h-3 animate-spin" />
                 {optimizationStage}
               </div>
-            )}
+)}
             {!optimizing && optimizationResult && (
               <div className={`px-3 py-1.5 rounded-lg text-xs font-medium ${
                 optimizationResult.includes('✓')
@@ -1177,7 +1164,7 @@ export function StartDayView() {
               }`}>
                 {optimizationResult}
               </div>
-            )}
+)}
             <div className="flex items-center gap-2">
               <button
                 onClick={() => {
@@ -1190,7 +1177,7 @@ export function StartDayView() {
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
-                onClick={() => setSelectedDate(new Date())}
+                onClick={() => setSelectedDate(new Date(})
                 className="px-2 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700"
               >
                 Today
@@ -1230,12 +1217,11 @@ export function StartDayView() {
                   <Play className="w-4 h-4" />
                   <span>Start</span>
                 </button>
-              )}
+)}
             </div>
           </div>
         </div>
-
-        {/* Calendar Grid */}
+{/* Calendar Grid */}
         <div className="flex-1 overflow-y-auto p-3 bg-white">
           <div className="space-y-2">
             {timeSlots.map((timeSlot) => {
@@ -1300,8 +1286,7 @@ export function StartDayView() {
                             </button>
                           </div>
                         );
-                      })
-                    )}
+                      }})
                   </div>
                 </div>
               );
@@ -1309,8 +1294,7 @@ export function StartDayView() {
           </div>
         </div>
       </div>
-
-      {routeSummary && (
+{routeSummary && (
         <RouteSummaryModal
           summary={routeSummary}
           beforeSummary={beforeOptimization}
@@ -1318,7 +1302,6 @@ export function StartDayView() {
           onCancel={handleCancelRoute}
         />
       )}
-
       <EmailComposerModal
         open={emailComposerOpen}
         onClose={() => {

@@ -9,6 +9,7 @@ interface AnimatedCounterProps {
 }
 
 export function AnimatedCounter({ value, duration = 2000 }: AnimatedCounterProps) {
+  const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });

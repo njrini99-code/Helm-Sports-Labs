@@ -95,7 +95,7 @@ export default function CollegeTeamViewPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0B0D0F] flex items-center justify-center">
-        <div className="w-8 h-8 bg-blue-400/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-blue-400/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -119,10 +119,18 @@ export default function CollegeTeamViewPage() {
   const mode: TeamPageMode = 'viewer';
 
   // Map media to TeamMedia format
-  const mediaItems = media.map(m => ({
-    ...m,
-    team_id: team.id,
-  }));
+  const mediaItems = media.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            media.map(m => ({
+              ...m,
+              team_id: team.id,
+            })}
+          );
 
   return (
     <TeamPageShell

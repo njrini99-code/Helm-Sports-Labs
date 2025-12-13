@@ -283,8 +283,7 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
             {activeTab === 'pending' ? `${pendingRequests.length} pending requests` : `${completedRequests.length} completed requests`}
           </p>
         </div>
-
-        <div className="mb-6 border-b border-gray-200">
+<div className="mb-6 border-b border-gray-200">
           <div className="flex gap-4">
             <button
               onClick={() => setActiveTab('pending')}
@@ -308,8 +307,7 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
             </button>
           </div>
         </div>
-
-        <div className="grid grid-cols-1 gap-4">
+<div className="grid grid-cols-1 gap-4">
           {(activeTab === 'pending' ? pendingRequests : completedRequests).length === 0 ? (
             <div className="bg-white border border-gray-200 rounded-xl p-12 text-center">
               <MessageSquare className="w-16 h-16 text-gray-400 mx-auto mb-4" />
@@ -346,49 +344,44 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
                     <p className="text-sm text-gray-600">{request.address}</p>
                   </div>
                 </div>
-
-                <div className="space-y-3 mb-4">
+<div className="space-y-3 mb-4">
                   <div className="flex items-center gap-2 text-base font-medium text-blue-600 bg-blue-50 px-3 py-2 rounded-lg border border-blue-200">
                     <Phone className="h-5 w-5" />
                     <a href={`tel:${request.contact_phone}`} className="hover:underline">
                       {request.contact_phone}
                     </a>
                   </div>
-
-                  <div className="grid grid-cols-2 gap-4">
+<div className="grid grid-cols-2 gap-4">
                     {request.contact_name && (
                       <div className="flex items-center gap-2 text-sm text-gray-600">
                         <User className="h-4 w-4 text-gray-400" />
                         <span>{request.contact_name}</span>
                       </div>
-                    )}
+)}
                     {request.contact_email && (
                       <div className="flex items-center gap-2 text-sm text-gray-600">
                         <Mail className="h-4 w-4 text-gray-400" />
                         <span>{request.contact_email}</span>
                       </div>
-                    )}
+)}
                     <div className="flex items-center gap-2 text-sm text-gray-600">
                       <span className="font-medium">Category:</span>
                       <span>{request.category}</span>
                     </div>
                   </div>
                 </div>
-
-                {request.rep_description && (
+{request.rep_description && (
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
                     <p className="text-sm font-medium text-blue-900 mb-1">Rep Description:</p>
                     <p className="text-sm text-blue-800">{request.rep_description}</p>
                   </div>
-                )}
-
+)}
                 {request.manager_notes && (
                   <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
                     <p className="text-sm font-medium text-green-900 mb-1">Your Notes:</p>
                     <p className="text-sm text-green-800">{request.manager_notes}</p>
                   </div>
-                )}
-
+)}
                 {activeTab === 'pending' && (
                   <div className="flex gap-2 mt-4">
                     <button
@@ -410,22 +403,19 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
                       Add Notes
                     </button>
                   </div>
-                )}
+)}
               </div>
               );
-            })
-          )}
+            }})
         </div>
-
-        {showCompletionModal && (
+{showCompletionModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-xl shadow-2xl max-w-lg w-full p-6">
               <h3 className="text-xl font-bold text-gray-900 mb-4">Complete Follow-up Request</h3>
               <p className="text-gray-600 mb-4">
                 Add notes about what happened during the call. This will be sent back to the rep.
               </p>
-
-              <textarea
+<textarea
                 value={completionNotes}
                 onChange={(e) => setCompletionNotes(e.target.value)}
                 placeholder="What was the outcome of the call? Any feedback for the rep?"
@@ -454,7 +444,7 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
               </div>
             </div>
           </div>
-        )}
+)}
       </div>
     );
   }
@@ -467,8 +457,7 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
           {activeTab === 'pending' ? `${followUps.length} leads need your attention` : `${managerRequests.length} manager requests`}
         </p>
       </div>
-
-      <div className="mb-6 border-b border-gray-200">
+<div className="mb-6 border-b border-gray-200">
         <div className="flex gap-4">
           <button
             onClick={() => setActiveTab('pending')}
@@ -492,8 +481,7 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
           </button>
         </div>
       </div>
-
-      {activeTab === 'pending' ? (
+{activeTab === 'pending' ? (
         followUps.length === 0 ? (
           <div className="bg-white border border-gray-200 rounded-xl p-12 text-center">
             <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
@@ -516,15 +504,13 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
                       {lead.owner_name}
                       {lead.decision_maker_title && ` - ${lead.decision_maker_title}`}
                     </div>
-                  )}
-
+)}
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Calendar className="w-4 h-4" />
                     Follow-up due: {lead.follow_up_date}
                   </div>
                 </div>
-
-                <div className="flex gap-2">
+<div className="flex gap-2">
                   <button
                     onClick={() => handleAskManagerHelp(lead)}
                     className="px-4 py-2 border border-orange-500 text-orange-600 rounded-lg hover:bg-orange-50 transition-colors text-sm font-medium flex items-center gap-2"
@@ -550,8 +536,7 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
                   </button>
                 </div>
               </div>
-
-              <div className="grid grid-cols-2 gap-4 mb-4">
+<div className="grid grid-cols-2 gap-4 mb-4">
                 {lead.phone && (
                   <div className="flex items-center gap-2 text-gray-700">
                     <Phone className="w-4 h-4" />
@@ -559,7 +544,7 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
                       {lead.phone}
                     </a>
                   </div>
-                )}
+)}
                 {lead.email && (
                   <div className="flex items-center gap-2 text-gray-700">
                     <Mail className="w-4 h-4" />
@@ -567,41 +552,38 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
                       {lead.email}
                     </a>
                   </div>
-                )}
+)}
                 {lead.google_rating && (
                   <div className="flex items-center gap-2 text-gray-700">
                     <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                     <span className="font-semibold text-gray-900">{lead.google_rating}</span>
                     {lead.user_ratings_total && (
                       <span className="text-sm text-gray-500">({lead.user_ratings_total} reviews)</span>
-                    )}
+)}
                   </div>
-                )}
+)}
               </div>
-
-              {lead.competitor && (
+{lead.competitor && (
                 <div className="mb-3">
                   <span className="inline-block px-3 py-1 bg-orange-100 text-orange-800 text-sm rounded-full font-medium">
                     Competitor: {lead.competitor}
                   </span>
                 </div>
-              )}
-
+)}
               {lead.pain_points && (
                 <div className="mb-3">
                   <p className="text-sm font-medium text-gray-700 mb-1">Pain Points:</p>
                   <p className="text-sm text-gray-600">{lead.pain_points}</p>
                 </div>
-              )}
-
+)}
               {lead.follow_up_notes && (
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
                   <p className="text-sm font-medium text-gray-700 mb-1">Notes:</p>
                   <p className="text-sm text-gray-600">{lead.follow_up_notes}</p>
                 </div>
-              )}
+)}
             </div>
-          ))}
+)}
           </div>
         )
       ) : (
@@ -628,7 +610,7 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
                     </div>
                     {request.address && (
                       <p className="text-sm text-gray-600 mb-2">{request.address}</p>
-                    )}
+)}
                   </div>
                   <div className="flex items-center gap-2">
                     {getStatusIcon(request.status)}
@@ -637,21 +619,19 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
                     </span>
                   </div>
                 </div>
-
-                <div className="mb-3">
+<div className="mb-3">
                   <span className="inline-block px-3 py-1 bg-gray-100 text-gray-800 text-sm rounded-full">
                     {request.category}
                   </span>
                 </div>
-
-                {(request.contact_name || request.contact_phone || request.contact_email) && (
+{(request.contact_name || request.contact_phone || request.contact_email) && (
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
                     {request.contact_name && (
                       <div className="flex items-center gap-2 text-sm text-gray-700">
                         <User className="w-4 h-4" />
                         {request.contact_name}
                       </div>
-                    )}
+)}
                     {request.contact_phone && (
                       <div className="flex items-center gap-2 text-sm text-gray-700">
                         <Phone className="w-4 h-4" />
@@ -659,7 +639,7 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
                           {request.contact_phone}
                         </a>
                       </div>
-                    )}
+)}
                     {request.contact_email && (
                       <div className="flex items-center gap-2 text-sm text-gray-700">
                         <Mail className="w-4 h-4" />
@@ -667,34 +647,29 @@ export function FollowUpsView({ userRole }: FollowUpsViewProps) {
                           {request.contact_email}
                         </a>
                       </div>
-                    )}
+)}
                   </div>
-                )}
-
+)}
                 <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-3">
                   <p className="text-sm font-medium text-gray-700 mb-2">Your Description:</p>
                   <p className="text-sm text-gray-600">{request.rep_description}</p>
                 </div>
-
-                {request.manager_notes && (
+{request.manager_notes && (
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                     <p className="text-sm font-medium text-blue-900 mb-2">Manager Response:</p>
                     <p className="text-sm text-blue-800">{request.manager_notes}</p>
                   </div>
-                )}
-
+)}
                 <div className="flex items-center justify-between text-xs text-gray-500 mt-4 pt-4 border-t border-gray-200">
                   <span>Submitted {new Date(request.created_at).toLocaleDateString()}</span>
                   {request.status !== 'submitted' && (
                     <span>Updated {new Date(request.updated_at).toLocaleDateString()}</span>
-                  )}
+)}
                 </div>
               </div>
-            ))}
+)}
           </div>
-        )
-      )}
-
+)}
       <FollowUpRequestModal
         isOpen={showRequestModal}
         onClose={() => {

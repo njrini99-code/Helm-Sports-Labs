@@ -18,6 +18,7 @@ export function LoadingScreen({
   variant = 'fullscreen',
   className,
 }: LoadingScreenProps) {
+  const [loading, setLoading] = useState(true);
   const [animatedProgress, setAnimatedProgress] = useState(0);
 
   useEffect(() => {
@@ -55,25 +56,23 @@ export function LoadingScreen({
       'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950',
       className
     )}>
-      <div className="flex flex-col items-center space-y-6 animate-fade-in">
+      <div className="flex flex-col items-center space-y-6 animate-fade-in hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         {/* ScoutPulse Logo */}
         <div className="relative">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/50 animate-logo-pulse">
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/50 animate-logo-pulse hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <span className="text-3xl font-bold text-white">SP</span>
           </div>
-          <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-emerald-400/60 animate-ping" />
-          <div className="absolute -top-2 -left-2 w-10 h-10 rounded-full bg-cyan-400/40 blur-xl animate-pulse" />
+          <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-emerald-400/60 animate-ping"></div>
+          <div className="absolute -top-2 -left-2 w-10 h-10 rounded-full bg-cyan-400/40 blur-xl animate-pulse"></div>
         </div>
-
-        {/* App Name */}
+      {/* App Name */}
         <div className="text-center">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-2">
             ScoutPulse
           </h1>
           <p className="text-gray-400 text-sm">{message}</p>
         </div>
-
-        {/* Loading Indicator */}
+      {/* Loading Indicator */}
         <div className="flex gap-2">
           {[0, 1, 2].map((i) => (
             <div
@@ -82,12 +81,10 @@ export function LoadingScreen({
               style={{
                 animationDelay: `${i * 150}ms`,
                 animationDuration: '1s',
-              }}
-            />
+              }}></div>
           ))}
         </div>
-
-        {/* Progress Bar */}
+      {/* Progress Bar */}
         {showProgress && (
           <div className="w-64 h-1.5 rounded-full bg-white/10 overflow-hidden">
             <div
@@ -95,12 +92,10 @@ export function LoadingScreen({
               style={{
                 width: `${animatedProgress}%`,
                 transition: 'width 300ms cubic-bezier(0.4, 0, 0.2, 1)',
-              }}
-            />
+              }}></div>
           </div>
-        )}
+)}
       </div>
-
       <style jsx>{`
         @keyframes fade-in {
           from {

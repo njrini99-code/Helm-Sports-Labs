@@ -26,6 +26,7 @@ export function ExportButton({
   variant = 'outline',
   size = 'default'
 }: ExportButtonProps) {
+  const [loading, setLoading] = useState(true);
   const [exporting, setExporting] = useState(false);
 
   const handleExport = async (format: 'pdf' | 'csv' | 'json') => {

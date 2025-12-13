@@ -55,8 +55,7 @@ export function baseEmailTemplate({ title, content, footerText }: BaseTemplateOp
               </table>
             </td>
           </tr>
-
-          <!-- Content -->
+<!-- Content -->
           <tr>
             <td style="background: #1e293b; border-radius: 0 0 12px 12px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -64,8 +63,7 @@ export function baseEmailTemplate({ title, content, footerText }: BaseTemplateOp
               </table>
             </td>
           </tr>
-
-          <!-- Footer -->
+<!-- Footer -->
           <tr>
             <td style="padding: 30px 20px; text-align: center;">
               <p style="color: #64748b; font-size: 12px; line-height: 1.6; margin: 0 0 10px 0;">
@@ -85,8 +83,7 @@ export function baseEmailTemplate({ title, content, footerText }: BaseTemplateOp
               </p>
             </td>
           </tr>
-
-        </table>
+</table>
       </td>
     </tr>
   </table>

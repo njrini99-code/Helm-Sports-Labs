@@ -77,7 +77,6 @@ export function PlayerListItem({
           {initials}
         </AvatarFallback>
       </Avatar>
-
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
           <p className="font-semibold text-white truncate">{player.full_name}</p>
@@ -86,7 +85,7 @@ export function PlayerListItem({
           </Badge>
           {player.high_school_state && (
             <span className="text-xs text-slate-400">{player.high_school_state}</span>
-          )}
+)}
         </div>
         <div className="flex items-center gap-2 mt-1 flex-wrap">
           <Badge variant="secondary" className="text-xs">
@@ -96,22 +95,28 @@ export function PlayerListItem({
             <Badge variant="outline" className="text-xs">
               {player.secondary_position}
             </Badge>
-          )}
+)}
           {showMetrics && metrics.length > 0 && (
             <div className="flex gap-2 text-xs text-slate-400">
-              {metrics.map((metric, i) => (
-                <span key={i}>{metric}</span>
-              ))}
+              {{metrics.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
             </div>
-          )}
+          ) : (
+            metrics.map((metric, i) => (
+                <span key={i}>{metric}</span>
+)}
+            </div>
+)}
         </div>
       </div>
-
       {actionButtons && (
         <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
           {actionButtons}
         </div>
-      )}
+)}
     </div>
   );
 }

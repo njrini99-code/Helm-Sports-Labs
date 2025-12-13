@@ -123,10 +123,9 @@ export function EmptyState({
         <div className={cn(
           'absolute inset-0 rounded-full blur-xl opacity-30',
           isDark ? 'bg-slate-500' : 'bg-emerald-300'
-        )} />
+        )}></div>
         <Icon className={cn('relative', sizeClasses[size].icon)} strokeWidth={1} />
       </div>
-
       {/* Title */}
       <h3 className={cn(
         'font-semibold mb-1',
@@ -135,7 +134,6 @@ export function EmptyState({
       )}>
         {title}
       </h3>
-
       {/* Description */}
       {description && (
         <p className={cn(
@@ -145,8 +143,7 @@ export function EmptyState({
         )}>
           {description}
         </p>
-      )}
-
+)}
       {/* Actions */}
       {(actionText || secondaryText) && (
         <div className="flex items-center gap-2 mt-2">
@@ -162,7 +159,7 @@ export function EmptyState({
                 {actionText}
               </Button>
             </ActionWrapper>
-          )}
+)}
           {secondaryText && (
             <Button 
               variant="outline"
@@ -174,9 +171,9 @@ export function EmptyState({
             >
               {secondaryText}
             </Button>
-          )}
+)}
         </div>
-      )}
+)}
     </div>
   );
 }

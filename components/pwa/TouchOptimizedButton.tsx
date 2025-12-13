@@ -44,7 +44,7 @@ export function TouchOptimizedButton({
         className
       )}
       style={{
-        minHeight: `${MIN_TOUCH_TARGET}px`,
+        minHeight: `${MIN_TOUCH_TARGET}}px`,
         minWidth: `${MIN_TOUCH_TARGET}px`,
       }}
     >

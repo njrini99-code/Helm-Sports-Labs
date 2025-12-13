@@ -270,7 +270,7 @@ export function PhoneBlockList() {
   };
 
   const filteredZips = zipSearch
-    ? availableZips.filter((zip) => zip.includes(zipSearch))
+    ? availableZips.filter((zip) => zip.includes(zipSearch)}
     : availableZips;
 
   const handleFindDecisionMaker = async (lead: Lead) => {
@@ -362,7 +362,7 @@ export function PhoneBlockList() {
               <h1 className="text-lg md:text-xl font-bold">Phone Block List</h1>
               {filteredLeads.length > 0 && (
                 <p className="text-xs md:text-sm text-blue-100">{filteredLeads.length} businesses</p>
-              )}
+)}
             </div>
           </div>
           <button
@@ -381,12 +381,11 @@ export function PhoneBlockList() {
               }`}>
                 {selectedIndustries.length + selectedZips.length}
               </span>
-            )}
+)}
           </button>
         </div>
       </div>
-
-      {showFilters && (
+{showFilters && (
         <div className="bg-white border-b border-gray-200 p-4 md:p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-base md:text-lg font-semibold text-gray-900">Filter Businesses</h3>
@@ -405,11 +404,10 @@ export function PhoneBlockList() {
                   <X className="w-3 h-3 md:w-4 md:h-4" />
                   Clear
                 </button>
-              )}
+)}
             </div>
           </div>
-
-          <div className="space-y-6">
+<div className="space-y-6">
               <div>
                 <h4 className="font-semibold text-gray-900 mb-3">Industry</h4>
                 <div className="space-y-2 max-h-64 overflow-y-auto">
@@ -444,10 +442,9 @@ export function PhoneBlockList() {
                                   <path
                                     fillRule="evenodd"
                                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                    clipRule="evenodd"
-                                  />
+                                    clipRule="evenodd" />
                                 </svg>
-                              )}
+)}
                             </div>
                           </button>
                           <button
@@ -465,8 +462,7 @@ export function PhoneBlockList() {
                             </svg>
                           </button>
                         </div>
-
-                        {isExpanded && (
+{isExpanded && (
                           <div className="grid grid-cols-3 gap-1.5 ml-7 mt-2">
                             {industries.map((industry) => {
                               const count = hasAppliedFilters ? leads.filter((l) => l.industry === industry).length : 0;
@@ -487,15 +483,13 @@ export function PhoneBlockList() {
                               );
                             })}
                           </div>
-                        )}
+)}
                       </div>
                     );
-                  })
-                  )}
+                  }})
                 </div>
               </div>
-
-              <div>
+<div>
                 <h4 className="font-semibold text-gray-900 mb-3">ZIP Code</h4>
                 <div className="relative mb-3">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -525,7 +519,7 @@ export function PhoneBlockList() {
                             <div className="text-sm font-medium">{zip}</div>
                             {count !== null && (
                               <div className="text-xs text-gray-500">({count})</div>
-                            )}
+)}
                           </button>
                         );
                       })}
@@ -534,19 +528,17 @@ export function PhoneBlockList() {
                     <div className="text-center py-8 text-gray-400 text-sm">
                       No ZIP codes found
                     </div>
-                  )}
+)}
                 </div>
               </div>
             </div>
-
-          {hasAppliedFilters && (
+{hasAppliedFilters && (
             <div className="mt-4 text-sm text-gray-600">
               Showing {filteredLeads.length} of {leads.length} businesses
             </div>
-          )}
+)}
         </div>
-      )}
-
+)}
       <div className="flex-1 overflow-y-auto">
         {loading ? (
           <div className="text-center py-12">
@@ -588,25 +580,23 @@ export function PhoneBlockList() {
                           <span className="inline-block px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
                             {cleanIndustry}
                           </span>
-                        )}
+)}
                       </div>
                       {lead.google_rating && (
                         <div className="flex items-center gap-1 bg-yellow-50 px-2 py-1 rounded border border-yellow-200">
                           <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
                           <span className="text-xs font-bold">{lead.google_rating}</span>
                         </div>
-                      )}
+)}
                     </div>
-
-                    {lead.phone && (
+{lead.phone && (
                       <a
                         href={`tel:${lead.phone}`}
                         className="block text-blue-600 font-semibold text-sm mb-2 hover:underline"
                       >
                         {lead.phone}
                       </a>
-                    )}
-
+)}
                     {(lead.address || lead.city) && (
                       <div className="text-xs text-gray-600 mb-3">
                         {lead.address && <div>{lead.address}</div>}
@@ -616,8 +606,7 @@ export function PhoneBlockList() {
                           {!lead.city && lead.state && lead.zip && `${lead.state} ${lead.zip}`}
                         </div>
                       </div>
-                    )}
-
+)}
                     {lead.owner_name && lead.owner_name !== 'None found' ? (
                       <div className="mb-3 p-2 bg-green-50 rounded border border-green-200">
                         <div className="flex items-center gap-2 mb-1">
@@ -626,7 +615,7 @@ export function PhoneBlockList() {
                         </div>
                         {lead.decision_maker_title && (
                           <p className="text-xs text-gray-600 ml-6">{lead.decision_maker_title}</p>
-                        )}
+)}
                         {(lead as any).decision_maker_email && (
                           <a
                             href={`mailto:${(lead as any).decision_maker_email}`}
@@ -634,12 +623,12 @@ export function PhoneBlockList() {
                           >
                             {(lead as any).decision_maker_email}
                           </a>
-                        )}
+)}
                         {lead.decision_maker_confidence && (
                           <div className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold border ml-6 mt-1 ${getConfidenceBadgeColor(lead.decision_maker_confidence)}`}>
                             {lead.decision_maker_confidence}% confidence
                           </div>
-                        )}
+)}
                       </div>
                     ) : lead.owner_name === 'None found' ? (
                       <p className="text-red-500 text-sm font-medium mb-3">Decision Maker: None found</p>
@@ -674,19 +663,18 @@ export function PhoneBlockList() {
                           </>
                         )}
                       </button>
-                    )}
+)}
                     {!lead.state && (!lead.owner_name || lead.owner_name === 'None found') && (
                       <div className="flex items-center gap-1 text-xs text-orange-600 mt-2">
                         <AlertCircle className="w-3 h-3" />
                         Missing state data
                       </div>
-                    )}
+)}
                   </div>
                 );
               })}
             </div>
-
-            <div className="hidden md:block bg-white">
+<div className="hidden md:block bg-white">
               <table className="w-full">
               <thead className="bg-gray-50 border-b border-gray-200 sticky top-0">
                 <tr>
@@ -724,7 +712,7 @@ export function PhoneBlockList() {
                             <span className="inline-block mt-1.5 px-3 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full text-xs font-semibold shadow-sm">
                               {cleanIndustry}
                             </span>
-                          )}
+)}
                         </div>
                       </td>
                       <td className="px-6 py-4">
@@ -737,7 +725,7 @@ export function PhoneBlockList() {
                           </a>
                         ) : (
                           <span className="text-gray-400 text-sm">No phone</span>
-                        )}
+)}
                       </td>
                       <td className="px-6 py-4">
                         {lead.address || lead.city ? (
@@ -746,18 +734,18 @@ export function PhoneBlockList() {
                             <div className="text-gray-600 mt-0.5">
                               {lead.city && lead.state && lead.zip && (
                                 <span>{lead.city}, {lead.state} {lead.zip}</span>
-                              )}
+)}
                               {lead.city && lead.state && !lead.zip && (
                                 <span>{lead.city}, {lead.state}</span>
-                              )}
+)}
                               {!lead.city && lead.state && lead.zip && (
                                 <span>{lead.state} {lead.zip}</span>
-                              )}
+)}
                             </div>
                           </div>
                         ) : (
                           <span className="text-gray-400 text-sm">No address</span>
-                        )}
+)}
                       </td>
                       <td className="px-6 py-4">
                         {lead.owner_name && lead.owner_name !== 'None found' ? (
@@ -768,7 +756,7 @@ export function PhoneBlockList() {
                             </div>
                             {lead.decision_maker_title && (
                               <p className="text-xs text-gray-600 font-medium">{lead.decision_maker_title}</p>
-                            )}
+)}
                             {(lead as any).decision_maker_email && (
                               <div className="flex items-center gap-1.5 mt-1.5">
                                 <Mail className="w-3 h-3 text-blue-500 flex-shrink-0" />
@@ -779,7 +767,7 @@ export function PhoneBlockList() {
                                   {(lead as any).decision_maker_email}
                                 </a>
                               </div>
-                            )}
+)}
                             {lead.decision_maker_confidence && (
                               <div
                                 className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold border mt-1.5 ${getConfidenceBadgeColor(
@@ -788,13 +776,13 @@ export function PhoneBlockList() {
                               >
                                 {lead.decision_maker_confidence}% confidence
                               </div>
-                            )}
+)}
                           </div>
                         ) : lead.owner_name === 'None found' ? (
                           <span className="text-red-500 text-sm font-medium">None found</span>
                         ) : (
                           <span className="text-gray-400 text-sm">Not searched</span>
-                        )}
+)}
                       </td>
                       <td className="px-6 py-4">
                         {lead.google_rating ? (
@@ -804,7 +792,7 @@ export function PhoneBlockList() {
                           </div>
                         ) : (
                           <span className="text-gray-400 text-sm">No rating</span>
-                        )}
+)}
                       </td>
                       <td className="px-6 py-4">
                         {lead.owner_name && lead.owner_name !== 'None found' && (lead as any).decision_maker_email ? (
@@ -842,7 +830,7 @@ export function PhoneBlockList() {
                             <AlertCircle className="w-3 h-3" />
                             Missing state
                           </div>
-                        )}
+)}
                       </td>
                     </tr>
                   );
@@ -853,8 +841,7 @@ export function PhoneBlockList() {
           </>
         )}
       </div>
-
-      <EmailComposerModal
+<EmailComposerModal
         open={emailComposerOpen}
         onClose={() => {
           setEmailComposerOpen(false);

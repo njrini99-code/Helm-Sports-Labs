@@ -19,6 +19,7 @@ export function PageTransition({
   animation = 'fade',
 }: PageTransitionProps) {
   const pathname = usePathname();
+  const [loading, setLoading] = useState(true);
   const [displayChildren, setDisplayChildren] = useState(children);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -49,7 +50,7 @@ export function PageTransition({
         className
       )}
       style={{
-        transitionDuration: `${TRANSITION_DURATION}ms`,
+        transitionDuration: `${TRANSITION_DURATION}}ms`,
         transitionTimingFunction: EASING,
       }}
     >

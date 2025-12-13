@@ -21,13 +21,12 @@ export default function TestD1BadgesPage() {
           <h1 className="text-4xl font-bold text-slate-900 mb-2">D1 Badge Component Test</h1>
           <p className="text-slate-600">Testing the new D1 benchmark badges and verification system</p>
         </div>
-
-        {/* Badge Showcase */}
+      {/* Badge Showcase */}
         <Card>
           <CardHeader>
             <CardTitle>Badge Types</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+        <CardContent className="space-y-4">
             <div className="flex items-center gap-4">
               <span className="text-sm font-medium text-slate-700 w-32">Elite Level:</span>
               <D1Badge level="elite" size="md" />
@@ -43,14 +42,20 @@ export default function TestD1BadgesPage() {
             </div>
           </CardContent>
         </Card>
-
-        {/* Metrics Display (Light Theme - Player Dashboard Style) */}
+      {/* Metrics Display (Light Theme - Player Dashboard Style) */}
         <Card>
           <CardHeader>
             <CardTitle>Player Dashboard Style</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2">
-            {testMetrics.map((metric, index) => (
+        <CardContent className="space-y-2">
+          {testMetrics.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            testMetrics.map((metric, index) => (
               <div
                 key={index}
                 className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-colors"
@@ -62,22 +67,21 @@ export default function TestD1BadgesPage() {
                       <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 text-[10px]">
                         <CheckCircle2 className="w-3 h-3 mr-1" /> Verified
                       </Badge>
-                    )}
+)}
                     <D1Badge level={metric.level} size="sm" />
                   </div>
                 </div>
                 <p className="text-lg font-bold text-slate-900 ml-3">{metric.value}</p>
               </div>
-            ))}
-          </CardContent>
+            )})
+        </CardContent>
         </Card>
-
-        {/* Metrics Display (Dark Theme - Public Profile Style) */}
+      {/* Metrics Display (Dark Theme - Public Profile Style) */}
         <Card className="bg-gradient-to-br from-slate-900 to-slate-800 border-white/10">
           <CardHeader>
             <CardTitle className="text-white">Public Profile Style</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
+        <CardContent className="space-y-3">
             {testMetrics.map((metric, index) => (
               <div key={index} className="flex justify-between items-start gap-3">
                 <div className="flex-1">
@@ -87,22 +91,21 @@ export default function TestD1BadgesPage() {
                       <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 text-[10px]">
                         <CheckCircle2 className="w-3 h-3 mr-1" /> Verified
                       </Badge>
-                    )}
+)}
                     <D1Badge level={metric.level} size="sm" />
                   </div>
                 </div>
                 <span className="text-white font-semibold text-lg">{metric.value}</span>
               </div>
-            ))}
+)}
           </CardContent>
         </Card>
-
-        {/* Acceptance Criteria */}
+      {/* Acceptance Criteria */}
         <Card className="border-emerald-200 bg-emerald-50">
           <CardHeader>
             <CardTitle className="text-emerald-900">✅ Acceptance Criteria</CardTitle>
           </CardHeader>
-          <CardContent>
+        <CardContent>
             <ul className="space-y-2 text-sm text-emerald-800">
               <li className="flex items-start gap-2">
                 <span className="text-emerald-600">✓</span>

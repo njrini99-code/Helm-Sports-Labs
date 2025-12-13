@@ -237,23 +237,22 @@ function LoadingSkeleton({ rows = 3, showAvatar = false, showImage = false }: Lo
     <div className="space-y-4">
       {showAvatar && (
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full skeleton-shimmer" />
+          <div className="w-12 h-12 rounded-full skeleton-shimmer"></div>
           <div className="flex-1 space-y-2">
-            <div className="h-4 skeleton-shimmer rounded w-1/2" />
-            <div className="h-3 skeleton-shimmer rounded w-1/3" />
+            <div className="h-4 skeleton-shimmer rounded w-1/2"></div>
+            <div className="h-3 skeleton-shimmer rounded w-1/3"></div>
           </div>
         </div>
-      )}
+)}
       {showImage && (
-        <div className="h-40 skeleton-shimmer rounded-lg" />
-      )}
-      {Array.from({ length: rows }).map((_, i) => (
+        <div className="h-40 skeleton-shimmer rounded-2xl"></div>
+)}
+      {Array.from({ length: rows }}).map((_, i) => (
         <div 
           key={i} 
           className="h-4 skeleton-shimmer rounded"
-          style={{ width: `${Math.max(40, 100 - i * 20)}%` }}
-        />
-      ))}
+          style={{ width: `${Math.max(40, 100 - i * 20)}}%` }}></div>
+)}
     </div>
   );
 }
@@ -270,7 +269,7 @@ function LoadingOverlay({ message = 'Loading...' }: LoadingOverlayProps) {
   return (
     <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-900/80 backdrop-blur-sm loading-overlay rounded-xl">
       <div className="relative">
-        <div className="w-10 h-10 border-3 border-white/20 border-t-emerald-500 rounded-full animate-spin" />
+        <div className="w-10 h-10 border-3 border-white/20 border-t-emerald-500 rounded-full animate-spin"></div>
       </div>
       <p className="mt-3 text-sm text-white/70">{message}</p>
     </div>
@@ -297,12 +296,12 @@ function ErrorState({ message = 'Something went wrong', onRetry }: ErrorStatePro
       {onRetry && (
         <button
           onClick={onRetry}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-all duration-200 retry-button"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-all duration-200 retry-button"
         >
           <RefreshCw className="w-4 h-4" />
           Try Again
         </button>
-      )}
+)}
     </div>
   );
 }
@@ -459,8 +458,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
           // Custom
           className
         )}
-        style={{
-          ...style,
+        style={{...style,
           ...hoverStyles,
           ...glowStyles,
           transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
@@ -472,31 +470,33 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
         {...props}
       >
         {/* Ripple Effects */}
-        {ripples.map((ripple) => (
+        {{ripples.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            ripples.map((ripple) => (
           <span
             key={ripple.id}
             className="ripple"
-            style={{
-              left: ripple.x,
+            style={{left: ripple.x,
               top: ripple.y,
               width: ripple.size,
               height: ripple.size,
-            }}
-          />
-        ))}
-
+            }}></span>
+)}
         {/* Glow Effect Overlay */}
         {variant === 'glow' && (
           <div
             className="absolute inset-0 opacity-30 pointer-events-none transition-opacity duration-300 group-hover:opacity-50"
             style={{
               background: glowColor
-                ? `radial-gradient(ellipse at center, ${glowColor}40 0%, transparent 70%)`
+                ? `radial-gradient(ellipse at center, ${glowColor}}40 0%, transparent 70%)`
                 : 'radial-gradient(ellipse at center, rgba(99, 102, 241, 0.4) 0%, transparent 70%)',
-            }}
-          />
-        )}
-
+            }}></div>
+)}
         {/* Header */}
         {header && !error && (
           <div className={cn(
@@ -507,8 +507,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
           )}>
             {header}
           </div>
-        )}
-
+)}
         {/* Content */}
         <div className="relative z-10">
           {error ? (
@@ -519,12 +518,10 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
             children
           )}
         </div>
-
-        {/* Loading Overlay */}
+      {/* Loading Overlay */}
         {loading && !error && loadingContent === undefined && (
           <LoadingOverlay />
         )}
-
         {/* Footer */}
         {footer && !error && (
           <div className={cn(
@@ -535,7 +532,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
           )}>
             {footer}
           </div>
-        )}
+)}
       </div>
     );
   }
@@ -609,9 +606,8 @@ export function GlassImage({
     >
       {/* Loading State */}
       {status === 'loading' && (
-        <div className="absolute inset-0 skeleton-shimmer" />
-      )}
-
+        <div className="absolute inset-0 skeleton-shimmer"></div>
+)}
       {/* Error State with Fallback */}
       {status === 'error' && (
         <div className="absolute inset-0 flex items-center justify-center bg-white/5">
@@ -619,10 +615,9 @@ export function GlassImage({
             <div className="p-4 rounded-xl bg-white/10">
               <User className="w-8 h-8 text-slate-400" />
             </div>
-          )}
+)}
         </div>
-      )}
-
+)}
       {/* Image */}
       {status !== 'error' && (
         <img
@@ -727,16 +722,15 @@ export function Tooltip({
             <div className="text-xs text-slate-400 mt-0.5">
               {description}
             </div>
-          )}
+)}
           {/* Arrow */}
           <div 
             className={cn(
               'absolute w-0 h-0 border-4',
               arrowClasses[position]
-            )}
-          />
+            )}></div>
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -767,17 +761,17 @@ export function GlassCardHeader({
       <div className={cn('flex items-center justify-between gap-4', className)}>
         <div className="flex items-center gap-3">
           {icon && (
-            <div className="p-2 rounded-lg bg-white/10 shrink-0">
+            <div className="p-2 rounded-2xl bg-white/10 shrink-0">
               {icon}
             </div>
-          )}
+)}
           <div>
             {title && (
               <h3 className="font-semibold text-white">{title}</h3>
-            )}
+)}
             {subtitle && (
               <p className="text-sm text-slate-400">{subtitle}</p>
-            )}
+)}
           </div>
         </div>
         {action && <div className="shrink-0">{action}</div>}
@@ -899,13 +893,13 @@ export function GlassStatCard({
               {trend.direction === 'down' && '↓'}
               {trend.value}%
             </p>
-          )}
+)}
         </div>
         {icon && (
-          <div className="p-2 rounded-lg bg-white/10">
+          <div className="p-2 rounded-2xl bg-white/10">
             {icon}
           </div>
-        )}
+)}
       </div>
     </GlassCard>
   );
@@ -1002,7 +996,7 @@ export function GlassActionCard({
           <h4 className="font-medium text-white truncate">{title}</h4>
           {description && (
             <p className="text-sm text-slate-400 truncate">{description}</p>
-          )}
+)}
         </div>
         {chevron && (
           <svg
@@ -1015,10 +1009,9 @@ export function GlassActionCard({
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
+              d="M9 5l7 7-7 7" />
           </svg>
-        )}
+)}
       </div>
     </GlassCard>
   );
@@ -1068,13 +1061,13 @@ export function GlassMediaCard({
           <div className="absolute top-2 right-2">
             {badge}
           </div>
-        )}
+)}
       </div>
       <div className="p-4">
         <h4 className="font-semibold text-white truncate">{title}</h4>
         {subtitle && (
           <p className="text-sm text-slate-400 truncate mt-1">{subtitle}</p>
-        )}
+)}
       </div>
     </GlassCard>
   );

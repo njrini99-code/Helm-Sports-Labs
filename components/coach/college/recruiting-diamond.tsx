@@ -114,38 +114,32 @@ export function RecruitingDiamond({
                   <SelectItem key={opt.value} value={opt.value}>
                     {opt.label}
                   </SelectItem>
-                ))}
+)}
               </SelectContent>
             </Select>
-          )}
+)}
         </div>
       </CardHeader>
-
       <CardContent className="pt-2 flex-1 flex flex-col overflow-visible">
         {/* Diamond container - larger */}
         <div className={`relative w-full aspect-square rounded-2xl overflow-visible p-6 ${diamondBg}`}>
           {/* Subtle background gradient */}
-          <div className={`absolute inset-0 ${isDarkMode ? 'bg-[radial-gradient(circle_at_50%_55%,rgba(16,185,129,0.08),transparent_50%)]' : 'bg-[radial-gradient(circle_at_50%_55%,rgba(16,185,129,0.15),transparent_60%)]'}`} />
-          
-          {/* Outfield arc */}
-          <div className={`absolute left-1/2 top-[30%] w-[85%] h-[45%] -translate-x-1/2 border-t rounded-t-full ${isDarkMode ? 'border-white/[0.08]' : 'border-emerald-200/60'}`} />
-          
-          {/* Infield diamond shape */}
-          <div className={`absolute left-1/2 top-[52%] w-[40%] aspect-square -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-lg ${isDarkMode ? 'border border-white/[0.1]' : 'border-2 border-emerald-300/50'}`} />
-          
-          {/* Base paths */}
-          <div className={`absolute left-1/2 top-[52%] w-[30%] aspect-square -translate-x-1/2 -translate-y-1/2 rotate-45 border border-dashed rounded ${isDarkMode ? 'border-white/[0.06]' : 'border-emerald-200/40'}`} />
-
-          {/* Position columns */}
+          <div className={`absolute inset-0 ${isDarkMode ? 'bg-[radial-gradient(circle_at_50%_55%,rgba(16,185,129,0.08),transparent_50%)]' : 'bg-[radial-gradient(circle_at_50%_55%,rgba(16,185,129,0.15),transparent_60%)]'}`}></div>
+{/* Outfield arc */}
+          <div className={`absolute left-1/2 top-[30%] w-[85%] h-[45%] -translate-x-1/2 border-t rounded-t-full ${isDarkMode ? 'border-white/[0.08]' : 'border-emerald-200/60'}`}></div>
+{/* Infield diamond shape */}
+          <div className={`absolute left-1/2 top-[52%] w-[40%] aspect-square -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-lg ${isDarkMode ? 'border border-white/[0.1]' : 'border-2 border-emerald-300/50'}`}></div>
+{/* Base paths */}
+          <div className={`absolute left-1/2 top-[52%] w-[30%] aspect-square -translate-x-1/2 -translate-y-1/2 rotate-45 border border-dashed rounded ${isDarkMode ? 'border-white/[0.06]' : 'border-emerald-200/40'}`}></div>
+{/* Position columns */}
           {POSITIONS.map((pos) => (
             <PositionColumn
               key={pos.code}
               position={pos}
               players={filteredByPosition[pos.code] || []}
               onPlayerClick={handlePlayerClick}
-              isDarkMode={isDarkMode}
-            />
-          ))}
+              isDarkMode={isDarkMode} />
+          })
         </div>
       </CardContent>
     </Card>
@@ -186,8 +180,7 @@ function PositionColumn({
   return (
     <div
       className="group absolute flex flex-col items-center"
-      style={{
-        left: position.left,
+      style={{left: position.left,
         top: position.top,
         transform: 'translate(-50%, 0)',
       }}
@@ -196,7 +189,6 @@ function PositionColumn({
       <div className={`mb-1 flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold border group-hover:scale-110 transition-all duration-200 ${labelBg}`}>
         {position.label}
       </div>
-
       {/* Compact player cards stack */}
       <div className="relative flex flex-col items-center gap-1 transition-all duration-200 group-hover:scale-105 group-hover:z-30">
         {players.length === 0 ? (
@@ -212,16 +204,15 @@ function PositionColumn({
                 onClick={() => onPlayerClick(entry.player.id)}
                 isDarkMode={isDarkMode}
               />
-            ))}
+            })
             {extraCount > 0 && (
               <div className={`rounded-full px-2.5 py-0.5 text-[10px] border ${moreBg}`}>
                 +{extraCount} more
               </div>
-            )}
+)}
           </>
         )}
       </div>
-
       {/* Hover-expanded panel with edge-aware positioning */}
       {players.length > 0 && (
         <div
@@ -232,8 +223,7 @@ function PositionColumn({
             group-hover:opacity-100 group-hover:pointer-events-auto
             ${panelBg}
           `}
-          style={{
-            // Smart positioning to prevent viewport clipping
+          style={{// Smart positioning to prevent viewport clipping
             // Horizontal positioning:
             // - Far left positions (< 25%): align left edge of tooltip to position
             // - Far right positions (> 75%): align right edge of tooltip to position
@@ -270,10 +260,10 @@ function PositionColumn({
                 onClick={() => onPlayerClick(entry.player.id)}
                 isDarkMode={isDarkMode}
               />
-            ))}
+            })
           </div>
         </div>
-      )}
+)}
     </div>
   );
 }

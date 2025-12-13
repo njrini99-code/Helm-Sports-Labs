@@ -139,13 +139,62 @@ export async function getTeamForOwner(coachId: string): Promise<Team | null> {
 }
 
 /**
+ * Create a new team for a coach
+ */
+export async function createTeamForCoach(
+  coachId: string,
+  teamData: {
+    name: string;
+    team_type: 'high_school' | 'showcase' | 'juco';
+    organization_name?: string | null;
+    school_name?: string | null;
+    city?: string | null;
+    state?: string | null;
+  }
+): Promise<Team | null> {
+  const supabase = createClient();
+  
+  // Get coach info to populate team defaults
+  const { data: coach } = await supabase
+    .from('coaches')
+    .select('full_name, school_name, city, state, coach_type')
+    .eq('id', coachId)
+    .single();
+
+  if (!coach) {
+    console.error('Coach not found');
+    return null;
+  }
+
+  const { data, error } = await supabase
+    .from('teams')
+    .insert({
+      coach_id: coachId,
+      name: teamData.name,
+      team_type: teamData.team_type,
+      organization_name: teamData.organization_name || coach.school_name || null,
+      school_name: teamData.school_name || coach.school_name || null,
+      city: teamData.city || coach.city || null,
+      state: teamData.state || coach.state || null,
+    })
+    .select()
+    .single();
+
+  if (error || !data) {
+    console.error('Error creating team:', error);
+    return null;
+  }
+
+  return data as Team;
+}
+
+/**
  * Get team roster
  */
 export async function getTeamRoster(teamId: string): Promise<TeamMember[]> {
   const supabase = createClient();
   
-  // TODO: Use team_schedule table when migration is added
-  // For now, use team_memberships with players join
+  // Use team_memberships with players join
   const { data, error } = await supabase
     .from('team_memberships')
     .select(`
@@ -153,7 +202,11 @@ export async function getTeamRoster(teamId: string): Promise<TeamMember[]> {
       team_id,
       player_id,
       role,
+      status,
+      primary_team,
+      jersey_number,
       joined_at,
+      updated_at,
       players:player_id (
         id,
         first_name,
@@ -179,13 +232,13 @@ export async function getTeamRoster(teamId: string): Promise<TeamMember[]> {
     id: membership.id,
     team_id: membership.team_id,
     player_id: membership.player_id,
-    status: 'active' as const, // TODO: Add status column to team_memberships
-    primary_team: true, // TODO: Add primary_team column
-    jersey_number: null, // TODO: Add jersey_number column
+    status: (membership.status || 'active') as const, // Now uses actual status column
+    primary_team: membership.primary_team ?? true, // Now uses actual primary_team column
+    jersey_number: membership.jersey_number || null, // Now uses actual jersey_number column
     graduation_year: membership.players?.grad_year || null,
     role_notes: membership.role || null,
     created_at: membership.joined_at,
-    updated_at: membership.joined_at,
+    updated_at: membership.updated_at || membership.joined_at,
     player: {
       id: membership.players?.id || membership.player_id,
       full_name: membership.players?.full_name || 
@@ -207,8 +260,33 @@ export async function getTeamRoster(teamId: string): Promise<TeamMember[]> {
 export async function getTeamSchedule(teamId: string): Promise<ScheduleEvent[]> {
   const supabase = createClient();
   
-  // TODO: Use team_schedule table when migration is added
-  // For now, return empty array or use camp_events if team has coach_id
+  // First try to use team_schedule table (preferred)
+  const { data: scheduleEvents, error: scheduleError } = await supabase
+    .from('team_schedule')
+    .select('*')
+    .eq('team_id', teamId)
+    .order('start_time', { ascending: true });
+
+  if (!scheduleError && scheduleEvents && scheduleEvents.length > 0) {
+    // Map team_schedule to ScheduleEvent format
+    return scheduleEvents.map((event: any) => ({
+      id: event.id,
+      team_id: event.team_id,
+      event_type: event.event_type || 'game',
+      opponent_name: event.opponent_name,
+      event_name: event.event_name,
+      location_name: event.location_name,
+      location_address: event.location_address,
+      start_time: event.start_time,
+      end_time: event.end_time,
+      notes: event.notes,
+      is_public: event.is_public ?? true,
+      created_at: event.created_at,
+      updated_at: event.updated_at,
+    }));
+  }
+
+  // Fallback to camp_events if team_schedule is empty
   const { data: team } = await supabase
     .from('teams')
     .select('coach_id')
@@ -217,7 +295,6 @@ export async function getTeamSchedule(teamId: string): Promise<ScheduleEvent[]> 
 
   if (!team) return [];
 
-  // Use camp_events as placeholder (will be replaced with team_schedule)
   const { data: events, error } = await supabase
     .from('camp_events')
     .select('*')
@@ -252,9 +329,92 @@ export async function getTeamSchedule(teamId: string): Promise<ScheduleEvent[]> 
 export async function getTeamMedia(teamId: string): Promise<TeamMedia[]> {
   const supabase = createClient();
   
-  // TODO: Use team_media table when migration is added
-  // For now, return empty array
+  // Try team_media table first
+  const { data, error } = await supabase
+    .from('team_media')
+    .select('*')
+    .eq('team_id', teamId)
+    .order('created_at', { ascending: false });
+
+  if (error && error.code !== 'PGRST116') {
+    // PGRST116 is "relation does not exist" - table may not be created yet
+    console.error('Error fetching team media:', error);
+    return [];
+  }
+
+  if (data && data.length > 0) {
+    // Map database fields to TeamMedia interface
+    return data.map((item: any) => ({
+      id: item.id,
+      team_id: item.team_id,
+      media_type: item.media_type as 'photo' | 'video',
+      title: item.title,
+      description: item.description,
+      url: item.media_url || item.url, // Support both field names
+      created_at: item.created_at,
+    }));
+  }
+
+  // Fallback: return empty array if table doesn't exist
   return [];
+}
+
+/**
+ * Add team media
+ */
+export async function addTeamMedia(
+  teamId: string,
+  media: Omit<TeamMedia, 'id' | 'team_id' | 'created_at'>
+): Promise<TeamMedia | null> {
+  const supabase = createClient();
+  
+  const { data, error } = await supabase
+    .from('team_media')
+    .insert({
+      team_id: teamId,
+      media_type: media.media_type,
+      media_url: media.url,
+      url: media.url, // Support both field names for compatibility
+      title: media.title || null,
+      description: media.description || null,
+      thumbnail_url: null,
+    })
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error adding team media:', error);
+    return null;
+  }
+
+  return {
+    id: data.id,
+    team_id: data.team_id,
+    media_type: data.media_type as 'photo' | 'video',
+    title: data.title,
+    description: data.description,
+    url: data.media_url || data.url, // Support both field names
+    created_at: data.created_at,
+  };
+}
+
+/**
+ * Delete team media
+ */
+export async function deleteTeamMedia(mediaId: string): Promise<boolean> {
+  const supabase = createClient();
+  
+  const { error } = await supabase
+    .from('team_media')
+    .delete()
+    .eq('id', mediaId);
+
+  if (error) {
+    console.error('Error deleting team media:', error);
+    return false;
+  }
+
+  return true;
 }
 
 /**
@@ -266,11 +426,51 @@ export async function getTeamReports(teamId: string): Promise<{
 }> {
   const supabase = createClient();
   
-  // TODO: Implement when team_commitments and verified_player_stats tables are added
-  // For now, return empty arrays
+  // Try to fetch from team_commitments table
+  const { data: commitments, error: commitmentsError } = await supabase
+    .from('team_commitments')
+    .select(`
+      player_id,
+      player_name,
+      grad_year,
+      college_name,
+      division,
+      commitment_year
+    `)
+    .eq('team_id', teamId);
+
+  // Try to fetch from verified_player_stats table
+  const { data: verifiedStats, error: statsError } = await supabase
+    .from('verified_player_stats')
+    .select('*')
+    .eq('team_id', teamId)
+    .order('created_at', { ascending: false });
+
+  // Return data if tables exist, otherwise empty arrays
   return {
-    commitments: [],
-    verifiedStats: [],
+    commitments: commitmentsError && commitmentsError.code === 'PGRST116' 
+      ? [] 
+      : (commitments || []).map((c: any) => ({
+          player_id: c.player_id,
+          player_name: c.player_name || 'Player',
+          grad_year: c.grad_year,
+          college_name: c.college_name,
+          division: c.division,
+          commitment_year: c.commitment_year,
+        })),
+    verifiedStats: statsError && statsError.code === 'PGRST116'
+      ? []
+      : (verifiedStats || []).map((s: any) => ({
+          id: s.id,
+          team_id: s.team_id,
+          player_id: s.player_id,
+          stat_type: s.stat_type,
+          value: s.value,
+          source: s.source,
+          event_name: s.event_name,
+          measured_at: s.measured_at,
+          created_at: s.created_at,
+        })),
   };
 }
 
@@ -303,8 +503,29 @@ export async function addScheduleEvent(
 ): Promise<string | null> {
   const supabase = createClient();
   
-  // TODO: Use team_schedule table when migration is added
-  // For now, use camp_events as placeholder
+  // First try to use team_schedule table (preferred)
+  const { data: scheduleData, error: scheduleError } = await supabase
+    .from('team_schedule')
+    .insert({
+      team_id: teamId,
+      event_type: event.event_type,
+      opponent_name: event.opponent_name,
+      event_name: event.event_name,
+      location_name: event.location_name,
+      location_address: event.location_address,
+      start_time: event.start_time,
+      end_time: event.end_time,
+      notes: event.notes,
+      is_public: event.is_public ?? true,
+    })
+    .select('id')
+    .single();
+
+  if (!scheduleError && scheduleData) {
+    return scheduleData.id;
+  }
+
+  // Fallback to camp_events if team_schedule doesn't exist or fails
   const { data: team } = await supabase
     .from('teams')
     .select('coach_id')
@@ -345,8 +566,17 @@ export async function addScheduleEvent(
 export async function deleteScheduleEvent(eventId: string): Promise<boolean> {
   const supabase = createClient();
   
-  // TODO: Use team_schedule table when migration is added
-  // For now, delete from camp_events
+  // First try to delete from team_schedule table (preferred)
+  const { error: scheduleError } = await supabase
+    .from('team_schedule')
+    .delete()
+    .eq('id', eventId);
+
+  if (!scheduleError) {
+    return true;
+  }
+
+  // Fallback to camp_events if team_schedule doesn't exist or fails
   const { error } = await supabase
     .from('camp_events')
     .delete()
@@ -355,19 +585,7 @@ export async function deleteScheduleEvent(eventId: string): Promise<boolean> {
   return !error;
 }
 
-/**
- * Add team media (owner only)
- */
-export async function addTeamMedia(
-  teamId: string,
-  media: Omit<TeamMedia, 'id' | 'team_id' | 'created_at'>
-): Promise<string | null> {
-  const supabase = createClient();
-  
-  // TODO: Use team_media table when migration is added
-  // For now, return null
-  return null;
-}
+// Duplicate functions removed - using versions defined earlier in file (lines 365, 404)
 
 /**
  * Remove player from team (owner only)
@@ -549,10 +767,22 @@ export async function getTeamsByState(
   });
 
   // Get commitment counts (players with college commitments)
-  // For now, we'll estimate based on team type - showcase teams typically have higher commit rates
-  // TODO: Implement actual commitment tracking
+  
+  // Try to get commitments from team_commitments table
+  const { data: commitments, error: commitmentsError } = await supabase
+    .from('team_commitments')
+    .select('team_id')
+    .in('team_id', teamIds);
 
-  return teams.map(team => ({
+  // Count commitments per team
+  const commitmentCounts: Record<string, number> = {};
+  if (!commitmentsError && commitments) {
+    commitments.forEach((c: any) => {
+      commitmentCounts[c.team_id] = (commitmentCounts[c.team_id] || 0) + 1;
+    });
+  }
+
+  return teams.map((team: any) => ({
     id: team.id,
     name: team.name,
     logoUrl: team.logo_url,
@@ -560,7 +790,7 @@ export async function getTeamsByState(
     state: team.state,
     type: team.team_type as 'high_school' | 'showcase',
     playersCount: playerCounts[team.id] || 0,
-    committedCount: Math.floor((playerCounts[team.id] || 0) * (team.team_type === 'showcase' ? 0.4 : 0.2)),
+    committedCount: commitmentCounts[team.id] || 0,
   }));
 }
 
@@ -672,7 +902,7 @@ export async function getJucosByState(stateCode: string): Promise<JucoByStateSum
     logoUrl: team.logo_url || null,
     city: team.city || '',
     state: team.state || '',
-    conference: team.organization_name || '', // Using organization_name as conference placeholder
+      conference: team.organization_name || '', // Organization name used as conference identifier
     playersCount: playerCounts[team.id] || 0,
   }));
 }

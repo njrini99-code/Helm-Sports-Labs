@@ -93,14 +93,13 @@ export function PlayerSchedulePanel({ coachId, onEventClick, onViewProfile }: Pl
   };
 
   return (
-    <Card className="rounded-2xl border border-slate-200/80 bg-white shadow-sm overflow-hidden">
+    <Card className="rounded-2xl border border-slate-200/80 bg-white/10 backdrop-blur-md border border-white/20 shadow-sm overflow-hidden">
       <div className="px-4 py-3 border-b border-slate-100">
         <h3 className="text-sm font-semibold text-slate-800">Player-linked Schedule</h3>
         <p className="text-xs text-slate-400 mt-0.5">
           View upcoming events for a specific recruit
         </p>
       </div>
-
       <div className="p-4">
         {/* Search / Selected Player */}
         {selectedPlayer ? (
@@ -144,7 +143,7 @@ export function PlayerSchedulePanel({ coachId, onEventClick, onViewProfile }: Pl
             
             {/* Search Results Dropdown */}
             {showResults && filteredPlayers.length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl border border-slate-200 shadow-lg z-10 max-h-48 overflow-y-auto">
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl border border-slate-200 shadow-lg z-10 max-h-48 overflow-y-auto">
                 {filteredPlayers.map((player) => (
                   <button
                     key={player.id}
@@ -166,18 +165,17 @@ export function PlayerSchedulePanel({ coachId, onEventClick, onViewProfile }: Pl
                       </p>
                     </div>
                   </button>
-                ))}
+)}
               </div>
-            )}
+)}
           </div>
-        )}
-
+)}
         {/* Player Events */}
         {selectedPlayer && (
           <div>
             {loading ? (
               <div className="py-6 text-center">
-                <div className="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto" />
+                <div className="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
               </div>
             ) : playerEvents.length === 0 ? (
               <div className="py-6 text-center">
@@ -203,10 +201,9 @@ export function PlayerSchedulePanel({ coachId, onEventClick, onViewProfile }: Pl
                     </div>
                     <p className="text-sm font-medium text-slate-700">{event.title}</p>
                   </button>
-                ))}
+)}
               </div>
-            )}
-
+)}
             {/* View Profile Link */}
             <Button
               variant="ghost"
@@ -218,15 +215,14 @@ export function PlayerSchedulePanel({ coachId, onEventClick, onViewProfile }: Pl
               <ChevronRight className="w-3.5 h-3.5 ml-1" />
             </Button>
           </div>
-        )}
-
+)}
         {/* Empty State */}
         {!selectedPlayer && (
           <div className="py-4 text-center">
             <User className="w-8 h-8 mx-auto mb-2 text-slate-300" strokeWidth={1.5} />
             <p className="text-xs text-slate-400">Search for a recruit to view their schedule</p>
           </div>
-        )}
+)}
       </div>
     </Card>
   );

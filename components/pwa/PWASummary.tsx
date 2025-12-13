@@ -15,6 +15,7 @@ import { logMobileTestingReport, DEVICE_SIZES } from '@/lib/pwa/mobileTesting';
 import { isTouchDevice, getDeviceType } from '@/lib/pwa/touchTargets';
 
 export function PWASummary() {
+  const [loading, setLoading] = useState(true);
   const [swipeDirection, setSwipeDirection] = useState<string>('');
   const [deviceInfo, setDeviceInfo] = useState<any>(null);
   const pushNotifications = usePushNotifications();
@@ -33,13 +34,12 @@ export function PWASummary() {
       },
       isPWA: window.matchMedia('(display-mode: standalone)').matches,
       isOnline: navigator.onLine,
-    });
+    }});
   }, []);
 
   return (
     <div className="p-6 space-y-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold text-white mb-6">PWA Features</h1>
-
       {/* Device Info */}
       {deviceInfo && (
         <div className="p-4 bg-white/5 rounded-xl border border-white/10">
@@ -69,8 +69,7 @@ export function PWASummary() {
             </div>
           </div>
         </div>
-      )}
-
+)}
       {/* Push Notifications */}
       <div className="p-4 bg-white/5 rounded-xl border border-white/10">
         <h2 className="text-xl font-semibold text-white mb-4">Push Notifications</h2>
@@ -84,14 +83,14 @@ export function PWASummary() {
           <div className="flex gap-2">
             <TouchOptimizedButton
               variant="primary"
-              onClick={() => pushNotifications.subscribe()}
+              onClick={() => pushNotifications.subscribe()}}
               disabled={pushNotifications.isLoading || pushNotifications.isSubscribed}
             >
               Subscribe
             </TouchOptimizedButton>
             <TouchOptimizedButton
               variant="secondary"
-              onClick={() => pushNotifications.unsubscribe()}
+              onClick={() => pushNotifications.unsubscribe()}}
               disabled={pushNotifications.isLoading || !pushNotifications.isSubscribed}
             >
               Unsubscribe
@@ -99,7 +98,6 @@ export function PWASummary() {
           </div>
         </div>
       </div>
-
       {/* Swipe Gestures */}
       <div className="p-4 bg-white/5 rounded-xl border border-white/10">
         <h2 className="text-xl font-semibold text-white mb-4">Swipe Gestures</h2>
@@ -111,7 +109,7 @@ export function PWASummary() {
           onSwipeRight={() => setSwipeDirection('Right')}
           onSwipeUp={() => setSwipeDirection('Up')}
           onSwipeDown={() => setSwipeDirection('Down')}
-          className="p-8 bg-emerald-500/10 rounded-xl border border-emerald-500/20 text-center min-h-[200px] flex items-center justify-center"
+          className="p-8 bg-emerald-500/10 rounded-xl border border-emerald-500/20 text-center min-h-[200px] flex items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200"
         >
           <div>
             <p className="text-white text-lg mb-2">Swipe here</p>
@@ -119,11 +117,10 @@ export function PWASummary() {
               <p className="text-emerald-400 text-2xl font-bold">
                 Swiped {swipeDirection}!
               </p>
-            )}
+)}
           </div>
         </SwipeGestures>
       </div>
-
       {/* Touch Targets */}
       <div className="p-4 bg-white/5 rounded-xl border border-white/10">
         <h2 className="text-xl font-semibold text-white mb-4">Touch-Optimized Buttons</h2>
@@ -142,12 +139,18 @@ export function PWASummary() {
           </TouchOptimizedButton>
         </div>
       </div>
-
       {/* Device Sizes */}
       <div className="p-4 bg-white/5 rounded-xl border border-white/10">
         <h2 className="text-xl font-semibold text-white mb-4">Supported Device Sizes</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-sm">
-          {DEVICE_SIZES.map((device) => (
+          {{DEVICE_SIZES.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            DEVICE_SIZES.map((device) => (
             <div key={device.name} className="p-2 bg-white/5 rounded">
               <div className="font-medium text-white">{device.name}</div>
               <div className="text-gray-400">
@@ -155,7 +158,7 @@ export function PWASummary() {
               </div>
               <div className="text-gray-500 text-xs capitalize">{device.type}</div>
             </div>
-          ))}
+)}
         </div>
       </div>
     </div>

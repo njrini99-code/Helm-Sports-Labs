@@ -21,6 +21,7 @@ interface ComparisonMatrixProps {
 }
 
 export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
+  const [loading, setLoading] = useState(true);
   const [playingVideos, setPlayingVideos] = useState<Record<string, boolean>>({});
   const [syncedPlayback, setSyncedPlayback] = useState(false);
 
@@ -28,7 +29,7 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
     return (
       <div className="p-8 text-center text-muted-foreground">
         <p>Select players to compare</p>
-      </div>
+      </motion.div>
     );
   }
 
@@ -78,8 +79,7 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
       if (y > 280) {
         doc.addPage();
         y = 20;
-      }
-    });
+      });
 
     doc.save('player-comparison.pdf');
   };
@@ -92,7 +92,7 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <h2 className="text-xl font-semibold">Player Comparison</h2>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={shareComparison}>
@@ -103,20 +103,23 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
             <Download className="w-4 h-4 mr-2" />
             Export PDF
           </Button>
-        </div>
-      </div>
-
+        </motion.div>
+      </motion.div>
       {/* Player Headers */}
-      <div className="grid gap-4" style={{ gridTemplateColumns: `200px repeat(${players.length}, 1fr)` }}>
-        <div></div>
+      <div className="grid gap-4" style={{ gridTemplateColumns: `200px repeat(${players.length}}, 1fr)` }}>
+        <div></motion.div>
         {players.map((player) => (
           <div key={player.id} className="relative">
-            <div className="p-4 border rounded-lg bg-card">
-              <div className="flex items-center justify-between mb-2">
+            <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{duration: 0.3 }}
+  className="p-4 border rounded-2xl bg-card hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+              <div className="flex items-center justify-between mb-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <div>
                   <h3 className="font-semibold">{player.name}</h3>
                   <p className="text-sm text-muted-foreground">{player.position}</p>
-                </div>
+                </motion.div>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -125,15 +128,14 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
                 >
                   <X className="w-3 h-3" />
                 </Button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
+              </motion.div>
+            </motion.div>
+          </motion.div>
+)}
+      </motion.div>
       {/* Stats Comparison */}
-      <div className="border rounded-lg overflow-hidden">
-        <div className="bg-muted p-2 font-medium text-sm">Statistics</div>
+      <div className="border rounded-2xl overflow-hidden">
+        <div className="bg-muted p-2 font-medium text-sm">Statistics</motion.div>
         <div className="divide-y">
           {displayStats.map((stat) => {
             const statName = stat.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
@@ -141,8 +143,8 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
             const bestValue = getBestValue(stat, higherIsBetter);
             
             return (
-              <div key={stat} className="grid gap-4 p-3" style={{ gridTemplateColumns: `200px repeat(${players.length}, 1fr)` }}>
-                <div className="font-medium text-sm">{statName}</div>
+              <div key={stat} className="grid gap-4 p-3" style={{ gridTemplateColumns: `200px repeat(${players.length}}, 1fr)` }}>
+                <div className="font-medium text-sm">{statName}</motion.div>
                 {players.map((player) => {
                   const value = player.stats?.[stat] || 'N/A';
                   const isBest = value !== 'N/A' && value.toString() === bestValue;
@@ -156,19 +158,18 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
                       )}
                     >
                       {value}
-                    </div>
+                    </motion.div>
                   );
                 })}
-              </div>
+              </motion.div>
             );
           })}
-        </div>
-      </div>
-
+        </motion.div>
+      </motion.div>
       {/* Video Comparison */}
       {players.some(p => p.videoUrl) && (
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <h3 className="font-semibold">Videos</h3>
             <Button
               variant="outline"
@@ -177,27 +178,27 @@ export function ComparisonMatrix({ players, onRemove }: ComparisonMatrixProps) {
             >
               {syncedPlayback ? 'Unsync' : 'Sync Playback'}
             </Button>
-          </div>
+          </motion.div>
           <div className="grid grid-cols-2 gap-4">
             {players.map((player) => (
               player.videoUrl && (
                 <div key={player.id} className="space-y-2">
-                  <div className="relative bg-black rounded-lg overflow-hidden aspect-video">
+                  <div className="relative bg-black rounded-2xl overflow-hidden aspect-video">
                     <video
                       src={player.videoUrl}
                       className="w-full h-full"
                       controls
-                      onPlay={() => setPlayingVideos(prev => ({ ...prev, [player.id]: true }))}
-                      onPause={() => setPlayingVideos(prev => ({ ...prev, [player.id]: false }))}
+                      onPlay={() => setPlayingVideos(prev => ({ ...prev, [player.id]: true }})
+                      onPause={() => setPlayingVideos(prev => ({ ...prev, [player.id]: false }})
                     />
-                  </div>
+                  </motion.div>
                   <p className="text-sm text-muted-foreground text-center">{player.name}</p>
-                </div>
+                </motion.div>
               )
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
+            })
+          </motion.div>
+        </motion.div>
+)}
+    </motion.div>
   );
 }

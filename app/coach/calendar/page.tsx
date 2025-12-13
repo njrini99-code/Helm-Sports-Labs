@@ -127,7 +127,7 @@ export default function CoachCalendarPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -149,7 +149,7 @@ export default function CoachCalendarPage() {
               <Download className="w-4 h-4" />
               Sync Calendar
             </Button>
-            <Link href="/coach/camps">
+        <Link href="/coach/camps">
               <Button variant="success" className="gap-2">
                 <Plus className="w-4 h-4" />
                 Add Event
@@ -157,8 +157,7 @@ export default function CoachCalendarPage() {
             </Link>
           </div>
         </div>
-
-        <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-6">
           {/* Calendar View */}
           <Card className="bg-[#111315] border-white/5 lg:col-span-2">
             <CardHeader>
@@ -175,14 +174,14 @@ export default function CoachCalendarPage() {
                   >
                     Month
                   </Button>
-                  <Button
+        <Button
                     variant={viewMode === 'week' ? 'default' : 'ghost'}
                     size="sm"
                     onClick={() => setViewMode('week')}
                   >
                     Week
                   </Button>
-                  <Button
+        <Button
                     variant={viewMode === 'day' ? 'default' : 'ghost'}
                     size="sm"
                     onClick={() => setViewMode('day')}
@@ -192,7 +191,7 @@ export default function CoachCalendarPage() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent>
+        <CardContent>
               {/* Simple Calendar Grid */}
               <div className="text-center py-12 text-slate-400">
                 <Calendar className="w-16 h-16 mx-auto mb-4 opacity-50" />
@@ -205,14 +204,13 @@ export default function CoachCalendarPage() {
               </div>
             </CardContent>
           </Card>
-
-          {/* Upcoming Events Sidebar */}
+      {/* Upcoming Events Sidebar */}
           <div className="space-y-6">
             <Card className="bg-[#111315] border-white/5">
               <CardHeader>
                 <CardTitle className="text-lg">Upcoming Events</CardTitle>
               </CardHeader>
-              <CardContent>
+        <CardContent>
                 {upcomingEvents.length === 0 ? (
                   <div className="text-center py-8 text-slate-400">
                     <Calendar className="w-12 h-12 mx-auto mb-4 opacity-50" />
@@ -244,13 +242,13 @@ export default function CoachCalendarPage() {
                                   {event.start_time}
                                   {event.end_time && ` - ${event.end_time}`}
                                 </div>
-                              )}
+)}
                               {event.location && (
                                 <div className="flex items-center gap-1">
                                   <MapPin className="w-3 h-3" />
                                   {event.location}
                                 </div>
-                              )}
+)}
                               <div className="flex items-center gap-1">
                                 <Users className="w-3 h-3" />
                                 {event.interested_count} interested
@@ -268,34 +266,33 @@ export default function CoachCalendarPage() {
                             <MessageSquare className="w-3 h-3 mr-1" />
                             Message
                           </Button>
-                          <Link href={`/coach/camps`}>
+        <Link href={`/coach/camps`}>
                             <Button variant="ghost" size="sm">
                               <ChevronRight className="w-3 h-3" />
                             </Button>
                           </Link>
                         </div>
                       </div>
-                    ))}
+)}
                   </div>
-                )}
+)}
               </CardContent>
             </Card>
-
-            {/* Quick Actions */}
+      {/* Quick Actions */}
             <Card className="bg-[#111315] border-white/5">
               <CardHeader>
                 <CardTitle className="text-lg">Quick Actions</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2">
+        <CardContent className="space-y-2">
                 <Button variant="outline" className="w-full justify-start gap-2" onClick={() => toast.info('Coming soon')}>
                   <Plus className="w-4 h-4" />
                   Add Evaluation Session
                 </Button>
-                <Button variant="outline" className="w-full justify-start gap-2" onClick={() => toast.info('Coming soon')}>
+        <Button variant="outline" className="w-full justify-start gap-2" onClick={() => toast.info('Coming soon')}>
                   <User className="w-4 h-4" />
                   Schedule Player Visit
                 </Button>
-                <Button variant="outline" className="w-full justify-start gap-2" onClick={handleSyncCalendar}>
+        <Button variant="outline" className="w-full justify-start gap-2" onClick={handleSyncCalendar}>
                   <Download className="w-4 h-4" />
                   Sync Google Calendar
                 </Button>

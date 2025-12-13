@@ -82,8 +82,7 @@ export const PerformanceView: React.FC = () => {
             'Authorization': `Bearer ${session?.access_token}`,
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ syncType: 'current_user' })
-        }
+          body: JSON.stringify({ syncType: 'current_user' })}
       );
 
       const result = await response.json();
@@ -184,8 +183,7 @@ export const PerformanceView: React.FC = () => {
           </button>
         </div>
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <MetricCard
           title="OSVs Completed"
           value={dashboard.osvs}
@@ -221,8 +219,7 @@ export const PerformanceView: React.FC = () => {
           isRevenue
         />
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <StatCard
           title="Emails Sent"
           value={dashboard.emails_sent}
@@ -238,12 +235,11 @@ export const PerformanceView: React.FC = () => {
           title="Route Efficiency"
           value={`${dashboard.route_efficiency?.toFixed(1) || '0'} mi/OSV`}
           goal={dashboard.route_efficiency_goal}
-          icon={<Navigation className="w-5 h-5" />}
+          icon={<Navigation className="w-5 h-5"></Nav>}
           isEfficiency
         />
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Weekly Progress</h3>
           <div className="space-y-4">
@@ -254,12 +250,10 @@ export const PerformanceView: React.FC = () => {
               label="Revenue"
               current={dashboard.total_revenue || 0}
               goal={dashboard.revenue_goal}
-              isCurrency
-            />
+              isCurrency />
           </div>
         </div>
-
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Key Insights</h3>
           <div className="space-y-3">
             <Insight
@@ -280,7 +274,7 @@ export const PerformanceView: React.FC = () => {
             )}
             {dashboard.route_efficiency && dashboard.route_efficiency <= dashboard.route_efficiency_goal && (
               <Insight
-                icon={<Navigation className="w-5 h-5 text-green-600" />}
+                icon={<Navigation className="w-5 h-5 text-green-600"></Nav>}
                 text="Route efficiency on target"
               />
             )}
@@ -332,7 +326,7 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, goal, pace, subti
           <div className={`text-2xl font-bold ${getPaceColor(pace)}`}>
             {pace.toFixed(0)}%
           </div>
-        )}
+)}
       </div>
       <h3 className="text-sm font-medium text-gray-600 mb-1">{title}</h3>
       <div className="flex items-baseline gap-2">
@@ -341,7 +335,7 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, goal, pace, subti
           <p className="text-sm text-gray-500">
             / {isRevenue ? `$${goal.toLocaleString()}` : goal}
           </p>
-        )}
+)}
       </div>
       {subtitle && <p className="text-sm text-gray-600 mt-1">{subtitle}</p>}
     </div>
@@ -408,8 +402,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ label, current, goal, isCurre
       <div className="w-full bg-gray-200 rounded-full h-2">
         <div
           className={`h-2 rounded-full transition-all ${getColor()}`}
-          style={{ width: `${percentage}%` }}
-        />
+          style={{ width: `${percentage}}%` }}></div>
       </div>
     </div>
   );

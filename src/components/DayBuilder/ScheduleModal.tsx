@@ -29,13 +29,11 @@ export function ScheduleModal({ lead, onSchedule, onClose }: ScheduleModalProps)
             <X className="w-5 h-5" />
           </button>
         </div>
-
-        <div className="mb-4">
+<div className="mb-4">
           <p className="font-semibold text-gray-900">{lead.business_name}</p>
           {lead.owner_name && <p className="text-sm text-gray-600">{lead.owner_name}</p>}
         </div>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
+<form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
             <input
@@ -46,8 +44,7 @@ export function ScheduleModal({ lead, onSchedule, onClose }: ScheduleModalProps)
               required
             />
           </div>
-
-          <div>
+<div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Time</label>
             <input
               type="time"
@@ -57,8 +54,7 @@ export function ScheduleModal({ lead, onSchedule, onClose }: ScheduleModalProps)
               required
             />
           </div>
-
-          <div className="flex gap-3 pt-4">
+<div className="flex gap-3 pt-4">
             <button
               type="button"
               onClick={onClose}

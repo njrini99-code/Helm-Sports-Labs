@@ -48,28 +48,28 @@ export function EmptyState({
         <div className="mb-4 rounded-full backdrop-blur-xl bg-white/10 border border-white/15 p-4 text-white/70 shadow-lg">
           {icon}
         </div>
-      )}
+)}
       <div className="space-y-2 max-w-sm">
         <h3 className="text-base font-semibold text-foreground">{title}</h3>
         {description && (
           <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
-        )}
+)}
       </div>
       {(actionLabel || secondaryActionLabel) && (
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
       {actionLabel && onAction && (
             <Button variant="primary" size="sm" onClick={onAction} className="gap-2">
               <Plus className="h-4 w-4" />
           {actionLabel}
         </Button>
-          )}
+)}
           {secondaryActionLabel && onSecondaryAction && (
             <Button variant="outline" size="sm" onClick={onSecondaryAction}>
               {secondaryActionLabel}
             </Button>
-          )}
+)}
         </div>
-      )}
+)}
     </div>
   );
 }

@@ -97,6 +97,12 @@ export async function GET(
  * Send team message
  * POST /api/teams/[teamId]/messages
  */
+
+const inputSchema = z.object({
+  // Add your validation rules here
+  // Example: name: z.string().min(1).max(100)
+});
+
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ teamId: string }> }

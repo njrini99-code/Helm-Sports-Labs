@@ -32,8 +32,7 @@ export function getVerificationEmail(data: EmailTemplateData): { subject: string
           <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
             Thanks for signing up! Please verify your email address to get started with ScoutPulse.
           </p>
-          
-          <!-- Verify Button -->
+<!-- Verify Button -->
           <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
             <tr>
               <td align="center">
@@ -46,16 +45,14 @@ export function getVerificationEmail(data: EmailTemplateData): { subject: string
               </td>
             </tr>
           </table>
-
-          <!-- Backup Link -->
+<!-- Backup Link -->
           <p style="color: #64748b; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0;">
             Or copy and paste this link into your browser:
           </p>
           <p style="color: #10b981; font-size: 12px; word-break: break-all; margin: 10px 0 30px 0;">
             ${verificationLink}
           </p>
-
-          <!-- Spam Instructions -->
+<!-- Spam Instructions -->
           <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); 
                       border-radius: 12px; padding: 20px; margin: 30px 0; text-align: left;">
             <p style="color: #f59e0b; font-size: 14px; font-weight: 600; margin: 0 0 10px 0;">
@@ -67,8 +64,7 @@ export function getVerificationEmail(data: EmailTemplateData): { subject: string
               <li>Wait a few minutes and check again</li>
             </ul>
           </div>
-
-          <p style="color: #64748b; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0;">
+<p style="color: #64748b; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0;">
             This link will expire in 24 hours. If you didn't create an account, you can safely ignore this email.
           </p>
         </td>
@@ -105,8 +101,7 @@ export function getWelcomeEmail(data: EmailTemplateData): { subject: string; htm
           <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
             Your email has been verified! You're all set to start using ScoutPulse.
           </p>
-
-          <!-- Next Steps -->
+<!-- Next Steps -->
           <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); 
                       border-radius: 12px; padding: 30px; margin: 30px 0; text-align: left;">
             <h2 style="color: #10b981; font-size: 20px; font-weight: 600; margin: 0 0 20px 0;">
@@ -128,8 +123,7 @@ export function getWelcomeEmail(data: EmailTemplateData): { subject: string; htm
               </ol>
             `}
           </div>
-
-          <!-- CTA Button -->
+<!-- CTA Button -->
           <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
             <tr>
               <td align="center">
@@ -142,8 +136,7 @@ export function getWelcomeEmail(data: EmailTemplateData): { subject: string; htm
               </td>
             </tr>
           </table>
-
-          <p style="color: #64748b; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0;">
+<p style="color: #64748b; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0;">
             Need help getting started? <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.app'}/support" 
             style="color: #10b981; text-decoration: none;">Visit our support center</a>.
           </p>
@@ -180,8 +173,7 @@ export function getWeek1TipsEmail(data: EmailTemplateData): { subject: string; h
           <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
             You've been on ScoutPulse for a week! Here are some tips to help you get the most out of the platform:
           </p>
-
-          <!-- Tips -->
+<!-- Tips -->
           <div style="text-align: left; margin: 30px 0;">
             ${isPlayer ? `
               <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
@@ -193,8 +185,7 @@ export function getWeek1TipsEmail(data: EmailTemplateData): { subject: string; h
                   Players with complete profiles get 3x more views from coaches. Add your stats, achievements, and academic info.
                 </p>
               </div>
-
-              <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
+<div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
                           border-radius: 8px; padding: 20px; margin: 20px 0;">
                 <h3 style="color: #10b981; font-size: 18px; font-weight: 600; margin: 0 0 10px 0;">
                   🎥 Tip #2: Upload Quality Video
@@ -203,8 +194,7 @@ export function getWeek1TipsEmail(data: EmailTemplateData): { subject: string; h
                   Coaches watch videos first. Upload your best game highlights and make sure they're well-lit and clear.
                 </p>
               </div>
-
-              <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
+<div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
                           border-radius: 8px; padding: 20px; margin: 20px 0;">
                 <h3 style="color: #10b981; font-size: 18px; font-weight: 600; margin: 0 0 10px 0;">
                   📧 Tip #3: Respond to Messages
@@ -223,8 +213,7 @@ export function getWeek1TipsEmail(data: EmailTemplateData): { subject: string; h
                   Filter players by position, location, grad year, and stats to find exactly what you're looking for.
                 </p>
               </div>
-
-              <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
+<div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
                           border-radius: 8px; padding: 20px; margin: 20px 0;">
                 <h3 style="color: #10b981; font-size: 18px; font-weight: 600; margin: 0 0 10px 0;">
                   ⭐ Tip #2: Build Your Watchlist
@@ -233,8 +222,7 @@ export function getWeek1TipsEmail(data: EmailTemplateData): { subject: string; h
                   Save promising players to your watchlist to track their progress and get notified of updates.
                 </p>
               </div>
-
-              <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
+<div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
                           border-radius: 8px; padding: 20px; margin: 20px 0;">
                 <h3 style="color: #10b981; font-size: 18px; font-weight: 600; margin: 0 0 10px 0;">
                   💬 Tip #3: Personalize Your Messages
@@ -245,8 +233,7 @@ export function getWeek1TipsEmail(data: EmailTemplateData): { subject: string; h
               </div>
             `}
           </div>
-
-          <!-- CTA Button -->
+<!-- CTA Button -->
           <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
             <tr>
               <td align="center">
@@ -292,8 +279,7 @@ export function getSuccessStoriesEmail(data: EmailTemplateData): { subject: stri
           <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
             Here are some inspiring stories from players and coaches who found success on ScoutPulse:
           </p>
-
-          <!-- Success Story 1 -->
+<!-- Success Story 1 -->
           <div style="background: rgba(16, 185, 129, 0.1); border-radius: 12px; padding: 25px; margin: 20px 0; text-align: left;">
             <div style="color: #10b981; font-size: 48px; margin: 0 0 15px 0;">"</div>
             <p style="color: #94a3b8; font-size: 16px; line-height: 1.8; margin: 0 0 15px 0; font-style: italic;">
@@ -306,8 +292,7 @@ export function getSuccessStoriesEmail(data: EmailTemplateData): { subject: stri
               ${isPlayer ? '— Jake M., Class of 2024' : '— Coach Sarah T., State University'}
             </p>
           </div>
-
-          <!-- Success Story 2 -->
+<!-- Success Story 2 -->
           <div style="background: rgba(16, 185, 129, 0.1); border-radius: 12px; padding: 25px; margin: 20px 0; text-align: left;">
             <div style="color: #10b981; font-size: 48px; margin: 0 0 15px 0;">"</div>
             <p style="color: #94a3b8; font-size: 16px; line-height: 1.8; margin: 0 0 15px 0; font-style: italic;">
@@ -320,8 +305,7 @@ export function getSuccessStoriesEmail(data: EmailTemplateData): { subject: stri
               ${isPlayer ? '— Marcus R., JUCO Transfer' : '— Coach Mike D., High School'}
             </p>
           </div>
-
-          <!-- CTA -->
+<!-- CTA -->
           <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); 
                       border-radius: 12px; padding: 30px; margin: 30px 0;">
             <h2 style="color: #10b981; font-size: 20px; font-weight: 600; margin: 0 0 15px 0;">
@@ -353,6 +337,95 @@ export function getSuccessStoriesEmail(data: EmailTemplateData): { subject: stri
 
   return {
     subject: '🌟 Success Stories from ScoutPulse',
+    html,
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PARENT INVITATION EMAIL TEMPLATE
+// ═══════════════════════════════════════════════════════════════════════════
+
+export function getParentInvitationEmail(data: {
+  playerName: string;
+  teamName?: string;
+  invitationLink: string;
+  relationship?: string;
+}): { subject: string; html: string } {
+  const { playerName, teamName, invitationLink, relationship = 'parent' } = data;
+
+  const html = baseEmailTemplate({
+    title: 'You\'ve Been Invited to ScoutPulse',
+    content: `
+      <tr>
+        <td style="padding: 40px 20px; text-align: center;">
+          <h1 style="color: #ffffff; font-size: 28px; font-weight: bold; margin: 0 0 20px 0;">
+            You've Been Invited! 🎉
+          </h1>
+          <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
+            Hi there,
+          </p>
+          <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
+            <strong>${playerName}</strong> has invited you to join ScoutPulse as their ${relationship}.
+            ${teamName ? `They're part of <strong>${teamName}</strong>.` : ''}
+          </p>
+          <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
+            As a parent on ScoutPulse, you'll be able to:
+          </p>
+<!-- Benefits -->
+          <div style="text-align: left; margin: 30px 0;">
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
+                        border-radius: 8px; padding: 20px; margin: 20px 0;">
+              <h3 style="color: #10b981; font-size: 18px; font-weight: 600; margin: 0 0 10px 0;">
+                📊 View Performance & Stats
+              </h3>
+              <p style="color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0;">
+                Track your child's progress, game statistics, and achievements all in one place.
+              </p>
+            </div>
+<div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
+                        border-radius: 8px; padding: 20px; margin: 20px 0;">
+              <h3 style="color: #10b981; font-size: 18px; font-weight: 600; margin: 0 0 10px 0;">
+                🏫 Stay Connected with Coaches
+              </h3>
+              <p style="color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0;">
+                Receive updates from coaches and stay informed about team activities and opportunities.
+              </p>
+            </div>
+<div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; 
+                        border-radius: 8px; padding: 20px; margin: 20px 0;">
+              <h3 style="color: #10b981; font-size: 18px; font-weight: 600; margin: 0 0 10px 0;">
+                🎯 Support Their Journey
+              </h3>
+              <p style="color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0;">
+                Help guide your child's recruiting journey and celebrate their milestones together.
+              </p>
+            </div>
+          </div>
+<!-- CTA Button -->
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
+            <tr>
+              <td align="center">
+                <a href="${invitationLink}" 
+                   style="display: inline-block; padding: 16px 32px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
+                          color: #ffffff; text-decoration: none; border-radius: 12px; font-weight: 600; font-size: 16px;
+                          min-width: 200px; text-align: center;">
+                  Accept Invitation
+                </a>
+              </td>
+            </tr>
+          </table>
+<p style="color: #64748b; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0;">
+            This invitation link will expire in 7 days. If you have any questions, 
+            <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.app'}/support" 
+            style="color: #10b981; text-decoration: none;">contact our support team</a>.
+          </p>
+        </td>
+      </tr>
+    `,
+  });
+
+  return {
+    subject: `${playerName} Invited You to ScoutPulse`,
     html,
   };
 }

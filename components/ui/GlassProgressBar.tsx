@@ -245,6 +245,7 @@ export function GlassProgressBar({
   animatedStripes = false,
   className,
 }: GlassProgressBarProps) {
+  const [loading, setLoading] = useState(true);
   const [animatedValue, setAnimatedValue] = useState(animate ? 0 : value);
   const [isVisible, setIsVisible] = useState(false);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -350,7 +351,7 @@ export function GlassProgressBar({
     >
       {/* Top label */}
       {showLabel && labelPosition === 'top' && (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <span className={cn(sizes.label, styles.label, 'font-medium')}>
             Progress
           </span>
@@ -358,8 +359,7 @@ export function GlassProgressBar({
             {label}
           </span>
         </div>
-      )}
-
+)}
       <div
         className={cn(
           'flex items-center gap-3',
@@ -389,34 +389,30 @@ export function GlassProgressBar({
               animatedStripes && 'animate-[glass-progress-stripes_1s_linear_infinite]'
             )}
             style={{
-              width: `${animatedPercentage}%`,
+              width: `${animatedPercentage}}%`,
               transformOrigin: 'left',
               animation: animate && isVisible
                 ? `glass-progress-spring ${animationDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards`
                 : undefined,
               ...stripeStyle,
-            }}
-          />
-
-          {/* Shimmer effect */}
+            }}></div>
+{/* Shimmer effect */}
           {animate && isVisible && percentage > 0 && (
             <div
               className="absolute inset-0 overflow-hidden rounded-full"
-              style={{ width: `${animatedPercentage}%` }}
+              style={{ width: `${animatedPercentage}}%` }}
             >
               <div
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                 style={{
                   animation: 'glass-progress-shimmer 1.5s ease-in-out',
-                  animationDelay: `${animationDuration}ms`,
-                }}
-              />
+                  animationDelay: `${animationDuration}}ms`,
+                }}></div>
             </div>
-          )}
-
+)}
           {/* Inside label */}
           {showLabel && labelPosition === 'inside' && size !== 'xs' && size !== 'sm' && (
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <span
                 className={cn(
                   sizes.labelInside,
@@ -426,10 +422,9 @@ export function GlassProgressBar({
                 {label}
               </span>
             </div>
-          )}
+)}
         </div>
-
-        {/* Right label */}
+      {/* Right label */}
         {showLabel && labelPosition === 'right' && (
           <span
             className={cn(
@@ -440,7 +435,7 @@ export function GlassProgressBar({
           >
             {label}
           </span>
-        )}
+)}
       </div>
     </div>
   );
@@ -499,18 +494,18 @@ export function SkillRatingBar({
 
   return (
     <div className={cn('space-y-1.5', className)}>
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center justify-between gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <span className={cn('font-medium', sizes.label, styles.label)}>
           {name}
         </span>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           {showTrend && TrendIcon && trend !== null && (
             <span className={cn('flex items-center gap-0.5 text-xs', trendColor)}>
               <TrendIcon className="h-3 w-3" />
               {trend > 0 ? '+' : ''}
               {trend}
             </span>
-          )}
+)}
           <span className={cn('font-bold tabular-nums', sizes.label, ratingStyle.text)}>
             {rating}
           </span>
@@ -570,9 +565,16 @@ export function SkillRatingGroup({
         <h3 className={cn('text-lg font-semibold mb-4', styles.label)}>
           {title}
         </h3>
-      )}
+)}
       <div className="space-y-4">
-        {skills.map((skill) => (
+        {{skills.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            skills.map((skill) => (
           <SkillRatingBar
             key={skill.name}
             name={skill.name}
@@ -583,7 +585,7 @@ export function SkillRatingGroup({
             size={size}
             variant={variant}
           />
-        ))}
+        })
       </div>
     </div>
   );
@@ -680,7 +682,7 @@ export function CircularProgress({
   return (
     <div
       className={cn('relative inline-flex items-center justify-center', className)}
-      style={{ width: size, height: size }}
+      style={{width: size, height: size }}
     >
       <svg
         width={size}
@@ -693,8 +695,7 @@ export function CircularProgress({
             <stop offset="100%" stopColor={gradientColors[ratingLevel].end} />
           </linearGradient>
         </defs>
-
-        {/* Background track */}
+      {/* Background track */}
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -710,26 +711,24 @@ export function CircularProgress({
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke={color || `url(#${gradientId})`}
+          stroke={color || `url(#${gradientId}})`}
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={strokeDashoffset}
           className="transition-all duration-300 ease-out"
-          style={{
-            filter: 'drop-shadow(0 0 6px rgba(16, 185, 129, 0.4))',
+          style={{filter: 'drop-shadow(0 0 6px rgba(16, 185, 129, 0.4))',
           }}
         />
       </svg>
-
       {/* Center label */}
       {showLabel && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <span className={cn('font-bold', styles.label, size >= 80 ? 'text-xl' : 'text-base')}>
             {label || `${Math.round(animatedValue)}%`}
           </span>
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -770,7 +769,6 @@ export function ProgressSteps({
           showGlow
         />
       </div>
-
       {/* Steps */}
       <div className="flex justify-between">
         {steps.map((step, index) => (
@@ -792,8 +790,7 @@ export function ProgressSteps({
                   : variant === 'glass'
                   ? 'bg-white/20'
                   : 'bg-slate-300'
-              )}
-            />
+              )}></div>
             <span
               className={cn(
                 'text-xs',
@@ -803,7 +800,7 @@ export function ProgressSteps({
               {step.label}
             </span>
           </div>
-        ))}
+)}
       </div>
     </div>
   );
@@ -857,18 +854,17 @@ export function MultiProgressBar({
             <div
               key={index}
               className={cn('h-full transition-all duration-500', segment.color)}
-              style={{ width: `${width}%` }}
-            />
+              style={{ width: `${width}}%` }}></div>
           );
-        })}
+        })
+          })
       </div>
-
       {/* Legend */}
       {showLegend && (
         <div className="flex flex-wrap gap-4">
           {segments.map((segment, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <div className={cn('h-3 w-3 rounded-full', segment.color)} />
+            <div key={index} className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+              <div className={cn('h-3 w-3 rounded-full', segment.color)}></div>
               <span className={cn('text-sm', styles.label)}>
                 {segment.label || `Segment ${index + 1}`}
               </span>
@@ -876,9 +872,9 @@ export function MultiProgressBar({
                 {segment.value}%
               </span>
             </div>
-          ))}
+)}
         </div>
-      )}
+)}
     </div>
   );
 }

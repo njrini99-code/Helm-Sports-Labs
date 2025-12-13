@@ -297,13 +297,12 @@ function ToastItem({ toast, onRemove, position }: ToastItemProps) {
         <div className={cn('shrink-0 mt-0.5', style.iconColor)}>
           <Icon className={cn('w-5 h-5', toast.type === 'loading' && 'animate-spin')} />
         </div>
-
-        {/* Content */}
+      {/* Content */}
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-white text-sm">{toast.title}</p>
           {toast.description && (
             <p className="text-slate-400 text-sm mt-1">{toast.description}</p>
-          )}
+)}
           {toast.action && (
             <button
               onClick={toast.action.onClick}
@@ -315,10 +314,9 @@ function ToastItem({ toast, onRemove, position }: ToastItemProps) {
             >
               {toast.action.label}
             </button>
-          )}
+)}
         </div>
-
-        {/* Close Button */}
+      {/* Close Button */}
         {toast.dismissible !== false && (
           <button
             onClick={() => onRemove(toast.id)}
@@ -331,20 +329,18 @@ function ToastItem({ toast, onRemove, position }: ToastItemProps) {
           >
             <X className="w-4 h-4" />
           </button>
-        )}
+)}
       </div>
-
       {/* Progress Bar */}
       {toast.duration && toast.duration > 0 && !isHovered && toast.type !== 'loading' && (
         <div className="absolute bottom-0 left-0 right-0 h-1 rounded-b-xl overflow-hidden bg-white/5">
           <div
             className={cn('h-full', style.progress)}
             style={{
-              animation: `toast-progress ${toast.duration}ms linear forwards`,
-            }}
-          />
+              animation: `toast-progress ${toast.duration}}ms linear forwards`,
+            }}></div>
         </div>
-      )}
+)}
     </div>
   );
 }
@@ -386,11 +382,18 @@ function ToastContainer({ toasts, onRemove, position }: ToastContainerProps) {
       )}
       aria-live="polite"
     >
-      {toasts.map((toast) => (
+      {{toasts.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            toasts.map((toast) => (
         <div key={toast.id} className="pointer-events-auto">
           <ToastItem toast={toast} onRemove={onRemove} position={position} />
         </div>
-      ))}
+)}
     </div>,
     document.body
   );
@@ -462,7 +465,7 @@ export function ToastProvider({
           return updated.slice(0, maxToasts);
         }
         return updated;
-      });
+      }});
 
       // Auto-dismiss
       if (duration > 0) {
@@ -487,31 +490,31 @@ export function ToastProvider({
 
   const success = useCallback(
     (title: string, description?: string) =>
-      addToast({ type: 'success', title, description }),
+      addToast({ type: 'success', title, description }}),
     [addToast]
   );
 
   const error = useCallback(
     (title: string, description?: string) =>
-      addToast({ type: 'error', title, description }),
+      addToast({ type: 'error', title, description }}),
     [addToast]
   );
 
   const warning = useCallback(
     (title: string, description?: string) =>
-      addToast({ type: 'warning', title, description }),
+      addToast({ type: 'warning', title, description }}),
     [addToast]
   );
 
   const info = useCallback(
     (title: string, description?: string) =>
-      addToast({ type: 'info', title, description }),
+      addToast({ type: 'info', title, description }}),
     [addToast]
   );
 
   const loading = useCallback(
     (title: string, description?: string) =>
-      addToast({ type: 'loading', title, description, duration: 0 }),
+      addToast({ type: 'loading', title, description, duration: 0 }}),
     [addToast]
   );
 
@@ -528,14 +531,14 @@ export function ToastProvider({
         type: 'loading',
         title: options.loading,
         duration: 0,
-      });
+      }});
 
       try {
         const result = await promise;
         updateToast(toastId, {
           type: 'success',
           title: typeof options.success === 'function' ? options.success(result) : options.success,
-        });
+        }});
         // Set auto-dismiss for success
         setTimeout(() => removeToast(toastId), defaultDuration);
         return result;
@@ -546,7 +549,7 @@ export function ToastProvider({
         updateToast(toastId, {
           type: 'error',
           title: errorMessage,
-        });
+        }});
         // Set auto-dismiss for error
         setTimeout(() => removeToast(toastId), defaultDuration);
         throw err;
@@ -564,7 +567,7 @@ export function ToastProvider({
 
   return (
     <ToastContext.Provider
-      value={{
+      value={
         toasts,
         addToast,
         removeToast,
@@ -575,7 +578,7 @@ export function ToastProvider({
         info,
         loading,
         promise: promiseFn,
-      }}
+      }
     >
       {children}
       <ToastContainer toasts={toasts} onRemove={removeToast} position={position} />

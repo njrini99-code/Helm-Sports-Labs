@@ -22,9 +22,9 @@ export function ParallaxBlob({ className = '', speed = 0.5, delay = 0 }: Paralla
   return (
     <motion.div
       ref={ref}
-      style={{ y, opacity }}
+      style={{y, opacity }}
       className={className}
-      transition={{ delay }}
+      transition={{delay }}
     />
   );
 }

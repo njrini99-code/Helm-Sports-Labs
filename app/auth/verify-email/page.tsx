@@ -7,10 +7,12 @@ import { Mail, CheckCircle2, AlertCircle, RefreshCw, Search, ExternalLink } from
 import { AnimatedButton } from '@/components/ui/MicroInteractions';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function VerifyEmailPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'pending' | 'verifying' | 'verified' | 'error'>('pending');
   const [resending, setResending] = useState(false);
@@ -104,35 +106,39 @@ export default function VerifyEmailPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* ScoutPulse Logo */}
+        {/* BaseballHelm Logo */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-emerald-500/50">
-            <span className="text-3xl font-bold text-white">SP</span>
+          <div className="w-20 h-20 rounded-2xl bg-white/95 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#16893B]/50 p-2">
+            <Image 
+              src="/assets/logos/baseball-logo.png" 
+              alt="BaseballHelm Logo" 
+              width={64} 
+              height={64}
+              className="w-full h-full object-contain"
+              priority
+            />
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-2">
-            ScoutPulse
+            BaseballHelm
           </h1>
         </div>
-
-        {/* Verification Card */}
+      {/* Verification Card */}
         <div className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl shadow-2xl p-8 animate-fade-in">
           {status === 'pending' && (
             <div className="text-center space-y-6">
               <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto">
                 <Mail className="w-8 h-8 text-emerald-400" />
               </div>
-
-              <div>
+      <div>
                 <h2 className="text-2xl font-bold text-white mb-2">Check Your Email</h2>
                 <p className="text-gray-400">
                   We've sent a verification link to
                 </p>
                 {email && (
                   <p className="text-emerald-400 font-medium mt-1">{email}</p>
-                )}
+)}
               </div>
-
-              {/* Verify Button */}
+      {/* Verify Button */}
               <div className="space-y-4">
                 <AnimatedButton
                   variant="primary"
@@ -147,8 +153,7 @@ export default function VerifyEmailPage() {
                   <Mail className="w-5 h-5 mr-2" />
                   Open Email App
                 </AnimatedButton>
-
-                {/* Backup Link */}
+      {/* Backup Link */}
                 <div className="p-4 bg-white/5 rounded-xl border border-white/10">
                   <p className="text-sm text-gray-400 mb-2">
                     Or click the verification link in your email:
@@ -159,8 +164,7 @@ export default function VerifyEmailPage() {
                   </div>
                 </div>
               </div>
-
-              {/* Spam Instructions */}
+      {/* Spam Instructions */}
               <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl">
                 <div className="flex items-start gap-3">
                   <Search className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
@@ -177,8 +181,7 @@ export default function VerifyEmailPage() {
                   </div>
                 </div>
               </div>
-
-              {/* Resend Button */}
+      {/* Resend Button */}
               <div className="space-y-2">
                 <AnimatedButton
                   variant="secondary"
@@ -199,24 +202,21 @@ export default function VerifyEmailPage() {
                     </>
                   )}
                 </AnimatedButton>
-
-                {resendSuccess && (
+      {resendSuccess && (
                   <p className="text-sm text-emerald-400 flex items-center justify-center gap-2">
                     <CheckCircle2 className="w-4 h-4" />
                     Verification email sent!
                   </p>
-                )}
-
+)}
                 {error && (
                   <p className="text-sm text-red-400 flex items-center justify-center gap-2">
                     <AlertCircle className="w-4 h-4" />
                     {error}
                   </p>
-                )}
+)}
               </div>
             </div>
-          )}
-
+)}
           {status === 'verifying' && (
             <div className="text-center space-y-6">
               <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center mx-auto">
@@ -227,8 +227,7 @@ export default function VerifyEmailPage() {
                 <p className="text-gray-400">Please wait while we verify your email</p>
               </div>
             </div>
-          )}
-
+)}
           {status === 'verified' && (
             <div className="text-center space-y-6">
               <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto">
@@ -240,8 +239,7 @@ export default function VerifyEmailPage() {
                 <p className="text-sm text-gray-500 mt-2">Redirecting to your dashboard...</p>
               </div>
             </div>
-          )}
-
+)}
           {status === 'error' && (
             <div className="text-center space-y-6">
               <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto">
@@ -261,7 +259,7 @@ export default function VerifyEmailPage() {
                     <RefreshCw className="w-4 h-4 mr-2" />
                     Resend Verification Email
                   </AnimatedButton>
-                  <Link href="/auth/login">
+        <Link href="/auth/login">
                     <AnimatedButton
                       variant="secondary"
                       size="md"
@@ -273,10 +271,9 @@ export default function VerifyEmailPage() {
                 </div>
               </div>
             </div>
-          )}
+)}
         </div>
-
-        {/* Help Link */}
+      {/* Help Link */}
         <div className="text-center mt-6">
           <Link
             href="/support"
@@ -286,7 +283,6 @@ export default function VerifyEmailPage() {
           </Link>
         </div>
       </div>
-
       <style jsx>{`
         @keyframes fade-in {
           from {

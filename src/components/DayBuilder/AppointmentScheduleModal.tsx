@@ -65,8 +65,7 @@ export function AppointmentScheduleModal({
             <X className="w-6 h-6" />
           </button>
         </div>
-
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+<form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Business
@@ -74,10 +73,9 @@ export function AppointmentScheduleModal({
             <p className="text-gray-900 font-semibold">{lead.business_name}</p>
             {lead.address && (
               <p className="text-sm text-gray-600 mt-1">{lead.address}</p>
-            )}
+)}
           </div>
-
-          <div>
+<div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Appointment Type
             </label>
@@ -106,8 +104,7 @@ export function AppointmentScheduleModal({
               </button>
             </div>
           </div>
-
-          <div>
+<div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Date
             </label>
@@ -119,8 +116,7 @@ export function AppointmentScheduleModal({
               required
             />
           </div>
-
-          <div>
+<div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Time
             </label>
@@ -134,11 +130,10 @@ export function AppointmentScheduleModal({
                 <option key={slot} value={slot}>
                   {slot}
                 </option>
-              ))}
+)}
             </select>
           </div>
-
-          <div className="flex gap-3 pt-4">
+<div className="flex gap-3 pt-4">
             <button
               type="button"
               onClick={onClose}

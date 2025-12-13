@@ -274,8 +274,7 @@ export function ManualBusinessEntryModal({
             <X className="w-5 h-5" />
           </button>
         </div>
-
-        <div className="flex border-b border-gray-200">
+<div className="flex border-b border-gray-200">
           <button
             onClick={() => setMode('search')}
             className={`flex-1 px-4 py-3 font-medium transition-colors ${
@@ -303,8 +302,7 @@ export function ManualBusinessEntryModal({
             </div>
           </button>
         </div>
-
-        <div className="flex-1 overflow-y-auto">
+<div className="flex-1 overflow-y-auto">
           {mode === 'search' ? (
             <div className="flex flex-col h-full">
               <div className="p-4">
@@ -323,29 +321,25 @@ export function ManualBusinessEntryModal({
                   )}
                 </div>
               </div>
-
-              <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-2">
+<div className="flex-1 overflow-y-auto px-4 pb-4 space-y-2">
                 {error && (
                   <div className="flex items-center gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-700">
                     <AlertCircle className="w-5 h-5 flex-shrink-0" />
                     <p className="text-sm">{error}</p>
                   </div>
-                )}
-
+)}
                 {searchResults.length === 0 && searchQuery.length >= 2 && !searching && !error && (
                   <div className="text-center py-8 text-gray-500">
                     <p>No businesses found</p>
                     <p className="text-sm mt-1">Try adding a new business using the "Add New" tab</p>
                   </div>
-                )}
-
+)}
                 {searchResults.length === 0 && searchQuery.length < 2 && (
                   <div className="text-center py-8 text-gray-400">
                     <Search className="w-12 h-12 mx-auto mb-3 opacity-50" />
                     <p className="text-sm">Type at least 2 characters to search</p>
                   </div>
-                )}
-
+)}
                 {searchResults.map((lead) => (
                   <button
                     key={lead.id}
@@ -369,13 +363,13 @@ export function ManualBusinessEntryModal({
                             </div>
                             {lead.user_ratings_total && (
                               <span className="text-sm text-gray-500">({lead.user_ratings_total} reviews)</span>
-                            )}
+)}
                           </div>
-                        )}
+)}
                       </div>
                     </div>
                   </button>
-                ))}
+)}
               </div>
             </div>
           ) : (
@@ -385,15 +379,13 @@ export function ManualBusinessEntryModal({
                   <AlertCircle className="w-5 h-5 flex-shrink-0" />
                   <p className="text-sm">{error}</p>
                 </div>
-              )}
-
+)}
               {success && (
                 <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-lg text-green-700">
                   <CheckCircle className="w-5 h-5 flex-shrink-0" />
                   <p className="text-sm">{success}</p>
                 </div>
-              )}
-
+)}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Business Name <span className="text-red-500">*</span>
@@ -412,10 +404,9 @@ export function ManualBusinessEntryModal({
                 </div>
                 {formErrors.business_name && (
                   <p className="mt-1 text-sm text-red-600">{formErrors.business_name}</p>
-                )}
+)}
               </div>
-
-              <div>
+<div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Street Address <span className="text-red-500">*</span>
                 </label>
@@ -430,10 +421,9 @@ export function ManualBusinessEntryModal({
                 />
                 {formErrors.address && (
                   <p className="mt-1 text-sm text-red-600">{formErrors.address}</p>
-                )}
+)}
               </div>
-
-              <div className="grid grid-cols-2 gap-4">
+<div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     City <span className="text-red-500">*</span>
@@ -449,10 +439,9 @@ export function ManualBusinessEntryModal({
                   />
                   {formErrors.city && (
                     <p className="mt-1 text-sm text-red-600">{formErrors.city}</p>
-                  )}
+)}
                 </div>
-
-                <div>
+<div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     State <span className="text-red-500">*</span>
                   </label>
@@ -466,15 +455,14 @@ export function ManualBusinessEntryModal({
                     <option value="">Select...</option>
                     {US_STATES.map(state => (
                       <option key={state} value={state}>{state}</option>
-                    ))}
+)}
                   </select>
                   {formErrors.state && (
                     <p className="mt-1 text-sm text-red-600">{formErrors.state}</p>
-                  )}
+)}
                 </div>
               </div>
-
-              <div>
+<div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   ZIP Code <span className="text-red-500">*</span>
                 </label>
@@ -490,10 +478,9 @@ export function ManualBusinessEntryModal({
                 />
                 {formErrors.zip && (
                   <p className="mt-1 text-sm text-red-600">{formErrors.zip}</p>
-                )}
+)}
               </div>
-
-              <div className="grid grid-cols-2 gap-4">
+<div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Phone <span className="text-gray-400">(Optional)</span>
@@ -506,8 +493,7 @@ export function ManualBusinessEntryModal({
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
-
-                <div>
+<div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Industry <span className="text-gray-400">(Optional)</span>
                   </label>
@@ -520,8 +506,7 @@ export function ManualBusinessEntryModal({
                   />
                 </div>
               </div>
-
-              <div>
+<div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Decision Maker <span className="text-gray-400">(Optional)</span>
                 </label>
@@ -533,8 +518,7 @@ export function ManualBusinessEntryModal({
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
-
-              <div className="flex gap-3 pt-4">
+<div className="flex gap-3 pt-4">
                 <button
                   type="button"
                   onClick={onClose}
@@ -567,7 +551,7 @@ export function ManualBusinessEntryModal({
                 </button>
               </div>
             </form>
-          )}
+)}
         </div>
       </div>
     </div>

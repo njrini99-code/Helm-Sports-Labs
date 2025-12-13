@@ -11,6 +11,7 @@ interface Card3DProps {
 
 export function Card3D({ children, className = '', intensity = 15 }: Card3DProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [loading, setLoading] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
   const x = useMotionValue(0);
@@ -49,18 +50,16 @@ export function Card3D({ children, className = '', intensity = 15 }: Card3DProps
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
+      style={{rotateX,
         rotateY,
         transformStyle: 'preserve-3d',
       }}
       className={className}
     >
       <motion.div
-        style={{
-          transform: isHovered ? 'translateZ(20px)' : 'translateZ(0px)',
+        style={{transform: isHovered ? 'translateZ(20px)' : 'translateZ(0px)',
         }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        transition={{type: 'spring', stiffness: 300, damping: 30 }}
       >
         {children}
       </motion.div>

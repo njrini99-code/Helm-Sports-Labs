@@ -71,10 +71,9 @@ export function CoachInterestHeatmap() {
         activity.viewCount++;
         if (new Date(view.created_at) > activity.lastViewed) {
           activity.lastViewed = new Date(view.created_at);
-        }
-      });
+        });
 
-      setActivities(Array.from(activityMap.values())
+      setActivities(Array.from(activityMap.values()}
         .sort((a, b) => b.viewCount - a.viewCount));
       setLoading(false);
     } catch (error) {
@@ -84,7 +83,7 @@ export function CoachInterestHeatmap() {
   };
 
   if (loading) {
-    return <div className="p-4">Loading heatmap...</div>;
+    return <div className="p-4">Loading heatmap...</motion.div>;
   }
 
   if (activities.length === 0) {
@@ -93,7 +92,7 @@ export function CoachInterestHeatmap() {
         <MapPin className="w-12 h-12 mx-auto mb-2 opacity-50" />
         <p className="text-sm">No coach activity yet.</p>
         <p className="text-xs mt-1">Activity will appear here as coaches view your profile.</p>
-      </div>
+      </motion.div>
     );
   }
 
@@ -103,11 +102,11 @@ export function CoachInterestHeatmap() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div>
           <h3 className="text-lg font-semibold">Coach Interest Heatmap</h3>
           <p className="text-sm text-muted-foreground">See who's viewing your profile</p>
-        </div>
+        </motion.div>
         <div className="flex gap-2">
           <button
             onClick={() => setViewMode('list')}
@@ -127,24 +126,34 @@ export function CoachInterestHeatmap() {
           >
             Timeline
           </button>
-        </div>
-      </div>
-
+        </motion.div>
+      </motion.div>
       <div className="grid grid-cols-3 gap-4">
-        <div className="p-3 rounded-lg bg-card border">
+        <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{duration: 0.3 }}
+  className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <p className="text-sm text-muted-foreground">Total Views</p>
           <p className="text-2xl font-bold">{totalViews}</p>
-        </div>
-        <div className="p-3 rounded-lg bg-card border">
+        </motion.div>
+        <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{duration: 0.3 }}
+  className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <p className="text-sm text-muted-foreground">Unique Coaches</p>
           <p className="text-2xl font-bold">{uniqueCoaches}</p>
-        </div>
-        <div className="p-3 rounded-lg bg-card border">
+        </motion.div>
+        <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{duration: 0.3 }}
+  className="p-3 rounded-2xl bg-card border hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <p className="text-sm text-muted-foreground">Hot Prospects</p>
           <p className="text-2xl font-bold text-emerald-600">{hotProspects}</p>
-        </div>
-      </div>
-
+        </motion.div>
+      </motion.div>
       <div className="space-y-2 max-h-96 overflow-y-auto">
         {activities.map((activity) => (
           <div
@@ -156,17 +165,17 @@ export function CoachInterestHeatmap() {
               activity.viewCount === 1 && "border-gray-200 dark:border-gray-800"
             )}
           >
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between mb-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+              <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <Building2 className="w-4 h-4 text-muted-foreground" />
                 <div>
                   <p className="font-medium">{activity.school}</p>
-                  <p className="text-xs text-muted-foreground flex items-center gap-1">
+                  <p className="text-xs text-muted-foreground flex items-center gap-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                     <MapPin className="w-3 h-3" />
                     {activity.location}
                   </p>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
               <div className="text-right">
                 <span className={cn(
                   "text-xs px-2 py-0.5 rounded-full font-medium",
@@ -177,28 +186,28 @@ export function CoachInterestHeatmap() {
                 )}>
                   {activity.tier}
                 </span>
-              </div>
-            </div>
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-1">
+              </motion.div>
+            </motion.div>
+            <div className="flex items-center justify-between text-sm hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+              <div className="flex items-center gap-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+                <div className="flex items-center gap-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                   <Users className="w-3 h-3 text-muted-foreground" />
                   <span className="text-muted-foreground">{activity.viewCount} views</span>
-                </div>
+                </motion.div>
                 {activity.viewCount >= 3 && (
-                  <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
+                  <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                     <TrendingUp className="w-3 h-3" />
                     <span className="text-xs font-medium">High Interest</span>
-                  </div>
-                )}
-              </div>
+                  </motion.div>
+)}
+              </motion.div>
               <span className="text-xs text-muted-foreground">
                 {activity.lastViewed.toLocaleDateString()}
               </span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+            </motion.div>
+          </motion.div>
+)}
+      </motion.div>
+    </motion.div>
   );
 }

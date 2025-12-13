@@ -42,8 +42,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       password,
       options: {
         data: metadata
-      }
-    });
+      });
     return { data, error: error as Error | null };
   };
 
@@ -52,7 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={ user, loading, signIn, signUp, signOut }>
       {children}
     </AuthContext.Provider>
   );

@@ -155,8 +155,7 @@ ${industries.length > 0 ? `- Top Industry: ${industries[0].industry} ($${industr
 Provide a brief, motivational insight (2-3 sentences) with specific recommendations to hit the AWV goal.`;
 
       const { data, error } = await supabase.functions.invoke('tempo-copilot', {
-        body: { prompt }
-      });
+        body: { prompt });
 
       if (error) throw error;
       setAiInsight(data.response);
@@ -214,8 +213,7 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Goals & Forecast</h1>
           <p className="text-lg text-gray-600">Track your AWV goal and calculate required inputs</p>
         </div>
-
-        <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl shadow-2xl p-8 mb-8 text-white">
+<div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl shadow-2xl p-8 mb-8 text-white">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
               <Target className="w-8 h-8" />
@@ -229,8 +227,7 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
               <span className="font-bold capitalize">{metrics.pace_status}</span>
             </div>
           </div>
-
-          <div className="grid grid-cols-3 gap-6 mb-6">
+<div className="grid grid-cols-3 gap-6 mb-6">
             <div>
               <div className="text-blue-100 text-sm mb-1">Goal</div>
               <div className="text-3xl font-bold">${metrics.awv_goal.toLocaleString()}</div>
@@ -244,8 +241,7 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
               <div className="text-3xl font-bold">${Math.max(0, metrics.awv_goal - metrics.total_revenue).toFixed(0)}</div>
             </div>
           </div>
-
-          <div className="space-y-2">
+<div className="space-y-2">
             <div className="flex justify-between text-sm">
               <span>{progressPercent.toFixed(1)}% Complete</span>
               <span>${metrics.total_revenue.toFixed(0)} / ${metrics.awv_goal.toLocaleString()}</span>
@@ -253,13 +249,11 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
             <div className="h-4 bg-blue-900 rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-green-400 to-green-500 transition-all duration-500"
-                style={{ width: `${Math.min(progressPercent, 100)}%` }}
-              />
+                style={{ width: `${Math.min(progressPercent, 100)}}%` }}></div>
             </div>
           </div>
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <div className="bg-white rounded-2xl shadow-lg p-6">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-bold text-gray-900">Goal Parameters</h3>
@@ -285,10 +279,9 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
                     Save
                   </button>
                 </div>
-              )}
+)}
             </div>
-
-            <div className="space-y-4">
+<div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   AWV Goal ($)
@@ -301,8 +294,7 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
                 />
               </div>
-
-              <div>
+<div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Average Account Size ($)
                 </label>
@@ -314,8 +306,7 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
                 />
               </div>
-
-              <div>
+<div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Close Rate (%)
                 </label>
@@ -330,8 +321,7 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
               </div>
             </div>
           </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-6">
+<div className="bg-white rounded-2xl shadow-lg p-6">
             <h3 className="text-xl font-bold text-gray-900 mb-6">Required Inputs</h3>
             <div className="space-y-6">
               <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4">
@@ -346,8 +336,7 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
                   Completed: {metrics.total_nps} | Remaining: {requiredNPsRemaining}
                 </div>
               </div>
-
-              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4">
+<div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <TrendingUp className="w-5 h-5 text-green-600" />
@@ -359,8 +348,7 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
                   Based on current pace: {((metrics.projected_awv / metrics.awv_goal) * 100).toFixed(1)}% of goal
                 </div>
               </div>
-
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4">
+<div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <Award className="w-5 h-5 text-purple-600" />
@@ -375,8 +363,7 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
             </div>
           </div>
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <div className="bg-white rounded-2xl shadow-lg p-6">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-2">
@@ -399,10 +386,9 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
               <div className="text-center py-8 text-gray-500">
                 Click "Generate Insight" to get AI-powered recommendations
               </div>
-            )}
+)}
           </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-6">
+<div className="bg-white rounded-2xl shadow-lg p-6">
             <div className="flex items-center gap-2 mb-6">
               <BarChart3 className="w-6 h-6 text-blue-600" />
               <h3 className="text-xl font-bold text-gray-900">Performance Metrics</h3>
@@ -427,8 +413,7 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
             </div>
           </div>
         </div>
-
-        {industries.length > 0 && (
+{industries.length > 0 && (
           <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
             <div className="flex items-center gap-2 mb-6">
               <PieChart className="w-6 h-6 text-blue-600" />
@@ -456,13 +441,12 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
                       <td className="text-right py-3 px-4 text-gray-600">{(ind.close_rate * 100).toFixed(1)}%</td>
                       <td className="text-right py-3 px-4 text-gray-600">${ind.avg_deal_size.toFixed(0)}</td>
                     </tr>
-                  ))}
+)}
                 </tbody>
               </table>
             </div>
           </div>
-        )}
-
+)}
         {quarters.length > 0 && (
           <div className="bg-white rounded-2xl shadow-lg p-6">
             <div className="flex items-center gap-2 mb-6">
@@ -493,10 +477,10 @@ Provide a brief, motivational insight (2-3 sentences) with specific recommendati
                     </div>
                   </div>
                 </div>
-              ))}
+)}
             </div>
           </div>
-        )}
+)}
       </div>
     </div>
   );

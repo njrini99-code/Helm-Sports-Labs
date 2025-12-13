@@ -4,6 +4,8 @@
  */
 
 import { createClient } from '@/lib/supabase/server';
+import { sendPushNotification } from './sendPushNotification';
+import { sendEmail } from '@/lib/emails/sendEmail';
 
 export interface NotificationData {
   user_id: string;
@@ -38,8 +40,37 @@ export async function createNotification(data: NotificationData) {
       return null;
     }
 
-    // TODO: Send push notification
-    // TODO: Send email notification
+    // Get user preferences and profile
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('email, push_notifications_enabled, email_notifications_enabled')
+      .eq('id', data.user_id)
+      .single();
+
+    // Send push notification if enabled
+    if (profile?.push_notifications_enabled) {
+      await sendPushNotification({
+        userId: data.user_id,
+        title: data.title,
+        body: data.body,
+        url: data.link || undefined,
+      });
+    }
+
+    // Send email notification if enabled
+    if (profile?.email_notifications_enabled && profile?.email) {
+      await sendEmail({
+        to: profile.email,
+        subject: data.title,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2>${data.title}</h2>
+            <p>${data.body}</p>
+            ${data.link ? `<p><a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.com'}${data.link}" style="color: #10b981; text-decoration: none;">View Details →</a></p>` : ''}
+          </div>
+        `,
+      });
+    }
 
     return notification;
   } catch (error) {

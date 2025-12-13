@@ -205,7 +205,7 @@ export default function CollegeCoachCalendarPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-6 h-6 bg-emerald-500/20 rounded animate-pulse" />
+          <div className="w-6 h-6 bg-emerald-500/20 rounded animate-pulse"></div>
           <p className="text-sm text-slate-500">Loading calendar...</p>
         </div>
       </div>
@@ -226,11 +226,10 @@ export default function CollegeCoachCalendarPage() {
               Plan camps, evaluations, and player visits in one view.
             </p>
           </div>
-          
-          <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2">
             {/* View Toggle */}
             <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as ViewMode)}>
-              <TabsList className="h-8 bg-white border border-slate-200 p-0.5">
+              <TabsList className="h-8 bg-white/10 backdrop-blur-md border border-white/20 border border-slate-200 p-0.5">
                 <TabsTrigger 
                   value="month" 
                   className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-slate-100 data-[state=active]:shadow-none"
@@ -238,14 +237,14 @@ export default function CollegeCoachCalendarPage() {
                   <LayoutGrid className="w-3.5 h-3.5" strokeWidth={2} />
                   Month
                 </TabsTrigger>
-                <TabsTrigger 
+        <TabsTrigger 
                   value="week" 
                   className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-slate-100 data-[state=active]:shadow-none"
                 >
                   <CalendarIcon className="w-3.5 h-3.5" strokeWidth={2} />
                   Week
                 </TabsTrigger>
-                <TabsTrigger 
+        <TabsTrigger 
                   value="agenda" 
                   className="text-xs gap-1.5 px-3 h-7 data-[state=active]:bg-slate-100 data-[state=active]:shadow-none"
                 >
@@ -254,8 +253,7 @@ export default function CollegeCoachCalendarPage() {
                 </TabsTrigger>
               </TabsList>
             </Tabs>
-
-            <Button
+      <Button
               variant="outline"
               size="sm"
               className="h-8 px-3 text-xs border-slate-200 text-slate-600"
@@ -264,8 +262,7 @@ export default function CollegeCoachCalendarPage() {
               <Cloud className="w-3.5 h-3.5 mr-1.5" strokeWidth={2} />
               Sync Calendar
             </Button>
-            
-            <Button
+      <Button
               size="sm"
               className="h-8 px-3 text-xs bg-emerald-500 hover:bg-emerald-600 text-white"
               onClick={() => handleAddEvent()}
@@ -275,8 +272,7 @@ export default function CollegeCoachCalendarPage() {
             </Button>
           </div>
         </div>
-
-        {/* ═══════════════════════════════════════════════════════════════════
+      {/* ═══════════════════════════════════════════════════════════════════
             MAIN CONTENT
         ═══════════════════════════════════════════════════════════════════ */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -298,8 +294,7 @@ export default function CollegeCoachCalendarPage() {
                 </button>
               ))}
             </div>
-
-            {/* Calendar */}
+      {/* Calendar */}
             <div className="backdrop-blur-2xl bg-white/10 border border-white/15 rounded-2xl p-6 h-[600px]">
               <Calendar
                 localizer={localizer}
@@ -314,7 +309,7 @@ export default function CollegeCoachCalendarPage() {
                 endAccessor="end"
                 view={viewMode}
                 onView={setViewMode}
-                style={{ height: '100%' }}
+                style={{height: '100%' }}
                 onSelectEvent={(event) => handleEventClick(event.resource)}
                 onSelectSlot={(slotInfo) => handleSlotSelect(slotInfo)}
                 selectable
@@ -325,8 +320,7 @@ export default function CollegeCoachCalendarPage() {
               />
             </div>
           </div>
-
-          {/* Right Sidebar */}
+      {/* Right Sidebar */}
           <div className="space-y-4">
             <UpcomingEventsPanel
               events={upcomingEvents}
@@ -340,18 +334,15 @@ export default function CollegeCoachCalendarPage() {
             />
           </div>
         </div>
-
-        {/* ═══════════════════════════════════════════════════════════════════
+      {/* ═══════════════════════════════════════════════════════════════════
             PLAYER SCHEDULE (BOTTOM)
         ═══════════════════════════════════════════════════════════════════ */}
         {coachId && (
           <PlayerSchedulePanel
             coachId={coachId}
             onEventClick={handleEventClick}
-            onViewProfile={handleViewProfile}
-          />
+            onViewProfile={handleViewProfile} />
         )}
-
         {/* ═══════════════════════════════════════════════════════════════════
             EVENT MODAL
         ═══════════════════════════════════════════════════════════════════ */}
@@ -391,7 +382,7 @@ const CustomEvent = ({ event }: any) => {
       <div className="font-semibold truncate">{event.title}</div>
       {event.resource?.player_name && (
         <div className="text-white/70 truncate">{event.resource.player_name}</div>
-      )}
+)}
     </div>
   );
 };
@@ -417,7 +408,7 @@ const CustomToolbar = ({ label, onNavigate, onView }: any) => {
       </div>
       <button
         onClick={() => onNavigate('TODAY')}
-        className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition-colors"
+        className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl transition-colors"
       >
         Today
       </button>

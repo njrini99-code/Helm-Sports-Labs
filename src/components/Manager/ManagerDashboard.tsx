@@ -177,8 +177,7 @@ export function ManagerDashboard() {
           </h1>
           <p className="text-lg text-gray-600">Team Performance Overview</p>
         </div>
-
-        {/* Team Selection */}
+{/* Team Selection */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
@@ -193,8 +192,7 @@ export function ManagerDashboard() {
               Create Team
             </button>
           </div>
-
-          {teams.length === 0 ? (
+{teams.length === 0 ? (
             <div className="text-center py-12">
               <Users className="w-16 h-16 mx-auto mb-4 text-gray-300" />
               <p className="text-gray-500 mb-4">You haven't created any teams yet</p>
@@ -230,12 +228,11 @@ export function ManagerDashboard() {
                     Created {new Date(team.created_at).toLocaleDateString()}
                   </div>
                 </button>
-              ))}
+)}
             </div>
-          )}
+)}
         </div>
-
-        {/* Create Team Modal */}
+{/* Create Team Modal */}
         {showCreateTeam && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6">
@@ -273,8 +270,7 @@ export function ManagerDashboard() {
               </div>
             </div>
           </div>
-        )}
-
+)}
         {/* Team Metrics */}
         {selectedTeam && (
           <>
@@ -287,8 +283,7 @@ export function ManagerDashboard() {
                 <div className="text-4xl font-bold mb-1">{metrics.activeReps}</div>
                 <div className="text-blue-100 text-sm">Active Reps</div>
               </div>
-
-              <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white shadow-xl">
+<div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white shadow-xl">
                 <div className="flex items-center justify-between mb-4">
                   <Target className="w-8 h-8 opacity-80" />
                   <span className="text-sm font-medium opacity-90">Total</span>
@@ -296,8 +291,7 @@ export function ManagerDashboard() {
                 <div className="text-4xl font-bold mb-1">{metrics.totalNPs}</div>
                 <div className="text-green-100 text-sm">New Prospects</div>
               </div>
-
-              <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white shadow-xl">
+<div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white shadow-xl">
                 <div className="flex items-center justify-between mb-4">
                   <Award className="w-8 h-8 opacity-80" />
                   <span className="text-sm font-medium opacity-90">Total</span>
@@ -305,8 +299,7 @@ export function ManagerDashboard() {
                 <div className="text-4xl font-bold mb-1">{metrics.totalOSVs}</div>
                 <div className="text-purple-100 text-sm">On-Site Visits</div>
               </div>
-
-              <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-6 text-white shadow-xl">
+<div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-6 text-white shadow-xl">
                 <div className="flex items-center justify-between mb-4">
                   <TrendingUp className="w-8 h-8 opacity-80" />
                   <span className="text-sm font-medium opacity-90">Pipeline</span>
@@ -315,8 +308,7 @@ export function ManagerDashboard() {
                 <div className="text-orange-100 text-sm">Total Value</div>
               </div>
             </div>
-
-            {/* Team Members */}
+{/* Team Members */}
             <div className="bg-white rounded-2xl shadow-lg p-6">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold text-gray-900">
@@ -326,8 +318,7 @@ export function ManagerDashboard() {
                   Team Code: {selectedTeam.team_code}
                 </div>
               </div>
-
-              {teamMembers.length === 0 ? (
+{teamMembers.length === 0 ? (
                 <div className="text-center py-12">
                   <Users className="w-16 h-16 mx-auto mb-4 text-gray-300" />
                   <p className="text-gray-500 mb-2">No team members yet</p>
@@ -365,9 +356,9 @@ export function ManagerDashboard() {
                         </div>
                       </div>
                     </div>
-                  ))}
+)}
                 </div>
-              )}
+)}
             </div>
           </>
         )}

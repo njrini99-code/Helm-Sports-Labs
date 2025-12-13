@@ -151,7 +151,7 @@ export default function CollegeCoachCamps() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -176,7 +176,6 @@ export default function CollegeCoachCamps() {
           Create Event
         </Button>
       </div>
-
       {/* Create Event Modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
@@ -199,8 +198,7 @@ export default function CollegeCoachCamps() {
                     className={theme.inputBg}
                   />
                 </div>
-
-                <div className="space-y-2">
+      <div className="space-y-2">
                   <Label className={theme.text}>Event Type</Label>
                   <Select
                     value={formData.event_type}
@@ -209,7 +207,7 @@ export default function CollegeCoachCamps() {
                     <SelectTrigger className={theme.inputBg}>
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
+        <SelectContent>
                       <SelectItem value="Prospect Camp">Prospect Camp</SelectItem>
                       <SelectItem value="Clinic">Clinic</SelectItem>
                       <SelectItem value="Showcase">Showcase</SelectItem>
@@ -218,14 +216,13 @@ export default function CollegeCoachCamps() {
                     </SelectContent>
                   </Select>
                 </div>
-
-                <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-4">
                   <div className="space-y-2">
                     <Label className={theme.text}>Date</Label>
                     <Input
                       type="date"
                       value={formData.event_date}
-                      onChange={(e) => setFormData(f => ({ ...f, event_date: e.target.value }))}
+                      onChange={(e) => setFormData(f => ({ ...f, event_date: e.target.value  }))}
                       required
                       className={theme.inputBg}
                     />
@@ -235,7 +232,7 @@ export default function CollegeCoachCamps() {
                     <Input
                       type="time"
                       value={formData.start_time}
-                      onChange={(e) => setFormData(f => ({ ...f, start_time: e.target.value }))}
+                      onChange={(e) => setFormData(f => ({ ...f, start_time: e.target.value  }))}
                       className={theme.inputBg}
                     />
                   </div>
@@ -244,44 +241,40 @@ export default function CollegeCoachCamps() {
                     <Input
                       type="time"
                       value={formData.end_time}
-                      onChange={(e) => setFormData(f => ({ ...f, end_time: e.target.value }))}
+                      onChange={(e) => setFormData(f => ({ ...f, end_time: e.target.value  }))}
                       className={theme.inputBg}
                     />
                   </div>
                 </div>
-
-                <div className="space-y-2">
+      <div className="space-y-2">
                   <Label className={theme.text}>Location</Label>
                   <Input
                     placeholder="Stadium name and address"
                     value={formData.location}
-                    onChange={(e) => setFormData(f => ({ ...f, location: e.target.value }))}
+                    onChange={(e) => setFormData(f => ({ ...f, location: e.target.value  }))}
                     className={theme.inputBg}
                   />
                 </div>
-
-                <div className="space-y-2">
+      <div className="space-y-2">
                   <Label className={theme.text}>Description</Label>
                   <Textarea
                     placeholder="Describe the event..."
                     value={formData.description}
-                    onChange={(e) => setFormData(f => ({ ...f, description: e.target.value }))}
+                    onChange={(e) => setFormData(f => ({ ...f, description: e.target.value  }))}
                     rows={3}
                     className={theme.inputBg}
                   />
                 </div>
-
-                <div className="space-y-2">
+      <div className="space-y-2">
                   <Label className={theme.text}>Registration Link (optional)</Label>
                   <Input
                     placeholder="https://..."
                     value={formData.registration_link}
-                    onChange={(e) => setFormData(f => ({ ...f, registration_link: e.target.value }))}
+                    onChange={(e) => setFormData(f => ({ ...f, registration_link: e.target.value  }))}
                     className={theme.inputBg}
                   />
                 </div>
-
-                <div className="flex gap-3 pt-4">
+      <div className="flex gap-3 pt-4">
                   <Button 
                     type="button" 
                     variant="outline" 
@@ -290,20 +283,19 @@ export default function CollegeCoachCamps() {
                   >
                     Cancel
                   </Button>
-                  <Button 
+        <Button 
                     type="submit" 
                     className={`flex-1 ${isDark ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-emerald-500 hover:bg-emerald-600'}`}
                     disabled={saving}
                   >
-                    {saving ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse" /> : 'Create Event'}
+                    {saving ? <div className="w-4 h-4 bg-white/20 rounded animate-pulse"></div> : 'Create Event'}
                   </Button>
                 </div>
               </form>
             </CardContent>
           </Card>
         </div>
-      )}
-
+)}
       {/* Events List */}
       <div className="space-y-8">
         {/* Upcoming Events */}
@@ -340,10 +332,8 @@ export default function CollegeCoachCamps() {
                         0 interested
                       </span>
                     </div>
-
-                    <h3 className={`font-semibold text-lg mb-3 ${theme.text}`}>{event.name}</h3>
-
-                    <div className={`space-y-2 text-sm ${theme.textMuted}`}>
+      <h3 className={`font-semibold text-lg mb-3 ${theme.text}`}>{event.name}</h3>
+      <div className={`space-y-2 text-sm ${theme.textMuted}`}>
                       <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4" />
                         {new Date(event.event_date).toLocaleDateString('en-US', {
@@ -358,13 +348,13 @@ export default function CollegeCoachCamps() {
                           <Clock className="w-4 h-4" />
                           {event.start_time}{event.end_time && ` - ${event.end_time}`}
                         </div>
-                      )}
+)}
                       {event.location && (
                         <div className="flex items-center gap-2">
                           <MapPin className="w-4 h-4" />
                           {event.location}
                         </div>
-                      )}
+)}
                     </div>
                   </CardContent>
                 </Card>
@@ -372,8 +362,7 @@ export default function CollegeCoachCamps() {
             </div>
           )}
         </div>
-
-        {/* Past Events */}
+      {/* Past Events */}
         {pastEvents.length > 0 && (
           <div>
             <h2 className={`text-xl font-semibold mb-4 ${theme.text}`}>Past Events</h2>

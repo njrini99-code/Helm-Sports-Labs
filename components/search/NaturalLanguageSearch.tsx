@@ -25,6 +25,7 @@ export function NaturalLanguageSearch({
   onSearch, 
   placeholder = "Try: 'left-handed pitchers in California graduating 2025'" 
 }: NaturalLanguageSearchProps) {
+  const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
   const [parsedFilters, setParsedFilters] = useState<ParsedFilters | null>(null);
   const [isParsing, setIsParsing] = useState(false);
@@ -99,7 +100,7 @@ export function NaturalLanguageSearch({
       }
 
       // Graduation year
-      const yearMatch = searchQuery.match(/\b(20\d{2})\b/);
+      const yearMatch = searchQuery.match(/\b(20\d{2}})\b/);
       if (yearMatch) {
         filters.graduationYear = parseInt(yearMatch[1]);
       }
@@ -172,7 +173,7 @@ export function NaturalLanguageSearch({
           placeholder={placeholder}
           className="pl-9 pr-20"
         />
-        <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+        <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           {isParsing && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />}
           <Button
             type="button"
@@ -186,7 +187,6 @@ export function NaturalLanguageSearch({
           </Button>
         </div>
       </form>
-
       {/* Parsed Filters */}
       {parsedFilters && Object.keys(parsedFilters).length > 0 && (
         <div className="flex flex-wrap gap-2">
@@ -196,34 +196,40 @@ export function NaturalLanguageSearch({
               Position: {parsedFilters.position}
               <X className="w-3 h-3 cursor-pointer" onClick={() => removeFilter('position')} />
             </Badge>
-          )}
+)}
           {parsedFilters.state && (
             <Badge variant="secondary" className="gap-1">
               Location: {parsedFilters.state}
               <X className="w-3 h-3 cursor-pointer" onClick={() => removeFilter('state')} />
             </Badge>
-          )}
+)}
           {parsedFilters.graduationYear && (
             <Badge variant="secondary" className="gap-1">
               Class: {parsedFilters.graduationYear}
               <X className="w-3 h-3 cursor-pointer" onClick={() => removeFilter('graduationYear')} />
             </Badge>
-          )}
+)}
           {parsedFilters.handedness && (
             <Badge variant="secondary" className="gap-1">
               {parsedFilters.handedness === 'left' ? 'Left' : 'Right'}-handed
               <X className="w-3 h-3 cursor-pointer" onClick={() => removeFilter('handedness')} />
             </Badge>
-          )}
+)}
         </div>
-      )}
-
+)}
       {/* Recent Searches */}
       {recentSearches.length > 0 && query === '' && (
         <div className="space-y-1">
           <p className="text-xs text-muted-foreground">Recent searches:</p>
           <div className="flex flex-wrap gap-1">
-            {recentSearches.map((search, idx) => (
+            {{recentSearches.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            recentSearches.map((search, idx) => (
               <Button
                 key={idx}
                 variant="ghost"
@@ -236,10 +242,10 @@ export function NaturalLanguageSearch({
               >
                 {search}
               </Button>
-            ))}
+)}
           </div>
         </div>
-      )}
+)}
     </div>
   );
 }

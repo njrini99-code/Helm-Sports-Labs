@@ -147,8 +147,7 @@ export function EmailComposerModal({ open, onClose, lead }: EmailComposerModalPr
             <X className="w-5 h-5 text-gray-500" />
           </button>
         </div>
-
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+<div className="flex-1 overflow-y-auto p-6 space-y-4">
           {loading && !subject && !body && (
             <div className="flex flex-col items-center justify-center py-12 px-4">
               <Loader className="w-12 h-12 text-blue-600 animate-spin mb-4" />
@@ -157,8 +156,7 @@ export function EmailComposerModal({ open, onClose, lead }: EmailComposerModalPr
                 AI is crafting a personalized message for {lead.business_name}
               </p>
             </div>
-          )}
-
+)}
           {(!loading || subject || body) && (
             <>
               <div>
@@ -192,8 +190,7 @@ export function EmailComposerModal({ open, onClose, lead }: EmailComposerModalPr
                   </button>
                 </div>
               </div>
-
-          <div>
+<div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               To
             </label>
@@ -224,8 +221,7 @@ export function EmailComposerModal({ open, onClose, lead }: EmailComposerModalPr
               </button>
             </div>
           </div>
-
-          <div>
+<div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Body
             </label>
@@ -254,8 +250,7 @@ export function EmailComposerModal({ open, onClose, lead }: EmailComposerModalPr
               )}
             </button>
           </div>
-
-          <div className="flex items-center gap-4 pt-2">
+<div className="flex items-center gap-4 pt-2">
             <button
               onClick={generate}
               disabled={loading}
@@ -273,8 +268,7 @@ export function EmailComposerModal({ open, onClose, lead }: EmailComposerModalPr
                 </>
               )}
             </button>
-
-            <div className="flex items-center gap-2">
+<div className="flex items-center gap-2">
               <label className="text-sm font-medium text-gray-700">Tone:</label>
               <select
                 value={tone}
@@ -286,8 +280,7 @@ export function EmailComposerModal({ open, onClose, lead }: EmailComposerModalPr
                 <option value="direct">Direct</option>
               </select>
             </div>
-
-            <div className="flex items-center gap-2">
+<div className="flex items-center gap-2">
               <label className="text-sm font-medium text-gray-700">Length:</label>
               <select
                 value={length}
@@ -302,8 +295,7 @@ export function EmailComposerModal({ open, onClose, lead }: EmailComposerModalPr
             </>
           )}
         </div>
-
-        <div className="border-t border-gray-200 p-6 bg-gray-50">
+<div className="border-t border-gray-200 p-6 bg-gray-50">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <button
@@ -327,8 +319,7 @@ export function EmailComposerModal({ open, onClose, lead }: EmailComposerModalPr
                   </>
                 )}
               </button>
-
-              {emailTo && (
+{emailTo && (
                 <a
                   href={`mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`}
                   onClick={() => logKPI('EMAIL_SENT')}
@@ -337,10 +328,9 @@ export function EmailComposerModal({ open, onClose, lead }: EmailComposerModalPr
                   <Mail className="w-4 h-4" />
                   <span className="text-sm">Open in Mail</span>
                 </a>
-              )}
+)}
             </div>
-
-            <p className="text-xs text-gray-500">
+<p className="text-xs text-gray-500">
               CAN-SPAM compliant • Include unsubscribe option in sent emails
             </p>
           </div>

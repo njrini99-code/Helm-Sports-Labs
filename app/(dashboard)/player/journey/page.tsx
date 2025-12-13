@@ -366,7 +366,7 @@ export default function PlayerJourneyPage() {
                   <Calendar className="w-3 h-3 mr-1" />
                   {stats.upcomingVisits} Upcoming
                 </Badge>
-              )}
+)}
               <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600">
                 <Plus className="w-4 h-4 mr-1" />
                 Add Activity
@@ -375,7 +375,6 @@ export default function PlayerJourneyPage() {
           </div>
         </div>
       </div>
-
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 space-y-6">
         {/* Stats Row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -436,8 +435,7 @@ export default function PlayerJourneyPage() {
             </CardContent>
           </Card>
         </div>
-
-        {/* Upcoming Visits Reminder */}
+      {/* Upcoming Visits Reminder */}
         {stats.upcomingVisits > 0 && (
           <Card className={`overflow-hidden ${
             isDark 
@@ -456,8 +454,7 @@ export default function PlayerJourneyPage() {
               </p>
             </CardContent>
           </Card>
-        )}
-
+)}
         {/* Tabs */}
         <div className={`flex gap-1 p-1 rounded-xl overflow-x-auto ${isDark ? 'bg-slate-800/60' : 'bg-slate-100'}`}>
           {(['timeline', 'milestones', 'interactions', 'offers', 'decisions'] as const).map(tab => (
@@ -484,10 +481,9 @@ export default function PlayerJourneyPage() {
               {tab === 'decisions' && <Flag className="w-4 h-4 mr-2" />}
               {tab}
             </Button>
-          ))}
+)}
         </div>
-
-        {/* Tab Content */}
+      {/* Tab Content */}
         {activeTab === 'timeline' && (
           <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
             <CardHeader className="pb-3">
@@ -498,9 +494,8 @@ export default function PlayerJourneyPage() {
             <CardContent>
               <div className="relative">
                 {/* Timeline line */}
-                <div className={`absolute left-4 top-0 bottom-0 w-0.5 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`} />
-                
-                <div className="space-y-6">
+                <div className={`absolute left-4 top-0 bottom-0 w-0.5 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`}></div>
+<div className="space-y-6">
                   {timeline.slice(0, 10).map((event, index) => {
                     const colors = getColorClasses(event.color);
                     const Icon = event.icon;
@@ -513,9 +508,8 @@ export default function PlayerJourneyPage() {
                           event.color === 'purple' ? 'ring-purple-500' :
                           event.color === 'cyan' ? 'ring-cyan-500' :
                           'ring-slate-500'
-                        }`} />
-                        
-                        <div className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/30' : 'bg-slate-50'}`}>
+                        }`}></div>
+<div className={`p-4 rounded-xl ${isDark ? 'bg-slate-700/30' : 'bg-slate-50'}`}>
                           <div className="flex items-start justify-between gap-3">
                             <div className="flex items-start gap-3">
                               <div className={`p-2 rounded-lg ${colors.bg}`}>
@@ -533,7 +527,7 @@ export default function PlayerJourneyPage() {
                                     <GraduationCap className="w-3 h-3 mr-1" />
                                     {event.collegeName}
                                   </Badge>
-                                )}
+)}
                               </div>
                             </div>
                             <div className="text-right shrink-0">
@@ -551,8 +545,7 @@ export default function PlayerJourneyPage() {
               </div>
             </CardContent>
           </Card>
-        )}
-
+)}
         {activeTab === 'milestones' && (
           <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
             <CardHeader className="pb-3">
@@ -560,13 +553,13 @@ export default function PlayerJourneyPage() {
                 <CardTitle className={`text-base ${isDark ? 'text-white' : 'text-slate-800'}`}>
                   Recruiting Milestones
                 </CardTitle>
-                <Button size="sm" variant="outline" className={isDark ? 'border-slate-600' : ''}>
+        <Button size="sm" variant="outline" className={isDark ? 'border-slate-600' : ''}>
                   <Plus className="w-4 h-4 mr-1" />
                   Add Milestone
                 </Button>
               </div>
             </CardHeader>
-            <CardContent>
+        <CardContent>
               <div className="space-y-4">
                 {journeyEvents.length === 0 ? (
                   <p className={`text-sm text-center py-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -619,12 +612,12 @@ export default function PlayerJourneyPage() {
                             <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                               {event.description}
                             </p>
-                          )}
+)}
                           {event.college && (
                             <p className={`text-xs mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                               {event.college.name}
                             </p>
-                          )}
+)}
                           <p className={`text-xs mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                             {new Date(event.event_date).toLocaleDateString()}
                           </p>
@@ -637,14 +630,13 @@ export default function PlayerJourneyPage() {
                            event.status === 'scheduled' ? 'Scheduled' : 'Upcoming'}
                         </Badge>
                       </div>
-                    ))}
+)}
                   </div>
-                )}
+)}
               </div>
             </CardContent>
           </Card>
-        )}
-
+)}
         {activeTab === 'interactions' && (
           <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
             <CardHeader className="pb-3">
@@ -665,7 +657,7 @@ export default function PlayerJourneyPage() {
                     <option value="">All Colleges</option>
                     {colleges.map(college => (
                       <option key={college} value={college}>{college}</option>
-                    ))}
+)}
                   </select>
                   <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600">
                     <Plus className="w-4 h-4 mr-1" />
@@ -674,7 +666,7 @@ export default function PlayerJourneyPage() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent>
+        <CardContent>
               <div className="space-y-3">
                 {filteredInteractions.length === 0 ? (
                   <p className={`text-sm text-center py-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -716,7 +708,7 @@ export default function PlayerJourneyPage() {
                                 </p>
                                 {college?.division && (
                                   <Badge variant="outline" className="text-[10px]">{college.division}</Badge>
-                                )}
+)}
                                 <Badge variant="secondary" className="text-[10px]">
                                   {eventTypeMap[interaction.event_type] || interaction.event_type}
                                 </Badge>
@@ -728,13 +720,13 @@ export default function PlayerJourneyPage() {
                                 <p className={`text-xs mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                                   Contact: {metadata.contactName} {metadata.contactRole && `(${metadata.contactRole})`}
                                 </p>
-                              )}
+)}
                               {interaction.location && (
                                 <p className={`text-xs mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                                   <MapPin className="w-3 h-3 inline mr-1" />
                                   {interaction.location}
                                 </p>
-                              )}
+)}
                             </div>
                           </div>
                           <div className="text-right shrink-0">
@@ -746,18 +738,16 @@ export default function PlayerJourneyPage() {
                                 <Bell className="w-3 h-3 mr-1" />
                                 Follow up {new Date(metadata.followUpDate).toLocaleDateString()}
                               </Badge>
-                            )}
+)}
                           </div>
                         </div>
                       </div>
                     );
-                  })
-                )}
+                  }})
               </div>
             </CardContent>
           </Card>
-        )}
-
+)}
         {activeTab === 'offers' && (
           <div className="space-y-4">
             {groupedEvents.offers.length === 0 ? (
@@ -806,7 +796,7 @@ export default function PlayerJourneyPage() {
                                 </h3>
                                 {college?.division && (
                                   <Badge variant="outline" className="text-[10px]">{college.division}</Badge>
-                                )}
+)}
                                 <Badge variant={offer.status === 'completed' ? 'default' : 'secondary'}>
                                   {offer.status === 'completed' ? 'Accepted' : offer.status === 'scheduled' ? 'Considering' : 'Pending'}
                                 </Badge>
@@ -817,7 +807,7 @@ export default function PlayerJourneyPage() {
                                     <MapPin className="w-3 h-3 inline mr-1" />
                                     {college.city}, {college.state}
                                   </span>
-                                )}
+)}
                               </div>
                               <div className="flex items-center gap-2 mt-2">
                                 {metadata.scholarshipPercentage && (
@@ -829,7 +819,7 @@ export default function PlayerJourneyPage() {
                                     <DollarSign className="w-3 h-3 mr-1" />
                                     {metadata.scholarshipPercentage}% Scholarship
                                   </Badge>
-                                )}
+)}
                                 <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                                   Offered {offerDate.toLocaleDateString()}
                                 </span>
@@ -846,15 +836,14 @@ export default function PlayerJourneyPage() {
                                 <Timer className="w-3 h-3 mr-1" />
                                 {daysUntilDeadline}d left
                               </Badge>
-                            )}
+)}
                             <ChevronDown className={`w-5 h-5 ${isDark ? 'text-slate-400' : 'text-slate-500'} transition-transform ${
                               expandedOffer === offer.id ? 'rotate-180' : ''
                             }`} />
                           </div>
                         </div>
                       </div>
-
-                      {/* Expanded Content */}
+      {/* Expanded Content */}
                       {expandedOffer === offer.id && (
                         <div className={`px-4 pb-4 border-t ${isDark ? 'border-slate-700/50' : 'border-slate-200'}`}>
                           {/* Description */}
@@ -864,8 +853,7 @@ export default function PlayerJourneyPage() {
                                 {offer.description}
                               </p>
                             </div>
-                          )}
-
+)}
                           {/* Metadata Notes */}
                           {metadata.notes && (
                             <div className={`mt-4 p-3 rounded-lg ${isDark ? 'bg-slate-700/30' : 'bg-slate-100'}`}>
@@ -874,8 +862,7 @@ export default function PlayerJourneyPage() {
                               </p>
                               <p className={`text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{metadata.notes}</p>
                             </div>
-                          )}
-
+)}
                           {/* Actions */}
                           <div className={`flex items-center justify-between mt-4 pt-4 border-t ${isDark ? 'border-slate-700/50' : 'border-slate-200'}`}>
                             <div className="flex items-center gap-2">
@@ -886,7 +873,7 @@ export default function PlayerJourneyPage() {
                                     View College
                                   </Link>
                                 </Button>
-                              )}
+)}
                               <Button variant="outline" size="sm" className={isDark ? 'border-slate-600' : ''}>
                                 <Edit2 className="w-4 h-4 mr-1" />
                                 Edit
@@ -898,23 +885,21 @@ export default function PlayerJourneyPage() {
                                   <X className="w-4 h-4 mr-1" />
                                   Decline
                                 </Button>
-                                <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600">
+        <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600">
                                   <Check className="w-4 h-4 mr-1" />
                                   Accept Offer
                                 </Button>
                               </div>
-                            )}
+)}
                           </div>
                         </div>
-                      )}
+)}
                     </CardContent>
                   </Card>
                 );
-              })
-            )}
+              }})
           </div>
-        )}
-
+)}
         {activeTab === 'decisions' && (
           <div className="space-y-6">
             {/* Decision Matrix */}
@@ -927,7 +912,7 @@ export default function PlayerJourneyPage() {
                   </CardTitle>
                 </div>
               </CardHeader>
-              <CardContent>
+        <CardContent>
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
@@ -939,7 +924,7 @@ export default function PlayerJourneyPage() {
                           <th key={offer.id} className={`text-center py-3 px-4 text-xs font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>
                             {offer.college?.name || offer.title}
                           </th>
-                        ))}
+)}
                       </tr>
                     </thead>
                     <tbody>
@@ -968,7 +953,7 @@ export default function PlayerJourneyPage() {
                                   }`}>
                                     {metadata.scholarshipPercentage}%
                                   </Badge>
-                                )}
+)}
                                 {factor.key === 'division' && offer.college?.division}
                                 {factor.key === 'location' && offer.college?.city && offer.college?.state && 
                                   `${offer.college.city}, ${offer.college.state}`
@@ -981,19 +966,18 @@ export default function PlayerJourneyPage() {
                                   }`}>
                                     {daysUntilDeadline}d
                                   </Badge>
-                                )}
+)}
                               </td>
                             );
                           })}
                         </tr>
-                      ))}
+)}
                     </tbody>
                   </table>
                 </div>
               </CardContent>
             </Card>
-
-            {/* Decision Checklist */}
+      {/* Decision Checklist */}
             <Card className={`${isDark ? 'bg-slate-800/60 border-slate-700/50' : 'bg-white/90 border-slate-200/50'}`}>
               <CardHeader className="pb-3">
                 <CardTitle className={`text-base ${isDark ? 'text-white' : 'text-slate-800'}`}>
@@ -1034,12 +1018,11 @@ export default function PlayerJourneyPage() {
                         {item.label}
                       </span>
                     </div>
-                  ))}
+)}
                 </div>
               </CardContent>
             </Card>
-
-            {/* Next Steps */}
+      {/* Next Steps */}
             <Card className={`overflow-hidden ${
               isDark 
                 ? 'bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border-emerald-500/30' 
@@ -1074,8 +1057,7 @@ export default function PlayerJourneyPage() {
                                 const deadline = metadata.deadline ? new Date(metadata.deadline) : null;
                                 return deadline ? Math.ceil((deadline.getTime() - Date.now()) / (1000 * 60 * 60 * 24)) : Infinity;
                               })
-                              .filter(d => d !== Infinity)
-                            )} days.</>
+                              .filter(d => d !== Infinity}) days.</>
                           )}
                         </>
                       ) : (
@@ -1087,7 +1069,7 @@ export default function PlayerJourneyPage() {
                         <Check className="w-4 h-4 mr-2" />
                         Make Decision
                       </Button>
-                      <Button variant="outline" className={isDark ? 'border-slate-600 text-white' : ''}>
+        <Button variant="outline" className={isDark ? 'border-slate-600 text-white' : ''}>
                         <Calendar className="w-4 h-4 mr-2" />
                         Schedule Family Meeting
                       </Button>
@@ -1097,7 +1079,7 @@ export default function PlayerJourneyPage() {
               </CardContent>
             </Card>
           </div>
-        )}
+)}
       </div>
     </div>
   );

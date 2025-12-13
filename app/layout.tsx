@@ -1,36 +1,33 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import { ClientProviders } from './client-providers';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    default: 'ScoutPulse - Modern Baseball Recruiting',
-    template: '%s | ScoutPulse',
+    default: 'Helm Sports Labs - Modern Sports Recruiting',
+    template: '%s | Helm Sports Labs',
   },
   description: 'A revolution in athlete discovery and recruiting. Connect players and coaches with modern, hyper-personalized tools.',
-  keywords: ['baseball', 'recruiting', 'athletes', 'coaches', 'college baseball', 'player discovery', 'showcase', 'JUCO', 'high school baseball'],
-  authors: [{ name: 'ScoutPulse' }],
-  creator: 'ScoutPulse',
-  publisher: 'ScoutPulse',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.app'),
+  keywords: ['baseball', 'golf', 'recruiting', 'athletes', 'coaches', 'college sports', 'player discovery', 'showcase', 'JUCO', 'high school sports'],
+  authors: [{ name: 'Helm Sports Labs' }],
+  creator: 'Helm Sports Labs',
+  publisher: 'Helm Sports Labs',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://helmsportslabs.com'),
 
   // Open Graph
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    siteName: 'ScoutPulse',
-    title: 'ScoutPulse - Modern Baseball Recruiting',
+    siteName: 'Helm Sports Labs',
+    title: 'Helm Sports Labs - Modern Sports Recruiting',
     description: 'A revolution in athlete discovery and recruiting. Connect players and coaches with modern, hyper-personalized tools.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'ScoutPulse - Modern Baseball Recruiting Platform',
+        alt: 'Helm Sports Labs - Modern Sports Recruiting Platform',
       },
     ],
   },
@@ -38,10 +35,10 @@ export const metadata: Metadata = {
   // Twitter Card
   twitter: {
     card: 'summary_large_image',
-    title: 'ScoutPulse - Modern Baseball Recruiting',
+    title: 'Helm Sports Labs - Modern Sports Recruiting',
     description: 'A revolution in athlete discovery and recruiting. Connect players and coaches with modern, hyper-personalized tools.',
     images: ['/og-image.png'],
-    creator: '@scoutpulse',
+    creator: '@helmsportslabs',
   },
 
   // Icons
@@ -75,7 +72,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="light" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className="font-sans antialiased">
         <ClientProviders>
           {children}
         </ClientProviders>

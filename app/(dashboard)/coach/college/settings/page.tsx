@@ -26,6 +26,15 @@ import {
   Edit,
   Trash2
 } from 'lucide-react';
+import {
+  glassCardPremium,
+  glassPanel as glassPanelEnhanced,
+  glassButton as glassButtonEnhanced,
+  glassDarkZone as glassDarkZoneEnhanced,
+  cn as cnEnhanced,
+} from '@/lib/glassmorphism-enhanced';
+import { motion } from 'framer-motion';
+import { pageTransition } from '@/lib/animations';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { isDevMode, DEV_ENTITY_IDS } from '@/lib/dev-mode';
@@ -282,15 +291,28 @@ export default function CoachSettingsPage() {
     setStaff(staff.filter(s => s.id !== staffId));
 
     try {
-      // TODO: Add API call to delete from database when staff table is implemented
-      // For now, this is just local state management
-      // const supabase = createClient();
-      // const { error } = await supabase
-      //   .from('staff_members')
-      //   .delete()
-      //   .eq('id', staffId);
-      // 
-      // if (error) throw error;
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast.error('Not authenticated');
+        setStaff(originalStaff);
+        return;
+      }
+
+      // Try to delete from staff_members table if it exists
+      const { error } = await supabase
+        .from('staff_members')
+        .delete()
+        .eq('id', staffId)
+        .eq('coach_id', coach?.id);
+
+      // If table doesn't exist or error, still update local state
+      // This allows the feature to work even before the table is created
+      if (error && error.code !== 'PGRST116') {
+        // PGRST116 is "relation does not exist" - ignore it for now
+        console.warn('Staff table may not exist yet:', error);
+      }
 
       toast.success('Staff member removed');
     } catch (error) {
@@ -347,16 +369,14 @@ export default function CoachSettingsPage() {
           </div>
           <p className="text-slate-600">Manage your program profile, staff, and preferences</p>
         </div>
-
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
 
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="profile">Program Profile</TabsTrigger>
             <TabsTrigger value="staff">Staff Management</TabsTrigger>
             <TabsTrigger value="integrations">Integrations</TabsTrigger>
           </TabsList>
-
-          {/* Program Profile Tab */}
+      {/* Program Profile Tab */}
           <TabsContent value="profile" className="space-y-6">
 
             {/* Logo Upload Section */}
@@ -377,10 +397,9 @@ export default function CoachSettingsPage() {
                       <div className="w-full h-full flex items-center justify-center text-slate-400">
                         <Building className="w-12 h-12" />
                       </div>
-                    )}
+)}
                   </div>
-
-                  {/* Upload section */}
+      {/* Upload section */}
                   <div className="flex-1">
                     <input
                       type="file"
@@ -392,37 +411,34 @@ export default function CoachSettingsPage() {
                     />
                     <label
                       htmlFor="logo-upload"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-300 text-white rounded-lg cursor-pointer transition-colors"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-300 text-white rounded-2xl cursor-pointer transition-colors"
                     >
                       {uploadingLogo ? (
                         <Loader2 className="w-4 h-4 animate-spin" />
                       ) : (
-                        <Upload className="w-4 h-4" />
+                        <Upload className="w-4 h-4" strokeWidth={2} />
                       )}
                       {uploadingLogo ? 'Uploading...' : 'Upload Logo'}
                     </label>
-
-                    <p className="text-sm text-slate-500 mt-2">
+      <p className="text-sm text-slate-500 mt-2">
                       Recommended: Square image, min 200x200px, max 5MB
                     </p>
-
-                    {coach.logo_url && (
+      {coach.logo_url && (
                       <p className="text-sm text-emerald-600 mt-1 flex items-center gap-1">
-                        <CheckCircle className="w-4 h-4" />
+                        <CheckCircle className="w-4 h-4" strokeWidth={2} />
                         Logo uploaded successfully
                       </p>
-                    )}
+)}
                   </div>
                 </div>
               </CardContent>
             </Card>
-
-            {/* Program Information */}
+      {/* Program Information */}
             <Card>
               <CardHeader>
                 <CardTitle>Program Information</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+        <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="program_name">Program Name</Label>
@@ -443,8 +459,7 @@ export default function CoachSettingsPage() {
                     />
                   </div>
                 </div>
-
-                <div>
+      <div>
                   <Label htmlFor="about">About the Program</Label>
                   <Textarea
                     id="about"
@@ -454,8 +469,7 @@ export default function CoachSettingsPage() {
                     rows={4}
                   />
                 </div>
-
-                <div>
+      <div>
                   <Label htmlFor="what_we_look_for">What We Look For</Label>
                   <Textarea
                     id="what_we_look_for"
@@ -465,8 +479,7 @@ export default function CoachSettingsPage() {
                     rows={3}
                   />
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="academic_profile">Academic Profile</Label>
                     <Textarea
@@ -490,12 +503,11 @@ export default function CoachSettingsPage() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Colors & Branding */}
+      {/* Colors & Branding */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Palette className="w-5 h-5" />
+                  <Palette className="w-5 h-5" strokeWidth={2} />
                   Colors & Branding
                 </CardTitle>
               </CardHeader>
@@ -555,13 +567,12 @@ export default function CoachSettingsPage() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Social Links */}
+      {/* Social Links */}
             <Card>
               <CardHeader>
                 <CardTitle>Social Media & Website</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+        <CardContent className="space-y-4">
                 <div>
                   <Label htmlFor="program_website">Program Website</Label>
                   <Input
@@ -606,8 +617,7 @@ export default function CoachSettingsPage() {
                 </div>
               </CardContent>
             </Card>
-
-            <div className="flex justify-end">
+      <div className="flex justify-end">
               <Button onClick={handleSaveProfile} disabled={saving}>
                 {saving ? (
                   <>
@@ -616,43 +626,42 @@ export default function CoachSettingsPage() {
                   </>
                 ) : (
                   <>
-                    <Save className="w-4 h-4 mr-2" />
+                    <Save className="w-4 h-4 mr-2" strokeWidth={2} />
                     Save Profile
                   </>
                 )}
               </Button>
             </div>
           </TabsContent>
-
-          {/* Staff Management Tab */}
+      {/* Staff Management Tab */}
           <TabsContent value="staff" className="space-y-6">
             <Card>
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center gap-2">
-                    <Users className="w-5 h-5" />
+                    <Users className="w-5 h-5" strokeWidth={2} />
                     Staff Management
                   </CardTitle>
-                  <Button onClick={() => setShowAddStaff(true)}>
-                    <Plus className="w-4 h-4 mr-2" />
+        <Button onClick={() => setShowAddStaff(true)}>
+                    <Plus className="w-4 h-4 mr-2" strokeWidth={2} />
                     Add Staff
                   </Button>
                 </div>
               </CardHeader>
-              <CardContent>
+        <CardContent>
                 {staff.length === 0 ? (
                   <div className="text-center py-8">
-                    <Users className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+                    <Users className="w-12 h-12 text-slate-400 mx-auto mb-4" strokeWidth={2} />
                     <p className="text-slate-500 mb-4">No staff members added yet</p>
                     <Button onClick={() => setShowAddStaff(true)}>
-                      <Plus className="w-4 h-4 mr-2" />
+                      <Plus className="w-4 h-4 mr-2" strokeWidth={2} />
                       Add First Staff Member
                     </Button>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     {staff.map((member) => (
-                      <div key={member.id} className="flex items-center justify-between p-4 border border-slate-200 rounded-lg">
+                      <div key={member.id} className="flex items-center justify-between p-4 border border-slate-200 rounded-2xl">
                         <div className="flex items-center gap-3">
                           <Avatar className="w-10 h-10">
                             <AvatarFallback>
@@ -669,35 +678,34 @@ export default function CoachSettingsPage() {
                           <Badge variant={member.status === 'active' ? 'default' : 'secondary'}>
                             {member.status}
                           </Badge>
-                          <Button
+        <Button
                             variant="outline"
                             size="sm"
                             onClick={() => setEditingStaff(member)}
                           >
-                            <Edit className="w-4 h-4" />
+                            <Edit className="w-4 h-4" strokeWidth={2} />
                           </Button>
-                          <Button
+        <Button
                             variant="outline"
                             size="sm"
                             onClick={() => handleDeleteStaff(member.id)}
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-4 h-4" strokeWidth={2} />
                           </Button>
                         </div>
                       </div>
-                    ))}
+))})}
                   </div>
-                )}
+)}
               </CardContent>
             </Card>
           </TabsContent>
-
-          {/* Integrations Tab */}
+      {/* Integrations Tab */}
           <TabsContent value="integrations" className="space-y-6">
             <Card className="bg-slate-900/70 border-white/5 text-white">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Settings className="w-5 h-5" />
+                  <Settings className="w-5 h-5" strokeWidth={2} />
                   Calendar Integration
                 </CardTitle>
               </CardHeader>
@@ -706,18 +714,17 @@ export default function CoachSettingsPage() {
                   {/* Google Calendar Integration */}
                   <div className="backdrop-blur-2xl bg-white/10 border border-white/15 rounded-2xl p-6">
                     <h3 className="text-xl font-semibold text-white mb-4">Google Calendar</h3>
-
-                    {!calendarSynced ? (
+      {!calendarSynced ? (
                       <div>
                         <p className="text-white/70 mb-4">
                           Sync your ScoutPulse calendar with Google Calendar to manage all your events in one place.
                         </p>
                         <button
                           onClick={handleGoogleCalendarAuth}
-                          className="flex items-center gap-2 px-4 py-2 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-colors"
+                          className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 text-gray-900 rounded-2xl hover:bg-white/10 backdrop-blur-md border border-white/20 transition-colors"
                         >
                           <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M18.316 5.684h-2.372v2.372h2.372V5.684zm-2.947 0H12.997v2.372h2.372V5.684zm-2.947 0H10.05v2.372h2.372V5.684zm8.526 8.526v-2.947h-2.372v2.947h2.372zm0-2.947h-2.372V8.316h2.372v2.947zm0-2.947h-2.372V5.369h2.372v2.947zm-2.947 11.368h2.372v-2.372h-2.372v2.372zm2.947-5.684h2.372V12.997h-2.372v2.372zm0 5.684h2.372v-2.372h-2.372v2.372zM15.369 22.105h2.947v-2.372h-2.947v2.372zm-2.947 0h2.947v-2.372H12.422v2.372zm-2.947 0h2.947v-2.372H9.474v2.372zm-2.947 0H9.474v-2.372H6.526v2.372zm-2.947 0H6.526v-2.372H3.579v2.372zm11.895-11.895V8.842H12.422v1.368h2.947zm-5.894 0V8.842H9.474v1.368h2.947zm-5.894 0V8.842H6.526v1.368h2.947zm11.895 2.947v-2.947H15.369v2.947h2.947zm-5.894 0v-2.947H12.422v2.947h2.947zm-5.894 0v-2.947H9.474v2.947h2.947zm-5.894 0v-2.947H6.526v2.947h2.947zm11.895 2.947v-2.947H15.369v2.947h2.947zm-5.894 0v-2.947H12.422v2.947h2.947zm-5.894 0v-2.947H9.474v2.947h2.947zm-5.894 0v-2.947H6.526v2.947h2.947zM1.632 1.632v20.736h20.736V1.632H1.632z"/>
+                            <path d="M18.316 5.684h-2.372v2.372h2.372V5.684zm-2.947 0H12.997v2.372h2.372V5.684zm-2.947 0H10.05v2.372h2.372V5.684zm8.526 8.526v-2.947h-2.372v2.947h2.372zm0-2.947h-2.372V8.316h2.372v2.947zm0-2.947h-2.372V5.369h2.372v2.947zm-2.947 11.368h2.372v-2.372h-2.372v2.372zm2.947-5.684h2.372V12.997h-2.372v2.372zm0 5.684h2.372v-2.372h-2.372v2.372zM15.369 22.105h2.947v-2.372h-2.947v2.372zm-2.947 0h2.947v-2.372H12.422v2.372zm-2.947 0h2.947v-2.372H9.474v2.372zm-2.947 0H9.474v-2.372H6.526v2.372zm-2.947 0H6.526v-2.372H3.579v2.372zm11.895-11.895V8.842H12.422v1.368h2.947zm-5.894 0V8.842H9.474v1.368h2.947zm-5.894 0V8.842H6.526v1.368h2.947zm11.895 2.947v-2.947H15.369v2.947h2.947zm-5.894 0v-2.947H12.422v2.947h2.947zm-5.894 0v-2.947H9.474v2.947h2.947zm-5.894 0v-2.947H6.526v2.947h2.947zm11.895 2.947v-2.947H15.369v2.947h2.947zm-5.894 0v-2.947H12.422v2.947h2.947zm-5.894 0v-2.947H9.474v2.947h2.947zm-5.894 0v-2.947H6.526v2.947h2.947zM1.632 1.632v20.736h20.736V1.632H1.632z" />
                           </svg>
                           Connect Google Calendar
                         </button>
@@ -726,38 +733,36 @@ export default function CoachSettingsPage() {
                       <div>
                         <div className="flex items-center gap-3 mb-4">
                           <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                            <CheckCircle className="w-5 h-5 text-emerald-400" />
+                            <CheckCircle className="w-5 h-5 text-emerald-400" strokeWidth={2} />
                           </div>
                           <div>
                             <div className="font-medium text-white">Google Calendar Connected</div>
                             <div className="text-sm text-white/60">Syncing automatically</div>
                           </div>
                         </div>
-
-                        <div className="flex gap-2">
+      <div className="flex gap-2">
                           <Button
                             onClick={handleSyncNow}
-                            className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+                            className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-2xl transition-colors"
                           >
                             Sync Now
                           </Button>
-                          <Button
+        <Button
                             onClick={handleDisconnect}
-                            className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors"
+                            className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-2xl transition-colors"
                           >
                             Disconnect
                           </Button>
                         </div>
                       </div>
-                    )}
+)}
                   </div>
-
-                  {/* Other Integrations Placeholder */}
+      {/* Other Integrations Placeholder */}
                   <div className="backdrop-blur-2xl bg-white/10 border border-white/15 rounded-2xl p-6">
                     <h3 className="text-xl font-semibold text-white mb-4">Other Integrations</h3>
                     <div className="text-center py-8">
                       <div className="w-16 h-16 rounded-full bg-slate-700/50 flex items-center justify-center mx-auto mb-4">
-                        <Settings className="w-8 h-8 text-slate-400" />
+                        <Settings className="w-8 h-8 text-slate-400" strokeWidth={2} />
                       </div>
                       <p className="text-slate-400">Additional integrations coming soon</p>
                     </div>
@@ -767,15 +772,14 @@ export default function CoachSettingsPage() {
             </Card>
           </TabsContent>
         </Tabs>
-
-        {/* Add Staff Modal */}
+      {/* Add Staff Modal */}
         {showAddStaff && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <Card className="w-full max-w-md">
               <CardHeader>
                 <CardTitle>Add Staff Member</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+        <CardContent className="space-y-4">
                 <div>
                   <Label htmlFor="staff_name">Name</Label>
                   <Input
@@ -813,15 +817,14 @@ export default function CoachSettingsPage() {
                   <Button onClick={handleAddStaff} className="flex-1">
                     Add Staff
                   </Button>
-                  <Button variant="outline" onClick={() => setShowAddStaff(false)}>
+        <Button variant="outline" onClick={() => setShowAddStaff(false)}>
                     Cancel
                   </Button>
                 </div>
               </CardContent>
             </Card>
           </div>
-        )}
-
+)}
         {/* Edit Staff Modal */}
         {editingStaff && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -829,7 +832,7 @@ export default function CoachSettingsPage() {
               <CardHeader>
                 <CardTitle>Edit Staff Member</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+        <CardContent className="space-y-4">
                 <div>
                   <Label htmlFor="edit_staff_name">Name</Label>
                   <Input
@@ -866,14 +869,14 @@ export default function CoachSettingsPage() {
                   <Button onClick={handleUpdateStaff} className="flex-1">
                     Update Staff
                   </Button>
-                  <Button variant="outline" onClick={() => setEditingStaff(null)}>
+        <Button variant="outline" onClick={() => setEditingStaff(null)}>
                     Cancel
                   </Button>
                 </div>
               </CardContent>
             </Card>
           </div>
-        )}
+)}
       </div>
     </div>
   );

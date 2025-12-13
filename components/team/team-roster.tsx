@@ -36,6 +36,7 @@ interface TeamRosterProps {
 
 export function TeamRoster({ teamId, members, mode, onUpdate }: TeamRosterProps) {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [positionFilter, setPositionFilter] = useState<string>('all');
   const [gradYearFilter, setGradYearFilter] = useState<string>('all');
@@ -93,11 +94,11 @@ export function TeamRoster({ teamId, members, mode, onUpdate }: TeamRosterProps)
   });
 
   const positions = Array.from(
-    new Set(members.map(m => m.player.primary_position).filter(Boolean))
+    new Set(members.map(m => m.player.primary_position).filter(Boolean)}
   ).sort();
 
   const gradYears = Array.from(
-    new Set(members.map(m => m.player.grad_year).filter(Boolean))
+    new Set(members.map(m => m.player.grad_year).filter(Boolean)}
   ).sort();
 
   return (
@@ -110,7 +111,7 @@ export function TeamRoster({ teamId, members, mode, onUpdate }: TeamRosterProps)
               <UserPlus className="w-4 h-4 mr-2" />
               Invite Player
             </Button>
-          )}
+)}
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -135,7 +136,7 @@ export function TeamRoster({ teamId, members, mode, onUpdate }: TeamRosterProps)
                 <SelectItem key={pos} value={pos || ''}>
                   {pos}
                 </SelectItem>
-              ))}
+)}
             </SelectContent>
           </Select>
           <Select value={gradYearFilter} onValueChange={setGradYearFilter}>
@@ -148,12 +149,11 @@ export function TeamRoster({ teamId, members, mode, onUpdate }: TeamRosterProps)
                 <SelectItem key={year} value={year?.toString() || ''}>
                   {year}
                 </SelectItem>
-              ))}
+)}
             </SelectContent>
           </Select>
         </div>
-
-        {/* Roster List */}
+      {/* Roster List */}
         {filteredMembers.length === 0 ? (
           <div className="text-center py-12 text-slate-500">
             {searchQuery || positionFilter !== 'all' || gradYearFilter !== 'all'
@@ -165,17 +165,17 @@ export function TeamRoster({ teamId, members, mode, onUpdate }: TeamRosterProps)
             {filteredMembers.map((member) => (
               <div
                 key={member.id}
-                className="flex items-center justify-between p-3 rounded-lg bg-[#0B0D0F] border border-white/5 hover:border-white/10 transition-colors"
+                className="flex items-center justify-between p-3 rounded-2xl bg-[#0B0D0F] border border-white/5 hover:border-white/10 transition-colors"
               >
                 <div className="flex-1">
                   <PlayerListItem
-                    player={{
+                    player={
                       id: member.player.id,
                       full_name: member.player.full_name || 'Unknown',
                       grad_year: member.player.grad_year ?? 0,
                       primary_position: member.player.primary_position || '',
                       avatar_url: member.player.avatar_url,
-                    }}
+                    }
                     onClick={() => router.push(`/coach/player/${member.player.id}`)}
                   />
                 </div>
@@ -184,7 +184,7 @@ export function TeamRoster({ teamId, members, mode, onUpdate }: TeamRosterProps)
                     <Badge variant="outline" className="bg-[#111315] border-white/10">
                       #{member.jersey_number}
                     </Badge>
-                  )}
+)}
                   {isViewer && (
                     <>
                       <Button
@@ -220,12 +220,12 @@ export function TeamRoster({ teamId, members, mode, onUpdate }: TeamRosterProps)
                         <DropdownMenuItem className="text-red-400">Remove from Team</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                  )}
+)}
                 </div>
               </div>
-            ))}
+)}
           </div>
-        )}
+)}
       </CardContent>
     </Card>
   );

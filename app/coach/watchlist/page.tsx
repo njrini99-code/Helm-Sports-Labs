@@ -256,7 +256,7 @@ export default function CoachWatchlistPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -286,8 +286,7 @@ export default function CoachWatchlistPage() {
             </Link>
           </div>
         </div>
-
-        {/* Search and Filters */}
+      {/* Search and Filters */}
         <div className="flex items-center gap-4 mb-6">
           <div className="relative flex-1 max-w-md">
             <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${theme.textMuted}`} />
@@ -303,8 +302,7 @@ export default function CoachWatchlistPage() {
             Filters
           </Button>
         </div>
-
-        {/* Category Tabs */}
+      {/* Category Tabs */}
         <div className="flex items-center gap-2 mb-6 overflow-x-auto pb-2">
           {CATEGORIES.map((category) => {
             const Icon = category.icon;
@@ -317,8 +315,7 @@ export default function CoachWatchlistPage() {
                   flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap
                   ${selectedCategory === category.id
                     ? (isDark ? 'bg-emerald-600 text-white' : 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25')
-                    : (isDark ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700' : 'bg-white text-slate-600 hover:bg-emerald-50 border border-emerald-200')
-                  }
+                    : (isDark ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700' : 'bg-white text-slate-600 hover:bg-emerald-50 border border-emerald-200')}
                 `}
               >
                 <Icon className="w-4 h-4" />
@@ -328,18 +325,16 @@ export default function CoachWatchlistPage() {
                     px-2 py-0.5 rounded-full text-xs font-semibold
                     ${selectedCategory === category.id
                       ? 'bg-white/20 text-white'
-                      : (isDark ? 'bg-slate-700 text-slate-300' : 'bg-emerald-100 text-emerald-700')
-                    }
+                      : (isDark ? 'bg-slate-700 text-slate-300' : 'bg-emerald-100 text-emerald-700')}
                   `}>
                     {count}
                   </span>
-                )}
+)}
               </button>
             );
           })}
         </div>
-
-        {/* Kanban Board */}
+      {/* Kanban Board */}
         <div className="grid grid-cols-5 gap-4">
           {STAGES.map((stage) => {
             const stageRecruits = filteredRecruits.filter(r => r.stage === stage.id);
@@ -386,25 +381,23 @@ export default function CoachWatchlistPage() {
                                   <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${isDark ? 'border-slate-600 text-slate-300' : 'border-emerald-200 text-emerald-700'}`}>
                                     '{String(recruit.player.grad_year).slice(-2)}
                                   </Badge>
-                                )}
+)}
                                 {recruit.player?.primary_position && (
                                   <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${isDark ? 'border-slate-600 text-slate-300' : 'border-emerald-200 text-emerald-700'}`}>
                                     {recruit.player.primary_position}
                                   </Badge>
-                                )}
+)}
                               </div>
                             </div>
                           </div>
-
-                          {/* Interest Level */}
+      {/* Interest Level */}
                           <div className="flex items-center gap-2 mb-2">
-                            <div className={`w-2 h-2 rounded-full ${getInterestColor(recruit.priority)}`} />
+                            <div className={`w-2 h-2 rounded-full ${getInterestColor(recruit.priority)}`}></div>
                             <span className={`text-xs ${theme.textMuted}`}>
                               {INTEREST_LEVELS.find(l => l.value === recruit.priority)?.label || 'Medium'} Priority
                             </span>
                           </div>
-
-                          {/* Stage Selector */}
+      {/* Stage Selector */}
                           <Select
                             value={recruit.stage}
                             onValueChange={(value) => handleUpdateStage(recruit.id, value, recruit.name)}
@@ -412,16 +405,15 @@ export default function CoachWatchlistPage() {
                             <SelectTrigger className={`h-7 text-xs mb-2 ${isDark ? 'bg-slate-700 border-slate-600 text-slate-200' : 'bg-emerald-50 border-emerald-200 text-emerald-700'}`}>
                               <SelectValue />
                             </SelectTrigger>
-                            <SelectContent>
+        <SelectContent>
                               {STAGES.map(s => (
                                 <SelectItem key={s.id} value={s.id} className="text-xs">
                                   {s.label}
                                 </SelectItem>
-                              ))}
+)}
                             </SelectContent>
                           </Select>
-
-                          {/* Actions */}
+      {/* Actions */}
                           <div className={`flex items-center gap-1 pt-2 border-t ${isDark ? 'border-slate-700' : 'border-emerald-100'}`}>
                             <Button 
                               variant="ghost" 
@@ -432,7 +424,7 @@ export default function CoachWatchlistPage() {
                               <Eye className="w-3 h-3 mr-1" />
                               View
                             </Button>
-                            <Button 
+        <Button 
                               variant="ghost" 
                               size="sm" 
                               className={`h-7 px-2 ${buttonStyles.ghost}`}
@@ -440,7 +432,7 @@ export default function CoachWatchlistPage() {
                             >
                               <MessageSquare className="w-3 h-3" />
                             </Button>
-                            <Button 
+        <Button 
                               variant="ghost" 
                               size="sm" 
                               className={`h-7 px-2 text-red-500 hover:text-red-600 hover:bg-red-50 ${isDark ? 'hover:bg-red-900/20' : ''}`}
@@ -451,8 +443,7 @@ export default function CoachWatchlistPage() {
                           </div>
                         </CardContent>
                       </Card>
-                    ))
-                  )}
+                    )})
                 </div>
               </div>
             );

@@ -36,6 +36,7 @@ interface TeamScheduleProps {
 }
 
 export function TeamSchedule({ teamId, events, mode, onUpdate }: TeamScheduleProps) {
+  const [loading, setLoading] = useState(true);
   const [isAdding, setIsAdding] = useState(false);
   const [formData, setFormData] = useState({
     event_type: 'game' as ScheduleEvent['event_type'],
@@ -146,8 +147,7 @@ export function TeamSchedule({ teamId, events, mode, onUpdate }: TeamSchedulePro
                       <SelectItem value="showcase">Showcase</SelectItem>
                     </SelectContent>
                   </Select>
-
-                  {formData.event_type === 'game' && (
+      {formData.event_type === 'game' && (
                     <Input
                       placeholder="Opponent name"
                       value={formData.opponent_name}
@@ -155,7 +155,6 @@ export function TeamSchedule({ teamId, events, mode, onUpdate }: TeamSchedulePro
                       className="bg-[#0B0D0F] border-white/10"
                     />
                   )}
-
                   {(formData.event_type === 'tournament' || formData.event_type === 'showcase') && (
                     <Input
                       placeholder="Event name"
@@ -164,7 +163,6 @@ export function TeamSchedule({ teamId, events, mode, onUpdate }: TeamSchedulePro
                       className="bg-[#0B0D0F] border-white/10"
                     />
                   )}
-
                   <Input
                     placeholder="Location name"
                     value={formData.location_name}
@@ -199,8 +197,7 @@ export function TeamSchedule({ teamId, events, mode, onUpdate }: TeamSchedulePro
                       />
                     </div>
                   </div>
-
-                  <Textarea
+      <Textarea
                     placeholder="Notes (optional)"
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
@@ -217,7 +214,7 @@ export function TeamSchedule({ teamId, events, mode, onUpdate }: TeamSchedulePro
                 </div>
               </DialogContent>
             </Dialog>
-          )}
+)}
         </div>
       </CardHeader>
       <CardContent>
@@ -234,7 +231,7 @@ export function TeamSchedule({ teamId, events, mode, onUpdate }: TeamSchedulePro
               return (
                 <div
                   key={event.id}
-                  className="p-4 rounded-lg bg-[#0B0D0F] border border-white/5 hover:border-white/10 transition-colors"
+                  className="p-4 rounded-2xl bg-[#0B0D0F] border border-white/5 hover:border-white/10 transition-colors"
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -264,10 +261,10 @@ export function TeamSchedule({ teamId, events, mode, onUpdate }: TeamSchedulePro
                             {event.location_name}
                             {event.location_address && `, ${event.location_address}`}
                           </div>
-                        )}
+)}
                         {event.notes && (
                           <p className="text-slate-500 mt-2">{event.notes}</p>
-                        )}
+)}
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -275,7 +272,7 @@ export function TeamSchedule({ teamId, events, mode, onUpdate }: TeamSchedulePro
                         <Button variant="ghost" size="sm" title="Add to calendar">
                           <Star className="w-4 h-4" />
                         </Button>
-                      )}
+)}
                       {isOwner && (
                         <>
                           <Button variant="ghost" size="sm">
@@ -297,7 +294,7 @@ export function TeamSchedule({ teamId, events, mode, onUpdate }: TeamSchedulePro
               );
             })}
           </div>
-        )}
+)}
       </CardContent>
     </Card>
   );

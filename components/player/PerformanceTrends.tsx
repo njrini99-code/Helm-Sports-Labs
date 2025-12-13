@@ -130,7 +130,7 @@ export function PerformanceTrends({ playerId, statType = 'era' }: PerformanceTre
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div>
           <h3 className="text-lg font-semibold">{statLabels[statType]} Trend</h3>
           <p className="text-sm text-muted-foreground">Performance over time</p>
@@ -147,25 +147,24 @@ export function PerformanceTrends({ playerId, statType = 'era' }: PerformanceTre
           <span className="text-sm font-medium capitalize">{trend}</span>
         </div>
       </div>
-
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
           <XAxis 
             dataKey="date" 
-            tick={{ fontSize: 12 }}
+            tick={ fontSize: 12 }
             className="text-muted-foreground"
           />
           <YAxis 
-            tick={{ fontSize: 12 }}
+            tick={ fontSize: 12 }
             className="text-muted-foreground"
           />
           <Tooltip 
-            contentStyle={{ 
+            contentStyle={ 
               backgroundColor: 'hsl(var(--background))',
               border: '1px solid hsl(var(--border))',
               borderRadius: '8px'
-            }}
+            }
           />
           <Legend />
           <Line 
@@ -173,13 +172,11 @@ export function PerformanceTrends({ playerId, statType = 'era' }: PerformanceTre
             dataKey="value" 
             stroke="hsl(var(--primary))" 
             strokeWidth={2}
-            dot={{ r: 4 }}
-            activeDot={{ r: 6 }}
-            name={statLabels[statType]}
-          />
+            dot={ r: 4 }
+            activeDot={ r: 6 }
+            name={statLabels[statType]} />
         </LineChart>
       </ResponsiveContainer>
-
       <div className="grid grid-cols-3 gap-4 text-center">
         <div>
           <p className="text-sm text-muted-foreground">First</p>

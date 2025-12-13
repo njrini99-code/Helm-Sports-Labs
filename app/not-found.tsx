@@ -5,6 +5,7 @@ export const dynamic = 'force-dynamic';
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 import {
   Search,
   Home,
@@ -158,6 +159,7 @@ const searchSuggestions = [
 export default function NotFound() {
   const pathname = usePathname();
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -180,6 +182,8 @@ export default function NotFound() {
     if (!pathname) return [];
     
     const segments = pathname.split('/').filter(Boolean);
+    if (segments.length === 0) return [];
+    
     return segments.map((segment, index) => {
       const href = '/' + segments.slice(0, index + 1).join('/');
       const label = segment
@@ -222,12 +226,16 @@ export default function NotFound() {
     <div className="min-h-screen gradient-bg flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-500/5 rounded-full blur-3xl"></div>
       </div>
-
-      <div className="not-found-container relative z-10 w-full max-w-2xl">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="not-found-container relative z-10 w-full max-w-2xl"
+      >
         {/* Breadcrumb Navigation */}
         {breadcrumbs.length > 0 && (
           <nav className="mb-6">
@@ -258,8 +266,7 @@ export default function NotFound() {
               ))}
             </ol>
           </nav>
-        )}
-
+)}
         {/* Main Card */}
         <div className="glass rounded-3xl shadow-2xl overflow-hidden">
           {/* Header with 404 */}
@@ -269,32 +276,32 @@ export default function NotFound() {
                 404
               </span>
             </div>
-
-            <h1 className="text-2xl md:text-3xl font-bold text-white mb-3">
+      <h1 className="text-2xl md:text-3xl font-bold text-white mb-3">
               Page Not Found
             </h1>
             <p className="text-white/60 max-w-md mx-auto text-lg">
               Looks like you&apos;ve ventured into uncharted territory. 
               The page you&apos;re looking for doesn&apos;t exist or has been moved.
             </p>
-
-            {/* Current path display */}
+      {/* Current path display */}
             {pathname && (
               <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full glass-darker text-sm">
                 <MapPin className="w-4 h-4 text-red-400" />
                 <code className="text-white/60">{pathname}</code>
               </div>
-            )}
+)}
           </div>
-
           {/* Search Section */}
           <div className="p-6 border-b border-white/10">
             <p className="text-sm text-white/50 mb-3 text-center">
               Try searching for what you need
             </p>
-            
             <form onSubmit={handleSearch} className="relative">
-              <div className="search-container relative">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="search-container relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
                 <input
                   type="text"
@@ -313,10 +320,9 @@ export default function NotFound() {
                   >
                     <X className="w-4 h-4 text-white/40" />
                   </button>
-                )}
-              </div>
-
-              {/* Search Suggestions */}
+)}
+              </motion.div>
+      {/* Search Suggestions */}
               {showSuggestions && filteredSuggestions.length > 0 && (
                 <div className="absolute left-0 right-0 top-full mt-2 z-20 search-dropdown">
                   <div className="glass rounded-xl shadow-xl overflow-hidden">
@@ -336,17 +342,15 @@ export default function NotFound() {
                     </div>
                   </div>
                 </div>
-              )}
+)}
             </form>
           </div>
-
-          {/* Popular Pages */}
+      {/* Popular Pages */}
           <div className="p-6">
             <h2 className="text-sm font-semibold text-white/50 uppercase tracking-wider mb-4 flex items-center gap-2">
               <TrendingUp className="w-4 h-4" />
               Popular Pages
             </h2>
-
             <div className="grid sm:grid-cols-2 gap-3">
               {popularPages.map((page) => {
                 const Icon = page.icon;
@@ -373,8 +377,7 @@ export default function NotFound() {
               })}
             </div>
           </div>
-
-          {/* Action Buttons */}
+      {/* Action Buttons */}
           <div className="p-6 pt-0">
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
@@ -393,8 +396,7 @@ export default function NotFound() {
               </button>
             </div>
           </div>
-
-          {/* Help Footer */}
+      {/* Help Footer */}
           <div className="px-6 py-4 border-t border-white/10 bg-white/5">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
               <p className="text-white/40">
@@ -408,7 +410,7 @@ export default function NotFound() {
                   <HelpCircle className="w-4 h-4" />
                   Help Center
                 </Link>
-                <Link
+        <Link
                   href="/contact"
                   className="flex items-center gap-1.5 text-white/60 hover:text-white transition-colors"
                 >
@@ -419,7 +421,6 @@ export default function NotFound() {
             </div>
           </div>
         </div>
-
         {/* Quick Links */}
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           {[
@@ -440,7 +441,7 @@ export default function NotFound() {
             );
           })}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

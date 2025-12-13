@@ -105,7 +105,7 @@ export default function JoinTeamPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-slate-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-slate-100 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div className="text-center">
           <Loader2 className="w-8 h-8 animate-spin mx-auto text-blue-600 mb-4" />
           <p className="text-slate-600">Loading invitation...</p>
@@ -116,11 +116,11 @@ export default function JoinTeamPage() {
 
   if (error || !invitation) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-slate-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-slate-100 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <Card className="max-w-md w-full mx-4">
           <CardContent className="pt-6">
             <div className="text-center">
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <span className="text-2xl">⚠️</span>
               </div>
               <h2 className="text-xl font-semibold text-slate-900 mb-2">
@@ -141,11 +141,11 @@ export default function JoinTeamPage() {
 
   if (joined) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-slate-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-slate-100 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <Card className="max-w-md w-full mx-4">
           <CardContent className="pt-6">
             <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <CheckCircle2 className="w-8 h-8 text-green-600" />
               </div>
               <h2 className="text-xl font-semibold text-slate-900 mb-2">
@@ -169,7 +169,7 @@ export default function JoinTeamPage() {
   const location = [team.city, team.state].filter(Boolean).join(', ');
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-slate-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-slate-100 p-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
       <Card className="max-w-lg w-full">
         <CardHeader className="text-center pb-4">
           <div className="flex justify-center mb-4">
@@ -182,36 +182,35 @@ export default function JoinTeamPage() {
           </div>
           <CardTitle className="text-2xl mb-2">{team.name}</CardTitle>
           {team.school_name && (
-            <p className="text-slate-600 flex items-center justify-center gap-1">
+            <p className="text-slate-600 flex items-center justify-center gap-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <Building2 className="w-4 h-4" />
               {team.school_name}
             </p>
-          )}
+)}
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-3">
             {coach.full_name && (
-              <div className="flex items-center gap-2 text-slate-700">
+              <div className="flex items-center gap-2 text-slate-700 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <User className="w-4 h-4 text-slate-400" />
                 <span className="text-sm">
                   <span className="font-medium">Coach:</span> {coach.full_name}
                 </span>
               </div>
-            )}
+)}
             {location && (
-              <div className="flex items-center gap-2 text-slate-700">
+              <div className="flex items-center gap-2 text-slate-700 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <MapPin className="w-4 h-4 text-slate-400" />
                 <span className="text-sm">{location}</span>
               </div>
-            )}
-            <div className="flex items-center gap-2">
+)}
+            <div className="flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <Badge variant="outline" className="capitalize">
                 {team.team_type.replace('_', ' ')}
               </Badge>
             </div>
           </div>
-
-          <div className="pt-4 border-t">
+      <div className="pt-4 border-t">
             <p className="text-sm text-slate-600 text-center mb-4">
               You've been invited to join this team. Click below to accept the invitation.
             </p>
@@ -231,13 +230,12 @@ export default function JoinTeamPage() {
               )}
             </Button>
           </div>
-
-          {invitation.expires_at && (
+      {invitation.expires_at && (
             <p className="text-xs text-slate-500 text-center">
               This invitation expires on{' '}
               {new Date(invitation.expires_at).toLocaleDateString()}
             </p>
-          )}
+)}
         </CardContent>
       </Card>
     </div>

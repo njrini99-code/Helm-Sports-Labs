@@ -268,6 +268,7 @@ function ErrorUI({
   showReportButton = true,
   className,
 }: ErrorUIProps) {
+  const [loading, setLoading] = useState(true);
   const [showStack, setShowStack] = useState(false);
   const [copied, setCopied] = useState(false);
   const [reporting, setReporting] = useState(false);
@@ -338,8 +339,7 @@ Time: ${new Date().toISOString()}
               We encountered an unexpected error. Don&apos;t worry, your data is safe.
             </p>
           </div>
-
-          {/* Error summary */}
+      {/* Error summary */}
           <div className="px-6 py-4 bg-red-500/5 border-b border-white/10">
             <div className="flex items-start gap-3">
               <Bug className="w-5 h-5 text-red-400 mt-0.5 shrink-0" />
@@ -349,7 +349,7 @@ Time: ${new Date().toISOString()}
               </div>
               <button
                 onClick={handleCopyError}
-                className="p-2 rounded-lg hover:bg-white/10 transition-colors shrink-0"
+                className="p-2 rounded-2xl hover:bg-white/10 transition-colors shrink-0"
                 title="Copy error details"
               >
                 {copied ? (
@@ -360,8 +360,7 @@ Time: ${new Date().toISOString()}
               </button>
             </div>
           </div>
-
-          {/* Expandable stack trace */}
+      {/* Expandable stack trace */}
           {showDetails && errorInfo?.componentStack && (
             <div className="border-b border-white/10">
               <button
@@ -378,17 +377,16 @@ Time: ${new Date().toISOString()}
               {showStack && (
                 <div className="details-expand">
                   <div className="px-6 pb-4">
-                    <pre className="text-xs text-white/50 bg-black/30 rounded-lg p-4 overflow-x-auto max-h-48 overflow-y-auto">
+                    <pre className="text-xs text-white/50 bg-black/30 rounded-2xl p-4 overflow-x-auto max-h-48 overflow-y-auto">
                       {error.stack}
                       {'\n\nComponent Stack:'}
                       {errorInfo.componentStack}
                     </pre>
                   </div>
                 </div>
-              )}
+)}
             </div>
-          )}
-
+)}
           {/* Actions */}
           <div className="p-6 space-y-3">
             {/* Primary actions */}
@@ -408,8 +406,7 @@ Time: ${new Date().toISOString()}
                 Reload Page
               </button>
             </div>
-
-            {/* Secondary actions */}
+      {/* Secondary actions */}
             <div className="flex gap-3">
               <button
                 onClick={handleGoHome}
@@ -430,7 +427,7 @@ Time: ${new Date().toISOString()}
                   )}
                 >
                   {reporting ? (
-                    <div className="h-4 w-4 bg-white/20 rounded animate-pulse" />
+                    <div className="h-4 w-4 bg-white/20 rounded animate-pulse"></div>
                   ) : reported ? (
                     <Check className="w-4 h-4" />
                   ) : (
@@ -438,11 +435,10 @@ Time: ${new Date().toISOString()}
                   )}
                   {reported ? 'Reported' : 'Report Issue'}
                 </button>
-              )}
+)}
             </div>
           </div>
-
-          {/* Footer */}
+      {/* Footer */}
           <div className="px-6 py-3 bg-white/5 border-t border-white/10">
             <p className="text-xs text-white/40 text-center">
               Error ID: {Date.now().toString(36).toUpperCase()}
@@ -481,7 +477,7 @@ export function MinimalErrorUI({ error, onReset, className }: MinimalErrorUIProp
       <p className="text-sm text-white/60 mb-4 max-w-xs">{error.message}</p>
       <button
         onClick={onReset}
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-white text-sm font-medium transition-all"
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/10 hover:bg-white/15 text-white text-sm font-medium transition-all"
       >
         <RefreshCw className="w-4 h-4" />
         Try Again
@@ -510,7 +506,7 @@ export function InlineErrorUI({ error, onReset, className }: InlineErrorUIProps)
       <p className="flex-1 text-sm text-white/80">{error.message}</p>
       <button
         onClick={onReset}
-        className="shrink-0 p-2 rounded-lg hover:bg-white/10 text-white/60 hover:text-white transition-colors"
+        className="shrink-0 p-2 rounded-2xl hover:bg-white/10 text-white/60 hover:text-white transition-colors"
         title="Retry"
       >
         <RefreshCw className="w-4 h-4" />
@@ -708,7 +704,7 @@ export function ErrorBoundaryProvider({
   }, [reportingService, userId, metadata]);
 
   return (
-    <ErrorContext.Provider value={{ captureError, reportError }}>
+    <ErrorContext.Provider value={ captureError, reportError }>
       <ErrorBoundary
         reportingService={reportingService}
         userId={userId}

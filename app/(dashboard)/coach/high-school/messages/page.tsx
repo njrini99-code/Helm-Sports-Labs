@@ -301,7 +301,7 @@ export default function HSCoachMessagesPage() {
   };
 
   const filteredPlayers = teamPlayers.filter(p => 
-    p.player_name.toLowerCase().includes(searchQuery.toLowerCase())
+    p.player_name.toLowerCase().includes(searchQuery.toLowerCase()}
   );
 
   const selectedPlayer = teamPlayers.find(p => p.player_id === selectedPlayerId) ||
@@ -310,7 +310,7 @@ export default function HSCoachMessagesPage() {
   if (loading) {
     return (
       <div className={`min-h-screen ${theme.bg} flex items-center justify-center`}>
-        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -323,8 +323,7 @@ export default function HSCoachMessagesPage() {
           <h1 className={`text-2xl font-bold ${theme.text}`}>Team Messages</h1>
           <p className={theme.textMuted}>Communicate with your players</p>
         </div>
-
-        {/* 3-Column Layout */}
+      {/* 3-Column Layout */}
         <div className="grid grid-cols-12 gap-4 h-[calc(100vh-200px)]">
           {/* Column 1: Player List */}
           <div className={`col-span-3 rounded-xl border ${theme.cardBg} flex flex-col`}>
@@ -353,8 +352,7 @@ export default function HSCoachMessagesPage() {
                 Roster
               </button>
             </div>
-
-            {/* Search */}
+      {/* Search */}
             <div className="p-3 border-b border-white/5">
               <div className="relative">
                 <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${theme.textMuted}`} />
@@ -367,8 +365,7 @@ export default function HSCoachMessagesPage() {
                 />
               </div>
             </div>
-
-            {/* List */}
+      {/* List */}
             <div className="flex-1 overflow-y-auto">
               {view === 'conversations' ? (
                 conversations.length === 0 ? (
@@ -401,14 +398,14 @@ export default function HSCoachMessagesPage() {
                             <span className="px-1.5 py-0.5 bg-emerald-500 text-white text-xs rounded-full">
                               {conv.unread_count}
                             </span>
-                          )}
+)}
                         </div>
                         {conv.last_message && (
                           <p className={`text-sm truncate ${theme.textMuted}`}>{conv.last_message}</p>
-                        )}
+)}
                       </div>
                     </button>
-                  ))
+)}
                 )
               ) : (
                 filteredPlayers.length === 0 ? (
@@ -439,13 +436,11 @@ export default function HSCoachMessagesPage() {
                       </div>
                       <ChevronRight className={`w-4 h-4 ${theme.textMuted}`} />
                     </button>
-                  ))
-                )
-              )}
+                  )}
+                )}
             </div>
           </div>
-
-          {/* Column 2 & 3: Chat View */}
+      {/* Column 2 & 3: Chat View */}
           <div className={`col-span-9 rounded-xl border ${theme.cardBg} flex flex-col`}>
             {selectedPlayer ? (
               <>
@@ -464,8 +459,7 @@ export default function HSCoachMessagesPage() {
                     </p>
                   </div>
                 </div>
-
-                {/* Messages */}
+      {/* Messages */}
                 <div className="flex-1 overflow-y-auto p-4 space-y-3">
                   {messages.length === 0 ? (
                     <div className={`flex items-center justify-center h-full ${theme.textMuted}`}>
@@ -502,11 +496,9 @@ export default function HSCoachMessagesPage() {
                           </div>
                         </div>
                       </div>
-                    ))
-                  )}
+                    )})
                 </div>
-
-                {/* Input */}
+      {/* Input */}
                 <div className="p-4 border-t border-white/5">
                   <div className="flex items-center gap-2">
                     <input
@@ -528,7 +520,7 @@ export default function HSCoachMessagesPage() {
                       className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 text-white rounded-xl flex items-center gap-2 transition-colors"
                     >
                       {sending ? (
-                        <div className="w-4 h-4 bg-white/20 rounded animate-pulse" />
+                        <div className="w-4 h-4 bg-white/20 rounded animate-pulse"></div>
                       ) : (
                         <>
                           <Send className="w-4 h-4" />
@@ -547,7 +539,7 @@ export default function HSCoachMessagesPage() {
                   <p className="text-sm">Choose a player from the list to start messaging</p>
                 </div>
               </div>
-            )}
+)}
           </div>
         </div>
       </div>

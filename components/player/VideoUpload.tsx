@@ -492,7 +492,7 @@ export function VideoUpload({
           onDragLeave={handleDragLeave}
           onDragOver={handleDragOver}
           onDrop={handleDrop}
-          onClick={() => fileInputRef.current?.click()}
+          onClick={() => fileInputRef.current?.click()}}
           className={cn(
             'relative border-2 border-dashed rounded-2xl p-8 transition-all cursor-pointer',
             'flex flex-col items-center justify-center gap-4 min-h-[240px]',
@@ -510,8 +510,7 @@ export function VideoUpload({
               isDragging ? 'text-emerald-600' : 'text-slate-400'
             )} />
           </div>
-          
-          <div className="text-center">
+      <div className="text-center">
             <p className="text-slate-800 font-medium">
               {isDragging ? 'Drop your video here' : 'Drag & drop your video here'}
             </p>
@@ -519,8 +518,7 @@ export function VideoUpload({
               or <span className="text-emerald-600 font-medium">browse files</span>
             </p>
           </div>
-
-          <div className="flex items-center gap-2 text-xs text-slate-400">
+      <div className="flex items-center gap-2 text-xs text-slate-400">
             <Badge variant="outline" className="text-[10px]">MP4</Badge>
             <Badge variant="outline" className="text-[10px]">MOV</Badge>
             <Badge variant="outline" className="text-[10px]">AVI</Badge>
@@ -528,14 +526,13 @@ export function VideoUpload({
             <span>Max {maxSizeMB}MB</span>
           </div>
         </div>
-      )}
-
+)}
       {/* Selected/Uploading/Success State */}
       {status !== 'idle' && selectedFile && (
-        <div className="border border-slate-200 rounded-2xl p-4 bg-white">
+        <div className="border border-slate-200 rounded-2xl p-4 bg-white/10 backdrop-blur-md border border-white/20">
           <div className="flex items-start gap-4">
             {/* Thumbnail Preview */}
-            <div className="relative w-32 h-20 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
+            <div className="relative w-32 h-20 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0">
               {thumbnailUrl ? (
                 <img 
                   src={thumbnailUrl} 
@@ -546,20 +543,19 @@ export function VideoUpload({
                 <div className="w-full h-full flex items-center justify-center">
                   <FileVideo className="w-8 h-8 text-slate-300" />
                 </div>
-              )}
+)}
               {status === 'success' && (
                 <div className="absolute inset-0 bg-emerald-500/80 flex items-center justify-center">
                   <Check className="w-8 h-8 text-white" />
                 </div>
-              )}
+)}
               {status === 'uploading' && (
                 <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                  <div className="w-6 h-6 bg-white/20 rounded animate-pulse" />
+                  <div className="w-6 h-6 bg-white/20 rounded animate-pulse"></div>
                 </div>
-              )}
+)}
             </div>
-
-            {/* File Info */}
+      {/* File Info */}
             <div className="flex-1 min-w-0">
               <div className="flex items-start justify-between gap-2">
                 <div>
@@ -580,8 +576,7 @@ export function VideoUpload({
                     </Badge>
                   </div>
                 </div>
-                
-                {(status === 'selected' || status === 'error') && (
+      {(status === 'selected' || status === 'error') && (
                   <Button
                     variant="ghost"
                     size="sm"
@@ -590,10 +585,9 @@ export function VideoUpload({
                   >
                     <X className="w-4 h-4" />
                   </Button>
-                )}
+)}
               </div>
-
-              {/* Progress Bar */}
+      {/* Progress Bar */}
               {(status === 'uploading' || status === 'processing') && (
                 <div className="mt-3">
                   <Progress value={uploadProgress} className="h-2" />
@@ -601,24 +595,21 @@ export function VideoUpload({
                     {status === 'processing' ? 'Processing...' : `Uploading... ${uploadProgress}%`}
                   </p>
                 </div>
-              )}
-
+)}
               {/* Success Message */}
               {status === 'success' && (
                 <div className="mt-3 flex items-center gap-2 text-sm text-emerald-600">
                   <Check className="w-4 h-4" />
                   <span>Upload complete!</span>
                 </div>
-              )}
-
+)}
               {/* Error Message */}
               {status === 'error' && error && (
                 <div className="mt-3 flex items-center gap-2 text-sm text-red-600">
                   <AlertCircle className="w-4 h-4" />
                   <span>{error}</span>
                 </div>
-              )}
-
+)}
               {/* Actions for selected state */}
               {status === 'selected' && (
                 <div className="mt-3 flex items-center gap-2">
@@ -639,10 +630,9 @@ export function VideoUpload({
                       <Play className="w-4 h-4 mr-2" />
                       Preview
                     </Button>
-                  )}
+)}
                 </div>
-              )}
-
+)}
               {/* Retry for error state */}
               {status === 'error' && (
                 <div className="mt-3 flex items-center gap-2">
@@ -661,12 +651,11 @@ export function VideoUpload({
                     Cancel
                   </Button>
                 </div>
-              )}
+)}
             </div>
           </div>
         </div>
-      )}
-
+)}
       {/* Metadata Dialog */}
       <Dialog open={isMetadataOpen} onOpenChange={setIsMetadataOpen}>
         <DialogContent className="sm:max-w-lg">
@@ -676,8 +665,7 @@ export function VideoUpload({
               Add information about your video before uploading.
             </DialogDescription>
           </DialogHeader>
-
-          <div className="space-y-4 py-4">
+      <div className="space-y-4 py-4">
             {/* Title */}
             <div className="space-y-2">
               <Label htmlFor="title">Title *</Label>
@@ -685,18 +673,16 @@ export function VideoUpload({
                 id="title"
                 placeholder="e.g., Summer Showcase Pitching Highlights"
                 value={metadata.title}
-                onChange={(e) => setMetadata(prev => ({ ...prev, title: e.target.value }))}
+                onChange={(e) => setMetadata(prev => ({ ...prev, title: e.target.value }})
               />
             </div>
-
-            {/* Video Type */}
+      {/* Video Type */}
             <div className="space-y-2">
               <Label>Video Type</Label>
               <Select
                 value={metadata.videoType}
                 onValueChange={(value: VideoType) => 
-                  setMetadata(prev => ({ ...prev, videoType: value }))
-                }
+                  setMetadata(prev => ({ ...prev, videoType: value }})
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select type" />
@@ -706,23 +692,21 @@ export function VideoUpload({
                     <SelectItem key={option.value} value={option.value}>
                       {option.label}
                     </SelectItem>
-                  ))}
+)}
                 </SelectContent>
               </Select>
             </div>
-
-            {/* Recorded Date */}
+      {/* Recorded Date */}
             <div className="space-y-2">
               <Label htmlFor="recordedDate">Date Recorded</Label>
               <Input
                 id="recordedDate"
                 type="date"
                 value={metadata.recordedDate}
-                onChange={(e) => setMetadata(prev => ({ ...prev, recordedDate: e.target.value }))}
+                onChange={(e) => setMetadata(prev => ({ ...prev, recordedDate: e.target.value }})
               />
             </div>
-
-            {/* Description */}
+      {/* Description */}
             <div className="space-y-2">
               <Label htmlFor="description">Description (optional)</Label>
               <Textarea
@@ -730,13 +714,12 @@ export function VideoUpload({
                 placeholder="Add details about this video..."
                 rows={3}
                 value={metadata.description}
-                onChange={(e) => setMetadata(prev => ({ ...prev, description: e.target.value }))}
+                onChange={(e) => setMetadata(prev => ({ ...prev, description: e.target.value }})
               />
             </div>
-
-            {/* File Info */}
+      {/* File Info */}
             {selectedFile && (
-              <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+              <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-2xl">
                 <FileVideo className="w-5 h-5 text-slate-400" />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-slate-700 truncate">
@@ -748,10 +731,9 @@ export function VideoUpload({
                   </p>
                 </div>
               </div>
-            )}
+)}
           </div>
-
-          <DialogFooter>
+      <DialogFooter>
             <Button variant="outline" onClick={() => setIsMetadataOpen(false)}>
               Cancel
             </Button>
@@ -796,7 +778,7 @@ export function VideoGallery({ videos, onDelete, onPlay, isEditable = false }: V
       {videos.map((video) => (
         <div
           key={video.id}
-          className="group relative bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-lg transition-all"
+          className="group relative bg-white/10 backdrop-blur-md border border-white/20 border border-slate-200 rounded-xl overflow-hidden hover:shadow-lg transition-all"
         >
           {/* Thumbnail */}
           <div className="relative aspect-video bg-slate-100">
@@ -810,8 +792,7 @@ export function VideoGallery({ videos, onDelete, onPlay, isEditable = false }: V
               <div className="w-full h-full flex items-center justify-center">
                 <Film className="w-10 h-10 text-slate-300" />
               </div>
-            )}
-            
+)}
             {/* Play overlay */}
             <button
               onClick={() => onPlay?.(video)}
@@ -821,16 +802,14 @@ export function VideoGallery({ videos, onDelete, onPlay, isEditable = false }: V
                 <Play className="w-6 h-6 text-slate-800 ml-1" />
               </div>
             </button>
-
-            {/* Duration badge */}
+      {/* Duration badge */}
             {video.duration && (
               <div className="absolute bottom-2 right-2 px-2 py-1 bg-black/70 rounded text-[10px] text-white font-medium">
                 {formatDuration(video.duration)}
               </div>
-            )}
+)}
           </div>
-
-          {/* Info */}
+      {/* Info */}
           <div className="p-3">
             <h4 className="font-medium text-slate-800 truncate">{video.metadata.title}</h4>
             <div className="flex items-center justify-between mt-1">
@@ -849,11 +828,11 @@ export function VideoGallery({ videos, onDelete, onPlay, isEditable = false }: V
                 >
                   <Trash2 className="w-4 h-4" />
                 </Button>
-              )}
+)}
             </div>
           </div>
         </div>
-      ))}
+)}
     </div>
   );
 }

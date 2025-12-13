@@ -36,7 +36,7 @@ export function PageHeader({
             {backLabel}
           </Button>
         </Link>
-      )}
+)}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-1">
           <div className="flex items-center gap-3">
@@ -49,13 +49,13 @@ export function PageHeader({
             <p className="text-sm text-muted-foreground sm:text-base max-w-2xl">
               {description}
             </p>
-          )}
+)}
         </div>
         {actions && (
           <div className="flex flex-wrap items-center gap-2 shrink-0">
             {actions}
           </div>
-        )}
+)}
       </div>
       {children}
     </div>
@@ -84,14 +84,14 @@ export function PageSection({
           <div className="space-y-1">
             {title && (
               <h2 className="text-lg font-semibold text-foreground">{title}</h2>
-            )}
+)}
             {description && (
               <p className="text-sm text-muted-foreground">{description}</p>
-            )}
+)}
           </div>
           {actions && <div className="flex items-center gap-2">{actions}</div>}
         </div>
-      )}
+)}
       {children}
     </section>
   );

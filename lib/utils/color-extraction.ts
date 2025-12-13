@@ -11,12 +11,12 @@ export interface ExtractedColors {
   light: string;
 }
 
-// Default brand colors (pulse green)
+// Default brand colors (Helm Sports Labs green - #16893B)
 export const DEFAULT_COLORS: ExtractedColors = {
-  primary: '#00C27A',
-  secondary: '#003B2A',
+  primary: '#16893B',
+  secondary: '#0F5A28',
   accent: '#B8F8D0',
-  dark: '#001A12',
+  dark: '#0A3D1A',
   light: '#E8FFF5',
 };
 
@@ -79,7 +79,7 @@ export async function extractColorsFromImage(
 
         // Find dominant color
         let maxCount = 0;
-        let dominantColor = [0, 194, 122]; // Default to pulse green
+        let dominantColor = [22, 137, 59]; // Default to Helm Sports Labs green (#16893B)
 
         for (const [key, count] of Object.entries(colorMap)) {
           if (count > maxCount) {

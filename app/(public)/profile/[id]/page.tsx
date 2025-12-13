@@ -71,7 +71,11 @@ export default async function PublicProfilePage({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-background/80">
-      <div className="container mx-auto px-4 md:px-6 py-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+  className="container mx-auto px-4 md:px-6 py-8">
         {/* Header */}
         <div className="glassmorphism rounded-xl p-8 mb-6">
           <div className="flex items-start gap-6 flex-col md:flex-row">
@@ -81,8 +85,7 @@ export default async function PublicProfilePage({
                 {teamName.substring(0, 2).toUpperCase()}
               </AvatarFallback>
             </Avatar>
-            
-            <div className="flex-1">
+      <div className="flex-1">
               <h1 className="text-3xl md:text-4xl font-bold text-slate-800 mb-2">
                 {teamName}
               </h1>
@@ -90,14 +93,14 @@ export default async function PublicProfilePage({
                 <p className="text-lg text-muted-foreground mb-2">
                   {coach.full_name} - Head Coach
                 </p>
-              )}
+)}
               <div className="flex items-center gap-4 mt-2 text-muted-foreground flex-wrap">
                 {location && (
                   <span className="flex items-center gap-1">
                     <MapPin className="w-4 h-4" />
                     {location}
                   </span>
-                )}
+)}
                 <span className="flex items-center gap-1">
                   <Users className="w-4 h-4" />
                   {playerCount} Players
@@ -107,26 +110,23 @@ export default async function PublicProfilePage({
                     <GraduationCap className="w-4 h-4" />
                     {commitCount || 0} Commits
                   </span>
-                )}
-              </div>
-              
+)}
+              </motion.div>
               {coach?.about && (
                 <p className="mt-4 text-sm text-muted-foreground max-w-2xl">
                   {coach.about}
                 </p>
-              )}
-            </div>
-            
-            <div className="flex flex-col gap-2">
+)}
+            </motion.div>
+      <div className="flex flex-col gap-2">
               <Button size="lg" className="bg-emerald-500 hover:bg-emerald-600">
                 <Mail className="mr-2 h-4 w-4" />
                 Contact Coach
               </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Stats */}
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <Card>
             <CardContent className="p-4 text-center">
@@ -156,14 +156,13 @@ export default async function PublicProfilePage({
               <p className="text-xs text-muted-foreground">Type</p>
             </CardContent>
           </Card>
-        </div>
-
-        {/* Additional Info */}
+        </motion.div>
+      {/* Additional Info */}
         <Card>
           <CardHeader>
             <CardTitle>About This Program</CardTitle>
           </CardHeader>
-          <CardContent>
+        <CardContent>
             {coach?.about ? (
               <p className="text-sm text-muted-foreground whitespace-pre-line">
                 {coach.about}
@@ -172,11 +171,11 @@ export default async function PublicProfilePage({
               <p className="text-sm text-muted-foreground">
                 No additional information available at this time.
               </p>
-            )}
+)}
           </CardContent>
         </Card>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 

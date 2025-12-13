@@ -49,20 +49,60 @@ export function logError(error: Error | unknown, context?: string | ErrorContext
 
   // In production, send to error tracking service
   if (process.env.NODE_ENV === 'production') {
-    // TODO: Integrate with error tracking service (Sentry, LogRocket, etc.)
-    // Example:
-    // if (typeof window !== 'undefined' && window.Sentry) {
-    //   window.Sentry.captureException(error, {
-    //     tags: {
-    //       component: typeof context === 'object' ? context.component : undefined,
-    //       action: typeof context === 'object' ? context.action : undefined,
-    //     },
-    //     user: {
-    //       id: typeof context === 'object' ? context.userId : undefined,
-    //     },
-    //     extra: typeof context === 'object' ? context.metadata : undefined,
-    //   });
-    // }
+    // Sentry integration
+    if (typeof window !== 'undefined' && (window as any).Sentry) {
+      try {
+        (window as any).Sentry.captureException(error, {
+          tags: {
+            component: typeof context === 'object' ? context.component : undefined,
+            action: typeof context === 'object' ? context.action : undefined,
+          },
+          user: {
+            id: typeof context === 'object' ? context.userId : undefined,
+          },
+          extra: typeof context === 'object' ? context.metadata : undefined,
+        });
+      } catch (sentryError) {
+        // Fallback to console if Sentry fails
+        console.error('Sentry error:', sentryError);
+        console.error('Original error:', errorMessage, errorStack);
+      }
+    }
+    
+    // LogRocket integration
+    if (typeof window !== 'undefined' && (window as any).LogRocket) {
+      try {
+        (window as any).LogRocket.captureException(error, {
+          tags: {
+            component: typeof context === 'object' ? context.component : undefined,
+            action: typeof context === 'object' ? context.action : undefined,
+          },
+          extra: typeof context === 'object' ? context.metadata : undefined,
+        });
+      } catch (lrError) {
+        // Silently fail - LogRocket is optional
+      }
+    }
+
+    // Server-side: Send to error tracking API if configured
+    if (typeof window === 'undefined' && process.env.ERROR_TRACKING_API_URL) {
+      try {
+        fetch(process.env.ERROR_TRACKING_API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            error: errorMessage,
+            stack: errorStack,
+            context: typeof context === 'object' ? context : { message: context },
+            timestamp: new Date().toISOString(),
+          }),
+        }).catch(() => {
+          // Silently fail - error tracking is non-critical
+        });
+      } catch (fetchError) {
+        // Silently fail
+      }
+    }
   }
 }
 

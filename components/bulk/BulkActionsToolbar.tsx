@@ -50,6 +50,7 @@ export function BulkActionsToolbar<T extends { id: string }>({
   className,
   itemName = 'items',
 }: BulkActionsToolbarProps<T>) {
+  const [loading, setLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
   const selectedCount = selectedIds.size;
   const allSelected = selectedCount === items.length && items.length > 0;
@@ -59,7 +60,7 @@ export function BulkActionsToolbar<T extends { id: string }>({
     if (allSelected) {
       onSelectionChange(new Set());
     } else {
-      onSelectionChange(new Set(items.map(item => item.id)));
+      onSelectionChange(new Set(items.length === 0 ? [] : items.map(item => item.id)));
     }
   };
 
@@ -121,14 +122,11 @@ export function BulkActionsToolbar<T extends { id: string }>({
           )}
           {allSelected ? 'Deselect All' : 'Select All'}
         </Button>
-
-        <div className="h-6 w-px bg-emerald-300" />
-
-        <Badge variant="secondary" className="bg-emerald-100 text-emerald-700">
+      <div className="h-6 w-px bg-emerald-300"></div>
+<Badge variant="secondary" className="bg-emerald-100 text-emerald-700">
           {selectedCount} {selectedCount === 1 ? itemName.slice(0, -1) : itemName} selected
         </Badge>
       </div>
-
       <div className="flex items-center gap-2">
         {onBulkAdd && (
           <Button
@@ -145,8 +143,7 @@ export function BulkActionsToolbar<T extends { id: string }>({
             )}
             Add
           </Button>
-        )}
-
+)}
         {onBulkRemove && (
           <Button
             variant="outline"
@@ -162,8 +159,7 @@ export function BulkActionsToolbar<T extends { id: string }>({
             )}
             Remove
           </Button>
-        )}
-
+)}
         {onBulkDelete && (
           <Button
             variant="outline"
@@ -179,8 +175,7 @@ export function BulkActionsToolbar<T extends { id: string }>({
             )}
             Delete
           </Button>
-        )}
-
+)}
         {(onBulkExport || onBulkStatusChange) && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -208,7 +203,7 @@ export function BulkActionsToolbar<T extends { id: string }>({
                   <Download className="w-4 h-4 mr-2" />
                   Export Selected
                 </DropdownMenuItem>
-              )}
+)}
               {onBulkStatusChange && availableStatuses.length > 0 && (
                 <>
                   <DropdownMenuSeparator />
@@ -222,12 +217,12 @@ export function BulkActionsToolbar<T extends { id: string }>({
                     >
                       {status}
                     </DropdownMenuItem>
-                  ))}
+)}
                 </>
               )}
             </DropdownMenuContent>
           </DropdownMenu>
-        )}
+)}
       </div>
     </div>
   );

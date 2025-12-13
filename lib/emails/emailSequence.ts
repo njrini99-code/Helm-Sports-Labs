@@ -8,6 +8,7 @@ import {
   getWeek1TipsEmail,
   getSuccessStoriesEmail,
 } from './templates';
+import { sendEmail } from './sendEmail';
 
 interface EmailSequenceData {
   userId: string;
@@ -22,13 +23,8 @@ export async function sendWelcomeEmail(data: EmailSequenceData): Promise<boolean
     const { email, userName, userRole } = data;
     const { subject, html } = getWelcomeEmail({ userName, userRole });
 
-    // In production, use your email service (Resend, SendGrid, etc.)
-    // For now, we'll log it
-    console.log('[Email] Sending welcome email to:', email);
-    console.log('[Email] Subject:', subject);
-    
-    // TODO: Integrate with email service
-    // await sendEmailViaService({ to: email, subject, html });
+    // Send email via configured service
+    await sendEmail({ to: email, subject, html });
 
     // Mark as sent in database
     const supabase = await createClient();
@@ -79,10 +75,8 @@ export async function sendWeek1TipsEmail(data: EmailSequenceData): Promise<boole
     const { email, userName, userRole } = data;
     const { subject, html } = getWeek1TipsEmail({ userName, userRole });
 
-    console.log('[Email] Sending Week 1 tips email to:', email);
-    
-    // TODO: Integrate with email service
-    // await sendEmailViaService({ to: email, subject, html });
+    // Send email via configured service
+    await sendEmail({ to: email, subject, html });
 
     // Mark as sent
     const supabase = await createClient();
@@ -130,10 +124,8 @@ export async function sendSuccessStoriesEmail(data: EmailSequenceData): Promise<
     const { email, userName, userRole } = data;
     const { subject, html } = getSuccessStoriesEmail({ userName, userRole });
 
-    console.log('[Email] Sending success stories email to:', email);
-    
-    // TODO: Integrate with email service
-    // await sendEmailViaService({ to: email, subject, html });
+    // Send email via configured service
+    await sendEmail({ to: email, subject, html });
 
     // Mark as sent
     const supabase = await createClient();

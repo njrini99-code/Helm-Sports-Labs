@@ -55,6 +55,7 @@ export function AnimatedNumber({
   easing = 'easeOut',
   animateOnView = true,
 }: AnimatedNumberProps) {
+  const [loading, setLoading] = useState(true);
   const [displayValue, setDisplayValue] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
   const elementRef = useRef<HTMLSpanElement>(null);
@@ -115,8 +116,7 @@ export function AnimatedNumber({
         entries.forEach((entry) => {
           if (entry.isIntersecting && !hasAnimated) {
             startAnimation();
-          }
-        });
+          });
       },
       { threshold: 0.1 }
     );

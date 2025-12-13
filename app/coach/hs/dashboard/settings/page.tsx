@@ -109,7 +109,7 @@ export default function HsCoachSettingsPage() {
       }
       setLoading(false);
     } catch (error) {
-      logError(error, { component: 'HsCoachSettingsPage', action: 'loadData', metadata: { unexpected: true } });
+      logError(error, { component: 'HsCoachSettingsPage', action: 'loadData', metadata: { unexpected: true  } });
       toast.error('An unexpected error occurred. Please try again.');
       setLoading(false);
     }
@@ -169,7 +169,7 @@ export default function HsCoachSettingsPage() {
       }
       setSaving(false);
     } catch (error) {
-      logError(error, { component: 'HsCoachSettingsPage', action: 'saveSettings', metadata: { unexpected: true } });
+      logError(error, { component: 'HsCoachSettingsPage', action: 'saveSettings', metadata: { unexpected: true   } });
       toast.error('An unexpected error occurred. Please try again.');
       setSaving(false);
     }
@@ -254,7 +254,7 @@ export default function HsCoachSettingsPage() {
       }
       setSaving(false);
     } catch (error) {
-      logError(error, { component: 'HsCoachSettingsPage', action: 'uploadLogo', metadata: { unexpected: true } });
+      logError(error, { component: 'HsCoachSettingsPage', action: 'uploadLogo', metadata: { unexpected: true   } });
       toast.error('An unexpected error occurred. Please try again.');
       setSaving(false);
     }
@@ -275,7 +275,7 @@ export default function HsCoachSettingsPage() {
       className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30"
       initial={pageTransition.initial}
       animate={pageTransition.animate}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
+      transition={{duration: 0.3, ease: 'easeOut' }}
     >
       {/* Header */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 py-6">
@@ -287,13 +287,11 @@ export default function HsCoachSettingsPage() {
             </Button>
           </Link>
         </div>
-
-        <div className="mb-6">
+      <div className="mb-6">
           <h1 className="text-3xl font-bold text-foreground">Program Settings</h1>
           <p className="text-sm text-muted-foreground mt-1">Manage your program branding and preferences</p>
         </div>
       </section>
-
       {/* Main Content */}
       <section className="max-w-4xl mx-auto px-4 md:px-6 pb-6">
         <div className="space-y-6">
@@ -305,7 +303,7 @@ export default function HsCoachSettingsPage() {
                   <AvatarImage src={formData.logo_url || undefined} alt={`${schoolName} logo`} className="rounded-2xl object-cover" />
                   <AvatarFallback 
                     className="rounded-2xl text-2xl font-bold text-white"
-                    style={{ background: programColor }}
+                    style={{background: programColor }}
                   >
                     {schoolInitials}
                   </AvatarFallback>
@@ -340,17 +338,16 @@ export default function HsCoachSettingsPage() {
                     variant="ghost"
                     size="sm"
                     className="ml-2 gap-2 text-destructive hover:text-destructive"
-                    onClick={() => setFormData(prev => ({ ...prev, logo_url: '' }))}
+                    onClick={() => setFormData(prev => ({ ...prev, logo_url: '' }})
                   >
                     <X className="w-4 h-4" />
                     Remove
                   </Button>
-                )}
+)}
               </div>
             </div>
           </Card>
-
-          {/* Basic Information */}
+      {/* Basic Information */}
           <Card glass className="rounded-2xl p-6">
             <h3 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
               <Building2 className="w-5 h-5" />
@@ -363,7 +360,7 @@ export default function HsCoachSettingsPage() {
                   <Input
                     id="full_name"
                     value={formData.full_name}
-                    onChange={(e) => setFormData(prev => ({ ...prev, full_name: e.target.value }))}
+                    onChange={(e) => setFormData(prev => ({ ...prev, full_name: e.target.value }})
                     placeholder="John Smith"
                   />
                 </div>
@@ -372,7 +369,7 @@ export default function HsCoachSettingsPage() {
                   <Input
                     id="school_name"
                     value={formData.school_name}
-                    onChange={(e) => setFormData(prev => ({ ...prev, school_name: e.target.value }))}
+                    onChange={(e) => setFormData(prev => ({ ...prev, school_name: e.target.value }})
                     placeholder="Lincoln High School"
                   />
                 </div>
@@ -383,7 +380,7 @@ export default function HsCoachSettingsPage() {
                   <Input
                     id="school_city"
                     value={formData.school_city}
-                    onChange={(e) => setFormData(prev => ({ ...prev, school_city: e.target.value }))}
+                    onChange={(e) => setFormData(prev => ({ ...prev, school_city: e.target.value }})
                     placeholder="Raleigh"
                   />
                 </div>
@@ -392,7 +389,7 @@ export default function HsCoachSettingsPage() {
                   <Input
                     id="school_state"
                     value={formData.school_state}
-                    onChange={(e) => setFormData(prev => ({ ...prev, school_state: e.target.value }))}
+                    onChange={(e) => setFormData(prev => ({ ...prev, school_state: e.target.value }})
                     placeholder="NC"
                     maxLength={2}
                   />
@@ -403,15 +400,14 @@ export default function HsCoachSettingsPage() {
                 <Textarea
                   id="about"
                   value={formData.about}
-                  onChange={(e) => setFormData(prev => ({ ...prev, about: e.target.value }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, about: e.target.value }})
                   placeholder="Tell us about your program, values, and what makes it special..."
                   rows={4}
                 />
               </div>
             </div>
           </Card>
-
-          {/* Contact Information */}
+      {/* Contact Information */}
           <Card glass className="rounded-2xl p-6">
             <h3 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
               <Mail className="w-5 h-5" />
@@ -424,7 +420,7 @@ export default function HsCoachSettingsPage() {
                   id="email_contact"
                   type="email"
                   value={formData.email_contact}
-                  onChange={(e) => setFormData(prev => ({ ...prev, email_contact: e.target.value }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, email_contact: e.target.value }})
                   placeholder="coach@school.edu"
                 />
               </div>
@@ -434,7 +430,7 @@ export default function HsCoachSettingsPage() {
                   id="phone_contact"
                   type="tel"
                   value={formData.phone_contact}
-                  onChange={(e) => setFormData(prev => ({ ...prev, phone_contact: e.target.value }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, phone_contact: e.target.value }})
                   placeholder="(555) 123-4567"
                 />
               </div>
@@ -444,27 +440,26 @@ export default function HsCoachSettingsPage() {
                   id="website_url"
                   type="url"
                   value={formData.website_url}
-                  onChange={(e) => setFormData(prev => ({ ...prev, website_url: e.target.value }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, website_url: e.target.value }})
                   placeholder="https://school.edu/athletics"
                 />
               </div>
             </div>
           </Card>
-
-          {/* Save Button */}
+      {/* Save Button */}
           <div className="flex justify-end gap-3">
             <Link href="/coach/hs/dashboard">
               <Button variant="outline">Cancel</Button>
             </Link>
-            <Button
+        <Button
               onClick={handleSave}
               disabled={saving}
               className="gap-2"
-              style={{ background: programColor }}
+              style={{background: programColor }}
             >
               {saving ? (
                 <>
-                  <div className="h-4 w-4 bg-white/20 rounded animate-pulse" />
+                  <div className="h-4 w-4 bg-white/20 rounded animate-pulse"></div>
                   Saving...
                 </>
               ) : (

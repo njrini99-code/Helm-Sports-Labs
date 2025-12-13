@@ -36,8 +36,8 @@ export default function HsCoachDashboardLayout({ children }: { children: ReactNo
 
   if (loadingCoach || loadingOrg) {
     return (
-      <div className="flex items-center justify-center py-12">
-        <div className="w-6 h-6 bg-emerald-400/20 rounded animate-pulse" />
+      <div className="flex items-center justify-center py-12 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
+        <div className="w-6 h-6 bg-emerald-400/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -60,7 +60,7 @@ export default function HsCoachDashboardLayout({ children }: { children: ReactNo
     <div className="min-h-screen bg-[#060a15] text-white">
       <div className="mx-auto max-w-6xl px-6 py-8 space-y-6">
         <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <Avatar className="h-10 w-10 border border-white/10">
               <AvatarImage src={org.logo_url || undefined} alt={org.name} />
               <AvatarFallback>{initials}</AvatarFallback>
@@ -72,17 +72,25 @@ export default function HsCoachDashboardLayout({ children }: { children: ReactNo
           </div>
           <Tabs value={active} className="w-full">
             <TabsList className="bg-slate-900/70 border border-white/10 w-full justify-start overflow-x-auto">
-              {TABS.map((tab) => (
-                <TabsTrigger
-                  key={tab.href}
-                  value={tab.href}
-                  className="data-[state=active]:bg-white/10"
-                >
-                  <Link href={tab.href} className="px-2 py-1 block">
-                    {tab.label}
-                  </Link>
-                </TabsTrigger>
-              ))}
+              {TABS.length === 0 ? (
+                <div className="text-center py-12">
+                  <div className="text-6xl mb-4">📭</div>
+                  <p className="text-white/60 mb-4">No items yet</p>
+                  <p className="text-white/40 text-sm">Check back later</p>
+                </div>
+              ) : (
+                TABS.map((tab) => (
+                  <TabsTrigger
+                    key={tab.href}
+                    value={tab.href}
+                    className="data-[state=active]:bg-white/10"
+                  >
+                    <Link href={tab.href} className="px-2 py-1 block">
+                      {tab.label}
+                    </Link>
+                  </TabsTrigger>
+                ))
+              )}
             </TabsList>
           </Tabs>
         </div>

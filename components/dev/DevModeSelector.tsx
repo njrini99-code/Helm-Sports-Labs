@@ -15,6 +15,7 @@ const DASHBOARD_OPTIONS = [
 
 export function DevModeSelector() {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const [currentRole, setCurrentRole] = useState<string | null>(null);
@@ -53,7 +54,7 @@ export function DevModeSelector() {
       <div className="fixed bottom-4 right-4 z-50">
         <button
           onClick={handleEnableDevMode}
-          className="flex items-center gap-2 px-4 py-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 rounded-lg text-amber-400 text-sm font-medium backdrop-blur-xl transition-all"
+          className="flex items-center gap-2 px-4 py-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 rounded-2xl text-amber-400 text-sm font-medium backdrop-blur-xl transition-all"
         >
           <Settings className="w-4 h-4" />
           Enable Dev Mode
@@ -67,13 +68,12 @@ export function DevModeSelector() {
       <div className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 rounded-lg text-emerald-400 text-sm font-medium backdrop-blur-xl transition-all"
+          className="flex items-center gap-2 px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 rounded-2xl text-emerald-400 text-sm font-medium backdrop-blur-xl transition-all"
         >
           <Settings className="w-4 h-4" />
           <span>Dev: {currentRole || 'Select'}</span>
         </button>
-
-        {isOpen && (
+      {isOpen && (
           <>
             <div
               className="fixed inset-0 z-40"
@@ -84,27 +84,35 @@ export function DevModeSelector() {
                 <div className="px-3 py-2 text-xs font-semibold text-white/50 uppercase tracking-wider border-b border-white/10 mb-1">
                   Switch Dashboard
                 </div>
-                {DASHBOARD_OPTIONS.map((option) => {
-                  const Icon = option.icon;
-                  const isActive = currentRole === option.value;
-                  return (
-                    <button
-                      key={option.value}
-                      onClick={() => handleSelect(option.value, option.path)}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
-                        isActive
-                          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                          : 'text-white/70 hover:bg-white/5 hover:text-white'
-                      }`}
-                    >
-                      <Icon className="w-4 h-4" />
-                      <span>{option.label}</span>
-                      {isActive && (
-                        <div className="ml-auto w-2 h-2 rounded-full bg-emerald-400" />
-                      )}
-                    </button>
-                  );
-                })}
+                {DASHBOARD_OPTIONS.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="text-6xl mb-4">📭</div>
+                    <p className="text-white/60 mb-4">No items yet</p>
+                    <p className="text-white/40 text-sm">Check back later</p>
+                  </div>
+                ) : (
+                  DASHBOARD_OPTIONS.map((option) => {
+                    const Icon = option.icon;
+                    const isActive = currentRole === option.value;
+                    return (
+                      <button
+                        key={option.value}
+                        onClick={() => handleSelect(option.value, option.path)}
+                        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
+                          isActive
+                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                            : 'text-white/70 hover:bg-white/5 hover:text-white'
+                        }`}
+                      >
+                        <Icon className="w-4 h-4" />
+                        <span>{option.label}</span>
+                        {isActive && (
+                          <div className="ml-auto w-2 h-2 rounded-full bg-emerald-400"></div>
+                        )}
+                      </button>
+                    );
+                  })
+                )}
               </div>
             </div>
           </>

@@ -51,7 +51,7 @@ export function PageWrapper({
       initial={variants[animation].initial}
       animate={variants[animation].animate}
       exit={variants[animation].exit}
-      transition={{ duration: 0.3, ease: 'easeOut', delay }}
+      transition={{duration: 0.3, ease: 'easeOut', delay }}
     >
       {children}
     </motion.div>
@@ -169,8 +169,8 @@ export function FadeInView({
       className={className}
       initial={{ opacity: 0, ...directionVariants[direction].initial }}
       whileInView={{ opacity: 1, ...directionVariants[direction].animate }}
-      viewport={{ once, margin: '-50px' }}
-      transition={{ duration: 0.5, ease: 'easeOut', delay }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{duration: 0.5, ease: 'easeOut', delay }}
     >
       {children}
     </motion.div>
@@ -203,7 +203,7 @@ export function AnimatedCard({
       className={cn(className, onClick && 'cursor-pointer')}
       whileHover={hover ? { scale: 1.02, y: -2 } : undefined}
       whileTap={tap ? { scale: 0.98 } : undefined}
-      transition={{ duration: 0.2 }}
+      transition={{duration: 0.2 }}
       onClick={onClick}
     >
       {children}
@@ -231,8 +231,7 @@ export function SectionReveal({
       className={className}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ 
-        duration: 0.4, 
+      transition={{duration: 0.4, 
         ease: 'easeOut', 
         delay: 0.1 + index * 0.1 
       }}

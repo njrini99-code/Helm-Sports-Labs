@@ -72,7 +72,7 @@ export function ErrorState({
           <RefreshCw className="h-4 w-4" />
           {retryLabel}
         </Button>
-      )}
+)}
     </div>
   );
 }

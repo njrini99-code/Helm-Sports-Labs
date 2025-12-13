@@ -314,8 +314,7 @@ export function generatePlayerPDFContent(data: ExportPlayerData): string {
       day: 'numeric' 
     })}</div>
   </div>
-
-  <!-- Player Header -->
+<!-- Player Header -->
   <div class="player-header">
     <div class="avatar">${fullName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}</div>
     <div class="player-details">
@@ -327,8 +326,7 @@ export function generatePlayerPDFContent(data: ExportPlayerData): string {
       <div class="location">📍 ${location}</div>
     </div>
   </div>
-
-  <!-- Basic Info -->
+<!-- Basic Info -->
   <div class="section">
     <div class="section-title">Player Information</div>
     <div class="info-grid">
@@ -446,8 +444,7 @@ export function generatePlayerPDFContent(data: ExportPlayerData): string {
       ` : ''}
     </div>
   </div>
-
-  <!-- Footer -->
+<!-- Footer -->
   <div class="footer">
     <p>Profile exported from ScoutPulse • scoutpulse.app</p>
     <p>This document was auto-generated. For the most up-to-date information, visit the player's ScoutPulse profile.</p>

@@ -28,6 +28,7 @@ export function QuickActionToolbar({
   position = 'right',
   userRole = 'coach'
 }: QuickActionToolbarProps) {
+  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -234,7 +235,6 @@ export function QuickActionToolbar({
         position === 'bottom' && 'bottom-4 left-1/2 -translate-x-1/2',
         isCollapsed && 'translate-x-0',
         !isOpen && !isCollapsed && (position === 'right' ? 'translate-x-full' : position === 'left' ? '-translate-x-full' : 'translate-y-full')
-      )}
     >
       {isCollapsed ? (
         // Collapsed state - floating button
@@ -274,8 +274,7 @@ export function QuickActionToolbar({
               </Button>
             </div>
           </div>
-
-          {/* Search */}
+      {/* Search */}
           <div className="relative mb-4">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
@@ -290,19 +289,25 @@ export function QuickActionToolbar({
                 <Command className="w-3 h-3" />
                 <span>K</span>
               </div>
-            )}
+)}
           </div>
-
-          {/* Search Results */}
+      {/* Search Results */}
           {searchQuery && (
-            <div className="mb-4 max-h-48 overflow-y-auto border border-border rounded-lg">
+            <div className="mb-4 max-h-48 overflow-y-auto border border-border rounded-2xl">
               {isSearching ? (
                 <div className="p-4 text-center">
                   <Loader2 className="w-4 h-4 animate-spin mx-auto" />
                 </div>
               ) : searchResults.length > 0 ? (
                 <div className="divide-y">
-                  {searchResults.map((result) => (
+                  {{searchResults.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            searchResults.map((result) => (
                     <div
                       key={result.id}
                       className="p-3 hover:bg-accent cursor-pointer transition-colors"
@@ -331,18 +336,17 @@ export function QuickActionToolbar({
                           <BookmarkPlus className="w-3 h-3 mr-1" />
                           Add to Watchlist
                         </Button>
-                      )}
+)}
                     </div>
-                  ))}
+)}
                 </div>
               ) : (
                 <div className="p-4 text-center text-sm text-muted-foreground">
                   No results found
                 </div>
-              )}
+)}
             </div>
-          )}
-
+)}
           {/* Quick Actions */}
           <div className="space-y-2">
             <Button
@@ -356,10 +360,9 @@ export function QuickActionToolbar({
                 <span className="ml-auto bg-primary text-primary-foreground rounded-full px-2 py-0.5 text-xs font-semibold">
                   {unreadCount}
                 </span>
-              )}
+)}
             </Button>
-
-            {userRole === 'coach' && (
+      {userRole === 'coach' && (
               <Button
                 variant="outline"
                 className="w-full justify-start"
@@ -368,8 +371,7 @@ export function QuickActionToolbar({
                 <Search className="w-4 h-4 mr-2" />
                 Discover Players
               </Button>
-            )}
-
+)}
             {userRole === 'player' && (
               <Button
                 variant="outline"
@@ -379,10 +381,9 @@ export function QuickActionToolbar({
                 <Search className="w-4 h-4 mr-2" />
                 Discover Colleges
               </Button>
-            )}
+)}
           </div>
-
-          {/* Keyboard Shortcuts Hint */}
+      {/* Keyboard Shortcuts Hint */}
           <div className="mt-4 pt-4 border-t border-border text-xs text-muted-foreground space-y-1">
             <div className="flex items-center justify-between">
               <span>Search</span>
@@ -398,7 +399,7 @@ export function QuickActionToolbar({
             </div>
           </div>
         </div>
-      )}
+)}
     </div>
   );
 

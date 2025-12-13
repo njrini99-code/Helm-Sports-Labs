@@ -61,10 +61,10 @@ const config: Config = {
       colors: {
         // Brand colors - use these directly: bg-pulse-green, text-pulse-mint, etc.
         pulse: {
-          green: '#00C27A',           // Primary brand green (logo color)
+          green: '#16893B',           // Primary brand green (Helm Sports Labs logo color)
           mint: '#B8F8D0',            // Light mint for accents/highlights
-          dark: '#003B2A',            // Deep green for gradients
-          deeper: '#001A12',          // Almost-black green
+          dark: '#0F5A28',            // Deep green for gradients
+          deeper: '#0A3D1A',          // Almost-black green
           surface: '#050816',         // Dark surface for cards
           border: 'rgba(255,255,255,0.08)', // Subtle border
         },

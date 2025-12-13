@@ -90,7 +90,7 @@ export default function PlayerLayout({
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0b1720] flex items-center justify-center">
-        <div className="w-8 h-8 bg-emerald-400/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-400/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -118,9 +118,15 @@ export default function PlayerLayout({
               <Link href="/player" className="text-xl font-bold text-white tracking-tight">
                 Scout<span className="text-emerald-400">Pulse</span>
               </Link>
-              
-              <div className="hidden md:flex items-center gap-1">
-                {navItems.map((item) => (
+            <div className="hidden md:flex items-center gap-1">
+              {navItems.length === 0 ? (
+                <div className="text-center py-12">
+                  <div className="text-6xl mb-4">📭</div>
+                  <p className="text-white/60 mb-4">No items yet</p>
+                  <p className="text-white/40 text-sm">Check back later</p>
+                </div>
+              ) : (
+                navItems.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
@@ -133,11 +139,11 @@ export default function PlayerLayout({
                     <item.icon className="w-4 h-4" />
                     {item.label}
                   </Link>
-                ))}
-              </div>
+                ))
+              )}
             </div>
-            
-            <div className="flex items-center gap-3">
+            </div>
+      <div className="flex items-center gap-3">
               <NotificationBell />
               <span className="text-sm text-white/60 hidden sm:block font-medium">
                 {playerName}
@@ -155,7 +161,6 @@ export default function PlayerLayout({
           </div>
         </nav>
       </header>
-
       {/* Mobile Navigation */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[#0a0f14]/95 border-t border-white/[0.06] backdrop-blur-xl z-50 safe-area-pb">
         <div className="flex justify-around py-2">
@@ -177,12 +182,10 @@ export default function PlayerLayout({
           ))}
         </div>
       </div>
-
       {/* Main Content */}
       <main className="pb-20 md:pb-0">
         {children}
       </main>
-
       {/* Quick Action Toolbar */}
       <QuickActionToolbar position="right" userRole="player" />
     </div>

@@ -177,11 +177,10 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
             Generate an invite link to share with your players. They can join your team instantly.
           </DialogDescription>
         </DialogHeader>
-
-        <div className="space-y-6">
+      <div className="space-y-6">
           {/* Generate New Invite */}
           {!newInvite && (
-            <div className="space-y-4 p-4 border rounded-lg bg-slate-50">
+            <div className="space-y-4 p-4 border rounded-2xl bg-slate-50">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="expires">Expires in (days)</Label>
@@ -190,7 +189,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                     type="number"
                     min="1"
                     value={expiresInDays}
-                    onChange={(e) => setExpiresInDays(Number(e.target.value))}
+                    onChange={(e) => setExpiresInDays(Number(e.target.value})
                   />
                 </div>
                 <div>
@@ -201,8 +200,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                     min="1"
                     value={maxUses}
                     onChange={(e) =>
-                      setMaxUses(e.target.value ? Number(e.target.value) : '')
-                    }
+                      setMaxUses(e.target.value ? Number(e.target.value) : '')}
                     placeholder="Unlimited"
                   />
                 </div>
@@ -225,12 +223,11 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                 )}
               </Button>
             </div>
-          )}
-
+)}
           {/* New Invite Display */}
           {newInvite && (
-            <div className="space-y-4 p-4 border-2 border-blue-200 rounded-lg bg-blue-50">
-              <div className="flex items-center justify-between">
+            <div className="space-y-4 p-4 border-2 border-blue-200 rounded-2xl bg-blue-50">
+              <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <h3 className="font-semibold text-blue-900">New Invitation Link</h3>
                 <Button
                   variant="ghost"
@@ -240,8 +237,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                   <X className="w-4 h-4" />
                 </Button>
               </div>
-
-              <div className="space-y-3">
+      <div className="space-y-3">
                 <div className="flex gap-2">
                   <Input
                     value={newInvite.invite_link}
@@ -260,8 +256,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                     )}
                   </Button>
                 </div>
-
-                <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2">
                   <Button
                     variant="outline"
                     size="sm"
@@ -287,16 +282,14 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                     Text Link
                   </Button>
                 </div>
-
-                {qrCodeUrl && (
-                  <div className="flex justify-center p-4 bg-white rounded border">
+      {qrCodeUrl && (
+                  <div className="flex justify-center p-4 bg-white/10 backdrop-blur-md border border-white/20 rounded border">
                     <img src={qrCodeUrl} alt="QR Code" className="w-48 h-48" />
                   </div>
-                )}
+)}
               </div>
             </div>
-          )}
-
+)}
           {/* Existing Invitations */}
           <div className="space-y-2">
             <h3 className="font-semibold">Active Invitations</h3>
@@ -313,10 +306,10 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                 {invitations.map((inv) => (
                   <div
                     key={inv.id}
-                    className="flex items-center justify-between p-3 border rounded-lg"
+                    className="flex items-center justify-between p-3 border rounded-2xl hover:-translate-y-1 hover:shadow-xl transition-all duration-200"
                   >
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
+                      <div className="flex items-center gap-2 mb-1 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                         <code className="text-xs font-mono bg-slate-100 px-2 py-1 rounded">
                           {inv.invite_code}
                         </code>
@@ -325,9 +318,9 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                             <Badge variant="destructive" className="text-xs">
                               Expired
                             </Badge>
-                          )}
+)}
                       </div>
-                      <div className="flex items-center gap-4 text-xs text-slate-500">
+                      <div className="flex items-center gap-4 text-xs text-slate-500 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                         <span>
                           Uses: {inv.current_uses}
                           {inv.max_uses ? ` / ${inv.max_uses}` : ' / ∞'}
@@ -337,7 +330,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                             Expires:{' '}
                             {new Date(inv.expires_at).toLocaleDateString()}
                           </span>
-                        )}
+)}
                       </div>
                     </div>
                     <Button
@@ -348,9 +341,9 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
                       <Copy className="w-4 h-4" />
                     </Button>
                   </div>
-                ))}
+)}
               </div>
-            )}
+)}
           </div>
         </div>
       </DialogContent>

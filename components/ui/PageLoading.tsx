@@ -124,8 +124,7 @@ export function LoadingSpinner({ size = 'md', color = 'primary', className }: Sp
         sizeClasses[size],
         colorClasses[color],
         className
-      )}
-    />
+      )}></div>
   );
 }
 
@@ -159,10 +158,9 @@ export function LoadingDots({ size = 'md', color = 'primary', className }: Loadi
           key={i}
           className={cn('rounded-full', sizeClasses[size], colorClasses[color])}
           style={{
-            animation: `page-bounce 1.4s ease-in-out ${i * 0.16}s infinite both`,
-          }}
-        />
-      ))}
+            animation: `page-bounce 1.4s ease-in-out ${i * 0.16}}s infinite both`,
+          }}></div>
+)}
     </div>
   );
 }
@@ -177,7 +175,7 @@ interface SkeletonProps {
 
 export function Skeleton({ className }: SkeletonProps) {
   return (
-    <div className={cn('rounded-lg bg-white/5 page-shimmer', className)} />
+    <div className={cn('rounded-lg bg-white/5 page-shimmer', className)}></div>
   );
 }
 
@@ -189,7 +187,7 @@ export function SkeletonText({ lines = 3, className }: { lines?: number; classNa
           key={i}
           className={cn('h-4', i === lines - 1 ? 'w-2/3' : 'w-full')}
         />
-      ))}
+      })
     </div>
   );
 }
@@ -197,7 +195,7 @@ export function SkeletonText({ lines = 3, className }: { lines?: number; classNa
 export function SkeletonCard({ className }: SkeletonProps) {
   return (
     <div className={cn('p-4 rounded-xl bg-white/5 border border-white/5 space-y-4', className)}>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <Skeleton className="w-10 h-10 rounded-full" />
         <div className="flex-1 space-y-2">
           <Skeleton className="h-4 w-1/3" />
@@ -213,19 +211,19 @@ export function SkeletonTable({ rows = 5, cols = 4, className }: { rows?: number
   return (
     <div className={cn('space-y-2', className)}>
       {/* Header */}
-      <div className="flex gap-4 p-3 bg-white/5 rounded-lg">
+      <div className="flex gap-4 p-3 bg-white/5 rounded-2xl">
         {Array.from({ length: cols }).map((_, i) => (
           <Skeleton key={i} className="h-4 flex-1" />
-        ))}
+        })
       </div>
       {/* Rows */}
       {Array.from({ length: rows }).map((_, rowIndex) => (
         <div key={rowIndex} className="flex gap-4 p-3">
           {Array.from({ length: cols }).map((_, colIndex) => (
             <Skeleton key={colIndex} className="h-4 flex-1" />
-          ))}
+          })
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -267,25 +265,23 @@ export function PageLoading({
       )}>
         {/* Logo */}
         <div className="relative mb-8">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center logo-pulse">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center logo-pulse hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <span className="text-2xl font-bold text-white">SP</span>
           </div>
-          <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-emerald-500/30 page-pulse" />
+          <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-emerald-500/30 page-pulse"></div>
         </div>
-
-        {/* App name */}
+      {/* App name */}
         <h1 className="text-2xl font-bold text-white mb-2">ScoutPulse</h1>
         <p className="text-slate-400 mb-6">{message}</p>
-
-        {/* Loading indicator */}
+      {/* Loading indicator */}
         <LoadingDots size="lg" />
 
         {/* Progress bar */}
         {showProgress && (
           <div className="w-48 h-1 mt-6 rounded-full bg-white/10 overflow-hidden">
-            <div className="h-full bg-emerald-500 rounded-full progress-bar-animated" />
+            <div className="h-full bg-emerald-500 rounded-full progress-bar-animated"></div>
           </div>
-        )}
+)}
       </div>
     );
   }
@@ -294,31 +290,28 @@ export function PageLoading({
     return (
       <div className={cn('p-6 space-y-6', className)}>
         {/* Header skeleton */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
           <div className="space-y-2">
             <Skeleton className="h-8 w-48" />
             <Skeleton className="h-4 w-32" />
           </div>
-          <Skeleton className="h-10 w-32 rounded-lg" />
+          <Skeleton className="h-10 w-32 rounded-2xl" />
         </div>
-
-        {/* Stats skeleton */}
+      {/* Stats skeleton */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[1, 2, 3].map((i) => (
             <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/5">
               <Skeleton className="h-4 w-20 mb-2" />
               <Skeleton className="h-8 w-16" />
             </div>
-          ))}
+)}
         </div>
-
-        {/* Content skeleton */}
+      {/* Content skeleton */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <SkeletonCard />
           <SkeletonCard />
         </div>
-
-        {/* Table skeleton */}
+      {/* Table skeleton */}
         <SkeletonTable rows={5} cols={4} />
       </div>
     );
@@ -348,60 +341,57 @@ export function DashboardLoading() {
   return (
     <div className="p-6 space-y-6 page-fade-in">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
         <div className="space-y-2">
           <Skeleton className="h-8 w-64" />
           <Skeleton className="h-4 w-40" />
         </div>
         <div className="flex gap-2">
-          <Skeleton className="h-10 w-10 rounded-lg" />
-          <Skeleton className="h-10 w-32 rounded-lg" />
+          <Skeleton className="h-10 w-10 rounded-2xl" />
+          <Skeleton className="h-10 w-32 rounded-2xl" />
         </div>
       </div>
-
       {/* Stats cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
             className="p-5 rounded-xl bg-white/5 border border-white/5 space-y-3"
-            style={{ animationDelay: `${i * 100}ms` }}
+            style={{ animationDelay: `${i * 100}}ms` }}
           >
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <Skeleton className="h-4 w-24" />
-              <Skeleton className="h-8 w-8 rounded-lg" />
+              <Skeleton className="h-8 w-8 rounded-2xl" />
             </div>
             <Skeleton className="h-8 w-20" />
             <Skeleton className="h-3 w-16" />
           </div>
-        ))}
+)}
       </div>
-
       {/* Main content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Large card */}
         <div className="lg:col-span-2 p-5 rounded-xl bg-white/5 border border-white/5 space-y-4">
           <Skeleton className="h-6 w-40" />
-          <Skeleton className="h-64 w-full rounded-lg" />
+          <Skeleton className="h-64 w-full rounded-2xl" />
         </div>
-
-        {/* Side cards */}
+      {/* Side cards */}
         <div className="space-y-4">
           <div className="p-5 rounded-xl bg-white/5 border border-white/5 space-y-3">
             <Skeleton className="h-5 w-32" />
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="flex items-center gap-3">
+              <div key={i} className="flex items-center gap-3 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                 <Skeleton className="h-8 w-8 rounded-full" />
                 <div className="flex-1 space-y-1">
                   <Skeleton className="h-4 w-full" />
                   <Skeleton className="h-3 w-2/3" />
                 </div>
               </div>
-            ))}
+)}
           </div>
           <div className="p-5 rounded-xl bg-white/5 border border-white/5 space-y-3">
             <Skeleton className="h-5 w-28" />
-            <Skeleton className="h-32 w-full rounded-lg" />
+            <Skeleton className="h-32 w-full rounded-2xl" />
           </div>
         </div>
       </div>
@@ -423,17 +413,17 @@ export function ListLoading({ count = 5 }: { count?: number }) {
       {Array.from({ length: count }).map((_, i) => (
         <div
           key={i}
-          className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5"
-          style={{ animationDelay: `${i * 50}ms` }}
+          className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:-translate-y-1 hover:shadow-xl transition-all duration-200"
+          style={{ animationDelay: `${i * 50}}ms` }}
         >
           <Skeleton className="w-12 h-12 rounded-full shrink-0" />
           <div className="flex-1 min-w-0 space-y-2">
             <Skeleton className="h-5 w-1/3" />
             <Skeleton className="h-4 w-1/2" />
           </div>
-          <Skeleton className="w-24 h-8 rounded-lg shrink-0" />
+          <Skeleton className="w-24 h-8 rounded-2xl shrink-0" />
         </div>
-      ))}
+)}
     </div>
   );
 }
@@ -457,7 +447,7 @@ export function CardGridLoading({ count = 6, cols = 3 }: { count?: number; cols?
     <div className={cn('grid gap-4 page-fade-in', gridCols[cols as keyof typeof gridCols] || gridCols[3])}>
       {Array.from({ length: count }).map((_, i) => (
         <SkeletonCard key={i} />
-      ))}
+      })
     </div>
   );
 }

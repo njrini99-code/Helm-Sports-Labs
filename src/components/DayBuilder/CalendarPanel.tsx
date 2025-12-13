@@ -268,40 +268,35 @@ export function CalendarPanel({
             </button>
           </div>
         </div>
-
-        <div className="flex items-center justify-between mb-4">
+<div className="flex items-center justify-between mb-4">
           <button
             onClick={previousDay}
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
-
-          <div className="text-center">
+<div className="text-center">
             <p className="text-lg font-semibold text-gray-900">{formatDate(selectedDate)}</p>
             <p className="text-sm text-gray-600">{appointments.length} appointments</p>
           </div>
-
-          <button
+<button
             onClick={nextDay}
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
-
-        {appointments.length > 0 && (
+{appointments.length > 0 && (
           <button
             onClick={openInGoogleMaps}
             className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
           >
-            <Navigation className="w-5 h-5" />
+            <Navigation className="w-5 h-5"></Nav>
             Open Route in Maps
           </button>
-        )}
+)}
       </div>
-
-      <div className="flex-1 overflow-y-auto p-6">
+<div className="flex-1 overflow-y-auto p-6">
         {loading ? (
           <div className="text-center py-8 text-gray-500">Loading appointments...</div>
         ) : (
@@ -313,7 +308,7 @@ export function CalendarPanel({
                 <div
                   key={timeSlot}
                   className="flex gap-3 relative"
-                  style={{ height: '60px' }}
+                  style={{height: '60px' }}
                   onDragOver={(e) => handleDragOver(e, timeSlot)}
                   onDragLeave={handleDragLeave}
                   onDrop={(e) => handleDrop(e, timeSlot)}
@@ -323,8 +318,7 @@ export function CalendarPanel({
                       {formatTime12Hour(timeSlot)}
                     </span>
                   </div>
-
-                  <div className="flex-1 border-t border-gray-200 relative">
+<div className="flex-1 border-t border-gray-200 relative">
                     {slotAppointments.length === 0 ? (
                       <div
                         className={`absolute inset-0 rounded-lg border-2 border-dashed transition-all flex items-center justify-center ${
@@ -353,7 +347,7 @@ export function CalendarPanel({
                                   ? 'bg-gradient-to-r from-green-500 to-green-600'
                                   : 'bg-gradient-to-r from-blue-500 to-blue-600'
                               }`}
-                              style={{ height: `${height}px`, zIndex: 10 }}
+                              style={{ height: `${height}}px`, zIndex: 10 }}
                             >
                               <div className="flex items-start gap-2 h-full">
                                 <GripVertical className="w-4 h-4 flex-shrink-0 mt-0.5 opacity-60" />
@@ -364,18 +358,18 @@ export function CalendarPanel({
                                       <span className="px-1.5 py-0.5 bg-white bg-opacity-20 rounded text-[9px] font-bold uppercase flex-shrink-0">
                                         {appointment.appointment_type}
                                       </span>
-                                    )}
+)}
                                   </div>
                                   {appointment.meeting_with && (
                                     <p className="text-xs opacity-90 truncate">
                                       {appointment.meeting_with}
                                     </p>
-                                  )}
+)}
                                   {appointment.appointment_duration && (
                                     <p className="text-xs opacity-75 mt-0.5">
                                       {appointment.appointment_duration} min
                                     </p>
-                                  )}
+)}
                                   {duration >= 30 && appointment.phone && (
                                     <a
                                       href={`tel:${appointment.phone}`}
@@ -384,7 +378,7 @@ export function CalendarPanel({
                                     >
                                       {appointment.phone}
                                     </a>
-                                  )}
+)}
                                 </div>
                               </div>
                             </div>
@@ -397,10 +391,9 @@ export function CalendarPanel({
               );
             })}
           </div>
-        )}
+)}
       </div>
-
-      {showManualEntryModal && (
+{showManualEntryModal && (
         <ManualBusinessEntryModal
           onSave={handleManualBusinessSelect}
           onClose={() => setShowManualEntryModal(false)}

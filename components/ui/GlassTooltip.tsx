@@ -347,7 +347,7 @@ function Arrow({ placement, variant, style }: ArrowProps) {
     return 'bg-slate-900';
   };
 
-  return <div className={cn(getArrowClasses(), getBgClass())} style={style} />;
+  return <div className={cn(getArrowClasses(), getBgClass(}) style={{style}}></div>;
 }
 
 // ============================================
@@ -370,6 +370,7 @@ export function GlassTooltip({
   className,
   triggerOnClick = false,
 }: GlassTooltipProps) {
+  const [loading, setLoading] = useState(true);
   const [internalOpen, setInternalOpen] = useState(false);
   const [position, setPosition] = useState<Position | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -527,8 +528,8 @@ export function GlassTooltip({
                 handleClose();
                 (children as React.ReactElement<any>).props.onBlur?.(e);
               },
-            }),
-      })
+            }}),
+      }})
     : children;
 
   // Tooltip portal content
@@ -546,7 +547,7 @@ export function GlassTooltip({
         left: position?.left ?? -9999,
         maxWidth,
         opacity: isVisible ? 1 : 0,
-        animation: isVisible ? `${getAnimation()} 150ms ease-out` : undefined,
+        animation: isVisible ? `${getAnimation()}} 150ms ease-out` : undefined,
       }}
     >
       {content}
@@ -555,10 +556,9 @@ export function GlassTooltip({
           placement={position.actualPlacement}
           variant={variant}
           style={{
-            ...(position.arrowLeft !== undefined && { left: position.arrowLeft }),
-            ...(position.arrowTop !== undefined && { top: position.arrowTop }),
-          }}
-        />
+            ...(position.arrowLeft !== undefined && { left: position.arrowLeft }}),
+            ...(position.arrowTop !== undefined && { top: position.arrowTop }}),
+          }} />
       )}
     </div>
   );
@@ -665,12 +665,12 @@ export function MetricTooltip({
             {trend.value > 0 ? '+' : ''}
             {trend.value}%
           </span>
-        )}
+)}
       </div>
       <div className="text-xl font-bold text-white">{value}</div>
       {description && (
         <p className="text-xs text-white/60 leading-relaxed">{description}</p>
-      )}
+)}
       {benchmark && (
         <div className="pt-2 border-t border-white/10">
           <div className="flex items-center justify-between text-xs">
@@ -678,7 +678,7 @@ export function MetricTooltip({
             <span className="text-white/80 font-medium">{benchmark.value}</span>
           </div>
         </div>
-      )}
+)}
     </div>
   );
 
@@ -779,7 +779,7 @@ export function StatusTooltip({
         <div className="font-medium text-white">{label}</div>
         {description && (
           <p className="text-xs text-white/60 mt-0.5">{description}</p>
-        )}
+)}
       </div>
     </div>
   );
@@ -823,7 +823,14 @@ export function TooltipGroup({
 }: TooltipGroupProps) {
   return (
     <div className={cn('flex items-center gap-1', className)}>
-      {items.map((item) => (
+      {{items.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            items.map((item) => (
         <IconTooltip
           key={item.id}
           label={item.label}
@@ -833,7 +840,7 @@ export function TooltipGroup({
           variant={variant}
           placement={placement}
         />
-      ))}
+      })
     </div>
   );
 }

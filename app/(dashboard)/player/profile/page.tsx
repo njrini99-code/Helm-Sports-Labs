@@ -33,6 +33,15 @@ import {
   Trash2,
   GraduationCap,
 } from 'lucide-react';
+import {
+  glassCardPremium,
+  glassPanel as glassPanelEnhanced,
+  glassButton as glassButtonEnhanced,
+  glassDarkZone as glassDarkZoneEnhanced,
+  cn as cnEnhanced,
+} from '@/lib/glassmorphism-enhanced';
+import { motion } from 'framer-motion';
+import { pageTransition } from '@/lib/animations';
 import { useTheme } from '@/lib/theme-context';
 import { toast } from 'sonner';
 import { POSITIONS, GRAD_YEARS, US_STATES, PLAYER_GOALS } from '@/lib/types';
@@ -243,7 +252,7 @@ function ProfileEditContent() {
   if (loading) {
     return (
       <div className={`min-h-screen ${theme.bg} flex items-center justify-center`}>
-        <div className="w-8 h-8 bg-emerald-400/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-400/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -251,65 +260,94 @@ function ProfileEditContent() {
   const fullName = `${formData.first_name} ${formData.last_name}`.trim() || 'Player';
 
   return (
-    <div className={`min-h-screen ${theme.bg} transition-colors`}>
-      <div className="max-w-4xl mx-auto px-6 py-8 space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
+    <motion.div 
+      className={cnEnhanced(glassDarkZoneEnhanced, "min-h-screen pb-12 relative overflow-hidden")}
+      initial={pageTransition.initial}
+      animate={pageTransition.animate}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+    >
+      {/* Animated gradient orbs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '0s' }}></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/15 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '1s' }}></div>
+<div className="max-w-4xl mx-auto px-6 py-8 space-y-6 relative z-10">
+        {/* Premium Glass Header */}
+        <motion.div 
+          className="flex items-center justify-between"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="flex items-center gap-4">
-            <Link href="/player" className={`p-2 rounded-lg hover:bg-white/5 ${theme.textMuted}`}>
-              <ArrowLeft className="w-5 h-5" />
+            <Link href="/player" className={cnEnhanced(
+              "p-2 rounded-lg backdrop-blur-lg",
+              "bg-white/[0.08] border border-white/[0.15]",
+              "hover:bg-white/[0.12] hover:border-white/20",
+              "transition-all duration-200 text-white/70 hover:text-white"
+            )}>
+              <ArrowLeft className="w-5 h-5" strokeWidth={2} />
             </Link>
             <div>
-              <h1 className={`text-2xl font-bold ${theme.text}`}>Edit Profile</h1>
-              <p className={theme.textMuted}>Update your information</p>
+              <h1 className="text-3xl font-bold text-white mb-1 bg-gradient-to-r from-white via-white to-white/90 bg-clip-text text-transparent">
+                Edit Profile
+              </h1>
+              <p className="text-white/70 text-sm">Update your information</p>
             </div>
           </div>
-          <Button 
-            onClick={handleSave} 
-            disabled={saving}
-            className="bg-emerald-600 hover:bg-emerald-500 text-white"
-          >
-            {saving ? (
-              <>
-                <div className="w-4 h-4 bg-white/20 rounded animate-pulse mr-2" />
-                Saving...
-              </>
-            ) : (
-              <>
-                <Save className="w-4 h-4 mr-2" />
-                Save Changes
-              </>
-            )}
-          </Button>
-        </div>
-
-        {/* Avatar Section */}
-        <Card className={theme.cardBg}>
-          <CardContent className="p-6">
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <Button 
+              onClick={handleSave} 
+              disabled={saving}
+              className={cnEnhanced(glassButtonEnhanced.primary, "disabled:opacity-50")}
+            >
+              {saving ? (
+                <>
+                  <div className="w-4 h-4 bg-white/20 rounded animate-pulse mr-2"></div>
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4 mr-2" strokeWidth={2} />
+                  Save Changes
+                </>
+              )}
+            </Button>
+          </motion.div>
+        </motion.div>
+      {/* Premium Glass Avatar Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
             <div className="flex items-center gap-6">
               <div className="relative">
                 <Avatar className="w-24 h-24">
                   <AvatarImage src={(player as any)?.avatar_url} alt={fullName} />
-                  <AvatarFallback className={`${isDark ? 'bg-slate-700 text-white' : 'bg-emerald-100 text-emerald-700'} text-2xl font-bold`}>
+                  <AvatarFallback className="bg-emerald-500/20 text-emerald-300 text-2xl font-bold border border-emerald-400/30">
                     {fullName.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)}
                   </AvatarFallback>
                 </Avatar>
-                <button className={`absolute bottom-0 right-0 p-2 rounded-full ${isDark ? 'bg-slate-700' : 'bg-emerald-100'}`}>
-                  <Camera className={`w-4 h-4 ${theme.accent}`} />
+                <button className={cnEnhanced(
+                  "absolute bottom-0 right-0 p-2 rounded-full backdrop-blur-lg",
+                  "bg-white/[0.08] border border-white/[0.15]",
+                  "hover:bg-white/[0.12] hover:border-white/20",
+                  "transition-all duration-200"
+                )}>
+                  <Camera className="w-4 h-4 text-emerald-300" strokeWidth={2} />
                 </button>
               </div>
               <div>
-                <h2 className={`text-xl font-semibold ${theme.text}`}>{fullName}</h2>
-                <p className={theme.textMuted}>
+                <h2 className="text-xl font-semibold text-white">{fullName}</h2>
+                <p className="text-white/70 text-sm">
                   {formData.grad_year && `Class of ${formData.grad_year}`}
                   {formData.primary_position && ` • ${formData.primary_position}`}
                 </p>
               </div>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Tabs */}
+          </div>
+        </motion.div>
+      {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className={theme.tabsBg}>
             <TabsTrigger value="basic">Basic Info</TabsTrigger>
@@ -318,100 +356,103 @@ function ProfileEditContent() {
             <TabsTrigger value="recruiting">Recruiting</TabsTrigger>
             <TabsTrigger value="links">Links</TabsTrigger>
           </TabsList>
-
-          {/* Basic Info */}
+      {/* Basic Info */}
           <TabsContent value="basic">
-            <Card className={theme.cardBg}>
-              <CardHeader>
-                <CardTitle className={`flex items-center gap-2 ${theme.text}`}>
-                  <User className={`w-5 h-5 ${theme.accent}`} />
-                  Basic Information
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                    <User className="w-5 h-5 text-emerald-300" strokeWidth={2} />
+                    Basic Information
+                  </h3>
+                </div>
+                <div className="space-y-4">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label className="text-white/80">First Name</Label>
+                      <Input
+                        value={formData.first_name}
+                        onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-white/80">Last Name</Label>
+                      <Input
+                        value={formData.last_name}
+                        onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
+                      />
+                    </div>
                   <div className="space-y-2">
-                    <Label>First Name</Label>
-                    <Input
-                      value={formData.first_name}
-                      onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
-                      className={theme.inputBg}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Last Name</Label>
-                    <Input
-                      value={formData.last_name}
-                      onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
-                      className={theme.inputBg}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Graduation Year</Label>
-                    <Select value={formData.grad_year} onValueChange={(v) => setFormData({ ...formData, grad_year: v })}>
-                      <SelectTrigger className={theme.inputBg}>
-                        <SelectValue placeholder="Select year" />
-                      </SelectTrigger>
-                      <SelectContent>
+                    <div className="space-y-2">
+                      <Label className="text-white/80">Graduation Year</Label>
+                      <Select value={formData.grad_year} onValueChange={(v) => setFormData({ ...formData, grad_year: v })}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select year" />
+                        </SelectTrigger>
+        <SelectContent>
                         {GRAD_YEARS.map((year) => (
                           <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label>High School</Label>
-                    <Input
-                      value={formData.high_school_name}
-                      onChange={(e) => setFormData({ ...formData, high_school_name: e.target.value })}
-                      className={theme.inputBg}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>City</Label>
-                    <Input
-                      value={formData.high_school_city}
-                      onChange={(e) => setFormData({ ...formData, high_school_city: e.target.value })}
-                      className={theme.inputBg}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>State</Label>
-                    <Select value={formData.high_school_state} onValueChange={(v) => setFormData({ ...formData, high_school_state: v })}>
-                      <SelectTrigger className={theme.inputBg}>
-                        <SelectValue placeholder="Select state" />
-                      </SelectTrigger>
-                      <SelectContent>
+)}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-white/80">High School</Label>
+                      <Input
+                        value={formData.high_school_name}
+                        onChange={(e) => setFormData({ ...formData, high_school_name: e.target.value })}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-white/80">City</Label>
+                      <Input
+                        value={formData.high_school_city}
+                        onChange={(e) => setFormData({ ...formData, high_school_city: e.target.value })}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-white/80">State</Label>
+                      <Select value={formData.high_school_state} onValueChange={(v) => setFormData({ ...formData, high_school_state: v })}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select state" />
+                        </SelectTrigger>
+        <SelectContent>
                         {US_STATES.map((state) => (
                           <SelectItem key={state} value={state}>{state}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2 md:col-span-2">
-                    <Label>Showcase / Travel Team</Label>
-                    <Input
-                      value={formData.showcase_team_name}
-                      onChange={(e) => setFormData({ ...formData, showcase_team_name: e.target.value })}
-                      placeholder="Team name (optional)"
-                      className={theme.inputBg}
-                    />
-                  </div>
+)}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2 md:col-span-2">
+                      <Label className="text-white/80">Showcase / Travel Team</Label>
+                      <Input
+                        value={formData.showcase_team_name}
+                        onChange={(e) => setFormData({ ...formData, showcase_team_name: e.target.value })}
+                        placeholder="Team name (optional)"
+                      />
+                    </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </motion.div>
           </TabsContent>
-
-          {/* Physical */}
-          <TabsContent value="physical">
-            <Card className={theme.cardBg}>
-              <CardHeader>
-                <CardTitle className={`flex items-center gap-2 ${theme.text}`}>
-                  <Ruler className={`w-5 h-5 ${theme.accent}`} />
-                  Physical & Position
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
+        <TabsContent value="physical">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                    <Ruler className="w-5 h-5 text-emerald-300" strokeWidth={2} />
+                    Physical & Position
+                  </h3>
+                </div>
+                <div className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label>Height (Feet)</Label>
@@ -419,23 +460,23 @@ function ProfileEditContent() {
                       <SelectTrigger className={theme.inputBg}>
                         <SelectValue placeholder="Feet" />
                       </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         {[4, 5, 6, 7].map((ft) => (
                           <SelectItem key={ft} value={ft.toString()}>{ft}'</SelectItem>
-                        ))}
+)}
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label>Height (Inches)</Label>
+                    <Label className="text-white/80">Height (Inches)</Label>
                     <Select value={formData.height_inches} onValueChange={(v) => setFormData({ ...formData, height_inches: v })}>
                       <SelectTrigger className={theme.inputBg}>
                         <SelectValue placeholder="Inches" />
                       </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         {Array.from({ length: 12 }, (_, i) => (
                           <SelectItem key={i} value={i.toString()}>{i}"</SelectItem>
-                        ))}
+)}
                       </SelectContent>
                     </Select>
                   </div>
@@ -445,19 +486,18 @@ function ProfileEditContent() {
                       type="number"
                       value={formData.weight_lbs}
                       onChange={(e) => setFormData({ ...formData, weight_lbs: e.target.value })}
-                      className={theme.inputBg}
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label>Primary Position</Label>
+                    <Label className="text-white/80">Primary Position</Label>
                     <Select value={formData.primary_position} onValueChange={(v) => setFormData({ ...formData, primary_position: v })}>
                       <SelectTrigger className={theme.inputBg}>
                         <SelectValue placeholder="Select position" />
                       </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         {POSITIONS.map((pos) => (
                           <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-                        ))}
+)}
                       </SelectContent>
                     </Select>
                   </div>
@@ -467,21 +507,21 @@ function ProfileEditContent() {
                       <SelectTrigger className={theme.inputBg}>
                         <SelectValue placeholder="Optional" />
                       </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         <SelectItem value="">None</SelectItem>
                         {POSITIONS.map((pos) => (
                           <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-                        ))}
+)}
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label>Throws</Label>
+                    <Label className="text-white/80">Throws</Label>
                     <Select value={formData.throws} onValueChange={(v) => setFormData({ ...formData, throws: v })}>
                       <SelectTrigger className={theme.inputBg}>
                         <SelectValue placeholder="Select" />
                       </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         <SelectItem value="R">Right</SelectItem>
                         <SelectItem value="L">Left</SelectItem>
                       </SelectContent>
@@ -493,7 +533,7 @@ function ProfileEditContent() {
                       <SelectTrigger className={theme.inputBg}>
                         <SelectValue placeholder="Select" />
                       </SelectTrigger>
-                      <SelectContent>
+        <SelectContent>
                         <SelectItem value="R">Right</SelectItem>
                         <SelectItem value="L">Left</SelectItem>
                         <SelectItem value="S">Switch</SelectItem>
@@ -501,31 +541,35 @@ function ProfileEditContent() {
                     </Select>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </motion.div>
           </TabsContent>
-
-          {/* About */}
+      {/* About */}
           <TabsContent value="about">
-            <Card className={theme.cardBg}>
-              <CardHeader>
-                <CardTitle className={`flex items-center gap-2 ${theme.text}`}>
-                  <Target className={`w-5 h-5 ${theme.accent}`} />
-                  About & Goals
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                    <Target className="w-5 h-5 text-emerald-300" strokeWidth={2} />
+                    About & Goals
+                  </h3>
+                </div>
+                <div className="space-y-6">
                 <div className="space-y-2">
-                  <Label>About Me</Label>
+                  <Label className="text-white/80">About Me</Label>
                   <Textarea
                     value={formData.about_me}
                     onChange={(e) => setFormData({ ...formData, about_me: e.target.value })}
                     placeholder="Tell coaches about yourself, your passion for the game, and what makes you unique..."
-                    className={`${theme.inputBg} min-h-[150px]`}
+                    className="min-h-[150px]"
                   />
                 </div>
                 <div className="space-y-3">
-                  <Label>Primary Goal</Label>
+                  <Label className="text-white/80">Primary Goal</Label>
                   <div className="grid gap-2">
                     {PLAYER_GOALS.map((goal) => (
                       <button
@@ -542,23 +586,27 @@ function ProfileEditContent() {
                           {goal}
                         </p>
                       </button>
-                    ))}
+)}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </motion.div>
           </TabsContent>
-
-          {/* Recruiting */}
+      {/* Recruiting */}
           <TabsContent value="recruiting">
-            <Card className={theme.cardBg}>
-              <CardHeader>
-                <CardTitle className={`flex items-center gap-2 ${theme.text}`}>
-                  <GraduationCap className={`w-5 h-5 ${theme.accent}`} />
-                  Recruiting Interests
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                    <GraduationCap className="w-5 h-5 text-emerald-300" strokeWidth={2} />
+                    Recruiting Interests
+                  </h3>
+                </div>
+                <div className="space-y-6">
                 <div className="space-y-2">
                   <Label>Add a School</Label>
                   <CollegeSearchSelect
@@ -566,25 +614,32 @@ function ProfileEditContent() {
                     placeholder="Search for colleges..."
                   />
                 </div>
-
-                {recruitingInterests.length > 0 && (
+      {recruitingInterests.length > 0 && (
                   <div className="space-y-3">
-                    <Label>Your Interested Schools ({recruitingInterests.length})</Label>
+                    <Label className="text-white/80">Your Interested Schools ({recruitingInterests.length})</Label>
                     <div className="space-y-2">
                       {recruitingInterests.map((interest) => (
                         <div
                           key={interest.id}
-                          className={`flex items-center justify-between p-3 rounded-lg border ${isDark ? 'bg-slate-800/50 border-slate-700' : 'bg-slate-50 border-slate-200'}`}
+                          className={cnEnhanced(
+                            "flex items-center justify-between p-3 rounded-lg border backdrop-blur-lg",
+                            "bg-white/[0.08] border-white/[0.15]",
+                            "hover:bg-white/[0.12] hover:border-white/20",
+                            "transition-all duration-200"
+                          )}
                         >
                           <div className="flex items-center gap-3">
-                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isDark ? 'bg-emerald-500/10' : 'bg-emerald-100'}`}>
-                              <School className={`w-4 h-4 ${theme.accent}`} />
+                            <div className={cnEnhanced(
+                              "w-8 h-8 rounded-lg flex items-center justify-center backdrop-blur-lg",
+                              "bg-emerald-500/20 border border-emerald-400/30"
+                            )}>
+                              <School className="w-4 h-4 text-emerald-300" strokeWidth={2} />
                             </div>
                             <div>
-                              <p className={`font-medium ${theme.text}`}>{interest.school_name}</p>
+                              <p className="font-medium text-white">{interest.school_name}</p>
                               {interest.conference && (
-                                <p className={`text-xs ${theme.textMuted}`}>{interest.conference}</p>
-                              )}
+                                <p className="text-xs text-white/60">{interest.conference}</p>
+)}
                             </div>
                           </div>
                           <Button
@@ -593,33 +648,36 @@ function ProfileEditContent() {
                             onClick={() => handleRemoveInterest(interest.id)}
                             className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-4 h-4" strokeWidth={2} />
                           </Button>
                         </div>
-                      ))}
+)}
                     </div>
                   </div>
-                )}
-
+)}
                 {recruitingInterests.length === 0 && (
-                  <p className={`text-sm ${theme.textMuted}`}>
+                  <p className="text-sm text-white/60">
                     No schools added yet. Search and add schools you're interested in!
                   </p>
-                )}
-              </CardContent>
-            </Card>
+)}
+              </div>
+            </motion.div>
           </TabsContent>
-
-          {/* Links */}
+      {/* Links */}
           <TabsContent value="links">
-            <Card className={theme.cardBg}>
-              <CardHeader>
-                <CardTitle className={`flex items-center gap-2 ${theme.text}`}>
-                  <LinkIcon className={`w-5 h-5 ${theme.accent}`} />
-                  External Links
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <div className={cnEnhanced(glassPanelEnhanced, "p-6")}>
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                    <LinkIcon className="w-5 h-5 text-emerald-300" strokeWidth={2} />
+                    External Links
+                  </h3>
+                </div>
+                <div className="space-y-4">
                 <div className="space-y-2">
                   <Label>Perfect Game Profile</Label>
                   <Input
@@ -631,21 +689,20 @@ function ProfileEditContent() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Twitter / X Profile</Label>
+                  <Label className="text-white/80">Twitter / X Profile</Label>
                   <Input
                     type="url"
                     value={formData.twitter_url}
                     onChange={(e) => setFormData({ ...formData, twitter_url: e.target.value })}
                     placeholder="https://twitter.com/..."
-                    className={theme.inputBg}
                   />
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </motion.div>
           </TabsContent>
         </Tabs>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -653,7 +710,7 @@ export default function PlayerProfilePage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-[#0B0D0F] flex items-center justify-center">
-        <div className="w-8 h-8 bg-emerald-400/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-400/20 rounded animate-pulse"></div>
       </div>
     }>
       <ProfileEditContent />

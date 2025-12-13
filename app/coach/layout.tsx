@@ -175,7 +175,7 @@ export default function CoachLayout({
   if (loading) {
     return (
       <div className={`min-h-screen flex items-center justify-center transition-colors ${theme.pageBg}`}>
-        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse" />
+        <div className="w-8 h-8 bg-emerald-500/20 rounded animate-pulse"></div>
       </div>
     );
   }
@@ -202,13 +202,18 @@ export default function CoachLayout({
                   <Sun className="w-4 h-4 text-emerald-600" />
                 )}
               </button>
-
-              <Link href="/coach" className={`text-2xl font-bold tracking-tight ${theme.text}`}>
+      <Link href="/coach" className={`text-2xl font-bold tracking-tight ${theme.text}`}>
                 Scout<span className="text-emerald-500">Pulse</span>
               </Link>
-              
-              <div className="hidden lg:flex items-center gap-1">
-                {navItems.map((item) => {
+      <div className="hidden lg:flex items-center gap-1">
+                {navItems.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📭</div>
+              <p className="text-white/60 mb-4">No items yet</p>
+              <p className="text-white/40 text-sm">Check back later</p>
+            </div>
+          ) : (
+            navItems.map((item) => {
                   const isActive = pathname === item.href || 
                     (item.href !== basePath && pathname.startsWith(item.href));
                   return (
@@ -223,11 +228,11 @@ export default function CoachLayout({
                       {item.label}
                     </Link>
                   );
-                })}
+                })
+              )}
               </div>
             </div>
-            
-            <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4">
               <NotificationBell />
               <div className="hidden sm:block text-right">
                 <span className={`text-sm block font-medium ${theme.text}`}>{coachName}</span>
@@ -248,7 +253,6 @@ export default function CoachLayout({
           </div>
         </nav>
       </header>
-
       {/* Mobile Navigation */}
       <div className={`lg:hidden fixed bottom-0 left-0 right-0 border-t backdrop-blur-xl z-50 transition-colors ${theme.mobileNav}`}>
         <div className="flex justify-around py-3">
@@ -272,12 +276,10 @@ export default function CoachLayout({
           })}
         </div>
       </div>
-
       {/* Main Content */}
       <main className="pb-20 lg:pb-0">
         {children}
       </main>
-
       {/* Quick Action Toolbar */}
       <QuickActionToolbar position="right" userRole="coach" />
     </div>

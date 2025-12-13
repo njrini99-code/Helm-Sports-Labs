@@ -62,9 +62,23 @@ import {
   glassDarkZone,
   glassLightZone,
 } from '@/lib/glassmorphism';
+import {
+  glassCardPremium,
+  glassCardInteractive as glassCardInteractiveEnhanced,
+  glassStatCard as glassStatCardEnhanced,
+  glassPanel as glassPanelEnhanced,
+  glassHero as glassHeroEnhanced,
+  glassButton as glassButtonEnhanced,
+  glassDarkZone as glassDarkZoneEnhanced,
+  glassListItem as glassListItemEnhanced,
+  cn,
+} from '@/lib/glassmorphism-enhanced';
 import type { Player } from '@/lib/types';
 import { toast } from 'sonner';
+import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { SkipLink } from '@/components/ui/skip-link';
 import { getPlayerStatsSeries, type PlayerStatsSummary, type PerformanceFilters, type PlayerGameSeriesPoint } from '@/lib/api/player/getPlayerStatsSeries';
 import { getPlayerRecruitingSnapshot, type PlayerRecruitingSnapshot } from '@/lib/api/player/getPlayerRecruitingSnapshot';
 import { PlayerStatsCharts } from '@/components/player/PlayerStatsCharts';
@@ -130,6 +144,7 @@ interface PlayerEngagement {
 
 export default function PlayerDashboardPage() {
   const router = useRouter();
+  const { toast: showToast } = useToast();
   const [player, setPlayer] = useState<Player | null>(null);
   const [metrics, setMetrics] = useState<PlayerMetric[]>([]);
   const [videos, setVideos] = useState<PlayerVideo[]>([]);
@@ -307,8 +322,8 @@ export default function PlayerDashboardPage() {
           };
           const events = await getPlayerEventsTimeline(playerData.id, eventFilter);
           const upcoming = events
-            .filter(e => new Date(e.date) >= new Date())
-            .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+            .filter(e => new Date(e.date) >= new Date()}
+            .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()}
             .slice(0, 5);
           setUpcomingEvents(upcoming);
         } catch (error) {
@@ -322,7 +337,7 @@ export default function PlayerDashboardPage() {
 
       setLoading(false);
     } catch (error) {
-      logError(error, { component: 'PlayerDashboard', action: 'loadPlayerData', metadata: { unexpected: true } });
+      logError(error, { component: 'PlayerDashboard', action: 'loadPlayerData', metadata: { unexpected: true  } });
       toast.error('An unexpected error occurred. Please try again.');
       setLoading(false);
     }
@@ -350,17 +365,17 @@ export default function PlayerDashboardPage() {
       <div className="min-h-screen bg-gradient-to-b from-[#0b1720] via-[#0f172a] to-[#f4f7fb]">
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-6 space-y-6">
           {/* Hero skeleton */}
-          <div className="h-44 rounded-2xl backdrop-blur-2xl bg-white/5 border border-white/15 skeleton-shimmer" />
+          <div className="h-44 rounded-2xl backdrop-blur-2xl bg-white/5 border border-white/15 skeleton-shimmer"></div>
           {/* Stats skeleton */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[1,2,3,4].map(i => (
-              <div key={i} className="h-28 rounded-2xl backdrop-blur-xl bg-white/8 border border-white/12 skeleton-shimmer" />
-            ))}
+              <div key={i} className="h-28 rounded-2xl backdrop-blur-xl bg-white/8 border border-white/12 skeleton-shimmer"></div>
+)}
           </div>
           {/* Content skeleton */}
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="h-80 rounded-3xl backdrop-blur-xl bg-white/7 border border-white/12 skeleton-shimmer" />
-            <div className="h-80 rounded-3xl backdrop-blur-xl bg-white/7 border border-white/12 skeleton-shimmer" />
+            <div className="h-80 rounded-3xl backdrop-blur-xl bg-white/7 border border-white/12 skeleton-shimmer"></div>
+            <div className="h-80 rounded-3xl backdrop-blur-xl bg-white/7 border border-white/12 skeleton-shimmer"></div>
           </div>
         </div>
         <style jsx>{`
@@ -402,176 +417,256 @@ export default function PlayerDashboardPage() {
       className="min-h-screen"
       initial={pageTransition.initial}
       animate={pageTransition.animate}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
+      transition={{duration: 0.3, ease: 'easeOut' }}
     >
+      {/* Skip Link */}
+      <SkipLink href="#main-dashboard-content">Skip to main content</SkipLink>
+      {/* Breadcrumbs */}
+      <div className="max-w-6xl mx-auto px-4 md:px-6 pt-4">
+        <Breadcrumbs
+          items={[
+            { label: 'Dashboard', href: '/player' },
+            { label: 'Overview' },
+          ]}
+        />
+      </div>
       {/* ═══════════════════════════════════════════════════════════════════
-          DARK HERO ZONE
+          ULTIMATE GLASSMORPHISM DARK HERO ZONE
       ═══════════════════════════════════════════════════════════════════ */}
-      <div className="bg-gradient-to-b from-[#0b1720] via-[#0d1f2d] to-[#0f172a] pb-8">
-        <div className="max-w-6xl mx-auto px-4 md:px-6 pt-6 space-y-6">
+      <div id="main-dashboard-content" className={cn(glassDarkZoneEnhanced, "pb-12 relative overflow-hidden")}>
+        {/* Animated gradient orbs */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '0s' }}></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/15 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[140px] animate-pulse" style={{animationDelay: '2s' }}></div>
+{/* Subtle grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.02] pointer-events-none"
+          style={{backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+<div className="max-w-7xl mx-auto px-4 md:px-6 pt-8 space-y-8 relative z-10">
           
-          {/* A. HERO PROFILE BANNER */}
-          <section className="relative">
-            {/* Background with subtle grid */}
-            <div className="absolute inset-0 rounded-3xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-transparent to-emerald-900/10" />
-              <div 
-                className="absolute inset-0 opacity-[0.03]"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                }}
-              />
-            </div>
-
-            {/* Floating Glass Hero Card */}
-            <div className="relative p-1">
-              <div 
-                className="relative bg-white/[0.08] backdrop-blur-xl rounded-2xl border border-white/[0.12] p-5 md:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] hover:shadow-[0_25px_60px_rgba(0,0,0,0.6)] hover:border-emerald-400/20 transition-all duration-300 group"
-              >
+          {/* A. ULTIMATE GLASSMORPHISM HERO PROFILE BANNER */}
+          <motion.section 
+            className="relative"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{duration: 0.6, ease: 'easeOut' }}
+          >
+            {/* Premium Glass Hero Card with Multi-layer Effects */}
+            <div className={cn(glassHeroEnhanced, "p-6 md:p-8 relative overflow-hidden")}>
+              {/* Animated gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-blue-500/5 opacity-50 animate-pulse"></div>
+{/* Content */}
+              <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
                   
-                  {/* Left: Avatar + Info */}
-                  <div className="flex items-center gap-4">
-                    <Avatar className="h-20 w-20 md:h-24 md:w-24 ring-2 ring-white/30 shadow-[0_12px_35px_rgba(0,0,0,0.4)] group-hover:ring-emerald-400/40 transition-all duration-300">
-                      <AvatarImage src={player.avatar_url ?? undefined} alt={fullName} />
-                      <AvatarFallback className="bg-gradient-to-br from-emerald-500 to-emerald-700 text-white text-2xl font-bold">
+                {/* Left: Avatar + Info with Enhanced Glass Effects */}
+                <motion.div 
+                  className="flex items-center gap-5"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{duration: 0.5, delay: 0.1 }}
+                >
+                  {/* Premium Avatar with Glass Ring */}
+                  <div className="relative group">
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-400/30 to-blue-400/20 blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
+                    <Avatar className="relative h-20 w-20 md:h-24 md:w-24 ring-2 ring-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.5)] group-hover:ring-emerald-400/40 transition-all duration-500">
+                      <AvatarImage src={player.avatar_url ?? undefined} alt={fullName} className="object-cover" />
+                      <AvatarFallback className="bg-gradient-to-br from-emerald-500 via-emerald-600 to-blue-600 text-white text-2xl font-bold shadow-inner">
                         {initials}
                       </AvatarFallback>
                     </Avatar>
-                    
-                    <div>
-                      <h1 className="text-2xl md:text-3xl font-semibold text-white">{fullName}</h1>
-                      <div className="flex flex-wrap items-center gap-2 mt-1.5">
-                        {player.grad_year && (
-                          <span className="text-sm text-white/70">Class of {player.grad_year}</span>
-                        )}
-                        {player.primary_position && (
-                          <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-medium border border-emerald-500/30">
-                            {player.primary_position}
-                          </span>
-                        )}
-                        {location && (
-                          <span className="flex items-center gap-1 text-sm text-white/60">
-                            <MapPin className="w-3.5 h-3.5" />
-                            {location}
-                          </span>
-                        )}
-                      </div>
-                      {player.primary_goal && (
-                        <p className="mt-2 text-sm text-white/60 italic">
-                          "{player.primary_goal}"
-                        </p>
-                      )}
-                    </div>
+                    {/* Glow effect */}
+                    <div className="absolute -inset-2 rounded-full bg-emerald-500/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
-
-                  {/* Right: Actions */}
-                  <div className="flex flex-col items-start md:items-end gap-3">
-                    <div className="flex gap-2">
-                      <Button 
-                        className="bg-emerald-500 hover:bg-emerald-400 text-white font-medium gap-2 shadow-lg shadow-emerald-500/25 transition-all duration-150 hover:-translate-y-0.5"
-                        onClick={() => router.push('/player/profile')}
-                        aria-label="Edit player profile"
-                      >
-                        <Edit className="w-4 h-4" />
-                        Edit Profile
-                      </Button>
-                      <Button 
-                        variant="outline"
-                        className="bg-white/[0.05] border-white/[0.15] text-white hover:bg-white/[0.1] hover:border-white/25 gap-2 transition-all duration-150 hover:-translate-y-0.5"
-                        onClick={() => {
-                          navigator.clipboard.writeText(window.location.origin + '/player/' + player.id);
-                          toast.success('Profile link copied!');
-                        }}
-                        aria-label="Share player profile link"
-                      >
-                        <Share2 className="w-4 h-4" />
-                        Share
-                      </Button>
-                    </div>
-                    <button 
-                      className="text-xs text-emerald-300/80 hover:text-emerald-300 flex items-center gap-1 transition-colors"
-                      onClick={() => window.open(`/player/${player.id}`, '_blank')}
+      <div className="flex-1">
+                    <motion.h1 
+                      className="text-3xl md:text-4xl font-bold text-white mb-2 bg-gradient-to-r from-white via-white to-white/90 bg-clip-text text-transparent"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{duration: 0.5, delay: 0.2 }}
                     >
-                      View public profile
-                      <ArrowUpRight className="w-3 h-3" />
+                      {fullName}
+                    </motion.h1>
+                    <div className="flex flex-wrap items-center gap-3 mt-2">
+                      {player.grad_year && (
+                        <motion.span 
+                          className="text-sm text-white/80 font-medium"
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{duration: 0.3, delay: 0.3 }}
+                        >
+                          Class of {player.grad_year}
+                        </motion.span>
+)}
+                      {player.primary_position && (
+                        <motion.span 
+                          className={cn(
+                            "px-3 py-1.5 rounded-full text-xs font-semibold",
+                            "backdrop-blur-lg bg-emerald-500/25 text-emerald-200 border border-emerald-400/40",
+                            "shadow-[0_4px_20px_rgba(16,185,129,0.3)]",
+                            "hover:bg-emerald-500/35 hover:border-emerald-400/50 transition-all duration-300"
+                          )}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{duration: 0.3, delay: 0.35 }}
+                        >
+                          {player.primary_position}
+                        </motion.span>
+)}
+                      {location && (
+                        <motion.span 
+                          className="flex items-center gap-1.5 text-sm text-white/70"
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{duration: 0.3, delay: 0.4 }}
+                        >
+                          <MapPin className="w-4 h-4" strokeWidth={2} />
+                          {location}
+                        </motion.span>
+)}
+                    </div>
+                    {player.primary_goal && (
+                      <motion.p 
+                        className="mt-3 text-sm text-white/60 italic max-w-md"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{duration: 0.5, delay: 0.5 }}
+                      >
+                        "{player.primary_goal}"
+                      </motion.p>
+)}
+                  </div>
+                </motion.div>
+      {/* Right: Premium Action Buttons */}
+                <motion.div 
+                  className="flex flex-col items-start md:items-end gap-3"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{duration: 0.5, delay: 0.2 }}
+                >
+                  <div className="flex gap-3">
+                    <button
+                      className={cn(glassButtonEnhanced.primary, "flex items-center gap-2")}
+                      onClick={() => router.push('/player/profile')}
+                      aria-label="Edit player profile"
+                    >
+                      <Edit className="w-4 h-4" />
+                      <span>Edit Profile</span>
+                    </button>
+                    <button
+                      className={cn(glassButtonEnhanced.secondary, "flex items-center gap-2")}
+                      onClick={() => {
+                        navigator.clipboard.writeText(window.location.origin + '/player/' + player.id);
+                        showToast({
+                          variant: 'success',
+                          title: 'Link copied!',
+                          description: 'Your profile link has been copied to clipboard.',
+                        });
+                      }}
+                      aria-label="Share player profile link"
+                    >
+                      <Share2 className="w-4 h-4" strokeWidth={2} />
+                      <span>Share</span>
                     </button>
                   </div>
-                </div>
+                  <button 
+                    className="text-xs text-emerald-300/80 hover:text-emerald-300 flex items-center gap-1.5 transition-all duration-300 hover:gap-2 group"
+                    onClick={() => window.open(`/player/${player.id}`, '_blank')}
+                  >
+                    <span>View public profile</span>
+                    <ArrowUpRight className="w-3 h-3" strokeWidth={2} />
+                  </button>
+                </motion.div>
               </div>
             </div>
-          </section>
-
-          {/* B. STAT CARDS ROW */}
-          <motion.div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
-            variants={staggerContainer as any}
-            initial="hidden"
+          </motion.section>
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5"
+          variants={staggerContainer as any}
+          initial="hidden"
             animate="visible"
           >
             <motion.div variants={staggerItem as any}>
-              <GlassStatCard
-                icon={<Eye className="w-4 h-4" />}
+              <PremiumGlassStatCard
+                icon={<Eye className="w-4 h-4" strokeWidth={2} />}
                 value={engagement?.recent_views_7d ?? 0}
                 label="Profile Views"
                 sublabel="Last 7 days"
                 trend={engagement && engagement.recent_views_7d > 5 ? 12 : undefined}
+                color="emerald"
               />
             </motion.div>
             <motion.div variants={staggerItem as any}>
-              <GlassStatCard
-                icon={<GraduationCap className="w-4 h-4" />}
+              <PremiumGlassStatCard
+                icon={<GraduationCap className="w-4 h-4" strokeWidth={2} />}
                 value={collegeInterestCount}
                 label="College Interest"
                 sublabel="Schools tracking you"
+                color="blue"
               />
             </motion.div>
             <motion.div variants={staggerItem as any}>
-              <GlassStatCard
-                icon={<Bookmark className="w-4 h-4" />}
+              <PremiumGlassStatCard
+                icon={<Bookmark className="w-4 h-4" strokeWidth={2} />}
                 value={engagement?.watchlist_adds_count ?? 0}
                 label="Watchlist Adds"
                 sublabel="Coaches saved you"
                 trend={engagement && engagement.watchlist_adds_count > 3 ? 8 : undefined}
+                color="purple"
               />
             </motion.div>
             <motion.div variants={staggerItem as any}>
-              <GlassStatCard
-                icon={<MessageSquare className="w-4 h-4" />}
+              <PremiumGlassStatCard
+                icon={<MessageSquare className="w-4 h-4" strokeWidth={2} />}
                 value={unreadMessages}
                 label="Team Messages"
                 sublabel={unreadMessages > 0 ? 'Unread' : 'All caught up'}
                 highlight={unreadMessages > 0}
+                color="amber"
               />
             </motion.div>
           </motion.div>
         </div>
       </div>
-
       {/* ═══════════════════════════════════════════════════════════════════
-          TRANSITION GRADIENT + LIGHT CONTENT ZONE
+          ULTIMATE GLASSMORPHISM TRANSITION ZONE
       ═══════════════════════════════════════════════════════════════════ */}
-      <div className="bg-gradient-to-b from-[#0f172a] via-[#1e293b] to-[#f4f7fb]">
-        <div className="max-w-6xl mx-auto px-4 md:px-6 py-8 space-y-6">
+      <div className={cn(glassTransitionZone, "py-12 relative overflow-hidden")}>
+        {/* Animated gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/5 to-transparent opacity-50"></div>
+<div className="max-w-7xl mx-auto px-4 md:px-6 space-y-8 relative z-10">
           
-          {/* C. TEAM HUB & COLLEGE JOURNEY */}
-          <div className="grid md:grid-cols-2 gap-6">
+          {/* C. PREMIUM GLASSMORPHISM TEAM HUB & COLLEGE JOURNEY */}
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             
-            {/* TEAM HUB */}
-            <div className="bg-white/[0.07] backdrop-blur-xl border border-white/[0.12] rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] overflow-hidden hover:border-white/20 transition-all duration-300">
-              <div className="p-5 md:p-6">
-                <div className="flex items-center gap-3 mb-1">
-                  <div className="p-2 rounded-xl bg-white/[0.08]">
-                    <Users className="w-5 h-5 text-emerald-400" />
+            {/* TEAM HUB - Premium Glass Panel */}
+            <motion.div 
+              className={cn(glassPanelEnhanced, "overflow-hidden")}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{duration: 0.6, delay: 0.2 }}
+            >
+              <div className="p-6 md:p-8 relative">
+                {/* Header with enhanced glass icon */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className={cn(
+                    "p-2.5 rounded-xl backdrop-blur-lg",
+                    "bg-gradient-to-br from-emerald-500/20 to-emerald-600/10",
+                    "border border-emerald-400/30 shadow-lg shadow-emerald-500/20"
+                  )}>
+                    <Users className="w-5 h-5 text-emerald-300" strokeWidth={2} />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-white">Team Hub</h3>
-                    <p className="text-xs text-white/50">Messages & schedule from your coaches</p>
+                    <h3 className="text-xl font-bold text-white mb-1">Team Hub</h3>
+                    <p className="text-sm text-white/60">Messages & schedule from your coaches</p>
                   </div>
                 </div>
-                
-                {/* Segmented Control */}
-                <div className="flex gap-1 mt-4 p-1 bg-white/[0.06] rounded-full w-fit">
+      {/* Premium Segmented Control */}
+                <div className={cn(
+                  "flex gap-1 p-1.5 rounded-full w-fit",
+                  "backdrop-blur-xl bg-white/[0.08] border border-white/[0.15]"
+                )}>
                   <button
                     onClick={() => setTeamHubTab('messages')}
                     className={`px-4 py-1.5 text-xs font-medium rounded-full transition-all duration-150 ${
@@ -593,8 +688,7 @@ export default function PlayerDashboardPage() {
                     Schedule
                   </button>
                 </div>
-
-                {/* Content */}
+      {/* Content */}
                 <div className="mt-5">
                   {teamHubTab === 'messages' ? (
                     conversations.length === 0 ? (
@@ -624,8 +718,7 @@ export default function PlayerDashboardPage() {
                             <Avatar className="h-10 w-10 ring-1 ring-white/10">
                               <AvatarImage 
                                 src={(convo as any).programLogo ?? undefined} 
-                                alt={convo.title || 'Program logo'} 
-                              />
+                                alt={convo.title || 'Program logo'} />
                               <AvatarFallback className="bg-emerald-500/20 text-emerald-300 text-sm">
                                 {convo.title?.slice(0, 2).toUpperCase() || 'TM'}
                               </AvatarFallback>
@@ -639,15 +732,15 @@ export default function PlayerDashboardPage() {
                                 <span className="text-[10px] text-white/40">
                                   {formatTimeAgo(convo.lastMessageAt)}
                                 </span>
-                              )}
+)}
                               {convo.unreadCount > 0 && (
                                 <span className="px-1.5 py-0.5 bg-emerald-500 text-white text-[10px] font-medium rounded-full">
                                   {convo.unreadCount}
                                 </span>
-                              )}
+)}
                             </div>
                           </button>
-                        ))}
+)}
                         <button 
                           onClick={() => router.push('/player/messages')}
                           className="w-full mt-2 py-2.5 text-xs text-emerald-400 hover:text-emerald-300 flex items-center justify-center gap-1 rounded-xl hover:bg-white/[0.03] transition-all"
@@ -672,7 +765,7 @@ export default function PlayerDashboardPage() {
                             key={event.eventId}
                             className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]"
                           >
-                            <div className="w-12 h-12 rounded-lg bg-emerald-500/15 border border-emerald-500/20 flex flex-col items-center justify-center">
+                            <div className="w-12 h-12 rounded-2xl bg-emerald-500/15 border border-emerald-500/20 flex flex-col items-center justify-center">
                               <span className="text-[10px] font-medium text-emerald-400 uppercase">
                                 {new Date(event.date).toLocaleDateString('en-US', { month: 'short' })}
                               </span>
@@ -683,12 +776,12 @@ export default function PlayerDashboardPage() {
                             <div className="flex-1 min-w-0">
                               <p className="font-medium text-white/90 text-sm truncate">{event.label}</p>
                               <p className="text-xs text-white/50">
-                                {event.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                                {event.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase(})
                                 {event.location && ` • ${event.location}`}
                               </p>
                             </div>
                           </div>
-                        ))}
+)}
                         <button 
                           onClick={() => router.push('/player/team')}
                           className="w-full mt-2 py-2.5 text-xs text-emerald-400 hover:text-emerald-300 flex items-center justify-center gap-1 rounded-xl hover:bg-white/[0.03] transition-all"
@@ -696,14 +789,17 @@ export default function PlayerDashboardPage() {
                           View Full Calendar <ChevronRight className="w-4 h-4" />
                         </button>
                       </div>
-                    )
-                  )}
+)}
                 </div>
               </div>
             </div>
-
-            {/* COLLEGE JOURNEY */}
-            <div className="bg-white/[0.07] backdrop-blur-xl border border-white/[0.12] rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] overflow-hidden hover:border-white/20 transition-all duration-300">
+      {/* COLLEGE JOURNEY - Premium Glass Panel */}
+            <motion.div 
+              className={cn(glassPanelEnhanced, "overflow-hidden")}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{duration: 0.6, delay: 0.3 }}
+            >
               <div className="p-5 md:p-6">
                 <div className="flex items-center gap-3 mb-1">
                   <div className="p-2 rounded-xl bg-white/[0.08]">
@@ -714,8 +810,7 @@ export default function PlayerDashboardPage() {
                     <p className="text-xs text-white/50">Your path to the next level</p>
                   </div>
                 </div>
-                
-                {/* Segmented Control */}
+      {/* Segmented Control */}
                 <div className="flex gap-1 mt-4 p-1 bg-white/[0.06] rounded-full w-fit">
                   <button
                     onClick={() => setCollegeJourneyTab('matches')}
@@ -752,8 +847,7 @@ export default function PlayerDashboardPage() {
                     Interested
                   </button>
                 </div>
-
-                {/* Content */}
+      {/* Content */}
                 <div className="mt-5">
                   {recruitingData && recruitingData.schools.length > 0 ? (
                     <div>
@@ -766,7 +860,7 @@ export default function PlayerDashboardPage() {
                               aria-label={`View ${school.name} program`}
                               className="flex-shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] hover:border-purple-400/30 hover:bg-white/[0.06] transition-all duration-150 group"
                             >
-                              <div className="w-9 h-9 rounded-lg bg-purple-500/15 border border-purple-500/20 flex items-center justify-center">
+                              <div className="w-9 h-9 rounded-2xl bg-purple-500/15 border border-purple-500/20 flex items-center justify-center">
                                 <Building2 className="w-4 h-4 text-purple-400" />
                               </div>
                               <div className="text-left">
@@ -774,12 +868,11 @@ export default function PlayerDashboardPage() {
                                 <p className="text-[10px] text-white/50">{school.conference || 'College'}</p>
                               </div>
                             </button>
-                          ))}
+)}
                         </div>
                         <ScrollBar orientation="horizontal" className="opacity-50" />
                       </ScrollArea>
-                      
-                      {recruitingData.summary && (
+      {recruitingData.summary && (
                         <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-white/[0.06]">
                           <div className="text-center">
                             <p className="text-xl font-bold text-white">{recruitingData.summary.totalSchools}</p>
@@ -794,9 +887,8 @@ export default function PlayerDashboardPage() {
                             <p className="text-[10px] text-white/50 uppercase tracking-wide">Visits</p>
                           </div>
                         </div>
-                      )}
-                      
-                      <button 
+)}
+<button 
                         onClick={() => router.push('/player/discover')}
                         className="w-full mt-4 py-2.5 text-xs text-purple-400 hover:text-purple-300 flex items-center justify-center gap-1 rounded-xl hover:bg-white/[0.03] transition-all"
                       >
@@ -819,14 +911,13 @@ export default function PlayerDashboardPage() {
                         Find Schools
                       </Button>
                     </div>
-                  )}
+)}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
       {/* ═══════════════════════════════════════════════════════════════════
           LIGHT CONTENT ZONE - TABS
       ═══════════════════════════════════════════════════════════════════ */}
@@ -839,39 +930,37 @@ export default function PlayerDashboardPage() {
             }`}
           >
             <Tabs defaultValue="stats" className="w-full">
-              <TabsList className="w-full md:w-auto flex overflow-x-auto gap-1 p-1.5 bg-white rounded-2xl border border-slate-200/60 shadow-sm">
+              <TabsList className="w-full md:w-auto flex overflow-x-auto gap-1 p-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl border border-slate-200/60 shadow-sm">
                 <TabsTrigger value="analytics" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
                   Analytics
                 </TabsTrigger>
-                <TabsTrigger value="stats" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
+        <TabsTrigger value="stats" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
                   Stats
                 </TabsTrigger>
-                <TabsTrigger value="measurables" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
+        <TabsTrigger value="measurables" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
                   Measurables
                 </TabsTrigger>
-                <TabsTrigger value="evaluations" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
+        <TabsTrigger value="evaluations" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
                   Evaluations
                 </TabsTrigger>
-                <TabsTrigger value="recruiting" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
+        <TabsTrigger value="recruiting" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
                   Recruiting
                 </TabsTrigger>
-                <TabsTrigger value="videos" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
+        <TabsTrigger value="videos" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
                   Videos
                 </TabsTrigger>
-                <TabsTrigger value="achievements" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
+        <TabsTrigger value="achievements" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
                   Achievements
                 </TabsTrigger>
-                <TabsTrigger value="about" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
+        <TabsTrigger value="about" className="flex-shrink-0 px-4 py-2 text-sm rounded-xl data-[state=active]:bg-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-sm">
                   About
                 </TabsTrigger>
               </TabsList>
-
-              {/* Tab Content */}
+      {/* Tab Content */}
               <TabsContent value="analytics" className="mt-6">
                 {player && <AnalyticsDashboard playerId={player.id} timeRange={30} />}
               </TabsContent>
-
-              <TabsContent value="stats" className="mt-6 space-y-6">
+      <TabsContent value="stats" className="mt-6 space-y-6">
                 {/* Quick Stats Summary Card */}
                 <LightCard>
                   <LightCardHeader
@@ -881,12 +970,12 @@ export default function PlayerDashboardPage() {
                       <div className="flex items-center gap-3">
                         <Button
                           onClick={() => setShowStatsModal(true)}
-                          className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition-colors flex items-center gap-2"
+                          className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl transition-colors flex items-center gap-2"
                         >
-                          <Edit className="w-4 h-4" />
+                          <Edit className="w-4 h-4" strokeWidth={2} />
                           Update Stats
                         </Button>
-                        <div className="flex gap-1 p-1 bg-slate-100 rounded-lg">
+                        <div className="flex gap-1 p-1 bg-slate-100 rounded-2xl">
                           {(['season', '30d', '7d'] as const).map((range) => (
                             <button
                               key={range}
@@ -899,7 +988,7 @@ export default function PlayerDashboardPage() {
                             >
                               {range === 'season' ? 'Season' : range === '30d' ? '30 Days' : '7 Days'}
                             </button>
-                          ))}
+)}
                         </div>
                       </div>
                     }
@@ -924,26 +1013,23 @@ export default function PlayerDashboardPage() {
                               <LightStatTile label="K/G" value={statsSummary.strikeoutsPerGame.toFixed(1)} />
                             </div>
                           </div>
-                        )}
+)}
                       </div>
                     ) : (
                       <NoStatsEmptyState onAction={() => {}} />
                     )}
                   </div>
                 </LightCard>
-
-                {/* Performance Charts & Trends */}
+      {/* Performance Charts & Trends */}
                 {statsSummary && statsSummary.gamesPlayed > 0 && (
                   <PlayerStatsCharts 
                     series={statsSeries}
                     summary={statsSummary}
                     position={player.primary_position || 'default'}
-                    dateRange={statsDateRange}
-                  />
+                    dateRange={statsDateRange} />
                 )}
               </TabsContent>
-
-              <TabsContent value="measurables" className="mt-6">
+      <TabsContent value="measurables" className="mt-6">
                 <LightCard>
                   <LightCardHeader 
                     icon={<Ruler className="w-5 h-5 text-emerald-600" />}
@@ -968,8 +1054,7 @@ export default function PlayerDashboardPage() {
                         value={player.height_feet && player.height_inches !== null
                           ? `${player.height_feet}'${player.height_inches}"`
                           : 'Not set'
-                        } 
-                      />
+                        } />
                       <LightStatTile label="Weight" value={player.weight_lbs ? `${player.weight_lbs} lbs` : 'Not set'} />
                       <LightStatTile label="Throws" value={player.throws || 'Not set'} />
                       <LightStatTile label="Bats" value={player.bats || 'Not set'} />
@@ -990,7 +1075,7 @@ export default function PlayerDashboardPage() {
                                     <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 text-[10px]">
                                       <CheckCircle2 className="w-3 h-3 mr-1" /> Verified
                                     </Badge>
-                                  )}
+)}
                                   <D1Badge level={d1Level} size="sm" />
                                 </div>
                               </div>
@@ -999,12 +1084,11 @@ export default function PlayerDashboardPage() {
                           );
                         })}
                       </div>
-                    )}
+)}
                   </div>
                 </LightCard>
               </TabsContent>
-
-              <TabsContent value="evaluations" className="mt-6">
+      <TabsContent value="evaluations" className="mt-6">
                 <LightCard>
                   <LightCardHeader 
                     icon={<Star className="w-5 h-5 text-amber-500" />}
@@ -1023,14 +1107,13 @@ export default function PlayerDashboardPage() {
                       <div className="space-y-4">
                         {evaluations.map((evaluation) => (
                           <EvaluationCard key={evaluation.id} evaluation={evaluation} />
-                        ))}
+                        })
                       </div>
-                    )}
+)}
                   </div>
                 </LightCard>
               </TabsContent>
-
-              <TabsContent value="recruiting" className="mt-6">
+      <TabsContent value="recruiting" className="mt-6">
                 <LightCard>
                   <LightCardHeader 
                     icon={<GraduationCap className="w-5 h-5 text-purple-600" />}
@@ -1051,7 +1134,7 @@ export default function PlayerDashboardPage() {
                             <LightStatTile label="Offers" value={recruitingData.summary.offers.toString()} accent />
                             <LightStatTile label="Visits" value={recruitingData.summary.visits.toString()} />
                           </div>
-                        )}
+)}
                         <div className="space-y-2">
                           {recruitingData.schools.map((school) => (
                             <button
@@ -1060,7 +1143,7 @@ export default function PlayerDashboardPage() {
                               className="w-full text-left flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-slate-200 hover:bg-slate-100/50 transition-colors"
                             >
                               <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
+                                <div className="w-10 h-10 rounded-2xl bg-purple-100 flex items-center justify-center">
                                   <School className="w-5 h-5 text-purple-600" />
                                 </div>
                                 <div>
@@ -1072,7 +1155,7 @@ export default function PlayerDashboardPage() {
                                 {school.status}
                               </Badge>
                             </button>
-                          ))}
+)}
                         </div>
                       </div>
                     ) : (
@@ -1081,8 +1164,7 @@ export default function PlayerDashboardPage() {
                   </div>
                 </LightCard>
               </TabsContent>
-
-              <TabsContent value="videos" className="mt-6">
+      <TabsContent value="videos" className="mt-6">
                 <LightCard>
                   <LightCardHeader 
                     icon={<Video className="w-5 h-5 text-red-500" />}
@@ -1102,11 +1184,11 @@ export default function PlayerDashboardPage() {
                   />
                   <div className="p-5">
                     <Tabs defaultValue="game" className="space-y-4">
-                      <TabsList className="bg-slate-100 p-1 rounded-lg">
+                      <TabsList className="bg-slate-100 p-1 rounded-2xl">
                         <TabsTrigger value="game" className="text-sm rounded-md">Game ({gameVideos.length})</TabsTrigger>
                         <TabsTrigger value="training" className="text-sm rounded-md">Training ({trainingVideos.length})</TabsTrigger>
                       </TabsList>
-                      <TabsContent value="game">
+        <TabsContent value="game">
                         {gameVideos.length === 0 ? (
                           <div className="text-center py-12">
                             <Video className="w-10 h-10 mx-auto text-slate-300 mb-2" />
@@ -1116,11 +1198,11 @@ export default function PlayerDashboardPage() {
                           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {gameVideos.map((video) => (
                               <VideoCard key={video.id} video={video} onDelete={refreshData} />
-                            ))}
+                            })
                           </div>
-                        )}
+)}
                       </TabsContent>
-                      <TabsContent value="training">
+        <TabsContent value="training">
                         {trainingVideos.length === 0 ? (
                           <div className="text-center py-12">
                             <Video className="w-10 h-10 mx-auto text-slate-300 mb-2" />
@@ -1130,16 +1212,15 @@ export default function PlayerDashboardPage() {
                           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {trainingVideos.map((video) => (
                               <VideoCard key={video.id} video={video} onDelete={refreshData} />
-                            ))}
+                            })
                           </div>
-                        )}
+)}
                       </TabsContent>
                     </Tabs>
                   </div>
                 </LightCard>
               </TabsContent>
-
-              <TabsContent value="achievements" className="mt-6">
+      <TabsContent value="achievements" className="mt-6">
                 <LightCard>
                   <LightCardHeader 
                     icon={<Trophy className="w-5 h-5 text-amber-500" />}
@@ -1174,17 +1255,16 @@ export default function PlayerDashboardPage() {
                                 <p className="text-xs text-slate-500 mt-1">
                                   {new Date(achievement.achievement_date).toLocaleDateString()}
                                 </p>
-                              )}
+)}
                             </div>
                           </div>
-                        ))}
+)}
                       </div>
-                    )}
+)}
                   </div>
                 </LightCard>
               </TabsContent>
-
-              <TabsContent value="about" className="mt-6">
+      <TabsContent value="about" className="mt-6">
                 <LightCard>
                   <LightCardHeader 
                     icon={<User className="w-5 h-5 text-emerald-600" />}
@@ -1195,7 +1275,7 @@ export default function PlayerDashboardPage() {
                       <p className="text-slate-600 leading-relaxed">{player.about_me}</p>
                     ) : (
                       <p className="text-slate-400 italic">No bio yet. Add one to tell coaches about yourself.</p>
-                    )}
+)}
                     {player.primary_goal && (
                       <div>
                         <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Goal</h4>
@@ -1204,7 +1284,7 @@ export default function PlayerDashboardPage() {
                           {player.primary_goal}
                         </Badge>
                       </div>
-                    )}
+)}
                     {player.top_schools && player.top_schools.length > 0 && (
                       <div>
                         <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Dream Schools</h4>
@@ -1214,22 +1294,22 @@ export default function PlayerDashboardPage() {
                               <School className="w-3 h-3 mr-1" />
                               {school}
                             </Badge>
-                          ))}
+)}
                         </div>
                       </div>
-                    )}
+)}
                     {player.high_school_name && (
                       <div>
                         <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">High School</h4>
                         <p className="text-slate-700">{player.high_school_name}</p>
                       </div>
-                    )}
+)}
                     {player.showcase_team_name && (
                       <div>
                         <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Showcase Team</h4>
                         <p className="text-slate-700">{player.showcase_team_name}</p>
                       </div>
-                    )}
+)}
                   </div>
                 </LightCard>
               </TabsContent>
@@ -1237,7 +1317,6 @@ export default function PlayerDashboardPage() {
           </div>
         </div>
       </div>
-
       {/* Stats Modal */}
       <AddStatsModal
         open={showStatsModal}
@@ -1256,6 +1335,115 @@ export default function PlayerDashboardPage() {
 // ═══════════════════════════════════════════════════════════════════════════
 // Helper Components
 // ═══════════════════════════════════════════════════════════════════════════
+
+/** Premium Glass Stat Card with Enhanced Effects */
+function PremiumGlassStatCard({ 
+  icon, 
+  value, 
+  label, 
+  sublabel,
+  trend,
+  highlight,
+  color = 'emerald',
+}: { 
+  icon: React.ReactNode;
+  value: number;
+  label: string;
+  sublabel?: string;
+  trend?: number;
+  highlight?: boolean;
+  color?: 'emerald' | 'blue' | 'purple' | 'amber';
+}) {
+  const colorClasses = {
+    emerald: {
+      bg: 'from-emerald-500/20 to-emerald-600/10',
+      border: 'border-emerald-400/30',
+      icon: 'text-emerald-300',
+      glow: 'shadow-emerald-500/20',
+      hover: 'hover:border-emerald-400/50 hover:shadow-emerald-500/30',
+    },
+    blue: {
+      bg: 'from-blue-500/20 to-blue-600/10',
+      border: 'border-blue-400/30',
+      icon: 'text-blue-300',
+      glow: 'shadow-blue-500/20',
+      hover: 'hover:border-blue-400/50 hover:shadow-blue-500/30',
+    },
+    purple: {
+      bg: 'from-purple-500/20 to-purple-600/10',
+      border: 'border-purple-400/30',
+      icon: 'text-purple-300',
+      glow: 'shadow-purple-500/20',
+      hover: 'hover:border-purple-400/50 hover:shadow-purple-500/30',
+    },
+    amber: {
+      bg: 'from-amber-500/20 to-amber-600/10',
+      border: 'border-amber-400/30',
+      icon: 'text-amber-300',
+      glow: 'shadow-amber-500/20',
+      hover: 'hover:border-amber-400/50 hover:shadow-amber-500/30',
+    },
+  };
+
+  const colors = colorClasses[color];
+
+  return (
+    <motion.div 
+      className={cn(
+        glassStatCardEnhanced,
+        `bg-gradient-to-br ${colors.bg}`,
+        `border ${colors.border}`,
+        `shadow-lg ${colors.glow}`,
+        colors.hover,
+        highlight && 'ring-2 ring-amber-400/40'
+      )}
+      whileHover={{ scale: 1.03, y: -4 }}
+      transition={{duration: 0.3 }}
+    >
+      {/* Animated gradient overlay */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${colors.bg} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl`}></div>
+{/* Trend badge */}
+      {trend !== undefined && (
+        <motion.span 
+          className={cn(
+            "absolute top-3 right-3 flex items-center gap-1 text-[11px] font-semibold px-2 py-1 rounded-full",
+            "backdrop-blur-lg bg-emerald-500/25 text-emerald-200 border border-emerald-400/40",
+            "shadow-[0_2px_10px_rgba(16,185,129,0.3)]"
+          )}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{delay: 0.2 }}
+        >
+          <TrendingUp className="w-3 h-3" />
+          +{trend}%
+        </motion.span>
+)}
+<div className="relative z-10 flex items-start gap-3">
+        <div className={cn(
+          "p-2 rounded-lg backdrop-blur-lg",
+          `bg-white/[0.1] border ${colors.border}`,
+          colors.icon
+        )}>
+          {icon}
+        </div>
+        <div className="flex-1 min-w-0">
+          <motion.p 
+            className="text-2xl font-bold text-white mb-1"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{duration: 0.5 }}
+          >
+            {value.toLocaleString()}
+          </motion.p>
+          <p className="text-xs text-white/90 font-semibold mb-0.5">{label}</p>
+          {sublabel && (
+            <p className="text-[10px] text-white/60">{sublabel}</p>
+)}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 function GlassStatCard({ 
   icon, 
@@ -1282,9 +1470,8 @@ function GlassStatCard({
           <TrendingUp className="w-3 h-3" />
           +{trend}%
         </span>
-      )}
-      
-      <div className="flex items-start gap-3">
+)}
+<div className="flex items-start gap-3">
         <div className="p-2 rounded-full bg-white/[0.1] text-white/70 group-hover:text-emerald-400 transition-colors">
           {icon}
         </div>
@@ -1300,7 +1487,7 @@ function GlassStatCard({
 
 function LightCard({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-white border border-slate-200/80 shadow-sm rounded-2xl overflow-hidden">
+    <div className="bg-white/10 backdrop-blur-md border border-white/20 border border-slate-200/80 shadow-sm rounded-2xl overflow-hidden">
       {children}
     </div>
   );
@@ -1371,7 +1558,7 @@ function VideoCard({ video, onDelete }: { video: PlayerVideo; onDelete?: (id: st
   };
 
   return (
-    <div className="rounded-xl bg-slate-50 border border-slate-100 overflow-hidden hover:shadow-md transition-all group relative">
+    <div className="rounded-xl bg-slate-50 border border-slate-100 overflow-hidden hover:shadow-xl transition-all group relative">
       <div className="aspect-video bg-slate-200 relative">
         <div className="absolute inset-0 flex items-center justify-center">
           <Video className="w-10 h-10 text-slate-400" />
@@ -1388,22 +1575,22 @@ function VideoCard({ video, onDelete }: { video: PlayerVideo; onDelete?: (id: st
           <button
             onClick={handleDelete}
             disabled={deleting}
-            className="absolute top-2 right-2 p-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-50"
+            className="absolute top-2 right-2 p-1.5 bg-red-500 hover:bg-red-600 text-white rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-50"
             title="Delete video"
           >
             {deleting ? (
-              <div className="h-4 w-4 bg-white/20 rounded animate-pulse" />
+              <div className="h-4 w-4 bg-white/20 rounded animate-pulse"></div>
             ) : (
               <Trash2 className="w-4 h-4" />
             )}
           </button>
-        )}
+)}
       </div>
       <div className="p-3">
         <p className="font-medium text-slate-800 text-sm truncate">{video.title}</p>
         {video.recorded_date && (
           <p className="text-xs text-slate-500">{new Date(video.recorded_date).toLocaleDateString()}</p>
-        )}
+)}
       </div>
     </div>
   );
@@ -1430,30 +1617,30 @@ function EvaluationCard({ evaluation }: { evaluation: Evaluation }) {
         </div>
         {evaluation.overall_grade && (
           <div className="text-2xl font-bold text-emerald-600">{evaluation.overall_grade.toFixed(1)}</div>
-        )}
+)}
       </div>
       {grades.length > 0 && (
         <div className="grid grid-cols-3 gap-2 mb-3">
           {grades.slice(0, 6).map((grade) => (
-            <div key={grade.label} className="text-center p-2 rounded-lg bg-white">
+            <div key={grade.label} className="text-center p-2 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
               <p className="text-xs text-slate-500">{grade.label}</p>
               <p className="font-semibold text-slate-800">{grade.value?.toFixed(1)}</p>
             </div>
-          ))}
+)}
         </div>
-      )}
+)}
       {evaluation.strengths && (
         <div className="mb-2">
           <p className="text-[10px] font-semibold text-slate-500 uppercase">Strengths</p>
           <p className="text-sm text-slate-700">{evaluation.strengths}</p>
         </div>
-      )}
+)}
       {evaluation.areas_to_improve && (
         <div>
           <p className="text-[10px] font-semibold text-slate-500 uppercase">Areas to Improve</p>
           <p className="text-sm text-slate-700">{evaluation.areas_to_improve}</p>
         </div>
-      )}
+)}
     </div>
   );
 }

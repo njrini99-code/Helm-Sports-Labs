@@ -146,8 +146,7 @@ export function WeeksView() {
           <h1 className="text-4xl font-bold text-gray-900 mb-2">52 Weeks Performance</h1>
           <p className="text-lg text-gray-600">Your year-long activity tracker</p>
         </div>
-
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+<div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
           <div className="flex items-center justify-between mb-6">
             <div className="flex gap-2">
               <button
@@ -181,8 +180,7 @@ export function WeeksView() {
                 Year Summary
               </button>
             </div>
-
-            <div className="text-right">
+<div className="text-right">
               <div className="text-sm text-gray-600">Weekly Goals</div>
               <div className="text-xs text-gray-500 space-x-3">
                 <span>{goals.osv_goal} OSVs</span>
@@ -192,8 +190,7 @@ export function WeeksView() {
               </div>
             </div>
           </div>
-
-          {viewMode === 'weeks' && (
+{viewMode === 'weeks' && (
             <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-13 gap-3">
               {allWeeks.map((week) => {
                 const progress = getWeekProgress(week);
@@ -228,20 +225,18 @@ export function WeeksView() {
                         <div className="mt-2 h-1.5 bg-gray-200 rounded-full overflow-hidden">
                           <div
                             className={`h-full ${getProgressColor(progress)} transition-all`}
-                            style={{ width: `${progress}%` }}
-                          />
+                            style={{ width: `${progress}}%` }}></div>
                         </div>
                       </>
                     )}
                     {!hasData && (
                       <div className="text-xs text-gray-400 text-center mt-2">No data</div>
-                    )}
+)}
                   </button>
                 );
               })}
             </div>
-          )}
-
+)}
           {viewMode === 'year' && (
             <div className="space-y-6">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -252,40 +247,35 @@ export function WeeksView() {
                   </div>
                   <div className="text-3xl font-bold text-blue-600">{yearSummary.totalOSVs}</div>
                 </div>
-
-                <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4">
+<div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <TrendingUp className="w-5 h-5 text-green-600" />
                     <span className="text-sm font-medium text-green-900">Total NPs</span>
                   </div>
                   <div className="text-3xl font-bold text-green-600">{yearSummary.totalNPs}</div>
                 </div>
-
-                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4">
+<div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <BarChart3 className="w-5 h-5 text-purple-600" />
                     <span className="text-sm font-medium text-purple-900">Total Closes</span>
                   </div>
                   <div className="text-3xl font-bold text-purple-600">{yearSummary.totalCloses}</div>
                 </div>
-
-                <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4">
+<div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Calendar className="w-5 h-5 text-orange-600" />
                     <span className="text-sm font-medium text-orange-900">Total Revenue</span>
                   </div>
                   <div className="text-3xl font-bold text-orange-600">${yearSummary.totalRevenue.toFixed(0)}</div>
                 </div>
-
-                <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4">
+<div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Target className="w-5 h-5 text-gray-600" />
                     <span className="text-sm font-medium text-gray-900">Total Miles</span>
                   </div>
                   <div className="text-3xl font-bold text-gray-600">{yearSummary.totalDistance.toFixed(0)}</div>
                 </div>
-
-                <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-4">
+<div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <TrendingUp className="w-5 h-5 text-indigo-600" />
                     <span className="text-sm font-medium text-indigo-900">Avg Efficiency</span>
@@ -293,8 +283,7 @@ export function WeeksView() {
                   <div className="text-3xl font-bold text-indigo-600">{yearSummary.avgRouteEfficiency.toFixed(1)}</div>
                 </div>
               </div>
-
-              <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-6">
+<div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-4">Year {selectedYear} Overview</h3>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
@@ -322,11 +311,10 @@ export function WeeksView() {
                 </div>
               </div>
             </div>
-          )}
+)}
         </div>
       </div>
-
-      {selectedWeek && user && (
+{selectedWeek && user && (
         <WeekDetailModal
           isOpen={!!selectedWeek}
           onClose={() => setSelectedWeek(null)}

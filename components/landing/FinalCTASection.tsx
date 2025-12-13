@@ -18,12 +18,14 @@ export function FinalCTASection() {
               top: `${Math.random() * 100}%`,
               animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
               animationDelay: `${Math.random() * 2}s`,
-            }}
-          />
+            }}></div>
         ))}
       </div>
-
-      <div className="relative z-10 container mx-auto px-6 text-center">
+      <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{duration: 0.3 }}
+  className="relative z-10 container mx-auto px-6 text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -38,22 +40,20 @@ export function FinalCTASection() {
           >
             Ready to Get <span className="bg-gradient-to-r from-emerald-500 to-teal-500 text-transparent bg-clip-text">Recruited</span>?
           </motion.h2>
-          
-          <motion.p
+      <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
+            transition={{delay: 0.1 }}
             className="text-xl text-slate-600 mb-8"
           >
             Join thousands of players who've found their perfect college fit
           </motion.p>
-
-          <motion.div
+      <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{delay: 0.2 }}
           >
             <Link
               href="/auth/signup"
@@ -65,19 +65,17 @@ export function FinalCTASection() {
               </svg>
             </Link>
           </motion.div>
-
-          <motion.p
+      <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
+            transition={{delay: 0.3 }}
             className="text-sm text-slate-500 mt-6"
           >
             No credit card required • Get started in under 2 minutes
           </motion.p>
         </motion.div>
-      </div>
-
+      </motion.div>
       <style jsx>{`
         @keyframes float {
           0%, 100% {

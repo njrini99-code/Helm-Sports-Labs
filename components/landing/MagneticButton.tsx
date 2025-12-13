@@ -20,6 +20,7 @@ export function MagneticButton({
   variant = 'primary'
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [loading, setLoading] = useState(true);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -46,8 +47,8 @@ export function MagneticButton({
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      animate={{ x: position.x, y: position.y }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      animate={ x: position.x, y: position.y }
+      transition={{type: 'spring', stiffness: 300, damping: 20 }}
       className={`${baseClasses} ${className} cursor-pointer inline-block`}
     >
       {children}
