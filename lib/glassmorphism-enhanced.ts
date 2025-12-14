@@ -11,4 +11,5 @@ export { glassHero } from './glassmorphism';
 export { glassButton } from './glassmorphism';
 export { glassDarkZone } from './glassmorphism';
 export { glassListItem } from './glassmorphism';
+export { glassTransitionZone } from './glassmorphism';
 export { cn } from '@/lib/utils';

@@ -61,6 +61,7 @@ import {
   glassButton,
   glassDarkZone,
   glassLightZone,
+  glassTransitionZone,
 } from '@/lib/glassmorphism';
 import {
   glassCardPremium,
