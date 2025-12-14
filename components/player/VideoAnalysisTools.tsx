@@ -208,7 +208,7 @@ export function VideoAnalysisTools({ videoUrl, videoId }: VideoAnalysisToolsProp
         <div className="border rounded-2xl p-4">
           <h4 className="font-medium mb-2">Annotations</h4>
           <div className="space-y-2">
-            {{annotations.length === 0 ? (
+            {annotations.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -236,7 +236,8 @@ export function VideoAnalysisTools({ videoUrl, videoId }: VideoAnalysisToolsProp
                   Jump to
                 </Button>
               </div>
-)}
+            ))
+          }
           </div>
         </div>
 )}

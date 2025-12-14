@@ -222,7 +222,7 @@ export function NaturalLanguageSearch({
         <div className="space-y-1">
           <p className="text-xs text-muted-foreground">Recent searches:</p>
           <div className="flex flex-wrap gap-1">
-            {{recentSearches.length === 0 ? (
+            {recentSearches.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -242,7 +242,8 @@ export function NaturalLanguageSearch({
               >
                 {search}
               </Button>
-)}
+            ))
+          )}
           </div>
         </div>
 )}

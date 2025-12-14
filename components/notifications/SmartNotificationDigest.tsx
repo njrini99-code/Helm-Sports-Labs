@@ -150,7 +150,7 @@ export function SmartNotificationDigest() {
         </select>
       </div>
       <div className="space-y-2">
-        {{groups.length === 0 ? (
+        {groups.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -183,9 +183,10 @@ export function SmartNotificationDigest() {
               <p className="text-sm text-muted-foreground">
                 {group.count} {group.label.toLowerCase()} in the last period
               </p>
-)}
+            ))
+          }
           </div>
-)}
+        )}
       </div>
       <Button className="w-full" variant="outline">
         View All Notifications

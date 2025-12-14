@@ -165,7 +165,7 @@ export function SmartSchedulingAssistant({
           ) : (
             <div className="space-y-2">
               <p className="text-sm font-medium">Suggested Time Slots</p>
-              {{suggestedSlots.length === 0 ? (
+              {suggestedSlots.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -204,10 +204,11 @@ export function SmartSchedulingAssistant({
                         <AlertCircle className="w-3 h-3" />
                         <span>{slot.reason}</span>
                       </div>
-)}
+                    )}
                   </div>
                 </div>
-)}
+            ))
+          }
             </div>
 )}
         </div>

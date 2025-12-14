@@ -98,7 +98,7 @@ export function PlayerListItem({
 )}
           {showMetrics && metrics.length > 0 && (
             <div className="flex gap-2 text-xs text-slate-400">
-              {{metrics.length === 0 ? (
+              {metrics.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -107,7 +107,8 @@ export function PlayerListItem({
           ) : (
             metrics.map((metric, i) => (
                 <span key={i}>{metric}</span>
-)}
+            ))
+          )}
             </div>
 )}
         </div>

@@ -132,7 +132,7 @@ export function AddMetricModal({ playerId, onSuccess, trigger }: AddMetricModalP
                 >
                   {metric.label}
                 </button>
-)}
+              ))}
             </div>
           </div>
       <div className="space-y-2">

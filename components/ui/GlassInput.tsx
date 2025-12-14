@@ -616,7 +616,7 @@ export const GlassSelect = forwardRef<HTMLSelectElement, GlassSelectProps>(
                 {placeholder}
               </option>
 )}
-            {{options.length === 0 ? (
+            {options.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -632,7 +632,8 @@ export const GlassSelect = forwardRef<HTMLSelectElement, GlassSelectProps>(
               >
                 {option.label}
               </option>
-)}
+            ))
+          }
           </select>
       {/* Dropdown Arrow */}
           <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-white/60">

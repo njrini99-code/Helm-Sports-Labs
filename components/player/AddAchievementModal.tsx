@@ -120,7 +120,8 @@ export function AddAchievementModal({ playerId, onSuccess, trigger }: AddAchieve
                 >
                   {achievement}
                 </button>
-              ))}
+              ))
+            )}
             </div>
           </div>
       <div className="space-y-2">

@@ -394,7 +394,7 @@ export function AvatarGroup({
 
   return (
     <div className={cn('flex items-center', spacingClasses[spacing], className)}>
-      {{visibleAvatars.length === 0 ? (
+      {visibleAvatars.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -410,7 +410,8 @@ export function AvatarGroup({
           showRing
           className="relative hover:z-10"
         />
-      })
+      ))
+      }
 
       {showCount && hiddenCount > 0 && (
         <button

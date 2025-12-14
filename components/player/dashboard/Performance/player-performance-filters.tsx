@@ -80,7 +80,7 @@ function FilterSelect({
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          {{options.length === 0 ? (
+          {options.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -91,7 +91,8 @@ function FilterSelect({
             <SelectItem key={opt.value} value={opt.value}>
               {opt.label}
             </SelectItem>
-)}
+          ))
+        }
         </SelectContent>
       </Select>
     </div>

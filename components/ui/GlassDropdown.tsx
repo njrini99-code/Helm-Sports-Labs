@@ -134,7 +134,7 @@ export function GlassDropdown({
         right: align === 'right' ? window.innerWidth - position.left : 'auto',
       }}
     >
-      {{items.length === 0 ? (
+      {items.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -169,7 +169,7 @@ export function GlassDropdown({
           </button>
         );
       })
-          })
+      }
     </div>
   );
 

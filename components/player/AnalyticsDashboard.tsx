@@ -155,7 +155,7 @@ export function AnalyticsDashboard({ playerId, timeRange = 30 }: AnalyticsDashbo
               >
                 {days}d
               </button>
-)}
+            ))}
           </div>
           <Button
             variant="outline"
@@ -207,7 +207,7 @@ export function AnalyticsDashboard({ playerId, timeRange = 30 }: AnalyticsDashbo
             name: new Date(day.view_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
             value: day.view_count,
             coaches: day.unique_coaches,
-          }))
+          }))}
           dataKey="value"
           title="Profile Views Over Time"
           showArea={true}
@@ -224,7 +224,7 @@ export function AnalyticsDashboard({ playerId, timeRange = 30 }: AnalyticsDashbo
             data={topCoaches.map(coach => ({
               name: coach.program_name || 'Unknown',
               value: coach.view_count,
-            }))
+            }))}
             title="Views by Program"
           />
 

@@ -26,7 +26,7 @@ export function DiscoverTrendingPlayersLite({ players }: DiscoverTrendingPlayers
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
-        {{players.length === 0 ? (
+        {players.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -45,7 +45,8 @@ export function DiscoverTrendingPlayersLite({ players }: DiscoverTrendingPlayers
               {player.position}
             </Badge>
           </div>
-)}
+        ))
+        )}
       </CardContent>
     </Card>
   );

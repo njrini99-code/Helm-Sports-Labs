@@ -288,7 +288,7 @@ function PageSizeSelector({
             styles.selectDropdown
           )}
         >
-          {{options.length === 0 ? (
+          {options.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📭</div>
               <p className="text-white/60 mb-4">No items yet</p>
@@ -313,9 +313,10 @@ function PageSizeSelector({
             >
               {option}
             </button>
-)}
+          ))
+        }
         </div>
-)}
+      )}
     </div>
   );
 }
