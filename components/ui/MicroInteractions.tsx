@@ -113,7 +113,8 @@ export function AnimatedButton({
             top: ripple.y,
             transform: 'translate(-50%, -50%)',
           }}></span>
-        ))}
+            ))
+          )}
     </button>
   );
 }
