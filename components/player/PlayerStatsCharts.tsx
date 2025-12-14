@@ -151,7 +151,7 @@ export function PlayerStatsCharts({
       if (index < 2) return { ...point, rollingAvg: point.avg };
       const window = chartData.slice(index - 2, index + 1);
       const rollingAvg = window.reduce((sum, p) => sum + p.avg, 0) / 3;
-      return { ...point, rollingAvg: Number(rollingAvg.toFixed(3)));
+      return { ...point, rollingAvg: Number(rollingAvg.toFixed(3)) };
     });
   }, [chartData]);
 
@@ -346,7 +346,7 @@ function CustomTooltip({ active, payload, label }: any) {
             {typeof entry.value === 'number' ? entry.value.toFixed(3) : entry.value}
           </span>
         </div>
-)}
+      ))}
     </div>
   );
 }
@@ -428,7 +428,7 @@ function PositionComparison({
               <PolarRadiusAxis 
                 angle={30} 
                 domain={[0, 150]} 
-                tick={{ fontSize: 9, fill: '#94a3b8' } />
+                tick={{ fontSize: 9, fill: '#94a3b8' }} />
               <Radar
                 name="D1 Average"
                 dataKey="benchmark"
