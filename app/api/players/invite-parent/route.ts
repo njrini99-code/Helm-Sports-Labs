@@ -153,7 +153,7 @@ export async function POST(request: NextRequest) {
 
     // Generate invitation token for signup link
     const invitationToken = randomBytes(32).toString('hex');
-    const invitationLink = `${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.app'}/auth/signup?token=${invitationToken}&email=${encodeURIComponent(parentEmail)}&role=parent`;
+    const invitationLink = `${process.env.NEXT_PUBLIC_APP_URL || 'https://helm-sports-labs.app'}/auth/signup?token=${invitationToken}&email=${encodeURIComponent(parentEmail)}&role=parent`;
 
     // Store invitation token (optional - for tracking)
     await supabase

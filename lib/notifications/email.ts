@@ -117,7 +117,7 @@ export async function updateNotificationPreferences(
 export const EMAIL_TEMPLATES = {
   new_message: {
     subject: 'New message from {{senderName}}',
-    preview: '{{senderName}} sent you a message on ScoutPulse',
+    preview: '{{senderName}} sent you a message on Helm Sports Labs',
   },
   camp_registration: {
     subject: '{{playerName}} registered interest in {{campName}}',
@@ -125,7 +125,7 @@ export const EMAIL_TEMPLATES = {
   },
   profile_view: {
     subject: '{{viewerName}} viewed your profile',
-    preview: 'Your profile was viewed on ScoutPulse',
+    preview: 'Your profile was viewed on Helm Sports Labs',
   },
   watchlist_add: {
     subject: '{{coachName}} added you to their watchlist',
@@ -261,19 +261,19 @@ export function generateEmailHTML(
 </head>
 <body>
   <div class="header">
-    <div class="logo">◈ ScoutPulse</div>
+    <div class="logo">◈ Helm Sports Labs</div>
   </div>
   <div class="content">
     <h2>${subject}</h2>
     <p>${preview}</p>
     <p style="margin-top: 24px;">
-      <a href="https://scoutpulse.app" class="cta-button">View on ScoutPulse</a>
+      <a href="https://helm-sports-labs.app" class="cta-button">View on Helm Sports Labs</a>
     </p>
   </div>
   <div class="footer">
-    <p>You're receiving this email because you have notifications enabled on ScoutPulse.</p>
-    <p><a href="https://scoutpulse.app/settings/notifications">Manage notification preferences</a> | <a href="https://scoutpulse.app/unsubscribe">Unsubscribe</a></p>
-    <p>© ${new Date().getFullYear()} ScoutPulse. All rights reserved.</p>
+    <p>You're receiving this email because you have notifications enabled on Helm Sports Labs.</p>
+    <p><a href="https://helm-sports-labs.app/settings/notifications">Manage notification preferences</a> | <a href="https://helm-sports-labs.app/unsubscribe">Unsubscribe</a></p>
+    <p>© ${new Date().getFullYear()} Helm Sports Labs. All rights reserved.</p>
   </div>
 </body>
 </html>

@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       body,
       icon: icon || '/icons/icon-192x192.png',
       badge: '/icons/icon-72x72.png',
-      tag: 'scoutpulse-notification',
+      tag: 'helm-sports-labs-notification',
       data: {
         url: url || '/',
       },

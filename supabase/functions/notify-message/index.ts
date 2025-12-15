@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════════
-// ScoutPulse Email Notification Edge Function
+// Helm Sports Labs Email Notification Edge Function
 // ═══════════════════════════════════════════════════════════════════════════
 // 
 // This edge function sends email notifications when triggered by:
@@ -37,9 +37,9 @@ const templates = {
     subject: (data: any) => `New message from ${data.senderName}`,
     body: (data: any) => `
       <h2>You have a new message!</h2>
-      <p><strong>${data.senderName}</strong> sent you a message on ScoutPulse.</p>
+      <p><strong>${data.senderName}</strong> sent you a message on Helm Sports Labs.</p>
       ${data.messagePreview ? `<blockquote>${data.messagePreview}</blockquote>` : ''}
-      <p><a href="https://scoutpulse.app/messages" class="cta-button">View Message</a></p>
+      <p><a href="https://helm-sports-labs.app/messages" class="cta-button">View Message</a></p>
     `,
   },
   camp_registration: {
@@ -48,15 +48,15 @@ const templates = {
       <h2>New Camp Interest!</h2>
       <p><strong>${data.playerName}</strong> has registered interest in your camp:</p>
       <p><strong>${data.campName}</strong></p>
-      <p><a href="https://scoutpulse.app/coach/camps" class="cta-button">View Registrations</a></p>
+      <p><a href="https://helm-sports-labs.app/coach/camps" class="cta-button">View Registrations</a></p>
     `,
   },
   profile_view: {
     subject: (data: any) => `${data.viewerName} viewed your profile`,
     body: (data: any) => `
       <h2>Someone viewed your profile!</h2>
-      <p><strong>${data.viewerName}</strong> (${data.viewerType}) viewed your ScoutPulse profile.</p>
-      <p><a href="https://scoutpulse.app/profile" class="cta-button">View Your Profile</a></p>
+      <p><strong>${data.viewerName}</strong> (${data.viewerType}) viewed your Helm Sports Labs profile.</p>
+      <p><a href="https://helm-sports-labs.app/profile" class="cta-button">View Your Profile</a></p>
     `,
   },
   watchlist_add: {
@@ -65,7 +65,7 @@ const templates = {
       <h2>Great news!</h2>
       <p><strong>${data.coachName}</strong> from <strong>${data.programName}</strong> added you to their recruiting watchlist.</p>
       <p>This means they're interested in your playing abilities!</p>
-      <p><a href="https://scoutpulse.app/player" class="cta-button">View Your Dashboard</a></p>
+      <p><a href="https://helm-sports-labs.app/player" class="cta-button">View Your Dashboard</a></p>
     `,
   },
   evaluation_added: {
@@ -73,7 +73,7 @@ const templates = {
     body: (data: any) => `
       <h2>You received a new evaluation!</h2>
       <p><strong>${data.coachName}</strong> from <strong>${data.programName}</strong> submitted an evaluation of your performance.</p>
-      <p><a href="https://scoutpulse.app/player/evaluations" class="cta-button">View Evaluation</a></p>
+      <p><a href="https://helm-sports-labs.app/player/evaluations" class="cta-button">View Evaluation</a></p>
     `,
   },
 };
@@ -155,7 +155,7 @@ function generateEmailHTML(content: string): string {
 <body>
   <div class="container">
     <div class="header">
-      <div class="logo">◈ ScoutPulse</div>
+      <div class="logo">◈ Helm Sports Labs</div>
     </div>
     <div class="content">
       ${content}
@@ -163,10 +163,10 @@ function generateEmailHTML(content: string): string {
     <div class="footer">
       <p>You're receiving this email because you have notifications enabled.</p>
       <p>
-        <a href="https://scoutpulse.app/settings/notifications">Manage preferences</a> | 
-        <a href="https://scoutpulse.app/unsubscribe">Unsubscribe</a>
+        <a href="https://helm-sports-labs.app/settings/notifications">Manage preferences</a> | 
+        <a href="https://helm-sports-labs.app/unsubscribe">Unsubscribe</a>
       </p>
-      <p>© ${new Date().getFullYear()} ScoutPulse. All rights reserved.</p>
+      <p>© ${new Date().getFullYear()} Helm Sports Labs. All rights reserved.</p>
     </div>
   </div>
 </body>
@@ -195,7 +195,7 @@ async function sendEmail(request: EmailRequest): Promise<boolean> {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'ScoutPulse <notifications@scoutpulse.app>',
+        from: 'Helm Sports Labs <notifications@helm-sports-labs.app>',
         to: request.to,
         subject: request.subject,
         html: request.html,

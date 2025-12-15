@@ -68,7 +68,7 @@ Time: ${new Date().toISOString()}
   return (
     <html lang="en">
       <head>
-        <title>Critical Error | ScoutPulse</title>
+        <title>Critical Error | Helm Sports Labs</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <style>{`
           * { margin: 0; padding: 0; box-sizing: border-box; }

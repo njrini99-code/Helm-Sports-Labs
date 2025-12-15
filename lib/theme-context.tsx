@@ -20,7 +20,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     if (typeof window === 'undefined') return;
 
     // Check for saved preference or system preference
-    const saved = localStorage.getItem('scoutpulse-theme') as Theme | null;
+    const saved = localStorage.getItem('helm-sports-labs-theme') as Theme | null;
     if (saved) {
       setTheme(saved);
     } else {
@@ -32,7 +32,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     // Listen for system preference changes
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {
-      if (!localStorage.getItem('scoutpulse-theme')) {
+      if (!localStorage.getItem('helm-sports-labs-theme')) {
         setTheme(e.matches ? 'dark' : 'light');
       }
     };
@@ -45,7 +45,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     if (typeof window === 'undefined') return;
     
     // Save preference and update document class
-    localStorage.setItem('scoutpulse-theme', theme);
+    localStorage.setItem('helm-sports-labs-theme', theme);
     document.documentElement.classList.remove('light', 'dark');
     document.documentElement.classList.add(theme);
   }, [theme]);

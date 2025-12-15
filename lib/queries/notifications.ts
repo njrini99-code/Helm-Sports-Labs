@@ -1,5 +1,5 @@
 /**
- * ScoutPulse - Notifications Queries
+ * Helm Sports Labs - Notifications Queries
  *
  * Handles fetching, updating, and real-time subscription for in-app notifications.
  */

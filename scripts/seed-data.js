@@ -1,5 +1,5 @@
 /**
- * ScoutPulse Seed Data Script
+ * Helm Sports Labs Seed Data Script
  * 
  * This script populates the database with sample data for testing.
  * 

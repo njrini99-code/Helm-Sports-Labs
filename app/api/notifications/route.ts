@@ -151,7 +151,7 @@ export async function POST(request: NextRequest) {
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2>${title}</h2>
             <p>${notificationBody}</p>
-            ${link ? `<p><a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.com'}${link}" style="color: #10b981; text-decoration: none;">View Details →</a></p>` : ''}
+            ${link ? `<p><a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://helm-sports-labs.com'}${link}" style="color: #10b981; text-decoration: none;">View Details →</a></p>` : ''}
           </div>
         `,
       });

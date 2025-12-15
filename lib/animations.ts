@@ -1,4 +1,4 @@
-// ScoutPulse Animation Utilities
+// Helm Sports Labs Animation Utilities
 // Consistent 300ms timing and easing functions throughout the app
 // ═══════════════════════════════════════════════════════════════════════════
 

@@ -187,7 +187,7 @@ export default function UnauthorizedPage() {
       {/* Help Link */}
             <div className="mt-6 pt-6 border-t border-white/10 text-center">
               <a 
-                href="mailto:support@scoutpulse.com"
+                href="mailto:support@helm-sports-labs.com"
                 className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-300 transition-colors"
               >
                 <HelpCircle className="w-4 h-4" />

@@ -114,7 +114,7 @@ export function AddToHomeScreen() {
         </div>
       <div className="flex-1 min-w-0">
           <h3 className="text-white font-semibold text-sm mb-1">
-            Install ScoutPulse
+            Install Helm Sports Labs
           </h3>
           <p className="text-gray-400 text-xs mb-3">
             Add to your home screen for quick access and offline support
@@ -171,7 +171,7 @@ function IOSInstallInstructions() {
         </div>
       <div className="flex-1 min-w-0">
           <h3 className="text-white font-semibold text-sm mb-2">
-            Install ScoutPulse on iOS
+            Install Helm Sports Labs on iOS
           </h3>
           <ol className="text-gray-400 text-xs space-y-2 mb-3 list-decimal list-inside">
             <li>Tap the Share button <span className="text-white">(□↑)</span> at the bottom</li>

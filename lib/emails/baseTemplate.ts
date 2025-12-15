@@ -1,5 +1,5 @@
 // Base Email Template
-// Mobile-responsive HTML email template with ScoutPulse branding
+// Mobile-responsive HTML email template with Helm Sports Labs branding
 // ═══════════════════════════════════════════════════════════════════════════
 
 interface BaseTemplateOptions {
@@ -45,7 +45,7 @@ export function baseEmailTemplate({ title, content, footerText }: BaseTemplateOp
                       </div>
                     </div>
                     <h1 style="color: #ffffff; font-size: 24px; font-weight: bold; margin: 0;">
-                      ScoutPulse
+                      Helm Sports Labs
                     </h1>
                     <p style="color: #94a3b8; font-size: 14px; margin: 5px 0 0 0;">
                       Modern Baseball Recruiting
@@ -67,19 +67,19 @@ export function baseEmailTemplate({ title, content, footerText }: BaseTemplateOp
           <tr>
             <td style="padding: 30px 20px; text-align: center;">
               <p style="color: #64748b; font-size: 12px; line-height: 1.6; margin: 0 0 10px 0;">
-                ${footerText || 'This email was sent by ScoutPulse. If you have any questions, please contact our support team.'}
+                ${footerText || 'This email was sent by Helm Sports Labs. If you have any questions, please contact our support team.'}
               </p>
               <p style="color: #64748b; font-size: 12px; line-height: 1.6; margin: 0 0 10px 0;">
-                <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.app'}" 
-                   style="color: #10b981; text-decoration: none; margin: 0 10px;">Visit ScoutPulse</a>
-                <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.app'}/support" 
+                <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://helm-sports-labs.app'}" 
+                   style="color: #10b981; text-decoration: none; margin: 0 10px;">Visit Helm Sports Labs</a>
+                <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://helm-sports-labs.app'}/support" 
                    style="color: #10b981; text-decoration: none; margin: 0 10px;">Support</a>
-                <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.app'}/settings" 
+                <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://helm-sports-labs.app'}/settings" 
                    style="color: #10b981; text-decoration: none; margin: 0 10px;">Settings</a>
               </p>
               <p style="color: #475569; font-size: 11px; line-height: 1.6; margin: 20px 0 0 0;">
-                © ${new Date().getFullYear()} ScoutPulse. All rights reserved.<br>
-                You're receiving this email because you signed up for ScoutPulse.
+                © ${new Date().getFullYear()} Helm Sports Labs. All rights reserved.<br>
+                You're receiving this email because you signed up for Helm Sports Labs.
               </p>
             </td>
           </tr>

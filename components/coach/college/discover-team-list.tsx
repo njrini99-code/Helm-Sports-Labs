@@ -70,7 +70,7 @@ export function DiscoverTeamList({ teams }: DiscoverTeamListProps) {
                 <div className="flex gap-3 text-xs text-slate-400 mt-2">
                   {team.playersCount !== undefined && (
                     <span className="inline-flex items-center gap-1">
-                      <Users className="w-3 h-3" /> {team.playersCount} on ScoutPulse
+                      <Users className="w-3 h-3" /> {team.playersCount} on Helm Sports Labs
                     </span>
 )}
                   {team.committedCount !== undefined && (

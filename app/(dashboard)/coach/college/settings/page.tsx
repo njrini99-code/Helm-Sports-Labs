@@ -717,7 +717,7 @@ export default function CoachSettingsPage() {
       {!calendarSynced ? (
                       <div>
                         <p className="text-white/70 mb-4">
-                          Sync your ScoutPulse calendar with Google Calendar to manage all your events in one place.
+                          Sync your Helm Sports Labs calendar with Google Calendar to manage all your events in one place.
                         </p>
                         <button
                           onClick={handleGoogleCalendarAuth}

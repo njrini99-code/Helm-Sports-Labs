@@ -271,7 +271,7 @@ export function PageLoading({
           <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-emerald-500/30 page-pulse"></div>
         </div>
       {/* App name */}
-        <h1 className="text-2xl font-bold text-white mb-2">ScoutPulse</h1>
+        <h1 className="text-2xl font-bold text-white mb-2">Helm Sports Labs</h1>
         <p className="text-slate-400 mb-6">{message}</p>
       {/* Loading indicator */}
         <LoadingDots size="lg" />

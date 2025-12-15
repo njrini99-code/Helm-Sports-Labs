@@ -61,7 +61,7 @@ export function generatePlayerPDFContent(data: ExportPlayerData): string {
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>${fullName} - Player Profile | ScoutPulse</title>
+  <title>${fullName} - Player Profile | Helm Sports Labs</title>
   <style>
     * {
       margin: 0;
@@ -307,7 +307,7 @@ export function generatePlayerPDFContent(data: ExportPlayerData): string {
 <body>
   <!-- Header -->
   <div class="header">
-    <div class="logo">◈ ScoutPulse</div>
+    <div class="logo">◈ Helm Sports Labs</div>
     <div class="generated">Generated ${new Date().toLocaleDateString('en-US', { 
       year: 'numeric', 
       month: 'long', 
@@ -446,8 +446,8 @@ export function generatePlayerPDFContent(data: ExportPlayerData): string {
   </div>
 <!-- Footer -->
   <div class="footer">
-    <p>Profile exported from ScoutPulse • scoutpulse.app</p>
-    <p>This document was auto-generated. For the most up-to-date information, visit the player's ScoutPulse profile.</p>
+    <p>Profile exported from Helm Sports Labs • helm-sports-labs.app</p>
+    <p>This document was auto-generated. For the most up-to-date information, visit the player's Helm Sports Labs profile.</p>
   </div>
 </body>
 </html>

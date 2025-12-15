@@ -138,9 +138,9 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
     }
     
     try {
-      const subject = encodeURIComponent('Join my team on ScoutPulse');
+      const subject = encodeURIComponent('Join my team on Helm Sports Labs');
       const body = encodeURIComponent(
-        `I've invited you to join my team on ScoutPulse. Click the link below to join:\n\n${link}`
+        `I've invited you to join my team on Helm Sports Labs. Click the link below to join:\n\n${link}`
       );
       window.location.href = `mailto:?subject=${subject}&body=${body}`;
       toast.success('Email client opened');
@@ -158,7 +158,7 @@ export function TeamInviteModal({ open, onOpenChange, teamId }: TeamInviteModalP
     
     try {
       const message = encodeURIComponent(
-        `Join my team on ScoutPulse: ${link}`
+        `Join my team on Helm Sports Labs: ${link}`
       );
       window.location.href = `sms:?body=${message}`;
       toast.success('SMS client opened');

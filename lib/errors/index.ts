@@ -340,7 +340,7 @@ class ErrorLogger {
   private serviceName: string;
   private environment: string;
 
-  constructor(serviceName = 'scoutpulse', environment = process.env.NODE_ENV || 'development') {
+  constructor(serviceName = 'helm-sports-labs', environment = process.env.NODE_ENV || 'development') {
     this.serviceName = serviceName;
     this.environment = environment;
   }

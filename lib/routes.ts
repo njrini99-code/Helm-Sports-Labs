@@ -1,12 +1,12 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════
- * SCOUTPULSE ROUTE CONFIGURATION
+ * HELM SPORTS LABS ROUTE CONFIGURATION
  * ═══════════════════════════════════════════════════════════════════════════
- * 
- * This file serves as the central routing configuration for ScoutPulse.
+ *
+ * This file serves as the central routing configuration for Helm Sports Labs.
  * In Next.js App Router, routes are file-based, but this file documents
  * all routes with their role requirements for reference and middleware.
- * 
+ *
  * Usage:
  * - Import route helpers for type-safe navigation
  * - Reference ROUTES object for route definitions
@@ -231,35 +231,10 @@ export const ROUTES: Record<string, RouteConfig> = {
     description: 'Player profile and dashboard',
   },
   PLAYER_JOURNEY: {
-    path: '/player/dashboard/recruiting',
+    path: '/player/journey',
     name: 'Recruitment Journey',
     allowedRoles: ['player'],
     description: 'Track recruitment progress, college interests, and timeline',
-    alias: '/player/journey',
-  },
-  PLAYER_PERFORMANCE: {
-    path: '/player/dashboard/performance',
-    name: 'Performance',
-    allowedRoles: ['player'],
-    description: 'Stats, charts, and performance tracking',
-  },
-  PLAYER_EVENTS: {
-    path: '/player/dashboard/events',
-    name: 'Events',
-    allowedRoles: ['player'],
-    description: 'Upcoming events and calendar',
-  },
-  PLAYER_PROGRAMS: {
-    path: '/player/dashboard/programs',
-    name: 'Programs',
-    allowedRoles: ['player'],
-    description: 'View interested programs',
-  },
-  PLAYER_SETTINGS: {
-    path: '/player/dashboard/settings',
-    name: 'Settings',
-    allowedRoles: ['player'],
-    description: 'Player settings and preferences',
   },
   PLAYER_DISCOVER: {
     path: '/player/discover',

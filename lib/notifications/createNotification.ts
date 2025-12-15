@@ -66,7 +66,7 @@ export async function createNotification(data: NotificationData) {
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2>${data.title}</h2>
             <p>${data.body}</p>
-            ${data.link ? `<p><a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.com'}${data.link}" style="color: #10b981; text-decoration: none;">View Details →</a></p>` : ''}
+            ${data.link ? `<p><a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://helm-sports-labs.com'}${data.link}" style="color: #10b981; text-decoration: none;">View Details →</a></p>` : ''}
           </div>
         `,
       });

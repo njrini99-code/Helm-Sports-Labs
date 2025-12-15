@@ -12,12 +12,12 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
-    quote: "ScoutPulse completely transformed how we recruit. The video analysis tools are incredible and save us hours every week.",
+    quote: "Helm Sports Labs completely transformed how we recruit. The video analysis tools are incredible and save us hours every week.",
     name: "Coach Martinez",
     role: "Head Coach, State University"
   },
   {
-    quote: "I got recruited by my dream school thanks to ScoutPulse. The platform made it so easy to showcase my skills.",
+    quote: "I got recruited by my dream school thanks to Helm Sports Labs. The platform made it so easy to showcase my skills.",
     name: "Alex Johnson",
     role: "Pitcher, Class of 2024"
   },
@@ -27,7 +27,7 @@ const testimonials: Testimonial[] = [
     role: "Recruiting Coordinator, Big State"
   },
   {
-    quote: "As a JUCO player, finding the right fit was tough. ScoutPulse connected me with programs that actually wanted me.",
+    quote: "As a JUCO player, finding the right fit was tough. Helm Sports Labs connected me with programs that actually wanted me.",
     name: "Marcus Davis",
     role: "Outfielder, Transfer Portal"
   },

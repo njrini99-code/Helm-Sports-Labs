@@ -18,7 +18,7 @@ export default defineConfig({
         '**/*.config.ts',
         '**/*.config.js',
         '.next/',
-        'lib/scoutpulseidk/', // Excluded (deleted in refactoring)
+        'lib/helm-sports-labsidk/', // Excluded (deleted in refactoring)
       ],
     },
   },

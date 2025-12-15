@@ -272,7 +272,7 @@ export function RoleBasedRedirect({
             <LogIn className="w-12 h-12 text-blue-400" />
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">
-            Welcome to ScoutPulse
+            Welcome to Helm Sports Labs
           </h1>
           <p className="text-slate-400 mb-6">
             Sign in to access your personalized dashboard

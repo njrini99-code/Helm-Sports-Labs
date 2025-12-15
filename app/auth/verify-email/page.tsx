@@ -174,7 +174,7 @@ export default function VerifyEmailPage() {
                     </p>
                     <ul className="text-xs text-gray-400 space-y-1 list-disc list-inside">
                       <li>Check your spam or junk folder</li>
-                      <li>Look for emails from "ScoutPulse"</li>
+                      <li>Look for emails from "Helm Sports Labs"</li>
                       <li>Wait a few minutes and check again</li>
                       <li>Make sure you entered the correct email</li>
                     </ul>

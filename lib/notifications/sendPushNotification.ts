@@ -50,7 +50,7 @@ export async function sendPushNotification(
     // Set VAPID keys if configured
     if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
       webpush.setVapidDetails(
-        process.env.VAPID_SUBJECT || 'mailto:support@scoutpulse.com',
+        process.env.VAPID_SUBJECT || 'mailto:support@helm-sports-labs.com',
         process.env.VAPID_PUBLIC_KEY,
         process.env.VAPID_PRIVATE_KEY
       );
@@ -61,7 +61,7 @@ export async function sendPushNotification(
       body: options.body,
       icon: options.icon || '/icons/icon-192x192.png',
       badge: '/icons/icon-72x72.png',
-      tag: 'scoutpulse-notification',
+      tag: 'helm-sports-labs-notification',
       data: {
         url: options.url || '/',
       },

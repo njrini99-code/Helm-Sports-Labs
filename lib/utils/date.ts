@@ -1,5 +1,5 @@
 /**
- * Date Utility Functions for ScoutPulse
+ * Date Utility Functions for Helm Sports Labs
  * 
  * Optimized date utilities using native APIs + selective date-fns imports.
  * This file centralizes date operations for better tree-shaking and bundle optimization.

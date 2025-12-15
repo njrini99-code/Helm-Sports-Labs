@@ -1,5 +1,5 @@
 /**
- * ScoutPulse Optimization Audit
+ * Helm Sports Labs Optimization Audit
  * Checks for missing optimizations and potential improvements
  */
 
@@ -14,7 +14,7 @@ const supabase = createClient(
 );
 
 async function audit() {
-  console.log('🔍 ScoutPulse Optimization Audit\n');
+  console.log('🔍 Helm Sports Labs Optimization Audit\n');
   console.log('='.repeat(60));
 
   const issues = [];

@@ -57,7 +57,7 @@ export function LoadingScreen({
       className
     )}>
       <div className="flex flex-col items-center space-y-6 animate-fade-in hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
-        {/* ScoutPulse Logo */}
+        {/* Helm Sports Labs Logo */}
         <div className="relative">
           <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/50 animate-logo-pulse hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
             <span className="text-3xl font-bold text-white">SP</span>
@@ -68,7 +68,7 @@ export function LoadingScreen({
       {/* App Name */}
         <div className="text-center">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-2">
-            ScoutPulse
+            Helm Sports Labs
           </h1>
           <p className="text-gray-400 text-sm">{message}</p>
         </div>

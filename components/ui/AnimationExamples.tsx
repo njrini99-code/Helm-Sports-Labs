@@ -4,7 +4,7 @@
  * Animation Examples and Usage Guide
  * 
  * This file demonstrates how to use the animation components and utilities
- * throughout the ScoutPulse application with consistent 300ms timing.
+ * throughout the Helm Sports Labs application with consistent 300ms timing.
  */
 
 import { useState, useEffect } from 'react';
@@ -167,7 +167,7 @@ export function NavigationExample() {
  * All animations use consistent 300ms timing with cubic-bezier(0.4, 0, 0.2, 1) easing
  * 
  * Key Components:
- * - LoadingScreen: Full-screen loading with ScoutPulse branding and progress
+ * - LoadingScreen: Full-screen loading with Helm Sports Labs branding and progress
  * - PageTransition: Wraps pages for smooth transitions
  * - AnimatedButton: Buttons with ripple effects and loading states
  * - AnimatedInput: Form inputs with focus animations and validation

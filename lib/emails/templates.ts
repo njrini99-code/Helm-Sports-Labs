@@ -1,5 +1,5 @@
-// Email Templates for ScoutPulse
-// All templates are mobile-responsive and use ScoutPulse branding
+// Email Templates for Helm Sports Labs
+// All templates are mobile-responsive and use Helm Sports Labs branding
 // ═══════════════════════════════════════════════════════════════════════════
 
 import { baseEmailTemplate } from './baseTemplate';
@@ -24,13 +24,13 @@ export function getVerificationEmail(data: EmailTemplateData): { subject: string
       <tr>
         <td style="padding: 40px 20px; text-align: center;">
           <h1 style="color: #ffffff; font-size: 28px; font-weight: bold; margin: 0 0 20px 0;">
-            Welcome to ScoutPulse! 🎉
+            Welcome to Helm Sports Labs! 🎉
           </h1>
           <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
             Hi ${userName},
           </p>
           <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
-            Thanks for signing up! Please verify your email address to get started with ScoutPulse.
+            Thanks for signing up! Please verify your email address to get started with Helm Sports Labs.
           </p>
 <!-- Verify Button -->
           <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
@@ -60,7 +60,7 @@ export function getVerificationEmail(data: EmailTemplateData): { subject: string
             </p>
             <ul style="color: #94a3b8; font-size: 14px; line-height: 1.8; margin: 0; padding-left: 20px;">
               <li>Check your spam or junk folder</li>
-              <li>Look for emails from "ScoutPulse"</li>
+              <li>Look for emails from "Helm Sports Labs"</li>
               <li>Wait a few minutes and check again</li>
             </ul>
           </div>
@@ -73,7 +73,7 @@ export function getVerificationEmail(data: EmailTemplateData): { subject: string
   });
 
   return {
-    subject: 'Verify Your ScoutPulse Email Address',
+    subject: 'Verify Your Helm Sports Labs Email Address',
     html,
   };
 }
@@ -88,18 +88,18 @@ export function getWelcomeEmail(data: EmailTemplateData): { subject: string; htm
   const dashboardLink = isPlayer ? '/player' : '/coach';
 
   const html = baseEmailTemplate({
-    title: 'Welcome to ScoutPulse!',
+    title: 'Welcome to Helm Sports Labs!',
     content: `
       <tr>
         <td style="padding: 40px 20px; text-align: center;">
           <h1 style="color: #ffffff; font-size: 28px; font-weight: bold; margin: 0 0 20px 0;">
-            Welcome to ScoutPulse! 🎉
+            Welcome to Helm Sports Labs! 🎉
           </h1>
           <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
             Hi ${userName},
           </p>
           <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
-            Your email has been verified! You're all set to start using ScoutPulse.
+            Your email has been verified! You're all set to start using Helm Sports Labs.
           </p>
 <!-- Next Steps -->
           <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); 
@@ -127,7 +127,7 @@ export function getWelcomeEmail(data: EmailTemplateData): { subject: string; htm
           <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
             <tr>
               <td align="center">
-                <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.app'}${dashboardLink}" 
+                <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://helm-sports-labs.app'}${dashboardLink}" 
                    style="display: inline-block; padding: 16px 32px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
                           color: #ffffff; text-decoration: none; border-radius: 12px; font-weight: 600; font-size: 16px;
                           min-width: 200px; text-align: center;">
@@ -137,7 +137,7 @@ export function getWelcomeEmail(data: EmailTemplateData): { subject: string; htm
             </tr>
           </table>
 <p style="color: #64748b; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0;">
-            Need help getting started? <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.app'}/support" 
+            Need help getting started? <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://helm-sports-labs.app'}/support" 
             style="color: #10b981; text-decoration: none;">Visit our support center</a>.
           </p>
         </td>
@@ -146,7 +146,7 @@ export function getWelcomeEmail(data: EmailTemplateData): { subject: string; htm
   });
 
   return {
-    subject: 'Welcome to ScoutPulse! 🎉',
+    subject: 'Welcome to Helm Sports Labs! 🎉',
     html,
   };
 }
@@ -160,7 +160,7 @@ export function getWeek1TipsEmail(data: EmailTemplateData): { subject: string; h
   const isPlayer = userRole === 'player';
 
   const html = baseEmailTemplate({
-    title: 'Your First Week on ScoutPulse',
+    title: 'Your First Week on Helm Sports Labs',
     content: `
       <tr>
         <td style="padding: 40px 20px; text-align: center;">
@@ -171,7 +171,7 @@ export function getWeek1TipsEmail(data: EmailTemplateData): { subject: string; h
             Hi ${userName},
           </p>
           <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
-            You've been on ScoutPulse for a week! Here are some tips to help you get the most out of the platform:
+            You've been on Helm Sports Labs for a week! Here are some tips to help you get the most out of the platform:
           </p>
 <!-- Tips -->
           <div style="text-align: left; margin: 30px 0;">
@@ -237,7 +237,7 @@ export function getWeek1TipsEmail(data: EmailTemplateData): { subject: string; h
           <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
             <tr>
               <td align="center">
-                <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.app'}/${isPlayer ? 'player' : 'coach'}" 
+                <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://helm-sports-labs.app'}/${isPlayer ? 'player' : 'coach'}" 
                    style="display: inline-block; padding: 16px 32px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
                           color: #ffffff; text-decoration: none; border-radius: 12px; font-weight: 600; font-size: 16px;
                           min-width: 200px; text-align: center;">
@@ -252,7 +252,7 @@ export function getWeek1TipsEmail(data: EmailTemplateData): { subject: string; h
   });
 
   return {
-    subject: 'Week 1 Tips: Get the Most Out of ScoutPulse',
+    subject: 'Week 1 Tips: Get the Most Out of Helm Sports Labs',
     html,
   };
 }
@@ -266,7 +266,7 @@ export function getSuccessStoriesEmail(data: EmailTemplateData): { subject: stri
   const isPlayer = userRole === 'player';
 
   const html = baseEmailTemplate({
-    title: 'Success Stories from ScoutPulse',
+    title: 'Success Stories from Helm Sports Labs',
     content: `
       <tr>
         <td style="padding: 40px 20px; text-align: center;">
@@ -277,15 +277,15 @@ export function getSuccessStoriesEmail(data: EmailTemplateData): { subject: stri
             Hi ${userName},
           </p>
           <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
-            Here are some inspiring stories from players and coaches who found success on ScoutPulse:
+            Here are some inspiring stories from players and coaches who found success on Helm Sports Labs:
           </p>
 <!-- Success Story 1 -->
           <div style="background: rgba(16, 185, 129, 0.1); border-radius: 12px; padding: 25px; margin: 20px 0; text-align: left;">
             <div style="color: #10b981; font-size: 48px; margin: 0 0 15px 0;">"</div>
             <p style="color: #94a3b8; font-size: 16px; line-height: 1.8; margin: 0 0 15px 0; font-style: italic;">
               ${isPlayer ? 
-                'I was discovered by a Division I coach through ScoutPulse. After uploading my highlights and completing my profile, I received messages from 5 different programs. Now I\'m committed to my dream school!' :
-                'ScoutPulse helped me find three incredible players for my program. The video analysis tools and player profiles made it easy to evaluate talent. All three are now key contributors to our team.'
+                'I was discovered by a Division I coach through Helm Sports Labs. After uploading my highlights and completing my profile, I received messages from 5 different programs. Now I\'m committed to my dream school!' :
+                'Helm Sports Labs helped me find three incredible players for my program. The video analysis tools and player profiles made it easy to evaluate talent. All three are now key contributors to our team.'
               }
             </p>
             <p style="color: #10b981; font-size: 14px; font-weight: 600; margin: 0;">
@@ -298,7 +298,7 @@ export function getSuccessStoriesEmail(data: EmailTemplateData): { subject: stri
             <p style="color: #94a3b8; font-size: 16px; line-height: 1.8; margin: 0 0 15px 0; font-style: italic;">
               ${isPlayer ?
                 'The platform made it so easy to showcase my skills. I connected with coaches from JUCO programs and found the perfect fit for my academic and athletic goals.' :
-                'As a high school coach, I use ScoutPulse to help my players get noticed. Three of my seniors received scholarship offers after I helped them create standout profiles.'
+                'As a high school coach, I use Helm Sports Labs to help my players get noticed. Three of my seniors received scholarship offers after I helped them create standout profiles.'
               }
             </p>
             <p style="color: #10b981; font-size: 14px; font-weight: 600; margin: 0;">
@@ -320,7 +320,7 @@ export function getSuccessStoriesEmail(data: EmailTemplateData): { subject: stri
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td align="center">
-                  <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.app'}/${isPlayer ? 'player' : 'coach'}" 
+                  <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://helm-sports-labs.app'}/${isPlayer ? 'player' : 'coach'}" 
                      style="display: inline-block; padding: 16px 32px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
                             color: #ffffff; text-decoration: none; border-radius: 12px; font-weight: 600; font-size: 16px;
                             min-width: 200px; text-align: center;">
@@ -336,7 +336,7 @@ export function getSuccessStoriesEmail(data: EmailTemplateData): { subject: stri
   });
 
   return {
-    subject: '🌟 Success Stories from ScoutPulse',
+    subject: '🌟 Success Stories from Helm Sports Labs',
     html,
   };
 }
@@ -354,7 +354,7 @@ export function getParentInvitationEmail(data: {
   const { playerName, teamName, invitationLink, relationship = 'parent' } = data;
 
   const html = baseEmailTemplate({
-    title: 'You\'ve Been Invited to ScoutPulse',
+    title: 'You\'ve Been Invited to Helm Sports Labs',
     content: `
       <tr>
         <td style="padding: 40px 20px; text-align: center;">
@@ -365,11 +365,11 @@ export function getParentInvitationEmail(data: {
             Hi there,
           </p>
           <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
-            <strong>${playerName}</strong> has invited you to join ScoutPulse as their ${relationship}.
+            <strong>${playerName}</strong> has invited you to join Helm Sports Labs as their ${relationship}.
             ${teamName ? `They're part of <strong>${teamName}</strong>.` : ''}
           </p>
           <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
-            As a parent on ScoutPulse, you'll be able to:
+            As a parent on Helm Sports Labs, you'll be able to:
           </p>
 <!-- Benefits -->
           <div style="text-align: left; margin: 30px 0;">
@@ -416,7 +416,7 @@ export function getParentInvitationEmail(data: {
           </table>
 <p style="color: #64748b; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0;">
             This invitation link will expire in 7 days. If you have any questions, 
-            <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://scoutpulse.app'}/support" 
+            <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://helm-sports-labs.app'}/support" 
             style="color: #10b981; text-decoration: none;">contact our support team</a>.
           </p>
         </td>
@@ -425,7 +425,7 @@ export function getParentInvitationEmail(data: {
   });
 
   return {
-    subject: `${playerName} Invited You to ScoutPulse`,
+    subject: `${playerName} Invited You to Helm Sports Labs`,
     html,
   };
 }

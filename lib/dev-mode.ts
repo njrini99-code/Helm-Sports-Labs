@@ -39,7 +39,7 @@ export function getDevUser() {
   
   return {
     id: DEV_USER_IDS[role as keyof typeof DEV_USER_IDS] || DEV_USER_IDS.player,
-    email: 'dev@scoutpulse.com',
+    email: 'dev@helm-sports-labs.com',
     role,
   };
 }

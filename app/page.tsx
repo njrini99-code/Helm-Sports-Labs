@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 import { useEffect, useState } from 'react';
 import Link from "next/link";
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Shield, Video, Compass, Users, Menu, X } from "lucide-react";
@@ -94,16 +94,39 @@ function getDashboardPath(userType: UserType | null, coachType: CoachType | null
 
 export default function HomePage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [checking, setChecking] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  
+  // Check if landing page should be shown (bypass redirect)
+  const showLanding = searchParams?.get('landing') === 'true';
+
+  // Handle scroll for frosted header effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const checkAuthAndRedirect = async () => {
       const supabase = createClient();
 
       try {
+        // ═══════════════════════════════════════════════════════════════════
+        // BYPASS - Show landing page if ?landing=true
+        // ═══════════════════════════════════════════════════════════════════
+        if (showLanding) {
+          setChecking(false);
+          setIsAuthenticated(false);
+          return;
+        }
+
         // ═══════════════════════════════════════════════════════════════════
         // DEV MODE - Redirect based on dev role
         // ═══════════════════════════════════════════════════════════════════
@@ -176,7 +199,7 @@ export default function HomePage() {
     };
 
     checkAuthAndRedirect();
-  }, [router]);
+  }, [router, showLanding]);
 
   // ═══════════════════════════════════════════════════════════════════════
   // LOADING STATE - while checking auth (using enhanced loading component)
@@ -203,9 +226,10 @@ export default function HomePage() {
       {/* Premium Glass Header */}
       <header className={cn(
         glassCard,
-        "sticky top-0 z-50"
+        "sticky top-0 z-50 transition-all duration-300",
+        isScrolled && "backdrop-blur-[40px] backdrop-saturate-[180%] bg-white/[0.12] dark:bg-helm-green-900/60"
       )}>
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5" aria-label="Main navigation">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 py-5 sm:py-6" aria-label="Main navigation">
           <div className="flex items-center justify-between">
             <Link 
               href="/" 
@@ -215,9 +239,9 @@ export default function HomePage() {
               <Image 
                 src="/assets/logos/main-logo.png" 
                 alt="Helm Sports Labs" 
-                width={32} 
-                height={32}
-                className="w-8 h-8 object-contain"
+                width={48} 
+                height={48}
+                className="w-12 h-12 object-contain"
                 priority
               />
               <span>Helm Sports Labs</span>
@@ -385,9 +409,9 @@ export default function HomePage() {
                 <Image 
                   src="/assets/logos/main-logo.png" 
                   alt="Helm Sports Labs" 
-                  width={32} 
-                  height={32}
-                  className="w-8 h-8 object-contain"
+                  width={48} 
+                  height={48}
+                  className="w-12 h-12 object-contain"
                 />
                 <span>Helm Sports Labs</span>
               </Link>
@@ -483,7 +507,7 @@ export default function HomePage() {
               </p>
               <div className="flex items-center gap-4">
                 <a
-                  href="https://twitter.com/scoutpulse"
+                  href="https://twitter.com/helm-sports-labs"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-helm-gray-600 dark:text-helm-cream-300 hover:text-helm-green-600 dark:hover:text-helm-green-400 transition-colors"
@@ -494,7 +518,7 @@ export default function HomePage() {
                   </svg>
                 </a>
                 <a
-                  href="https://linkedin.com/company/scoutpulse"
+                  href="https://linkedin.com/company/helm-sports-labs"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-helm-gray-600 dark:text-helm-cream-300 hover:text-helm-green-600 dark:hover:text-helm-green-400 transition-colors"

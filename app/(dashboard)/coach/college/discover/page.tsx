@@ -1121,7 +1121,7 @@ function TeamResultCard({
           </p>
       {team.playersCount !== undefined && team.playersCount > 0 && (
             <span className="inline-flex items-center gap-1 mt-2 px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-medium">
-              <Users className="w-3 h-3" /> {team.playersCount} on ScoutPulse
+              <Users className="w-3 h-3" /> {team.playersCount} on Helm Sports Labs
             </span>
           )}
         </div>

@@ -57,7 +57,7 @@ async function sendEmailViaResend(options: EmailOptions): Promise<boolean> {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: options.from || process.env.RESEND_FROM_EMAIL || 'noreply@scoutpulse.com',
+        from: options.from || process.env.RESEND_FROM_EMAIL || 'noreply@helm-sports-labs.com',
         to: options.to,
         subject: options.subject,
         html: options.html,
@@ -93,7 +93,7 @@ async function sendEmailViaSendGrid(options: EmailOptions): Promise<boolean> {
           to: [{ email: options.to }],
         }],
         from: {
-          email: options.from || process.env.SENDGRID_FROM_EMAIL || 'noreply@scoutpulse.com',
+          email: options.from || process.env.SENDGRID_FROM_EMAIL || 'noreply@helm-sports-labs.com',
         },
         subject: options.subject,
         content: [{

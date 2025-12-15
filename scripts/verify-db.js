@@ -30,7 +30,7 @@ async function test(name, fn) {
 }
 
 async function verifyDatabase() {
-  console.log('🔍 ScoutPulse Database Verification\n');
+  console.log('🔍 Helm Sports Labs Database Verification\n');
   console.log('=' .repeat(50));
   
   let passed = 0;

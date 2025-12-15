@@ -1,9 +1,9 @@
-// ScoutPulse Service Worker
+// Helm Sports Labs Service Worker
 // Handles offline caching and push notifications
 // ═══════════════════════════════════════════════════════════════════════════
 
-const CACHE_NAME = 'scoutpulse-v1';
-const RUNTIME_CACHE = 'scoutpulse-runtime-v1';
+const CACHE_NAME = 'helm-sports-labs-v1';
+const RUNTIME_CACHE = 'helm-sports-labs-runtime-v1';
 
 // Assets to cache on install
 const STATIC_ASSETS = [
@@ -153,11 +153,11 @@ self.addEventListener('push', (event) => {
   console.log('[SW] Push notification received');
 
   let notificationData = {
-    title: 'ScoutPulse',
+    title: 'Helm Sports Labs',
     body: 'You have a new notification',
     icon: '/icons/icon-192x192.png',
     badge: '/icons/icon-72x72.png',
-    tag: 'scoutpulse-notification',
+    tag: 'helm-sports-labs-notification',
     requireInteraction: false,
     data: {},
   };

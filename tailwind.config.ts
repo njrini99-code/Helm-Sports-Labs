@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 /**
- * ScoutPulse Design System
+ * Helm Sports Labs Design System
  * ========================
  * 
  * Brand Colors (pulse.*)
