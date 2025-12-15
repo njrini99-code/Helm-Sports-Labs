@@ -7,16 +7,45 @@
 import { cn } from '@/lib/utils';
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Base Glass Effects
+// Base Glass Effects - 5-Level Elevation System
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
- * Standard glass card with blur effect
- * Use this as the default for most cards
+ * Level 1: Subtle Background Glass
+ * Use for subtle backgrounds, overlays, and low-elevation surfaces
+ */
+export const glassBg =
+  "backdrop-blur-[8px] backdrop-saturate-[120%] " +
+  "bg-white/[0.02] dark:bg-helm-green-900/40 " +
+  "border border-white/[0.05] dark:border-white/10 " +
+  "rounded-xl";
+
+/**
+ * Level 2: Standard Card Glass
+ * Use for most cards, panels, and standard UI elements
  */
 export const glassCard =
-  "backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10 " +
-  "rounded-2xl shadow-xl transition-all duration-200";
+  "backdrop-blur-[20px] backdrop-saturate-[140%] " +
+  "bg-white/[0.06] dark:bg-helm-green-900/40 " +
+  "border border-white/10 dark:border-white/10 " +
+  "rounded-2xl " +
+  "shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] " +
+  "[box-shadow:inset_0_1px_0_rgba(255,255,255,0.1)] dark:[box-shadow:inset_0_1px_0_rgba(255,255,255,0.05)] " +
+  "transition-all duration-200";
+
+/**
+ * Level 3: Elevated Glass (Hover, Active States)
+ * Use for hover states, active cards, and elevated interactions
+ */
+export const glassElevated =
+  "backdrop-blur-[24px] backdrop-saturate-[150%] " +
+  "bg-white/[0.08] dark:bg-helm-green-800/50 " +
+  "border border-white/15 dark:border-white/12 " +
+  "rounded-2xl " +
+  "shadow-[0_12px_48px_rgba(0,0,0,0.15)] dark:shadow-[0_12px_48px_rgba(0,0,0,0.6),0_0_40px_rgba(104,200,150,0.1)] " +
+  "[box-shadow:inset_0_1px_0_rgba(255,255,255,0.15),0_0_0_1px_rgba(255,255,255,0.05)] " +
+  "dark:[box-shadow:inset_0_1px_0_rgba(255,255,255,0.1)] " +
+  "transition-all duration-200";
 
 /**
  * Interactive glass card with hover effects
@@ -41,13 +70,33 @@ export const glassCardPremium =
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
- * Glass hero section
- * Use for page headers and hero banners
+ * Level 4: Premium Hero Glass
+ * Use for hero sections, landing page features, and premium content
  */
 export const glassHero =
-  "backdrop-blur-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 " +
-  "border border-white/30 rounded-3xl shadow-2xl p-8 md:p-12 " +
-  "relative overflow-hidden";
+  "backdrop-blur-[40px] backdrop-saturate-[180%] " +
+  "bg-gradient-to-br from-white/20 via-white/10 to-white/5 " +
+  "dark:from-helm-green-900/30 dark:via-helm-green-800/20 dark:to-helm-green-900/10 " +
+  "border border-white/20 dark:border-white/15 " +
+  "rounded-3xl " +
+  "shadow-[0_20px_60px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.2),0_0_0_1px_rgba(255,255,255,0.1),0_0_120px_rgba(74,155,107,0.15)] " +
+  "dark:shadow-[0_20px_60px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1),0_0_0_1px_rgba(255,255,255,0.05),0_0_120px_rgba(104,200,150,0.2)] " +
+  "p-8 md:p-12 " +
+  "relative overflow-hidden " +
+  "transition-all duration-300";
+
+/**
+ * Level 5: Modal/Popover Glass
+ * Use for modals, dialogs, popovers, and high-elevation overlays
+ */
+export const glassModal =
+  "backdrop-blur-[60px] backdrop-saturate-[200%] " +
+  "bg-helm-cream-100/95 dark:bg-helm-green-950/95 " +
+  "border border-white/25 dark:border-white/20 " +
+  "rounded-3xl " +
+  "shadow-[0_32px_80px_rgba(0,0,0,0.3),inset_0_2px_0_rgba(255,255,255,0.3),0_0_0_1px_rgba(255,255,255,0.15)] " +
+  "dark:shadow-[0_32px_80px_rgba(0,0,0,0.6),inset_0_2px_0_rgba(255,255,255,0.2),0_0_0_1px_rgba(255,255,255,0.1)] " +
+  "transition-all duration-300";
 
 /**
  * Glass stat card for metrics

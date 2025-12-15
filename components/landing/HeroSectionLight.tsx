@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Play, Sparkles } from 'lucide-react';
+import { ArrowRight, Play } from 'lucide-react';
 import {
   glassCardPremium,
   glassPanel as glassPanelEnhanced,
@@ -15,151 +15,170 @@ import { cn } from '@/lib/utils';
 
 export function HeroSectionLight() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden flex items-center">
       {/* Baseball Stadium Background with Dramatic Lights */}
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center"
         style={{backgroundImage: 'url(/stadium-lights.jpg)' }}
       >
-        {/* Gradient overlay - darker at top (to show lights), lighter in middle (for text), darker at bottom */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/30 backdrop-blur-[2px]"></div>
-{/* Subtle emerald tint overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/10 via-transparent to-teal-900/10"></div>
+        {/* Stronger gradient overlay for better contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/60"></div>
+        {/* Emerald accent gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-transparent to-teal-900/20"></div>
       </div>
+
       {/* Hero Content */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="relative z-10 container mx-auto px-6 pt-24 pb-20">
-        <div className="max-w-4xl mx-auto">
-          {/* Position content slightly right of center to avoid competing with bright lights on left */}
-          <div className="text-center" style={{marginLeft: 'auto', marginRight: 'auto', paddingLeft: '5%' }}>
-            
-            {/* Text Content - Slightly Right of Center */}
+        transition={{ duration: 0.5 }}
+        className="relative z-10 container mx-auto px-6 py-20"
+      >
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center space-y-10">
+
+            {/* Premium Glass Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="flex justify-center"
+            >
+              <div className={cn(
+                "inline-flex items-center gap-2.5 px-6 py-3 rounded-full backdrop-blur-xl",
+                "bg-white/10 border border-white/20",
+                "shadow-2xl shadow-emerald-500/20"
+              )}>
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+                </span>
+                <span className="text-sm font-medium text-white/90">Trusted by 10,000+ players nationwide</span>
+              </div>
+            </motion.div>
+
+            {/* Main Headline */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="space-y-8"
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              {/* Main Logo */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="flex justify-center mb-4"
-              >
-                <div className="relative">
-                  <Image 
-                    src="/assets/logos/main-logo.png" 
-                    alt="Helm Sports Labs" 
-                    width={120} 
-                    height={120}
-                    className="w-24 h-24 sm:w-32 sm:h-32 object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
-                    priority
-                  />
-                </div>
-              </motion.div>
-              {/* Premium Glass Badge */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className={cn(
-                  "inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full backdrop-blur-xl",
-                  "bg-white/[0.08] border border-white/[0.15]",
-                  "shadow-lg shadow-emerald-500/20"
-                )}
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tight leading-[1.1]">
+                <span className="block text-white drop-shadow-2xl mb-2">
+                  The Future of
                 </span>
-                <span className="text-sm font-semibold text-white">Trusted by 10,000+ players nationwide</span>
-              </motion.div>
-      {/* Main Headline */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
-                <span className="text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]">Build your future with</span>
-                <br />
-                <span className="text-emerald-500 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]">
-                  digital recruiting
+                <span className="block bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent drop-shadow-2xl">
+                  Baseball Analytics
                 </span>
               </h1>
-      {/* Description */}
-              <p className="text-xl text-white leading-relaxed max-w-3xl mx-auto font-semibold drop-shadow-[0_2px_6px_rgba(0,0,0,0.3)]">
-                Carrying forward the mission of connecting talent with opportunity, Helm Sports Labs enables you and your athletes to make your recruiting journey smoother and faster. We are definitely your go-to recruiting platform.
-              </p>
-      {/* CTA Buttons */}
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center"
-              >
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button
-                    asChild
-                    size="lg"
-                    className={cn(
-                      glassButtonEnhanced.primary,
-                      "min-h-[48px] group"
-                    )}
-                    aria-label="Get started with Helm Sports Labs"
-                  >
-                    <Link href="/auth/signup" className="flex items-center gap-2">
-                      Get Started
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" strokeWidth={2} aria-hidden="true" />
-                    </Link>
-                  </Button>
-                </motion.div>
-      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="lg"
-                    className={cn(
-                      "backdrop-blur-xl bg-white/[0.08] border-white/[0.15] text-white",
-                      "hover:bg-white/[0.12] hover:border-white/20",
-                      "shadow-lg shadow-white/5 hover:shadow-xl hover:shadow-white/10",
-                      "transition-all duration-300 min-h-[48px]"
-                    )}
-                    aria-label="Watch demo video"
-                  >
-                    <Link href="#demo" className="flex items-center gap-2">
-                      <Play className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
-                      Watch Demo
-                    </Link>
-                  </Button>
-                </motion.div>
+            </motion.div>
+
+            {/* Subheading */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-lg sm:text-xl lg:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto font-medium"
+            >
+              Advanced metrics, real-time scouting, and data-driven insights to elevate your game
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
+            >
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  asChild
+                  size="lg"
+                  className={cn(
+                    "px-8 py-6 text-base sm:text-lg font-semibold rounded-xl",
+                    "bg-gradient-to-r from-emerald-500 to-teal-600",
+                    "hover:from-emerald-600 hover:to-teal-700",
+                    "text-white shadow-2xl shadow-emerald-500/50",
+                    "border border-white/20",
+                    "transition-all duration-300 group"
+                  )}
+                  aria-label="Get started with Helm Sports Labs"
+                >
+                  <Link href="/auth/signup" className="flex items-center gap-2">
+                    Get Started Free
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" strokeWidth={2.5} aria-hidden="true" />
+                  </Link>
+                </Button>
               </motion.div>
-      {/* Stats */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="flex flex-wrap gap-6 sm:gap-8 pt-8 justify-center"
-                role="region"
-                aria-label="Platform statistics"
-              >
+
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className={cn(
+                    "px-8 py-6 text-base sm:text-lg font-semibold rounded-xl",
+                    "backdrop-blur-xl bg-white/10 border-2 border-white/30 text-white",
+                    "hover:bg-white/20 hover:border-white/40",
+                    "shadow-xl shadow-white/10 hover:shadow-2xl hover:shadow-white/20",
+                    "transition-all duration-300"
+                  )}
+                  aria-label="Watch demo video"
+                >
+                  <Link href="#demo" className="flex items-center gap-2">
+                    <Play className="w-5 h-5 fill-white" strokeWidth={2} aria-hidden="true" />
+                    Watch Demo
+                  </Link>
+                </Button>
+              </motion.div>
+            </motion.div>
+
+            {/* Stats Grid */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="pt-12"
+              role="region"
+              aria-label="Platform statistics"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
                 {[
                   { value: '10,000+', label: 'Active Players' },
                   { value: '500+', label: 'College Programs' },
                   { value: '5,000+', label: 'Connections Made' }
                 ].map((stat, i) => (
-                  <div key={i} className="text-center">
-                    <div className="text-3xl md:text-4xl font-bold text-emerald-400 mb-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]">
-                      {stat.value}
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6 + (i * 0.1) }}
+                    className={cn(
+                      "relative group p-8 rounded-2xl",
+                      "backdrop-blur-xl bg-white/5 border border-white/10",
+                      "hover:bg-white/10 hover:border-white/20",
+                      "shadow-xl hover:shadow-2xl",
+                      "transition-all duration-300"
+                    )}
+                  >
+                    <div className="text-center space-y-2">
+                      <div className="text-4xl sm:text-5xl lg:text-6xl font-black bg-gradient-to-br from-emerald-400 to-teal-400 bg-clip-text text-transparent">
+                        {stat.value}
+                      </div>
+                      <div className="text-base sm:text-lg font-semibold text-white/80">
+                        {stat.label}
+                      </div>
                     </div>
-                    <div className="text-sm text-white font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">{stat.label}</div>
-                  </div>
+                    {/* Decorative glow */}
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/0 to-teal-500/0 group-hover:from-emerald-500/10 group-hover:to-teal-500/10 transition-all duration-300" />
+                  </motion.div>
                 ))}
-              </motion.div>
+              </div>
             </motion.div>
+
           </div>
         </div>
       </motion.div>
     </div>
   );
 }
-

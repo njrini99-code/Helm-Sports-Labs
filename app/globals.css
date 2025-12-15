@@ -106,109 +106,141 @@
 @layer base {
   /* ═══════════════════════════════════════════════════════════════════════════
      Light Theme (Default)
-     Clean white surfaces with pulse green accents
+     Warm cream surfaces with helm-green accents
      ═══════════════════════════════════════════════════════════════════════════ */
   :root,
   .light {
-    /* Page backgrounds */
-    --background: 120 10% 98%;        /* Off-white with subtle green tint */
-    --foreground: 162 20% 15%;        /* Dark green-gray for text */
+    /* Page backgrounds - warm cream instead of pure white */
+    --background: 0 0% 99%;              /* helm-cream-50 equivalent */
+    --foreground: 0 0% 4%;                /* helm-gray-950 equivalent */
 
-    /* Card/Panel surfaces */
-    --card: 0 0% 100%;
-    --card-foreground: 162 20% 15%;
+    /* Card/Panel surfaces - soft cream */
+    --card: 0 0% 98%;                     /* helm-cream-100 */
+    --card-foreground: 0 0% 12%;          /* helm-gray-800 */
 
     /* Popover/Dropdown */
-    --popover: 0 0% 100%;
-    --popover-foreground: 162 20% 15%;
+    --popover: 0 0% 98%;
+    --popover-foreground: 0 0% 12%;
 
-    /* Primary action (Helm Sports Labs Green) */
-    --primary: 142 72% 31%;          /* #16893B - Logo green */
-    --primary-foreground: 0 0% 100%;
+    /* Primary action - logo green (helm-green-700: #2D5F3F) */
+    --primary: 142 35% 30%;              /* helm-green-700: #2D5F3F */
+    --primary-foreground: 0 0% 99%;
 
-    /* Secondary (soft green tint) */
-    --secondary: 144 40% 95%;
-    --secondary-foreground: 157 80% 25%;
+    /* Secondary - cream */
+    --secondary: 0 0% 90%;                /* helm-cream-300 */
+    --secondary-foreground: 0 0% 12%;
 
-    /* Muted (neutral with green undertone) */
-    --muted: 144 20% 94%;
-    --muted-foreground: 162 10% 45%;
+    /* Muted - pale cream */
+    --muted: 0 0% 94%;                    /* helm-cream-200 */
+    --muted-foreground: 0 0% 30%;         /* helm-gray-600 */
 
-    /* Accent (lighter green) */
-    --accent: 144 50% 92%;
-    --accent-foreground: 157 80% 25%;
+    /* Accent - bright green */
+    --accent: 142 45% 55%;               /* helm-green-400 */
+    --accent-foreground: 0 0% 4%;
 
     /* Destructive (red) */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Borders and inputs */
-    --border: 144 30% 88%;
-    --input: 144 30% 88%;
-    --ring: 157 100% 38%;
+    /* Borders and inputs - cream */
+    --border: 0 0% 80%;                   /* helm-cream-400 */
+    --input: 0 0% 80%;
+    --ring: 142 35% 30%;                  /* helm-green-700 */
 
     /* Border radius */
     --radius: 0.75rem;
 
-    /* Chart colors (pulse-themed) */
-    --chart-1: 157 70% 45%;           /* Green */
-    --chart-2: 200 70% 50%;           /* Blue */
-    --chart-3: 38 92% 50%;            /* Amber */
-    --chart-4: 280 65% 60%;           /* Purple */
-    --chart-5: 350 80% 60%;           /* Rose */
+    /* Chart colors (helm-themed) */
+    --chart-1: 142 35% 40%;               /* helm-green-500 */
+    --chart-2: 200 70% 50%;               /* helm-blue */
+    --chart-3: 38 92% 50%;                 /* helm-amber */
+    --chart-4: 280 65% 60%;                /* helm-purple */
+    --chart-5: 0 72% 60%;                  /* helm-red */
   }
 
   /* ═══════════════════════════════════════════════════════════════════════════
      Dark Theme
-     Deep surfaces with vibrant pulse green accents
+     Deep green surfaces with vibrant helm-green accents
      ═══════════════════════════════════════════════════════════════════════════ */
   .dark {
-    /* Page backgrounds (deep blue-black) */
-    --background: 230 50% 4%;         /* Near #050816 */
-    --foreground: 144 20% 95%;        /* Light with mint tint */
+    /* Page backgrounds - deep green (helm-green-950: #0A1F14) */
+    --background: 142 35% 8%;            /* helm-green-950: #0A1F14 */
+    --foreground: 0 0% 96%;               /* helm-cream-100 */
 
-    /* Card/Panel surfaces */
-    --card: 230 45% 7%;               /* Slightly lighter than bg */
-    --card-foreground: 144 20% 95%;
+    /* Card/Panel surfaces - dark green */
+    --card: 142 35% 12%;                  /* helm-green-900 */
+    --card-foreground: 0 0% 94%;          /* helm-cream-200 */
 
     /* Popover/Dropdown */
-    --popover: 230 45% 7%;
-    --popover-foreground: 144 20% 95%;
+    --popover: 142 35% 12%;
+    --popover-foreground: 0 0% 94%;
 
-    /* Primary action (Helm Sports Labs Green - slightly brighter for dark mode) */
-    --primary: 142 72% 38%;          /* #16893B - Logo green (brighter for dark mode) */
-    --primary-foreground: 230 50% 4%;
+    /* Primary action - brighter green for dark mode (helm-green-500: #4A9B6B) */
+    --primary: 142 35% 40%;               /* helm-green-500: #4A9B6B */
+    --primary-foreground: 0 0% 4%;
 
-    /* Secondary (dark muted) */
-    --secondary: 230 30% 14%;
-    --secondary-foreground: 144 20% 90%;
+    /* Secondary - deep green */
+    --secondary: 142 35% 18%;             /* helm-green-800 */
+    --secondary-foreground: 0 0% 94%;
 
-    /* Muted (dark neutral) */
-    --muted: 230 30% 14%;
-    --muted-foreground: 144 10% 60%;
+    /* Muted - dark green */
+    --muted: 142 35% 18%;
+    --muted-foreground: 0 0% 70%;         /* helm-cream-400 */
 
-    /* Accent (subtle green tint) */
-    --accent: 162 40% 12%;
-    --accent-foreground: 144 20% 90%;
+    /* Accent - light green */
+    --accent: 142 35% 65%;                /* helm-green-300 */
+    --accent-foreground: 0 0% 4%;
 
     /* Destructive (red) */
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Borders and inputs */
-    --border: 230 20% 18%;
-    --input: 230 20% 18%;
-    --ring: 157 100% 42%;
+    /* Borders and inputs - subtle glass */
+    --border: 0 0% 100% / 0.1;            /* rgba(255,255,255,0.1) */
+    --input: 0 0% 100% / 0.1;
+    --ring: 142 35% 40%;
 
     /* Border radius */
     --radius: 0.75rem;
 
     /* Chart colors */
-    --chart-1: 157 70% 50%;
-    --chart-2: 200 70% 55%;
-    --chart-3: 38 92% 55%;
-    --chart-4: 280 65% 65%;
-    --chart-5: 350 80% 65%;
+    --chart-1: 142 35% 50%;               /* helm-green-400 */
+    --chart-2: 200 70% 55%;               /* helm-blue */
+    --chart-3: 38 92% 55%;                 /* helm-amber */
+    --chart-4: 280 65% 65%;                /* helm-purple */
+    --chart-5: 0 72% 60%;                  /* helm-red */
+  }
+  
+  /* ═══════════════════════════════════════════════════════════════════════════
+     Typography Scale Variables
+     ═══════════════════════════════════════════════════════════════════════════ */
+  :root {
+    /* Display Scale */
+    --text-display-2xl: 72px;
+    --text-display-xl: 60px;
+    --text-display-lg: 48px;
+    --text-display-md: 36px;
+    
+    /* Heading Scale */
+    --text-h1: 32px;
+    --text-h2: 24px;
+    --text-h3: 20px;
+    --text-h4: 18px;
+    
+    /* Body Scale */
+    --text-body-lg: 18px;
+    --text-body: 16px;
+    --text-body-sm: 14px;
+    --text-caption: 12px;
+    --text-overline: 11px;
+    
+    /* Font Weights */
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    --font-extrabold: 800;
   }
 }
 
@@ -229,6 +261,101 @@
   body,
   .transition-theme {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Typography Utility Classes
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer utilities {
+  /* Display Styles */
+  .display-2xl {
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  
+  .display-xl {
+    font-size: 60px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  
+  .display-lg {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  
+  .display-md {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  
+  /* Heading Styles */
+  .heading-1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  
+  .heading-2 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.005em;
+  }
+  
+  .heading-3 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  
+  .heading-4 {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  
+  /* Body Styles */
+  .body-lg {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  
+  .body {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  
+  .body-sm {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  
+  .caption {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .overline {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 }
 
@@ -314,29 +441,29 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Utility Classes: Gradients (Pulse-themed)
+   Utility Classes: Gradients (Helm-themed)
    ═══════════════════════════════════════════════════════════════════════════ */
 .gradient-text {
   @apply bg-clip-text text-transparent;
-  background-image: linear-gradient(135deg, #00C27A 0%, #B8F8D0 50%, #00C27A 100%);
+  background-image: linear-gradient(135deg, #2D5F3F 0%, #B8F8D0 50%, #2D5F3F 100%);
 }
 
 .gradient-text-subtle {
   @apply bg-clip-text text-transparent;
-  background-image: linear-gradient(135deg, #00C27A 0%, #00896d 100%);
+  background-image: linear-gradient(135deg, #2D5F3F 0%, #4A9B6B 100%);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Utility Classes: Glow Effects (Pulse Green)
+   Utility Classes: Glow Effects (Helm Green)
    ═══════════════════════════════════════════════════════════════════════════ */
 .pulse-glow {
-  box-shadow: 0 0 20px rgba(0, 194, 122, 0.3);
+  box-shadow: 0 0 20px rgba(45, 95, 63, 0.3);
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(0, 194, 122, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(0, 194, 122, 0.6); }
+  0%, 100% { box-shadow: 0 0 20px rgba(45, 95, 63, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(45, 95, 63, 0.6); }
 }
 
 .glow-hover {
@@ -356,18 +483,18 @@
 
 .card-hover:hover {
   transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 20px 40px -10px rgba(0, 194, 122, 0.15);
+  box-shadow: 0 20px 40px -10px rgba(45, 95, 63, 0.15);
 }
 
 .dark .card-hover:hover {
-  @apply border-pulse-green/30;
-  background-color: rgba(0, 194, 122, 0.05);
+  @apply border-helm-green-500/30;
+  background-color: rgba(45, 95, 63, 0.05);
 }
 
 .light .card-hover:hover,
 :root .card-hover:hover {
-  @apply border-pulse-green/40;
-  background-color: rgba(0, 194, 122, 0.03);
+  @apply border-helm-green-700/40;
+  background-color: rgba(45, 95, 63, 0.03);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -385,7 +512,7 @@
   left: -100%;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(0, 194, 122, 0.8), transparent);
+  background: linear-gradient(90deg, transparent, rgba(45, 95, 63, 0.8), transparent);
   animation: pulse-line-sweep 3s ease-in-out infinite;
 }
 
@@ -406,7 +533,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(0, 194, 122, 0.1),
+    rgba(45, 95, 63, 0.1),
     transparent
   );
   background-size: 200% 100%;
@@ -436,8 +563,8 @@
    Utility Classes: Border Animations
    ═══════════════════════════════════════════════════════════════════════════ */
 @keyframes gradient-border {
-  0%, 100% { border-color: rgba(0, 194, 122, 0.3); }
-  50% { border-color: rgba(0, 194, 122, 0.8); }
+  0%, 100% { border-color: rgba(45, 95, 63, 0.3); }
+  50% { border-color: rgba(45, 95, 63, 0.8); }
 }
 
 .gradient-border-animate {
@@ -450,19 +577,19 @@
 }
 
 .border-glow:hover {
-  border-color: rgba(0, 194, 122, 0.6);
-  box-shadow: 0 0 20px rgba(0, 194, 122, 0.3), inset 0 0 20px rgba(0, 194, 122, 0.1);
+  border-color: rgba(45, 95, 63, 0.6);
+  box-shadow: 0 0 20px rgba(45, 95, 63, 0.3), inset 0 0 20px rgba(45, 95, 63, 0.1);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Utility Classes: Text Glow
    ═══════════════════════════════════════════════════════════════════════════ */
 .text-glow {
-  text-shadow: 0 0 10px rgba(0, 194, 122, 0.5);
+  text-shadow: 0 0 10px rgba(45, 95, 63, 0.5);
 }
 
 .text-glow-strong {
-  text-shadow: 0 0 20px rgba(0, 194, 122, 0.8), 0 0 30px rgba(0, 194, 122, 0.4);
+  text-shadow: 0 0 20px rgba(45, 95, 63, 0.8), 0 0 30px rgba(45, 95, 63, 0.4);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -527,27 +654,27 @@ select:focus,
 button:focus-visible,
 a:focus-visible,
 [tabindex]:focus-visible {
-  @apply outline-none ring-2 ring-pulse-green/50 ring-offset-2 ring-offset-background;
-  box-shadow: 0 0 0 2px rgba(0, 194, 122, 0.2), 0 0 20px rgba(0, 194, 122, 0.3);
+  @apply outline-none ring-2 ring-helm-green-700/50 ring-offset-2 ring-offset-background;
+  box-shadow: 0 0 0 2px rgba(45, 95, 63, 0.2), 0 0 20px rgba(45, 95, 63, 0.3);
 }
 
 /* Glass focus effect for cards and interactive elements */
 .focus-glass:focus-visible {
   @apply outline-none ring-2 ring-white/30 ring-offset-2 ring-offset-transparent;
   backdrop-filter: blur(24px);
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2), 0 0 30px rgba(0, 194, 122, 0.4);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2), 0 0 30px rgba(45, 95, 63, 0.4);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Selection Color
    ═══════════════════════════════════════════════════════════════════════════ */
 ::selection {
-  background-color: rgba(0, 194, 122, 0.3);
+  background-color: rgba(45, 95, 63, 0.3);
   color: inherit;
 }
 
 ::-moz-selection {
-  background-color: rgba(0, 194, 122, 0.3);
+  background-color: rgba(45, 95, 63, 0.3);
   color: inherit;
 }
 
@@ -643,9 +770,9 @@ a:focus-visible,
   box-shadow: 
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06),
-    0 0 0 1px rgba(16, 185, 129, 0.3),
+    0 0 0 1px rgba(45, 95, 63, 0.3),
     0 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0 0 30px rgba(16, 185, 129, 0.2);
+    0 0 30px rgba(45, 95, 63, 0.2);
   transform: translateY(-4px);
 }
 

@@ -51,17 +51,63 @@ const config: Config = {
       // Typography
       // ─────────────────────────────────────────────────────────────────────
       fontFamily: {
-        sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'monospace'],
       },
 
       // ─────────────────────────────────────────────────────────────────────
-      // Colors: ScoutPulse Brand Palette
+      // Colors: Helm Sports Labs Brand Palette
       // ─────────────────────────────────────────────────────────────────────
       colors: {
-        // Brand colors - use these directly: bg-pulse-green, text-pulse-mint, etc.
+        // Helm Green Palette (Primary Brand - extracted from logo)
+        'helm-green': {
+          50: '#F0FFF8',
+          100: '#E0FFF0',
+          200: '#B8F8D0',
+          300: '#8FE0B5',
+          400: '#68C896',
+          500: '#4A9B6B',
+          600: '#3C7552',
+          700: '#2D5F3F',  // Logo green - PRIMARY
+          800: '#1F4A3A',
+          900: '#153428',
+          950: '#0A1F14',
+        },
+        
+        // Helm Cream Palette (Warm Secondary - replaces harsh whites)
+        'helm-cream': {
+          50: '#FFFDFB',
+          100: '#F8F6F4',
+          200: '#F0EBE7',
+          300: '#E0D9D3',
+          400: '#C9C0B8',
+          500: '#ADA299',
+          600: '#8A7D70',
+          700: '#6B5D4F',
+          800: '#524839',
+          900: '#3D352D',
+          950: '#2A2520',
+        },
+        
+        // Helm Gray Palette (Neutrals for text and borders)
+        'helm-gray': {
+          100: '#E8ECEA',
+          200: '#D0D4D2',
+          400: '#8A938F',
+          600: '#4A524E',
+          800: '#1F2421',
+          950: '#0A0F0D',
+        },
+        
+        // Functional Accent Colors
+        'helm-blue': '#4A90E2',
+        'helm-amber': '#F5A524',
+        'helm-red': '#E85D5D',
+        'helm-purple': '#9B7EDE',
+        
+        // Legacy pulse colors (kept for backward compatibility during migration)
         pulse: {
-          green: '#16893B',           // Primary brand green (Helm Sports Labs logo color)
+          green: '#16893B',           // Old primary - migrate to helm-green-700
           mint: '#B8F8D0',            // Light mint for accents/highlights
           dark: '#0F5A28',            // Deep green for gradients
           deeper: '#0A3D1A',          // Almost-black green
@@ -134,13 +180,13 @@ const config: Config = {
         'card-dark': '0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2)',
         'card-dark-hover': '0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3)',
         
-        // Brand glow effects
-        'glow': '0 0 20px rgba(0, 194, 122, 0.25)',
-        'glow-lg': '0 0 40px rgba(0, 194, 122, 0.35)',
-        'glow-xl': '0 0 60px rgba(0, 194, 122, 0.4)',
+        // Brand glow effects (using helm-green-700: #2D5F3F)
+        'glow': '0 0 20px rgba(45, 95, 63, 0.25)',
+        'glow-lg': '0 0 40px rgba(45, 95, 63, 0.35)',
+        'glow-xl': '0 0 60px rgba(45, 95, 63, 0.4)',
         
         // Inner glow for inputs/focus
-        'inner-glow': 'inset 0 0 12px rgba(0, 194, 122, 0.15)',
+        'inner-glow': 'inset 0 0 12px rgba(45, 95, 63, 0.15)',
         
         // Elevated shadow for modals/popovers
         'elevated': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
@@ -152,7 +198,13 @@ const config: Config = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        // Brand gradients
+        // Helm brand gradients (using helm-green-700 and helm-green-950)
+        'helm-gradient': 'linear-gradient(135deg, #2D5F3F 0%, #0A1F14 100%)',
+        'helm-gradient-soft': 'linear-gradient(135deg, rgba(45, 95, 63, 0.15) 0%, rgba(10, 31, 20, 0.15) 100%)',
+        'helm-radial': 'radial-gradient(ellipse at center, rgba(45, 95, 63, 0.15) 0%, transparent 70%)',
+        'helm-line': 'linear-gradient(90deg, transparent, rgba(45, 95, 63, 0.5), transparent)',
+        
+        // Legacy pulse gradients (kept for backward compatibility)
         'pulse-gradient': 'linear-gradient(135deg, #00C27A 0%, #003B2A 100%)',
         'pulse-gradient-soft': 'linear-gradient(135deg, rgba(0, 194, 122, 0.15) 0%, rgba(0, 59, 42, 0.15) 100%)',
         'pulse-radial': 'radial-gradient(ellipse at center, rgba(0, 194, 122, 0.15) 0%, transparent 70%)',
@@ -186,8 +238,8 @@ const config: Config = {
           to: { transform: 'translateX(0)' },
         },
         'pulse-glow': {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(0, 194, 122, 0.3)' },
-          '50%': { boxShadow: '0 0 40px rgba(0, 194, 122, 0.6)' },
+          '0%, 100%': { boxShadow: '0 0 20px rgba(45, 95, 63, 0.3)' },
+          '50%': { boxShadow: '0 0 40px rgba(45, 95, 63, 0.6)' },
         },
         shimmer: {
           '0%': { backgroundPosition: '-200% 0' },
@@ -233,7 +285,7 @@ const config: Config = {
         'bounce-in': 'bounce-in 0.6s ease-out',
         'neon-pulse': 'neon-pulse 2s ease-in-out infinite',
         'spin-slow': 'spin-slow 3s linear infinite',
-        'gradient': 'gradient 8s linear infinite',
+        'gradient': 'gradient 6s ease infinite',
         'blob': 'blob 7s infinite',
       },
 

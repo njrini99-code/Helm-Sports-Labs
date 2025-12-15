@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
+import { glassCard } from '@/lib/glassmorphism';
 
 // Button variants are kept calm and consistent; legacy names map to modern intent variants.
 const buttonVariants = cva(
@@ -9,22 +10,20 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground shadow-sm hover:bg-primary/90',
-        primary: 'bg-primary text-primary-foreground shadow-sm hover:bg-primary/90',
-        secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
-        outline: 'border border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground',
-        ghost: 'text-foreground hover:bg-accent hover:text-accent-foreground',
-        subtle: 'bg-muted text-foreground hover:bg-muted/80',
+        default: 'bg-gradient-to-r from-helm-green-500 to-helm-green-600 text-white shadow-lg shadow-helm-green-500/30 hover:from-helm-green-600 hover:to-helm-green-700 hover:shadow-xl hover:shadow-helm-green-500/40',
+        primary: 'bg-gradient-to-r from-helm-green-500 to-helm-green-600 text-white shadow-lg shadow-helm-green-500/30 hover:from-helm-green-600 hover:to-helm-green-700 hover:shadow-xl hover:shadow-helm-green-500/40',
+        secondary: `${glassCard} text-foreground hover:scale-[1.02]`,
+        outline: `${glassCard} text-foreground hover:scale-[1.02]`,
+        ghost: 'text-foreground hover:bg-helm-cream-100 dark:hover:bg-helm-gray-800 hover:text-foreground',
+        subtle: 'bg-helm-cream-100 dark:bg-helm-gray-800 text-foreground hover:bg-helm-cream-200 dark:hover:bg-helm-gray-700',
         destructive: 'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
         danger: 'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
-        link: 'text-primary underline-offset-4 hover:underline',
-        gradient:
-          'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-sm hover:from-blue-600 hover:to-cyan-500',
-        success:
-          'bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-sm hover:from-emerald-600 hover:to-green-500',
-        glassPrimary: "backdrop-blur-xl bg-gradient-to-br from-emerald-500/90 to-emerald-600/90 border border-white/20 shadow-lg shadow-emerald-500/30 text-white rounded-lg px-6 py-3 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-emerald-500/40 transition-all duration-300",
-        glassSecondary: "backdrop-blur-xl bg-white/10 border border-white/20 text-white rounded-lg px-6 py-3 hover:bg-white/15 hover:-translate-y-0.5 transition-all duration-300",
-        glassGhost: "backdrop-blur-xl bg-transparent border border-white/10 text-white/90 rounded-lg px-6 py-3 hover:bg-white/5 hover:border-white/20 transition-all duration-300",
+        link: 'text-helm-green-700 dark:text-helm-green-400 underline-offset-4 hover:underline',
+        gradient: 'bg-gradient-to-r from-helm-green-500 to-helm-green-600 text-white shadow-sm hover:from-helm-green-600 hover:to-helm-green-700',
+        success: 'bg-gradient-to-r from-helm-green-500 to-helm-green-600 text-white shadow-sm hover:from-helm-green-600 hover:to-helm-green-700',
+        glassPrimary: 'backdrop-blur-xl bg-gradient-to-br from-helm-green-500/90 to-helm-green-600/90 border border-white/20 shadow-lg shadow-helm-green-500/30 text-white rounded-lg px-6 py-3 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-helm-green-500/40 transition-all duration-300',
+        glassSecondary: `${glassCard} text-foreground hover:scale-[1.02]`,
+        glassGhost: 'backdrop-blur-xl bg-transparent border border-white/10 text-foreground/90 rounded-lg px-6 py-3 hover:bg-helm-cream-100/10 dark:hover:bg-helm-gray-800/20 hover:border-white/20 transition-all duration-300',
       },
       size: {
         default: 'h-11 px-5',

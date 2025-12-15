@@ -3,6 +3,7 @@
 import { forwardRef, ReactNode, HTMLAttributes, useState, useEffect, useCallback, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { AlertCircle, RefreshCw, User, type LucideIcon } from 'lucide-react';
+import { glassBg, glassCard, glassElevated, glassHero, glassModal } from '@/lib/glassmorphism';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // CSS ANIMATIONS
@@ -162,7 +163,7 @@ function injectGlassCardStyles() {
 // ═══════════════════════════════════════════════════════════════════════════
 
 export type GlassCardSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
-export type GlassCardVariant = 'default' | 'subtle' | 'solid' | 'gradient' | 'glow';
+export type GlassCardVariant = 'default' | 'subtle' | 'elevated' | 'hero' | 'modal';
 
 export interface GlassCardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -204,11 +205,11 @@ const SIZE_STYLES: Record<GlassCardSize, string> = {
 };
 
 const VARIANT_STYLES: Record<GlassCardVariant, string> = {
-  default: 'bg-white/10 border-white/15',
-  subtle: 'bg-white/5 border-white/10',
-  solid: 'bg-slate-800/80 border-slate-700/50',
-  gradient: 'bg-gradient-to-br from-white/15 to-white/5 border-white/20',
-  glow: 'bg-white/10 border-white/20',
+  default: glassCard,
+  subtle: glassBg,
+  elevated: glassElevated,
+  hero: glassHero,
+  modal: glassModal,
 };
 
 const ROUNDED_STYLES: Record<string, string> = {
@@ -397,8 +398,8 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
         } as React.CSSProperties
       : {};
 
-    // Build glow style for 'glow' variant
-    const glowStyles = variant === 'glow' && glowColor
+    // Build glow style for elevated/hero variants with custom glowColor
+    const glowStyles = (variant === 'elevated' || variant === 'hero') && glowColor
       ? {
           boxShadow: `0 0 40px ${glowColor}20, 0 0 80px ${glowColor}10`,
         }
@@ -432,18 +433,18 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
         }}
         className={cn(
           // Base styles
-          'relative overflow-hidden border shadow-xl',
-          // Glassmorphism
-          glass && 'backdrop-blur-2xl',
-          // Size
-          SIZE_STYLES[size],
-          // Variant
+          'relative overflow-hidden',
+          // Glassmorphism variant (includes backdrop-blur, bg, border, rounded, shadow, transitions)
           VARIANT_STYLES[variant],
-          // Rounded
-          ROUNDED_STYLES[rounded],
+          // Size padding (only for variants that don't include padding)
+          variant !== 'hero' && variant !== 'modal' && SIZE_STYLES[size],
+          // Rounded override (only if variant doesn't already specify rounded)
+          // Note: All glass variants include rounded, so ROUNDED_STYLES may conflict
+          // We'll keep it for backward compatibility but it may be overridden
+          variant !== 'hero' && variant !== 'modal' && ROUNDED_STYLES[rounded],
           // Interactive
           clickable && 'cursor-pointer select-none',
-          // Hover animations
+          // Hover animations (only if not disabled and no error)
           !disableHover && !error && [
             'transition-all duration-300',
             'hover:scale-[var(--hover-scale,1.02)]',
@@ -490,15 +491,13 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
           ))
         )}
         {/* Glow Effect Overlay */}
-        {variant === 'glow' && (
+        {(variant === 'elevated' || variant === 'hero') && glowColor && (
           <div
             className="absolute inset-0 opacity-30 pointer-events-none transition-opacity duration-300 group-hover:opacity-50"
             style={{
-              background: glowColor
-                ? `radial-gradient(ellipse at center, ${glowColor}40 0%, transparent 70%)`
-                : 'radial-gradient(ellipse at center, rgba(99, 102, 241, 0.4) 0%, transparent 70%)',
+              background: `radial-gradient(ellipse at center, ${glowColor}40 0%, transparent 70%)`,
             }}></div>
-)}
+        )}
         {/* Header */}
         {header && !error && (
           <div className={cn(
